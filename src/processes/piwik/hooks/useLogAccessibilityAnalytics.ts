@@ -47,6 +47,11 @@ export const useLogAccessibilityAnalytics = () => {
       trackCustomEvent('general', PiwikAction.startUp, getDimensions(results))
     })
 
+    // intentionally do this only once, when the Piwik initialization is ready
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready])
+
+  useEffect(() => {
     const subscriptions = accessibilityFeatures.map(accessibilityFeature =>
       AccessibilityInfo.addEventListener(
         accessibilityFeature.eventName,
@@ -59,6 +64,5 @@ export const useLogAccessibilityAnalytics = () => {
     )
 
     return () => subscriptions.forEach(({remove}) => remove())
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ready])
+  }, [trackCustomEvent])
 }

@@ -5,7 +5,7 @@ import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {devLog} from '@/processes/development'
 import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
-import {addIdFromParamsToCustomDimensions} from '@/processes/piwik/utils/addIdFromParamsToCustomDimensions'
+import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {postProcessDimensions} from '@/processes/piwik/utils/postProcessDimensions'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
@@ -24,7 +24,6 @@ export {
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
   ready: false,
-  suggestedCategory: 'general',
   trackCustomEvent: () => {},
   trackOutlink: () => {},
   trackScreen: () => {},
@@ -44,7 +43,6 @@ const getPiwik = (
   params?: Params,
 ): Piwik => ({
   ready: true,
-  suggestedCategory,
   trackCustomEvent: (
     name,
     action,
@@ -86,7 +84,7 @@ const getPiwik = (
       return
     }
 
-    const customDimensions = addIdFromParamsToCustomDimensions(
+    const customDimensions = addIdFromParamsToDimensions(
       options?.customDimensions,
       params,
     )

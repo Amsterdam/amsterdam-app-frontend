@@ -2,7 +2,7 @@ import {postProcessDimensions} from './postProcessDimensions'
 import {PiwikDimension, PiwikSessionDimension} from '@/processes/piwik/types'
 import {VERSION_NUMBER} from '@/utils/version'
 
-describe('getOptionsWithDefaultDimensions', () => {
+describe('postProcessDimensions', () => {
   const VERSION_NUMBER_WITH_BUILD = `${VERSION_NUMBER}.unknown`
 
   it('should keep any dimensions already defined', () => {

@@ -1,16 +1,16 @@
-import {addIdFromParamsToCustomDimensions} from './addIdFromParamsToCustomDimensions'
+import {addIdFromParamsToDimensions} from './addIdFromParamsToDimensions'
 import {
   CustomDimensions,
   PiwikDimension,
   PiwikSessionDimension,
 } from '@/processes/piwik/types'
 
-describe('addIdFromParamsToCustomDimensions', () => {
+describe('addIdFromParamsToDimensions', () => {
   it('should not modify custom dimensions if params.id is not present', () => {
     const customDimensions: CustomDimensions = {
       [PiwikSessionDimension.userType]: 'civilian',
     }
-    const result = addIdFromParamsToCustomDimensions(customDimensions, {})
+    const result = addIdFromParamsToDimensions(customDimensions, {})
 
     expect(result).toEqual(customDimensions)
   })
@@ -19,10 +19,10 @@ describe('addIdFromParamsToCustomDimensions', () => {
     const customDimensions: CustomDimensions = {
       [PiwikSessionDimension.userType]: 'civilian',
     }
-    const result1 = addIdFromParamsToCustomDimensions(customDimensions, {
+    const result1 = addIdFromParamsToDimensions(customDimensions, {
       id: undefined,
     })
-    const result2 = addIdFromParamsToCustomDimensions(customDimensions, {
+    const result2 = addIdFromParamsToDimensions(customDimensions, {
       id: null,
     })
 
@@ -32,7 +32,7 @@ describe('addIdFromParamsToCustomDimensions', () => {
 
   it('should add contentId to custom dimensions, with string value, if params.id is present and has a value', () => {
     const customDimensions: CustomDimensions = {}
-    const result = addIdFromParamsToCustomDimensions(customDimensions, {
+    const result = addIdFromParamsToDimensions(customDimensions, {
       id: 123,
     })
 
@@ -40,7 +40,7 @@ describe('addIdFromParamsToCustomDimensions', () => {
   })
 
   it('should handle undefined custom dimensions input and still return custom dimensions', () => {
-    const result = addIdFromParamsToCustomDimensions(undefined, {
+    const result = addIdFromParamsToDimensions(undefined, {
       id: 123,
     })
 
@@ -48,7 +48,7 @@ describe('addIdFromParamsToCustomDimensions', () => {
   })
 
   it('0 is a valid ID and should not be handled as falsy', () => {
-    const result = addIdFromParamsToCustomDimensions(undefined, {
+    const result = addIdFromParamsToDimensions(undefined, {
       id: 0,
     })
 
@@ -60,7 +60,7 @@ describe('addIdFromParamsToCustomDimensions', () => {
       [PiwikSessionDimension.userType]: 'civilian',
       [PiwikSessionDimension.userCity]: 'Amsterdam',
     }
-    const result = addIdFromParamsToCustomDimensions(customDimensions, {
+    const result = addIdFromParamsToDimensions(customDimensions, {
       id: 123,
     })
 

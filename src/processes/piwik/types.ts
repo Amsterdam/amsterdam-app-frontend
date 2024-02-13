@@ -7,7 +7,6 @@ import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
   ready: boolean
-  suggestedCategory: PiwikCategory
   trackCustomEvent: (
     name: string,
     action: PiwikAction,

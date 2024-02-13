@@ -1,6 +1,6 @@
 import {CustomDimensions, PiwikDimension} from '@/processes/piwik/types'
 
-export const addIdFromParamsToCustomDimensions = (
+export const addIdFromParamsToDimensions = (
   customDimensions?: CustomDimensions,
   params?: Record<string, unknown>,
 ) => {

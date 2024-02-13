@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useLogAccessibilityAnalytics} from '@/processes/piwik/hooks/useLogAccessibilityAnalytics'
 import {useLogDeviceInfoAnalytics} from '@/processes/piwik/hooks/useLogDeviceInfoAnalytics'
 import {useLogPermissionAnalytics} from '@/processes/piwik/hooks/useLogPermissionAnalytics'
@@ -8,7 +8,7 @@ import {PiwikAction} from '@/processes/piwik/types'
 export {PiwikAction} from '@/processes/piwik/types'
 
 /**
- * Any session related data can be logged here, e.g. which permissions a user has given.
+ * Any session related data can be logged here, this hook will return a logging function and execute that function once on app start up..
  */
 export const useLogGeneralAnalytics = () => {
   const {ready} = usePiwik()
@@ -17,14 +17,24 @@ export const useLogGeneralAnalytics = () => {
   const logDeviceInfoAnalytics = useLogDeviceInfoAnalytics()
   const logPermissionAnalytics = useLogPermissionAnalytics()
 
-  return {
-    logGeneralAnalytics: useCallback(
-      (action = PiwikAction.toForeground) => {
-        logDeviceInfoAnalytics(action)
-        logPermissionAnalytics(action)
-      },
-      [logDeviceInfoAnalytics, logPermissionAnalytics],
-    ),
-    ready,
-  }
+  const logGeneralAnalytics = useCallback(
+    (action = PiwikAction.toForeground) => {
+      logDeviceInfoAnalytics(action)
+      logPermissionAnalytics(action)
+    },
+    [logDeviceInfoAnalytics, logPermissionAnalytics],
+  )
+
+  useEffect(() => {
+    if (!ready) {
+      return
+    }
+
+    logGeneralAnalytics(PiwikAction.startUp)
+
+    // intentionally log this only once, when the Piwik initialization is ready
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready])
+
+  return logGeneralAnalytics
 }
