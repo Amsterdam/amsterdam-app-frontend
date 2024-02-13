@@ -41,7 +41,7 @@ export const AboutScreen = ({navigation}: Props) => {
             <Column gutter="sm">
               <NavigationButton
                 accessibilityRole="button"
-                label="Waarom deze app?"
+                label="Over deze app"
                 onPress={() => navigation.navigate(AboutRouteName.appSummary)}
                 testID="AboutAboutTheAppDutchButton"
               />
@@ -69,7 +69,7 @@ export const AboutScreen = ({navigation}: Props) => {
               />
               <NavigationButton
                 accessibilityRole="button"
-                label="Hoe gebruik ik de app"
+                label="Zo werkt de app"
                 onPress={() => navigation.navigate(ModuleSlug.onboarding)}
                 testID="AboutOnboardingButton"
               />

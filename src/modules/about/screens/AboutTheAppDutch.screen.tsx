@@ -27,13 +27,13 @@ export const AboutTheAppDutchScreen = () => (
             <Column gutter="sm">
               <Title
                 testID="AboutAboutTheAppDutchTitle"
-                text="1 app voor alle Amsterdammers"
+                text="Eén app voor alle Amsterdammers en Weespers"
               />
               <Paragraph
                 testID="AboutAboutTheAppDutchIntroParagraph"
                 variant="intro">
-                Met de Amsterdam app krijgt u snel informatie die voor u
-                belangrijk is. En u kunt zaken makkelijk regelen. Zoals:
+                Met de Amsterdam app heeft u handige informatie bij de hand en
+                kunt u meteen iets regelen met de gemeente. Zoals:
               </Paragraph>
             </Column>
             <Track gutter="lg">
@@ -49,9 +49,7 @@ export const AboutTheAppDutchScreen = () => (
                   text="Informatie over afval"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchWasteInformationParagraph">
-                  U kunt uw adres invullen. Dan ziet u wanneer u grofvuil (grote
-                  stukken afval) aan de weg mag zetten. En u ziet ook waar de
-                  dichtstbijzijnde afvalcontainer of flessencontainer is.
+                  Vul uw adres in en u ziet meteen wat u met uw afval moet doen.
                 </Paragraph>
               </Column>
               <Column gutter="sm">
@@ -66,10 +64,8 @@ export const AboutTheAppDutchScreen = () => (
                   text="Werk aan de weg"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchRoadWorkParagraph">
-                  De gemeente werkt vaak aan de straten, bruggen, kades of
-                  gebouwen. In ‘Werkzaamheden’ ziet u de projecten bij u in de
-                  buurt. U kunt een project volgen in de app. Als u een project
-                  volgt, dan bent u altijd op de hoogte van de werkzaamheden.
+                  Hier krijgt u informatie over projecten en wegwerkzaamheden in
+                  uw buurt.
                 </Paragraph>
               </Column>
               <Column gutter="sm">
@@ -84,9 +80,8 @@ export const AboutTheAppDutchScreen = () => (
                   text="Melding doen"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchReportProblemParagraph">
-                  Is de container voor afval vol? Doet de lantaarnpaal het niet?
-                  Of ligt er troep op straat? Dat kunt u allemaal melden met de
-                  app. We lossen het probleem zo snel mogelijk voor u op.
+                  Meld iets dat stuk is, overlast geeft of een volle
+                  afvalcontainer.
                 </Paragraph>
               </Column>
             </Track>
@@ -106,18 +101,7 @@ export const AboutTheAppDutchScreen = () => (
               <Title
                 level="h2"
                 testID="AboutAboutTheAppDutch1AppTitle"
-                text="1 app voor alle Amsterdammers en Weespers"
-              />
-              <Paragraph testID="AboutAboutTheAppDutch1AppParagraph">
-                We maken 1 app voor alle mensen die wonen in Amsterdam en Weesp.
-                De app is zó gemaakt dat iedereen hem kan gebruiken.
-              </Paragraph>
-            </Column>
-            <Column gutter="sm">
-              <Title
-                level="h2"
-                testID="AboutAboutTheAppDutchFutureFeaturesTitle"
-                text="Nog meer onderwerpen in de toekomst"
+                text="Later meer"
               />
               <Paragraph testID="AboutAboutTheAppDutchFutureFeaturesParagraph">
                 Deze versie van de Amsterdam app heeft onderwerpen waar iedereen

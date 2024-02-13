@@ -17,47 +17,47 @@ export const PrivacyStatementScreen = () => {
           <Column gutter="md">
             <Title
               testID="AboutPrivacyStatementTitle"
-              text="Samenvatting privacyverklaring gemeente Amsterdam"
+              text="Privacyverklaring Amsterdam App"
             />
             <Paragraph
               testID="AboutPrivacyStatementIntroParagraph"
               variant="intro">
-              De gemeente voert alleen taken uit die belangrijk zijn voor haar
-              inwoners en bezoekers. De gemeente gebruikt hiervoor soms
-              persoonsgegevens. Als u in Amsterdam woont, houdt de gemeente
-              bijvoorbeeld uw naam, geboortedatum, woonadres en
-              Burgerservicenummer (BSN) bij in de Basisregistratie personen
-              (BRP).
-            </Paragraph>
-          </Column>
-          <Column gutter="md">
-            <Paragraph testID="AboutPrivacyStatementParagraph">
-              Als u iets wilt regelen of aanvragen via Amsterdam.nl, dan heeft
-              de gemeente vaak contactgegevens, zoals uw telefoonnummer en
-              e-mailadres, van u nodig om u goed te kunnen helpen.
-            </Paragraph>
-            <Paragraph>
-              Voor aanvragen en hulp op het gebied van werk, inkomen, jeugdhulp
-              of zorg kan de gemeente gevoelige persoonsgegevens van u nodig
-              hebben, zoals financiële en medische gegevens. Ook verwerkt de
-              gemeente persoonsgegevens om bijvoorbeeld belasting te heffen,
-              fraude te bestrijden, handhavingstaken uit te voeren en om
-              uitvoering te geven aan het openbare orde- en veiligheidsbeleid.
+              De gemeente verzamelt en gebruikt verschillende categorieën
+              persoonsgegevens van haar inwoners. Het zal afhangen van de
+              specifieke verwerking welke persoonsgegevens precies zullen worden
+              verwerkt en voor welk doel. Deze en overige relevante informatie
+              worden hieronder weergegeven.
             </Paragraph>
           </Column>
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutPrivacyStatementPersonalDataTitle"
-              text="Het verwerken van persoonsgegevens"
+              testID="AboutPrivacyStatementGoalTitle"
+              text="Doel"
             />
-            <Paragraph testID="AboutPrivacyStatementPersonalDataParagraph">
-              Het gebruiken van persoonsgegevens noemen we ook wel ‘verwerken’
-              van persoonsgegevens. Het hangt van het doel en de taak van de
-              gemeente af welke persoonsgegevens de gemeente precies verwerkt.
-              De specifieke privacyverklaringen geven daar meer informatie over.
-              De gemeente Amsterdam vindt uw privacy belangrijk. Wij beschermen
-              uw persoonsgegevens daarom goed. Dit doen wij op basis van:
+            <Paragraph testID="AboutPrivacyStatementGoalParagraph">
+              De Amsterdam App is er om de dienstverlening aan de Amsterdammer
+              persoonlijk, eenvoudig en toegankelijk aan te bieden. Om deze mate
+              van dienstverlening te kunnen bieden verwerkt de gemeente
+              persoonsgegevens van de Amsterdammer voor:
+            </Paragraph>
+            <List
+              items={[
+                'Het kunnen tonen van informatie op basis van locatie.',
+                'Het kunnen volgen van werkzaamheden.',
+                'Het kunnen versturen van push-notificaties.',
+              ]}
+            />
+          </Column>
+          <Column gutter="md">
+            <Title
+              level="h2"
+              testID="AboutPrivacyStatementBasisTitle"
+              text="Grondslag"
+            />
+            <Paragraph testID="AboutPrivacyStatementBasisParagraph">
+              De gemeente verwerkt deze persoonsgegevens op basis van
+              toestemming.
             </Paragraph>
             <List
               items={[
@@ -69,17 +69,52 @@ export const PrivacyStatementScreen = () => {
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutPrivacyStatementLinksTitle"
-              text="Algemene versus specifieke privacyverklaring"
+              testID="AboutPrivacyStatementPersonalDataTitle"
+              text="Categorie persoongegevens"
             />
-            <Paragraph>
-              In de algemene privacyverklaring staat meer informatie over de
-              uitgangspunten waar de gemeente Amsterdam zich aan houdt. In de
-              specifieke privacyverklaring staat per thema meer informatie over
-              de manier waarop we uw persoonsgegevens gebruiken. Daar vindt u
-              bijvoorbeeld welke gegevens we gebruiken voor welk doel, en ook of
-              en met wie we die gegevens delen.
+            <Paragraph testID="AboutPrivacyStatementPersonalDataParagraph">
+              Voor het personaliseren van dienstverlening in de Amsterdam App
+              gebruikt de gemeente de volgende categorieën persoonsgegevens:
             </Paragraph>
+            <List
+              items={['GPS-coördinaten en/of adresgegevens', 'Device ID']}
+            />
+          </Column>
+          <Column gutter="md">
+            <Title
+              level="h2"
+              testID="AboutPrivacyStatementSharedDataTitle"
+              text="Geen ontvangers, geen doorgifte, geen profilering geen geautomatiseerde besluitvorming"
+            />
+            <Paragraph testID="AboutPrivacyStatementSharedDataParagraph">
+              De gemeente Amsterdam wisselt in het kader van het personaliseren
+              van de dienstverlening geen persoonsgegevens uit met andere
+              organisaties. De persoonsgegevens worden niet buiten de Europese
+              Economische Ruimte (EER) verwerkt. Er worden geen profielen
+              gebruikt. Er vindt geen geautomatiseerde besluitvorming plaats.
+            </Paragraph>
+          </Column>
+          <Column gutter="md">
+            <Title
+              level="h2"
+              testID="AboutPrivacyStatementRetentionPeriodsTitle"
+              text="Bewaartermijnen"
+            />
+            <Paragraph testID="AboutPrivacyStatementRetentionPeriodsParagraph">
+              Adresgegevens en/of GPS-coördinaten worden alleen op het
+              telefoontoestel opgeslagen. De opslagtermijn van het device ID
+              bedraagt 1 jaar. Deze termijn wordt gehanteerd om ervoor te zorgen
+              dat wanneer de Amsterdam App wordt verwijderd en vervolgens weer
+              wordt gedownload, de projecten die eerder werden gevolgd
+              automatisch weer gevolgd worden.
+            </Paragraph>
+          </Column>
+          <Column gutter="md">
+            <Title
+              level="h2"
+              testID="AboutPrivacyStatementLinksTitle"
+              text="Algemene en specifieke privacyverklaring"
+            />
             <Link
               label="Algemene privacyverklaring"
               onPress={() =>

@@ -3,6 +3,7 @@ import {getVersion} from 'react-native-device-info'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useModules} from '@/hooks/useModules'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {ModuleSetting} from '@/modules/home/components/ModuleSetting'
@@ -36,6 +37,9 @@ export const ModuleSettings = () => {
 
   return (
     <Box>
+      <Paragraph>
+        Hier kun je zelf bepalen welke onderwerpen u wilt zien in de app.
+      </Paragraph>
       <Column gutter="sm">
         {toggleableModules.map(module => (
           <ModuleSetting
