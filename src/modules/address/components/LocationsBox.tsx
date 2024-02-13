@@ -37,7 +37,7 @@ export const LocationsBox = () => {
             navigation.navigate(AddressModalName.privacyInfo)
           }}
           phraseVariant="small">
-          Hoe gebruiken we uw adres en locatie?
+          Zo gebruiken wij uw locatie en adres.
         </InlineLink>
       </Box>
     </Column>

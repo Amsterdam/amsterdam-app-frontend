@@ -32,8 +32,8 @@ export const AboutTheAppDutchScreen = () => (
               <Paragraph
                 testID="AboutAboutTheAppDutchIntroParagraph"
                 variant="intro">
-                Met de Amsterdam app krijgt u snel informatie die voor u
-                belangrijk is. En u kunt zaken makkelijk regelen. Zoals:
+                Met de Amsterdam app heeft u handige informatie bij de hand en
+                kunt u meteen iets regelen met de gemeente. Zoals:
               </Paragraph>
             </Column>
             <Track gutter="lg">
