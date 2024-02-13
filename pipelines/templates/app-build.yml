@@ -7,7 +7,7 @@ steps:
   - checkout: self
     path: "./s/"
     fetchDepth: 0
-  - checkout: Amsterdam-App-Frontend-iOS-Certificates
+  - checkout: aapp_app_ios-certificates
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml

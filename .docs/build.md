@@ -18,8 +18,8 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 - `AUTH_SHARED_SECRET`: authorise project managers to send push notifications; used in the app as env var
 - `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
 - `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
-- `MATCH_GIT_BEARER_AUTHORIZATION`: token used by Fastlane Match to access the Amsterdam-App-Frontend-iOS-Certificates repo
-- `MATCH_PASSWORD`: a password used to encrypt and decrypt the certificates in the Amsterdam-App-Frontend-iOS-Certificates repo
+- `MATCH_GIT_BEARER_AUTHORIZATION`: token used by Fastlane Match to access the aapp_app_ios-certificates repo
+- `MATCH_PASSWORD`: a password used to encrypt and decrypt the certificates in the aapp_app_ios-certificates repo
 
 ### Secure files
 
@@ -43,16 +43,16 @@ The configuration of the build pipelines (YAML) is in `/pipelines`. These YAML f
 
 The pipelines have access to the secure files in the Azure Library, which can be accessed from the Azure DevOps dashboard. In the pipelines we run Fastlane to create the iOS and Android builds.
 
-- **Amsterdam-App-Frontend [build]**: the main app build pipeline
-- **Amsterdam-App-Frontend [publish]**: runs jobs not directly related to the app builds:
+- **aapp_app_mobile [build]**: the main app build pipeline
+- **aapp_app_mobile [publish]**: runs jobs not directly related to the app builds:
   - build StoryBook
   - [publish source code to GitHub](./push-code-to-github.md)
-- **Amsterdam-App-Frontend [sync]**: [iOS Fastlane Match code signing](./ios-signing.md)
-- **Amsterdam-App-Frontend [validate]**: runs linting, TypeScript (tsc) and unit tests
+- **aapp_app_mobile [sync]**: [iOS Fastlane Match code signing](./ios-signing.md)
+- **aapp_app_mobile [validate]**: runs linting, TypeScript (tsc) and unit tests
 
 The first two are triggered simultaneously by a commit to main, the last one is triggered by opening or updating a PR.
 
-A short overview of the app build process in the Amsterdam-App-Frontend pipeline. The pipeline will:
+A short overview of the app build process in the aapp_app_mobile pipeline. The pipeline will:
 
 - retrieve all neccessary secure files and credentials
 - set up the environment required to build the apps
@@ -63,7 +63,7 @@ A short overview of the app build process in the Amsterdam-App-Frontend pipeline
 
 #### Notes/gotchas
 
-- *Specifying an exact version is not recommended on Microsoft-Hosted agents*: Amsterdam-App-Frontend builds will show this warning due to the pinned Ruby version. We can safely ignore these warnings: the version is pinned intentionally to match our local development environment. This will prevent potential version mismatch warnings/errors with the version in the lock file.
+- *Specifying an exact version is not recommended on Microsoft-Hosted agents*: aapp_app_mobile builds will show this warning due to the pinned Ruby version. We can safely ignore these warnings: the version is pinned intentionally to match our local development environment. This will prevent potential version mismatch warnings/errors with the version in the lock file.
 
 ### Releases
 

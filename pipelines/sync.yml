@@ -11,9 +11,9 @@ schedules:
 
 resources:
   repositories:
-    - repository: Amsterdam-App-Frontend-iOS-Certificates
+    - repository: aapp_app_ios-certificates
       type: git
-      name: Amsterdam-App-Frontend-iOS-Certificates
+      name: aapp_app_ios-certificates
 
 jobs:
   - job: "Sync_iOS_certificates"
