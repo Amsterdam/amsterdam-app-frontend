@@ -1,6 +1,6 @@
 import {ReactNode, forwardRef, useEffect, useRef} from 'react'
 import {Animated, Easing, StyleProp, View, ViewStyle} from 'react-native'
-import {useIsReduceMotionEnabled} from '@/hooks/useIsReduceMotionEnabled'
+import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 
 type Props = {
   callback?: Animated.EndCallback

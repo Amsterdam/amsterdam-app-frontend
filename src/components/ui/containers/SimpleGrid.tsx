@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import {SimpleGrid as SimpleGridComponent} from 'react-native-super-grid'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 
 export const SimpleGrid: typeof SimpleGridComponent = ({...props}) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()

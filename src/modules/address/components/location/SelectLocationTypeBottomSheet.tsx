@@ -32,7 +32,7 @@ import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
-import {locationPermission} from '@/utils/permissions/location'
+import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -74,7 +74,7 @@ export const SelectLocationTypeBottomSheet = ({
     useState(false)
 
   const {status: locationPermissionStatus} = usePermission({
-    permission: locationPermission,
+    permission: PERMISSION_LOCATION,
   })
   const noLocationPermissionForAndroid = useNoLocationPermissionForAndroid()
 

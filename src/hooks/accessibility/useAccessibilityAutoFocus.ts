@@ -7,8 +7,8 @@ import {
   useState,
 } from 'react'
 import {Platform} from 'react-native'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useIsScreenReaderEnabled} from '@/hooks/useIsScreenReaderEnabled'
 import {Duration} from '@/types/duration'
 import {focusOnElement} from '@/utils/accessibility/focusOnElement'
 

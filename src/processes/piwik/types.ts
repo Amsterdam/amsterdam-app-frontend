@@ -2,9 +2,11 @@ import {
   CommonEventOptions,
   TrackScreenOptions,
 } from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
+import {AccessibilityChangeEventName} from 'react-native'
 import {ModuleSlug} from '@/modules/slugs'
 
 export type Piwik = {
+  ready: boolean
   trackCustomEvent: (
     name: string,
     action: PiwikAction,
@@ -74,6 +76,22 @@ export enum PiwikSessionDimension {
   userCity = 2,
   appVersion = 18,
   appVersionWithBuild = 19,
+  reduceMotionEnabled = 21,
+  locationPermission = 22,
+  screenReaderEnabled = 23,
+  accessibilityServiceEnabled = 24,
+  boldTextEnabled = 25,
+  grayscaleEnabled = 26,
+  invertColorsEnabled = 27,
+  reduceTransparencyEnabled = 28,
+  fontScale = 29,
+  isLandscape = 30,
+  isPortrait = 31,
+  isTablet = 32,
+  hasCameraPermission = 33,
+  hasPhotosPermission = 34,
+  hasLocationPermission = 35,
+  hasNotificationPermission = 36,
 }
 
 export type CustomDimensions = Partial<
@@ -89,9 +107,12 @@ export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
+  accessibilityChange = 'accessibilityChange',
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
+  deviceInfoChange = 'deviceInfoChange',
+  startUp = 'startUp',
   toForeground = 'toForeground',
 }
 
@@ -112,4 +133,10 @@ export type LogProps = {
   logDimensions?: CustomDimensions
   logName?: string
   logValue?: number
+}
+
+export type AccessibilityFeatureLogConfig = {
+  dimension: PiwikSessionDimension
+  eventName: AccessibilityChangeEventName
+  getIsEnabled: () => Promise<boolean>
 }

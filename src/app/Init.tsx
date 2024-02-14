@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useMemo} from 'react'
+import {type ReactNode, useMemo} from 'react'
 import {useAppState} from '@/hooks/useAppState'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
@@ -10,23 +10,16 @@ import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
-  const logGeneralAnalytics = useLogGeneralAnalytics()
-
+  useLogGeneralAnalytics()
   useForegroundPushNotificationHandler()
   useSetupSentry()
   const {registerDeviceWithPermission, unregisterDevice} =
     useRegisterDevice(false)
   const {enabledModules} = useModules()
 
-  useEffect(() => {
-    logGeneralAnalytics()
-  }, [logGeneralAnalytics])
-
   const appStateHandlers = useMemo(
     () => ({
       onForeground: () => {
-        logGeneralAnalytics()
-
         if (enabledModules?.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission() // Because tokens refresh regularly, we need to re-register regularly
         } else {
@@ -36,12 +29,7 @@ export const Init = ({children}: Props) => {
         }
       },
     }),
-    [
-      enabledModules,
-      logGeneralAnalytics,
-      registerDeviceWithPermission,
-      unregisterDevice,
-    ],
+    [enabledModules, registerDeviceWithPermission, unregisterDevice],
   )
 
   useAppState(appStateHandlers)

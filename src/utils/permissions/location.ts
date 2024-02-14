@@ -1,17 +1,11 @@
-import {Platform} from 'react-native'
-import {PERMISSIONS} from 'react-native-permissions'
 import {
   checkIsPermissionGranted,
   requestIsPermissionGranted,
 } from '@/utils/permissions/isPermissionGranted'
-
-export const locationPermission =
-  Platform.OS === 'android'
-    ? PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION
-    : PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 export const checkLocationPermissionGranted = () =>
-  checkIsPermissionGranted(locationPermission)
+  checkIsPermissionGranted(PERMISSION_LOCATION)
 
 export const requestLocationPermissionGranted = () =>
-  requestIsPermissionGranted(locationPermission)
+  requestIsPermissionGranted(PERMISSION_LOCATION)
