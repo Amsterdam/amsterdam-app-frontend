@@ -1,10 +1,11 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {
   type PermissionStatus,
   RESULTS,
   check,
   checkNotifications,
 } from 'react-native-permissions'
+import {useAppState} from '@/hooks/useAppState'
 import {
   PiwikAction,
   PiwikSessionDimension,
@@ -20,10 +21,10 @@ const getValueFromResult = (result: PermissionStatus) =>
   (result === RESULTS.GRANTED).toString()
 
 export const useLogPermissionAnalytics = () => {
-  const {trackCustomEvent} = usePiwik()
+  const {ready, trackCustomEvent} = usePiwik()
 
-  return useCallback(
-    (action = PiwikAction.toForeground) => {
+  const logPermissions = useCallback(
+    (action: PiwikAction) => {
       void Promise.all([
         check(PERMISSION_CAMERA),
         check(PERMISSION_LOCATION),
@@ -46,4 +47,21 @@ export const useLogPermissionAnalytics = () => {
     },
     [trackCustomEvent],
   )
+
+  useEffect(() => {
+    if (!ready) {
+      return
+    }
+
+    logPermissions(PiwikAction.startUp)
+
+    // intentionally log this only once, when the Piwik initialization is ready
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready])
+
+  useAppState({
+    onForeground: () => {
+      logPermissions(PiwikAction.toForeground)
+    },
+  })
 }

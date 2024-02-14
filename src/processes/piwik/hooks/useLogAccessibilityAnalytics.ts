@@ -27,20 +27,21 @@ export const accessibilityFeatures: AccessibilityFeatureLogConfig[] = [
   },
 ]
 
-const getDimensions = (results: boolean[]) => {
-  const dimensions: CustomDimensions = {}
+const getDimensions = (results: boolean[]) =>
+  accessibilityFeatures.reduce<CustomDimensions>((acc, {dimension}, i) => {
+    acc[dimension] = results[i].toString()
 
-  accessibilityFeatures.forEach(({dimension}, i) => {
-    dimensions[dimension] = results[i].toString()
-  })
-
-  return dimensions
-}
+    return acc
+  }, {})
 
 export const useLogAccessibilityAnalytics = () => {
   const {ready, trackCustomEvent} = usePiwik()
 
   useEffect(() => {
+    if (!ready) {
+      return
+    }
+
     void Promise.all(
       accessibilityFeatures.map(({getIsEnabled}) => getIsEnabled()),
     ).then(results => {
@@ -56,7 +57,7 @@ export const useLogAccessibilityAnalytics = () => {
       AccessibilityInfo.addEventListener(
         accessibilityFeature.eventName,
         (isEnabled: boolean) => {
-          trackCustomEvent('general', PiwikAction.accessibilityEventListener, {
+          trackCustomEvent('general', PiwikAction.accessibilityChange, {
             [accessibilityFeature.dimension]: isEnabled.toString(),
           })
         },

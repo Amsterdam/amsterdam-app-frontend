@@ -10,8 +10,7 @@ import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
-  const logGeneralAnalytics = useLogGeneralAnalytics()
-
+  useLogGeneralAnalytics()
   useForegroundPushNotificationHandler()
   useSetupSentry()
   const {registerDeviceWithPermission, unregisterDevice} =
@@ -21,8 +20,6 @@ export const Init = ({children}: Props) => {
   const appStateHandlers = useMemo(
     () => ({
       onForeground: () => {
-        logGeneralAnalytics()
-
         if (enabledModules?.some(module => module.requiresFirebaseToken)) {
           registerDeviceWithPermission() // Because tokens refresh regularly, we need to re-register regularly
         } else {
@@ -32,12 +29,7 @@ export const Init = ({children}: Props) => {
         }
       },
     }),
-    [
-      enabledModules,
-      logGeneralAnalytics,
-      registerDeviceWithPermission,
-      unregisterDevice,
-    ],
+    [enabledModules, registerDeviceWithPermission, unregisterDevice],
   )
 
   useAppState(appStateHandlers)

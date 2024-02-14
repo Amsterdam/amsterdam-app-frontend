@@ -107,10 +107,11 @@ export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
-  accessibilityEventListener = 'accessibilityEventListener',
+  accessibilityChange = 'accessibilityChange',
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
+  deviceInfoChange = 'deviceInfoChange',
   startUp = 'startUp',
   toForeground = 'toForeground',
 }

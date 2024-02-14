@@ -1,4 +1,3 @@
-import {type CustomDimensions as PiwikCustomDimensions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {
   type CustomDimensions,
   PiwikSessionDimension,
@@ -15,7 +14,7 @@ const DEFAULT_DIMENSIONS: CustomDimensions = {
  * Add the default dimensions to a customDimensions object, filters out undefined values and casts to the correct type.
  */
 export const postProcessDimensions = (customDimensions?: CustomDimensions) =>
-  ({
-    ...filterOutUndefinedProperties(customDimensions),
+  filterOutUndefinedProperties({
+    ...customDimensions,
     ...DEFAULT_DIMENSIONS,
-  }) as PiwikCustomDimensions
+  })
