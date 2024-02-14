@@ -8,6 +8,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
+import {PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
 
 const AccordionPanel = ({
@@ -47,7 +49,7 @@ type AccordionProps = {
   isExpandable?: boolean
   onChangeExpanded?: (state: boolean) => void
   title: string
-}
+} & TestProps
 
 export const Accordion = ({
   grow,
@@ -55,6 +57,7 @@ export const Accordion = ({
   isExpandable = true,
   onChangeExpanded,
   children,
+  testID,
   title,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
@@ -98,12 +101,17 @@ export const Accordion = ({
         ]}
         accessibilityLabel={accessibilityLabel}
         accessibilityLanguage="nl-NL"
+        logDimensions={{
+          // new state is the inverse of isExpanded
+          [PiwikDimension.newState]: isExpanded ? 'closed' : 'open',
+        }}
         onAccessibilityAction={event => {
           if (event.nativeEvent.actionName === 'activate') {
             handleStateChange(!isExpanded)
           }
         }}
-        onPress={() => handleStateChange(!isExpanded)}>
+        onPress={() => handleStateChange(!isExpanded)}
+        testID={testID}>
         <AccordionTitle
           icon={
             <Size height={text.lineHeight.h5}>

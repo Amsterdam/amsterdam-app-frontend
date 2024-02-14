@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {Box} from '@/components/ui/containers/Box'
@@ -36,6 +37,7 @@ export const MakeAppointmentScreen = () => {
               ({requiresPhoneCall, links, text, title}) => (
                 <Accordion
                   key={title}
+                  testID={`RedirectsMakeAppointment${pascalCase(title)}Accordion`}
                   title={title}>
                   <Column gutter="md">
                     {!!text && <Paragraph>{text}</Paragraph>}

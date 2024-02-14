@@ -64,6 +64,8 @@ export enum PiwikDimension {
   pageType = 17,
   /** The ID related to the content e.g. a project ID */
   contentId = 20,
+  /** The new state of the element. e.g. open or closed for an accordion */
+  newState = 37,
 }
 
 /**
@@ -110,6 +112,7 @@ export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
+  accessibilityAction = 'accessibilityAction',
   accessibilityChange = 'accessibilityChange',
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',

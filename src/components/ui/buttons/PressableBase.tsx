@@ -29,6 +29,7 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
       logCategory,
       logDimensions,
       logValue,
+      onAccessibilityAction,
       ...pressableProps
     },
     ref,
@@ -39,6 +40,20 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
       <PressableRN
         accessibilityLanguage="nl-NL"
         accessibilityRole="button"
+        onAccessibilityAction={event => {
+          onAccessibilityAction?.(event)
+          const logName = getLogNameFromProps(pressableProps)
+
+          if (logName) {
+            trackCustomEvent(
+              `${logName}:${event.nativeEvent.actionName}`,
+              PiwikAction.accessibilityAction,
+              logDimensions,
+              logCategory,
+              logValue,
+            )
+          }
+        }}
         onPress={(event: GestureResponderEvent) => {
           onPress?.(event)
           const logName = getLogNameFromProps(pressableProps)

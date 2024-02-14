@@ -4,8 +4,7 @@ import BottomSheetOriginal, {
   BottomSheetProps,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
-import {FC, ReactNode} from 'react'
-import {useCallback, useEffect, useRef} from 'react'
+import {type FC, type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {TestProps} from '@/components/ui/types'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'

@@ -57,7 +57,7 @@ export const Box = memo(
       createStyles({
         borderColor,
         borderStyle,
-        distinct: distinct,
+        distinct,
         inset,
         insetHorizontal,
         insetTop,
@@ -90,7 +90,7 @@ const createStyles =
       box: {
         backgroundColor: distinct ? color.box.background.white : undefined,
         borderColor: borderColor ? color.border[borderColor] : undefined,
-        borderStyle: borderStyle,
+        borderStyle,
         borderWidth: borderStyle ? 1 : undefined,
         padding:
           inset && !insetHorizontal && !insetTop && !insetVertical
