@@ -74,24 +74,27 @@ export enum PiwikSessionDimension {
   userType = 1,
   /** Gebruikersstad (al gebruikt door mijn.amsterdam als City) */
   userCity = 2,
+  // app version
   appVersion = 18,
   appVersionWithBuild = 19,
+  // a11y
   reduceMotionEnabled = 21,
-  locationPermission = 22,
-  screenReaderEnabled = 23,
-  accessibilityServiceEnabled = 24,
-  boldTextEnabled = 25,
-  grayscaleEnabled = 26,
-  invertColorsEnabled = 27,
-  reduceTransparencyEnabled = 28,
-  fontScale = 29,
-  isLandscape = 30,
-  isPortrait = 31,
+  screenReaderEnabled = 22,
+  accessibilityServiceEnabled = 23,
+  boldTextEnabled = 24,
+  grayscaleEnabled = 25,
+  invertColorsEnabled = 26,
+  reduceTransparencyEnabled = 27,
+  // device info
+  fontScale = 28,
+  isLandscape = 29,
+  isPortrait = 30,
   isTablet = 32,
-  hasCameraPermission = 33,
-  hasPhotosPermission = 34,
-  hasLocationPermission = 35,
-  hasNotificationPermission = 36,
+  // permissions
+  hasCameraPermission = 32,
+  hasPhotosPermission = 33,
+  hasLocationPermission = 34,
+  hasNotificationPermission = 35,
 }
 
 export type CustomDimensions = Partial<
