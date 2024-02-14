@@ -27,6 +27,7 @@ export const ErrorWithRestart = () => {
             <Button
               label="Herstart de app"
               onPress={() => RNRestart.Restart()}
+              testID="ErrorRestartButton"
             />
           </Column>
         </Box>

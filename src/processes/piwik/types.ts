@@ -121,6 +121,7 @@ export enum PiwikAction {
   startUp = 'startUp',
   swipeOut = 'swipeOut',
   toForeground = 'toForeground',
+  toggle = 'toggle',
 }
 
 /** We generally use the route name as the name of the screen when we log a screen view. This is not possible for screens outside the navigation tree, for those we use these names. */

@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {ReactNode, useCallback} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
@@ -10,6 +10,9 @@ import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
+import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
+import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -19,7 +22,8 @@ type Props = {
   onValueChange: () => void
   value: boolean
 } & Required<TestProps> &
-  Pick<AccessibilityProps, 'accessibilityLabel'>
+  Pick<AccessibilityProps, 'accessibilityLabel'> &
+  Partial<LogProps>
 
 export const Checkbox = ({
   accessibilityLabel,
@@ -28,9 +32,44 @@ export const Checkbox = ({
   onValueChange,
   testID,
   value,
+  logAction = PiwikAction.toggle,
+  logDimensions = {},
+  logCategory,
+  logValue,
+  ...props
 }: Props) => {
   const styles = useThemable(createStyles)
   const touchableProps = useThemable(createTouchableProps)
+  const {trackCustomEvent} = usePiwik()
+
+  const onPress = useCallback(() => {
+    onValueChange?.()
+    const logName = getLogNameFromProps({testID, ...props})
+
+    if (logName) {
+      trackCustomEvent(
+        `${logName}`,
+        logAction,
+        {
+          ...logDimensions,
+          // new state is the inverse of value
+          [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
+        },
+        logCategory,
+        logValue,
+      )
+    }
+  }, [
+    logAction,
+    logCategory,
+    logDimensions,
+    logValue,
+    onValueChange,
+    props,
+    testID,
+    trackCustomEvent,
+    value,
+  ])
 
   return (
     <TouchableHighlight
@@ -38,7 +77,7 @@ export const Checkbox = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
-      onPress={onValueChange}
+      onPress={onPress}
       testID={testID}
       {...touchableProps}>
       <FormField

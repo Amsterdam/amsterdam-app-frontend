@@ -2,7 +2,7 @@ import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type RootStackParams} from '@/app/navigation/types'
-import {devError, devLog} from '@/processes/development'
+import {devError} from '@/processes/development'
 import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
@@ -51,8 +51,6 @@ const getPiwik = (
     category = suggestedCategory,
     value = undefined,
   ) => {
-    // TODO: clean this log
-    devLog('trackCustomEvent', {name, action, dimensions, category, value})
     trackCustomEvent(category, action, {
       path: routeName,
       customDimensions: postProcessDimensions(dimensions),

@@ -7,7 +7,6 @@ import {
   View,
   GestureResponderEvent,
 } from 'react-native'
-import {devError} from '@/processes/development'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
 import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
@@ -66,8 +65,6 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
               logCategory,
               logValue,
             )
-          } else {
-            devError('No name found for component')
           }
         }}
         ref={ref}

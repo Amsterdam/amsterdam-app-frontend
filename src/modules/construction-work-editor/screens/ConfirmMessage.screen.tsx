@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -20,6 +19,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useToggle} from '@/hooks/useToggle'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {
   clearDraft,
@@ -42,8 +42,10 @@ type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
-  const [isPushNotificationChecked, setPushNotificationChecked] =
-    useState(false)
+  const {
+    value: isPushNotificationChecked,
+    toggle: togglePushNotificationChecked,
+  } = useToggle()
   const currentProjectId = useSelector(selectCurrentProjectId)
   const message = useSelector(selectMessage(currentProjectId))
   const mainImage = useSelector(selectMainImage(currentProjectId))
@@ -137,32 +139,30 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     <Screen
       scroll
       stickyFooter={
-        <>
-          <Box>
-            <Column gutter="md">
-              <Button
-                disabled={
-                  isLoadingAddProjectWarning ||
-                  isLoadingAddProjectWarningImage ||
-                  isLoadingAddNotification
-                }
-                label="Plaats bericht"
-                onPress={onSubmit}
-                testID="ConstructionWorkEditorCreateMessageSubmitButton"
+        <Box>
+          <Column gutter="md">
+            <Button
+              disabled={
+                isLoadingAddProjectWarning ||
+                isLoadingAddProjectWarningImage ||
+                isLoadingAddNotification
+              }
+              label="Plaats bericht"
+              onPress={onSubmit}
+              testID="ConstructionWorkEditorCreateMessageSubmitButton"
+            />
+            <Row
+              align="between"
+              valign="center">
+              <Link
+                label="Vorige"
+                onPress={navigation.goBack}
+                testID="ConstructionWorkEditorCreateMessagePreviousButton"
+                variant="backward"
               />
-              <Row
-                align="between"
-                valign="center">
-                <Link
-                  label="Vorige"
-                  onPress={navigation.goBack}
-                  testID="ConstructionWorkEditorCreateMessagePreviousButton"
-                  variant="backward"
-                />
-              </Row>
-            </Column>
-          </Box>
-        </>
+            </Row>
+          </Column>
+        </Box>
       }
       stickyHeader={<Alert />}>
       <Box>
@@ -180,9 +180,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               <Checkbox
                 accessibilityLabel="Wil je ook een pushbericht versturen?"
                 label={<Phrase>Wil je ook een pushbericht versturen?</Phrase>}
-                onValueChange={() =>
-                  setPushNotificationChecked(!isPushNotificationChecked)
-                }
+                onValueChange={() => togglePushNotificationChecked()}
                 testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckbox"
                 value={isPushNotificationChecked}
               />
