@@ -41,6 +41,14 @@ describe('addAppParamsToUrl', () => {
     expect(result).toBe('https://amsterdam.nl?app_from=1')
   })
 
+  it('should return original URL for non-Amsterdam URLs', () => {
+    const url = 'https://example.com'
+    const slug: ModuleSlug = ModuleSlug.home
+    const result = addAppParamsToUrl(url, slug)
+
+    expect(result).toBe(url)
+  })
+
   it('should handle a missing query string', () => {
     const url = 'https://amsterdam.nl?'
     const slug: ModuleSlug = ModuleSlug.about
@@ -49,11 +57,14 @@ describe('addAppParamsToUrl', () => {
     expect(result).toBe('https://amsterdam.nl?app_from=1&app_module=about')
   })
 
-  it('should return original URL for non-Amsterdam URLs', () => {
-    const url = 'https://example.com'
-    const slug: ModuleSlug = ModuleSlug.home
-    const result = addAppParamsToUrl(url, slug)
+  it('should pass through invalid formats', () => {
+    const url1 = 'https://amsterdam.nl???'
+    const url2 = 'https://amsterdam.nl?a=a?b=b'
+    const slug: ModuleSlug = ModuleSlug.about
+    const result1 = addAppParamsToUrl(url1, slug)
+    const result2 = addAppParamsToUrl(url2, slug)
 
-    expect(result).toBe(url)
+    expect(result1).toBe(url1)
+    expect(result2).toBe(url2)
   })
 })

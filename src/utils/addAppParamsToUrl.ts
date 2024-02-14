@@ -9,7 +9,11 @@ export const addAppParamsToUrl = (url: string, slug?: ModuleSlug) => {
     return url
   }
 
-  const [baseUrl, queryString] = url.split('?')
+  const [baseUrl, queryString, ...additionalQueryStrings] = url.split('?')
+
+  if (additionalQueryStrings.length > 0) {
+    return url
+  }
 
   const appParams = stringify({
     app_from: 1,
