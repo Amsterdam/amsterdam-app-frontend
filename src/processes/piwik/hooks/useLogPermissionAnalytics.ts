@@ -24,7 +24,7 @@ export const useLogPermissionAnalytics = () => {
   const {ready, trackCustomEvent} = usePiwik()
 
   const logPermissions = useCallback(
-    (action: PiwikAction) => {
+    (action = PiwikAction.toForeground) => {
       void Promise.all([
         check(PERMISSION_CAMERA),
         check(PERMISSION_LOCATION),
@@ -60,8 +60,6 @@ export const useLogPermissionAnalytics = () => {
   }, [ready])
 
   useAppState({
-    onForeground: useCallback(() => {
-      logPermissions(PiwikAction.toForeground)
-    }, [logPermissions]),
+    onForeground: logPermissions,
   })
 }
