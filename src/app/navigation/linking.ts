@@ -47,13 +47,17 @@ export const createPathFromNotification = ({
     return baseRoute
   }
 
-  const baseRouteWithTitle = `${baseRoute}/${notification.title}`
+  const baseRouteWithTitle = `${baseRoute}/${encodeURIComponent(notification.title)}`
 
   if (!notification.body) {
     return baseRouteWithTitle
   }
 
-  return `${baseRouteWithTitle}/${notification.title} - ${notification.body}`
+  const analyticsTitle = encodeURIComponent(
+    `${notification.title} - ${notification.body}`,
+  )
+
+  return `${baseRouteWithTitle}/${analyticsTitle}`
 }
 
 export const linking: LinkingOptions<RootStackParams> = {

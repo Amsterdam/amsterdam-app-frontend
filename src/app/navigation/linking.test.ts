@@ -11,8 +11,8 @@ describe('createRoute', () => {
       identifier: '123',
       publication_date: '2024-02-12',
       project_identifier: '456',
-      title: 'Test Notification',
-      body: 'Test Body',
+      title: 'Title',
+      body: 'Body',
     },
   }
 
@@ -50,12 +50,12 @@ describe('createRoute', () => {
         data: mockNotification.data,
         notification: notificationWithoutBody as Notification,
       }),
-    ).toBe('amsterdam://news/123/Test Notification')
+    ).toBe('amsterdam://news/123/Title')
   })
 
   it('should return route with all params', () => {
     expect(createPathFromNotification(mockNotification)).toBe(
-      `amsterdam://news/123/Test Notification/Test Notification - Test Body`,
+      `amsterdam://news/123/Title/Title%20-%20Body`,
     )
   })
 
@@ -84,6 +84,21 @@ describe('createRoute', () => {
         data: mockNotification.data,
         notification: notificationWithEmptyBody as Notification,
       }),
-    ).toBe(`amsterdam://news/123/Test Notification`)
+    ).toBe(`amsterdam://news/123/Title`)
+  })
+
+  it('should url encode title and body', () => {
+    const notificationWithSpecialCharacters = {
+      ...mockNotification.notification,
+      title: 'Test title',
+      body: 'Test/body',
+    }
+
+    expect(
+      createPathFromNotification({
+        data: mockNotification.data,
+        notification: notificationWithSpecialCharacters as Notification,
+      }),
+    ).toBe(`amsterdam://news/123/Test%20title/Test%20title%20-%20Test%2Fbody`)
   })
 })
