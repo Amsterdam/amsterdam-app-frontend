@@ -7,7 +7,8 @@ describe('isAmsterdamNlUrl', () => {
     expect(isAmsterdamNlUrl('http://subdomain.amsterdam.nl/path')).toBe(true)
     expect(isAmsterdamNlUrl('https://www.amsterdam.nl/?query=123')).toBe(true)
     expect(isAmsterdamNlUrl('https://a.amsterdam.nl/?query=123')).toBe(true)
-    expect(isAmsterdamNlUrl('https://a-a.amsterdam.nl/?query=123')).toBe(true)
+    expect(isAmsterdamNlUrl('https://a-a_a.amsterdam.nl/?query=123')).toBe(true)
+    expect(isAmsterdamNlUrl('https://a.a.amsterdam.nl/?query=123')).toBe(true)
   })
 
   it('should return false for non-amsterdam.nl URLs', () => {
