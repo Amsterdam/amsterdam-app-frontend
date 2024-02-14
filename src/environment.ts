@@ -72,6 +72,9 @@ export const getApiSlugAndPath = (slug: ApiSlug) => ({
   path: slug === ModuleSlug.contact ? '/contact' : '',
 })
 
+/**
+ * @deprecated as this should be proxied by our own backend
+ */
 const externalApiUrls: Record<string, string> = {
   [ModuleSlug.address]: 'https://api.pdok.nl/bzk/locatieserver/search/v3_1',
 }
@@ -81,10 +84,6 @@ const getApiUrl = (
   custom: typeof customDefaultUrls,
   slug: ApiSlug,
 ) => {
-  if (externalApiUrls[slug]) {
-    return externalApiUrls[slug]
-  }
-
   if (environment === Environment.custom && slug in custom) {
     return custom[slug as keyof typeof customDefaultUrls]
   }
@@ -98,6 +97,10 @@ const getApiUrl = (
 
     return `https://${env}${interPunction}app.amsterdam.nl/${slug}/api/v1`
   } else {
+    if (externalApiUrls[slug]) {
+      return externalApiUrls[slug]
+    }
+
     const env = getEnvForApiUrl(environment as Environment)
     const interPunction = environment === Environment.production ? '' : '-'
     const {apiSlug, path} = getApiSlugAndPath(slug)
