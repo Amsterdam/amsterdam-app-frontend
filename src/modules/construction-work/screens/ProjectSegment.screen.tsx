@@ -29,7 +29,10 @@ export const ProjectSegmentScreen = ({route}: Props) => {
             {!!sections && <ProjectContentSections sections={sections} />}
             {!!timeline?.intro && <HtmlContent content={timeline.intro} />}
             {timeline?.items && timeline?.items?.length > 0 && (
-              <Timeline items={timeline.items} />
+              <Timeline
+                items={timeline.items}
+                testID="ConstructionWorkProjectTimeline"
+              />
             )}
           </Column>
         </Box>
