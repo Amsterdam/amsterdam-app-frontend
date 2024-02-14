@@ -89,7 +89,7 @@ export enum PiwikSessionDimension {
   fontScale = 28,
   isLandscape = 29,
   isPortrait = 30,
-  isTablet = 32,
+  isTablet = 31,
   // permissions
   hasCameraPermission = 32,
   hasPhotosPermission = 33,
