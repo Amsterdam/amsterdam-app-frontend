@@ -1,6 +1,5 @@
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
-import {useTooltip} from '@/components/ui/feedback/tooltip/useTooltip'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -8,6 +7,7 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
+import {useToggle} from '@/hooks/useToggle'
 import {CityOffice, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -65,7 +65,7 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
 
 export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
-  const {isOpen, toggleTooltip} = useTooltip()
+  const {value: isOpen, toggle: toggleTooltip} = useToggle()
 
   const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
     isActive: !isOpen,

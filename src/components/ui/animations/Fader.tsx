@@ -28,7 +28,7 @@ export const AnimatedFader = forwardRef<View, Props>(
     useEffect(() => {
       if (shouldAnimate) {
         Animated.timing(opacityRef.current, {
-          duration: duration,
+          duration,
           easing: Easing.linear,
           toValue: fadeOut ? 0 : 1,
           useNativeDriver: true,
