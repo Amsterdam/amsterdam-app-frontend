@@ -51,6 +51,7 @@ const getPiwik = (
     category = suggestedCategory,
     value = undefined,
   ) => {
+    // TODO: clean this log
     devLog('trackCustomEvent', {name, action, dimensions, category, value})
     trackCustomEvent(category, action, {
       path: routeName,
