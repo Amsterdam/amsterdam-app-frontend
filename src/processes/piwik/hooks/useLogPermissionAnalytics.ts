@@ -60,8 +60,8 @@ export const useLogPermissionAnalytics = () => {
   }, [ready])
 
   useAppState({
-    onForeground: () => {
+    onForeground: useCallback(() => {
       logPermissions(PiwikAction.toForeground)
-    },
+    }, [logPermissions]),
   })
 }
