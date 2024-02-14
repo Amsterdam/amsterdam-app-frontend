@@ -12,7 +12,6 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
 import {AddressCity} from '@/modules/address/types'
-import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
 import WasteGuideNotFoundImage from '@/modules/waste-guide/assets/images/waste-guide-not-found.svg'
@@ -66,7 +65,7 @@ export const WasteGuide = () => {
         buttonLabel="Ga terug"
         error={error}
         Image={WasteGuideFigure}
-        onPress={() => navigation.navigate(HomeRouteName.home)}
+        onPress={() => navigation.goBack()}
         testProps={{
           testID: 'WasteGuideErrorScreen',
         }}
