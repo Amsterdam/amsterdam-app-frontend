@@ -42,7 +42,7 @@ export const ConstructionWorkEditorStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={screenConfig.authorizedProjects.name}
+      initialRouteName={ConstructionWorkEditorRouteName.authorizedProjects}
       screenOptions={screenOptions(theme)}>
       {getPermittedScreens(screenConfig, !!constructionWorkEditorId)}
     </Stack.Navigator>

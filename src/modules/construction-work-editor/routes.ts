@@ -1,10 +1,10 @@
 import {type TitleParams} from '@/app/navigation/types'
 
 export enum ConstructionWorkEditorRouteName {
-  addMainImageToMessage = 'addMainImageToMessage',
-  authorizedProjects = 'authorizedProjects',
-  confirmMessage = 'confirmMessage',
-  createMessage = 'createMessage',
+  addMainImageToMessage = 'AddMainImageToMessage',
+  authorizedProjects = 'AuthorizedProjects',
+  confirmMessage = 'ConfirmMessage',
+  createMessage = 'CreateMessage',
 }
 
 export type ConstructionWorkEditorStackParams = {
