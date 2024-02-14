@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type RootStackParams} from '@/app/navigation/types'
-import {devLog} from '@/processes/development'
+import {devError, devLog} from '@/processes/development'
 import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
 import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
@@ -21,13 +20,15 @@ export {
   PiwikSessionDimension,
 } from '@/processes/piwik/types'
 
+const piwikDefaultFn = () => devError('piwik not initialized')
+
 // if Piwik is not initialized, we return dummy methods to make it fail silently
 const DEFAULT_PIWIK_CONTEXT: Piwik = {
   ready: false,
-  trackCustomEvent: () => {},
-  trackOutlink: () => {},
-  trackScreen: () => {},
-  trackSearch: () => {},
+  trackCustomEvent: piwikDefaultFn,
+  trackOutlink: piwikDefaultFn,
+  trackScreen: piwikDefaultFn,
+  trackSearch: piwikDefaultFn,
 }
 
 const FILENAME = 'usePiwik.ts'

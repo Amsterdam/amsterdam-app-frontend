@@ -116,6 +116,7 @@ export enum PiwikAction {
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
   startUp = 'startUp',
+  swipeOut = 'swipeOut',
   toForeground = 'toForeground',
 }
 

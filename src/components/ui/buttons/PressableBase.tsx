@@ -10,6 +10,7 @@ import {
 import {devError} from '@/processes/development'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
+import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 
 export type PressableBaseProps = {
   'sentry-label'?: string
@@ -26,7 +27,6 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
       onPress = () => null,
       logAction = PiwikAction.buttonPress,
       logCategory,
-      logName,
       logDimensions,
       logValue,
       ...pressableProps
@@ -41,12 +41,11 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
         accessibilityRole="button"
         onPress={(event: GestureResponderEvent) => {
           onPress?.(event)
-          const name =
-            logName ?? pressableProps['sentry-label'] ?? pressableProps.testID
+          const logName = getLogNameFromProps(pressableProps)
 
-          if (name) {
+          if (logName) {
             trackCustomEvent(
-              name,
+              logName,
               logAction,
               logDimensions,
               logCategory,
