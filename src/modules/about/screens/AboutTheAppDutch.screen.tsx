@@ -46,7 +46,7 @@ export const AboutTheAppDutchScreen = () => (
                 <Title
                   level="h5"
                   testID="AboutAboutTheAppDutchWasteInformationTitle"
-                  text="Informatie over afval"
+                  text="Afvalwijzer"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchWasteInformationParagraph">
                   Vul uw adres in en u ziet meteen wat u met uw afval moet doen.
@@ -61,7 +61,7 @@ export const AboutTheAppDutchScreen = () => (
                 <Title
                   level="h5"
                   testID="AboutAboutTheAppDutchRoadWorkTitle"
-                  text="Werk aan de weg"
+                  text="Werkzaamheden"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchRoadWorkParagraph">
                   Hier krijgt u informatie over projecten en wegwerkzaamheden in
