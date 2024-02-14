@@ -59,12 +59,6 @@ export const PrivacyStatementScreen = () => {
               De gemeente verwerkt deze persoonsgegevens op basis van
               toestemming.
             </Paragraph>
-            <List
-              items={[
-                'de privacywetten;',
-                'ons eigen beleid: het stedelijk kader verwerken persoonsgegevens.',
-              ]}
-            />
           </Column>
           <Column gutter="md">
             <Title
@@ -131,6 +125,14 @@ export const PrivacyStatementScreen = () => {
               }
               testID="AboutPrivacyStatementSpecificLink"
             />
+            <Paragraph>
+              In de algemene privacyverklaring staat meer informatie over de
+              uitgangspunten waar de gemeente Amsterdam zich aan houdt. In de
+              specifieke privacyverklaring staat per thema meer informatie over
+              de manier waarop we uw persoonsgegevens gebruiken. Daar vindt u
+              bijvoorbeeld welke gegevens we gebruiken voor welk doel, en ook of
+              en met wie we die gegevens delen.
+            </Paragraph>
           </Column>
         </Column>
       </Box>

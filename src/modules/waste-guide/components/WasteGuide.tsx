@@ -7,6 +7,7 @@ import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
@@ -18,10 +19,12 @@ import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuid
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
+  const navigation = useNavigation<WasteGuideRouteName>()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {
@@ -37,7 +40,6 @@ export const WasteGuide = () => {
     error,
     isError: getGarbageCollectionAreaQueryIsError,
     isFetching: getGarbageCollectionAreaQueryIsFetching,
-    refetch: getGarbageCollectionAreaQueryRefetch,
   } = useGetGarbageCollectionAreaQuery(
     // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
     address?.bagId && isFocusedOrNotAndroid
@@ -60,10 +62,10 @@ export const WasteGuide = () => {
   ) {
     return (
       <FullScreenError
-        buttonLabel="Laad opnieuw"
+        buttonLabel="Ga terug"
         error={error}
         Image={WasteGuideFigure}
-        onPress={getGarbageCollectionAreaQueryRefetch}
+        onPress={() => navigation.goBack()}
         testProps={{
           testID: 'WasteGuideErrorScreen',
         }}
