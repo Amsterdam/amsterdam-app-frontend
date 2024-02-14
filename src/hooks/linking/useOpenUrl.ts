@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
@@ -9,22 +10,25 @@ export const useOpenUrl = (): OpenUrl => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
 
-  return (href: string) => {
-    if (href.startsWith('mailto:')) {
-      const [mailto, subject] = href.split('?subject=')
-      const [, emailAddress] = mailto.split(':')
+  return useCallback(
+    (href: string) => {
+      if (href.startsWith('mailto:')) {
+        const [mailto, subject] = href.split('?subject=')
+        const [, emailAddress] = mailto.split(':')
 
-      openMailUrl(emailAddress, subject)
+        openMailUrl(emailAddress, subject)
 
-      return
-    }
+        return
+      }
 
-    if (href.startsWith('tel:')) {
-      openPhoneUrl(href)
+      if (href.startsWith('tel:')) {
+        openPhoneUrl(href)
 
-      return
-    }
+        return
+      }
 
-    openWebUrl(href)
-  }
+      openWebUrl(href)
+    },
+    [openMailUrl, openPhoneUrl, openWebUrl],
+  )
 }
