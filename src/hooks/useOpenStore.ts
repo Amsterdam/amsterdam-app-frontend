@@ -2,19 +2,18 @@ import {useCallback} from 'react'
 import {Alert, Linking, Platform} from 'react-native'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {getStoreLink} from '@/utils/getStoreLink'
+import {STORE_LINK} from '@/utils/storeLink'
 
 export const useOpenStore = () => {
   const {sendSentryErrorLog} = useSentry()
 
   return useCallback(() => {
-    const link = getStoreLink()
     const log = (error: unknown) =>
       sendSentryErrorLog(SentryErrorLogKey.openStore, 'useOpenStore.ts', {
         error,
       })
 
-    Linking.canOpenURL(link)
+    Linking.canOpenURL(STORE_LINK)
       .then(supported => {
         if (!supported) {
           sendSentryErrorLog(
@@ -23,7 +22,7 @@ export const useOpenStore = () => {
           )
         }
 
-        Linking.openURL(link).catch(() =>
+        Linking.openURL(STORE_LINK).catch(() =>
           Alert.alert(
             `${Platform.OS === 'ios' ? 'App' : 'Google Play'} Store openen is niet mogelijk.`,
             `Ga naar de ${Platform.OS === 'ios' ? 'App' : 'Google Play'} Store om de app handmatig te updaten.`,
