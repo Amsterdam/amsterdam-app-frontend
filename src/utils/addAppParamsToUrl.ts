@@ -11,16 +11,14 @@ export const addAppParamsToUrl = (url: string, slug?: ModuleSlug) => {
 
   const [baseUrl, queryString] = url.split('?')
 
-  const params = stringify({
+  const appParams = stringify({
     app_from: 1,
     app_module: slug,
   })
 
-  const urlWithAppParams = `${baseUrl}?${params}`
-
   if (!queryString) {
-    return urlWithAppParams
+    return `${baseUrl}?${appParams}`
   }
 
-  return `${urlWithAppParams}&${queryString}`
+  return `${url}&${appParams}`
 }

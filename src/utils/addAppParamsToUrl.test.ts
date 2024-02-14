@@ -30,7 +30,7 @@ describe('addAppParamsToUrl', () => {
     const result = addAppParamsToUrl(url, slug)
 
     expect(result).toBe(
-      'https://amsterdam.nl/path?app_from=1&app_module=waste-guide&existing_param=value',
+      'https://amsterdam.nl/path?existing_param=value&app_from=1&app_module=waste-guide',
     )
   })
 
@@ -39,6 +39,14 @@ describe('addAppParamsToUrl', () => {
     const result = addAppParamsToUrl(url)
 
     expect(result).toBe('https://amsterdam.nl?app_from=1')
+  })
+
+  it('should handle a missing query string', () => {
+    const url = 'https://amsterdam.nl?'
+    const slug: ModuleSlug = ModuleSlug.about
+    const result = addAppParamsToUrl(url, slug)
+
+    expect(result).toBe('https://amsterdam.nl?app_from=1&app_module=about')
   })
 
   it('should return original URL for non-Amsterdam URLs', () => {
