@@ -118,6 +118,7 @@ export enum PiwikAction {
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
+  radioChange = 'radioChange',
   startUp = 'startUp',
   swipeOut = 'swipeOut',
   toForeground = 'toForeground',

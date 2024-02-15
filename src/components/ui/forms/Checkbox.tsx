@@ -48,7 +48,7 @@ export const Checkbox = ({
 
     if (logName) {
       trackCustomEvent(
-        `${logName}`,
+        logName,
         logAction,
         {
           ...logDimensions,
