@@ -1,11 +1,10 @@
-import {ElementType, Fragment, ReactNode, useCallback} from 'react'
+import {type ElementType, Fragment, type ReactNode} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
-import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
@@ -26,8 +25,6 @@ export const Switch = ({
   labelPosition = 'start',
   logAction = PiwikAction.toggle,
   logDimensions = {},
-  logCategory,
-  logValue,
   onChange,
   testID,
   value,
@@ -35,36 +32,17 @@ export const Switch = ({
   ...switchProps
 }: Props) => {
   const {color} = useTheme()
-  const {trackCustomEvent} = usePiwik()
-
-  const onPress = useCallback(() => {
-    onChange?.()
-    const logName = getLogNameFromProps({testID, ...switchProps})
-
-    if (logName) {
-      trackCustomEvent(
-        logName,
-        logAction,
-        {
-          ...logDimensions,
-          // new state is the inverse of value
-          [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
-        },
-        logCategory,
-        logValue,
-      )
-    }
-  }, [
+  const onPress = usePiwikTrackCustomEventFromProps({
+    ...switchProps,
     logAction,
-    logCategory,
-    logDimensions,
-    logValue,
-    onChange,
-    switchProps,
+    logDimensions: {
+      ...logDimensions,
+      // new state is the inverse of value
+      [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
+    },
+    onEvent: onChange,
     testID,
-    trackCustomEvent,
-    value,
-  ])
+  })
 
   return (
     <PressableBase

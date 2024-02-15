@@ -31,3 +31,8 @@ type OmitNever<T extends Record<string, unknown>> = {
  *   Common<B, C> // => { y: string; }
  */
 export type Common<A, B> = OmitNever<Pick<A & B, keyof A & keyof B>>
+
+/**
+ * Make selected properties in a type required
+ */
+export type RequirePick<T, K extends keyof T> = T & Required<Pick<T, K>>

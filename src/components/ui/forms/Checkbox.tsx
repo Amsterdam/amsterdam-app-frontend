@@ -1,4 +1,4 @@
-import {ReactNode, useCallback} from 'react'
+import {ReactNode} from 'react'
 import {
   AccessibilityProps,
   StyleSheet,
@@ -10,13 +10,12 @@ import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {
   type LogProps,
   PiwikAction,
   PiwikDimension,
 } from '@/processes/piwik/types'
-import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -35,8 +34,6 @@ export const Checkbox = ({
   labelPosition = 'end',
   logAction = PiwikAction.toggle,
   logDimensions = {},
-  logCategory,
-  logValue,
   onValueChange,
   testID,
   value,
@@ -44,36 +41,18 @@ export const Checkbox = ({
 }: Props) => {
   const styles = useThemable(createStyles)
   const touchableProps = useThemable(createTouchableProps)
-  const {trackCustomEvent} = usePiwik()
 
-  const onPress = useCallback(() => {
-    onValueChange?.()
-    const logName = getLogNameFromProps({testID, ...props})
-
-    if (logName) {
-      trackCustomEvent(
-        logName,
-        logAction,
-        {
-          ...logDimensions,
-          // new state is the inverse of value
-          [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
-        },
-        logCategory,
-        logValue,
-      )
-    }
-  }, [
+  const onPress = usePiwikTrackCustomEventFromProps({
+    ...props,
     logAction,
-    logCategory,
-    logDimensions,
-    logValue,
-    onValueChange,
-    props,
+    logDimensions: {
+      ...logDimensions,
+      // new state is the inverse of value
+      [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
+    },
+    onEvent: onValueChange,
     testID,
-    trackCustomEvent,
-    value,
-  ])
+  })
 
   return (
     <TouchableHighlight
