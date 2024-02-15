@@ -77,13 +77,18 @@ export const sentryLoggerMiddleware: Middleware =
           (action.payload as {originalStatus: string})?.originalStatus ??
           'unknown'
 
+        const sanitizedAction = Object.assign({}, action)
+
+        ;(sanitizedAction.meta.arg as {queryCacheKey: string}).queryCacheKey =
+          '___'
+
         setTag('endpoint', endpoint)
         setTag('status', status)
         getSendSentryErrorLog(!!consent)(
           SentryErrorLogKey.sentryMiddleWareError,
           'processes/logging.ts',
           {
-            ...action,
+            ...sanitizedAction,
             endpoint,
             status,
             url,
