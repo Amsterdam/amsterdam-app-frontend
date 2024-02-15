@@ -6,9 +6,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {type LogProps, PiwikAction} from '@/processes/piwik/types'
-import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 
 type Props = {
   children: ReactNode
@@ -58,13 +57,14 @@ export const SwipeToDelete = ({
   showIcon = true,
   children,
   onEvent,
-  logCategory,
-  logDimensions,
-  logValue,
   ...props
 }: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
-  const {trackCustomEvent} = usePiwik()
+  const onEventWithLogging = usePiwikTrackCustomEventFromProps<unknown>({
+    ...props,
+    logAction: PiwikAction.swipeOut,
+    onEvent,
+  })
 
   const onSwipeableOpen = useCallback(
     (direction: 'left' | 'right') => {
@@ -72,30 +72,11 @@ export const SwipeToDelete = ({
         setIsSwipeOpen(true)
 
         if (isSwipeOpen) {
-          onEvent()
-          const logName = getLogNameFromProps(props)
-
-          if (logName) {
-            trackCustomEvent(
-              logName,
-              PiwikAction.swipeOut,
-              logDimensions,
-              logCategory,
-              logValue,
-            )
-          }
+          onEventWithLogging(undefined)
         }
       }
     },
-    [
-      isSwipeOpen,
-      logCategory,
-      logDimensions,
-      logValue,
-      onEvent,
-      props,
-      trackCustomEvent,
-    ],
+    [isSwipeOpen, onEventWithLogging],
   )
 
   return (

@@ -7,9 +7,8 @@ import {
   View,
   GestureResponderEvent,
 } from 'react-native'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
-import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 
 export type PressableBaseProps = {
   'sentry-label'?: string
@@ -27,15 +26,15 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
       children,
       onPress = () => null,
       logAction = PiwikAction.buttonPress,
-      logCategory,
-      logDimensions,
-      logValue,
       onAccessibilityAction,
       ...pressableProps
     },
     ref,
   ) => {
-    const {trackCustomEvent} = usePiwik()
+    const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
+      ...pressableProps,
+      logAction,
+    })
 
     return (
       <PressableRN
@@ -43,31 +42,14 @@ export const PressableBase = forwardRef<View, PressableBaseProps>(
         accessibilityRole="button"
         onAccessibilityAction={event => {
           onAccessibilityAction?.(event)
-          const logName = getLogNameFromProps(pressableProps)
-
-          if (logName) {
-            trackCustomEvent(
-              `${logName}:${event.nativeEvent.actionName}`,
-              PiwikAction.accessibilityAction,
-              logDimensions,
-              logCategory,
-              logValue,
-            )
-          }
+          onEvent(event, {
+            nameSuffix: event.nativeEvent.actionName,
+            action: PiwikAction.accessibilityAction,
+          })
         }}
         onPress={(event: GestureResponderEvent) => {
           onPress?.(event)
-          const logName = getLogNameFromProps(pressableProps)
-
-          if (logName) {
-            trackCustomEvent(
-              logName,
-              logAction,
-              logDimensions,
-              logCategory,
-              logValue,
-            )
-          }
+          onEvent(event)
         }}
         ref={ref}
         {...pressableProps}>
