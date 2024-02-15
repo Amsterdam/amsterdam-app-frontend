@@ -1,17 +1,20 @@
-import {EmailButton} from '@/components/ui/buttons/EmailButton'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
+import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-
-const appEmail = 'app@amsterdam.nl'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const AccessibilityStatementScreen = () => {
   const {isPortrait, isTablet} = useDeviceContext()
+  const {navigate} = useNavigation()
+  const openUrl = useOpenUrl()
 
   return (
     <Screen testID="AboutAccessibilityStatementScreen">
@@ -26,88 +29,90 @@ export const AccessibilityStatementScreen = () => {
               }verklaring`}
             />
             <Paragraph
+              testID="AboutAccessibilityStatementDateParagraph"
+              variant="small">
+              Deze toegankelijkheidsverklaring is getekend op 16 maart 2024.
+            </Paragraph>
+            <Link
+              label="Toegankelijkheidsverklaring"
+              onPress={() =>
+                openUrl('https://toegankelijkheidsverklaring.nl/register/13502')
+              }
+              testID="AboutAccessibilityStatementExternalLink"
+              variant="external"
+            />
+            <Paragraph
               testID="AboutAccessibilityStatementIntroParagraph"
               variant="intro">
-              De gemeente Amsterdam wil dat iedereen de Amsterdam app kan
-              gebruiken.
+              De Amsterdam App voldoet grotendeels aan de toegankelijkheidseisen
+              van DigiToegankelijk.nl op niveau AA. Voldoen aan deze standaard
+              maakt onze app onder andere gebruiksvriendelijker en beter
+              toegankelijk voor verschillende doelgroepen.
             </Paragraph>
           </Column>
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutAccessibilityStatementMeasuresTitle"
-              text="Genomen maatregelen"
+              testID="AboutAccessibilityStatementReportTitle"
+              text="Testresultaten"
             />
-            <Paragraph testID="AboutAccessibilityStatementMeasuresParagraph">
-              Iedereen moet apps van de overheid kunnen gebruiken. Dit doen wij
-              om de Amsterdam app toegankelijk te maken en te houden voor
-              iedereen:
-            </Paragraph>
-            <List
-              items={[
-                {
-                  accessibilityLabel:
-                    'Wij ontwikkelen de Amsterdam app volgens toegankelijkheidseisen die zijn vastgelegd in de WCAG 2.1, niveau A A.',
-                  text: 'Wij ontwikkelen de Amsterdam app volgens toegankelijkheidseisen die zijn vastgelegd in de WCAG 2.1, niveau AA.',
-                },
-                'ons eigen beleid: het stedelijk kader verwerken persoonsgegevens.',
-                'Wij ontwikkelen de Amsterdam app samen met u, de Amsterdammer.',
-                'We doen regelmatig gebruikersonderzoek.',
-                'Onafhankelijke deskundigen toetsen regelmatig (onderdelen van) onze app op toegankelijkheid.',
-                'Onze redactie toetst vóór publicatie alle content op toegankelijkheid.',
-                'We lossen knelpunten op.',
-                'Onze medewerkers houden hun kennis over toegankelijkheid op peil.',
-              ]}
+            <Link
+              label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App Android (PDF, 3.667 kB)"
+              onPress={() =>
+                openUrl(
+                  'https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_android.pdf',
+                )
+              }
+              testID="AboutAccessibilityStatementReportAndroidLink"
+              variant="external"
+            />
+            <Link
+              label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App iOS (PDF, 4.315 kB)"
+              onPress={() =>
+                openUrl(
+                  'https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_ios.pdf',
+                )
+              }
+              testID="AboutAccessibilityStatementReportIosLink"
+              variant="external"
             />
           </Column>
           <Column gutter="md">
             <Title
               level="h2"
-              testID="AboutAccessibilityStatementInaccessibleTitle"
-              text="Onderdelen die nog niet toegankelijk zijn"
+              testID="AboutAccessibilityStatementImprovementTitle"
+              text="Aanpak om de toegankelijkheid van onze app te bevorderen "
             />
+            <Paragraph testID="AboutAccessibilityStatementImprovementParagraph">
+              Wij hebben de volgende maatregelen genomen om naleving van de
+              toegankelijkheidseisen te bevorderen:
+            </Paragraph>
             <List
               items={[
-                'Met VoiceOver op iOS wordt de focus niet altijd op het eerste interactieve element gezet.',
-                'Formulieren zijn niet uitsluitend met toetsenbord in te vullen.',
-                'Donkere modus wordt nog niet ondersteund.',
-                "In de Amsterdam app worden webpagina's getoond binnen een 'webview'. De webpagina's binnen de webview zijn niet volledig toegankelijk.",
+                'Onderzoek: Onafhankelijke deskundigen toetsen regelmatig (onderdelen van) onze app op toegankelijkheid. Gevonden knelpunten lossen wij duurzaam op.',
+                'Interne controle vóór publicatie: Onze redactie toetst vóór publicatie alle content op toegankelijkheid.',
+                'Periodieke interne controle: Onze redactie voert periodiek tussentijdse controles uit op de content.',
+                'Automatische controle: we gebruiken automatische controle en monitoring waar dit mogelijk is. ',
               ]}
-              testID="AboutAccessibilityStatementInaccessibleList"
+              testID="AboutAccessibilityStatementImprovementList"
             />
           </Column>
           <Column gutter="md">
             <Title
               level="h2"
               testID="AboutAccessibilityStatementSomethingBrokenTitle"
-              text="Werkt iets niet?"
+              text="Probleem met de toegankelijkheid van deze app?"
             />
             <Paragraph testID="AboutAccessibilityStatementSomethingBrokenParagraph">
-              Komt u nog een scherm tegen dat u niet kunt lezen of gebruiken?
-              Meld het ons via een e-mail naar {appEmail}.
+              Als u ondanks de maatregelen die wij al hebben genomen een
+              probleem met de toegankelijkheid ervaart in onze app, laat het ons
+              dan weten.
             </Paragraph>
-            <Row>
-              <EmailButton
-                email="app@amsterdam.nl"
-                numberOfLines={1}
-                subject="Iets werkt niet in de Amsterdam app"
-                testID="AboutAccessibilityStatementSomethingBrokenButton"
-              />
-            </Row>
-          </Column>
-          <Column gutter="md">
-            <Title
-              level="h2"
-              testID="AboutAccessibilityStatementResponseExpectationsTitle"
-              text="Wat kunt u van ons verwachten?"
+            <Button
+              label="Bekijk onze contactgegevens"
+              onPress={() => navigate(ModuleSlug.contact)}
+              testID="AboutAccessibilityStatementContactButton"
             />
-            <Paragraph testID="AboutAccessibilityStatementResponseExpectationsParagraph">
-              Binnen 5 werkdagen krijgt u een ontvangstbevestiging.
-            </Paragraph>
-            <Paragraph>
-              We informeren u over de voortgang en de uitkomst.
-            </Paragraph>
-            <Paragraph>Binnen 2 weken is uw verzoek afgehandeld.</Paragraph>
           </Column>
         </Column>
       </Box>
