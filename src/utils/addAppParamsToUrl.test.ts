@@ -51,4 +51,15 @@ describe('addAppParamsToUrl', () => {
 
     expect(result).toBe(url)
   })
+
+  it('should handle hash strings', () => {
+    const url =
+      'https://kaart.amsterdam.nl/afvalcontainers?fractie=Rest#52.3656/4.8982/52.3696/4.9022/topo/12491//'
+    const slug: ModuleSlug = ModuleSlug['waste-guide']
+    const result = addAppParamsToUrl(url, slug)
+
+    expect(result).toBe(
+      'https://kaart.amsterdam.nl/afvalcontainers?fractie=Rest&app_from=1&app_module=waste-guide#52.3656/4.8982/52.3696/4.9022/topo/12491//',
+    )
+  })
 })
