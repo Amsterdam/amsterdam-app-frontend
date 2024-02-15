@@ -1,5 +1,5 @@
 export enum RedirectsRouteName {
-  makeAppointment = 'makeAppointment',
+  makeAppointment = 'MakeAppointment',
   redirects = 'Redirects',
   selectCity = 'SelectCity',
 }

@@ -1,5 +1,6 @@
 import {ReactNode, memo, useMemo} from 'react'
-import {ImageSourcePropType, Pressable, StyleSheet} from 'react-native'
+import {ImageSourcePropType, StyleSheet} from 'react-native'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -36,7 +37,7 @@ export const ProjectCard = memo(
 
     return (
       <>
-        <Pressable
+        <PressableBase
           accessibilityLabel={accessibleText(
             title,
             subtitle,
@@ -76,7 +77,7 @@ export const ProjectCard = memo(
           )}
           {/*TODO Replace with better `Grid` gutters */}
           <Gutter height="sm" />
-        </Pressable>
+        </PressableBase>
         <Gutter height="sm" />
       </>
     )

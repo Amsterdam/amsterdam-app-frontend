@@ -1,11 +1,13 @@
+import {pascalCase} from 'pascal-case'
 import {TimelineItem} from '@/components/ui/containers/TimelineItem'
+import {TestProps} from '@/components/ui/types'
 import {ProjectTimelineItem} from '@/modules/construction-work/types/api'
 
 type Props = {
   items: ProjectTimelineItem[]
-}
+} & TestProps
 
-export const Timeline = ({items}: Props) => (
+export const Timeline = ({items, testID}: Props) => (
   <>
     {items.map((item, index) => (
       <TimelineItem
@@ -13,6 +15,9 @@ export const Timeline = ({items}: Props) => (
         isLast={index === items.length - 1}
         item={item}
         key={item.title + index.toString()}
+        testID={
+          testID ? `${testID}${pascalCase(item.title)}TimelineItem` : undefined
+        }
       />
     ))}
   </>

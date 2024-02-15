@@ -157,7 +157,11 @@ export const ModuleButton = ({
       {alwaysEnabled ? (
         pressable
       ) : (
-        <SwipeToDelete onEvent={onDelete}>{pressable}</SwipeToDelete>
+        <SwipeToDelete
+          onEvent={onDelete}
+          testID={testID ? `${testID}SwipeToDelete` : ''}>
+          {pressable}
+        </SwipeToDelete>
       )}
     </View>
   )

@@ -1,7 +1,6 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -44,50 +43,48 @@ export const TopTaskButton = ({
       grow
       onPress={onPress}
       testID={testID}
-      {...pressableProps}>
-      <Box
-        insetHorizontal="md"
-        insetVertical="sm">
-        <Row gutter="md">
-          <View style={styles.height}>
-            <Icon
+      {...pressableProps}
+      insetHorizontal="md"
+      insetVertical="sm">
+      <Row gutter="md">
+        <View style={styles.height}>
+          <Icon
+            color="link"
+            name={iconName}
+            size="xl"
+          />
+        </View>
+        <Column
+          align="center"
+          grow>
+          <Row
+            gutter="sm"
+            valign="center">
+            <Title
               color="link"
-              name={iconName}
-              size="xl"
+              level="h5"
+              testID={`${testID}Title`}
+              text={title}
             />
-          </View>
-          <Column
-            align="center"
-            grow>
-            <Row
-              gutter="sm"
-              valign="center">
-              <Title
+            {!!titleIconName && (
+              <Icon
                 color="link"
-                level="h5"
-                testID={`${testID}Title`}
-                text={title}
+                name={titleIconName}
               />
-              {!!titleIconName && (
-                <Icon
-                  color="link"
-                  name={titleIconName}
-                />
-              )}
-            </Row>
-            {typeof text === 'string' ? (
-              <Paragraph
-                color={isError ? 'warning' : undefined}
-                testID={`${testID}Text`}
-                variant="small">
-                {text}
-              </Paragraph>
-            ) : (
-              text
             )}
-          </Column>
-        </Row>
-      </Box>
+          </Row>
+          {typeof text === 'string' ? (
+            <Paragraph
+              color={isError ? 'warning' : undefined}
+              testID={`${testID}Text`}
+              variant="small">
+              {text}
+            </Paragraph>
+          ) : (
+            text
+          )}
+        </Column>
+      </Row>
     </Pressable>
   )
 }

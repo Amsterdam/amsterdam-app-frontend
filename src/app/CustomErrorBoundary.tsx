@@ -1,7 +1,8 @@
 import {Component, ReactNode} from 'react'
-import {Pressable, StyleSheet, Text} from 'react-native'
+import {StyleSheet, Text} from 'react-native'
 import RNRestart from 'react-native-restart'
 import {SafeAreaView} from 'react-native-safe-area-context'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {devLog} from '@/processes/development'
 
 type Props = {children: ReactNode}
@@ -32,12 +33,12 @@ export class CustomErrorBoundary extends Component<Props, State> {
         <Text style={[paragraph, text]}>
           Er is iets misgegaan met de app. Sorry voor het ongemak!
         </Text>
-        <Pressable
+        <PressableBase
           accessibilityRole="button"
           onPress={() => RNRestart.Restart()}
           style={button}>
           <Text style={[text, buttonText]}>Herstart de app</Text>
-        </Pressable>
+        </PressableBase>
       </SafeAreaView>
     )
   }

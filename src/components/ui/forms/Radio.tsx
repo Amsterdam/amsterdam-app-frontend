@@ -1,5 +1,8 @@
-import {Pressable, PressableProps} from 'react-native'
 import {Circle, Svg} from 'react-native-svg'
+import {
+  PressableBase,
+  PressableBaseProps,
+} from '@/components/ui/buttons/PressableBase'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useTheme} from '@/themes/useTheme'
@@ -8,7 +11,7 @@ type RadioProps = {
   isSelected: boolean
   label: string
   onPress: () => void
-} & PressableProps
+} & PressableBaseProps
 
 type RadioIndicatorProps = {
   checked: boolean
@@ -48,7 +51,7 @@ export const Radio = ({
   onPress,
   ...pressableProps
 }: RadioProps) => (
-  <Pressable
+  <PressableBase
     {...pressableProps}
     accessibilityLanguage="nl-NL"
     accessibilityRole="radio"
@@ -60,5 +63,5 @@ export const Radio = ({
       <RadioIndicator checked={isSelected} />
       <Phrase>{label}</Phrase>
     </Row>
-  </Pressable>
+  </PressableBase>
 )

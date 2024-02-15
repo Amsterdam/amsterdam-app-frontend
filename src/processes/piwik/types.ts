@@ -64,6 +64,8 @@ export enum PiwikDimension {
   pageType = 17,
   /** The ID related to the content e.g. a project ID */
   contentId = 20,
+  /** The new state of the element. e.g. open or closed for an accordion */
+  newState = 36,
 }
 
 /**
@@ -110,13 +112,17 @@ export type PiwikCategory = ModuleSlug | 'general'
 
 /** The actions that can trigger a log. */
 export enum PiwikAction {
+  accessibilityAction = 'accessibilityAction',
   accessibilityChange = 'accessibilityChange',
   addressAdd = 'addressAdd',
   addressChange = 'addressChange',
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
+  radioChange = 'radioChange',
   startUp = 'startUp',
+  swipeOut = 'swipeOut',
   toForeground = 'toForeground',
+  toggle = 'toggle',
 }
 
 /** We generally use the route name as the name of the screen when we log a screen view. This is not possible for screens outside the navigation tree, for those we use these names. */
@@ -131,7 +137,7 @@ export enum PiwikError {
 }
 
 export type LogProps = {
-  logAction: PiwikAction
+  logAction?: PiwikAction
   logCategory?: PiwikCategory
   logDimensions?: CustomDimensions
   logName?: string

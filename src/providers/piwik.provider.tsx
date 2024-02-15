@@ -29,6 +29,8 @@ export const PiwikProvider = ({children}: Props) => {
         })
         .catch((error: Error) => {
           if (error.message === PiwikError.alreadyInitialized) {
+            setPiwikInstance(PiwikProSdk)
+
             return
           }
 

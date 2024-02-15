@@ -125,6 +125,12 @@ module.exports = {
             message:
               'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
           },
+          {
+            name: 'react-native',
+            importNames: ['Pressable', 'PressableProps'],
+            message:
+              'Import Pressable and PressableProps from @/components/ui/buttons/Pressable.',
+          },
         ],
       },
     ],
