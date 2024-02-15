@@ -29,13 +29,13 @@ export const Checkbox = ({
   accessibilityLabel,
   label,
   labelPosition = 'end',
-  onValueChange,
-  testID,
-  value,
   logAction = PiwikAction.toggle,
   logDimensions = {},
   logCategory,
   logValue,
+  onValueChange,
+  testID,
+  value,
   ...props
 }: Props) => {
   const styles = useThemable(createStyles)

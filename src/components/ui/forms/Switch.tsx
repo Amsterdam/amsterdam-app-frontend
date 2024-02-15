@@ -1,8 +1,11 @@
-import {ElementType, Fragment, ReactNode} from 'react'
+import {ElementType, Fragment, ReactNode, useCallback} from 'react'
 import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
+import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
+import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
@@ -10,7 +13,8 @@ type Props = {
   labelPosition?: MainAxisPosition
   onChange?: () => void
   wrapper?: ElementType
-} & Omit<SwitchRNProps, 'onChange'>
+} & Omit<SwitchRNProps, 'onChange'> &
+  Partial<LogProps>
 
 /**
  * Wraps a switch with its label in a row and takes care of accessibility.
@@ -20,6 +24,10 @@ export const Switch = ({
   disabled = false,
   label,
   labelPosition = 'start',
+  logAction = PiwikAction.toggle,
+  logDimensions = {},
+  logCategory,
+  logValue,
   onChange,
   testID,
   value,
@@ -27,6 +35,36 @@ export const Switch = ({
   ...switchProps
 }: Props) => {
   const {color} = useTheme()
+  const {trackCustomEvent} = usePiwik()
+
+  const onPress = useCallback(() => {
+    onChange?.()
+    const logName = getLogNameFromProps({testID, ...switchProps})
+
+    if (logName) {
+      trackCustomEvent(
+        logName,
+        logAction,
+        {
+          ...logDimensions,
+          // new state is the inverse of value
+          [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
+        },
+        logCategory,
+        logValue,
+      )
+    }
+  }, [
+    logAction,
+    logCategory,
+    logDimensions,
+    logValue,
+    onChange,
+    switchProps,
+    testID,
+    trackCustomEvent,
+    value,
+  ])
 
   return (
     <PressableBase
@@ -37,7 +75,7 @@ export const Switch = ({
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
       aria-disabled={disabled}
-      onPress={onChange}
+      onPress={onPress}
       testID={testID}>
       <Wrapper>
         <FormField
@@ -47,7 +85,7 @@ export const Switch = ({
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
             ios_backgroundColor={color.control.switch.track.background.off}
-            onChange={onChange}
+            onChange={onPress}
             thumbColor={
               color.control.switch.thumb.background[
                 disabled ? 'disabled' : 'enabled'
