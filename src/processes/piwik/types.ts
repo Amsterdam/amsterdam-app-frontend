@@ -65,7 +65,7 @@ export enum PiwikDimension {
   /** The ID related to the content e.g. a project ID */
   contentId = 20,
   /** The new state of the element. e.g. open or closed for an accordion */
-  newState = 37,
+  newState = 36,
 }
 
 /**
@@ -137,7 +137,7 @@ export enum PiwikError {
 }
 
 export type LogProps = {
-  logAction: PiwikAction
+  logAction?: PiwikAction
   logCategory?: PiwikCategory
   logDimensions?: CustomDimensions
   logName?: string

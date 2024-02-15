@@ -16,7 +16,7 @@ type RadioGroupProps<T> = {
   options: RadioGroupOption<T>[]
   value?: T
 } & TestProps &
-  Partial<LogProps>
+  LogProps
 
 type RadioValue = string | number | boolean
 

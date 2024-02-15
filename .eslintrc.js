@@ -129,7 +129,7 @@ module.exports = {
             name: 'react-native',
             importNames: ['Pressable', 'PressableProps'],
             message:
-              'Import Pressable and PressableProps from @/components/ui/buttons/Pressable or use PressableBase.',
+              'Import Pressable and PressableProps from @/components/ui/buttons/Pressable.',
           },
         ],
       },

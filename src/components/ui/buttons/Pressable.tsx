@@ -21,10 +21,11 @@ export type PressableProps = {
   variant?: PressableVariant
 } & PressableBaseProps &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
-  Partial<LogProps>
+  LogProps
 
 /**
  * Used to build other interactive components, do not use on its own.
+ * This is a replacement for the React Native Pressable component, with added Box properties.
  */
 export const Pressable = forwardRef<View, PressableProps>(
   (

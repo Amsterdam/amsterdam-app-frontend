@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useMemo, useState} from 'react'
+import {type ReactNode, useCallback, useMemo, useState} from 'react'
 import {Platform} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,8 +8,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
-import {TestProps} from '@/components/ui/types'
-import {PiwikDimension} from '@/processes/piwik/types'
+import {type TestProps} from '@/components/ui/types'
+import {LogProps, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
 
 const AccordionPanel = ({
@@ -49,7 +49,8 @@ type AccordionProps = {
   isExpandable?: boolean
   onChangeExpanded?: (state: boolean) => void
   title: string
-} & TestProps
+} & TestProps &
+  LogProps
 
 export const Accordion = ({
   grow,
@@ -59,6 +60,11 @@ export const Accordion = ({
   children,
   testID,
   title,
+  logAction,
+  logDimensions = {},
+  logName,
+  logCategory,
+  logValue,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
   const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
@@ -101,10 +107,15 @@ export const Accordion = ({
         ]}
         accessibilityLabel={accessibilityLabel}
         accessibilityLanguage="nl-NL"
+        logAction={logAction}
+        logCategory={logCategory}
         logDimensions={{
+          ...logDimensions,
           // new state is the inverse of isExpanded
           [PiwikDimension.newState]: isExpanded ? 'closed' : 'open',
         }}
+        logName={logName}
+        logValue={logValue}
         onAccessibilityAction={event => {
           if (event.nativeEvent.actionName === 'activate') {
             handleStateChange(!isExpanded)
@@ -125,11 +136,7 @@ export const Accordion = ({
           title={title}
         />
       </Pressable>
-      {!!isExpanded && (
-        <AccordionPanel>
-          <>{children}</>
-        </AccordionPanel>
-      )}
+      {!!isExpanded && <AccordionPanel>{children}</AccordionPanel>}
     </Column>
   )
 }

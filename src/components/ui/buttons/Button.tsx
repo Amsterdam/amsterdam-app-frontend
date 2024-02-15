@@ -88,7 +88,7 @@ export const Button = ({
 
 const getBorderColor = (
   color: Theme['color'],
-  pressed: boolean,
+  isPressed: boolean,
   variant: ButtonProps['variant'],
 ) => {
   if (variant === 'primary') {
@@ -96,37 +96,37 @@ const getBorderColor = (
   }
 
   if (variant === 'secondary') {
-    return pressed
+    return isPressed
       ? color.pressable.primary.highlight
       : color.pressable.primary.default
   }
 
   if (variant === 'tertiary') {
-    return pressed ? color.pressable.pressed.background : 'transparent'
+    return isPressed ? color.pressable.pressed.background : 'transparent'
   }
 }
 
 const getLabelColor = (
   color: Theme['color'],
-  pressed: boolean,
+  isPressed: boolean,
   variant: ButtonProps['variant'],
 ) => {
   if (variant === 'primary') {
     return color.text.inverse
   }
 
-  return pressed
+  return isPressed
     ? color.pressable.primary.highlight
     : color.pressable.primary.default
 }
 
 const getBackgroundColor = (
   color: Theme['color'],
-  pressed: boolean,
+  isPressed: boolean,
   variant: ButtonProps['variant'],
 ) => {
   if (variant === 'primary') {
-    return pressed
+    return isPressed
       ? color.pressable.primary.highlight
       : color.pressable.primary.default
   }
@@ -136,11 +136,11 @@ const getBackgroundColor = (
 
 // TODO Improve color tokens
 const createStyles =
-  ({small, variant}: Partial<ButtonProps>, pressed: boolean) =>
+  ({small, variant}: Partial<ButtonProps>, isPressed: boolean) =>
   ({border, color, text, size}: Theme) => {
     const buttonHeight = config.buttonHeight
     const borderWidth =
-      border.width[variant === 'secondary' && pressed ? 'lg' : 'md']
+      border.width[variant === 'secondary' && isPressed ? 'lg' : 'md']
     const labelFontSize = text.fontSize[small ? 'small' : 'body']
     const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
 
@@ -157,15 +157,15 @@ const createStyles =
         flexShrink: 1,
         paddingHorizontal,
         paddingVertical,
-        backgroundColor: getBackgroundColor(color, pressed, variant),
-        borderColor: getBorderColor(color, pressed, variant),
+        backgroundColor: getBackgroundColor(color, isPressed, variant),
+        borderColor: getBorderColor(color, isPressed, variant),
         borderStyle: 'solid',
         borderWidth,
       },
       // TODO Use `Phrase` instead, after merging line height branch
       label: {
         flexShrink: 1,
-        color: getLabelColor(color, pressed, variant),
+        color: getLabelColor(color, isPressed, variant),
         fontFamily: text.fontFamily.regular,
         fontSize: labelFontSize,
         lineHeight: labelLineHeight,

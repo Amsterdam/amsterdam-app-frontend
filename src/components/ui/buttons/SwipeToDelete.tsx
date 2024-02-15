@@ -1,4 +1,4 @@
-import {ReactNode, useCallback, useState} from 'react'
+import {type ReactNode, useCallback, useState} from 'react'
 import {Swipeable} from 'react-native-gesture-handler'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,20 +7,20 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {LogProps, PiwikAction} from '@/processes/piwik/types'
+import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 
 type Props = {
   children: ReactNode
   onEvent: () => void
   showIcon?: boolean
-} & Partial<Omit<LogProps, 'logAction'>> &
+} & Omit<LogProps, 'logAction'> &
   TestProps
 
 type DeleteButtonProps = {
   onPress: () => void
   showIcon: boolean
-} & Partial<LogProps> &
+} & LogProps &
   TestProps
 
 const DeleteButton = ({onPress, showIcon, ...props}: DeleteButtonProps) => (

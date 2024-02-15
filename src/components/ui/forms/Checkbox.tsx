@@ -11,7 +11,11 @@ import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {TestProps} from '@/components/ui/types'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
+import {
+  type LogProps,
+  PiwikAction,
+  PiwikDimension,
+} from '@/processes/piwik/types'
 import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -23,7 +27,7 @@ type Props = {
   value: boolean
 } & Required<TestProps> &
   Pick<AccessibilityProps, 'accessibilityLabel'> &
-  Partial<LogProps>
+  LogProps
 
 export const Checkbox = ({
   accessibilityLabel,

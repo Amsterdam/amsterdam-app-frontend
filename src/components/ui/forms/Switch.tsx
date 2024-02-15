@@ -14,7 +14,7 @@ type Props = {
   onChange?: () => void
   wrapper?: ElementType
 } & Omit<SwitchRNProps, 'onChange'> &
-  Partial<LogProps>
+  LogProps
 
 /**
  * Wraps a switch with its label in a row and takes care of accessibility.
