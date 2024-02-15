@@ -34,6 +34,7 @@ export const SelectContract = ({bagNummeraanduidingId}: Props) => {
 
   return (
     <RadioGroup<boolean>
+      logSelectedValueAsNewState
       onChange={handleChange}
       options={contractOptions}
       testID="WasteGuideSelectContractRadioGroup"

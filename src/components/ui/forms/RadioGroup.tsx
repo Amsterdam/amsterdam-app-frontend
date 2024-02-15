@@ -12,6 +12,10 @@ export type RadioGroupOption<T> = {
 }
 
 type RadioGroupProps<T> = {
+  /**
+   * Log value to analytics service as new state when the selected value changes.
+   */
+  logSelectedValueAsNewState?: boolean
   onChange: (value: T) => void
   options: RadioGroupOption<T>[]
   value?: T
@@ -26,6 +30,7 @@ export const RadioGroup = <T extends RadioValue>({
   testID,
   value,
   logAction = PiwikAction.radioChange,
+  logSelectedValueAsNewState = false,
   logDimensions = {},
   logCategory,
   logValue,
@@ -39,22 +44,21 @@ export const RadioGroup = <T extends RadioValue>({
       const logName = getLogNameFromProps({testID, ...props})
 
       if (logName) {
-        trackCustomEvent(
-          logName,
-          logAction,
-          {
-            ...logDimensions,
-            [PiwikDimension.newState]: optionValue.toString(),
-          },
-          logCategory,
-          logValue,
-        )
+        const dimensions = logSelectedValueAsNewState
+          ? {
+              ...logDimensions,
+              [PiwikDimension.newState]: optionValue.toString(),
+            }
+          : logDimensions
+
+        trackCustomEvent(logName, logAction, dimensions, logCategory, logValue)
       }
     },
     [
       logAction,
       logCategory,
       logDimensions,
+      logSelectedValueAsNewState,
       logValue,
       onChange,
       props,
