@@ -1,7 +1,11 @@
 import {useCallback} from 'react'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {type LogProps} from '@/processes/piwik/types'
+import {
+  CustomDimensions,
+  PiwikAction,
+  type LogProps,
+} from '@/processes/piwik/types'
 import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {type RequirePick} from '@/types/utils'
 
@@ -11,10 +15,16 @@ type Props<T> = {
 } & TestProps &
   RequirePick<LogProps, 'logAction'>
 
-export const usePiwikTrackCustomEventFromProps = <T>({
+type ExtraProps = {
+  action?: PiwikAction
+  dimensions?: CustomDimensions
+  nameSuffix?: string
+}
+
+export const usePiwikTrackCustomEventFromProps = <T = unknown>({
   logAction,
   logCategory,
-  logDimensions,
+  logDimensions = {},
   logValue,
   onEvent,
   testID,
@@ -24,7 +34,10 @@ export const usePiwikTrackCustomEventFromProps = <T>({
   const {trackCustomEvent} = usePiwik()
 
   return useCallback(
-    (event: T) => {
+    (
+      event: T,
+      {nameSuffix, dimensions = {}, action = logAction}: ExtraProps = {},
+    ) => {
       onEvent?.(event)
       const name = getLogNameFromProps({
         testID,
@@ -33,7 +46,15 @@ export const usePiwikTrackCustomEventFromProps = <T>({
       })
 
       if (name) {
-        trackCustomEvent(name, logAction, logDimensions, logCategory, logValue)
+        const suffix = nameSuffix ? `:${nameSuffix}` : ''
+
+        trackCustomEvent(
+          `${name}${suffix}`,
+          action,
+          {...logDimensions, ...dimensions},
+          logCategory,
+          logValue,
+        )
       }
     },
     [
