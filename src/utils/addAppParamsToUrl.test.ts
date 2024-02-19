@@ -1,5 +1,24 @@
-import {isAmsterdamNlUrl, addAppParamsToUrl} from './addAppParamsToUrl'
+import {
+  isAmsterdamNlUrl,
+  addAppParamsToUrl,
+  shouldIgnore,
+} from './addAppParamsToUrl'
 import {ModuleSlug} from '@/modules/slugs'
+
+describe('shouldIgnore', () => {
+  it('should return true for URLs starting with "https://maps.amsterdam.nl/tuinkorven"', () => {
+    expect(shouldIgnore('https://maps.amsterdam.nl/tuinkorven')).toBe(true)
+    expect(shouldIgnore('https://maps.amsterdam.nl/tuinkorvenabc')).toBe(true)
+    expect(shouldIgnore('https://maps.amsterdam.nl/tuinkorven/?LANG=nl')).toBe(
+      true,
+    )
+  })
+  it('should return false for any other URL', () => {
+    expect(shouldIgnore('https://amsterdam.nl')).toBe(false)
+    expect(shouldIgnore('https://maps.amsterdam.nl')).toBe(false)
+    expect(shouldIgnore('https://google.nl')).toBe(false)
+  })
+})
 
 describe('isAmsterdamNlUrl', () => {
   it('should return true for amsterdam.nl URLs', () => {
@@ -61,5 +80,12 @@ describe('addAppParamsToUrl', () => {
     expect(result).toBe(
       'https://kaart.amsterdam.nl/afvalcontainers?fractie=Rest&app_from=1&app_module=waste-guide#52.3656/4.8982/52.3696/4.9022/topo/12491//',
     )
+  })
+  it('should ignore tuinkorven URL', () => {
+    const url = 'https://maps.amsterdam.nl/tuinkorven/?LANG=nl'
+    const slug: ModuleSlug = ModuleSlug['waste-guide']
+    const result = addAppParamsToUrl(url, slug)
+
+    expect(result).toBe('https://maps.amsterdam.nl/tuinkorven/?LANG=nl')
   })
 })
