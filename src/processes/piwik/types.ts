@@ -97,11 +97,18 @@ export enum PiwikSessionDimension {
   hasPhotosPermission = 33,
   hasLocationPermission = 34,
   hasNotificationPermission = 35,
+  contactModule = 37,
+  redirectsModule = 38,
+  wasteGuideModule = 39,
+  reportProblemModule = 40,
+  aboutModule = 41,
+  constructionWorkModule = 42,
+  constructionWorkEditorModule = 43,
 }
 
-export type CustomDimensions = Partial<
-  Record<PiwikDimension | PiwikSessionDimension, string>
->
+export type CustomDimensionKeys = PiwikDimension | PiwikSessionDimension
+
+export type CustomDimensions = Partial<Record<CustomDimensionKeys, string>>
 
 export type ReplaceCustomDimensions<T> = Omit<T, 'customDimensions'> & {
   customDimensions?: CustomDimensions
@@ -119,6 +126,7 @@ export enum PiwikAction {
   buttonPress = 'buttonPress',
   deviceInfoChange = 'deviceInfoChange',
   locationOrAddressSelectionChange = 'locationOrAddressSelectionChange',
+  moduleChange = 'moduleChange',
   radioChange = 'radioChange',
   startUp = 'startUp',
   swipeOut = 'swipeOut',

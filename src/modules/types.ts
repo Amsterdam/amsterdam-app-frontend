@@ -2,12 +2,17 @@ import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {ModuleSlug} from '@/modules/slugs'
+import {CustomDimensionKeys} from '@/processes/piwik/types'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 
 /**
  * The config properties that are shared between core and non-core modules.
  */
 type BaseModuleConfig = {
+  /**
+   * The log dimension to log the enabled state of this module
+   */
+  logDimension?: CustomDimensionKeys
   /**
    * The module’s route name.
    * @see https://reactnavigation.org/docs/stack-navigator/#api-definition
