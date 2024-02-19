@@ -7,7 +7,7 @@ import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderE
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 
 const wasteDisposalBusinessesUrl =
-  'https://www.amsterdam.nl/afval-hergebruik/bedrijfsafval/afvalpunten-bedrijven/'
+  'https://www.amsterdam.nl/afval-hergebruik/bedrijfsafval/recyclepunten-bedrijven/'
 
 const InlineLinkWasteContainer = () => {
   const openWebUrl = useOpenWebUrl()
