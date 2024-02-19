@@ -5,6 +5,8 @@ import {TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {RedirectKey} from '@/modules/redirects/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type RedirectResponse = {
@@ -12,7 +14,7 @@ type RedirectResponse = {
   routeName?: RedirectsRouteName
   text: string
   title: string
-  url?: string
+  urlKey?: RedirectKey
 } & TestProps
 
 const redirects: RedirectResponse[] = [
@@ -21,28 +23,28 @@ const redirects: RedirectResponse[] = [
     testID: 'RedirectsParkingButton',
     text: 'Alles over parkeren en verkeer in de stad.',
     title: 'Parkeren',
-    url: 'https://www.amsterdam.nl/parkeren-verkeer/',
+    urlKey: RedirectKey.parking,
   },
   {
     iconName: 'login',
     testID: 'RedirectsParkingStartStopButton',
     text: 'Bezoekers- of kraskaart-vergunning? Geef hier parkeertijd van uw bezoek door.',
     title: 'Parkeertijd bezoek doorgeven',
-    url: 'https://aanmeldenparkeren.amsterdam.nl/',
+    urlKey: RedirectKey.parking_visitors,
   },
   {
     iconName: 'document-text',
     testID: 'RedirectsDeedsAndStatementsButton',
     text: 'Geboorte-, huwelijks- en andere akten, uittreksel, VOG.',
     title: 'Akten, uittreksels en verklaringen',
-    url: 'https://www.amsterdam.nl/burgerzaken/akten-uittreksels/',
+    urlKey: RedirectKey.documents,
   },
   {
     iconName: 'housing',
     testID: 'RedirectsMoveButton',
     text: 'Naar en binnen Amsterdam.',
     title: 'Verhuizing doorgeven',
-    url: 'https://www.amsterdam.nl/burgerzaken/verhuizing-doorgeven/',
+    urlKey: RedirectKey.relocation,
   },
   {
     iconName: 'person-desk',
@@ -56,14 +58,14 @@ const redirects: RedirectResponse[] = [
     testID: 'RedirectsLowIncomeAidButton',
     text: 'Regelingen bij laag inkomen / Pak je kans.',
     title: 'Hulp bij een laag inkomen',
-    url: 'https://www.amsterdam.nl/werk-inkomen/hulp-bij-laag-inkomen/',
+    urlKey: RedirectKey.income_help,
   },
   {
     iconName: 'city-pass',
     testID: 'RedirectsCityPassButton',
     text: 'Voor Amsterdammers met een laag inkomen.',
     title: 'Stadspas',
-    url: 'https://www.amsterdam.nl/stadspas/',
+    urlKey: RedirectKey.citypass,
   },
 ]
 
@@ -71,16 +73,20 @@ export const Redirects = () => {
   const openWebUrl = useOpenWebUrl()
   const navigation = useNavigation<RedirectsRouteName>()
 
+  const {data: redirectUrls} = useGetRedirectUrlsQuery()
+
   return (
     <Column gutter="md">
-      {redirects.map(({iconName, routeName, testID, text, title, url}) => (
+      {redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
         <TopTaskButton
           accessibilityLabel={accessibleText(title, text)}
           accessibilityRole={routeName ? 'button' : 'link'}
           iconName={iconName}
           key={iconName}
           onPress={() =>
-            routeName ? navigation.navigate(routeName) : url && openWebUrl(url)
+            routeName
+              ? navigation.navigate(routeName)
+              : redirectUrls && urlKey && openWebUrl(redirectUrls[urlKey])
           }
           testID={testID}
           text={text}
