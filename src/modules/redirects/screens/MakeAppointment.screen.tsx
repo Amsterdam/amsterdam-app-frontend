@@ -11,9 +11,11 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {appointmentSubjects} from '@/modules/redirects/data/appointmentSubjects'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 
 export const MakeAppointmentScreen = () => {
   const openWebUrl = useOpenWebUrl()
+  const {data: redirectUrls} = useGetRedirectUrlsQuery()
 
   return (
     <Screen testID="RedirectsMakeAppointmentScreen">
@@ -53,11 +55,13 @@ export const MakeAppointmentScreen = () => {
                     )}
                     {!!links?.length && (
                       <Column gutter="md">
-                        {links.map(({label, url}) => (
+                        {links.map(({label, urlKey}) => (
                           <Link
                             key={label}
                             label={label}
-                            onPress={() => openWebUrl(url)}
+                            onPress={() =>
+                              redirectUrls && openWebUrl(redirectUrls[urlKey])
+                            }
                             testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
                             variant="external"
                           />
