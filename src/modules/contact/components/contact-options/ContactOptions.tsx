@@ -1,4 +1,4 @@
-import {Key} from 'react'
+import {Key, useMemo} from 'react'
 import {
   TopTaskButton,
   TopTaskButtonProps,
@@ -29,14 +29,13 @@ type ContactOption = {
 const getContactOptions = (
   openPhoneUrl: OpenPhoneUrl,
   openWebUrl: OpenWebUrl,
-  contactFormUrl: string,
 ): ContactOption[] => [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
     iconName: 'email',
     key: 'email',
-    onPress: () => openWebUrl(contactFormUrl),
+    onPress: () => openWebUrl(CONTACT_FORM),
     testID: 'ContactContactFormButton',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
@@ -76,10 +75,9 @@ export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
 
-  const contactOptions = getContactOptions(
-    openPhoneUrl,
-    openWebUrl,
-    CONTACT_FORM,
+  const contactOptions = useMemo(
+    () => getContactOptions(openPhoneUrl, openWebUrl),
+    [openPhoneUrl, openWebUrl],
   )
 
   return (
