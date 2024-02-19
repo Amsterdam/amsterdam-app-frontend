@@ -14,5 +14,9 @@ export const addAppParamsToUrl = (url: string, slug?: ModuleSlug) => {
     app_module: slug,
   })
 
-  return `${url}${url.includes('?') ? '&' : '?'}${appParams}`
+  const [baseUrl, hash] = url.split('#')
+  const hashString = hash ? `#${hash}` : ''
+  const queryString = `${baseUrl.includes('?') ? '&' : '?'}${appParams}`
+
+  return `${baseUrl}${queryString}${hashString}`
 }

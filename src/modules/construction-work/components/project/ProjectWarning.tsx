@@ -2,6 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {
@@ -34,6 +35,8 @@ export const ProjectWarning = ({id, projectId}: Props) => {
           }
         : skipToken,
     )
+
+  useSetScreenTitle(projectData?.title)
 
   if (projectIsLoading || warningIsLoading) {
     return <PleaseWait />
