@@ -13,6 +13,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -22,7 +23,10 @@ import {
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
-import {useNoLocationPermissionForAndroid} from '@/modules/address/slice'
+import {
+  selectLocationTypePerModule,
+  useNoLocationPermissionForAndroid,
+} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
   setNoLocationPermissionForAndroid,
@@ -30,6 +34,8 @@ import {
 } from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
+import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
+import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
 import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
@@ -55,6 +61,7 @@ export const SelectLocationTypeBottomSheet = ({
   slug,
 }: Props) => {
   const dispatch = useDispatch()
+  const locationType = useSelector(selectLocationTypePerModule)?.[slug]
   const address = useAddress()
 
   const {navigate} = useNavigation<AddressModalName>()
@@ -65,6 +72,11 @@ export const SelectLocationTypeBottomSheet = ({
 
   const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
   const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
+
+  const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
+    logAction: PiwikAction.locationOrAddressSelectionChange,
+    logName: 'BottomSheetAddressOrLocationSelect',
+  })
 
   const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
   const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
@@ -91,6 +103,14 @@ export const SelectLocationTypeBottomSheet = ({
       }),
     )
 
+    if (locationType && locationType !== 'address') {
+      onEvent(undefined, {
+        dimensions: {
+          [PiwikDimension.newState]: 'address',
+        },
+      })
+    }
+
     if (!address) {
       navigate(AddressModalName.addressForm)
 
@@ -98,7 +118,15 @@ export const SelectLocationTypeBottomSheet = ({
     }
 
     closeBottomSheet()
-  }, [address, closeBottomSheet, dispatch, navigate, slug])
+  }, [
+    address,
+    closeBottomSheet,
+    dispatch,
+    locationType,
+    navigate,
+    onEvent,
+    slug,
+  ])
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
@@ -155,6 +183,14 @@ export const SelectLocationTypeBottomSheet = ({
         }),
       )
 
+      if (locationType && locationType !== 'location') {
+        onEvent(undefined, {
+          dimensions: {
+            [PiwikDimension.newState]: 'location',
+          },
+        })
+      }
+
       closeBottomSheet()
     },
     [
@@ -162,9 +198,11 @@ export const SelectLocationTypeBottomSheet = ({
       currentCoordinates,
       dispatch,
       slug,
+      locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
       getCurrentCoordinates,
+      onEvent,
     ],
   )
 
@@ -225,6 +263,7 @@ export const SelectLocationTypeBottomSheet = ({
             )}
           </Row>
           <AddressTopTaskButton
+            logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
             onPress={onPressAddressButton}
             testID="BottomSheetSelectAddressButton"
           />
@@ -233,6 +272,7 @@ export const SelectLocationTypeBottomSheet = ({
             hasLocationPermission={hasLocationPermission}
             hasTechnicalError={hasLocationTechnicalError}
             loading={requestingCurrentCoordinates}
+            logName={`BottomSheetSelectLocationButton${hasLocationPermission && currentCoordinates ? 'SelectLocation' : 'AddLocation'}`}
             onPress={onPressLocationButton}
             testID="BottomSheetSelectLocationButton"
           />

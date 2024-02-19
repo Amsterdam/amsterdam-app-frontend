@@ -1,8 +1,9 @@
 import {useCallback} from 'react'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {Coordinates} from '@/modules/address/types'
+import {type LogProps} from '@/processes/piwik/types'
 
 type Props = {
   coordinates?: Coordinates
@@ -11,7 +12,8 @@ type Props = {
   hasTitleIcon?: boolean
   loading?: boolean
   onPress: (hasValidAddressData: boolean) => void
-} & TestProps
+} & TestProps &
+  LogProps
 
 const getText = (
   loading: boolean,
@@ -37,6 +39,7 @@ export const LocationTopTaskButton = ({
   loading = false,
   onPress,
   testID,
+  ...props
 }: Props) => {
   const {firstAddress: address, isFetching: addressForCoordinatesIsFetching} =
     useAddressForCoordinates({coordinates})
@@ -59,6 +62,7 @@ export const LocationTopTaskButton = ({
       text={getText(isLoading, hasLocationPermission, address?.addressLine1)}
       title="Mijn huidige locatie"
       titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
+      {...props}
     />
   )
 }
