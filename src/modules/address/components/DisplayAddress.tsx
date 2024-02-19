@@ -31,7 +31,8 @@ const AddressDeleteButton = ({
     return (
       <SwipeToDelete
         onEvent={onDelete}
-        showIcon={false}>
+        showIcon={false}
+        testID="AddressDeleteSwiper">
         <Row>
           {children}
           <Button
@@ -81,6 +82,9 @@ export const DisplayAddress = () => {
             accessibilityHint="Tik om het adres te wijzigen"
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
             iconName="location"
+            logName={
+              address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
+            }
             onPress={() => navigation.navigate(AddressModalName.addressForm)}
             testID="AddressAddButton"
             text={address?.addressLine1 ?? 'Vul een adres in'}
