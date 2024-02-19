@@ -8,5 +8,5 @@ export const getCollectionPointsMapUrl = (
   const location = `${lat.toFixed(5)}/${lon.toFixed(5)}`
   const center = `${lat.toFixed(5)},${lon.toFixed(5)}`
 
-  return `${wasteCollectionPointsUrl}/#13/${location}/brt/14324///${center}`
+  return `${wasteCollectionPointsUrl}/#13/${location}/brt/26795///${center}`
 }

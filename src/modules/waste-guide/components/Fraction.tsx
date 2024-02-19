@@ -125,7 +125,7 @@ export const Fraction = ({fraction, testID}: Props) => {
             <InlineLink
               onPress={() => openWebUrl(collectionPointsMapUrl)}
               testID={`${testID}CollectionPointsLink`}>
-              Kaart met afvalpunten in de buurt
+              Kaart met recyclepunten in de buurt
             </InlineLink>
           )}
         </Column>
