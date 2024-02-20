@@ -67,7 +67,7 @@ export const ArticlePreview = ({
         onPress={onPress}
         style={styles.button}>
         <Column gutter="sm">
-          <View style={!isNewAndUnreadArticle && styles.dateLine}>
+          <View style={styles.dateLine}>
             <Row
               gutter="sm"
               valign="center">
