@@ -11,7 +11,7 @@ import {StoreProvider} from '@/providers/store.provider'
 it('Button renders correctly', () => {
   renderer.create(
     <StoreProvider>
-      <Button />
+      <Button testID="Button" />
     </StoreProvider>,
   )
 })

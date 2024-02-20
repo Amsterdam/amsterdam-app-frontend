@@ -22,12 +22,13 @@ export const HomeScreen = () => {
   const {isPortrait} = useDeviceContext()
 
   if (modulesLoading) {
-    return <PleaseWait />
+    return <PleaseWait testID="HomeLoadingSpinner" />
   }
 
   if (modulesError) {
     return (
       <Screen
+        testID="HomeErrorScreen"
         withLeftInset={isPortrait}
         withRightInset={isPortrait}>
         <FullScreenError
@@ -65,7 +66,8 @@ export const HomeScreen = () => {
             </Box>
           </ProductTourTipWrapper>
         </View>
-      }>
+      }
+      testID="HomeScreen">
       <Modules />
     </Screen>
   )

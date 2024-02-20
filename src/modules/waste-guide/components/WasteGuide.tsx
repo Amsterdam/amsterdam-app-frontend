@@ -51,7 +51,7 @@ export const WasteGuide = () => {
     getGarbageCollectionAreaQueryIsFetching ||
     selectedAddressForWasteGuideIsFetching
   ) {
-    return <PleaseWait />
+    return <PleaseWait testID="WasteGuideLoadingSpinner" />
   }
 
   if (
@@ -117,6 +117,7 @@ export const WasteGuide = () => {
           Image={<HouseholdWasteToContainerImage />}
           imageAspectRatio={media.illustrationAspectRatio.landscape}
           imageWidth={media.illustrationWidth.wide}
+          testID="WasteGuideBackground"
         />
       ) : (
         <FigureWithFacadesBackground
@@ -125,6 +126,7 @@ export const WasteGuide = () => {
           imageAspectRatio={media.illustrationAspectRatio.portrait}
           imageWidth={media.illustrationWidth.narrow}
           moveUp={isLandscape ? 128 : undefined}
+          testID="WasteGuideNotFoundBackground"
         />
       )}
     </Column>

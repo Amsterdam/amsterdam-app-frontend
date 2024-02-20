@@ -56,7 +56,7 @@ const ModuleSettingContent = ({
             color={color}
             name="construction-work"
             size="lg"
-            testID={testID ? `${testID}Icon` : undefined}
+            testID={`${testID}Icon`}
           />
         ) : (
           !!iconName && (
@@ -64,7 +64,7 @@ const ModuleSettingContent = ({
               color={color}
               name={iconName}
               size="lg"
-              testID={testID ? `${testID}Icon` : undefined}
+              testID={`${testID}Icon`}
             />
           )
         )}

@@ -12,7 +12,7 @@ type Props = {
   maxCharacters?: number
   numberOfLines?: number
   placeholder: string
-} & Required<TestProps> &
+} & TestProps &
   UseControllerProps &
   Pick<TextInputProps, 'autoFocus'>
 

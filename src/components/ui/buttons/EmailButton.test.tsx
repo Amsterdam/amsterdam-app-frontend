@@ -11,7 +11,10 @@ import {StoreProvider} from '@/providers/store.provider'
 it('EmailButton renders correctly', () => {
   renderer.create(
     <StoreProvider>
-      <EmailButton email="test" />
+      <EmailButton
+        email="test"
+        testID="EmailButton"
+      />
     </StoreProvider>,
   )
 })

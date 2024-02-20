@@ -205,6 +205,7 @@ const LiMarker = () => {
     <ListItemMarker
       additionalStyles={styles.marker}
       marker="square"
+      testID="ListItemMarker"
     />
   )
 }
@@ -235,7 +236,9 @@ const ARenderer: CustomMixedRenderer = props => {
   const {TNodeChildrenRenderer} = props
 
   return (
-    <InlineLink onPress={() => openUrl(href)}>
+    <InlineLink
+      onPress={() => openUrl(href)}
+      testID="HtmlRendererAInlineLink">
       <TNodeChildrenRenderer {...props} />
     </InlineLink>
   )

@@ -22,11 +22,17 @@ type DeleteButtonProps = {
 } & LogProps &
   TestProps
 
-const DeleteButton = ({onPress, showIcon, ...props}: DeleteButtonProps) => (
+const DeleteButton = ({
+  onPress,
+  showIcon,
+  testID,
+  ...props
+}: DeleteButtonProps) => (
   <Pressable
     accessibilityElementsHidden
     inset="md"
     onPress={onPress}
+    testID={testID}
     variant="negative"
     {...props}>
     <Column
@@ -38,6 +44,7 @@ const DeleteButton = ({onPress, showIcon, ...props}: DeleteButtonProps) => (
         valign="center">
         <Phrase
           color="inverse"
+          testID={`${testID}Phrase`}
           variant="small">
           Verwijder
         </Phrase>
@@ -46,6 +53,7 @@ const DeleteButton = ({onPress, showIcon, ...props}: DeleteButtonProps) => (
             color="inverse"
             name="trash-bin"
             size="lg"
+            testID={`${testID}Icon`}
           />
         )}
       </Row>

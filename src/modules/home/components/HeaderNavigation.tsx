@@ -23,6 +23,7 @@ export const HeaderNavigation = () => {
             <Icon
               name="api"
               {...iconProps}
+              testID="HeaderEnvironmentIcon"
             />
           }
           onPress={() => navigation.navigate(HomeRouteName.admin)}
@@ -35,6 +36,7 @@ export const HeaderNavigation = () => {
           <Icon
             name="person"
             {...iconProps}
+            testID="HeaderUserIcon"
           />
         }
         onPress={() => navigation.navigate(ModuleSlug.user)}
@@ -46,6 +48,7 @@ export const HeaderNavigation = () => {
           <Icon
             name="settings"
             {...iconProps}
+            testID="HeaderModuleSettingsIcon"
           />
         }
         onPress={() => navigation.navigate(HomeRouteName.settings)}

@@ -3,6 +3,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
@@ -18,7 +19,7 @@ import {formatEnumeration} from '@/utils/formatEnumeration'
 
 type Props = {
   fraction: WasteGuideResponseFraction
-}
+} & TestProps
 
 /**
  * Show the notification if we have content a start date and an end date and the current date is between (or equal to) the start and end date.
@@ -56,7 +57,7 @@ const getBuitenzettenContent = ({
   return `${afvalwijzerBuitenzettenVanaf} ${afvalwijzerBuitenzettenTot}`
 }
 
-export const Fraction = ({fraction}: Props) => {
+export const Fraction = ({fraction, testID}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {
     bulkyWasteAppointmentUrl,
@@ -85,7 +86,10 @@ export const Fraction = ({fraction}: Props) => {
       <Row
         gutter="sm"
         valign="center">
-        <WasteFractionIcon fractionCode={afvalwijzerFractieCode} />
+        <WasteFractionIcon
+          fractionCode={afvalwijzerFractieCode}
+          testID={`${testID}Icon`}
+        />
         <Title
           accessibilityLabel={accessibleText(afvalwijzerFractieNaam)}
           level="h4"
@@ -94,7 +98,10 @@ export const Fraction = ({fraction}: Props) => {
       </Row>
       {showTimeBoundNotification(fraction) && (
         <TimeboundNotification>
-          <FractionContent content={afvalwijzerAfvalkalenderMelding} />
+          <FractionContent
+            content={afvalwijzerAfvalkalenderMelding}
+            testID={`${testID}Content`}
+          />
         </TimeboundNotification>
       )}
       <Column gutter="md">
@@ -104,16 +111,20 @@ export const Fraction = ({fraction}: Props) => {
               buttonLabel={afvalwijzerButtontekst}
               buttonUrl={buttonUrl}
               sectionTitle="Hoe"
+              testID={`${testID}HowSection`}
               withPhoneButton={!seenonsUrl}
             />
           ) : (
             <FractionSection
               content={afvalwijzerInstructie2}
               sectionTitle="Hoe"
+              testID={`${testID}HowSection`}
             />
           )}
           {!!collectionPointsMapUrl && (
-            <InlineLink onPress={() => openWebUrl(collectionPointsMapUrl)}>
+            <InlineLink
+              onPress={() => openWebUrl(collectionPointsMapUrl)}
+              testID={`${testID}CollectionPointsLink`}>
               Kaart met afvalpunten in de buurt
             </InlineLink>
           )}
@@ -127,20 +138,26 @@ export const Fraction = ({fraction}: Props) => {
               : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
           )}
           sectionTitle="Ophaaldag"
+          testID={`${testID}DaySection`}
         />
         <FractionSection
           content={getBuitenzettenContent(fraction)}
           sectionTitle="Buitenzetten"
+          testID={`${testID}OutsideSection`}
         />
         <FractionSection
           content={afvalwijzerWaar}
           sectionTitle="Waar"
+          testID={`${testID}WhereSection`}
           url={containerMapUrl}
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
         <Attention>
-          <FractionContent content={afvalwijzerAfvalkalenderOpmerking} />
+          <FractionContent
+            content={afvalwijzerAfvalkalenderOpmerking}
+            testID={`${testID}RemarksContent`}
+          />
         </Attention>
       )}
     </Column>

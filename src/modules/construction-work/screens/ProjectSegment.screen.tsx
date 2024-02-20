@@ -20,14 +20,24 @@ export const ProjectSegmentScreen = ({route}: Props) => {
   useSetScreenTitle()
 
   return (
-    <Screen>
+    <Screen testID="ConstructionWorkProjectSegmentScreen">
       <Column gutter="md">
         <Box>
           <Column gutter="md">
             <Title text={title} />
             {!!contacts && <ProjectContacts contacts={contacts} />}
-            {!!sections && <ProjectContentSections sections={sections} />}
-            {!!timeline?.intro && <HtmlContent content={timeline.intro} />}
+            {!!sections && (
+              <ProjectContentSections
+                sections={sections}
+                testID="ConstructionWorkProjectSections"
+              />
+            )}
+            {!!timeline?.intro && (
+              <HtmlContent
+                content={timeline.intro}
+                testID="ConstructionWorkProjectIntro"
+              />
+            )}
             {timeline?.items && timeline?.items?.length > 0 && (
               <Timeline
                 items={timeline.items}

@@ -113,6 +113,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             title: 'Niet gelukt',
             text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
           },
+          testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
           variant: AlertVariant.negative,
           withIcon: false,
         }),
@@ -129,6 +130,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           height={media.figureHeight.md}
           Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.aspectRatio.extraWide}
+          testID="ConstructionWorkEditorConfirmBackground"
         />
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}
@@ -164,7 +166,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           </Column>
         </Box>
       }
-      stickyHeader={<Alert />}>
+      stickyHeader={<Alert />}
+      testID="ConstructionWorkEditorConfirmMessageScreen">
       <Box>
         <Column gutter="lg">
           <Column gutter="md">
@@ -179,7 +182,11 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             <Column gutter="sm">
               <Checkbox
                 accessibilityLabel="Wil je ook een pushbericht versturen?"
-                label={<Phrase>Wil je ook een pushbericht versturen?</Phrase>}
+                label={
+                  <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckboxPhrase">
+                    Wil je ook een pushbericht versturen?
+                  </Phrase>
+                }
                 onValueChange={() => togglePushNotificationChecked()}
                 testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckbox"
                 value={isPushNotificationChecked}
@@ -190,7 +197,9 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
                     level="h5"
                     text={project.title}
                   />
-                  <Phrase>{message.title}</Phrase>
+                  <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationPreviewMessage">
+                    {message.title}
+                  </Phrase>
                 </Column>
               )}
             </Column>

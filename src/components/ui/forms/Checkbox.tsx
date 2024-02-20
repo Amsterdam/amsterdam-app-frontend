@@ -24,7 +24,7 @@ type Props = {
   labelPosition?: MainAxisPosition
   onValueChange: () => void
   value: boolean
-} & Required<TestProps> &
+} & TestProps &
   Pick<AccessibilityProps, 'accessibilityLabel'> &
   LogProps
 
@@ -71,6 +71,7 @@ export const Checkbox = ({
             <Icon
               color="inverse"
               name="checkmark"
+              testID={`${testID}Icon`}
             />
           )}
         </View>

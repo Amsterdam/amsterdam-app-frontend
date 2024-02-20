@@ -86,13 +86,15 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
             />
           </Row>
         </Box>
-      }>
+      }
+      testID="ConstructionWorkEditorAddMainImageToMessageScreen">
       <Box>
         <Column gutter="md">
           <Title text="Foto toevoegen" />
           <ImagePreview
             image={image}
             onPress={resetAndGoBack}
+            testID="ConstructionWorkEditorAddMainImagePreview"
           />
           <FormProvider {...form}>
             <TextInputField

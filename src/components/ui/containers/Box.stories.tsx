@@ -28,6 +28,6 @@ export default {
 
 export const Default: ComponentStory<typeof Box> = args => (
   <Box {...args}>
-    <Phrase>I’m a box.</Phrase>
+    <Phrase testID="Phrase">I’m a box.</Phrase>
   </Box>
 )

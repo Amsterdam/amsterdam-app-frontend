@@ -55,7 +55,8 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
     <Screen
       keyboardAware
       scroll
-      stickyHeader={<Alert />}>
+      stickyHeader={<Alert />}
+      testID="ConstructionWorkEditorCreateMessageScreen">
       <Column
         align="between"
         gutter="xl">

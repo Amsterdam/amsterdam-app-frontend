@@ -14,7 +14,7 @@ export const ConstructionWorkScreen = () => {
   const isFocused = useIsFocusedEffect()
 
   if (selectedAddressForConstructionWorkIsFetching) {
-    return <PleaseWait />
+    return <PleaseWait testID="ConstructionWorkLoadingSpinner" />
   }
 
   return isFocused ? (
@@ -28,6 +28,7 @@ export const ConstructionWorkScreen = () => {
         />
       }
       scroll={false}
+      testID="ConstructionWorkScreen"
       withBottomInset={false}
       withLeftInset={false}
       withRightInset={false}>

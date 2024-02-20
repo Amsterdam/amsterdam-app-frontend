@@ -173,7 +173,7 @@ export const ProjectsList = ({
       keyExtractor={keyExtractor}
       ListEmptyComponent={
         isLoading ? (
-          <PleaseWait />
+          <PleaseWait testID="ConstructionWorkListLoadingSpinner" />
         ) : searchText !== '' ? (
           <ListEmptyMessage
             testID="ConstructionWorkListEmptyMessage"

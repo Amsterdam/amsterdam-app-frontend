@@ -12,7 +12,7 @@ export const SelectCityOffice = () => {
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
 
   if (isLoading || !cityOffices) {
-    return <PleaseWait />
+    return <PleaseWait testID="ContactSelectCityOfficesLoadingSpinner" />
   }
 
   return (

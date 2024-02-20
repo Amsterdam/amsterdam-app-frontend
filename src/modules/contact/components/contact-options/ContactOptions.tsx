@@ -8,6 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
 import {OpenPhoneUrl, useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {OpenWebUrl, useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {CONTACT_FORM} from '@/modules/contact/external-links'
@@ -22,9 +23,10 @@ type ContactOption = {
 } & Partial<
   Pick<
     TopTaskButtonProps,
-    'accessibilityHint' | 'accessibilityLabel' | 'testID' | 'onPress'
+    'accessibilityHint' | 'accessibilityLabel' | 'onPress'
   >
->
+> &
+  TestProps
 
 const getContactOptions = (
   openPhoneUrl: OpenPhoneUrl,

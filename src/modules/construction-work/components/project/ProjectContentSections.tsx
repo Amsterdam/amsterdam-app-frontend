@@ -1,13 +1,14 @@
 import {Column} from '@/components/ui/layout/Column'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
 import {ProjectSection} from '@/modules/construction-work/types/api'
 
 type Props = {
   sections: ProjectSection[]
-}
+} & TestProps
 
-export const ProjectContentSections = ({sections}: Props) =>
+export const ProjectContentSections = ({sections, testID}: Props) =>
   sections.map(({body, title}) =>
     body ? (
       <Column
@@ -19,7 +20,12 @@ export const ProjectContentSections = ({sections}: Props) =>
             text={title}
           />
         )}
-        {!!body && <HtmlContent content={body} />}
+        {!!body && (
+          <HtmlContent
+            content={body}
+            testID={testID}
+          />
+        )}
       </Column>
     ) : null,
   )

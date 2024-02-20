@@ -3,13 +3,15 @@ import {ScaledSize, StyleSheet, View, ViewStyle} from 'react-native'
 import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ListMarkerGlyph, ListMarkerProp} from '@/components/ui/text/list/types'
+import {TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
   additionalStyles?: ViewStyle
-} & ListMarkerProp
+} & ListMarkerProp &
+  TestProps
 
-export const ListItemMarker = ({additionalStyles, marker}: Props) => {
+export const ListItemMarker = ({additionalStyles, marker, testID}: Props) => {
   const {fontScale} = useDeviceContext()
   const styles = useMemo(
     () => createListItemMarkerStyles(fontScale),
@@ -20,7 +22,8 @@ export const ListItemMarker = ({additionalStyles, marker}: Props) => {
     <View style={[styles.marker, additionalStyles]}>
       <Phrase
         accessible={false}
-        importantForAccessibility="no">
+        importantForAccessibility="no"
+        testID={testID}>
         {ListMarkerGlyph[marker]}
       </Phrase>
     </View>

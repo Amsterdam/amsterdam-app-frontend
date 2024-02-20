@@ -22,7 +22,7 @@ export const CityOffice = () => {
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
 
   if (isLoading || !cityOffices) {
-    return <PleaseWait />
+    return <PleaseWait testID="ContactCityOfficesLoadingSpinner" />
   }
 
   const cityOfficeId = selectedCityOfficeId ?? cityOffices[0]?.identifier

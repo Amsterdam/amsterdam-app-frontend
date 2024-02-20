@@ -49,6 +49,7 @@ export const Radio = ({
   label,
   isSelected,
   onPress,
+  testID,
   ...pressableProps
 }: RadioProps) => (
   <PressableBase
@@ -56,12 +57,13 @@ export const Radio = ({
     accessibilityLanguage="nl-NL"
     accessibilityRole="radio"
     accessibilityState={{selected: isSelected}}
-    onPress={onPress}>
+    onPress={onPress}
+    testID={testID}>
     <Row
       gutter="sm"
       valign="center">
       <RadioIndicator checked={isSelected} />
-      <Phrase>{label}</Phrase>
+      <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
     </Row>
   </PressableBase>
 )

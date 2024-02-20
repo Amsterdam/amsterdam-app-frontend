@@ -40,7 +40,10 @@ export const _Inline: Story<typeof Row> = {
   args: {align: 'start'},
   render: ({align}) => (
     <Row align={align}>
-      <Button label="Inline button" />
+      <Button
+        label="Inline button"
+        testID="Button"
+      />
     </Row>
   ),
 }
@@ -54,13 +57,18 @@ export const __Alignment: Story<typeof Row> = {
     <Row
       align={align}
       gutter={gutter}>
-      <Button label="First button" />
+      <Button
+        label="First button"
+        testID="Button"
+      />
       <Button
         label="Second button"
+        testID="Button"
         variant="secondary"
       />
       <Button
         label="Third button"
+        testID="Button"
         variant="tertiary"
       />
     </Row>
@@ -77,7 +85,10 @@ export const __WithIcon: Story = {
   },
   render: args => (
     <Row align="start">
-      <Button {...args} />
+      <Button
+        {...args}
+        testID="Button"
+      />
     </Row>
   ),
 }

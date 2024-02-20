@@ -32,7 +32,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   }
 
   if (isLoading || !waitingTimes) {
-    return <PleaseWait />
+    return <PleaseWait testID="ContactCityOfficeWaitingTimesLoadingSpinner" />
   }
 
   const waitingTimesForCityOffice = waitingTimes.find(
@@ -54,6 +54,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon
             name="two-persons"
             size="xl"
+            testID="ContactCityOfficeQueueIcon"
           />
           <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
         </Row>
@@ -63,6 +64,7 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
           <Icon
             name="clock"
             size="xl"
+            testID="ContactCityOfficeTimeIcon"
           />
           <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
         </Row>

@@ -3,6 +3,7 @@ import {Switch as SwitchRN, SwitchProps as SwitchRNProps} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
+import {TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
@@ -13,7 +14,8 @@ type Props = {
   onChange?: () => void
   wrapper?: ElementType
 } & Omit<SwitchRNProps, 'onChange'> &
-  LogProps
+  LogProps &
+  TestProps
 
 /**
  * Wraps a switch with its label in a row and takes care of accessibility.

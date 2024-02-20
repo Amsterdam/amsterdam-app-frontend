@@ -8,6 +8,7 @@ type Props = NavigationProps<ConstructionWorkRouteName.project>
 
 export const ProjectScreen = ({route}: Props) => (
   <Screen
+    testID="ConstructionWorkProjectScreen"
     trackScroll={[Tip.constructionWorkProjectFollowButton]}
     withLeftInset={false}
     withRightInset={false}>

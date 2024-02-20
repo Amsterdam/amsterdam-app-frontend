@@ -22,6 +22,7 @@ export const StreetSearchResult = ({
           color="link"
           name="spinner"
           size="lg"
+          testID="AddressStreetSearchResultLoadingIcon"
         />
       </Box>
     )
@@ -31,6 +32,7 @@ export const StreetSearchResult = ({
     return (
       <Box insetVertical="md">
         <EmptyMessage
+          testID="AddressStreetSearchNoResultsMessage"
           text="Straatnaam niet gevonden. Controleer uw spelling of probeer een adres
         in de buurt."
         />

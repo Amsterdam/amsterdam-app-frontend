@@ -85,7 +85,7 @@ export const Projects = ({addressParam, HeaderButton}: Props) => {
       byDistance={!!addressParam}
       listHeader={
         <ProjectsListHeader>
-          <SearchFieldNavigator />
+          <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
           {HeaderButton}
         </ProjectsListHeader>
       }

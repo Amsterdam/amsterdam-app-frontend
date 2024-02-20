@@ -65,7 +65,8 @@ export const ArticlePreview = ({
       <PressableBase
         accessibilityRole="button"
         onPress={onPress}
-        style={styles.button}>
+        style={styles.button}
+        testID={`${testID}Button`}>
         <Column gutter="sm">
           <View style={styles.dateLine}>
             <Row
@@ -77,7 +78,7 @@ export const ArticlePreview = ({
                   <Paragraph>Nieuw</Paragraph>
                 </View>
               )}
-              <Paragraph testID={testID ? `${testID}Date` : undefined}>
+              <Paragraph testID={`${testID}Date`}>
                 {formatDateToDisplay(article.publication_date)}
               </Paragraph>
             </Row>
@@ -103,7 +104,7 @@ export const ArticlePreview = ({
                     height={imageHeight}
                     Image={<ProjectWarningFallbackImage />}
                     imageAspectRatio={media.aspectRatio.extraWide}
-                    testID={testID ? `${testID}Image` : undefined}
+                    testID={`${testID}Image`}
                   />
                 )}
               </View>

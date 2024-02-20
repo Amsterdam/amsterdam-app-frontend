@@ -97,6 +97,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
                   <Icon
                     name="close"
                     size="lg"
+                    testID={`${testID}ClearIcon`}
                   />
                 }
                 onPress={handleClearText}

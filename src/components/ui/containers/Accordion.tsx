@@ -130,6 +130,7 @@ export const Accordion = ({
                 color="link"
                 name={iconName}
                 size="lg"
+                testID={`${testID}Icon`}
               />
             </Size>
           }

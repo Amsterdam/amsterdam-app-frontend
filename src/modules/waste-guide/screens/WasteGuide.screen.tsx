@@ -26,6 +26,7 @@ export const WasteGuideScreen = () => {
         />
       }
       scroll={!shouldRequestLocation}
+      testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
       {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}

@@ -22,7 +22,12 @@ Default.args = {
 
 export const WithBadge: ComponentStoryObj<typeof Trait> = {
   args: {
-    children: <Badge value={7} />,
+    children: (
+      <Badge
+        testID="Badge"
+        value={7}
+      />
+    ),
     label: 'berichten',
   },
 }

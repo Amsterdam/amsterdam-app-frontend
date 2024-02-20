@@ -19,7 +19,7 @@ export default {
 
 export const Default: ComponentStory<typeof Center> = args => (
   <Center {...args}>
-    <Phrase>Ik sta in het midden</Phrase>
+    <Phrase testID="Phrase">Ik sta in het midden</Phrase>
   </Center>
 )
 

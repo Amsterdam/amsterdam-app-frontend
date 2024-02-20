@@ -4,6 +4,7 @@ import {
   WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
@@ -16,7 +17,8 @@ type Props = {
 } & Omit<
   WebViewRNProps,
   'renderLoading' | 'source' | 'startInLoadingState' | 'style'
->
+> &
+  TestProps
 
 const webViewInjection = (fontScale: number, injectedJavaScript?: string) => {
   const iosFontScaleScript = `
@@ -37,6 +39,7 @@ export const WebView = ({
   url,
   urlParams,
   injectedJavaScript,
+  testID,
   ...webViewProps
 }: Props) => {
   const {isPortrait, fontScale} = useDeviceContext()
@@ -49,7 +52,7 @@ export const WebView = ({
 
   return (
     <WebViewRN
-      renderLoading={() => <PleaseWait />}
+      renderLoading={() => <PleaseWait testID={testID} />}
       source={{uri: urlWithParams}}
       startInLoadingState
       style={

@@ -1,3 +1,4 @@
+import {Fragment} from 'react'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -12,7 +13,9 @@ const InlineLinkWasteContainer = () => {
   const openWebUrl = useOpenWebUrl()
 
   return (
-    <InlineLink onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}>
+    <InlineLink
+      onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}
+      testID="WasteGuideBusinessesLink">
       onze website.
     </InlineLink>
   )
@@ -20,6 +23,7 @@ const InlineLinkWasteContainer = () => {
 
 export const ContactCollector = () => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const Container = isScreenReaderEnabled ? Column : Fragment
 
   return (
     <Column gutter="md">
@@ -27,17 +31,12 @@ export const ContactCollector = () => {
         level="h5"
         text="Neem contact op met uw afvalinzamelaar"
       />
-      {isScreenReaderEnabled ? (
-        <Column>
-          <Phrase>Of kijk voor meer informatie over bedrijfsafval op </Phrase>
-          <InlineLinkWasteContainer />
-        </Column>
-      ) : (
-        <Phrase>
+      <Container>
+        <Phrase testID="WasteGuideBusinessesInfoPhrase">
           Of kijk voor meer informatie over bedrijfsafval op{' '}
-          <InlineLinkWasteContainer />.
         </Phrase>
-      )}
+        <InlineLinkWasteContainer />.
+      </Container>
     </Column>
   )
 }

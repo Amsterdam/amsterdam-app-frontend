@@ -36,7 +36,8 @@ export class CustomErrorBoundary extends Component<Props, State> {
         <PressableBase
           accessibilityRole="button"
           onPress={() => RNRestart.Restart()}
-          style={button}>
+          style={button}
+          testID="ErrorBoundaryRestartButton">
           <Text style={[text, buttonText]}>Herstart de app</Text>
         </PressableBase>
       </SafeAreaView>

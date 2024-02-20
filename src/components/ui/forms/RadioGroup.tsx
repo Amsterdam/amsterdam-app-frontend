@@ -59,9 +59,7 @@ export const RadioGroup = <T extends RadioValue>({
                 : {},
             )
           }
-          testID={
-            testID ? `${testID}${optionValue.toString()}RadioButton` : undefined
-          }
+          testID={`${testID}${optionValue.toString()}RadioButton`}
         />
       ))}
     </Column>

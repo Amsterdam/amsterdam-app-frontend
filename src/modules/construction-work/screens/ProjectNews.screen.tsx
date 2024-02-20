@@ -12,6 +12,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
 
   return (
     <Screen
+      testID="ConstructionWorkProjectNewsScreen"
       withLeftInset={false}
       withRightInset={false}>
       <ProjectNews

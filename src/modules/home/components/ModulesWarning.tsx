@@ -19,6 +19,7 @@ export const ModulesWarning = ({onRetry, text}: Props) => (
       <Button
         label="Probeer opnieuw"
         onPress={onRetry}
+        testID="HomeModulesWarningRetryButton"
       />
     )}
   </Box>

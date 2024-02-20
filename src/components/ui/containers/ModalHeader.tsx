@@ -40,6 +40,7 @@ export const ModalHeader = ({testID, title}: Props) => {
               color="link"
               name="close"
               size={closeIconSize}
+              testID={`${testID}Icon`}
             />
           }
           onPress={navigation.goBack}

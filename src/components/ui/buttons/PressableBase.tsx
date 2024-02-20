@@ -7,13 +7,15 @@ import {
   View,
   GestureResponderEvent,
 } from 'react-native'
+import {TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
 
 export type PressableBaseProps = {
   'sentry-label'?: string
 } & PressableRNProps &
-  LogProps
+  LogProps &
+  TestProps
 
 /**
  * Used to build other interactive components, do not use on its own.

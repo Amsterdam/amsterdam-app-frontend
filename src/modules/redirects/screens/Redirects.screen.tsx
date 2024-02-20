@@ -7,7 +7,7 @@ import {Redirects} from '@/modules/redirects/components/Redirects'
 import {ReferToWebsite} from '@/modules/redirects/components/ReferToWebsite'
 
 export const RedirectsScreen = () => (
-  <Screen>
+  <Screen testID="RedirectsScreen">
     <Box>
       <Column gutter="lg">
         <Column gutter="xs">

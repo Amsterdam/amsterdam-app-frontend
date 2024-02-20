@@ -15,9 +15,7 @@ export const Timeline = ({items, testID}: Props) => (
         isLast={index === items.length - 1}
         item={item}
         key={item.title + index.toString()}
-        testID={
-          testID ? `${testID}${pascalCase(item.title)}TimelineItem` : undefined
-        }
+        testID={`${testID}${pascalCase(item.title)}TimelineItem`}
       />
     ))}
   </>

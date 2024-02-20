@@ -25,6 +25,7 @@ export const BadgeValue = () => {
   return (
     <Badge
       accessibilityLabel={simplur`${unreadArticlesLength} ongelezen bericht[|en]`}
+      testID="ConstructionWorkBadge"
       value={unreadArticlesLength}
     />
   )

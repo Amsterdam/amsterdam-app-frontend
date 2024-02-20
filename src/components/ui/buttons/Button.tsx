@@ -69,7 +69,7 @@ export const Button = ({
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
             size="lg"
-            testID={testID ? `${testID}Icon` : undefined}
+            testID={`${testID}Icon`}
           />
         )}
         {!!label && (
@@ -77,7 +77,7 @@ export const Button = ({
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
             style={styles.label}
-            testID={testID ? `${testID}Label` : undefined}>
+            testID={`${testID}Label`}>
             {label}
           </Text>
         )}

@@ -14,6 +14,7 @@ export const ContactConstructionWorkSupport = () => {
         <Button
           label="Neem contact op met de redactie"
           onPress={() => openMailUrl('redactieprojecten@amsterdam.nl')}
+          testID="ConstructionWorkEditorContactRedactionButton"
           variant="secondary"
         />
       </Column>

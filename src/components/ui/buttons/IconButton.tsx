@@ -41,6 +41,7 @@ export const IconButton = forwardRef<View, Props>(
           {badgeValue ? (
             <View style={styles.badgePosition}>
               <Badge
+                testID={`${pressableProps.testID}Badge`}
                 value={badgeValue}
                 variant="on-icon"
               />

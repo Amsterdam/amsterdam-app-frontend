@@ -28,6 +28,7 @@ export const NumberSearchResult = ({
           color="link"
           name="spinner"
           size="lg"
+          testID="AddressNumberSearchResultLoadingIcon"
         />
       </Box>
     )
@@ -36,7 +37,10 @@ export const NumberSearchResult = ({
   if (bagList.length === 0) {
     return (
       <Box insetVertical="md">
-        <EmptyMessage text="Huisnummer niet gevonden. Controleer het huisnummer. Of probeer een ander nummer." />
+        <EmptyMessage
+          testID="AddressNumberSearchNoResultsMessage"
+          text="Huisnummer niet gevonden. Controleer het huisnummer. Of probeer een ander nummer."
+        />
       </Box>
     )
   }

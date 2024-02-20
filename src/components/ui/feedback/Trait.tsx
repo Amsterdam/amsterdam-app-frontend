@@ -23,7 +23,7 @@ type Props = {
    * Should be one or a few words.
    */
   label: string
-} & Required<TestProps>
+} & TestProps
 
 export const Trait = ({
   accessibilityLabel,

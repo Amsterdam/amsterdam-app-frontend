@@ -10,7 +10,7 @@ export default {
 export const Default: ComponentStory<typeof AspectRatio> = args => (
   <AspectRatio {...args}>
     <Canvas highlight>
-      <Phrase>Ik heb een bepaalde beeldverhouding.</Phrase>
+      <Phrase testID="Phrase">Ik heb een bepaalde beeldverhouding.</Phrase>
     </Canvas>
   </AspectRatio>
 )
