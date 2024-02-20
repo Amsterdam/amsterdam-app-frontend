@@ -28,7 +28,6 @@ export const LocationsBox = () => {
           <DisplayAddress />
         </Column>
       </Box>
-
       <Box
         insetHorizontal="md"
         insetVertical="no">
@@ -37,7 +36,7 @@ export const LocationsBox = () => {
             navigation.navigate(AddressModalName.privacyInfo)
           }}
           phraseVariant="small">
-          Zo gebruiken wij uw locatie en adres.
+          Zo gebruiken wij uw locatie en adres
         </InlineLink>
       </Box>
     </Column>

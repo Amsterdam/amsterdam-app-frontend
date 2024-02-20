@@ -67,19 +67,21 @@ export const ArticlePreview = ({
         onPress={onPress}
         style={styles.button}>
         <Column gutter="sm">
-          <Row
-            gutter="md"
-            valign="center">
-            <View style={styles.horizontalLine} />
-            {!!isNewAndUnreadArticle && (
-              <View style={styles.update}>
-                <Paragraph>Nieuw</Paragraph>
-              </View>
-            )}
-            <Paragraph testID={testID ? `${testID}Date` : undefined}>
-              {formatDateToDisplay(article.publication_date)}
-            </Paragraph>
-          </Row>
+          <View style={styles.dateLine}>
+            <Row
+              gutter="sm"
+              valign="center">
+              <View style={styles.horizontalLine} />
+              {!!isNewAndUnreadArticle && (
+                <View style={styles.update}>
+                  <Paragraph>Nieuw</Paragraph>
+                </View>
+              )}
+              <Paragraph testID={testID ? `${testID}Date` : undefined}>
+                {formatDateToDisplay(article.publication_date)}
+              </Paragraph>
+            </Row>
+          </View>
           <Box insetHorizontal="md">
             <Column gutter="sm">
               <Title
@@ -113,9 +115,10 @@ export const ArticlePreview = ({
   )
 }
 
-const lineThickness = 2
-const verticalLineTopWithAlert = 18
-const verticalLineTopWithoutAlert = 15
+const LINE_WIDTH = 2
+const VERTICAL_LINE_TOP_WITH_ALERT = 18
+const VERTICAL_LINE_TOP_WITHOUT_ALERT = 15
+const DATE_LINE_OFFSET = 4
 
 const createStyles =
   (
@@ -126,14 +129,19 @@ const createStyles =
   ({color, size}: Theme) => {
     const itemBottomInset = isLast ? 0 : size.spacing.xl
 
+    const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
+
     return StyleSheet.create({
       button: {
         paddingLeft: size.spacing.md,
       },
+      dateLine: {
+        paddingLeft: dateLineOffset,
+      },
       horizontalLine: {
         position: 'absolute',
-        left: -size.spacing.md,
-        height: lineThickness,
+        left: -(size.spacing.md + dateLineOffset),
+        height: LINE_WIDTH,
         width: size.spacing.md,
         backgroundColor: color.text.default,
       },
@@ -148,12 +156,12 @@ const createStyles =
         position: 'absolute',
         top: isFirst
           ? isNewAndUnreadArticle
-            ? verticalLineTopWithAlert
-            : verticalLineTopWithoutAlert
+            ? VERTICAL_LINE_TOP_WITH_ALERT
+            : VERTICAL_LINE_TOP_WITHOUT_ALERT
           : 0,
         left: 0,
         zIndex: -1,
-        width: lineThickness,
+        width: LINE_WIDTH,
         backgroundColor: color.text.default,
       },
       update: {
