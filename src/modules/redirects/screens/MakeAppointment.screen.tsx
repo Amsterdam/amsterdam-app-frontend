@@ -44,7 +44,7 @@ export const MakeAppointmentScreen = () => {
                     {!!requiresPhoneCall && (
                       <Column gutter="sm">
                         <Paragraph>
-                          Afspraak maken kan alleen telefonisch
+                          Een afspraak maken kan alleen telefonisch.
                         </Paragraph>
                         <Row>
                           <PhoneHQButton />

@@ -37,16 +37,18 @@ export const ModuleSettings = () => {
 
   return (
     <Box>
-      <Paragraph>
-        Hier kun je zelf bepalen welke onderwerpen u wilt zien in de app.
-      </Paragraph>
-      <Column gutter="sm">
-        {toggleableModules.map(module => (
-          <ModuleSetting
-            key={module.slug}
-            module={module}
-          />
-        ))}
+      <Column gutter="md">
+        <Paragraph>
+          Hier kunt u zelf bepalen welke onderwerpen u wilt zien in de app.
+        </Paragraph>
+        <Column gutter="sm">
+          {toggleableModules.map(module => (
+            <ModuleSetting
+              key={module.slug}
+              module={module}
+            />
+          ))}
+        </Column>
       </Column>
     </Box>
   )

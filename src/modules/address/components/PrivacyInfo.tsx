@@ -8,7 +8,7 @@ export const PrivacyInfo = () => (
     <Column gutter="md">
       <Title
         testID="AddressPrivacyInfoTitle"
-        text="Zo gebruiken wij uw locatie en adres."
+        text="Zo gebruiken wij uw locatie en adres"
       />
       <Paragraph>
         We gebruiken alleen uw adres en locatie om de juiste informatie te laten
