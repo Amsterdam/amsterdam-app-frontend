@@ -6,6 +6,7 @@ import {
 } from '@/modules/construction-work/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
+import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
@@ -16,6 +17,7 @@ export const constructionWorkModule: ModuleClientConfig = {
     [ConstructionWorkRouteName.projectNews]: 'news/:id',
     [ConstructionWorkRouteName.projectWarning]: 'warning/:id',
   },
+  logDimension: PiwikSessionDimension.constructionWorkModule,
   name: 'ConstructionWorkModule',
   reduxConfigs: [
     {
