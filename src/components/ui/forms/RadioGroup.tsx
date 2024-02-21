@@ -42,27 +42,32 @@ export const RadioGroup = <T extends RadioValue>({
 
   return (
     <Column gutter="md">
-      {options.map(({label, value: optionValue}, index) => (
-        <Radio
-          isSelected={value === optionValue}
-          key={label}
-          label={label}
-          logName={`${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`}
-          onPress={() =>
-            onPress(
-              optionValue,
-              useOptionValuesForLogging
-                ? {
-                    dimensions: {
-                      [PiwikDimension.newState]: optionValue.toString(),
-                    },
-                  }
-                : {},
-            )
-          }
-          testID={`${testID}${optionValue.toString()}RadioButton`}
-        />
-      ))}
+      {options.map(({label, value: optionValue}, index) => {
+        const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
+
+        return (
+          <Radio
+            isSelected={value === optionValue}
+            key={label}
+            label={label}
+            logName={logName}
+            onPress={() =>
+              onPress(
+                optionValue,
+                useOptionValuesForLogging
+                  ? {
+                      dimensions: {
+                        [PiwikDimension.newState]: optionValue.toString(),
+                      },
+                    }
+                  : {},
+              )
+            }
+            sentry-label={logName}
+            testID={`${testID}${optionValue.toString()}RadioButton`}
+          />
+        )
+      })}
     </Column>
   )
 }
