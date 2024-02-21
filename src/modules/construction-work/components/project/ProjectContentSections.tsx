@@ -9,7 +9,7 @@ type Props = {
 } & TestProps
 
 export const ProjectContentSections = ({sections, testID}: Props) =>
-  sections.map(({body, title}) =>
+  sections.map(({body, title}, index) =>
     body ? (
       <Column
         gutter="sm"
@@ -23,7 +23,7 @@ export const ProjectContentSections = ({sections, testID}: Props) =>
         {!!body && (
           <HtmlContent
             content={body}
-            testID={testID}
+            testID={`${testID}${index}Html`}
           />
         )}
       </Column>

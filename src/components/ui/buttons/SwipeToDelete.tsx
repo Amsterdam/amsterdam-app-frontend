@@ -65,6 +65,7 @@ export const SwipeToDelete = ({
   showIcon = true,
   children,
   onEvent,
+  testID,
   ...props
 }: Props) => {
   const [isSwipeOpen, setIsSwipeOpen] = useState(false)
@@ -94,6 +95,7 @@ export const SwipeToDelete = ({
         <DeleteButton
           onPress={onEvent}
           showIcon={showIcon}
+          testID={`${testID}Button`}
           {...props}
         />
       )}>

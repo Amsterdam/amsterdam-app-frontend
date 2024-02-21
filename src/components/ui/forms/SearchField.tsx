@@ -111,7 +111,6 @@ export const StylisticSearchField = ({
           color="secondary"
           testID={`${testID}Phrase`}>
           {label}
-          Zoek in werkzaamheden
         </Phrase>
       </View>
       <Icon

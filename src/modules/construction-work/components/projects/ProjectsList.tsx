@@ -9,6 +9,7 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
+import {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -84,9 +85,8 @@ const ListItem = memo(
 )
 
 type ListEmptyMessageProps = {
-  testID: string
   text: string
-}
+} & TestProps
 
 const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
   <Box insetHorizontal="md">

@@ -58,7 +58,7 @@ const ModuleButtonContent = ({
               color={color}
               name="construction-work"
               size="lg"
-              testID="HomeMo"
+              testID={`${testID}Icon`}
             />
           ) : (
             !!iconName && (

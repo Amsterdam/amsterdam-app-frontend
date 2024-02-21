@@ -71,13 +71,13 @@ const ModuleSettingContent = ({
         <Title
           color={color}
           level="h5"
-          testID={testID ? `${testID}Title` : undefined}
+          testID={`${testID}Title`}
           text={title}
         />
       </Row>
       {disabled ? (
         <Paragraph
-          testID={testID ? `${testID}Paragraph` : undefined}
+          testID={`${testID}Paragraph`}
           variant="small">
           {description}
         </Paragraph>

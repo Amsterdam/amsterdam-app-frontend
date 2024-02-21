@@ -88,7 +88,7 @@ export const ArticlePreview = ({
               <Title
                 color="link"
                 level="h5"
-                testID={testID ? `${testID}Title` : undefined}
+                testID={`${testID}Title`}
                 text={article.title}
               />
               <View style={styles.image}>
@@ -96,7 +96,7 @@ export const ArticlePreview = ({
                   <LazyImage
                     aspectRatio="extraWide"
                     source={imageSources}
-                    testID={testID ? `${testID}Image` : undefined}
+                    testID={`${testID}Image`}
                   />
                 ) : (
                   <FigureWithFacadesBackground
