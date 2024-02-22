@@ -10,8 +10,8 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
-import {MAKE_APPOINTMENT_WEESP} from '@/modules/redirects/external-links'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = NavigationProps<RedirectsRouteName.selectCity>
@@ -20,6 +20,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
+  const {data: redirectUrls} = useGetRedirectUrlsQuery()
 
   return (
     <Screen
@@ -48,7 +49,10 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   <Button
                     accessibilityRole="link"
                     label="Weesp"
-                    onPress={() => openWebUrl(MAKE_APPOINTMENT_WEESP)}
+                    onPress={() =>
+                      redirectUrls?.makeAppointMentWeesp &&
+                      openWebUrl(redirectUrls?.makeAppointMentWeesp)
+                    }
                     testID="RedirectsMakeAppointmentWeespButton"
                   />
                 </Column>

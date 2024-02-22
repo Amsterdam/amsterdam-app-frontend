@@ -1,85 +1,23 @@
-import {Key, useMemo} from 'react'
-import {
-  TopTaskButton,
-  TopTaskButtonProps,
-} from '@/components/ui/buttons/TopTaskButton'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {IconName} from '@/components/ui/media/iconPaths'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {TestProps} from '@/components/ui/types'
-import {OpenPhoneUrl, useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {OpenWebUrl, useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {CONTACT_FORM} from '@/modules/contact/external-links'
+import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {getContactOptions} from '@/modules/contact/data/contact'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
-
-type ContactOption = {
-  iconName: IconName
-  key: Key
-  text: string
-  title: string
-} & Partial<
-  Pick<
-    TopTaskButtonProps,
-    'accessibilityHint' | 'accessibilityLabel' | 'onPress'
-  >
-> &
-  TestProps
-
-const getContactOptions = (
-  openPhoneUrl: OpenPhoneUrl,
-  openWebUrl: OpenWebUrl,
-): ContactOption[] => [
-  {
-    accessibilityHint: 'Opent een link naar een formulier.',
-    accessibilityLabel: 'Gebruik ons contactformulier',
-    iconName: 'email',
-    key: 'email',
-    onPress: () => openWebUrl(CONTACT_FORM),
-    testID: 'ContactContactFormButton',
-    text: 'Reactie binnen 1 werkdag',
-    title: 'Contactformulier',
-  },
-  {
-    accessibilityLabel: 'Bel veertien nul twintig',
-    iconName: 'phone',
-    key: 'phone',
-    onPress: () => openPhoneUrl('14020'),
-    testID: 'ContactPhoneButton',
-    text: 'Gemiddeld 5 minuten wachten',
-    title: 'Bel 14 020',
-  },
-  {
-    accessibilityLabel:
-      'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
-    iconName: 'whatsapp',
-    key: 'whatsapp',
-    onPress: () => openWebUrl('https://wa.me/31644440655'),
-    testID: 'ContactWhatsAppButton',
-    text: 'Reactie binnen 2 uur',
-    title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
-  },
-  {
-    accessibilityHint: 'Opent een link naar een website.',
-    accessibilityLabel: 'Ga naar Mijn Amsterdam',
-    iconName: 'person',
-    key: 'mijn-amsterdam',
-    onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
-    testID: 'ContactMijnAmsterdamButton',
-    text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
-    title: 'Mijn Amsterdam',
-  },
-]
 
 export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
+  const {data: redirectUrls} = useGetRedirectUrlsQuery()
 
-  const contactOptions = useMemo(
-    () => getContactOptions(openPhoneUrl, openWebUrl),
-    [openPhoneUrl, openWebUrl],
+  const contactOptions = getContactOptions(
+    openPhoneUrl,
+    openWebUrl,
+    redirectUrls?.contactForm,
   )
 
   return (
@@ -104,6 +42,7 @@ export const ContactOptions = () => {
                 props.text,
               )}
               accessibilityRole="link"
+              testID="ContactContactFormButton"
             />
           ))}
         </Column>
