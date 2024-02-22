@@ -2,6 +2,8 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -46,17 +48,21 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   />
                 </Column>
                 <Column flex={1}>
-                  <Button
-                    accessibilityRole="link"
-                    label="Weesp"
-                    onPress={() =>
-                      !isLoading &&
-                      !isError &&
-                      redirectUrls?.makeAppointMentWeesp &&
-                      openWebUrl(redirectUrls?.makeAppointMentWeesp)
-                    }
-                    testID="RedirectsMakeAppointmentWeespButton"
-                  />
+                  {isLoading ? (
+                    <PleaseWait testID="RedirectsMakeAppointmentWeespPleaseWait" />
+                  ) : isError ? (
+                    <SomethingWentWrong />
+                  ) : (
+                    <Button
+                      accessibilityRole="link"
+                      label="Weesp"
+                      onPress={() =>
+                        redirectUrls?.makeAppointMentWeesp &&
+                        openWebUrl(redirectUrls?.makeAppointMentWeesp)
+                      }
+                      testID="RedirectsMakeAppointmentWeespButton"
+                    />
+                  )}
                 </Column>
               </Row>
             </Column>

@@ -1,4 +1,6 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -15,8 +17,11 @@ export const Redirects = () => {
 
   return (
     <Column gutter="md">
-      {!isLoading &&
-        !isError &&
+      {isLoading ? (
+        <PleaseWait testID="RedirectsPleaseWait" />
+      ) : isError ? (
+        <SomethingWentWrong />
+      ) : (
         redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
           <TopTaskButton
             accessibilityLabel={accessibleText(title, text)}
@@ -32,7 +37,8 @@ export const Redirects = () => {
             text={text}
             title={title}
           />
-        ))}
+        ))
+      )}
     </Column>
   )
 }

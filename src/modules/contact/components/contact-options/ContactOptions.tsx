@@ -1,5 +1,7 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -34,8 +36,11 @@ export const ContactOptions = () => {
           </Paragraph>
         </Column>
         <Column gutter="md">
-          {!isLoading &&
-            !isError &&
+          {isLoading ? (
+            <PleaseWait testID="ContactContactOptionsPleaseWait" />
+          ) : isError ? (
+            <SomethingWentWrong />
+          ) : (
             contactOptions.map(props => (
               <TopTaskButton
                 {...props}
@@ -46,7 +51,8 @@ export const ContactOptions = () => {
                 accessibilityRole="link"
                 testID="ContactContactFormButton"
               />
-            ))}
+            ))
+          )}
         </Column>
       </Column>
     </Box>

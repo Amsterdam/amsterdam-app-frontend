@@ -3,6 +3,8 @@ import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -35,8 +37,11 @@ export const MakeAppointmentScreen = () => {
             </Paragraph>
           </Column>
           <>
-            {!isLoading &&
-              !isError &&
+            {isLoading ? (
+              <PleaseWait testID="RedirectsMakeAppointmentPleaseWait" />
+            ) : isError ? (
+              <SomethingWentWrong />
+            ) : (
               appointmentSubjects.map(
                 ({requiresPhoneCall, links, text, title}) => (
                   <Accordion
@@ -75,7 +80,8 @@ export const MakeAppointmentScreen = () => {
                     </Column>
                   </Accordion>
                 ),
-              )}
+              )
+            )}
           </>
         </Column>
       </Box>
