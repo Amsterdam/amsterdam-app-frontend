@@ -40,17 +40,22 @@ export const SearchField = forwardRef<TextInput, Props>(
     const [hasFocus, setHasFocus] = useState(false)
     const styles = useThemable(createStyles({hasFocus}))
     const themedTextInputProps = useThemable(createTextInputProps)
-    const {type: searchType, amount: searchResultAmount} = useSearchField()
+    const {
+      type: searchType,
+      amount: searchResultAmount,
+      setSearchFieldValue,
+    } = useSearchField()
 
     const onEvent = usePiwikTrackSearchFromProps({
-      // QA: Welk keyword heb ik nodig bij dit event?
-      keyword: '',
+      keyword: value,
       options: {
         customDimensions: {
           [PiwikDimension.searchTerm]: value,
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         },
+        category: searchType,
+        count: searchResultAmount,
       },
     })
 
@@ -62,10 +67,12 @@ export const SearchField = forwardRef<TextInput, Props>(
     }
 
     const handleChangeText = (text: string) => {
+      setSearchFieldValue(text)
       onChangeText?.(text)
     }
 
     const handleClearText = (event: GestureResponderEvent) => {
+      setSearchFieldValue('')
       onChangeText?.('')
       onEvent(event)
     }

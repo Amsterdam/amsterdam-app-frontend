@@ -132,7 +132,12 @@ export const ProjectsList = ({
   error,
 }: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
-  const {type: searchType, amount: searchResultAmount} = useSearchField()
+  const {
+    type: searchType,
+    amount: searchResultAmount,
+    setSearchFieldValue,
+    value,
+  } = useSearchField()
 
   const {bottom: paddingBottom} = useSafeAreaInsets()
   const {fontScale} = useDeviceContext()
@@ -145,13 +150,13 @@ export const ProjectsList = ({
     ({item}) => (
       <ListItem
         logDimensions={{
-          // TODO: Value uit searchField.provider halen -> Dit moet ook nog werkend gemaakt worden
-          [PiwikDimension.searchTerm]: 'value',
+          [PiwikDimension.searchTerm]: value,
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         }}
         logName="ProjectSuggestionButton"
         onPress={(id: number) => {
+          setSearchFieldValue('')
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,
             screenHeaderTitle: item.title,
@@ -166,9 +171,11 @@ export const ProjectsList = ({
       byDistance,
       navigation,
       readArticles,
+      setSearchFieldValue,
       searchResultAmount,
       searchText,
       searchType,
+      value,
     ],
   )
 

@@ -1,7 +1,15 @@
-import {ReactNode, createContext, useEffect, useState} from 'react'
+import {
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
 
 type SearchFieldContextType = {
   amount: number
+  setSearchFieldValue: Dispatch<SetStateAction<string>>
   type: string
   value: string
 }
@@ -10,6 +18,8 @@ const initialValue: SearchFieldContextType = {
   amount: 0,
   type: '',
   value: '',
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  setSearchFieldValue: () => {},
 }
 
 export const SearchFieldContext =
@@ -22,18 +32,20 @@ type Props = {
 }
 
 export const SearchFieldProvider = ({children, amount, type}: Props) => {
-  const [value, setValue] = useState(initialValue)
+  const [searchFieldValue, setSearchFieldValue] = useState('')
+  const [providerValue, setProviderValue] = useState(initialValue)
 
   useEffect(() => {
-    setValue({
+    setProviderValue({
       amount: amount ?? 0,
       type: type ?? '',
-      value: '',
+      value: searchFieldValue,
+      setSearchFieldValue: setSearchFieldValue,
     })
-  }, [amount, setValue, type])
+  }, [amount, searchFieldValue, setProviderValue, type])
 
   return (
-    <SearchFieldContext.Provider value={value}>
+    <SearchFieldContext.Provider value={providerValue}>
       {children}
     </SearchFieldContext.Provider>
   )
