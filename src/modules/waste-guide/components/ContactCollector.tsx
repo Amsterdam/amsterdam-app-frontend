@@ -5,16 +5,14 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-
-const wasteDisposalBusinessesUrl =
-  'https://www.amsterdam.nl/afval-hergebruik/bedrijfsafval/afvalpunten-bedrijven/'
+import {WASTE_DISPOSAL_BUSINESS_URL} from '@/modules/waste-guide/external-links'
 
 const InlineLinkWasteContainer = () => {
   const openWebUrl = useOpenWebUrl()
 
   return (
     <InlineLink
-      onPress={() => openWebUrl(wasteDisposalBusinessesUrl)}
+      onPress={() => openWebUrl(WASTE_DISPOSAL_BUSINESS_URL)}
       testID="WasteGuideBusinessesLink">
       onze website.
     </InlineLink>
