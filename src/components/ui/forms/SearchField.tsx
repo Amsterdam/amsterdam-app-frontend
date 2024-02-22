@@ -1,9 +1,21 @@
 import {forwardRef, useState} from 'react'
-import {StyleSheet, TextInput, TextInputProps, View} from 'react-native'
+import {
+  GestureResponderEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  TextInput,
+  TextInputFocusEventData,
+  TextInputKeyPressEventData,
+  TextInputProps,
+  View,
+} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
+import {useSearchField} from '@/hooks/useSearchField'
+import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrackSearchFromProps'
+import {PiwikDimension} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -26,23 +38,49 @@ export const SearchField = forwardRef<TextInput, Props>(
     ref,
   ) => {
     const [hasFocus, setHasFocus] = useState(false)
-
     const styles = useThemable(createStyles({hasFocus}))
     const themedTextInputProps = useThemable(createTextInputProps)
+    const {type: searchType, amount: searchResultAmount} = useSearchField()
 
-    const handleBlur = () => setHasFocus(false)
+    const onEvent = usePiwikTrackSearchFromProps({
+      // QA: Welk keyword heb ik nodig bij dit event?
+      keyword: '',
+      options: {
+        customDimensions: {
+          [PiwikDimension.searchTerm]: '',
+          [PiwikDimension.searchType]: searchType,
+          [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
+        },
+      },
+    })
+
+    const handleBlur = (
+      event: NativeSyntheticEvent<TextInputFocusEventData>,
+    ) => {
+      setHasFocus(false)
+      onEvent(event)
+    }
 
     const handleChangeText = (text: string) => {
       onChangeText?.(text)
     }
 
-    const handleClearText = () => {
+    const handleClearText = (event: GestureResponderEvent) => {
       onChangeText?.('')
+      onEvent(event)
     }
 
     const handleFocus = () => {
       setHasFocus(true)
       onFocus?.()
+    }
+
+    const handleBackspaceKeyPress = (
+      event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    ) => {
+      if (event.nativeEvent.key === 'Backspace') {
+        onEvent(event)
+      }
     }
 
     return (
@@ -55,6 +93,7 @@ export const SearchField = forwardRef<TextInput, Props>(
           onBlur={handleBlur}
           onChangeText={handleChangeText}
           onFocus={handleFocus}
+          onKeyPress={handleBackspaceKeyPress}
           ref={ref}
           style={styles.textInput}
           testID={testID}

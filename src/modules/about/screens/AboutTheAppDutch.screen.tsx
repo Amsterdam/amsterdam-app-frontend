@@ -32,7 +32,7 @@ export const AboutTheAppDutchScreen = () => (
               <Paragraph
                 testID="AboutAboutTheAppDutchIntroParagraph"
                 variant="intro">
-                Met de Amsterdam app heeft u handige informatie bij de hand en
+                Met de Amsterdam App heeft u handige informatie bij de hand en
                 kunt u meteen iets regelen met de gemeente. Zoals:
               </Paragraph>
             </Column>
@@ -103,7 +103,7 @@ export const AboutTheAppDutchScreen = () => (
                 text="Later meer"
               />
               <Paragraph testID="AboutAboutTheAppDutchFutureFeaturesParagraph">
-                Deze versie van de Amsterdam app heeft onderwerpen waar iedereen
+                Deze versie van de Amsterdam App heeft onderwerpen waar iedereen
                 iets aan heeft. Dit is het begin. In de toekomst komen er meer
                 onderwerpen en talen bij. Zo maken we de app steeds beter.
               </Paragraph>

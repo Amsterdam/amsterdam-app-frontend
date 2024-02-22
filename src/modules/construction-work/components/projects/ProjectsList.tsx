@@ -134,12 +134,13 @@ export const ProjectsList = ({
   const renderItem: ListRenderItem<ProjectsItem> = useCallback(
     ({item}) => (
       <ListItem
-        onPress={(id: number) =>
+        // Logprops meesturen
+        onPress={(id: number) => {
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,
             screenHeaderTitle: item.title,
           })
-        }
+        }}
         project={item}
         readArticles={readArticles}
         showTraits={!searchText && (byDistance || item.followed)}

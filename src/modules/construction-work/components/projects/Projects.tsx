@@ -16,6 +16,7 @@ import {
   ProjectsItem,
   ProjectsQueryArgs,
 } from '@/modules/construction-work/types/api'
+import {SearchFieldProvider} from '@/providers/searchField.provider'
 import {AddressQueryArgs} from '@/types/api'
 
 type Props = {
@@ -80,18 +81,22 @@ export const Projects = ({addressParam, HeaderButton}: Props) => {
   }, [])
 
   return (
-    <ProjectsList
-      {...result}
-      byDistance={!!addressParam}
-      listHeader={
-        <ProjectsListHeader>
-          <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-          {HeaderButton}
-        </ProjectsListHeader>
-      }
-      noResultsMessage="We hebben geen werkzaamheden gevonden."
-      onItemsPerRowChange={setItemsPerRow}
-      onViewableItemsChanged={onViewableItemsChanged}
-    />
+    <SearchFieldProvider
+      amount={result.data.length}
+      type="projects">
+      <ProjectsList
+        {...result}
+        byDistance={!!addressParam}
+        listHeader={
+          <ProjectsListHeader>
+            <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
+            {HeaderButton}
+          </ProjectsListHeader>
+        }
+        noResultsMessage="We hebben geen werkzaamheden gevonden."
+        onItemsPerRowChange={setItemsPerRow}
+        onViewableItemsChanged={onViewableItemsChanged}
+      />
+    </SearchFieldProvider>
   )
 }
