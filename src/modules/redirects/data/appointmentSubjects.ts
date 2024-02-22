@@ -1,6 +1,8 @@
+import {RedirectKey} from '@/modules/redirects/types'
+
 type Link = {
   label: string
-  url: string
+  urlKey: RedirectKey
 }
 
 type AppointmentSubject = {
@@ -8,18 +10,6 @@ type AppointmentSubject = {
   requiresPhoneCall?: boolean
   text?: string
   title: string
-}
-
-enum Url {
-  acknowledgeChild = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B6C003487-DED7-4AE6-9FFD-C606D0AB0BD7%7D',
-  birth = 'https://www.amsterdam.nl/burgerzaken/geboorte-erkenning-kinderen/geboorteaangifte/',
-  immigration = 'https://www.amsterdam.nl/burgerzaken/immigratie',
-  lifelessBirth = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7BE9ED0F9D-6254-4236-8D10-D970655DAAF8%7D#case_%7BB104B52F-9A3B-4923-8B5D-1FA60B6F3591%7D',
-  marriage = 'https://www.amsterdam.nl/burgerzaken/trouwen-partnerschap/',
-  marriagePermission = 'https://www.amsterdam.nl/veelgevraagd/?productid=%7B6F08AB32-17C7-45B2-BC74-EDD29BA9FEDD%7D#case_%7B0F588CAC-30A3-4ED1-B355-10F9EE8759D9%7D',
-  naturalisation = 'https://www.amsterdam.nl/burgerzaken/naturalisatie',
-  passing = 'https://www.amsterdam.nl/burgerzaken/aangifte-doen-van-overlijden',
-  passingForFuneralDirectors = 'https://www.amsterdam.nl/burgerzaken/aangifte-voor-uitvaartondernemers',
 }
 
 export const appointmentSubjects: AppointmentSubject[] = [
@@ -31,11 +21,11 @@ export const appointmentSubjects: AppointmentSubject[] = [
     links: [
       {
         label: 'Immigratie',
-        url: Url.immigration,
+        urlKey: RedirectKey.immigration,
       },
       {
         label: 'Naturalisatie',
-        url: Url.naturalisation,
+        urlKey: RedirectKey.naturalisation,
       },
     ],
     requiresPhoneCall: true,
@@ -45,15 +35,15 @@ export const appointmentSubjects: AppointmentSubject[] = [
     links: [
       {
         label: 'Geboorteaangifte',
-        url: Url.birth,
+        urlKey: RedirectKey.birth,
       },
       {
         label: 'Een kind erkennen',
-        url: Url.acknowledgeChild,
+        urlKey: RedirectKey.acknowledgeChild,
       },
       {
         label: 'Levenloos geboren kindje registreren (pasgeboren)',
-        url: Url.lifelessBirth,
+        urlKey: RedirectKey.lifelessBirth,
       },
     ],
     title: 'Geboorte en erkenning',
@@ -62,11 +52,11 @@ export const appointmentSubjects: AppointmentSubject[] = [
     links: [
       {
         label: 'Trouwen en partnerschap',
-        url: Url.marriage,
+        urlKey: RedirectKey.marriage,
       },
       {
         label: 'Verklaring van huwelijksbevoegdheid',
-        url: Url.marriagePermission,
+        urlKey: RedirectKey.marriagePermission,
       },
     ],
     title: 'Huwelijk en geregistreerd partnerschap',
@@ -75,11 +65,11 @@ export const appointmentSubjects: AppointmentSubject[] = [
     links: [
       {
         label: 'Aangifte van overlijden voor uitvaartondernemers',
-        url: Url.passingForFuneralDirectors,
+        urlKey: RedirectKey.passingForFuneralDirectors,
       },
       {
         label: 'Aangifte doen van overlijden',
-        url: Url.passing,
+        urlKey: RedirectKey.passing,
       },
     ],
     title: 'Overlijden',

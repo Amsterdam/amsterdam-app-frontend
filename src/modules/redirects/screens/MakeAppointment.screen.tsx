@@ -3,6 +3,8 @@ import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -11,9 +13,11 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {appointmentSubjects} from '@/modules/redirects/data/appointmentSubjects'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 
 export const MakeAppointmentScreen = () => {
   const openWebUrl = useOpenWebUrl()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
   return (
     <Screen testID="RedirectsMakeAppointmentScreen">
@@ -33,40 +37,50 @@ export const MakeAppointmentScreen = () => {
             </Paragraph>
           </Column>
           <>
-            {appointmentSubjects.map(
-              ({requiresPhoneCall, links, text, title}) => (
-                <Accordion
-                  key={title}
-                  testID={`RedirectsMakeAppointment${pascalCase(title)}Accordion`}
-                  title={title}>
-                  <Column gutter="md">
-                    {!!text && <Paragraph>{text}</Paragraph>}
-                    {!!requiresPhoneCall && (
-                      <Column gutter="sm">
-                        <Paragraph>
-                          Een afspraak maken kan alleen telefonisch.
-                        </Paragraph>
-                        <Row>
-                          <PhoneHQButton testID="RedirectsMakeAppointmentPhoneButton" />
-                        </Row>
-                      </Column>
-                    )}
-                    {!!links?.length && (
-                      <Column gutter="md">
-                        {links.map(({label, url}) => (
-                          <Link
-                            key={label}
-                            label={label}
-                            onPress={() => openWebUrl(url)}
-                            testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
-                            variant="external"
-                          />
-                        ))}
-                      </Column>
-                    )}
-                  </Column>
-                </Accordion>
-              ),
+            {isLoading ? (
+              <PleaseWait testID="RedirectsMakeAppointmentPleaseWait" />
+            ) : isError ? (
+              <SomethingWentWrong />
+            ) : (
+              appointmentSubjects.map(
+                ({requiresPhoneCall, links, text, title}) => (
+                  <Accordion
+                    key={title}
+                    testID={`RedirectsMakeAppointment${pascalCase(title)}Accordion`}
+                    title={title}>
+                    <Column gutter="md">
+                      {!!text && <Paragraph>{text}</Paragraph>}
+                      {!!requiresPhoneCall && (
+                        <Column gutter="sm">
+                          <Paragraph>
+                            Een afspraak maken kan alleen telefonisch.
+                          </Paragraph>
+                          <Row>
+                            <PhoneHQButton testID="RedirectsMakeAppointmentPhoneButton" />
+                          </Row>
+                        </Column>
+                      )}
+                      {!!links?.length && (
+                        <Column gutter="md">
+                          {links.map(({label, urlKey}) => (
+                            <Link
+                              key={label}
+                              label={label}
+                              onPress={() =>
+                                redirectUrls &&
+                                urlKey &&
+                                openWebUrl(redirectUrls[urlKey])
+                              }
+                              testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
+                              variant="external"
+                            />
+                          ))}
+                        </Column>
+                      )}
+                    </Column>
+                  </Accordion>
+                ),
+              )
             )}
           </>
         </Column>
