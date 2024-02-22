@@ -3,6 +3,7 @@ import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -15,7 +16,11 @@ import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 
 export const MakeAppointmentScreen = () => {
   const openWebUrl = useOpenWebUrl()
-  const {data: redirectUrls} = useGetRedirectUrlsQuery()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
+
+  if (isLoading || isError) {
+    return <SomethingWentWrong />
+  }
 
   return (
     <Screen testID="RedirectsMakeAppointmentScreen">
@@ -60,7 +65,9 @@ export const MakeAppointmentScreen = () => {
                             key={label}
                             label={label}
                             onPress={() =>
-                              redirectUrls && openWebUrl(redirectUrls[urlKey])
+                              redirectUrls &&
+                              urlKey &&
+                              openWebUrl(redirectUrls[urlKey])
                             }
                             testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
                             variant="external"
