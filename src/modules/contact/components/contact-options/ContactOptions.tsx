@@ -12,7 +12,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 export const ContactOptions = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {data: redirectUrls} = useGetRedirectUrlsQuery()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
   const contactOptions = getContactOptions(
     openPhoneUrl,
@@ -34,17 +34,19 @@ export const ContactOptions = () => {
           </Paragraph>
         </Column>
         <Column gutter="md">
-          {contactOptions.map(props => (
-            <TopTaskButton
-              {...props}
-              accessibilityLabel={accessibleText(
-                props.accessibilityLabel ?? props.title,
-                props.text,
-              )}
-              accessibilityRole="link"
-              testID="ContactContactFormButton"
-            />
-          ))}
+          {!isLoading &&
+            !isError &&
+            contactOptions.map(props => (
+              <TopTaskButton
+                {...props}
+                accessibilityLabel={accessibleText(
+                  props.accessibilityLabel ?? props.title,
+                  props.text,
+                )}
+                accessibilityRole="link"
+                testID="ContactContactFormButton"
+              />
+            ))}
         </Column>
       </Column>
     </Box>

@@ -1,5 +1,4 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -14,28 +13,26 @@ export const Redirects = () => {
 
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
-  if (isLoading || isError) {
-    return <SomethingWentWrong />
-  }
-
   return (
     <Column gutter="md">
-      {redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
-        <TopTaskButton
-          accessibilityLabel={accessibleText(title, text)}
-          accessibilityRole={routeName ? 'button' : 'link'}
-          iconName={iconName}
-          key={iconName}
-          onPress={() =>
-            routeName
-              ? navigation.navigate(routeName)
-              : redirectUrls && urlKey && openWebUrl(redirectUrls[urlKey])
-          }
-          testID={testID}
-          text={text}
-          title={title}
-        />
-      ))}
+      {!isLoading &&
+        !isError &&
+        redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
+          <TopTaskButton
+            accessibilityLabel={accessibleText(title, text)}
+            accessibilityRole={routeName ? 'button' : 'link'}
+            iconName={iconName}
+            key={iconName}
+            onPress={() =>
+              routeName
+                ? navigation.navigate(routeName)
+                : redirectUrls && urlKey && openWebUrl(redirectUrls[urlKey])
+            }
+            testID={testID}
+            text={text}
+            title={title}
+          />
+        ))}
     </Column>
   )
 }

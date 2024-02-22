@@ -20,7 +20,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
-  const {data: redirectUrls} = useGetRedirectUrlsQuery()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
   return (
     <Screen
@@ -50,6 +50,8 @@ export const SelectCityScreen = ({navigation}: Props) => {
                     accessibilityRole="link"
                     label="Weesp"
                     onPress={() =>
+                      !isLoading &&
+                      !isError &&
                       redirectUrls?.makeAppointMentWeesp &&
                       openWebUrl(redirectUrls?.makeAppointMentWeesp)
                     }
