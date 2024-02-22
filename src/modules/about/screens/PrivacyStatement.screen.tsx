@@ -78,7 +78,7 @@ export const PrivacyStatementScreen = () => {
             <Title
               level="h2"
               testID="AboutPrivacyStatementSharedDataTitle"
-              text="Geen ontvangers, geen doorgifte, geen profilering geen geautomatiseerde besluitvorming"
+              text="Geen ontvangers, geen doorgifte, geen profilering, geen geautomatiseerde besluitvorming"
             />
             <Paragraph testID="AboutPrivacyStatementSharedDataParagraph">
               De gemeente Amsterdam wisselt in het kader van het personaliseren
