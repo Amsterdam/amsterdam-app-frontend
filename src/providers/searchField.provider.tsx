@@ -1,16 +1,19 @@
-import {ReactNode, createContext} from 'react'
+import {ReactNode, createContext, useEffect, useState} from 'react'
 
-type SearchFieldProviderContextType = {
+type SearchFieldContextType = {
   amount: number
   type: string
+  value: string
 }
 
-export const SearchFieldContext = createContext<SearchFieldProviderContextType>(
-  {
-    amount: 0,
-    type: '',
-  },
-)
+const initialValue: SearchFieldContextType = {
+  amount: 0,
+  type: '',
+  value: '',
+}
+
+export const SearchFieldContext =
+  createContext<SearchFieldContextType>(initialValue)
 
 type Props = {
   amount?: number
@@ -18,12 +21,20 @@ type Props = {
   type?: string
 }
 
-export const SearchFieldProvider = ({children, amount, type}: Props) => (
-  <SearchFieldContext.Provider
-    value={{
+export const SearchFieldProvider = ({children, amount, type}: Props) => {
+  const [value, setValue] = useState(initialValue)
+
+  useEffect(() => {
+    setValue({
       amount: amount ?? 0,
       type: type ?? '',
-    }}>
-    {children}
-  </SearchFieldContext.Provider>
-)
+      value: '',
+    })
+  }, [amount, setValue, type])
+
+  return (
+    <SearchFieldContext.Provider value={value}>
+      {children}
+    </SearchFieldContext.Provider>
+  )
+}

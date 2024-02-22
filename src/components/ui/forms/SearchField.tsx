@@ -47,7 +47,7 @@ export const SearchField = forwardRef<TextInput, Props>(
       keyword: '',
       options: {
         customDimensions: {
-          [PiwikDimension.searchTerm]: '',
+          [PiwikDimension.searchTerm]: value,
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         },

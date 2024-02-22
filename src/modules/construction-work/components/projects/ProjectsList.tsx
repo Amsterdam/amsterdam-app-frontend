@@ -13,6 +13,7 @@ import {TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {useSearchField} from '@/hooks/useSearchField'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
 import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
@@ -24,6 +25,7 @@ import {
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
+import {LogProps, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -37,10 +39,16 @@ type ListItemProps = {
   project: ProjectsItem
   readArticles: ReadArticle[]
   showTraits: boolean
-}
+} & LogProps
 
 const ListItem = memo(
-  ({onPress, project, readArticles, showTraits}: ListItemProps) => {
+  ({
+    onPress,
+    project,
+    readArticles,
+    showTraits,
+    ...logProps
+  }: ListItemProps) => {
     const {followed, meter, recent_articles, strides} = project
 
     const [additionalAccessibilityLabel, unreadArticlesLength] = useMemo(() => {
@@ -71,7 +79,8 @@ const ListItem = memo(
         onPress={() => onPress(id)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
-        title={title}>
+        title={title}
+        {...logProps}>
         {showTraits ? (
           <ProjectTraits
             accessibilityLabel={additionalAccessibilityLabel}
@@ -123,6 +132,7 @@ export const ProjectsList = ({
   error,
 }: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
+  const {type: searchType, amount: searchResultAmount} = useSearchField()
 
   const {bottom: paddingBottom} = useSafeAreaInsets()
   const {fontScale} = useDeviceContext()
@@ -134,7 +144,13 @@ export const ProjectsList = ({
   const renderItem: ListRenderItem<ProjectsItem> = useCallback(
     ({item}) => (
       <ListItem
-        // Logprops meesturen
+        logDimensions={{
+          // TODO: Value uit searchField.provider halen -> Dit moet ook nog werkend gemaakt worden
+          [PiwikDimension.searchTerm]: 'value',
+          [PiwikDimension.searchType]: searchType,
+          [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
+        }}
+        logName="ProjectSuggestionButton"
         onPress={(id: number) => {
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,
@@ -146,7 +162,14 @@ export const ProjectsList = ({
         showTraits={!searchText && (byDistance || item.followed)}
       />
     ),
-    [byDistance, navigation, readArticles, searchText],
+    [
+      byDistance,
+      navigation,
+      readArticles,
+      searchResultAmount,
+      searchText,
+      searchType,
+    ],
   )
 
   if (isError) {
