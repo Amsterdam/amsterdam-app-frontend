@@ -80,8 +80,7 @@ export const AboutTheAppDutchScreen = () => (
                   text="Melding doen"
                 />
                 <Paragraph testID="AboutAboutTheAppDutchReportProblemParagraph">
-                  Meld iets dat stuk is, overlast geeft of een volle
-                  afvalcontainer.
+                  Meld een volle afvalcontainer, overlast of iets dat stuk is.
                 </Paragraph>
               </Column>
             </Track>
