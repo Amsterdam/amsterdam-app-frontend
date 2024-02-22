@@ -28,6 +28,10 @@ module.exports = {
     'storybook-static',
   ],
   rules: {
+    'react-native/no-raw-text': [
+      'error',
+      {skip: ['Phrase', 'Paragraph', 'InlineLink']},
+    ],
     'import/no-default-export': 'error',
     'import/order': [
       'warn',
