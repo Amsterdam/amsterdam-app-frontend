@@ -33,13 +33,18 @@ export const Wrapping: ComponentStory<typeof Button & typeof Row> = args => (
     highlight
     maxWidth="24rem">
     <Row {...args}>
-      <Button label="Wijzig adres" />
+      <Button
+        label="Wijzig adres"
+        testID="Button"
+      />
       <Button
         label="Voeg adres toe"
+        testID="Button"
         variant="secondary"
       />
       <Button
         label="Verwijder adres"
+        testID="Button"
         variant="secondary"
       />
     </Row>

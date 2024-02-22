@@ -3,18 +3,18 @@ import {Image as ImageType} from 'react-native-image-crop-picker'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Image} from '@/components/ui/media/Image'
-import {IconSize} from '@/components/ui/types'
+import {IconSize, TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   image: ImageType
   onPress: () => void
-}
+} & TestProps
 
 const iconSize = 'lg'
 
-export const ImagePreview = ({image, onPress}: Props) => {
+export const ImagePreview = ({image, onPress, testID}: Props) => {
   const styles = useThemable(createStyles)
 
   return (
@@ -28,9 +28,11 @@ export const ImagePreview = ({image, onPress}: Props) => {
               color="link"
               name="trash-bin"
               size={iconSize}
+              testID={`${testID}DeleteImageIcon`}
             />
           }
           onPress={onPress}
+          testID={`${testID}DeleteImageButton`}
         />
       </View>
     </View>

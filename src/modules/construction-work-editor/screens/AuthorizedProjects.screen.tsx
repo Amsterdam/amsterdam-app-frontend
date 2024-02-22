@@ -26,6 +26,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
             title: 'Gelukt',
             text: 'Uw bericht is geplaatst.',
           },
+          testID: 'ConstructionWorkEditorSendMessageSuccessAlert',
           variant: AlertVariant.positive,
           withIcon: false,
         }),
@@ -37,7 +38,8 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   return (
     <Screen
       scroll={false}
-      stickyHeader={<Alert />}>
+      stickyHeader={<Alert />}
+      testID="ConstructionWorkEditorAuthorizedProjectsScreen">
       <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>
   )

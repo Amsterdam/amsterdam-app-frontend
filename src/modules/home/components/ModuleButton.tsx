@@ -24,13 +24,14 @@ type ModuleButtonContentProps = {
   iconName: IconName | 'projects'
   label: string
   variant: ButtonVariants
-}
+} & TestProps
 
 const ModuleButtonContent = ({
   badgeValue: BadgeValue,
   disabled,
   iconName,
   label,
+  testID,
   variant,
 }: ModuleButtonContentProps) => {
   const color = useMemo(() => {
@@ -57,6 +58,7 @@ const ModuleButtonContent = ({
               color={color}
               name="construction-work"
               size="lg"
+              testID={`${testID}Icon`}
             />
           ) : (
             !!iconName && (
@@ -64,6 +66,7 @@ const ModuleButtonContent = ({
                 color={color}
                 name={iconName}
                 size="lg"
+                testID={`${testID}Icon`}
               />
             )
           )}
@@ -118,10 +121,11 @@ export const ModuleButton = ({
         disabled={disabled}
         iconName={iconName}
         label={label}
+        testID={testID}
         variant={variant}
       />
     ),
-    [badgeValue, disabled, iconName, label, variant],
+    [badgeValue, disabled, iconName, label, testID, variant],
   )
 
   const pressable = useMemo(
@@ -131,7 +135,7 @@ export const ModuleButton = ({
         onPress={() => {
           navigation.navigate(slug)
         }}
-        testID={testID ? `${testID}Button` : undefined}
+        testID={`${testID}Button`}
         variant={variant}>
         {button}
       </Pressable>

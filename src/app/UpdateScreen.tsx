@@ -51,6 +51,7 @@ export const UpdateScreen = ({children}: Props) => {
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.updateScreen}
         scroll={false}
+        testID="UpdateScreen"
         withLeftInset={!!isPortrait}
         withRightInset={!!isPortrait}
         withTopInset={isPortrait}>

@@ -17,6 +17,7 @@ export const useShowAuthorizedFeedback = () => {
         content: {
           text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
         },
+        testID: 'ConstructionWorkEditorSuccessAlert',
         variant: AlertVariant.information,
         withIcon: false,
       }),
@@ -31,6 +32,7 @@ export const useShowAuthorizedFeedback = () => {
         content: {
           text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
         },
+        testID: 'ConstructionWorkEditorErrorAlert',
         variant: AlertVariant.negative,
         withIcon: false,
       }),

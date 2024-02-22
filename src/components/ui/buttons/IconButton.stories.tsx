@@ -18,6 +18,7 @@ export const Default: Story = {
       <Icon
         name="person"
         size="lg"
+        testID="Icon"
       />
     ),
     badgeValue: 7,

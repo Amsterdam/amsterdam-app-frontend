@@ -13,13 +13,17 @@ export const WasteGuideNotFound = () => {
 
   return (
     <Column gutter="lg">
-      <EmptyMessage text={getNotFoundText(address, locationType)} />
+      <EmptyMessage
+        testID="WasteGuideNotFoundMessage"
+        text={getNotFoundText(address, locationType)}
+      />
       <Row align="start">
         <Button
           label="Dit klopt niet"
           onPress={() =>
             navigation.navigate(WasteGuideRouteName.wasteGuideFeedback)
           }
+          testID="WasteGuideNotFoundMistakeButton"
         />
       </Row>
     </Column>

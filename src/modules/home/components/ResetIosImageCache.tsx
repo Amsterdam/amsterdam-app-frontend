@@ -20,6 +20,7 @@ export const ResetIosImageCache = () => {
       <Button
         label="Clear iOS image cache"
         onPress={onPress}
+        testID="ResetIosImageCacheButton"
       />
     </Box>
   )

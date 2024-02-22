@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {Fragment, useState} from 'react'
 import {View} from 'react-native'
 import {Accordion} from '@/components/ui/containers/Accordion'
@@ -45,6 +46,7 @@ export const TimelineItem = ({
               color="inverse"
               name="checkmark"
               size="sm"
+              testID={`${testID}Icon`}
             />
           )}
         </View>
@@ -56,7 +58,12 @@ export const TimelineItem = ({
           onChangeExpanded={state => setIsExpanded(state)}
           testID={testID}
           title={item.title}>
-          {!!item.body && <HtmlContent content={item.body} />}
+          {!!item.body && (
+            <HtmlContent
+              content={item.body}
+              testID={`${testID}BodyHtmlContent`}
+            />
+          )}
           {item.items?.map(({title, body}) => (
             <Fragment key={title}>
               {!!title && (
@@ -65,7 +72,12 @@ export const TimelineItem = ({
                   text={title}
                 />
               )}
-              {!!body && <HtmlContent content={body} />}
+              {!!body && (
+                <HtmlContent
+                  content={body}
+                  testID={`${testID}ItemBody${pascalCase(title)}HtmlContent`}
+                />
+              )}
             </Fragment>
           ))}
         </Accordion>

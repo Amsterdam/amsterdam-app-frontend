@@ -10,7 +10,7 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-} & Required<TestProps> &
+} & TestProps &
   TextInputProps
 
 export const SearchField = forwardRef<TextInput, Props>(
@@ -65,7 +65,12 @@ export const SearchField = forwardRef<TextInput, Props>(
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
             accessibilityLanguage={accessibilityLanguage}
-            icon={<Icon name="close" />}
+            icon={
+              <Icon
+                name="close"
+                testID={`${testID}Icon`}
+              />
+            }
             onPress={handleClearText}
             testID={`${testID}ClearButton`}
           />
@@ -77,6 +82,7 @@ export const SearchField = forwardRef<TextInput, Props>(
               <Icon
                 name="search"
                 size="lg"
+                testID={`${testID}Icon`}
               />
             }
             onPress={handleFocus}
@@ -88,17 +94,29 @@ export const SearchField = forwardRef<TextInput, Props>(
   },
 )
 
-export const StylisticSearchField = () => {
+type StylisticSearchFieldProps = {
+  label: string
+} & TestProps
+
+export const StylisticSearchField = ({
+  label,
+  testID,
+}: StylisticSearchFieldProps) => {
   const styles = useThemable(createStyles({}))
 
   return (
     <View style={styles.frame}>
       <View style={styles.textInput}>
-        <Phrase color="secondary">Zoek in werkzaamheden</Phrase>
+        <Phrase
+          color="secondary"
+          testID={`${testID}Phrase`}>
+          {label}
+        </Phrase>
       </View>
       <Icon
         name="search"
         size="lg"
+        testID={`${testID}Icon`}
       />
     </View>
   )

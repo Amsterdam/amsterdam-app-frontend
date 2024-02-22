@@ -36,7 +36,11 @@ export const WritingGuide = () => {
               key={tip}>
               <Row gutter="md">
                 <Size height={text.lineHeight.body}>
-                  <Phrase emphasis="strong">{step}</Phrase>
+                  <Phrase
+                    emphasis="strong"
+                    testID={`ConstructionWorkEditorWritingGuideStep${step}Phrase`}>
+                    {step}
+                  </Phrase>
                 </Size>
                 <Paragraph>{tip}</Paragraph>
               </Row>

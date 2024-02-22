@@ -47,6 +47,7 @@ export const PrivacyStatementScreen = () => {
                 'Het kunnen volgen van werkzaamheden.',
                 'Het kunnen versturen van push-notificaties.',
               ]}
+              testID="AboutPrivacyStatementGoalList"
             />
           </Column>
           <Column gutter="md">
@@ -72,6 +73,7 @@ export const PrivacyStatementScreen = () => {
             </Paragraph>
             <List
               items={['GPS-coördinaten en/of adresgegevens', 'Device ID']}
+              testID="AboutPrivacyStatementPersonalDataList"
             />
           </Column>
           <Column gutter="md">

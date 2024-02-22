@@ -16,7 +16,7 @@ export const MakeAppointmentScreen = () => {
   const openWebUrl = useOpenWebUrl()
 
   return (
-    <Screen>
+    <Screen testID="RedirectsMakeAppointmentScreen">
       <Box>
         <Column gutter="sm">
           <Column gutter="md">
@@ -47,7 +47,7 @@ export const MakeAppointmentScreen = () => {
                           Een afspraak maken kan alleen telefonisch.
                         </Paragraph>
                         <Row>
-                          <PhoneHQButton />
+                          <PhoneHQButton testID="RedirectsMakeAppointmentPhoneButton" />
                         </Row>
                       </Column>
                     )}
@@ -58,6 +58,7 @@ export const MakeAppointmentScreen = () => {
                             key={label}
                             label={label}
                             onPress={() => openWebUrl(url)}
+                            testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
                             variant="external"
                           />
                         ))}

@@ -35,7 +35,8 @@ export const LocationsBox = () => {
           onPress={() => {
             navigation.navigate(AddressModalName.privacyInfo)
           }}
-          phraseVariant="small">
+          phraseVariant="small"
+          testID="AddressUseOfLocationLink">
           Zo gebruiken wij uw locatie en adres
         </InlineLink>
       </Box>

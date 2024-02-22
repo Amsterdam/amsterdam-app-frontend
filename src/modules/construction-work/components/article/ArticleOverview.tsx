@@ -91,7 +91,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
   }
 
   if (isLoading || yearlyArticleSections === undefined) {
-    return <PleaseWait />
+    return <PleaseWait testID="ConstructionWorkProjectArticlesSpinner" />
   }
 
   if (!yearlyArticleSections.length) {

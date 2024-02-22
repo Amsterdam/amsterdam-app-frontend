@@ -2,7 +2,7 @@ import {TestProps} from '@/components/ui/types'
 import {devError} from '@/processes/development'
 
 export const getLogNameFromProps = (
-  props: {logName?: string; 'sentry-label'?: string} & TestProps,
+  props: {logName?: string; 'sentry-label'?: string} & Partial<TestProps>,
 ) => {
   const name = props.logName ?? props['sentry-label'] ?? props.testID
 

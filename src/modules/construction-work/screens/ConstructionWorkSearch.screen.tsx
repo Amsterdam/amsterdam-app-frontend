@@ -4,6 +4,7 @@ import {ProjectsByText} from '@/modules/construction-work/components/projects/Pr
 export const ConstructionWorkSearchScreen = () => (
   <Screen
     scroll={false}
+    testID="ConstructionWorkSearchScreen"
     withBottomInset={false}>
     <ProjectsByText />
   </Screen>

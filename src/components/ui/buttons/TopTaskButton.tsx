@@ -52,6 +52,7 @@ export const TopTaskButton = ({
             color="link"
             name={iconName}
             size="xl"
+            testID={`${testID}Icon`}
           />
         </View>
         <Column
@@ -70,6 +71,7 @@ export const TopTaskButton = ({
               <Icon
                 color="link"
                 name={titleIconName}
+                testID={`${testID}TitleIcon`}
               />
             )}
           </Row>

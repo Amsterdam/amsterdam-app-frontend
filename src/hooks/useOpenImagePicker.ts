@@ -85,6 +85,7 @@ export const useOpenImagePicker = (
           content: {
             text: getAddPhotoFeedback(viaCamera, code),
           },
+          testID: 'OpenImagePicker',
           variant: AlertVariant.negative,
           withIcon: false,
         }),

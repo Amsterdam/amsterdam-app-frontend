@@ -33,6 +33,7 @@ export const RequestLocation = () => {
         imageAspectRatio={media.illustrationAspectRatio.landscape}
         imageWidth={media.illustrationWidth.wide}
         moveUp={isLandscape ? 128 : undefined}
+        testID="WasteGuideRequestLocationBackground"
       />
     </Column>
   )

@@ -35,6 +35,7 @@ export const WasteGuideForWeesp = () => {
           onPress={() => {
             openWebUrl(gadUrl)
           }}
+          testID="WasteGuideGoToGadButton"
         />
       </Row>
     </Column>

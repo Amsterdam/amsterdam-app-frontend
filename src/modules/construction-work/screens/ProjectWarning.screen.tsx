@@ -12,6 +12,7 @@ export const ProjectWarningScreen = ({route}: Props) => {
 
   return (
     <Screen
+      testID="ConstructionWorkProjectWarningScreen"
       withLeftInset={false}
       withRightInset={false}>
       <ProjectWarning

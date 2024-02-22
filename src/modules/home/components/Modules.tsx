@@ -13,7 +13,12 @@ export const Modules = () => {
     useModules()
 
   if (modulesLoading) {
-    return <PleaseWait grow />
+    return (
+      <PleaseWait
+        grow
+        testID="HomeModulesLoadingSpinner"
+      />
+    )
   }
 
   if (modulesError || !enabledModules) {
@@ -30,7 +35,10 @@ export const Modules = () => {
   if (!availableModules.length) {
     return (
       <Box>
-        <EmptyMessage text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven." />
+        <EmptyMessage
+          testID="HomeModulesEmptyList"
+          text="Alle modules staan uit. Daardoor is hier niet veel te doen. Zet één of meer modules aan via de instellingen rechtsboven."
+        />
       </Box>
     )
   }

@@ -38,7 +38,10 @@ const ListItem = ({navigation, project}: ListItemProps) => (
 
 const ListEmptyMessage = () => (
   <Box insetHorizontal="md">
-    <EmptyMessage text="We hebben geen projecten gevonden waarvoor je berichten mag sturen." />
+    <EmptyMessage
+      testID="ConstructionWorkEditorAuthorizedProjectsEmptyMessage"
+      text="We hebben geen projecten gevonden waarvoor je berichten mag sturen."
+    />
   </Box>
 )
 
@@ -63,7 +66,9 @@ export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
   const authorizedProjects = currentProjectManager?.projects
 
   if (isGetProjectManagerFetching) {
-    return <PleaseWait />
+    return (
+      <PleaseWait testID="ConstructionWorkEditorAuthorizedProjectsLoadingSpinner" />
+    )
   }
 
   if (

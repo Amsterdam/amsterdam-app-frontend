@@ -72,7 +72,12 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
   })
 
   if (visitingHoursContent) {
-    return <HtmlContent content={visitingHoursContent} />
+    return (
+      <HtmlContent
+        content={visitingHoursContent}
+        testID="ContactVisitingHoursHtml"
+      />
+    )
   }
 
   return (
@@ -94,6 +99,7 @@ export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
               color="link"
               name="question-mark-solid"
               size="lg"
+              testID="ContactVisitingHoursTooltipIcon"
             />
           }
           onPress={toggleTooltip}

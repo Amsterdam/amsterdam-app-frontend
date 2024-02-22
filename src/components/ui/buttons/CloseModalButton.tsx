@@ -6,7 +6,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 
 type Props = {
   label: string
-} & Required<TestProps>
+} & TestProps
 
 export const CloseModalButton = ({label, testID}: Props) => {
   const navigation = useNavigation()

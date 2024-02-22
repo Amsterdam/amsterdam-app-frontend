@@ -12,7 +12,7 @@ import {type RequirePick} from '@/types/utils'
 type Props<T> = {
   onEvent?: ((event: T) => void) | (() => void)
   'sentry-label'?: string
-} & TestProps &
+} & Partial<TestProps> &
   RequirePick<LogProps, 'logAction'>
 
 type ExtraProps = {

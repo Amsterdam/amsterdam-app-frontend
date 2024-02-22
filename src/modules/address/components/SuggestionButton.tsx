@@ -38,13 +38,13 @@ export const SuggestionButton = ({
         name="location"
         sentry-label={`${sentryLabel ?? ''}Icon`}
         size="lg"
-        testID={testID ? `${testID}Icon` : undefined}
+        testID={`${testID}Icon`}
       />
       <Phrase
         color="link"
         ellipsizeMode="tail"
         sentry-label={`${sentryLabel ?? ''}Label`}
-        testID={testID ? `${testID}Label` : undefined}>
+        testID={`${testID}Label`}>
         {label}
       </Phrase>
     </Row>

@@ -32,6 +32,7 @@ export const CityOfficeButton = ({cityOffice}: Props) => {
             color="link"
             name="city-office"
             size="lg"
+            testID={`ContactCityOffice${cityOffice.identifier}Icon`}
           />
           <Title
             color="link"

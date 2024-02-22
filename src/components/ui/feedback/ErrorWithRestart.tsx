@@ -17,6 +17,7 @@ export const ErrorWithRestart = () => {
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.errorWithRestart}
         scroll={false}
+        testID={'ErrorWithRestartScreen'}
         withTopInset>
         <Box inset="lg">
           <Column gutter="md">

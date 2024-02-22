@@ -10,12 +10,12 @@ export type RadioGroupOption<T> = {
 }
 
 type RadioGroupProps<T> = {
-  /**
-   * Log value to analytics service as new state when the selected value changes.
-   */
-  logSelectedValueAsNewState?: boolean
   onChange: (value: T) => void
   options: RadioGroupOption<T>[]
+  /**
+   * Log value to analytics service as new state when the selected value changes and as name on the button press event of the option.
+   */
+  useOptionValuesForLogging?: boolean
   value?: T
 } & TestProps &
   LogProps
@@ -28,7 +28,7 @@ export const RadioGroup = <T extends RadioValue>({
   testID,
   value,
   logAction = PiwikAction.radioChange,
-  logSelectedValueAsNewState = false,
+  useOptionValuesForLogging = false,
   logDimensions = {},
   ...props
 }: RadioGroupProps<T>) => {
@@ -37,33 +37,37 @@ export const RadioGroup = <T extends RadioValue>({
     logAction,
     logDimensions,
     onEvent: onChange,
-    testID,
+    testID: testID,
   })
 
   return (
     <Column gutter="md">
-      {options.map(({label, value: optionValue}) => (
-        <Radio
-          isSelected={value === optionValue}
-          key={label}
-          label={label}
-          onPress={() =>
-            onPress(
-              optionValue,
-              logSelectedValueAsNewState
-                ? {
-                    dimensions: {
-                      [PiwikDimension.newState]: optionValue.toString(),
-                    },
-                  }
-                : {},
-            )
-          }
-          testID={
-            testID ? `${testID}${optionValue.toString()}RadioButton` : undefined
-          }
-        />
-      ))}
+      {options.map(({label, value: optionValue}, index) => {
+        const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
+
+        return (
+          <Radio
+            isSelected={value === optionValue}
+            key={label}
+            label={label}
+            logName={logName}
+            onPress={() =>
+              onPress(
+                optionValue,
+                useOptionValuesForLogging
+                  ? {
+                      dimensions: {
+                        [PiwikDimension.newState]: optionValue.toString(),
+                      },
+                    }
+                  : {},
+              )
+            }
+            sentry-label={logName}
+            testID={`${testID}${optionValue.toString()}RadioButton`}
+          />
+        )
+      })}
     </Column>
   )
 }

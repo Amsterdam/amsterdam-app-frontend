@@ -74,6 +74,7 @@ export const StreetSearchResultForLocation = ({
               setShowFeedbackForNoResults(true)
               void getCoordinates()
             }}
+            testID="AddressUseLocationButton"
             variant="tertiary"
           />
         </Row>
@@ -97,6 +98,7 @@ export const StreetSearchResultForLocation = ({
         {!!showNoResultsMessage && (
           <EmptyMessage
             showTitle={false}
+            testID="AddressNoSuggestionsMessage"
             text="Geen suggesties gevonden voor je huidige locatie."
           />
         )}

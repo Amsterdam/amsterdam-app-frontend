@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {StyleSheet} from 'react-native'
 import {FlexStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
 import {SimpleGrid} from '@/components/ui/containers/SimpleGrid'
@@ -28,7 +29,12 @@ export const Fractions = ({wasteGuide}: Props) => {
       itemDimension={itemDimension}
       keyExtractor={fraction => fraction.afvalwijzerFractieCode}
       listKey="fractions"
-      renderItem={({item}) => <Fraction fraction={item} />}
+      renderItem={({item}) => (
+        <Fraction
+          fraction={item}
+          testID={`WasteGuide${pascalCase(item.afvalwijzerFractieNaam)}`}
+        />
+      )}
       spacing={gutter}
       style={styles.grid}
     />

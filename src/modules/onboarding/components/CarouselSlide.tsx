@@ -75,7 +75,11 @@ export const CarouselSlide = ({
                     ref={setAccessibilityAutoFocus}
                     text={title}
                   />
-                  <Phrase variant="intro">{description}</Phrase>
+                  <Phrase
+                    testID="OnboardingIntroPhrase"
+                    variant="intro">
+                    {description}
+                  </Phrase>
                 </Wrapper>
               </ContentView>
             </Box>

@@ -7,7 +7,7 @@ import {ContactOptions} from '@/modules/contact/components/contact-options/Conta
 export const ContactScreen = () => (
   <Screen
     bottomSheet={
-      <BottomSheet>
+      <BottomSheet testID="ContactSelectCityOfficeBottomSheet">
         <SelectCityOffice />
       </BottomSheet>
     }

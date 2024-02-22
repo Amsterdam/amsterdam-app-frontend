@@ -16,9 +16,9 @@ type Props = {
 type LinkIconProps = {
   direction?: Direction.left | Direction.right
   external?: boolean
-}
+} & TestProps
 
-const LinkIcon = ({direction, external}: LinkIconProps) => {
+const LinkIcon = ({direction, external, testID}: LinkIconProps) => {
   const {text} = useTheme()
   const iconName = external
     ? 'external-link'
@@ -31,6 +31,7 @@ const LinkIcon = ({direction, external}: LinkIconProps) => {
       <Icon
         color="link"
         name={iconName}
+        testID={testID}
       />
     </Size>
   )
@@ -49,11 +50,35 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
       onPress={onPress}
       testID={testID}>
       <Row gutter="sm">
-        {variant === 'external' && <LinkIcon external />}
-        {variant === 'backward' && <LinkIcon direction={Direction.left} />}
-        {variant === 'default' && <LinkIcon direction={Direction.right} />}
-        <Phrase color="link">{label}</Phrase>
-        {variant === 'forward' && <LinkIcon direction={Direction.right} />}
+        {variant === 'external' && (
+          <LinkIcon
+            external
+            testID={`${testID}Icon`}
+          />
+        )}
+        {variant === 'backward' && (
+          <LinkIcon
+            direction={Direction.left}
+            testID={`${testID}Icon`}
+          />
+        )}
+        {variant === 'default' && (
+          <LinkIcon
+            direction={Direction.right}
+            testID={`${testID}Icon`}
+          />
+        )}
+        <Phrase
+          color="link"
+          testID={`${testID}Phrase`}>
+          {label}
+        </Phrase>
+        {variant === 'forward' && (
+          <LinkIcon
+            direction={Direction.right}
+            testID={`${testID}Icon`}
+          />
+        )}
       </Row>
     </Pressable>
   )

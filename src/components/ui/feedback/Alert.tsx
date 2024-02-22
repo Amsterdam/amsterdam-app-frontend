@@ -20,6 +20,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {TestProps} from '@/components/ui/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
@@ -42,7 +43,7 @@ type WrapperProps = {
   children: ReactNode
   closeType: AlertCloseType
   onPress: () => void
-}
+} & TestProps
 
 const Wrapper = ({onPress, closeType, ...props}: WrapperProps) => {
   if (closeType !== AlertCloseType.withoutButton) {
@@ -98,7 +99,8 @@ export const Alert = () => {
     <Box>
       <Wrapper
         closeType={closeType}
-        onPress={onPress}>
+        onPress={onPress}
+        testID={`${testID}Wrapper`}>
         <View
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
@@ -117,6 +119,7 @@ export const Alert = () => {
                     color="link"
                     name={iconName}
                     size="lg"
+                    testID={`${testID}Icon`}
                   />
                 )}
                 <Column>
@@ -140,9 +143,11 @@ export const Alert = () => {
                       color="link"
                       name="close"
                       size="lg"
+                      testID={`${testID}CloseIcon`}
                     />
                   }
                   onPress={() => dispatch(resetAlert())}
+                  testID={`${testID}IconButton`}
                 />
               </View>
             )}

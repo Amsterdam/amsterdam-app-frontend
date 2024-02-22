@@ -41,6 +41,7 @@ export const NavigationButton = ({
             color="link"
             name="chevron-left"
             size={iconSize}
+            testID={`${testID}Icon`}
           />
         )}
         <Title
@@ -53,6 +54,7 @@ export const NavigationButton = ({
             color="link"
             name="chevron-right"
             size={iconSize}
+            testID={`${testID}Icon`}
           />
         )}
       </Row>

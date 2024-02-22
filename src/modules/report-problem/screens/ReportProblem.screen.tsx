@@ -20,7 +20,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
 
   return (
-    <Screen>
+    <Screen testID="ReportProblemScreen">
       <Box>
         <Title
           testID="ReportProblemScreenTitle"

@@ -1,4 +1,4 @@
-import {ViewProps} from 'react-native'
+import {TestProps} from '@/components/ui/types'
 import {
   ProjectContact,
   ProjectSection,
@@ -8,7 +8,6 @@ import {
 export type ProjectSegment = {
   contacts?: ProjectContact[] | null
   sections?: ProjectSection[] | null
-  testID: ViewProps['testID']
   timeline?: ProjectTimeline | null
   title: string
-}
+} & TestProps

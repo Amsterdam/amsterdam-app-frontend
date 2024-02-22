@@ -8,13 +8,19 @@ import {isDevApp} from '@/processes/development'
 import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export const AdminScreen = () => (
-  <Screen keyboardAware>
+  <Screen
+    keyboardAware
+    testID="HomeTestAdminScreen">
     {!!isDevApp && (
       <Column gutter="xl">
         <EnvironmentSelector />
         <ResetIosImageCache />
         <Box>
-          <Phrase textAlign="center">{VERSION_NUMBER_WITH_BUILD}</Phrase>
+          <Phrase
+            testID="HomeTestAdminBuildNumberPhrase"
+            textAlign="center">
+            {VERSION_NUMBER_WITH_BUILD}
+          </Phrase>
         </Box>
       </Column>
     )}

@@ -41,10 +41,11 @@ export const List = ({items, marker = 'square', testID}: Props) => {
       accessibilityLabel={accessibleText(...accessibilityLabelItems)}
       testID={testID}>
       <Column gutter="md">
-        {textItems.map(text => (
+        {textItems.map((text, index) => (
           <ListItem
             key={text}
             marker={marker}
+            testID={`${testID}${index}Item`}
             text={text}
           />
         ))}

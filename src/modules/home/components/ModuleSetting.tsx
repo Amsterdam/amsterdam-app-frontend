@@ -56,7 +56,7 @@ const ModuleSettingContent = ({
             color={color}
             name="construction-work"
             size="lg"
-            testID={testID ? `${testID}Icon` : undefined}
+            testID={`${testID}Icon`}
           />
         ) : (
           !!iconName && (
@@ -64,20 +64,20 @@ const ModuleSettingContent = ({
               color={color}
               name={iconName}
               size="lg"
-              testID={testID ? `${testID}Icon` : undefined}
+              testID={`${testID}Icon`}
             />
           )
         )}
         <Title
           color={color}
           level="h5"
-          testID={testID ? `${testID}Title` : undefined}
+          testID={`${testID}Title`}
           text={title}
         />
       </Row>
       {disabled ? (
         <Paragraph
-          testID={testID ? `${testID}Paragraph` : undefined}
+          testID={`${testID}Paragraph`}
           variant="small">
           {description}
         </Paragraph>

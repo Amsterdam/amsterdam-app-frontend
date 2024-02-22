@@ -24,6 +24,7 @@ export const ReferToWebsite = () => {
             accessibilityRole="link"
             label="Naar amsterdam.nl"
             onPress={() => openWebUrl('https://www.amsterdam.nl')}
+            testID="RedirectsWebsiteButton"
           />
         </Column>
       </Column>

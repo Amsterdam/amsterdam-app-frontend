@@ -23,9 +23,14 @@ export const Pattern: ComponentStory<typeof Phrase> = () => (
   <View>
     <Phrase
       emphasis="strong"
+      testID="Phrase"
       variant="small">
       14
     </Phrase>
-    <Phrase variant="small">volgers</Phrase>
+    <Phrase
+      testID="Phrase"
+      variant="small">
+      volgers
+    </Phrase>
   </View>
 )

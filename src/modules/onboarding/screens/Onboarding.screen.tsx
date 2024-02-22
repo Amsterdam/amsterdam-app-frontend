@@ -67,6 +67,7 @@ export const OnboardingScreen = () => {
                   color="link"
                   name="close"
                   size="ml"
+                  testID="OnboardingCloseIcon"
                 />
               }
               onPress={handleOnboarding}
@@ -75,6 +76,7 @@ export const OnboardingScreen = () => {
           </Row>
         </Box>
       }
+      testID="OnboardingScreen"
       withLeftInset={false}
       withRightInset={false}
       withTopInset>

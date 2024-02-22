@@ -18,6 +18,7 @@ export const AddButton = (props: Props) => {
         color="link"
         name="enlarge"
         size="lg"
+        testID={`${props.testID}Icon`}
       />
     </Pressable>
   )

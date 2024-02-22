@@ -27,10 +27,14 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
         testID="ContactCurrentCityOfficeButton"
         text={
           <>
-            <Phrase variant="small">
+            <Phrase
+              testID="ContactCityOfficeStreetPhrase"
+              variant="small">
               {address.streetName} {address.streetNumber}
             </Phrase>
-            <Phrase variant="small">
+            <Phrase
+              testID="ContactCityOfficeCityPhrase"
+              variant="small">
               {address.postalCode} {address.city}
             </Phrase>
           </>

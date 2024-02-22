@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {useEffect} from 'react'
 import RNRestart from 'react-native-restart'
 import {Button} from '@/components/ui/buttons/Button'
@@ -65,6 +66,7 @@ export const EnvironmentSelector = () => {
                 dispatch(setEnvironment(env as Environment))
                 dispatch(baseApi.util.resetApiState())
               }}
+              testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
               variant={environment === env ? 'secondary' : 'primary'}
             />
           ))}
@@ -96,6 +98,7 @@ export const EnvironmentSelector = () => {
                 dispatch(setEnvironment(env))
                 dispatch(baseApi.util.resetApiState())
               }}
+              testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
               variant={environment === env ? 'secondary' : 'primary'}
             />
           ))}

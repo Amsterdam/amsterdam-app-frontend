@@ -58,7 +58,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
   const projectTitle = useSetScreenTitle(project?.title)
 
   if (articleIsLoading || projectIsLoading) {
-    return <PleaseWait />
+    return <PleaseWait testID="ConstructionWorkNewsLoadingSpinner" />
   }
 
   if (!article || articleIsError) {

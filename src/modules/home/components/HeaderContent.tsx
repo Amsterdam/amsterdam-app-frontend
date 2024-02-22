@@ -44,6 +44,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
                 color="link"
                 name="chevron-left"
                 size={chevronSize}
+                testID="HeaderBackIcon"
               />
             }
             onPress={navigation.goBack}

@@ -34,7 +34,9 @@ export const Multiple: ComponentStory<typeof Accordion> = () => (
   <>
     {['Grof afval', 'Restafval', 'Containers in de buurt', 'Afvalpunten'].map(
       title => (
-        <Accordion title={title}>
+        <Accordion
+          testID={title}
+          title={title}>
           <Paragraph>
             Informatie over {title.toLowerCase()} komt hier.
           </Paragraph>

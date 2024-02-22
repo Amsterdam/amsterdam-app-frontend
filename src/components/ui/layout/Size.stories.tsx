@@ -10,7 +10,7 @@ export default {
 export const Default: ComponentStory<typeof Size> = args => (
   <Size {...args}>
     <Canvas highlight>
-      <Phrase>Ik accepteer afmetingen</Phrase>
+      <Phrase testID="Phrase">Ik accepteer afmetingen</Phrase>
     </Canvas>
   </Size>
 )

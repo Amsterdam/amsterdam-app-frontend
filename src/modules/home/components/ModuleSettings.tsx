@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {useEffect} from 'react'
 import {getVersion} from 'react-native-device-info'
 import {Box} from '@/components/ui/containers/Box'
@@ -24,7 +25,12 @@ export const ModuleSettings = () => {
   }, [registerDeviceWithPermission, enabledModules, unregisterDevice])
 
   if (modulesLoading) {
-    return <PleaseWait grow />
+    return (
+      <PleaseWait
+        grow
+        testID="HomeModulesLoadingSpinner"
+      />
+    )
   }
 
   if (!toggleableModules || toggleableModules.length === 0) {
@@ -46,6 +52,7 @@ export const ModuleSettings = () => {
             <ModuleSetting
               key={module.slug}
               module={module}
+              testID={`HomeModule${pascalCase(module.slug)}`}
             />
           ))}
         </Column>

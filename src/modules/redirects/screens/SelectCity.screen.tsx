@@ -23,6 +23,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
 
   return (
     <Screen
+      testID="RedirectsSelectCityScreen"
       withLeftInset={!isLandscape}
       withRightInset={!isLandscape}>
       <Column
@@ -48,6 +49,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
                     accessibilityRole="link"
                     label="Weesp"
                     onPress={() => openWebUrl(MAKE_APPOINTMENT_WEESP)}
+                    testID="RedirectsMakeAppointmentWeespButton"
                   />
                 </Column>
               </Row>
@@ -59,6 +61,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
           Image={<PeopleAtCityOffice />}
           imageAspectRatio={media.illustrationAspectRatio.landscape}
           imageWidth={media.illustrationWidth.wide}
+          testID="RedirectsSelectCityBackground"
           withWeesp
         />
       </Column>
