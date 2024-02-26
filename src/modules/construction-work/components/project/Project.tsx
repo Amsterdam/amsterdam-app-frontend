@@ -30,6 +30,7 @@ import {
   useProjectDetailsQuery,
   useProjectUnfollowMutation,
 } from '@/modules/construction-work/service'
+import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const ONBOARDING_TIP =
@@ -130,6 +131,12 @@ export const Project = ({id}: Props) => {
                     isUpdatingFollow || isUpdatingUnfollow || isFetching
                   }
                   followed={followed}
+                  logAction={PiwikAction.buttonPress}
+                  logDimensions={{
+                    [PiwikDimension.contentId]: id.toString(),
+                    [PiwikDimension.contentTitle]: project.title,
+                  }}
+                  logName={`ConstructionWorkProject${followed ? 'Unfollow' : 'Follow'}Button`}
                   onPress={onPressFollowButton}
                   testID="ConstructionWorkProjectFollowButton"
                 />
