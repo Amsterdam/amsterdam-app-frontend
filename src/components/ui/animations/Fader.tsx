@@ -55,7 +55,13 @@ export const Fader = forwardRef<View, Props>((props, ref) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   if (isReduceMotionEnabled) {
-    return <>{props.children}</>
+    return (
+      <View
+        ref={ref}
+        style={props.style}>
+        {props.children}
+      </View>
+    )
   }
 
   return (
