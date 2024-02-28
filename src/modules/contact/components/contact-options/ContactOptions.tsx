@@ -1,26 +1,17 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {getContactOptions} from '@/modules/contact/data/contact'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {contactOptions} from '@/modules/contact/data/contact'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ContactOptions = () => {
-  const openPhoneUrl = useOpenPhoneUrl()
-  const openWebUrl = useOpenWebUrl()
+  const openUrl = useOpenUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
-
-  const contactOptions = getContactOptions(
-    openPhoneUrl,
-    openWebUrl,
-    redirectUrls?.contactForm,
-  )
 
   return (
     <Box>
@@ -36,12 +27,15 @@ export const ContactOptions = () => {
           </Paragraph>
         </Column>
         <Column gutter="md">
-          {isLoading ? (
-            <PleaseWait testID="ContactContactOptionsPleaseWait" />
-          ) : isError ? (
-            <SomethingWentWrong />
-          ) : (
-            contactOptions.map(props => (
+          {contactOptions.map(({redirectsKey, url, iconName, ...props}) => {
+            const redirectUrl = redirectsKey && redirectUrls?.[redirectsKey]
+            const resultUrl = redirectUrl ?? url
+
+            if (redirectsKey && isError) {
+              return <SomethingWentWrong />
+            }
+
+            return (
               <TopTaskButton
                 {...props}
                 accessibilityLabel={accessibleText(
@@ -49,10 +43,16 @@ export const ContactOptions = () => {
                   props.text,
                 )}
                 accessibilityRole="link"
-                testID="ContactContactFormButton"
+                iconName={redirectsKey && isLoading ? 'spinner' : iconName}
+                onPress={() => {
+                  if (resultUrl) {
+                    openUrl(resultUrl)
+                  } else {
+                  }
+                }}
               />
-            ))
-          )}
+            )
+          })}
         </Column>
       </Column>
     </Box>

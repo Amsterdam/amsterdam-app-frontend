@@ -1,33 +1,29 @@
 import {Key} from 'react'
 import {TopTaskButtonProps} from '@/components/ui/buttons/TopTaskButton'
 import {IconName} from '@/components/ui/media/iconPaths'
-import {OpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {OpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {TestProps} from '@/components/ui/types'
+import {RedirectKey} from '@/modules/redirects/types'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 type ContactOption = {
   iconName: IconName
   key: Key
+  redirectsKey?: RedirectKey
   text: string
   title: string
+  url?: string
 } & Partial<
-  Pick<
-    TopTaskButtonProps,
-    'accessibilityHint' | 'accessibilityLabel' | 'testID' | 'onPress'
-  >
->
+  Pick<TopTaskButtonProps, 'accessibilityHint' | 'accessibilityLabel'>
+> &
+  TestProps
 
-export const getContactOptions = (
-  openPhoneUrl: OpenPhoneUrl,
-  openWebUrl: OpenWebUrl,
-  contactFormUrl?: string,
-): ContactOption[] => [
+export const contactOptions: ContactOption[] = [
   {
     accessibilityHint: 'Opent een link naar een formulier.',
     accessibilityLabel: 'Gebruik ons contactformulier',
     iconName: 'email',
     key: 'email',
-    onPress: () => contactFormUrl && openWebUrl(contactFormUrl),
+    redirectsKey: RedirectKey.contactForm,
     testID: 'ContactContactFormButton',
     text: 'Reactie binnen 1 werkdag',
     title: 'Contactformulier',
@@ -36,7 +32,7 @@ export const getContactOptions = (
     accessibilityLabel: 'Bel veertien nul twintig',
     iconName: 'phone',
     key: 'phone',
-    onPress: () => openPhoneUrl('14020'),
+    url: 'tel:14020',
     testID: 'ContactPhoneButton',
     text: 'Gemiddeld 5 minuten wachten',
     title: 'Bel 14 020',
@@ -46,7 +42,7 @@ export const getContactOptions = (
       'Whatsapp nul zes vierenveertig vierenveertig nul zes vijfenvijftig',
     iconName: 'whatsapp',
     key: 'whatsapp',
-    onPress: () => openWebUrl('https://wa.me/31644440655'),
+    url: 'https://wa.me/31644440655',
     testID: 'ContactWhatsAppButton',
     text: 'Reactie binnen 2 uur',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
@@ -56,7 +52,7 @@ export const getContactOptions = (
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
     iconName: 'person',
     key: 'mijn-amsterdam',
-    onPress: () => openWebUrl('https://mijn.amsterdam.nl/'),
+    url: 'https://mijn.amsterdam.nl/',
     testID: 'ContactMijnAmsterdamButton',
     text: 'Uw persoonlijke online pagina bij de gemeente Amsterdam.',
     title: 'Mijn Amsterdam',

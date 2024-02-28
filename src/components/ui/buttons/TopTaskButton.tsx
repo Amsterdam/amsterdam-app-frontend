@@ -26,7 +26,7 @@ export const TopTaskButton = ({
   text,
   title,
   titleIconName,
-  testID = '',
+  testID,
   accessibilityRole = 'button',
   ...pressableProps
 }: TopTaskButtonProps) => {

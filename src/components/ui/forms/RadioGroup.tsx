@@ -37,7 +37,7 @@ export const RadioGroup = <T extends RadioValue>({
     logAction,
     logDimensions,
     onEvent: onChange,
-    testID: testID,
+    testID,
   })
 
   return (

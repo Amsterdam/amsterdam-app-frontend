@@ -73,6 +73,12 @@ export const AboutScreen = ({navigation}: Props) => {
                 onPress={() => navigation.navigate(ModuleSlug.onboarding)}
                 testID="AboutOnboardingButton"
               />
+              <NavigationButton
+                accessibilityRole="button"
+                label="Dit kan beter"
+                onPress={() => navigation.navigate(AboutRouteName.feedback)}
+                testID="AboutFeedbackButton"
+              />
             </Column>
           </Column>
           <Column
