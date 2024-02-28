@@ -8,8 +8,7 @@ type DisableScrollContextType = {
 
 export const DisableScrollContext = createContext<DisableScrollContextType>({
   scrollDisabled: false,
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setScrollDisabled: () => {},
+  setScrollDisabled: () => null,
 })
 
 type Props = {
