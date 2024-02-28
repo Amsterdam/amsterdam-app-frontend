@@ -1,12 +1,10 @@
 import {useCallback} from 'react'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
-import {LogProps} from '@/processes/piwik/types'
 
 type Props = {
   followed: boolean
   onPress: (followed: boolean) => void
-} & Omit<ButtonProps, 'onPress' | 'style'> &
-  LogProps
+} & Omit<ButtonProps, 'onPress' | 'style'>
 
 export const FollowButton = ({
   followed,

@@ -154,7 +154,7 @@ export const ProjectsList = ({
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         }}
-        logName="ProjectSuggestionButton"
+        logName="ConstructionWorkSuggestionButton"
         onPress={(id: number) => {
           setSearchFieldValue('')
           navigation.navigate(ConstructionWorkRouteName.project, {

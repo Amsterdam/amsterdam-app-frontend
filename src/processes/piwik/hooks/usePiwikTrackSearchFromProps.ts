@@ -19,7 +19,7 @@ export const usePiwikTrackSearchFromProps = <T = unknown>({
   return useCallback(
     (event: T) => {
       onEvent?.(event)
-      trackSearch(keyword ?? '', options)
+      trackSearch(keyword, options)
     },
     [keyword, options, onEvent, trackSearch],
   )

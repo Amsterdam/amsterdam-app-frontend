@@ -18,8 +18,7 @@ const initialValue: SearchFieldContextType = {
   amount: 0,
   type: '',
   value: '',
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  setSearchFieldValue: () => {},
+  setSearchFieldValue: () => null,
 }
 
 export const SearchFieldContext =
