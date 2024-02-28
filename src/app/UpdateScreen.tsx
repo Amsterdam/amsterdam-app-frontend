@@ -20,24 +20,24 @@ export const UpdateScreen = ({children}: Props) => {
   const openStore = useOpenStore()
   const {isPortrait} = useDeviceContext()
 
-  const supported = releaseData?.isSupported
+  const isSupported = releaseData?.isSupported
 
   const hideSplashScreen = useHideSplashScreen()
 
   useEffect(() => {
-    if (supported === false || isError) {
+    if (isSupported === false || isError) {
       hideSplashScreen()
     }
-  }, [hideSplashScreen, isError, supported, releaseData])
+  }, [hideSplashScreen, isError, isSupported, releaseData])
 
   useUpdateSuggestion(
     SNOOZE_TIME_IN_HOURS,
     releaseData?.latestVersion,
     releaseData?.isDeprecated,
-    releaseData?.isSupported,
+    isSupported,
   )
 
-  if (supported === false) {
+  if (isSupported === false) {
     return (
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.updateScreen}

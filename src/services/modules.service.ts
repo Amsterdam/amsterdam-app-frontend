@@ -5,8 +5,10 @@ import {VERSION_NUMBER} from '@/utils/version'
 
 export type ModulesResponse = {
   created: string
+  deprecated: string
   isDeprecated: boolean
   isSupported: boolean
+  latestReleaseNotes: string
   latestVersion: string
   modified: string
   modules: ModuleServerConfig[]
