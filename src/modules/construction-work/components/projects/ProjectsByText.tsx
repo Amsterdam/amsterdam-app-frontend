@@ -8,6 +8,7 @@ import {ProjectsListHeader} from '@/modules/construction-work/components/project
 import {ProjectsTextSearchField} from '@/modules/construction-work/components/projects/ProjectsTextSearchField'
 import {useProjectsSearchQuery} from '@/modules/construction-work/service'
 import {selectConstructionWorkSearchText} from '@/modules/construction-work/slice'
+import {SearchFieldProvider} from '@/providers/searchField.provider'
 
 export const ProjectsByText = () => {
   const searchText = useSelector(selectConstructionWorkSearchText)
@@ -31,22 +32,26 @@ export const ProjectsByText = () => {
   useAccessibilityAnnounceEffect(resultsLabel)
 
   return (
-    <ProjectsList
-      data={data?.result}
-      isError={isError}
-      isLoading={isLoading}
-      listHeader={
-        <ProjectsListHeader>
-          <ProjectsTextSearchField />
-          {!!resultsLabel && (
-            <Paragraph testID="ConstructionWorkProjectsNumberOfSearchResultsText">
-              {resultsLabel}
-            </Paragraph>
-          )}
-        </ProjectsListHeader>
-      }
-      noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
-      searchText={searchText}
-    />
+    <SearchFieldProvider
+      amount={data?.result.length}
+      type="projectsByText">
+      <ProjectsList
+        data={data?.result}
+        isError={isError}
+        isLoading={isLoading}
+        listHeader={
+          <ProjectsListHeader>
+            <ProjectsTextSearchField />
+            {!!resultsLabel && (
+              <Paragraph testID="ConstructionWorkProjectsNumberOfSearchResultsText">
+                {resultsLabel}
+              </Paragraph>
+            )}
+          </ProjectsListHeader>
+        }
+        noResultsMessage="We hebben geen werkzaamheden gevonden voor deze zoekterm."
+        searchText={searchText}
+      />
+    </SearchFieldProvider>
   )
 }

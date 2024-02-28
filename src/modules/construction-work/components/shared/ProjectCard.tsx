@@ -7,6 +7,7 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {TestProps} from '@/components/ui/types'
+import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -19,7 +20,8 @@ type Props = {
   subtitle?: string | null
   title: string
   width?: number
-} & TestProps
+} & TestProps &
+  LogProps
 
 export const ProjectCard = memo(
   ({
@@ -31,6 +33,7 @@ export const ProjectCard = memo(
     testID,
     title,
     width,
+    ...logProps
   }: Props) => {
     const createdStyles = useMemo(() => createStyles({width: width}), [width])
     const styles = useThemable(createdStyles)
@@ -46,7 +49,8 @@ export const ProjectCard = memo(
           accessibilityRole="button"
           onPress={onPress}
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
-          testID={testID}>
+          testID={testID}
+          {...logProps}>
           {!!imageSource && (
             <>
               <AspectRatio aspectRatio="wide">
