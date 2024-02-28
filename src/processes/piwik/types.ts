@@ -66,6 +66,8 @@ export enum PiwikDimension {
   contentId = 20,
   /** The new state of the element. e.g. open or closed for an accordion */
   newState = 36,
+  /** The route of an url. e.g. route of external link */
+  routeName = 43,
 }
 
 /**

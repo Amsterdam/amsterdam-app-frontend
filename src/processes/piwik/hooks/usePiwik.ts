@@ -3,7 +3,11 @@ import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'
-import {type PiwikCategory, type Piwik} from '@/processes/piwik/types'
+import {
+  type PiwikCategory,
+  type Piwik,
+  PiwikDimension,
+} from '@/processes/piwik/types'
 import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {postProcessDimensions} from '@/processes/piwik/utils/postProcessDimensions'
@@ -72,7 +76,10 @@ const getPiwik = (
 
     trackOutlink(url, {
       ...options,
-      customDimensions: postProcessDimensions(options?.customDimensions),
+      customDimensions: postProcessDimensions({
+        ...options?.customDimensions,
+        [PiwikDimension.routeName]: routeName,
+      }),
     }).catch(() => {
       sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILENAME, {
         url,

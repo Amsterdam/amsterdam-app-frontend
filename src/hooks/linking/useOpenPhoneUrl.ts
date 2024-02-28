@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import {Alert, Linking, Platform} from 'react-native'
+import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 
@@ -7,6 +8,7 @@ export type OpenPhoneUrl = (phoneNumber: string) => void
 
 export const useOpenPhoneUrl = (): OpenPhoneUrl => {
   const {sendSentryErrorLog} = useSentry()
+  const {trackOutlink} = usePiwik()
 
   return useCallback(
     (phoneNumber: string) => {
@@ -18,11 +20,13 @@ export const useOpenPhoneUrl = (): OpenPhoneUrl => {
         phoneUrl = `tel:${phoneNumber}`
       }
 
+      trackOutlink(phoneUrl)
+
       Linking.openURL(phoneUrl).catch(() => {
         Alert.alert('Sorry, deze functie is niet beschikbaar.')
         sendSentryErrorLog(SentryErrorLogKey.openPhoneUrl, 'useOpenPhoneUrl.ts')
       })
     },
-    [sendSentryErrorLog],
+    [sendSentryErrorLog, trackOutlink],
   )
 }
