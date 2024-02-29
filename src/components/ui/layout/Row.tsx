@@ -15,6 +15,8 @@ export type RowProps = {
   align?: MainAxisAlignment
   /** The content of the row. */
   children: ReactNode
+  /** Whether the row should grow to fill the available space. */
+  grow?: boolean
   /** The amount of horizontal spacing between the items in the row. */
   gutter?: keyof SpacingTokens
   /** Whether the items in the row should be reversed. */
@@ -42,6 +44,7 @@ export const Row = ({
   align,
   children,
   flex,
+  grow,
   gutter,
   valign,
   reverse,
@@ -50,7 +53,17 @@ export const Row = ({
   zIndex,
 }: RowProps) => {
   const styles = useThemable(
-    createStyles({align, flex, gutter, reverse, valign, vgutter, wrap, zIndex}),
+    createStyles({
+      align,
+      flex,
+      grow,
+      gutter,
+      reverse,
+      valign,
+      vgutter,
+      wrap,
+      zIndex,
+    }),
   )
 
   return <View style={styles.row}>{children}</View>
@@ -60,6 +73,7 @@ const createStyles =
   ({
     align,
     flex,
+    grow,
     gutter,
     reverse,
     valign,
@@ -73,6 +87,7 @@ const createStyles =
         flexDirection: reverse ? 'row-reverse' : 'row',
         flexWrap: wrap ? 'wrap' : undefined,
         flex,
+        flexGrow: grow ? 1 : undefined,
         flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         alignItems: mapCrossAxisAlignment(valign),

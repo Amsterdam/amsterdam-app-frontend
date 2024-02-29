@@ -23,6 +23,8 @@ export type ColumnProps = {
   halign?: CrossAxisAlignment
   /** Whether the items in the column should be reversed. */
   reverse?: boolean
+  /** Sets the zIndex style property */
+  zIndex?: number
 } & Pick<FlexStyle, 'flex'>
 
 /**
@@ -41,16 +43,25 @@ export const Column = ({
   gutter,
   halign,
   reverse,
+  zIndex,
 }: ColumnProps) => {
   const styles = useThemable(
-    createStyles({align, flex, grow, gutter, halign, reverse}),
+    createStyles({align, flex, grow, gutter, halign, reverse, zIndex}),
   )
 
   return <View style={styles.column}>{children}</View>
 }
 
 const createStyles =
-  ({align, flex, grow, gutter, halign, reverse}: Partial<ColumnProps>) =>
+  ({
+    align,
+    flex,
+    grow,
+    gutter,
+    halign,
+    reverse,
+    zIndex,
+  }: Partial<ColumnProps>) =>
   ({size}: Theme) =>
     StyleSheet.create({
       column: {
@@ -61,5 +72,6 @@ const createStyles =
         flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         rowGap: gutter && size.spacing[gutter],
+        zIndex,
       },
     })
