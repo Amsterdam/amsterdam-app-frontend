@@ -5,7 +5,7 @@ import {
   PressableBaseProps,
 } from '@/components/ui/buttons/PressableBase'
 import {Box, BoxProps} from '@/components/ui/containers/Box'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'

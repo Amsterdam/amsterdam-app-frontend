@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {FeedbackScreen} from '@/modules/about//screens/Feedback.screen'
 import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {AboutScreen} from '@/modules/about/screens/About.screen'
 import {AboutTheAppDutchScreen} from '@/modules/about/screens/AboutTheAppDutch.screen'
@@ -37,6 +38,13 @@ export const screenConfig: StackNavigationRoutes<
     name: AboutRouteName.accessibilityStatement,
     options: {
       headerTitle: 'Toegankelijkheidsverklaring',
+    },
+  },
+  [AboutRouteName.feedback]: {
+    component: FeedbackScreen,
+    name: AboutRouteName.feedback,
+    options: {
+      headerTitle: 'Dit kan beter',
     },
   },
   [AboutRouteName.privacyStatement]: {

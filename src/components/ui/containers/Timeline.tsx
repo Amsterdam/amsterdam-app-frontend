@@ -1,6 +1,6 @@
 import {pascalCase} from 'pascal-case'
 import {TimelineItem} from '@/components/ui/containers/TimelineItem'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {ProjectTimelineItem} from '@/modules/construction-work/types/api'
 
 type Props = {

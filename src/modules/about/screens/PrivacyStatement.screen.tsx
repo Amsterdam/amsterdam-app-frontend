@@ -119,6 +119,7 @@ export const PrivacyStatementScreen = () => {
                 )
               }
               testID="AboutPrivacyStatementGeneralLink"
+              variant="external"
             />
             <Link
               label="Specifieke privacyverklaring"
@@ -126,6 +127,7 @@ export const PrivacyStatementScreen = () => {
                 openWebUrl('https://www.amsterdam.nl/privacy/specifieke/')
               }
               testID="AboutPrivacyStatementSpecificLink"
+              variant="external"
             />
             <Paragraph>
               In de algemene privacyverklaring staat meer informatie over de

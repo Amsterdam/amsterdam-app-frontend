@@ -7,6 +7,7 @@ export const sentryAllowList = {
     'retriesRemaining',
     'serverModules',
   ],
+  [SentryErrorLogKey.getRedirectsUrl]: ['redirectsKey'],
   [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.hideSplashScreen]: ['error'],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],

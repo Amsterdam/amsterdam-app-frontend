@@ -4,7 +4,7 @@ import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay
 import {TextInput} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
 type Props = {

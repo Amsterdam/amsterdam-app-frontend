@@ -2,7 +2,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ListItemMarker} from '@/components/ui/text/list/ListItemMarker'
 import {ListMarkerProp} from '@/components/ui/text/list/types'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props = {
   text: string

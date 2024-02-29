@@ -1,7 +1,7 @@
 import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'

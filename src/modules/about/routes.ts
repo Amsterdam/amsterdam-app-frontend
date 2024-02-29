@@ -3,6 +3,7 @@ export enum AboutRouteName {
   aboutEnglish = 'AboutEnglish',
   accessibilityStatement = 'AccessibilityStatement',
   appSummary = 'AppSummary',
+  feedback = 'Feedback',
   privacyStatement = 'PrivacyStatement',
 }
 
@@ -11,5 +12,6 @@ export type AboutStackParams = {
   [AboutRouteName.aboutEnglish]: undefined
   [AboutRouteName.accessibilityStatement]: undefined
   [AboutRouteName.appSummary]: undefined
+  [AboutRouteName.feedback]: undefined
   [AboutRouteName.privacyStatement]: undefined
 }

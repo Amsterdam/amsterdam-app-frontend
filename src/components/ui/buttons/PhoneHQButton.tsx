@@ -1,6 +1,6 @@
 import {ButtonVariant} from '@/components/ui/buttons/Button'
 import {PhoneButton} from '@/components/ui/buttons/PhoneButton'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props = {
   variant?: ButtonVariant

@@ -6,7 +6,7 @@ import BottomSheetOriginal, {
 } from '@gorhom/bottom-sheet'
 import {type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useBottomSheet} from '@/store/slices/bottomSheet'

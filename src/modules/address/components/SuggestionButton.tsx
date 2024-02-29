@@ -3,7 +3,7 @@ import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {PdokAddress} from '@/modules/address/types'
 
 type Props = {

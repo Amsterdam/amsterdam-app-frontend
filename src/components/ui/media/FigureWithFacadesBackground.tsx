@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {Figure, FigureProps} from '@/components/ui/media/Figure'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 

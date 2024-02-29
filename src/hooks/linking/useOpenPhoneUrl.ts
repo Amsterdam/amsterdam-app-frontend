@@ -14,7 +14,7 @@ export const useOpenPhoneUrl = (): OpenPhoneUrl => {
     (phoneNumber: string) => {
       let phoneUrl = ''
 
-      if (Platform.OS !== 'android') {
+      if (Platform.OS === 'ios') {
         phoneUrl = `telprompt:${phoneNumber}`
       } else {
         phoneUrl = `tel:${phoneNumber}`

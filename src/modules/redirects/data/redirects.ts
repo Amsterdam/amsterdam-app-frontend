@@ -1,5 +1,5 @@
 import {IconName} from '@/components/ui/media/iconPaths'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 

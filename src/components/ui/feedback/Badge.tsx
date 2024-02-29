@@ -1,6 +1,6 @@
 import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Device} from '@/providers/device.provider'
 import {Theme} from '@/themes/themes'

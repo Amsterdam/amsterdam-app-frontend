@@ -3,7 +3,7 @@ import {FauxButton} from '@/components/ui/buttons/FauxButton'
 import {PhoneHQButton} from '@/components/ui/buttons/PhoneHQButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 
 type Props = {

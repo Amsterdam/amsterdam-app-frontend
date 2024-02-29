@@ -1,5 +1,5 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = TestProps

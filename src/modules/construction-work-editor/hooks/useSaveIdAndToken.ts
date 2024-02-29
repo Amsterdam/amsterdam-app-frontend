@@ -14,7 +14,7 @@ export const useSaveIdAndToken = () => {
         setCredentials({
           managerToken: encryptWithAES({
             password: AUTH_PASSWORD ?? '',
-            salt: id,
+            data: id,
           }),
         }),
       )
