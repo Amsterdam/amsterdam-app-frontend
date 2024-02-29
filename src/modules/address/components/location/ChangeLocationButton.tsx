@@ -1,4 +1,4 @@
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useLocationTypeForModule} from '@/modules/address/hooks/useLocationTypeForModule'

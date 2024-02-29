@@ -1,6 +1,6 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'

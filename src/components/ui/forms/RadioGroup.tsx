@@ -1,6 +1,6 @@
 import {Radio} from '@/components/ui/forms/Radio'
 import {Column} from '@/components/ui/layout/Column'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 

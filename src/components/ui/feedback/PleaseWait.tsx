@@ -1,7 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Icon} from '@/components/ui/media/Icon'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props = {
   grow?: boolean

@@ -1,6 +1,6 @@
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {StylisticSearchField} from '@/components/ui/forms/SearchField'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 

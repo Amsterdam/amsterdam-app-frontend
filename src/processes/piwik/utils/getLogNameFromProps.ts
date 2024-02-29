@@ -1,4 +1,4 @@
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {devError} from '@/processes/development'
 
 export const getLogNameFromProps = (

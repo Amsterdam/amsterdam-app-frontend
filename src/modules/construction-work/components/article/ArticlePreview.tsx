@@ -8,7 +8,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'

@@ -4,7 +4,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {IconName} from '@/components/ui/media/iconPaths'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props = {
   accessibilityLabel?: TextProps['accessibilityLabel']

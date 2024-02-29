@@ -2,7 +2,7 @@ import {ReactNode} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {config} from '@/components/ui/config'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 
 type Props = {
   children: ReactNode

@@ -1,7 +1,7 @@
 import {Key} from 'react'
 import {TopTaskButtonProps} from '@/components/ui/buttons/TopTaskButton'
 import {IconName} from '@/components/ui/media/iconPaths'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {RedirectKey} from '@/modules/redirects/types'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 

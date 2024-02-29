@@ -4,7 +4,7 @@ import {
   WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
