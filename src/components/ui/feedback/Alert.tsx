@@ -1,4 +1,4 @@
-import {Fragment, ReactNode, useCallback, useEffect, useRef} from 'react'
+import {ReactNode, useCallback, useEffect, useRef} from 'react'
 import {
   LayoutAnimation,
   Platform,
@@ -46,7 +46,7 @@ type WrapperProps = {
 } & TestProps
 
 const Wrapper = ({onPress, closeType, ...props}: WrapperProps) => {
-  if (closeType !== AlertCloseType.withoutButton) {
+  if (closeType === AlertCloseType.withoutButton) {
     return (
       <PressableBase
         accessibilityLanguage="nl-NL"
@@ -57,7 +57,7 @@ const Wrapper = ({onPress, closeType, ...props}: WrapperProps) => {
     )
   }
 
-  return <Fragment {...props} />
+  return <View {...props} />
 }
 
 export const Alert = () => {
