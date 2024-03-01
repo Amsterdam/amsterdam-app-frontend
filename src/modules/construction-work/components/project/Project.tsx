@@ -68,7 +68,10 @@ export const Project = ({id}: Props) => {
       }
 
       void followProject({id})
-      registerDeviceWithPermission()
+        .unwrap()
+        .then(() => {
+          registerDeviceWithPermission()
+        })
     },
     [followProject, id, registerDeviceWithPermission, unfollowProject],
   )
