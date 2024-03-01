@@ -13,7 +13,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -22,11 +21,9 @@ import {
   GetCurrentPositionError,
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {
-  selectLocationTypePerModule,
-  useNoLocationPermissionForAndroid,
-} from '@/modules/address/slice'
+import {useNoLocationPermissionForAndroid} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
   setNoLocationPermissionForAndroid,
@@ -42,7 +39,6 @@ import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
-  slug: ModuleSlug
 }
 
 const hasPermission = (
@@ -58,10 +54,9 @@ const hasPermission = (
 
 export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
-  slug,
 }: Props) => {
   const dispatch = useDispatch()
-  const locationType = useSelector(selectLocationTypePerModule)?.[slug]
+  const locationType = useLocationType()
   const address = useAddress()
 
   const {navigate} = useNavigation<AddressModalName>()
@@ -99,7 +94,6 @@ export const SelectLocationTypeBottomSheet = ({
     dispatch(
       setLocationType({
         locationType: 'address',
-        slug,
       }),
     )
 
@@ -118,15 +112,7 @@ export const SelectLocationTypeBottomSheet = ({
     }
 
     closeBottomSheet()
-  }, [
-    address,
-    closeBottomSheet,
-    dispatch,
-    locationType,
-    navigate,
-    onEvent,
-    slug,
-  ])
+  }, [address, closeBottomSheet, dispatch, locationType, navigate, onEvent])
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
@@ -179,7 +165,6 @@ export const SelectLocationTypeBottomSheet = ({
       dispatch(
         setLocationType({
           locationType: 'location',
-          slug,
         }),
       )
 
@@ -197,7 +182,6 @@ export const SelectLocationTypeBottomSheet = ({
       hasLocationPermission,
       currentCoordinates,
       dispatch,
-      slug,
       locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
@@ -253,7 +237,6 @@ export const SelectLocationTypeBottomSheet = ({
                   dispatch(
                     setLocationType({
                       locationType: 'address',
-                      slug,
                     }),
                   )
                 }}

@@ -2,7 +2,6 @@ import {ChangeLocationButton} from '@/modules/address/components/location/Change
 import {Address} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
-import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
   address: Address
@@ -14,12 +13,7 @@ export const ProjectsByDistance = ({address}: Props) => {
   return (
     <Projects
       addressParam={addressParam}
-      HeaderButton={
-        <ChangeLocationButton
-          slug={ModuleSlug['construction-work']}
-          testID="ConstructionWork"
-        />
-      }
+      HeaderButton={<ChangeLocationButton testID="ConstructionWork" />}
     />
   )
 }
