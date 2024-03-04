@@ -63,6 +63,7 @@ export const sanitizeAction = (
     meta: {
       ...action.meta,
       arg: {
+        ...action.meta.arg,
         queryCacheKey: '___',
       },
     },
