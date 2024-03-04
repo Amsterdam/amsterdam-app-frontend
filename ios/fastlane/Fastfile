@@ -187,6 +187,7 @@ platform :ios do
           app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
           app_identifier: app[:app_identifier],
+          groups: "AmsterdamApp-internal",
         )
       else
         UI.user_error!("ERROR: #{ipa_path} does not exist")
