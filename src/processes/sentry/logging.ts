@@ -48,7 +48,12 @@ export const getSendSentryErrorLog =
     })
   }
 
-type Meta = {arg?: {endpointName?: string; queryCacheKey?: string}} | undefined
+type Meta =
+  | {
+      arg?: {endpointName?: string; queryCacheKey?: string}
+      baseQueryMeta?: {request?: {url: string}}
+    }
+  | undefined
 type Payload = {originalStatus?: number | string} | undefined
 
 export const sanitizeAction = (
@@ -87,13 +92,7 @@ export const sentryLoggerMiddleware: Middleware =
         errorTitle = `${originalStatus ?? 'Error'} for ${endpoint}`
       }
 
-      const url = sanitizeUrl(
-        (
-          action.meta as unknown as {
-            baseQueryMeta?: {request?: {url: string}}
-          }
-        ).baseQueryMeta?.request?.url ?? '',
-      )
+      const url = sanitizeUrl(action.meta.baseQueryMeta?.request?.url ?? '')
 
       if (!url.startsWith('http://localhost')) {
         const status = originalStatus ?? 'unknown'
