@@ -45,8 +45,8 @@ export const FeedbackScreen = () => {
               <Link
                 label="Laat het ons weten"
                 onPress={() => {
-                  if (redirectUrls?.feedback) {
-                    openWebUrl(redirectUrls.feedback)
+                  if (redirectUrls?.feedbackForm) {
+                    openWebUrl(redirectUrls.feedbackForm)
                   } else {
                     Alert.alert(
                       'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
