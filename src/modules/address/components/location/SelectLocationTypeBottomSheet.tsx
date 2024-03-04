@@ -29,7 +29,11 @@ import {
   setNoLocationPermissionForAndroid,
   setLocationType,
 } from '@/modules/address/slice'
-import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {
+  Coordinates,
+  HighAccuracyPurposeKey,
+  LocationType,
+} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
@@ -90,12 +94,24 @@ export const SelectLocationTypeBottomSheet = ({
     locationPermissionStatus,
   )
 
+  const setCurrentLocationType = useCallback(
+    (type: LocationType) =>
+      dispatch(
+        setLocationType({
+          locationType: type,
+        }),
+      ),
+    [dispatch],
+  )
+
+  useEffect(() => {
+    if (!hasLocationPermission) {
+      setCurrentLocationType('address')
+    }
+  }, [hasLocationPermission, setCurrentLocationType])
+
   const onPressAddressButton = useCallback(() => {
-    dispatch(
-      setLocationType({
-        locationType: 'address',
-      }),
-    )
+    setCurrentLocationType('address')
 
     if (locationType && locationType !== 'address') {
       onEvent(undefined, {
@@ -112,7 +128,14 @@ export const SelectLocationTypeBottomSheet = ({
     }
 
     closeBottomSheet()
-  }, [address, closeBottomSheet, dispatch, locationType, navigate, onEvent])
+  }, [
+    address,
+    closeBottomSheet,
+    locationType,
+    navigate,
+    onEvent,
+    setCurrentLocationType,
+  ])
 
   const onPressLocationButton = useCallback(
     async (hasValidAddressData: boolean) => {
@@ -162,11 +185,7 @@ export const SelectLocationTypeBottomSheet = ({
         dispatch(addLastKnownCoordinates(lastKnownCoordinates))
       }
 
-      dispatch(
-        setLocationType({
-          locationType: 'location',
-        }),
-      )
+      setCurrentLocationType('location')
 
       if (locationType && locationType !== 'location') {
         onEvent(undefined, {
@@ -181,11 +200,12 @@ export const SelectLocationTypeBottomSheet = ({
     [
       hasLocationPermission,
       currentCoordinates,
-      dispatch,
+      setCurrentLocationType,
       locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
       getCurrentCoordinates,
+      dispatch,
       onEvent,
     ],
   )
@@ -234,11 +254,7 @@ export const SelectLocationTypeBottomSheet = ({
                 onPress={() => {
                   navigate(ModuleSlug.user)
 
-                  dispatch(
-                    setLocationType({
-                      locationType: 'address',
-                    }),
-                  )
+                  setCurrentLocationType('address')
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"
