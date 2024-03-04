@@ -1,6 +1,5 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -32,7 +31,7 @@ export const ContactOptions = () => {
             const resultUrl = redirectUrl ?? url
 
             if (redirectsKey && isError) {
-              return <SomethingWentWrong />
+              return null
             }
 
             return (

@@ -1,11 +1,11 @@
-import {Action, isRejectedWithValue} from '@reduxjs/toolkit'
+import {isRejectedWithValue} from '@reduxjs/toolkit'
 import {
   addBreadcrumb,
   captureException,
   setTag,
   withScope,
 } from '@sentry/react-native'
-import type {Middleware} from '@reduxjs/toolkit'
+import type {Middleware, PayloadAction} from '@reduxjs/toolkit'
 import {devLog} from '@/processes/development'
 import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
@@ -45,21 +45,42 @@ export const getSendSentryErrorLog =
     })
   }
 
+type Meta = {arg?: {endpointName?: string; queryCacheKey?: string}} | undefined
+type Payload = {originalStatus?: number | string} | undefined
+
+export const sanitizeAction = (
+  action: PayloadAction<Payload, string, Meta>,
+) => {
+  if (!action.meta?.arg?.queryCacheKey) {
+    return action
+  }
+
+  return {
+    ...action,
+    meta: {
+      ...action.meta,
+      arg: {
+        queryCacheKey: '___',
+      },
+    },
+  }
+}
+
 /**
  * RTK middleware to catch API errors and other rejections
  */
 export const sentryLoggerMiddleware: Middleware =
-  () => next => (action: Action) => {
+  () => next => (action: PayloadAction<Payload, string, Meta>) => {
     if (isRejectedWithValue(action)) {
       // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
       const consent = true
-      let errorTitle = 'Rejected RTK action'
 
-      if ((action.meta.arg as {endpointName: string})?.endpointName) {
-        errorTitle = `${
-          (action.payload as {originalStatus: string})?.originalStatus ??
-          'Error'
-        } for ${(action.meta.arg as {endpointName: string}).endpointName}`
+      let errorTitle = 'Rejected RTK action'
+      const endpoint = action.meta?.arg?.endpointName
+      const originalStatus = action.payload?.originalStatus
+
+      if (endpoint) {
+        errorTitle = `${originalStatus ?? 'Error'} for ${endpoint}`
       }
 
       const url = sanitizeUrl(
@@ -71,16 +92,7 @@ export const sentryLoggerMiddleware: Middleware =
       )
 
       if (!url.startsWith('http://localhost')) {
-        const endpoint = (action.meta.arg as {endpointName: string})
-          .endpointName
-        const status =
-          (action.payload as {originalStatus: string})?.originalStatus ??
-          'unknown'
-
-        const sanitizedAction = Object.assign({}, action)
-
-        ;(sanitizedAction.meta.arg as {queryCacheKey: string}).queryCacheKey =
-          '___'
+        const status = originalStatus ?? 'unknown'
 
         setTag('endpoint', endpoint)
         setTag('status', status)
@@ -88,7 +100,7 @@ export const sentryLoggerMiddleware: Middleware =
           SentryErrorLogKey.sentryMiddleWareError,
           'processes/logging.ts',
           {
-            ...sanitizedAction,
+            ...sanitizeAction(action),
             endpoint,
             status,
             url,
