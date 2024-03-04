@@ -1,11 +1,14 @@
-import {isRejectedWithValue} from '@reduxjs/toolkit'
+import {
+  isRejectedWithValue,
+  type Middleware,
+  type PayloadAction,
+} from '@reduxjs/toolkit'
 import {
   addBreadcrumb,
   captureException,
   setTag,
   withScope,
 } from '@sentry/react-native'
-import type {Middleware, PayloadAction} from '@reduxjs/toolkit'
 import {devLog} from '@/processes/development'
 import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
