@@ -2,6 +2,7 @@ import {SerializedError} from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {type ComponentType, ReactNode, useState} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {type SvgProps} from 'react-native-svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {Button} from '@/components/ui/buttons/Button'
@@ -37,6 +38,7 @@ type FullScreenErrorProps = {
   testProps: TestProps
   text?: string
   title: string
+  withBottomInset?: boolean
 }
 
 export const FullScreenError = ({
@@ -50,10 +52,12 @@ export const FullScreenError = ({
   buttonLabel,
   onPress,
   testProps,
+  withBottomInset,
 }: FullScreenErrorProps) => {
   const {isPortrait} = useDeviceContext()
   const {media} = useTheme()
   const [imageHeight, setImageHeight] = useState<number | undefined>()
+  const {bottom} = useSafeAreaInsets()
 
   useScreenScrollDisable(true)
 
@@ -61,7 +65,13 @@ export const FullScreenError = ({
     ? imageHeight && imageHeight > MIN_IMAGE_HEIGHT
     : true
 
-  const styles = useThemable(createStyles({isPortrait, isImageVisible}))
+  const styles = useThemable(
+    createStyles({
+      bottomInset: withBottomInset ? bottom : 0,
+      isPortrait,
+      isImageVisible,
+    }),
+  )
 
   const trackAlignment = isPortrait ? 'start' : 'center'
 
@@ -162,12 +172,13 @@ const contentInsetTop = (isPortrait: boolean, children: boolean) => {
 }
 
 type StyleProps = {
+  bottomInset: number
   isImageVisible: number | boolean | undefined
   isPortrait: boolean
 }
 
 const createStyles =
-  ({isPortrait, isImageVisible}: StyleProps) =>
+  ({bottomInset = 0, isPortrait, isImageVisible}: StyleProps) =>
   ({media, size}: Theme) =>
     StyleSheet.create({
       figure: {
@@ -192,5 +203,6 @@ const createStyles =
       },
       screen: {
         flex: 1,
+        paddingBottom: bottomInset,
       },
     })

@@ -189,6 +189,7 @@ export const ProjectsList = ({
           testID: 'ConstructionWorkError',
         }}
         title="Er zijn geen werkzaamheden beschikbaar"
+        withBottomInset
       />
     )
   }
