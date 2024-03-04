@@ -10,9 +10,7 @@ export const useFollowAuthorizedProjects = () => {
   const follow = useCallback(
     (authorizedProjects: ConstructionWorkEditorResponseProject[]) => {
       authorizedProjects.forEach(async ({id}) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        await followProject({id})
+        await followProject({id: Number(id)})
       })
       registerDeviceWithPermission()
     },
