@@ -44,7 +44,7 @@ export const screenConfig: StackNavigationRoutes<
     component: FeedbackScreen,
     name: AboutRouteName.feedback,
     options: {
-      headerTitle: 'Dit kan beter',
+      headerTitle: 'Uw mening',
     },
   },
   [AboutRouteName.privacyStatement]: {
