@@ -32,7 +32,7 @@ const ModuleSettingBox = ({children, slug}: ModuleSettingWrapperProps) => (
 type ModuleSettingContentProps = {
   description: string
   disabled: boolean
-  iconName: IconName | 'projects'
+  iconName: IconName
   title: string
 } & TestProps
 
@@ -50,23 +50,13 @@ const ModuleSettingContent = ({
       <Row
         gutter="sm"
         valign="center">
-        {/* TODO Remove fallback after updating icon name in database. */}
-        {iconName === 'projects' ? (
+        {!!iconName && (
           <Icon
             color={color}
-            name="construction-work"
+            name={iconName}
             size="lg"
             testID={`${testID}Icon`}
           />
-        ) : (
-          !!iconName && (
-            <Icon
-              color={color}
-              name={iconName}
-              size="lg"
-              testID={`${testID}Icon`}
-            />
-          )
         )}
         <Title
           color={color}

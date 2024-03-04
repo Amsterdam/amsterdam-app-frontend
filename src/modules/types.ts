@@ -78,7 +78,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
  */
 export type ModuleServerConfig = {
   description: string
-  icon: IconName | 'projects'
+  icon: IconName
   moduleSlug: ModuleSlug
   status: ModuleStatus
   title: string
