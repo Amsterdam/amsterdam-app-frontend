@@ -13,9 +13,9 @@ import {devLog} from '@/processes/development'
 import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
   BreadcrumbCategory,
-  CaptureBreadcrumb,
-  SendErrorLog,
   SentryErrorLogKey,
+  type CaptureBreadcrumb,
+  type SendErrorLog,
 } from '@/processes/sentry/types'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
