@@ -26,7 +26,9 @@ export const environmentSlice = createSlice({
   name: ReduxKey.environment,
   initialState: {
     custom: customDefaultUrls,
-    environment: isDevApp ? Environment.acceptance : Environment.production,
+    environment: isDevApp
+      ? EnvironmentAzure.acceptanceAzure
+      : EnvironmentAzure.productionAzure,
   } as EnvironmentState,
   reducers: {
     setEnvironment: (
