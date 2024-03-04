@@ -126,7 +126,7 @@ export const projectsApi = baseApi.injectEndpoints({
         body,
         method: 'POST',
         slug: MODULE_SLUG,
-        url: '/projects/followw',
+        url: '/projects/follow',
       }),
     }),
 
