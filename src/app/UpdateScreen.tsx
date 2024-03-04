@@ -7,7 +7,7 @@ import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useOpenStore} from '@/hooks/useOpenStore'
 import {useUpdateSuggestion} from '@/hooks/useUpdateSuggestion'
 import {ScreenOutsideNavigationName} from '@/processes/piwik/types'
-import {type VersionInfo, useGetReleaseQuery} from '@/services/modules.service'
+import {useGetReleaseQuery} from '@/services/modules.service'
 
 type Props = {
   children: ReactNode
@@ -15,38 +15,29 @@ type Props = {
 
 export const SNOOZE_TIME_IN_HOURS = 4
 
-// @TODO
-const tempDummyRequest = () => ({
-  data: {
-    versionInfo: {
-      deprecated: false,
-      latest: '1.34.7',
-      supported: true,
-    },
-  } as unknown as {versionInfo: VersionInfo} | undefined,
-  isLoading: false,
-  isError: false,
-})
-
 export const UpdateScreen = ({children}: Props) => {
-  const {data} = tempDummyRequest()
-  const {isError} = useGetReleaseQuery()
+  const {data: releaseData, isError} = useGetReleaseQuery()
   const openStore = useOpenStore()
   const {isPortrait} = useDeviceContext()
 
-  const supported = data?.versionInfo.supported
+  const isSupported = releaseData?.isSupported
 
   const hideSplashScreen = useHideSplashScreen()
 
   useEffect(() => {
-    if (supported === false || isError) {
+    if (isSupported === false || isError) {
       hideSplashScreen()
     }
-  }, [hideSplashScreen, isError, supported])
+  }, [hideSplashScreen, isError, isSupported, releaseData])
 
-  useUpdateSuggestion(SNOOZE_TIME_IN_HOURS, data?.versionInfo)
+  useUpdateSuggestion(
+    SNOOZE_TIME_IN_HOURS,
+    releaseData?.latestVersion,
+    releaseData?.isDeprecated,
+    isSupported,
+  )
 
-  if (supported === false) {
+  if (isSupported === false) {
     return (
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.updateScreen}

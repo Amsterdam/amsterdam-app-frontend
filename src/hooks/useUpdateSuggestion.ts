@@ -3,7 +3,6 @@ import {Alert} from 'react-native'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
 import {useOpenStore} from '@/hooks/useOpenStore'
-import {VersionInfo} from '@/services/modules.service'
 import {
   setLastSeenTimestamp,
   useLastSeenTimestamp,
@@ -12,7 +11,9 @@ import {shouldShowUpdateSuggestion} from '@/utils/shouldShowUpdateSuggestion'
 
 export const useUpdateSuggestion = (
   snoozeTimeInHours: number,
-  versionInfo?: VersionInfo,
+  latestVersion?: string,
+  isDeprecated?: boolean,
+  isSupported?: boolean,
 ) => {
   const lastSeenTimestamp = useLastSeenTimestamp()
   const dispatch = useDispatch()
@@ -20,8 +21,8 @@ export const useUpdateSuggestion = (
 
   const showUpdateSuggestion = useCallback(() => {
     if (
-      !versionInfo?.deprecated ||
-      !versionInfo?.supported ||
+      !isDeprecated ||
+      !isSupported ||
       !shouldShowUpdateSuggestion(snoozeTimeInHours, lastSeenTimestamp)
     ) {
       return
@@ -31,7 +32,9 @@ export const useUpdateSuggestion = (
 
     Alert.alert(
       'Update de app',
-      `Versie ${versionInfo.latest} is beschikbaar`,
+      latestVersion
+        ? `Versie ${latestVersion} is beschikbaar.`
+        : 'Een nieuwe versie is beschikbaar.',
       [
         {
           text: 'Annuleer',
@@ -48,12 +51,12 @@ export const useUpdateSuggestion = (
       },
     )
   }, [
-    versionInfo?.deprecated,
-    versionInfo?.supported,
-    versionInfo?.latest,
+    isDeprecated,
+    isSupported,
     snoozeTimeInHours,
     lastSeenTimestamp,
     dispatch,
+    latestVersion,
     openStore,
   ])
 
