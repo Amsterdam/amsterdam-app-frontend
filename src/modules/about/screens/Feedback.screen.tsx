@@ -29,7 +29,7 @@ export const FeedbackScreen = () => {
           <Column gutter="md">
             <Title
               testID="AboutFeedbackTitle"
-              text="Dit kan beter"
+              text="Uw mening"
             />
             <Paragraph
               testID="AboutFeedbackIntroParagraph"

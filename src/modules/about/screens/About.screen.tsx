@@ -71,7 +71,7 @@ export const AboutScreen = ({navigation}: Props) => (
             />
             <NavigationButton
               accessibilityRole="button"
-              label="Dit kan beter"
+              label="Uw mening"
               onPress={() => navigation.navigate(AboutRouteName.feedback)}
               testID="AboutFeedbackButton"
             />
