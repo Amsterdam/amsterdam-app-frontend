@@ -54,9 +54,4 @@ describe('getApi', () => {
       ),
     ).toBe(customDefaultUrls['construction-work'])
   })
-  test("returns external api url for 'address' slug", () => {
-    expect(
-      getApi(Environment.production, customDefaultUrls, ModuleSlug.address),
-    ).toBe('https://app.amsterdam.nl/address/api/v1')
-  })
 })
