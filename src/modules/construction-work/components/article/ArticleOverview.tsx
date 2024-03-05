@@ -2,6 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type VariableContentParams} from '@/app/navigation/types'
+import {Pressable} from '@/components/ui/buttons/Pressable'
 import {AlertNegative} from '@/components/ui/feedback/AlertNegative'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
@@ -36,6 +37,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     data: articles,
     isError,
     isLoading,
+    refetch,
   } = useArticlesQuery(
     projectId !== undefined
       ? {
@@ -137,12 +139,16 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
             </View>
           ))
         ) : (
-          <AlertNegative
-            content={{
-              text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
-            }}
-            testID="ConstructionWorkProjectArticlesError"
-          />
+          <Pressable
+            onPress={refetch}
+            testID="ConstructionWorkProjectArticlesRefetchButton">
+            <AlertNegative
+              content={{
+                text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
+              }}
+              testID="ConstructionWorkProjectArticlesError"
+            />
+          </Pressable>
         )}
       </Column>
     </View>
