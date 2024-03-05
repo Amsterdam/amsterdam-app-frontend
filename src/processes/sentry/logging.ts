@@ -38,9 +38,9 @@ export const getCaptureSentryBreadcrumb =
 export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (logKey, filename, data, errorTitle) => {
-    devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, data)
-
     const extraData = logData ? getFilteredSentryData(logKey, data) : undefined
+
+    devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, extraData)
 
     withScope(scope => {
       scope.setContext('data', {filename, ...extraData})
@@ -49,31 +49,12 @@ export const getSendSentryErrorLog =
   }
 
 type Meta =
-  | {
-      arg?: {endpointName?: string; queryCacheKey?: string}
-      baseQueryMeta?: {request?: {url: string}}
-    }
+  | {arg?: {endpointName?: string}; baseQueryMeta?: {request?: {url: string}}}
   | undefined
-type Payload = {originalStatus?: number | string} | undefined
 
-export const sanitizeAction = (
-  action: PayloadAction<Payload, string, Meta>,
-) => {
-  if (!action.meta?.arg?.queryCacheKey) {
-    return action
-  }
-
-  return {
-    ...action,
-    meta: {
-      ...action.meta,
-      arg: {
-        ...action.meta.arg,
-        queryCacheKey: '___',
-      },
-    },
-  }
-}
+type Payload =
+  | {error: unknown; originalStatus?: number | string; status?: string}
+  | undefined
 
 /**
  * RTK middleware to catch API errors and other rejections
@@ -95,23 +76,22 @@ export const sentryLoggerMiddleware: Middleware =
       const url = sanitizeUrl(action.meta.baseQueryMeta?.request?.url ?? '')
 
       if (!url.startsWith('http://localhost')) {
-        const status = originalStatus ?? 'unknown'
-
         setTag('endpoint', endpoint)
-        setTag('status', status)
+        setTag('originalStatus', originalStatus)
         getSendSentryErrorLog(!!consent)(
           SentryErrorLogKey.sentryMiddleWareError,
           'processes/logging.ts',
           {
-            ...sanitizeAction(action),
             endpoint,
-            status,
+            error: action.payload?.error,
+            originalStatus,
+            status: action.payload?.status,
             url,
           },
           errorTitle,
         )
         setTag('endpoint', undefined)
-        setTag('status', undefined)
+        setTag('originalStatus', undefined)
       }
     }
 

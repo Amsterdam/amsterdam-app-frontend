@@ -30,7 +30,13 @@ export const sentryAllowList = {
   [SentryErrorLogKey.registerDevice]: ['error'],
   [SentryErrorLogKey.requestLocationPermission]: ['error'],
   [SentryErrorLogKey.resetLocationPermissionAndroid]: ['error'],
-  [SentryErrorLogKey.sentryMiddleWareError]: ['endpoint', 'status', 'url'],
+  [SentryErrorLogKey.sentryMiddleWareError]: [
+    'endpoint',
+    'error',
+    'originalStatus',
+    'status',
+    'url',
+  ],
   [SentryErrorLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [SentryErrorLogKey.openStore]: ['error'],
 } as const
