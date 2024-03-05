@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {LayoutAnimation} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
-import {AlertUI} from '@/components/ui/feedback/AlertUI'
+import {AlertBase} from '@/components/ui/feedback/AlertBase'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -34,7 +34,7 @@ export const AlertTopOfScreen = () => {
     <Pressable
       onPress={onPress}
       testID={alert.testID}>
-      <AlertUI
+      <AlertBase
         {...alert}
         inset="md"
       />

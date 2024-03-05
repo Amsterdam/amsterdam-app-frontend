@@ -21,7 +21,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type WrapperProps = {
   children: ReactNode
-  inset: AlertUIProps['inset']
+  inset: AlertBaseProps['inset']
 }
 
 const Wrapper = ({children, inset}: WrapperProps) => {
@@ -32,18 +32,18 @@ const Wrapper = ({children, inset}: WrapperProps) => {
   return <Fragment>{children}</Fragment>
 }
 
-type AlertUIProps = {
+type AlertBaseProps = {
   inset?: keyof SpacingTokens
 } & AlertProps
 
-export const AlertUI = ({
+export const AlertBase = ({
   hasCloseIcon = false,
   content,
   inset,
   testID,
   hasIcon = false,
   variant = AlertVariant.information,
-}: AlertUIProps) => {
+}: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const variantConfig = useThemable(createVariantConfig)
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName

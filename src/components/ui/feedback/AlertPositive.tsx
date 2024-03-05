@@ -1,8 +1,8 @@
 import {AlertProps, AlertVariant} from '@/components/ui/feedback/Alert.types'
-import {AlertUI} from '@/components/ui/feedback/AlertUI'
+import {AlertBase} from '@/components/ui/feedback/AlertBase'
 
 export const AlertPositive = (props: AlertProps) => (
-  <AlertUI
+  <AlertBase
     {...props}
     variant={AlertVariant.positive}
   />
