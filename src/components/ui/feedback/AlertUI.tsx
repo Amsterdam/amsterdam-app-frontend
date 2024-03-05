@@ -75,7 +75,6 @@ export const AlertUI = ({
               <Row gutter="md">
                 {!!hasIcon && (
                   <Icon
-                    color="link"
                     name={iconName}
                     size="lg"
                     testID={`${testID}Icon`}
@@ -95,7 +94,6 @@ export const AlertUI = ({
             {!!hasCloseIcon && (
               <View>
                 <Icon
-                  color="link"
                   name="close"
                   size="lg"
                   testID={`${testID}CloseIcon`}
