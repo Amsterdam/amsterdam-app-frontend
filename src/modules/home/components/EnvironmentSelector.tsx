@@ -5,18 +5,13 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {TextInput} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
-import {
-  Environment,
-  EnvironmentAzure,
-  editableApiSlug,
-  environmentAzureLabels,
-} from '@/environment'
+import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {isDevApp} from '@/processes/development'
 import {baseApi} from '@/services/init'
 import {
-  selectEnvironmentConfig,
+  selectEnvironment,
   setCustomEnvironment,
   setEnvironment,
 } from '@/store/slices/environment'
@@ -46,7 +41,7 @@ const CustomApiTextInput = ({
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
-  const {environment, custom} = useSelector(selectEnvironmentConfig)
+  const {environment, custom} = useSelector(selectEnvironment)
 
   useEffect(() => () => RNRestart.Restart(), [])
 
@@ -63,7 +58,7 @@ export const EnvironmentSelector = () => {
               key={env}
               label={env}
               onPress={() => {
-                dispatch(setEnvironment(env as Environment))
+                dispatch(setEnvironment(env))
                 dispatch(baseApi.util.resetApiState())
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
@@ -88,20 +83,6 @@ export const EnvironmentSelector = () => {
               ))}
             </Column>
           )}
-        </Column>
-        <Column gutter="md">
-          {Object.values(EnvironmentAzure).map(env => (
-            <Button
-              key={env}
-              label={environmentAzureLabels[env]}
-              onPress={() => {
-                dispatch(setEnvironment(env))
-                dispatch(baseApi.util.resetApiState())
-              }}
-              testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
-              variant={environment === env ? 'secondary' : 'primary'}
-            />
-          ))}
         </Column>
       </Column>
     </Box>

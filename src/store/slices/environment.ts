@@ -1,11 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {
-  Environment,
-  EnvironmentAzure,
-  getApi,
-  ApiSlug,
-  editableApiSlug,
-} from '@/environment'
+import {Environment, getApi, ApiSlug, editableApiSlug} from '@/environment'
 import {isDevApp} from '@/processes/development'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
@@ -19,22 +13,17 @@ export const customDefaultUrls = {
 
 export type EnvironmentState = {
   custom: typeof customDefaultUrls
-  environment: Environment | EnvironmentAzure
+  environment: Environment
 }
 
 export const environmentSlice = createSlice({
   name: ReduxKey.environment,
   initialState: {
     custom: customDefaultUrls,
-    environment: isDevApp
-      ? EnvironmentAzure.acceptanceAzure
-      : EnvironmentAzure.productionAzure,
+    environment: isDevApp ? Environment.acceptance : Environment.production,
   } as EnvironmentState,
   reducers: {
-    setEnvironment: (
-      state,
-      {payload}: PayloadAction<Environment | EnvironmentAzure>,
-    ) => {
+    setEnvironment: (state, {payload}: PayloadAction<Environment>) => {
       state.environment = payload
     },
     setCustomEnvironment: (
@@ -57,6 +46,3 @@ export const selectApi = (state: RootState, api: ApiSlug) =>
     state[ReduxKey.environment].custom,
     api,
   )
-
-export const selectEnvironmentConfig = (state: RootState) =>
-  state[ReduxKey.environment]

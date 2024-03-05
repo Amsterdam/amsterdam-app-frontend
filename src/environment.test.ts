@@ -1,4 +1,4 @@
-import {getApi, Environment, EnvironmentAzure} from './environment'
+import {getApi, Environment, GlobalApiSlug} from './environment'
 import {ModuleSlug} from './modules/slugs'
 import {customDefaultUrls} from './store/slices/environment'
 
@@ -10,7 +10,12 @@ describe('getApi', () => {
         customDefaultUrls,
         ModuleSlug['waste-guide'],
       ),
-    ).toBe('https://api-dev-waste-guide.app-amsterdam.nl/api/v1')
+    ).toBe('https://ontw.app.amsterdam.nl/waste-guide/api/v1')
+  })
+  test('returns correct api url for test environment', () => {
+    expect(
+      getApi(Environment.test, customDefaultUrls, ModuleSlug['waste-guide']),
+    ).toBe('https://test.app.amsterdam.nl/waste-guide/api/v1')
   })
   test('returns correct api url for acceptance environment', () => {
     expect(
@@ -19,7 +24,7 @@ describe('getApi', () => {
         customDefaultUrls,
         ModuleSlug['waste-guide'],
       ),
-    ).toBe('https://api-test-waste-guide.app-amsterdam.nl/api/v1')
+    ).toBe('https://acc.app.amsterdam.nl/waste-guide/api/v1')
   })
   test('returns correct api url for production environment', () => {
     expect(
@@ -28,50 +33,19 @@ describe('getApi', () => {
         customDefaultUrls,
         ModuleSlug['waste-guide'],
       ),
-    ).toBe('https://api-waste-guide.app-amsterdam.nl/api/v1')
-  })
-  test('returns correct api url for custom environment', () => {
-    expect(
-      getApi(Environment.custom, customDefaultUrls, ModuleSlug['waste-guide']),
-    ).toBe('https://api-test-waste-guide.app-amsterdam.nl/api/v1')
-  })
-  test('returns correct api url for development Azure environment', () => {
-    expect(
-      getApi(
-        EnvironmentAzure.developmentAzure,
-        customDefaultUrls,
-        ModuleSlug['waste-guide'],
-      ),
-    ).toBe('https://ontw.app.amsterdam.nl/waste-guide/api/v1')
-  })
-  test('returns correct api url for test Azure environment', () => {
-    expect(
-      getApi(
-        EnvironmentAzure.testAzure,
-        customDefaultUrls,
-        ModuleSlug['waste-guide'],
-      ),
-    ).toBe('https://test.app.amsterdam.nl/waste-guide/api/v1')
-  })
-  test('returns correct api url for acceptance Azure environment', () => {
-    expect(
-      getApi(
-        EnvironmentAzure.acceptanceAzure,
-        customDefaultUrls,
-        ModuleSlug['waste-guide'],
-      ),
-    ).toBe('https://acc.app.amsterdam.nl/waste-guide/api/v1')
-  })
-  test('returns correct api url for production Azure environment', () => {
-    expect(
-      getApi(
-        EnvironmentAzure.productionAzure,
-        customDefaultUrls,
-        ModuleSlug['waste-guide'],
-      ),
     ).toBe('https://app.amsterdam.nl/waste-guide/api/v1')
   })
-  test('returns correct api url for custom environment with custom api definition', () => {
+  test('returns correct api url for custom environment with custom modules api definition', () => {
+    expect(
+      getApi(Environment.custom, customDefaultUrls, GlobalApiSlug.modules),
+    ).toBe(customDefaultUrls.modules)
+  })
+  test('returns correct api url for custom environment with custom contact api definition', () => {
+    expect(
+      getApi(Environment.custom, customDefaultUrls, ModuleSlug.contact),
+    ).toBe(customDefaultUrls.contact)
+  })
+  test('returns correct api url for custom environment with custom construction-work api definition', () => {
     expect(
       getApi(
         Environment.custom,
@@ -79,33 +53,5 @@ describe('getApi', () => {
         ModuleSlug['construction-work'],
       ),
     ).toBe(customDefaultUrls['construction-work'])
-  })
-  test('returns correct api url for divergent api slug', () => {
-    expect(
-      getApi(
-        Environment.production,
-        customDefaultUrls,
-        ModuleSlug['construction-work'],
-      ),
-    ).toBe('https://api-backend.app-amsterdam.nl/api/v1')
-  })
-  test('returns url with additional path for contact', () => {
-    expect(
-      getApi(Environment.production, customDefaultUrls, ModuleSlug.contact),
-    ).toBe('https://api-backend.app-amsterdam.nl/api/v1/contact')
-  })
-  test('does not add additional path for contact in Azure env', () => {
-    expect(
-      getApi(
-        EnvironmentAzure.productionAzure,
-        customDefaultUrls,
-        ModuleSlug.contact,
-      ),
-    ).toBe('https://app.amsterdam.nl/contact/api/v1')
-  })
-  test("returns external api url for 'address' slug", () => {
-    expect(
-      getApi(Environment.production, customDefaultUrls, ModuleSlug.address),
-    ).toBe('https://api.pdok.nl/bzk/locatieserver/search/v3_1')
   })
 })
