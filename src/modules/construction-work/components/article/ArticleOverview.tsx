@@ -43,6 +43,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
         }
       : skipToken,
   )
+
   const {markMultipleAsRead} = useMarkArticleAsRead()
 
   const yearlyArticleSections = articles?.reduce(
@@ -95,22 +96,11 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     )
   }
 
-  if (isLoading || yearlyArticleSections === undefined) {
+  if (isLoading) {
     return <PleaseWait testID="ConstructionWorkProjectArticlesSpinner" />
   }
 
-  if (isError) {
-    return (
-      <AlertNegative
-        content={{
-          text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
-        }}
-        testID="ConstructionWorkProjectArticlesError"
-      />
-    )
-  }
-
-  if (!yearlyArticleSections.length) {
+  if (!isError && !yearlyArticleSections?.length) {
     return null
   }
 
@@ -122,29 +112,38 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
           testID="ConstructionWorkProjectArticlesTitle"
           text={title}
         />
-        {yearlyArticleSections.map(({title: sectionTitle, data}, index) => (
-          <View key={sectionTitle + index.toString()}>
-            {index > 0 && (
-              <View style={styles.year}>
-                <Paragraph>{sectionTitle}</Paragraph>
-                <View style={styles.line} />
-              </View>
-            )}
-            {data.map((article, dataIndex) => (
-              <ArticlePreview
-                article={article}
-                isFirst={index === 0 && dataIndex === 0}
-                isLast={
-                  index === yearlyArticleSections.length - 1 &&
-                  dataIndex === data.length - 1
-                }
-                key={getUniqueArticleId(article.meta_id)}
-                onPress={() => navigateToArticle(article)}
-                testID={'ConstructionWorkProjectArticlePreview'}
-              />
-            ))}
-          </View>
-        ))}
+        {yearlyArticleSections ? (
+          yearlyArticleSections.map(({title: sectionTitle, data}, index) => (
+            <View key={sectionTitle + index.toString()}>
+              {index > 0 && (
+                <View style={styles.year}>
+                  <Paragraph>{sectionTitle}</Paragraph>
+                  <View style={styles.line} />
+                </View>
+              )}
+              {data.map((article, dataIndex) => (
+                <ArticlePreview
+                  article={article}
+                  isFirst={index === 0 && dataIndex === 0}
+                  isLast={
+                    index === yearlyArticleSections.length - 1 &&
+                    dataIndex === data.length - 1
+                  }
+                  key={getUniqueArticleId(article.meta_id)}
+                  onPress={() => navigateToArticle(article)}
+                  testID={'ConstructionWorkProjectArticlePreview'}
+                />
+              ))}
+            </View>
+          ))
+        ) : (
+          <AlertNegative
+            content={{
+              text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
+            }}
+            testID="ConstructionWorkProjectArticlesError"
+          />
+        )}
       </Column>
     </View>
   )
