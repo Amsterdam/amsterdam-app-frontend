@@ -162,8 +162,8 @@ export const useLocationButton = (
 
   return {
     onPress: onPressLocationButton,
-    hasLocationError: hasLocationTechnicalError,
-    hasLocationPermission: hasLocationPermission,
+    hasError: hasLocationTechnicalError,
+    hasPermission: hasLocationPermission,
     currentCoordinates,
     isLoadingCurrentCoordinates,
   }

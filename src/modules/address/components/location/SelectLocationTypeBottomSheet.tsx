@@ -29,8 +29,8 @@ export const SelectLocationTypeBottomSheet = ({
   const {onPress: onPressAddressButton} = useAddressButton()
   const {
     onPress: onPressLocationButton,
-    hasLocationPermission,
-    hasLocationError,
+    hasPermission: hasLocationPermission,
+    hasError: hasLocationError,
     currentCoordinates,
     isLoadingCurrentCoordinates,
   } = useLocationButton(highAccuracyPurposeKey)
