@@ -11,7 +11,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {isDevApp} from '@/processes/development'
 import {baseApi} from '@/services/init'
 import {
-  selectEnvironmentConfig,
+  selectEnvironment,
   setCustomEnvironment,
   setEnvironment,
 } from '@/store/slices/environment'
@@ -41,7 +41,7 @@ const CustomApiTextInput = ({
 
 export const EnvironmentSelector = () => {
   const dispatch = useDispatch()
-  const {environment, custom} = useSelector(selectEnvironmentConfig)
+  const {environment, custom} = useSelector(selectEnvironment)
 
   useEffect(() => () => RNRestart.Restart(), [])
 

@@ -46,6 +46,3 @@ export const selectApi = (state: RootState, api: ApiSlug) =>
     state[ReduxKey.environment].custom,
     api,
   )
-
-export const selectEnvironmentConfig = (state: RootState) =>
-  state[ReduxKey.environment]
