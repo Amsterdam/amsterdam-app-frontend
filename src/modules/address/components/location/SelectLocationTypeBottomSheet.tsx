@@ -1,9 +1,5 @@
 import {useCallback, useEffect, useState} from 'react'
-import {Platform} from 'react-native'
-import {
-  PermissionStatus,
-  RESULTS as permissionStatuses,
-} from 'react-native-permissions'
+import {RESULTS as permissionStatuses} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -13,7 +9,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {usePermission} from '@/hooks/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
@@ -21,39 +16,23 @@ import {
   GetCurrentPositionError,
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
 import {useLocationType} from '@/modules/address/hooks/useLocationType'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {useNoLocationPermissionForAndroid} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
   setNoLocationPermissionForAndroid,
-  setLocationType,
 } from '@/modules/address/slice'
-import {
-  Coordinates,
-  HighAccuracyPurposeKey,
-  LocationType,
-} from '@/modules/address/types'
+import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
-import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
-}
-
-const hasPermission = (
-  noLocationPermissionForAndroid = false,
-  locationPermissionStatus?: PermissionStatus,
-) => {
-  if (Platform.OS === 'android') {
-    return noLocationPermissionForAndroid === false
-  }
-
-  return locationPermissionStatus !== permissionStatuses.BLOCKED
 }
 
 export const SelectLocationTypeBottomSheet = ({
@@ -64,6 +43,7 @@ export const SelectLocationTypeBottomSheet = ({
   const address = useAddress()
 
   const {navigate} = useNavigation<AddressModalName>()
+  const setLocationType = useSetLocationType()
   const navigateToInstructionsScreen = useCallback(
     () => navigate(AddressModalName.locationPermissionInstructions),
     [navigate],
@@ -84,34 +64,16 @@ export const SelectLocationTypeBottomSheet = ({
   const [hasLocationTechnicalError, setHasLocationTechnicalError] =
     useState(false)
 
-  const {status: locationPermissionStatus} = usePermission({
-    permission: PERMISSION_LOCATION,
-  })
-  const noLocationPermissionForAndroid = useNoLocationPermissionForAndroid()
-
-  const hasLocationPermission = hasPermission(
-    noLocationPermissionForAndroid,
-    locationPermissionStatus,
-  )
-
-  const setCurrentLocationType = useCallback(
-    (type: LocationType) =>
-      dispatch(
-        setLocationType({
-          locationType: type,
-        }),
-      ),
-    [dispatch],
-  )
+  const hasLocationPermission = useLocationPermission()
 
   useEffect(() => {
     if (!hasLocationPermission) {
-      setCurrentLocationType('address')
+      setLocationType('address')
     }
-  }, [hasLocationPermission, setCurrentLocationType])
+  }, [hasLocationPermission, setLocationType])
 
   const onPressAddressButton = useCallback(() => {
-    setCurrentLocationType('address')
+    setLocationType('address')
 
     if (locationType && locationType !== 'address') {
       onEvent(undefined, {
@@ -134,7 +96,7 @@ export const SelectLocationTypeBottomSheet = ({
     locationType,
     navigate,
     onEvent,
-    setCurrentLocationType,
+    setLocationType,
   ])
 
   const onPressLocationButton = useCallback(
@@ -185,7 +147,7 @@ export const SelectLocationTypeBottomSheet = ({
         dispatch(addLastKnownCoordinates(lastKnownCoordinates))
       }
 
-      setCurrentLocationType('location')
+      setLocationType('location')
 
       if (locationType && locationType !== 'location') {
         onEvent(undefined, {
@@ -200,7 +162,7 @@ export const SelectLocationTypeBottomSheet = ({
     [
       hasLocationPermission,
       currentCoordinates,
-      setCurrentLocationType,
+      setLocationType,
       locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
@@ -254,7 +216,7 @@ export const SelectLocationTypeBottomSheet = ({
                 onPress={() => {
                   navigate(ModuleSlug.user)
 
-                  setCurrentLocationType('address')
+                  setLocationType('address')
                 }}
                 testID="BottomSheetChangeAddressButton"
                 variant="tertiary"
