@@ -32,7 +32,7 @@ export const ContactOptions = () => {
             const resultUrl = redirectUrl ?? url
 
             if (redirectsKey && isError) {
-              return <SomethingWentWrong />
+              return <SomethingWentWrong key={props.key} />
             }
 
             return (

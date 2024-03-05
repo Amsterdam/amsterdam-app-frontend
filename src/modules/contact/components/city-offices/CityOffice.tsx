@@ -21,12 +21,12 @@ export const CityOffice = () => {
   const selectedCityOfficeId = useSelector(selectCityOffice)
   const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
 
-  if (isLoading || !cityOffices) {
+  if (isLoading) {
     return <PleaseWait testID="ContactCityOfficesLoadingSpinner" />
   }
 
-  const cityOfficeId = selectedCityOfficeId ?? cityOffices[0]?.identifier
-  const cityOffice = cityOffices.find(c => c.identifier === cityOfficeId)
+  const cityOfficeId = selectedCityOfficeId ?? cityOffices?.[0]?.identifier
+  const cityOffice = cityOffices?.find(c => c.identifier === cityOfficeId)
 
   if (!cityOffice) {
     return <SomethingWentWrong />

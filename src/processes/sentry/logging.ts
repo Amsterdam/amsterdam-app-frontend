@@ -1,18 +1,21 @@
-import {Action, isRejectedWithValue} from '@reduxjs/toolkit'
+import {
+  isRejectedWithValue,
+  type Middleware,
+  type PayloadAction,
+} from '@reduxjs/toolkit'
 import {
   addBreadcrumb,
   captureException,
   setTag,
   withScope,
 } from '@sentry/react-native'
-import type {Middleware} from '@reduxjs/toolkit'
 import {devLog} from '@/processes/development'
 import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
   BreadcrumbCategory,
-  CaptureBreadcrumb,
-  SendErrorLog,
   SentryErrorLogKey,
+  type CaptureBreadcrumb,
+  type SendErrorLog,
 } from '@/processes/sentry/types'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
@@ -35,9 +38,9 @@ export const getCaptureSentryBreadcrumb =
 export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (logKey, filename, data, errorTitle) => {
-    devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, data)
-
     const extraData = logData ? getFilteredSentryData(logKey, data) : undefined
+
+    devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, extraData)
 
     withScope(scope => {
       scope.setContext('data', {filename, ...extraData})
@@ -45,58 +48,50 @@ export const getSendSentryErrorLog =
     })
   }
 
+type Meta =
+  | {arg?: {endpointName?: string}; baseQueryMeta?: {request?: {url: string}}}
+  | undefined
+
+type Payload =
+  | {error: unknown; originalStatus?: number | string; status?: string}
+  | undefined
+
 /**
  * RTK middleware to catch API errors and other rejections
  */
 export const sentryLoggerMiddleware: Middleware =
-  () => next => (action: Action) => {
+  () => next => (action: PayloadAction<Payload, string, Meta>) => {
     if (isRejectedWithValue(action)) {
       // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
       const consent = true
-      let errorTitle = 'Rejected RTK action'
 
-      if ((action.meta.arg as {endpointName: string})?.endpointName) {
-        errorTitle = `${
-          (action.payload as {originalStatus: string})?.originalStatus ??
-          'Error'
-        } for ${(action.meta.arg as {endpointName: string}).endpointName}`
+      let errorTitle = 'Rejected RTK action'
+      const endpoint = action.meta?.arg?.endpointName
+      const originalStatus = action.payload?.originalStatus
+
+      if (endpoint) {
+        errorTitle = `${originalStatus ?? 'Error'} for ${endpoint}`
       }
 
-      const url = sanitizeUrl(
-        (
-          action.meta as unknown as {
-            baseQueryMeta?: {request?: {url: string}}
-          }
-        ).baseQueryMeta?.request?.url ?? '',
-      )
+      const url = sanitizeUrl(action.meta.baseQueryMeta?.request?.url ?? '')
 
       if (!url.startsWith('http://localhost')) {
-        const endpoint = (action.meta.arg as {endpointName: string})
-          .endpointName
-        const status =
-          (action.payload as {originalStatus: string})?.originalStatus ??
-          'unknown'
-
-        const sanitizedAction = Object.assign({}, action)
-
-        ;(sanitizedAction.meta.arg as {queryCacheKey: string}).queryCacheKey =
-          '___'
-
         setTag('endpoint', endpoint)
-        setTag('status', status)
+        setTag('originalStatus', originalStatus)
         getSendSentryErrorLog(!!consent)(
           SentryErrorLogKey.sentryMiddleWareError,
           'processes/logging.ts',
           {
-            ...sanitizedAction,
             endpoint,
-            status,
+            error: action.payload?.error,
+            originalStatus,
+            status: action.payload?.status,
             url,
           },
           errorTitle,
         )
         setTag('endpoint', undefined)
-        setTag('status', undefined)
+        setTag('originalStatus', undefined)
       }
     }
 
