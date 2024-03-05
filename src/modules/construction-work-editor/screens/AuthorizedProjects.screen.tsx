@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {AlertVariant} from '@/components/ui/feedback/Alert.types'
-import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
+import {AlertTopOfScreen} from '@/components/ui/feedback/AlertTopOfScreen'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
@@ -33,7 +33,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   return (
     <Screen
       scroll={false}
-      stickyHeader={<StatefulAlert />}
+      stickyHeader={<AlertTopOfScreen />}
       testID="ConstructionWorkEditorAuthorizedProjectsScreen">
       <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>

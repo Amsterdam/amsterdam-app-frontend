@@ -2,7 +2,7 @@ import {ComponentMeta, Story} from '@storybook/react'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
 import {AlertContent, AlertVariant} from '@/components/ui/feedback/Alert.types'
-import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
+import {AlertTopOfScreen} from '@/components/ui/feedback/AlertTopOfScreen'
 import {AlertState, setAlert} from '@/store/slices/alert'
 
 const title = 'Title'
@@ -24,7 +24,7 @@ const contents: Contents = {
 }
 
 export default {
-  component: StatefulAlert,
+  component: AlertTopOfScreen,
   argTypes: {
     closeType: {
       control: {type: 'radio'},
@@ -48,7 +48,7 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof StatefulAlert>
+} as ComponentMeta<typeof AlertTopOfScreen>
 
 const AlertStory: Story<AlertState> = ({...alertState}) => {
   const dispatch = useDispatch()
@@ -57,7 +57,7 @@ const AlertStory: Story<AlertState> = ({...alertState}) => {
     dispatch(setAlert({...alertState}))
   })
 
-  return <StatefulAlert />
+  return <AlertTopOfScreen />
 }
 
 export const Default = AlertStory.bind({})
@@ -67,5 +67,4 @@ Default.args = {
     text,
   },
   variant: AlertVariant.information,
-  hasIcon: false,
 }
