@@ -1,10 +1,7 @@
 import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
-import {Alert} from '@/components/ui/feedback/Alert'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
@@ -21,14 +18,12 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
     if (route.params?.showSuccessfullySentMessageAlert) {
       dispatch(
         setAlert({
-          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Gelukt',
             text: 'Uw bericht is geplaatst.',
           },
           testID: 'ConstructionWorkEditorSendMessageSuccessAlert',
           variant: AlertVariant.positive,
-          withIcon: false,
         }),
       )
       navigation.setParams({showSuccessfullySentMessageAlert: false})
@@ -38,7 +33,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   return (
     <Screen
       scroll={false}
-      stickyHeader={<Alert />}
+      stickyHeader={<StatefulAlert />}
       testID="ConstructionWorkEditorAuthorizedProjectsScreen">
       <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>

@@ -2,7 +2,7 @@ import {useEffect, useRef} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Alert} from '@/components/ui/feedback/Alert'
+import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
@@ -55,7 +55,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
     <Screen
       keyboardAware
       scroll
-      stickyHeader={<Alert />}
+      stickyHeader={<StatefulAlert />}
       testID="ConstructionWorkEditorCreateMessageScreen">
       <Column
         align="between"

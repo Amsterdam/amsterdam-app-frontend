@@ -1,10 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -69,14 +66,12 @@ export const AddressForm = () => {
         if (previousRoute?.name === ModuleSlug.user) {
           dispatch(
             setAlert({
-              closeType: AlertCloseType.withoutButton,
               content: {
                 title: 'Gelukt',
                 text: 'Het adres is toegevoegd aan uw profiel.',
               },
               testID: 'AddressAddedAlert',
               variant: AlertVariant.positive,
-              withIcon: false,
             }),
           )
         }

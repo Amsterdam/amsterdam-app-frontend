@@ -2,10 +2,7 @@ import {ReactNode} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -60,14 +57,12 @@ export const DisplayAddress = () => {
     dispatch(removeAddress())
     dispatch(
       setAlert({
-        closeType: AlertCloseType.withoutButton,
         content: {
           title: 'Gelukt',
           text: 'Het adres is verwijderd uit uw profiel.',
         },
         testID: 'AddressDeletedAlert',
         variant: AlertVariant.positive,
-        withIcon: false,
       }),
     )
   }

@@ -1,27 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
-import {type TestProps} from '@/components/ui/types'
+import {AlertProps} from '@/components/ui/feedback/Alert.types'
 import {isReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type Content =
-  | {
-      text: string
-      title?: string
-    }
-  | undefined
-
-export type AlertState = {
-  closeType: AlertCloseType
-  content: Content
-  variant: AlertVariant
-  withIcon: boolean
-} & TestProps
+export type AlertState = AlertProps
 
 const initialState = {} as AlertState
 

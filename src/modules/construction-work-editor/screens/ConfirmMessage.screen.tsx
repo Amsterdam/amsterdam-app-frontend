@@ -1,11 +1,8 @@
 import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Alert} from '@/components/ui/feedback/Alert'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
 import {Checkbox} from '@/components/ui/forms/Checkbox'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -108,14 +105,12 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     } catch (error: unknown) {
       dispatch(
         setAlert({
-          closeType: AlertCloseType.withoutButton,
           content: {
             title: 'Niet gelukt',
             text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
           },
           testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
           variant: AlertVariant.negative,
-          withIcon: false,
         }),
       )
     }
@@ -166,7 +161,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           </Column>
         </Box>
       }
-      stickyHeader={<Alert />}
+      stickyHeader={<StatefulAlert />}
       testID="ConstructionWorkEditorConfirmMessageScreen">
       <Box>
         <Column gutter="lg">

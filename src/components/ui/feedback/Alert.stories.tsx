@@ -1,18 +1,15 @@
 import {ComponentMeta, Story} from '@storybook/react'
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {Alert} from '@/components/ui/feedback/Alert'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
-import {AlertState, Content, setAlert} from '@/store/slices/alert'
+import {AlertContent, AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {StatefulAlert} from '@/components/ui/feedback/AlertStateful'
+import {AlertState, setAlert} from '@/store/slices/alert'
 
 const title = 'Title'
 const text = 'U kunt een dagontheffing of jaarontheffing aanvragen'
 
 type Contents = {
-  [key in 'withTitle' | 'withoutTitle']: Content
+  [key in 'withTitle' | 'withoutTitle']: AlertContent
 }
 
 const contents: Contents = {
@@ -27,10 +24,9 @@ const contents: Contents = {
 }
 
 export default {
-  component: Alert,
+  component: StatefulAlert,
   argTypes: {
     closeType: {
-      options: AlertCloseType,
       control: {type: 'radio'},
     },
     content: {
@@ -52,7 +48,7 @@ export default {
       },
     },
   },
-} as ComponentMeta<typeof Alert>
+} as ComponentMeta<typeof StatefulAlert>
 
 const AlertStory: Story<AlertState> = ({...alertState}) => {
   const dispatch = useDispatch()
@@ -61,16 +57,15 @@ const AlertStory: Story<AlertState> = ({...alertState}) => {
     dispatch(setAlert({...alertState}))
   })
 
-  return <Alert />
+  return <StatefulAlert />
 }
 
 export const Default = AlertStory.bind({})
 Default.args = {
-  closeType: AlertCloseType.withoutButton,
   content: {
     title,
     text,
   },
   variant: AlertVariant.information,
-  withIcon: false,
+  hasIcon: false,
 }

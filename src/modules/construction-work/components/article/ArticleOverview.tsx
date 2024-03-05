@@ -2,6 +2,7 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type VariableContentParams} from '@/app/navigation/types'
+import {AlertNegative} from '@/components/ui/feedback/AlertNegative'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -31,7 +32,11 @@ type YearlyArticleSection = {
 export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
-  const {data: articles, isLoading} = useArticlesQuery(
+  const {
+    data: articles,
+    isError,
+    isLoading,
+  } = useArticlesQuery(
     projectId !== undefined
       ? {
           project_ids: projectId?.toString(),
@@ -92,6 +97,17 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
 
   if (isLoading || yearlyArticleSections === undefined) {
     return <PleaseWait testID="ConstructionWorkProjectArticlesSpinner" />
+  }
+
+  if (isError) {
+    return (
+      <AlertNegative
+        content={{
+          text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
+        }}
+        testID="ConstructionWorkProjectArticlesError"
+      />
+    )
   }
 
   if (!yearlyArticleSections.length) {

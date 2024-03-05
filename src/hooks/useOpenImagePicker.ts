@@ -1,10 +1,7 @@
 import ImageCropPicker, {
   Options as ImageCropPickerOptions,
 } from 'react-native-image-crop-picker'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/Alert.types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
@@ -81,13 +78,12 @@ export const useOpenImagePicker = (
 
       dispatch(
         setAlert({
-          closeType: AlertCloseType.withoutButton,
           content: {
             text: getAddPhotoFeedback(viaCamera, code),
           },
           testID: 'OpenImagePicker',
           variant: AlertVariant.negative,
-          withIcon: false,
+          hasIcon: false,
         }),
       )
       sendSentryErrorLog(
