@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {setLocationType as setCurrentLocationType} from '@/modules/address/slice'
+import {setLocationType} from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
 
 export const useSetLocationType = () => {
@@ -9,7 +9,7 @@ export const useSetLocationType = () => {
   return useCallback(
     (type: LocationType) =>
       dispatch(
-        setCurrentLocationType({
+        setLocationType({
           locationType: type,
         }),
       ),

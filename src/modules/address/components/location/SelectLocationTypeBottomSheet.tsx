@@ -17,9 +17,9 @@ import {
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
-import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
+import {useLocationType} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
   setNoLocationPermissionForAndroid,
@@ -75,7 +75,7 @@ export const SelectLocationTypeBottomSheet = ({
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
 
-    if (locationType && locationType !== 'address') {
+    if (locationType !== 'address') {
       onEvent(undefined, {
         dimensions: {
           [PiwikDimension.newState]: 'address',
@@ -149,7 +149,7 @@ export const SelectLocationTypeBottomSheet = ({
 
       setLocationType('location')
 
-      if (locationType && locationType !== 'location') {
+      if (locationType !== 'location') {
         onEvent(undefined, {
           dimensions: {
             [PiwikDimension.newState]: 'location',

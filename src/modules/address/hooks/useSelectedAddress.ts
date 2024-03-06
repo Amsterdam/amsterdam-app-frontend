@@ -1,6 +1,6 @@
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
-import {useLocationType} from '@/modules/address/hooks/useLocationType'
+import {useLocationType} from '@/modules/address/slice'
 import {Address, LocationType} from '@/modules/address/types'
 
 const getSelectedAddress = (
