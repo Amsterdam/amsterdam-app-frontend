@@ -74,7 +74,6 @@ export const SelectLocationTypeBottomSheet = ({
 
   const getCoordinates = useCallback(async () => {
     if (!currentCoordinates) {
-      // if there are no current coordinates, we request them on press
       try {
         setRequestingCurrentCoordinates(true)
 
@@ -104,7 +103,7 @@ export const SelectLocationTypeBottomSheet = ({
 
   useEffect(() => {
     void getCoordinates()
-  }, [currentCoordinates, dispatch, getCoordinates, getCurrentCoordinates])
+  }, [getCoordinates])
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
