@@ -59,6 +59,29 @@ def parseVersionNumber(fullVersionNumber)
   end
 end
 
+def getReleaseInfoForVersion
+  require 'uri'
+  require 'net/http'
+  require 'json'
+  uri = URI('https://app.amsterdam.nl/modules/api/v1/release/' + parseVersionNumber(ENV["VERSION_NUMBER"])[:version])
+  res = Net::HTTP.get_response(uri)
+  if res.is_a?(Net::HTTPSuccess)
+    json = JSON.parse(res.body)
+    puts "Release notes: " + json['releaseNotes']
+    return json
+  end
+end
+
+def writeReleaseNotes(releaseNotes)
+  directory = "./metadata/android/nl-NL/changelogs/"
+  if (!Dir.exists?(directory))
+    require 'fileutils'
+    FileUtils.mkdir_p(directory)
+  end
+  filePath = directory + parseVersionNumber(ENV["VERSION_NUMBER"])[:build] + '.txt'
+  File.write(filePath, releaseNotes)
+end
+
 platform :android do
 
   desc "Build dev and prod version of the app"
@@ -92,6 +115,8 @@ platform :android do
   end
 
   lane :distributeInternal do
+    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
+    writeReleaseNotes(releaseNotes)
     apps.each do |app|
       isAab = app[:task] == "bundle"
       full_apk_path = "#{app_build_path}#{app[:apk_path]}"
@@ -113,6 +138,8 @@ platform :android do
   end
 
   lane :distributeStakeholders do
+    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
+    writeReleaseNotes(releaseNotes)
     apps.each do |app|
       if app[:distribute_to_stakeholders]
         isAab = app[:task] == "bundle"
@@ -142,6 +169,8 @@ platform :android do
   end
   
   lane :distributeProduction do
+    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
+    writeReleaseNotes(releaseNotes)
     apps.each do |app|
       if app[:distribute_to_production]
         # Note: we only submit AABs for a production release (this is mandatory)

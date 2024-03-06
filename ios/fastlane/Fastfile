@@ -50,6 +50,25 @@ def parseVersionNumber(fullVersionNumber)
   end
 end
 
+def getReleaseInfoForVersion
+  require 'uri'
+  require 'net/http'
+  require 'json'
+  uri = URI('https://app.amsterdam.nl/modules/api/v1/release/' + parseVersionNumber(ENV["VERSION_NUMBER"])[:version])
+  res = Net::HTTP.get_response(uri)
+  if res.is_a?(Net::HTTPSuccess)
+    json = JSON.parse(res.body)
+    puts "Release notes: " + json['releaseNotes']
+    return json
+  end
+end
+
+def calculateAutoReleaseDateTimeInMilliseconds(date)
+  date = Date.parse(date)
+  dateTime = DateTime.new(date.year, date.month, date.day, 0, 0, 0)
+  return dateTime.strftime('%s%L')
+end
+
 platform :ios do
 
   private_lane :installAppStoreApiKey do
@@ -170,14 +189,13 @@ platform :ios do
         prodLane(app)
       end
     end
-
-    # TODO set_changelog()
   end
 
   lane :distributeInternal do
 
     installAppStoreApiKey()
 
+    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
     apps.each do |app|
       full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
       puts "Upload to testflight for #{full_ipa_path}"
@@ -188,6 +206,7 @@ platform :ios do
           build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
           app_identifier: app[:app_identifier],
           groups: "AmsterdamApp-internal",
+          changelog: releaseNotes,
         )
       else
         UI.user_error!("ERROR: #{ipa_path} does not exist")
@@ -200,6 +219,7 @@ platform :ios do
 
     installAppStoreApiKey()
 
+    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
     apps.each do |app|
       if app[:distribute_to_stakeholders]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
@@ -213,6 +233,7 @@ platform :ios do
             distribute_external: true,
             distribute_only: true,
             groups: "AmsterdamApp-stakeholders",
+            changelog: releaseNotes,
           )
         else
           UI.user_error!("ERROR: #{ipa_path} does not exist")
@@ -225,27 +246,67 @@ platform :ios do
   lane :distributeProduction do
 
     installAppStoreApiKey()
- 
-    # TODO review and fix
+
+    releaseInfo = getReleaseInfoForVersion()
+    releaseNotes = releaseInfo['releaseNotes']
+    releaseDate = releaseInfo['published']
+    
+    automaticReleaseProperties = {
+      automatic_release: true,
+    }
+    if (releaseDate)
+      puts 'Release date: ' + releaseDate
+      releaseDateMilliseconds = calculateAutoReleaseDateTimeInMilliseconds(releaseDate)
+      puts 'Release date in miliseconds: ' + releaseDateMilliseconds
+      automaticReleaseProperties = {
+        auto_release_date: releaseDateMilliseconds
+      }
+    end
     apps.each do |app|
       if app[:distribute_to_production]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
         puts "Release to App Store: #{full_ipa_path}"
         if File.exists?(full_ipa_path)
           upload_to_app_store(
-            submit_for_review: false,
-            automatic_release: false,
+            submit_for_review: true,
+            **automaticReleaseProperties,
             ipa: full_ipa_path,
-            app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
-            build_number: parseVersionNumber(ENV["VERSION_NUMBER"])[:build],
             app_identifier: app[:app_identifier],
+            skip_metadata: false,
+            skip_screenshots: true,
+            force: true,
+            precheck_include_in_app_purchases: false,
+            edit_live: false,
+            use_live_version: false,
+            phased_release: false,
+            run_precheck_before_submit: true,
+            skip_binary_upload: true,
+            submission_information: {
+              add_id_info_limits_tracking: false,
+              add_id_info_serves_ads: false,
+              add_id_info_tracks_action: false,
+              add_id_info_tracks_install: false,
+              add_id_info_uses_idfa: false,
+              content_rights_has_rights: true,
+              content_rights_contains_third_party_content: false,
+              export_compliance_platform: 'ios',
+              export_compliance_compliance_required: false,
+              export_compliance_encryption_updated: false,
+              export_compliance_app_type: nil,
+              export_compliance_uses_encryption: false,
+              export_compliance_is_exempt: false,
+              export_compliance_contains_third_party_cryptography: false,
+              export_compliance_contains_proprietary_cryptography: false,
+              export_compliance_available_on_french_store: false
+            },
+            release_notes: {
+              'nl-NL': releaseNotes
+            }
           )
         else
           UI.user_error!("ERROR: #{ipa_path} does not exist")
         end
       end
     end
-    
   end
-
 end
