@@ -19,9 +19,9 @@ import {
 import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {useLocationType} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
+  useLocationType,
   setNoLocationPermissionForAndroid,
 } from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -72,6 +72,40 @@ export const SelectLocationTypeBottomSheet = ({
     }
   }, [hasLocationPermission, setLocationType])
 
+  const getCoordinates = useCallback(async () => {
+    if (!currentCoordinates) {
+      // if there are no current coordinates, we request them on press
+      try {
+        setRequestingCurrentCoordinates(true)
+
+        const coordinates = await getCurrentCoordinates()
+
+        setCurrentCoordinates(coordinates)
+      } catch (error) {
+        const {status} = error as GetCurrentPositionError
+        const isPermissionError = isPermissionErrorStatus(status)
+
+        dispatch(
+          setNoLocationPermissionForAndroid(
+            status !== permissionStatuses.GRANTED,
+          ),
+        )
+
+        if (!isPermissionError) {
+          setHasLocationTechnicalError(true)
+        }
+
+        return
+      } finally {
+        setRequestingCurrentCoordinates(false)
+      }
+    }
+  }, [currentCoordinates, dispatch, getCurrentCoordinates])
+
+  useEffect(() => {
+    void getCoordinates()
+  }, [currentCoordinates, dispatch, getCoordinates, getCurrentCoordinates])
+
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
 
@@ -100,8 +134,9 @@ export const SelectLocationTypeBottomSheet = ({
   ])
 
   const onPressLocationButton = useCallback(
-    async (hasValidAddressData: boolean) => {
+    (hasValidAddressData: boolean) => {
       setHasLocationTechnicalError(false)
+      const lastKnownCoordinates = currentCoordinates
 
       if (!hasLocationPermission) {
         navigateToInstructionsScreen()
@@ -109,35 +144,7 @@ export const SelectLocationTypeBottomSheet = ({
         return
       }
 
-      const lastKnownCoordinates = currentCoordinates
-
-      if (!lastKnownCoordinates) {
-        // if there are no current coordinates, we request them on press
-        try {
-          setRequestingCurrentCoordinates(true)
-
-          const coordinates = await getCurrentCoordinates()
-
-          setCurrentCoordinates(coordinates)
-        } catch (error) {
-          const {status} = error as GetCurrentPositionError
-          const isPermissionError = isPermissionErrorStatus(status)
-
-          dispatch(
-            setNoLocationPermissionForAndroid(
-              status !== permissionStatuses.GRANTED,
-            ),
-          )
-
-          if (!isPermissionError) {
-            setHasLocationTechnicalError(true)
-          }
-
-          return
-        } finally {
-          setRequestingCurrentCoordinates(false)
-        }
-      }
+      setLocationType('location')
 
       if (!hasValidAddressData) {
         return
@@ -146,8 +153,6 @@ export const SelectLocationTypeBottomSheet = ({
       if (lastKnownCoordinates) {
         dispatch(addLastKnownCoordinates(lastKnownCoordinates))
       }
-
-      setLocationType('location')
 
       if (locationType !== 'location') {
         onEvent(undefined, {
@@ -166,7 +171,6 @@ export const SelectLocationTypeBottomSheet = ({
       locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
-      getCurrentCoordinates,
       dispatch,
       onEvent,
     ],
