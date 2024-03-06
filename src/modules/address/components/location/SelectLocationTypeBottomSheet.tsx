@@ -135,7 +135,6 @@ export const SelectLocationTypeBottomSheet = ({
   const onPressLocationButton = useCallback(
     (hasValidAddressData: boolean) => {
       setHasLocationTechnicalError(false)
-      const lastKnownCoordinates = currentCoordinates
 
       if (!hasLocationPermission) {
         navigateToInstructionsScreen()
@@ -149,8 +148,8 @@ export const SelectLocationTypeBottomSheet = ({
         return
       }
 
-      if (lastKnownCoordinates) {
-        dispatch(addLastKnownCoordinates(lastKnownCoordinates))
+      if (currentCoordinates) {
+        dispatch(addLastKnownCoordinates(currentCoordinates))
       }
 
       if (locationType !== 'location') {
