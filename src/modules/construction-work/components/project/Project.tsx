@@ -18,12 +18,12 @@ import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
-import {useSelectedAddressForConstructionWork} from '@/modules/construction-work/hooks/useSelectedAddressForConstructionWork'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   useProjectFollowMutation,
@@ -41,7 +41,7 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const {address} = useSelectedAddressForConstructionWork()
+  const {address} = useSelectedAddress()
 
   const navigation = useNavigation()
 

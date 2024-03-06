@@ -1,7 +1,6 @@
 import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoordinates'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {LocationType} from '@/modules/address/types'
-import {ModuleSlug} from '@/modules/slugs'
 
 const getShouldRequestLocation = (
   hasAddress: boolean,
@@ -23,8 +22,8 @@ const getShouldRequestLocation = (
   return true
 }
 
-export const useShouldRequestLocation = (slug: ModuleSlug) => {
-  const {address, locationType} = useSelectedAddress(slug)
+export const useShouldRequestLocation = () => {
+  const {address, locationType} = useSelectedAddress()
   const coordinates = useLastKnownCoordinates()
 
   return getShouldRequestLocation(!!address, !!coordinates, locationType)

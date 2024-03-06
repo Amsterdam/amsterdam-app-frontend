@@ -71,7 +71,7 @@ export const migrations: MigrationManifest = {
       return {} as PersistedState
     }
 
-    const addressState: AddressState = {
+    const addressState: Omit<AddressState, 'locationType'> = {
       address: {
         addition: getAddition(bag_huisletter, bag_toevoeging),
         additionLetter: bag_huisletter || undefined,
@@ -87,6 +87,6 @@ export const migrations: MigrationManifest = {
       },
     }
 
-    return addressState as PersistedState
+    return addressState as unknown as PersistedState
   },
 }

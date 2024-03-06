@@ -3,13 +3,13 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {getNotFoundText} from '@/modules/waste-guide/utils/getNotFoundText'
 
 export const WasteGuideNotFound = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
-  const {address, locationType} = useSelectedAddressForWasteGuide()
+  const {address, locationType} = useSelectedAddress()
 
   return (
     <Column gutter="lg">

@@ -11,14 +11,13 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressCity} from '@/modules/address/types'
-import {ModuleSlug} from '@/modules/slugs'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
 import WasteGuideNotFoundImage from '@/modules/waste-guide/assets/images/waste-guide-not-found.svg'
 import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
-import {useSelectedAddressForWasteGuide} from '@/modules/waste-guide/hooks/useSelectedAddressForWasteGuide'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
 import {useTheme} from '@/themes/useTheme'
@@ -31,7 +30,7 @@ export const WasteGuide = () => {
     address,
     isError: selectedAddressForWasteGuideIsError,
     isFetching: selectedAddressForWasteGuideIsFetching,
-  } = useSelectedAddressForWasteGuide()
+  } = useSelectedAddress()
 
   const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
 
@@ -72,10 +71,7 @@ export const WasteGuide = () => {
         text="Probeer het later nog een keer."
         title="Helaas is de afvalwijzer nu niet beschikbaar">
         <Row>
-          <ChangeLocationButton
-            slug={ModuleSlug['waste-guide']}
-            testID="WasteGuide"
-          />
+          <ChangeLocationButton testID="WasteGuide" />
         </Row>
       </FullScreenError>
     )
@@ -98,10 +94,7 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column>
-              <ChangeLocationButton
-                slug={ModuleSlug['waste-guide']}
-                testID="WasteGuide"
-              />
+              <ChangeLocationButton testID="WasteGuide" />
             </Column>
             {hasContent ? (
               <WasteGuideForCity wasteGuide={wasteGuideData} />

@@ -4,7 +4,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof AddressState)[] = ['address']
+const persistWhitelist: (keyof AddressState)[] = ['address', 'locationType']
 
 export const addressModule: CoreModuleConfig = {
   name: 'AddressModule',
