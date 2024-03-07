@@ -104,7 +104,10 @@ export const SelectLocationTypeBottomSheet = ({
   useEffect(() => {
     if (bottomSheetIsOpen) {
       void getCoordinates()
+    } else {
+      setHasLocationTechnicalError(false)
     }
+
     // Fetch coordinates every time the bottomsheet isOpen and not every screen render
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bottomSheetIsOpen])
@@ -142,8 +145,6 @@ export const SelectLocationTypeBottomSheet = ({
 
       if (!hasLocationPermission) {
         navigateToInstructionsScreen()
-
-        return
       }
 
       setLocationType('location')
@@ -177,10 +178,6 @@ export const SelectLocationTypeBottomSheet = ({
       onEvent,
     ],
   )
-
-  useEffect(() => {
-    !bottomSheetIsOpen && setHasLocationTechnicalError(false)
-  }, [bottomSheetIsOpen])
 
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">
