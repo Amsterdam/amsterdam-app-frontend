@@ -93,8 +93,6 @@ export const SelectLocationTypeBottomSheet = ({
         if (!isPermissionError) {
           setHasLocationTechnicalError(true)
         }
-
-        return
       } finally {
         setRequestingCurrentCoordinates(false)
       }
@@ -145,6 +143,8 @@ export const SelectLocationTypeBottomSheet = ({
 
       if (!hasLocationPermission) {
         navigateToInstructionsScreen()
+
+        return
       }
 
       setLocationType('location')
