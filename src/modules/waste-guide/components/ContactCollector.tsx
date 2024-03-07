@@ -1,4 +1,5 @@
 import {Fragment} from 'react'
+import {View} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -29,12 +30,14 @@ export const ContactCollector = () => {
         level="h5"
         text="Neem contact op met uw afvalinzamelaar"
       />
-      <Container>
-        <Phrase testID="WasteGuideBusinessesInfoPhrase">
-          Of kijk voor meer informatie over bedrijfsafval op{' '}
-        </Phrase>
-        <InlineLinkWasteContainer />
-      </Container>
+      <View>
+        <Container>
+          <Phrase testID="WasteGuideBusinessesInfoPhrase">
+            Of kijk voor meer informatie over bedrijfsafval op{' '}
+          </Phrase>
+          <InlineLinkWasteContainer />
+        </Container>
+      </View>
     </Column>
   )
 }
