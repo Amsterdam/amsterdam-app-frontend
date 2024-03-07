@@ -1,11 +1,11 @@
 import {Alert} from 'react-native'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Figure} from '@/components/ui/media/Figure'
-import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
@@ -42,7 +42,7 @@ export const FeedbackScreen = () => {
             ) : isError ? (
               <SomethingWentWrong />
             ) : (
-              <Link
+              <Button
                 label="Laat het ons weten"
                 onPress={() => {
                   if (redirectUrls?.feedbackForm) {
@@ -60,7 +60,6 @@ export const FeedbackScreen = () => {
                   }
                 }}
                 testID="AboutFeedbackLink"
-                variant="external"
               />
             )}
           </Column>
