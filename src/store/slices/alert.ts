@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {LayoutAnimation} from 'react-native'
-import {AlertProps} from '@/components/ui/feedback/Alert.types'
+import {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {isReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'

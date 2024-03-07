@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
-import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'

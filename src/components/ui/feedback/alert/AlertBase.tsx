@@ -6,7 +6,7 @@ import {
   AlertProps,
   AlertVariant,
   AlertVariantConfig,
-} from '@/components/ui/feedback/Alert.types'
+} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'

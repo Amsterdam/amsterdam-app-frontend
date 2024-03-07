@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {AlertVariant} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {setHasSeenWelcomeMessage} from '@/modules/construction-work-editor/slice'
 import {setAlert} from '@/store/slices/alert'
