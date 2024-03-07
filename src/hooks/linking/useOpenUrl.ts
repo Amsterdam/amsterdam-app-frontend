@@ -17,8 +17,7 @@ export const useOpenUrl = (): OpenUrl => {
       trackOutlink(href)
 
       if (href.startsWith('mailto:')) {
-        const [mailto, subject] = href.split('?subject=')
-        const [, emailAddress] = mailto.split(':')
+        const [emailAddress, subject] = href.substring(7).split('?subject=')
 
         openMailUrl(emailAddress, subject)
 
@@ -26,7 +25,7 @@ export const useOpenUrl = (): OpenUrl => {
       }
 
       if (href.startsWith('tel:')) {
-        openPhoneUrl(href)
+        openPhoneUrl(href.substring(4))
 
         return
       }
