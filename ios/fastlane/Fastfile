@@ -212,9 +212,17 @@ platform :ios do
           app_identifier: app[:app_identifier],
           groups: "AmsterdamApp-internal",
           changelog: releaseNotes,
+          localized_build_info: {
+            "default": {
+              whats_new: releaseNotes,
+            },
+            "nl-NL": {
+              whats_new: releaseNotes,
+            }
+          }
         )
       else
-        UI.user_error!("ERROR: #{ipa_path} does not exist")
+        FastlaneCore::UI.error("ERROR: #{ipa_path} does not exist")
       end
     end
 
@@ -239,9 +247,17 @@ platform :ios do
             distribute_only: true,
             groups: "AmsterdamApp-stakeholders",
             changelog: releaseNotes,
+            localized_build_info: {
+              "default": {
+                whats_new: releaseNotes,
+              },
+              "nl-NL": {
+                whats_new: releaseNotes,
+              }
+            }
           )
         else
-          UI.user_error!("ERROR: #{ipa_path} does not exist")
+          FastlaneCore::UI.error("ERROR: #{ipa_path} does not exist")
         end
       end
     end
@@ -269,7 +285,7 @@ platform :ios do
         auto_release_date: releaseDateMilliseconds
       }
     else 
-      UI.user_error!('Release date not in the future! Fix this or users will get update notifications to an yet unreleased version!')
+      FastlaneCore::UI.error('ERROR: Release date not in the future! Fix this or users will get update notifications to an yet unreleased version!')
       exit(1)
     end
     apps.each do |app|
@@ -314,7 +330,7 @@ platform :ios do
             }
           )
         else
-          UI.user_error!("ERROR: #{ipa_path} does not exist")
+          FastlaneCore::UI.error("ERROR: #{ipa_path} does not exist")
         end
       end
     end
