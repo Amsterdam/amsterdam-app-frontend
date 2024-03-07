@@ -102,8 +102,12 @@ export const SelectLocationTypeBottomSheet = ({
   }, [currentCoordinates, dispatch, getCurrentCoordinates])
 
   useEffect(() => {
-    void getCoordinates()
-  }, [getCoordinates])
+    if (bottomSheetIsOpen) {
+      void getCoordinates()
+    }
+    // Fetch coordinates every time the bottomsheet isOpen and not every screen render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bottomSheetIsOpen])
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
