@@ -19,9 +19,9 @@ import {
 import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {useLocationType} from '@/modules/address/slice'
 import {
   addLastKnownCoordinates,
+  useLocationType,
   setNoLocationPermissionForAndroid,
 } from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -72,6 +72,44 @@ export const SelectLocationTypeBottomSheet = ({
     }
   }, [hasLocationPermission, setLocationType])
 
+  const getCoordinates = useCallback(async () => {
+    if (!currentCoordinates) {
+      try {
+        setRequestingCurrentCoordinates(true)
+
+        const coordinates = await getCurrentCoordinates()
+
+        setCurrentCoordinates(coordinates)
+      } catch (error) {
+        const {status} = error as GetCurrentPositionError
+        const isPermissionError = isPermissionErrorStatus(status)
+
+        dispatch(
+          setNoLocationPermissionForAndroid(
+            status !== permissionStatuses.GRANTED,
+          ),
+        )
+
+        if (!isPermissionError) {
+          setHasLocationTechnicalError(true)
+        }
+      } finally {
+        setRequestingCurrentCoordinates(false)
+      }
+    }
+  }, [currentCoordinates, dispatch, getCurrentCoordinates])
+
+  useEffect(() => {
+    if (bottomSheetIsOpen) {
+      void getCoordinates()
+    } else {
+      setHasLocationTechnicalError(false)
+    }
+
+    // Fetch coordinates every time the bottomsheet isOpen and not every screen render
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [bottomSheetIsOpen])
+
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
 
@@ -100,7 +138,7 @@ export const SelectLocationTypeBottomSheet = ({
   ])
 
   const onPressLocationButton = useCallback(
-    async (hasValidAddressData: boolean) => {
+    (hasValidAddressData: boolean) => {
       setHasLocationTechnicalError(false)
 
       if (!hasLocationPermission) {
@@ -109,45 +147,15 @@ export const SelectLocationTypeBottomSheet = ({
         return
       }
 
-      const lastKnownCoordinates = currentCoordinates
-
-      if (!lastKnownCoordinates) {
-        // if there are no current coordinates, we request them on press
-        try {
-          setRequestingCurrentCoordinates(true)
-
-          const coordinates = await getCurrentCoordinates()
-
-          setCurrentCoordinates(coordinates)
-        } catch (error) {
-          const {status} = error as GetCurrentPositionError
-          const isPermissionError = isPermissionErrorStatus(status)
-
-          dispatch(
-            setNoLocationPermissionForAndroid(
-              status !== permissionStatuses.GRANTED,
-            ),
-          )
-
-          if (!isPermissionError) {
-            setHasLocationTechnicalError(true)
-          }
-
-          return
-        } finally {
-          setRequestingCurrentCoordinates(false)
-        }
-      }
+      setLocationType('location')
 
       if (!hasValidAddressData) {
         return
       }
 
-      if (lastKnownCoordinates) {
-        dispatch(addLastKnownCoordinates(lastKnownCoordinates))
+      if (currentCoordinates) {
+        dispatch(addLastKnownCoordinates(currentCoordinates))
       }
-
-      setLocationType('location')
 
       if (locationType !== 'location') {
         onEvent(undefined, {
@@ -166,36 +174,10 @@ export const SelectLocationTypeBottomSheet = ({
       locationType,
       closeBottomSheet,
       navigateToInstructionsScreen,
-      getCurrentCoordinates,
       dispatch,
       onEvent,
     ],
   )
-
-  const hasCurrentCoordinates = !!currentCoordinates
-
-  useEffect(() => {
-    if (!(bottomSheetIsOpen && hasCurrentCoordinates)) {
-      return
-    }
-
-    setRequestingCurrentCoordinates(true)
-    getCurrentCoordinates()
-      .then(coordinates => {
-        setCurrentCoordinates(coordinates)
-        setRequestingCurrentCoordinates(false)
-      })
-      .catch(() => {
-        setRequestingCurrentCoordinates(false)
-      })
-
-    // we deliberately omit `hasCurrentCoordinates` because we want to prevent triggering this when the coordinates are set the first time, via `onPressLocationButton`
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCurrentCoordinates, bottomSheetIsOpen])
-
-  useEffect(() => {
-    !bottomSheetIsOpen && setHasLocationTechnicalError(false)
-  }, [bottomSheetIsOpen])
 
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">
