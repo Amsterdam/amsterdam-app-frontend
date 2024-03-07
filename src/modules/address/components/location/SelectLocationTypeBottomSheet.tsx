@@ -178,27 +178,6 @@ export const SelectLocationTypeBottomSheet = ({
     ],
   )
 
-  const hasCurrentCoordinates = !!currentCoordinates
-
-  useEffect(() => {
-    if (!(bottomSheetIsOpen && hasCurrentCoordinates)) {
-      return
-    }
-
-    setRequestingCurrentCoordinates(true)
-    getCurrentCoordinates()
-      .then(coordinates => {
-        setCurrentCoordinates(coordinates)
-        setRequestingCurrentCoordinates(false)
-      })
-      .catch(() => {
-        setRequestingCurrentCoordinates(false)
-      })
-
-    // we deliberately omit `hasCurrentCoordinates` because we want to prevent triggering this when the coordinates are set the first time, via `onPressLocationButton`
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getCurrentCoordinates, bottomSheetIsOpen])
-
   useEffect(() => {
     !bottomSheetIsOpen && setHasLocationTechnicalError(false)
   }, [bottomSheetIsOpen])
