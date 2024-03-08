@@ -1,15 +1,19 @@
 import {IconName} from '@/components/ui/media/iconPaths'
-
-export enum AlertCloseType {
-  withButton = 'withButton',
-  withoutButton = 'withoutButton',
-}
+import {TestProps} from '@/components/ui/types'
 
 export enum AlertVariant {
   information = 'information',
   negative = 'negative',
   positive = 'positive',
 }
+
+export type AlertProps = {
+  hasCloseIcon?: boolean
+  hasIcon?: boolean
+  text: string
+  title?: string
+  variant?: AlertVariant
+} & TestProps
 
 export type AlertVariantConfig = {
   [v in AlertVariant]: {

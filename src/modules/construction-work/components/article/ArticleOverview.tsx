@@ -2,7 +2,9 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type VariableContentParams} from '@/app/navigation/types'
+import {Pressable} from '@/components/ui/buttons/Pressable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -31,13 +33,19 @@ type YearlyArticleSection = {
 export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
   const navigation = useNavigation<ConstructionWorkRouteName>()
   const styles = useThemable(createStyles)
-  const {data: articles, isLoading} = useArticlesQuery(
+  const {
+    data: articles,
+    isError,
+    isLoading,
+    refetch,
+  } = useArticlesQuery(
     projectId !== undefined
       ? {
           project_ids: projectId?.toString(),
         }
       : skipToken,
   )
+
   const {markMultipleAsRead} = useMarkArticleAsRead()
 
   const yearlyArticleSections = articles?.reduce(
@@ -90,11 +98,11 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     )
   }
 
-  if (isLoading || yearlyArticleSections === undefined) {
+  if (isLoading) {
     return <PleaseWait testID="ConstructionWorkProjectArticlesSpinner" />
   }
 
-  if (!yearlyArticleSections.length) {
+  if (!isError && !yearlyArticleSections?.length) {
     return null
   }
 
@@ -106,29 +114,40 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
           testID="ConstructionWorkProjectArticlesTitle"
           text={title}
         />
-        {yearlyArticleSections.map(({title: sectionTitle, data}, index) => (
-          <View key={sectionTitle + index.toString()}>
-            {index > 0 && (
-              <View style={styles.year}>
-                <Paragraph>{sectionTitle}</Paragraph>
-                <View style={styles.line} />
-              </View>
-            )}
-            {data.map((article, dataIndex) => (
-              <ArticlePreview
-                article={article}
-                isFirst={index === 0 && dataIndex === 0}
-                isLast={
-                  index === yearlyArticleSections.length - 1 &&
-                  dataIndex === data.length - 1
-                }
-                key={getUniqueArticleId(article.meta_id)}
-                onPress={() => navigateToArticle(article)}
-                testID={'ConstructionWorkProjectArticlePreview'}
-              />
-            ))}
-          </View>
-        ))}
+        {yearlyArticleSections ? (
+          yearlyArticleSections.map(({title: sectionTitle, data}, index) => (
+            <View key={sectionTitle + index.toString()}>
+              {index > 0 && (
+                <View style={styles.year}>
+                  <Paragraph>{sectionTitle}</Paragraph>
+                  <View style={styles.line} />
+                </View>
+              )}
+              {data.map((article, dataIndex) => (
+                <ArticlePreview
+                  article={article}
+                  isFirst={index === 0 && dataIndex === 0}
+                  isLast={
+                    index === yearlyArticleSections.length - 1 &&
+                    dataIndex === data.length - 1
+                  }
+                  key={getUniqueArticleId(article.meta_id)}
+                  onPress={() => navigateToArticle(article)}
+                  testID={'ConstructionWorkProjectArticlePreview'}
+                />
+              ))}
+            </View>
+          ))
+        ) : (
+          <Pressable
+            onPress={refetch}
+            testID="ConstructionWorkProjectArticlesRefetchButton">
+            <AlertNegative
+              testID="ConstructionWorkProjectArticlesError"
+              text="De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer."
+            />
+          </Pressable>
+        )}
       </Column>
     </View>
   )

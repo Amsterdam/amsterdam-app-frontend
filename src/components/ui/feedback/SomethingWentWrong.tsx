@@ -1,19 +1,23 @@
-import {Box} from '@/components/ui/containers/Box'
-import {Warning} from '@/components/ui/feedback/Warning'
+import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
-export const SomethingWentWrong = () => {
-  const text = 'Er ging iets mis.'
-  const title = 'Sorry …'
+type SomethingWentWrongProps = {
+  text?: string
+  title?: string
+}
 
+export const SomethingWentWrong = ({
+  text = 'Er ging iets mis.',
+  title = 'Sorry …',
+}: SomethingWentWrongProps) => {
   useAccessibilityAnnounceEffect(`${title} ${text}`)
 
   return (
-    <Box>
-      <Warning
-        text={text}
-        title={title}
-      />
-    </Box>
+    <AlertNegative
+      inset="md"
+      testID="SomethingWentWrong"
+      text={text}
+      title={title}
+    />
   )
 }

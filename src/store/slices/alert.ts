@@ -1,27 +1,14 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useCallback} from 'react'
 import {LayoutAnimation} from 'react-native'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
-import {type TestProps} from '@/components/ui/types'
+import {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {isReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type Content =
-  | {
-      text: string
-      title?: string
-    }
-  | undefined
-
-export type AlertState = {
-  closeType: AlertCloseType
-  content: Content
-  variant: AlertVariant
-  withIcon: boolean
-} & TestProps
+export type AlertState = AlertProps
 
 const initialState = {} as AlertState
 
@@ -40,6 +27,21 @@ export const alertSlice = createSlice({
   },
 })
 
-export const {resetAlert, setAlert} = alertSlice.actions
+const {resetAlert: resetAlertAction, setAlert: setAlertAction} =
+  alertSlice.actions
 
 export const selectAlert = (state: RootState) => state[ReduxKey.alert]
+
+export const useAlert = () => {
+  const dispatch = useDispatch()
+
+  const alert = useSelector(selectAlert)
+
+  const setAlert = useCallback(
+    (a: AlertState) => dispatch(setAlertAction(a)),
+    [dispatch],
+  )
+  const resetAlert = useCallback(() => dispatch(resetAlertAction()), [dispatch])
+
+  return {alert, setAlert, resetAlert}
+}

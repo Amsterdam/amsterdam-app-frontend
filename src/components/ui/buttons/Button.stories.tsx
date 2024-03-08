@@ -78,7 +78,7 @@ export const __Alignment: Story<typeof Row> = {
 /**
  * Knop met een icoon
  */
-export const __WithIcon: Story = {
+export const __hasIcon: Story = {
   args: {
     iconName: 'phone',
     label: 'Bel ons',

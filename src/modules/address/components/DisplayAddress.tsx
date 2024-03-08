@@ -2,10 +2,7 @@ import {ReactNode} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {
-  AlertCloseType,
-  AlertVariant,
-} from '@/components/ui/feedback/Alert.types'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -13,7 +10,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
-import {setAlert} from '@/store/slices/alert'
+import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
 type AddressDeleteButtonProps = {
@@ -55,21 +52,16 @@ export const DisplayAddress = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()
+  const {setAlert} = useAlert()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
-    dispatch(
-      setAlert({
-        closeType: AlertCloseType.withoutButton,
-        content: {
-          title: 'Gelukt',
-          text: 'Het adres is verwijderd uit uw profiel.',
-        },
-        testID: 'AddressDeletedAlert',
-        variant: AlertVariant.positive,
-        withIcon: false,
-      }),
-    )
+    setAlert({
+      title: 'Gelukt',
+      text: 'Het adres is verwijderd uit uw profiel.',
+      testID: 'AddressDeletedAlert',
+      variant: AlertVariant.positive,
+    })
   }
 
   return (
