@@ -1,7 +1,6 @@
 import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Screen} from '@/components/ui/layout/Screen'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
@@ -29,8 +28,8 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen
+      hasStickyAlert
       scroll={false}
-      stickyHeader={<AlertTopOfScreen />}
       testID="ConstructionWorkEditorAuthorizedProjectsScreen">
       <AuthorizedProjects deeplinkId={deeplinkId} />
     </Screen>

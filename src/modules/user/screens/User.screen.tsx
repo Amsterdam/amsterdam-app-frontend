@@ -1,11 +1,10 @@
 import {Box} from '@/components/ui/containers/Box'
-import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Screen} from '@/components/ui/layout/Screen'
 import {LocationsBox} from '@/modules/address/components/LocationsBox'
 
 export const UserScreen = () => (
   <Screen
-    stickyHeader={<AlertTopOfScreen />}
+    hasStickyAlert
     testID="UserScreen">
     <Box>
       <LocationsBox />

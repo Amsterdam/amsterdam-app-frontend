@@ -2,7 +2,6 @@ import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Checkbox} from '@/components/ui/forms/Checkbox'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -134,6 +133,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
   return (
     <Screen
+      hasStickyAlert
       scroll
       stickyFooter={
         <Box>
@@ -161,7 +161,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           </Column>
         </Box>
       }
-      stickyHeader={<AlertTopOfScreen />}
       testID="ConstructionWorkEditorConfirmMessageScreen">
       <Box>
         <Column gutter="lg">

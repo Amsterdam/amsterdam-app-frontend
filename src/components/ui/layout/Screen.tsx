@@ -13,6 +13,7 @@ import {
 } from '@/components/features/product-tour/withTrackScroll'
 import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
 import {KeyboardAvoidingView} from '@/components/ui/containers/KeyboardAvoidingView'
+import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {type TestProps} from '@/components/ui/types'
@@ -98,6 +99,7 @@ type WithInsetProps = {
 type Props = {
   bottomSheet?: ReactNode
   children: ReactNode
+  hasStickyAlert?: boolean
   keyboardAware?: boolean
   scroll?: boolean
   stickyFooter?: ReactNode
@@ -136,6 +138,7 @@ const InnerWrapper: FC<InnerWrapperProps> = ({
 export const ScreenBase = ({
   bottomSheet,
   children,
+  hasStickyAlert,
   stickyFooter,
   stickyHeader,
   withBottomInset = true,
@@ -178,6 +181,7 @@ export const ScreenBase = ({
         style={styles.screen}
         testID={testID}>
         {stickyHeader}
+        {!!hasStickyAlert && <AlertTopOfScreen />}
         <Wrapper
           keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
           trackScroll={trackScroll}
