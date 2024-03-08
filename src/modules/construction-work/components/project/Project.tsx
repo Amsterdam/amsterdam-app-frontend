@@ -1,40 +1,24 @@
-import {useCallback} from 'react'
-import simplur from 'simplur'
-import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
-import {Tip} from '@/components/features/product-tour/types'
-import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
-import {Row} from '@/components/ui/layout/Row'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {Placement} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
-import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import { useSelectedAddress } from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
+import {ProjectFollow} from '@/modules/construction-work/components/project/ProjectFollow'
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {
-  useProjectFollowMutation,
-  useProjectDetailsQuery,
-  useProjectUnfollowMutation,
-} from '@/modules/construction-work/service'
-import {PiwikDimension} from '@/processes/piwik/types'
+import {useProjectDetailsQuery} from '@/modules/construction-work/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-
-const ONBOARDING_TIP =
-  'Volg een project en blijf op de hoogte van onze werkzaamheden'
 
 type Props = {
   id: number
@@ -53,28 +37,6 @@ export const Project = ({id}: Props) => {
     isFetching,
     error: projectError,
   } = useProjectDetailsQuery({id, ...addressParam})
-  const [followProject, {isLoading: isUpdatingFollow}] =
-    useProjectFollowMutation()
-  const [unfollowProject, {isLoading: isUpdatingUnfollow}] =
-    useProjectUnfollowMutation()
-  const {registerDeviceWithPermission} = useRegisterDevice()
-
-  const onPressFollowButton = useCallback(
-    (isFollowed: boolean) => {
-      if (isFollowed) {
-        void unfollowProject({id})
-
-        return
-      }
-
-      void followProject({id})
-        .unwrap()
-        .then(() => {
-          registerDeviceWithPermission()
-        })
-    },
-    [followProject, id, registerDeviceWithPermission, unfollowProject],
-  )
 
   useSetScreenTitle(project?.title)
 
@@ -101,7 +63,6 @@ export const Project = ({id}: Props) => {
   }
 
   const {image, followed, followers, meter, strides, subtitle, title} = project
-  const followersPhrase = simplur`${[followers]} volger[|s]`
 
   return (
     <Column>
@@ -115,54 +76,13 @@ export const Project = ({id}: Props) => {
       <HorizontalSafeArea>
         <Box>
           <Column gutter="lg">
-            <Row
-              gutter="md"
-              valign="center"
-              zIndex={1}>
-              <ProductTourTipWrapper
-                extraSpace="md"
-                placement={Placement.below}
-                testID="ConstructionWorkProjectFollowButtonTooltip"
-                text={ONBOARDING_TIP}
-                tipSlug={Tip.constructionWorkProjectFollowButton}>
-                <FollowButton
-                  accessibilityHint={ONBOARDING_TIP}
-                  accessibilityLabel={
-                    followed ? 'Ontvolg dit project' : 'Volg dit project'
-                  }
-                  disabled={
-                    isUpdatingFollow || isUpdatingUnfollow || isFetching
-                  }
-                  followed={followed}
-                  logDimensions={{
-                    [PiwikDimension.contentId]: id.toString(),
-                    [PiwikDimension.contentTitle]: project.title,
-                  }}
-                  logName={`ConstructionWorkProject${followed ? 'Unfollow' : 'Follow'}Button`}
-                  onPress={onPressFollowButton}
-                  testID="ConstructionWorkProjectFollowButton"
-                />
-              </ProductTourTipWrapper>
-              <SingleSelectable
-                accessibilityLabel={accessibleText(
-                  followers.toString(),
-                  followersPhrase,
-                )}>
-                <Column>
-                  <Phrase
-                    emphasis="strong"
-                    testID="ConstructionWorkProjectFollowersNumber"
-                    variant="small">
-                    {followers}
-                  </Phrase>
-                  <Phrase
-                    testID="ConstructionWorkProjectFollowersText"
-                    variant="small">
-                    {followersPhrase}
-                  </Phrase>
-                </Column>
-              </SingleSelectable>
-            </Row>
+            <ProjectFollow
+              followers={followers}
+              isFetchingProject={isFetching}
+              isProjectFollowed={followed}
+              projectId={id}
+              projectTitle={title}
+            />
             <Column gutter="md">
               <ProjectTraits
                 accessibilityLabel={accessibleText(
