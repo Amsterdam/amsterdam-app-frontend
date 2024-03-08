@@ -26,5 +26,5 @@ export const useNoInternetAlert = () => {
         },
       )
     }
-  })
+  }, [netInfo.isConnected])
 }
