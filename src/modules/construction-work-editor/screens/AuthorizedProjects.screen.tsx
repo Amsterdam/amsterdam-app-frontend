@@ -15,10 +15,8 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
       setAlert({
-        content: {
-          title: 'Gelukt',
-          text: 'Uw bericht is geplaatst.',
-        },
+        title: 'Gelukt',
+        text: 'Uw bericht is geplaatst.',
         testID: 'ConstructionWorkEditorSendMessageSuccessAlert',
         variant: AlertVariant.positive,
       })

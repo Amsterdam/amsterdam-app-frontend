@@ -7,17 +7,11 @@ export enum AlertVariant {
   positive = 'positive',
 }
 
-export type AlertContent =
-  | {
-      text: string
-      title?: string
-    }
-  | undefined
-
 export type AlertProps = {
-  content: AlertContent
   hasCloseIcon?: boolean
   hasIcon?: boolean
+  text: string
+  title?: string
   variant?: AlertVariant
 } & TestProps
 

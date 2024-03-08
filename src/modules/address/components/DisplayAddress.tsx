@@ -57,10 +57,8 @@ export const DisplayAddress = () => {
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
     setAlert({
-      content: {
-        title: 'Gelukt',
-        text: 'Het adres is verwijderd uit uw profiel.',
-      },
+      title: 'Gelukt',
+      text: 'Het adres is verwijderd uit uw profiel.',
       testID: 'AddressDeletedAlert',
       variant: AlertVariant.positive,
     })

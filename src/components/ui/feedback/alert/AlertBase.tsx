@@ -38,10 +38,11 @@ type AlertBaseProps = {
 
 export const AlertBase = ({
   hasCloseIcon = false,
-  content,
   inset,
   testID,
   hasIcon = false,
+  text,
+  title,
   variant = AlertVariant.information,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
@@ -69,7 +70,7 @@ export const AlertBase = ({
           testID={testID}>
           <Row align="between">
             <SingleSelectable
-              accessibilityLabel={accessibleText(content?.title, content?.text)}
+              accessibilityLabel={accessibleText(title, text)}
               accessibilityLanguage="nl-NL"
               accessibilityRole="alert">
               <Row gutter="md">
@@ -81,13 +82,13 @@ export const AlertBase = ({
                   />
                 )}
                 <Column>
-                  {!!content?.title && (
+                  {!!title && (
                     <Title
                       level="h4"
-                      text={content?.title}
+                      text={title}
                     />
                   )}
-                  <Paragraph>{content?.text}</Paragraph>
+                  <Paragraph>{text}</Paragraph>
                 </Column>
               </Row>
             </SingleSelectable>

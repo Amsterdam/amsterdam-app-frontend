@@ -66,10 +66,8 @@ export const AddressForm = () => {
 
         if (previousRoute?.name === ModuleSlug.user) {
           setAlert({
-            content: {
-              title: 'Gelukt',
-              text: 'Het adres is toegevoegd aan uw profiel.',
-            },
+            title: 'Gelukt',
+            text: 'Het adres is toegevoegd aan uw profiel.',
             testID: 'AddressAddedAlert',
             variant: AlertVariant.positive,
           })

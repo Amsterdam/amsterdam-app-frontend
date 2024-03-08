@@ -105,10 +105,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       })
     } catch (error: unknown) {
       setAlert({
-        content: {
-          title: 'Niet gelukt',
-          text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
-        },
+        title: 'Niet gelukt',
+        text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
         testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
         variant: AlertVariant.negative,
       })

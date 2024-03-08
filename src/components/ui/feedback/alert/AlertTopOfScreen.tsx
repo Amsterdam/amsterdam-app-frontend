@@ -19,7 +19,7 @@ export const AlertTopOfScreen = () => {
 
   useBlurEffect(resetAlert)
 
-  if (!alert.content) {
+  if (!alert.text) {
     return null
   }
 

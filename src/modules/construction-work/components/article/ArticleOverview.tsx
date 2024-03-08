@@ -143,10 +143,8 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
             onPress={refetch}
             testID="ConstructionWorkProjectArticlesRefetchButton">
             <AlertNegative
-              content={{
-                text: 'De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer.',
-              }}
               testID="ConstructionWorkProjectArticlesError"
+              text="De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer."
             />
           </Pressable>
         )}

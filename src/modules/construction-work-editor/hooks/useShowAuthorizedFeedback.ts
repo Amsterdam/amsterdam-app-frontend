@@ -10,9 +10,7 @@ export const useShowAuthorizedFeedback = () => {
 
   const success = useCallback(() => {
     setAlert({
-      content: {
-        text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
-      },
+      text: 'Gelukt! De app herkent je nu als omgevingsmanager voor onderstaande projecten. Tik op het project waarvoor je een bericht wilt plaatsen.',
       testID: 'ConstructionWorkEditorSuccessAlert',
       variant: AlertVariant.information,
     })
@@ -21,9 +19,7 @@ export const useShowAuthorizedFeedback = () => {
 
   const error = useCallback(() => {
     setAlert({
-      content: {
-        text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
-      },
+      text: 'Helaas, de app heeft je niet herkend als omgevingsmanager. Probeer je opnieuw te registreren om berichten te kunnen versturen.',
       testID: 'ConstructionWorkEditorErrorAlert',
       variant: AlertVariant.negative,
     })

@@ -76,9 +76,7 @@ export const useOpenImagePicker = (
       }
 
       setAlert({
-        content: {
-          text: getAddPhotoFeedback(viaCamera, code),
-        },
+        text: getAddPhotoFeedback(viaCamera, code),
         testID: 'OpenImagePicker',
         variant: AlertVariant.negative,
         hasIcon: false,
