@@ -32,7 +32,7 @@ const Wrapper = ({children, inset}: WrapperProps) => {
   return <Fragment>{children}</Fragment>
 }
 
-type AlertBaseProps = {
+export type AlertBaseProps = {
   inset?: keyof SpacingTokens
 } & AlertProps
 
