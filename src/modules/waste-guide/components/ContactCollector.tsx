@@ -34,8 +34,8 @@ export const ContactCollector = () => {
         <Container>
           <Phrase testID="WasteGuideBusinessesInfoPhrase">
             Of kijk voor meer informatie over bedrijfsafval op{' '}
+            <InlineLinkWasteContainer />
           </Phrase>
-          <InlineLinkWasteContainer />
         </Container>
       </View>
     </Column>
