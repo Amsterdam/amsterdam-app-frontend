@@ -1,16 +1,19 @@
-import {useNetInfo} from '@react-native-community/netinfo'
+import NetInfo from '@react-native-community/netinfo'
 import {useEffect, useState} from 'react'
 import {Alert, Linking} from 'react-native'
 
 export const useNoInternetAlert = () => {
-  const netInfo = useNetInfo()
   const [isAlertVisible, setIsAlertVisible] = useState<boolean | null>()
 
   useEffect(() => {
-    if (netInfo.isInternetReachable === false && !isAlertVisible) {
-      setIsAlertVisible(true)
-    }
-  }, [netInfo.isInternetReachable, isAlertVisible])
+    const unsubscribe = NetInfo.addEventListener(({isInternetReachable}) => {
+      if (isInternetReachable === false && !isAlertVisible) {
+        setIsAlertVisible(true)
+      }
+    })
+
+    return () => unsubscribe()
+  }, [isAlertVisible])
 
   useEffect(() => {
     if (isAlertVisible) {
