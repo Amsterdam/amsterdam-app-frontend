@@ -73,40 +73,40 @@ export const SelectLocationTypeBottomSheet = ({
   }, [hasLocationPermission, setLocationType])
 
   const getCoordinates = useCallback(async () => {
-    if (!currentCoordinates) {
-      try {
-        setRequestingCurrentCoordinates(true)
+    try {
+      const coordinates = await getCurrentCoordinates()
 
-        const coordinates = await getCurrentCoordinates()
+      setCurrentCoordinates(coordinates)
+    } catch (error) {
+      const {status} = error as GetCurrentPositionError
+      const isPermissionError = isPermissionErrorStatus(status)
 
-        setCurrentCoordinates(coordinates)
-      } catch (error) {
-        const {status} = error as GetCurrentPositionError
-        const isPermissionError = isPermissionErrorStatus(status)
+      dispatch(
+        setNoLocationPermissionForAndroid(
+          status !== permissionStatuses.GRANTED,
+        ),
+      )
 
-        dispatch(
-          setNoLocationPermissionForAndroid(
-            status !== permissionStatuses.GRANTED,
-          ),
-        )
-
-        if (!isPermissionError) {
-          setHasLocationTechnicalError(true)
-        }
-      } finally {
-        setRequestingCurrentCoordinates(false)
+      if (!isPermissionError) {
+        setHasLocationTechnicalError(true)
       }
+    } finally {
+      setRequestingCurrentCoordinates(false)
     }
-  }, [currentCoordinates, dispatch, getCurrentCoordinates])
+  }, [dispatch, getCurrentCoordinates])
 
   useEffect(() => {
-    if (bottomSheetIsOpen) {
-      void getCoordinates()
-    } else {
+    if (!bottomSheetIsOpen) {
       setHasLocationTechnicalError(false)
+
+      return
     }
 
-    // Fetch coordinates every time the bottomsheet isOpen and not every screen render
+    if (!requestingCurrentCoordinates) {
+      void getCoordinates()
+    }
+
+    // Fetch coordinates only when the bottomsheet is opened
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bottomSheetIsOpen])
 
