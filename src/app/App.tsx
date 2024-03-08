@@ -12,6 +12,7 @@ import {UpdateScreen} from '@/app/UpdateScreen'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
 import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
+import {useNoInternetAlert} from '@/hooks/useNoInternetAlert'
 import {initSentry, sentryWrap} from '@/processes/sentry/init'
 import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
@@ -20,34 +21,38 @@ import '@/processes/logging'
 
 const persistor = persistStore(store)
 
-const AppComponent = () => (
-  <SafeAreaProvider
-    initialMetrics={initialWindowMetrics}
-    style={styles.appContainer}>
-    <CustomErrorBoundary>
-      <StatusBar
-        backgroundColor="transparent"
-        barStyle="dark-content"
-        translucent
-      />
-      <RootProvider>
-        <PersistGate
-          loading={null}
-          persistor={persistor}>
-          <UpdateScreen>
-            <AppNavigationContainer>
-              <Init>
-                <ErrorBoundary fallback={<ErrorWithRestart />}>
-                  <RootStackNavigator />
-                </ErrorBoundary>
-              </Init>
-            </AppNavigationContainer>
-          </UpdateScreen>
-        </PersistGate>
-      </RootProvider>
-    </CustomErrorBoundary>
-  </SafeAreaProvider>
-)
+const AppComponent = () => {
+  useNoInternetAlert()
+
+  return (
+    <SafeAreaProvider
+      initialMetrics={initialWindowMetrics}
+      style={styles.appContainer}>
+      <CustomErrorBoundary>
+        <StatusBar
+          backgroundColor="transparent"
+          barStyle="dark-content"
+          translucent
+        />
+        <RootProvider>
+          <PersistGate
+            loading={null}
+            persistor={persistor}>
+            <UpdateScreen>
+              <AppNavigationContainer>
+                <Init>
+                  <ErrorBoundary fallback={<ErrorWithRestart />}>
+                    <RootStackNavigator />
+                  </ErrorBoundary>
+                </Init>
+              </AppNavigationContainer>
+            </UpdateScreen>
+          </PersistGate>
+        </RootProvider>
+      </CustomErrorBoundary>
+    </SafeAreaProvider>
+  )
+}
 
 initSentry()
 
