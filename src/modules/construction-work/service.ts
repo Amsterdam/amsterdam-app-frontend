@@ -107,7 +107,7 @@ export const projectsApi = baseApi.injectEndpoints({
       string,
       FollowProjectBody
     >({
-      invalidatesTags: result => (result ? ['FollowedProjects'] : []),
+      invalidatesTags: ['FollowedProjects'],
       query: body => ({
         body,
         method: 'DELETE',
@@ -121,7 +121,7 @@ export const projectsApi = baseApi.injectEndpoints({
       string,
       FollowProjectBody
     >({
-      invalidatesTags: result => (result ? ['FollowedProjects'] : []),
+      invalidatesTags: ['FollowedProjects'],
       query: body => ({
         body,
         method: 'POST',
