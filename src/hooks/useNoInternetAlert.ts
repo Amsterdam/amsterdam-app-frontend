@@ -5,15 +5,15 @@ import {Alert, Linking} from 'react-native'
 export const useNoInternetAlert = () => {
   const [isAlertVisible, setIsAlertVisible] = useState<boolean | null>()
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener(({isInternetReachable}) => {
-      if (isInternetReachable === false && !isAlertVisible) {
-        setIsAlertVisible(true)
-      }
-    })
-
-    return () => unsubscribe()
-  }, [isAlertVisible])
+  useEffect(
+    () =>
+      NetInfo.addEventListener(({isInternetReachable}) => {
+        if (isInternetReachable === false && !isAlertVisible) {
+          setIsAlertVisible(true)
+        }
+      }),
+    [isAlertVisible],
+  )
 
   useEffect(() => {
     if (isAlertVisible) {
