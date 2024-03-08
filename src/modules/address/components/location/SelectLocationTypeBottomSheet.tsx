@@ -74,6 +74,8 @@ export const SelectLocationTypeBottomSheet = ({
 
   const getCoordinates = useCallback(async () => {
     try {
+      setRequestingCurrentCoordinates(false)
+
       const coordinates = await getCurrentCoordinates()
 
       setCurrentCoordinates(coordinates)
