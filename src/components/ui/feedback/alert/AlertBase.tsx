@@ -1,12 +1,12 @@
 import {Fragment, ReactNode, useEffect, useRef} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Box} from '@/components/ui/containers/Box'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
-import {
+import type {
   AlertProps,
-  AlertVariant,
   AlertVariantConfig,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
