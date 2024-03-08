@@ -32,13 +32,15 @@ import {
   useAddProjectWarningMutation,
 } from '@/modules/construction-work-editor/services'
 import {useAddNotificationMutation} from '@/services/notifications'
-import {resetAlert, setAlert} from '@/store/slices/alert'
+import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
+  const {resetAlert, setAlert} = useAlert()
+
   const {
     value: isPushNotificationChecked,
     toggle: togglePushNotificationChecked,
@@ -67,7 +69,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       return
     }
 
-    dispatch(resetAlert())
+    resetAlert()
 
     try {
       const warningResponse = await addWarning(message).unwrap()
@@ -103,16 +105,14 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         showSuccessfullySentMessageAlert: true,
       })
     } catch (error: unknown) {
-      dispatch(
-        setAlert({
-          content: {
-            title: 'Niet gelukt',
-            text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
-          },
-          testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
-          variant: AlertVariant.negative,
-        }),
-      )
+      setAlert({
+        content: {
+          title: 'Niet gelukt',
+          text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
+        },
+        testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
+        variant: AlertVariant.negative,
+      })
     }
   }
 

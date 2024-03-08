@@ -10,7 +10,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
-import {setAlert} from '@/store/slices/alert'
+import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
 type AddressDeleteButtonProps = {
@@ -52,19 +52,18 @@ export const DisplayAddress = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()
+  const {setAlert} = useAlert()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
-    dispatch(
-      setAlert({
-        content: {
-          title: 'Gelukt',
-          text: 'Het adres is verwijderd uit uw profiel.',
-        },
-        testID: 'AddressDeletedAlert',
-        variant: AlertVariant.positive,
-      }),
-    )
+    setAlert({
+      content: {
+        title: 'Gelukt',
+        text: 'Het adres is verwijderd uit uw profiel.',
+      },
+      testID: 'AddressDeletedAlert',
+      variant: AlertVariant.positive,
+    })
   }
 
   return (

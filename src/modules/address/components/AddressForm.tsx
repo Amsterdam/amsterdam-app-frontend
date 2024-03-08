@@ -15,12 +15,13 @@ import {addAddress} from '@/modules/address/slice'
 import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {ModuleSlug} from '@/modules/slugs'
-import {setAlert} from '@/store/slices/alert'
+import {useAlert} from '@/store/slices/alert'
 import {replaceString} from '@/utils/replaceString'
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useDeviceContext()
   const dispatch = useDispatch()
+  const {setAlert} = useAlert()
   const [isStreetSelected, setIsStreetSelected] = useState(false)
   const [city, setCity] = useState<AddressCity | undefined>(undefined)
   const [number, setNumber] = useState<string>('')
@@ -64,22 +65,20 @@ export const AddressForm = () => {
         dispatch(addAddress(transformAddressApiResponse(item)))
 
         if (previousRoute?.name === ModuleSlug.user) {
-          dispatch(
-            setAlert({
-              content: {
-                title: 'Gelukt',
-                text: 'Het adres is toegevoegd aan uw profiel.',
-              },
-              testID: 'AddressAddedAlert',
-              variant: AlertVariant.positive,
-            }),
-          )
+          setAlert({
+            content: {
+              title: 'Gelukt',
+              text: 'Het adres is toegevoegd aan uw profiel.',
+            },
+            testID: 'AddressAddedAlert',
+            variant: AlertVariant.positive,
+          })
         }
 
         navigation.goBack()
       }
     },
-    [dispatch, navigation, previousRoute?.name],
+    [dispatch, navigation, previousRoute?.name, setAlert],
   )
 
   useEffect(() => {
