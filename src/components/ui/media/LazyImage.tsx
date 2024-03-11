@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState, ComponentType} from 'react'
+import {useCallback, useMemo, useState, ReactElement} from 'react'
 import {
   type ImageErrorEventData,
   type ImageSourcePropType,
@@ -22,7 +22,7 @@ type Props = Omit<ImageProps, 'style'> & {
   /**
    * If the source is undefined, show the MissingSourceFallback when it exists
    */
-  MissingSourceFallback?: ComponentType
+  MissingSourceFallback?: ReactElement
   imageStyle?: StyleProp<ImageStyle>
   style?: StyleProp<ViewStyle>
 } & TestProps
@@ -71,7 +71,7 @@ export const LazyImage = ({
 
   if (!hasImageSource(source)) {
     if (MissingSourceFallback) {
-      return <MissingSourceFallback />
+      return MissingSourceFallback
     }
 
     return null

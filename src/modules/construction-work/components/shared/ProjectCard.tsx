@@ -54,7 +54,7 @@ export const ProjectCard = memo(
           {...logProps}>
           <AspectRatio aspectRatio="wide">
             <LazyImage
-              MissingSourceFallback={ProjectWarningFallbackImage}
+              MissingSourceFallback={<ProjectWarningFallbackImage />}
               source={imageSource}
               testID="ConstructionWorkProjectCardImage"
             />
