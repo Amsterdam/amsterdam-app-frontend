@@ -67,7 +67,13 @@ export const LazyImage = ({
 
   if (!hasImageSource(source)) {
     if (MissingSourceFallback) {
-      return <View style={[wrapperAspectRatio]}>{MissingSourceFallback}</View>
+      return (
+        <View
+          style={[wrapperAspectRatio]}
+          testID={testID}>
+          {MissingSourceFallback}
+        </View>
+      )
     }
 
     return null
