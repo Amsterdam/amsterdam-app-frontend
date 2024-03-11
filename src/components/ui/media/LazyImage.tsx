@@ -1,28 +1,28 @@
 import {useCallback, useMemo, useState} from 'react'
 import {
-  ImageSourcePropType,
-  ImageStyle,
-  StyleProp,
+  type ImageErrorEventData,
+  type ImageSourcePropType,
+  type ImageStyle,
+  type NativeSyntheticEvent,
+  type StyleProp,
+  type ViewStyle,
+  StyleSheet,
   View,
-  ViewStyle,
 } from 'react-native'
-import {StyleSheet} from 'react-native'
-import {ImageErrorEventData} from 'react-native'
-import {NativeSyntheticEvent} from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
-import {Image, ImageProps} from '@/components/ui/media/Image'
+import {Image, type ImageProps} from '@/components/ui/media/Image'
 import {ImageFallback} from '@/components/ui/media/ImageFallback'
-import {TestProps} from '@/components/ui/types'
+import {type TestProps} from '@/components/ui/types'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
-import {Theme} from '@/themes/themes'
-import {ImageAspectRatio} from '@/themes/tokens/media'
+import {type Theme} from '@/themes/themes'
+import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
   imageStyle?: StyleProp<ImageStyle>
-  showFallbackOnMissingSource?: boolean
   style?: StyleProp<ViewStyle>
+  withMissingSourceFallback?: boolean
 } & TestProps
 
 const hasImageSource = (source?: ImageSourcePropType) => {
@@ -39,7 +39,7 @@ export const LazyImage = ({
   onError,
   onLoadEnd,
   style,
-  showFallbackOnMissingSource = false,
+  withMissingSourceFallback = false,
   testID,
   source,
   ...rest
@@ -68,7 +68,7 @@ export const LazyImage = ({
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   if (!hasImageSource(source)) {
-    if (showFallbackOnMissingSource) {
+    if (withMissingSourceFallback) {
       return <ProjectWarningFallbackImage />
     }
 

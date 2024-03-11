@@ -36,9 +36,9 @@ export const ProjectArticle = ({
       accessibilityLabel={image?.alternativeText ?? undefined}
       accessible={!!image?.alternativeText}
       aspectRatio="wide"
-      showFallbackOnMissingSource={type === 'warning'}
-      source={undefined}
+      source={image?.sources}
       testID={`ConstructionWorkProjectArticle${id}Image`}
+      withMissingSourceFallback={type === 'warning'}
     />
     <HorizontalSafeArea>
       <Box>

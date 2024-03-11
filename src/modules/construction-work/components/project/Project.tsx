@@ -107,9 +107,9 @@ export const Project = ({id}: Props) => {
     <Column>
       <LazyImage
         aspectRatio="wide"
-        showFallbackOnMissingSource
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
+        withMissingSourceFallback
       />
       <HorizontalSafeArea>
         <Box>

@@ -26,7 +26,7 @@ type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
 // Props supported by both Image and FastImage
 type SupportedImageRNProps = Omit<
   ImageRNProps,
-  'defaultSource' | 'onError' | 'onLoad' | 'resizeMode'
+  'defaultSource' | 'onError' | 'onLoad' | 'resizeMode' | 'src' | 'srcSet'
 > & {
   onError?: OnError
   resizeMode?: ImageResizeMode

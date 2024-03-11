@@ -88,9 +88,9 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 <LazyImage
                   aspectRatio="extraWide"
-                  showFallbackOnMissingSource
                   source={imageSources}
                   testID={`${testID}Image`}
+                  withMissingSourceFallback
                 />
               </View>
             </Column>
