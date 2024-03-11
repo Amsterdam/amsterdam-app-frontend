@@ -7,7 +7,7 @@ import {
   setLastSeenTimestamp,
   useLastSeenTimestamp,
 } from '@/store/slices/updateApp'
-import {shouldShowUpdateSuggestion} from '@/utils/shouldShowUpdateSuggestion'
+import {hasSnoozeTimeInHoursPassed} from '@/utils/hasSnoozeTimePassed'
 
 export const useUpdateSuggestion = (
   snoozeTimeInHours: number,
@@ -23,7 +23,7 @@ export const useUpdateSuggestion = (
     if (
       !isDeprecated ||
       !isSupported ||
-      !shouldShowUpdateSuggestion(snoozeTimeInHours, lastSeenTimestamp)
+      !hasSnoozeTimeInHoursPassed(snoozeTimeInHours, lastSeenTimestamp)
     ) {
       return
     }
