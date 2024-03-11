@@ -20,6 +20,7 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
@@ -107,9 +108,9 @@ export const Project = ({id}: Props) => {
     <Column>
       <LazyImage
         aspectRatio="wide"
+        missingSourceFallback={<ProjectWarningFallbackImage />}
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
-        withMissingSourceFallback
       />
       <HorizontalSafeArea>
         <Box>

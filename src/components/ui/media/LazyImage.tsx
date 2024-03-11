@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useMemo, useState, ReactElement} from 'react'
 import {
   type ImageErrorEventData,
   type ImageSourcePropType,
@@ -14,18 +14,17 @@ import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Image, type ImageProps} from '@/components/ui/media/Image'
 import {ImageFallback} from '@/components/ui/media/ImageFallback'
 import {type TestProps} from '@/components/ui/types'
-import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {type Theme} from '@/themes/themes'
 import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
   imageStyle?: StyleProp<ImageStyle>
-  style?: StyleProp<ViewStyle>
   /**
    * If the source is undefined, show the ProjectWarningFallbackImage
    */
-  withMissingSourceFallback?: boolean
+  missingSourceFallback?: ReactElement
+  style?: StyleProp<ViewStyle>
 } & TestProps
 
 const hasImageSource = (source?: ImageSourcePropType) => {
@@ -42,7 +41,7 @@ export const LazyImage = ({
   onError,
   onLoadEnd,
   style,
-  withMissingSourceFallback = false,
+  missingSourceFallback,
   testID,
   source,
   ...rest
@@ -71,8 +70,8 @@ export const LazyImage = ({
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   if (!hasImageSource(source)) {
-    if (withMissingSourceFallback) {
-      return <ProjectWarningFallbackImage />
+    if (missingSourceFallback) {
+      return missingSourceFallback
     }
 
     return null

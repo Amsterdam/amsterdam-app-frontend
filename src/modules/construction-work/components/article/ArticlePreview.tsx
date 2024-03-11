@@ -9,6 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
 import {ArticlesItem} from '@/modules/construction-work/types/api'
@@ -88,9 +89,9 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 <LazyImage
                   aspectRatio="extraWide"
+                  missingSourceFallback={<ProjectWarningFallbackImage />}
                   source={imageSources}
                   testID={`${testID}Image`}
-                  withMissingSourceFallback
                 />
               </View>
             </Column>

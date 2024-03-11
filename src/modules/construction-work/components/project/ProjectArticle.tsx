@@ -6,6 +6,7 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {ArticleType} from '@/modules/construction-work/types/api'
 import {ApiImage} from '@/types/api'
 import {formatDate} from '@/utils/datetime/formatDate'
@@ -36,9 +37,11 @@ export const ProjectArticle = ({
       accessibilityLabel={image?.alternativeText ?? undefined}
       accessible={!!image?.alternativeText}
       aspectRatio="wide"
+      missingSourceFallback={
+        type === 'warning' ? <ProjectWarningFallbackImage /> : undefined
+      }
       source={image?.sources}
       testID={`ConstructionWorkProjectArticle${id}Image`}
-      withMissingSourceFallback={type === 'warning'}
     />
     <HorizontalSafeArea>
       <Box>
