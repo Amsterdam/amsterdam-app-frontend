@@ -1,7 +1,7 @@
 import NetInfo from '@react-native-community/netinfo'
 import {useEffect} from 'react'
 import {Alert, Linking} from 'react-native'
-import {couldShowNoInternetAlert} from '@/utils/couldShowNoInternetAlert'
+import {hasSnoozeTimeInSecondsPassed} from '@/utils/hasSnoozeTimePassed'
 
 export const useNoInternetAlert = () =>
   useEffect(() => {
@@ -20,7 +20,7 @@ export const useNoInternetAlert = () =>
       if (
         isInternetReachable === false &&
         !isAlertVisible &&
-        couldShowNoInternetAlert(10, dismissedTime)
+        hasSnoozeTimeInSecondsPassed(10, dismissedTime)
       ) {
         isAlertVisible = true
         Alert.alert(
