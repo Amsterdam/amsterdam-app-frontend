@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState, ReactElement} from 'react'
+import {useCallback, useMemo, useState, ComponentType} from 'react'
 import {
   type ImageErrorEventData,
   type ImageSourcePropType,
@@ -19,11 +19,11 @@ import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
-  imageStyle?: StyleProp<ImageStyle>
   /**
-   * If the source is undefined, show the ProjectWarningFallbackImage
+   * If the source is undefined, show the MissingSourceFallback when it exists
    */
-  missingSourceFallback?: ReactElement
+  MissingSourceFallback?: ComponentType
+  imageStyle?: StyleProp<ImageStyle>
   style?: StyleProp<ViewStyle>
 } & TestProps
 
@@ -41,7 +41,7 @@ export const LazyImage = ({
   onError,
   onLoadEnd,
   style,
-  missingSourceFallback,
+  MissingSourceFallback,
   testID,
   source,
   ...rest
@@ -70,8 +70,8 @@ export const LazyImage = ({
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   if (!hasImageSource(source)) {
-    if (missingSourceFallback) {
-      return missingSourceFallback
+    if (MissingSourceFallback) {
+      return <MissingSourceFallback />
     }
 
     return null
