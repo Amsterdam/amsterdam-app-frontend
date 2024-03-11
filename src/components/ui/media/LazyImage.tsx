@@ -1,19 +1,36 @@
-import {useCallback, useMemo, useState} from 'react'
-import {ImageStyle, StyleProp, View, ViewStyle} from 'react-native'
-import {StyleSheet} from 'react-native'
-import {ImageErrorEventData} from 'react-native'
-import {NativeSyntheticEvent} from 'react-native'
+import {useCallback, useMemo, useState, ReactElement} from 'react'
+import {
+  type ImageErrorEventData,
+  type ImageSourcePropType,
+  type ImageStyle,
+  type NativeSyntheticEvent,
+  type StyleProp,
+  StyleSheet,
+  View,
+} from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
-import {Image, ImageProps} from '@/components/ui/media/Image'
+import {Image, type ImageProps} from '@/components/ui/media/Image'
 import {ImageFallback} from '@/components/ui/media/ImageFallback'
-import {Theme} from '@/themes/themes'
-import {ImageAspectRatio} from '@/themes/tokens/media'
+import {type TestProps} from '@/components/ui/types'
+import {type Theme} from '@/themes/themes'
+import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
   imageStyle?: StyleProp<ImageStyle>
-  style?: StyleProp<ViewStyle>
+  /**
+   * If the source is undefined, show the missingSourceFallback when it exists
+   */
+  missingSourceFallback?: ReactElement
+} & TestProps
+
+const hasImageSource = (source?: ImageSourcePropType) => {
+  if (!source) {
+    return false
+  }
+
+  return !(Array.isArray(source) && source.length === 0)
 }
 
 export const LazyImage = ({
@@ -21,16 +38,17 @@ export const LazyImage = ({
   imageStyle,
   onError,
   onLoadEnd,
-  style,
+  missingSourceFallback,
+  testID,
+  source,
   ...rest
 }: Props) => {
   const [failed, setFailed] = useState(false)
   const [loading, setLoading] = useState(true)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
-  const {fader, image, positionedView, wrapperView} = useThemable(
-    useMemo(() => createStyles(aspectRatio), [aspectRatio]),
-  )
+  const {fader, image, positionedView, wrapperView, wrapperAspectRatio} =
+    useThemable(useMemo(() => createStyles(aspectRatio), [aspectRatio]))
 
   const handleError = useCallback(
     (error?: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -47,8 +65,24 @@ export const LazyImage = ({
 
   const callback = useCallback(() => setShowSkeleton(false), [])
 
+  if (!hasImageSource(source)) {
+    if (missingSourceFallback) {
+      return (
+        <View
+          style={wrapperAspectRatio}
+          testID={testID}>
+          {missingSourceFallback}
+        </View>
+      )
+    }
+
+    return null
+  }
+
   return (
-    <View style={[wrapperView, style]}>
+    <View
+      style={[wrapperView, wrapperAspectRatio]}
+      testID={testID}>
       {!!showSkeleton && (
         <View style={positionedView}>
           <Skeleton />
@@ -68,6 +102,7 @@ export const LazyImage = ({
               aspectRatio={aspectRatio}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
+              source={source}
               style={[image, imageStyle]}
             />
           )}
@@ -81,6 +116,9 @@ const createStyles =
   (aspectRatio: ImageAspectRatio) =>
   ({media}: Theme) =>
     StyleSheet.create({
+      wrapperAspectRatio: {
+        aspectRatio: media.aspectRatio[aspectRatio],
+      },
       fader: {
         flex: 1,
       },
@@ -95,7 +133,6 @@ const createStyles =
         top: 0,
       },
       wrapperView: {
-        aspectRatio: media.aspectRatio[aspectRatio],
         position: 'relative',
       },
     })

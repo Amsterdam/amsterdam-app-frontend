@@ -7,6 +7,7 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -51,17 +52,14 @@ export const ProjectCard = memo(
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
           testID={testID}
           {...logProps}>
-          {!!imageSource && (
-            <>
-              <AspectRatio aspectRatio="wide">
-                <LazyImage
-                  source={imageSource}
-                  testID="ConstructionWorkProjectCardImage"
-                />
-              </AspectRatio>
-              <Gutter height="sm" />
-            </>
-          )}
+          <AspectRatio aspectRatio="wide">
+            <LazyImage
+              missingSourceFallback={<ProjectWarningFallbackImage />}
+              source={imageSource}
+              testID="ConstructionWorkProjectCardImage"
+            />
+          </AspectRatio>
+          <Gutter height="sm" />
           {!!children && (
             <>
               {children}

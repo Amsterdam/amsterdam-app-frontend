@@ -4,7 +4,6 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -17,7 +16,6 @@ import {ArticlesItem} from '@/modules/construction-work/types/api'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {useTheme} from '@/themes/useTheme'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
 
@@ -48,14 +46,9 @@ export const ArticlePreview = ({
     )
   }, [meta_id, publication_date, readArticles])
 
-  const {media} = useTheme()
-  const imageWidth = media.figureHeight.lg
-  const imageHeight = imageWidth / media.aspectRatio.extraWide
   const styles = useThemable(
-    createStyles({isFirst, isLast}, imageWidth, isNewAndUnreadArticle),
+    createStyles({isFirst, isLast}, isNewAndUnreadArticle),
   )
-
-  const imageSources = article.images?.[0]?.sources
 
   return (
     <View
@@ -92,21 +85,12 @@ export const ArticlePreview = ({
                 text={article.title}
               />
               <View style={styles.image}>
-                {imageSources && imageSources.length > 0 ? (
-                  <LazyImage
-                    aspectRatio="extraWide"
-                    source={imageSources}
-                    testID={`${testID}Image`}
-                  />
-                ) : (
-                  <FigureWithFacadesBackground
-                    aspectRatio="extraWide"
-                    height={imageHeight}
-                    Image={<ProjectWarningFallbackImage />}
-                    imageAspectRatio={media.aspectRatio.extraWide}
-                    testID={`${testID}Image`}
-                  />
-                )}
+                <LazyImage
+                  aspectRatio="extraWide"
+                  missingSourceFallback={<ProjectWarningFallbackImage />}
+                  source={article.images?.[0]?.sources}
+                  testID={`${testID}Image`}
+                />
               </View>
             </Column>
           </Box>
@@ -124,10 +108,9 @@ const DATE_LINE_OFFSET = 4
 const createStyles =
   (
     {isFirst, isLast}: Partial<Props>,
-    imageWidth: number,
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
-  ({color, size}: Theme) => {
+  ({color, size, media}: Theme) => {
     const itemBottomInset = isLast ? 0 : size.spacing.xl
 
     const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
@@ -147,7 +130,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       image: {
-        width: imageWidth,
+        width: media.figureHeight.lg,
       },
       item: {
         paddingBottom: itemBottomInset,

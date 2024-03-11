@@ -11,6 +11,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import { useSelectedAddress } from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
 import {ProjectFollow} from '@/modules/construction-work/components/project/ProjectFollow'
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
@@ -66,13 +67,12 @@ export const Project = ({id}: Props) => {
 
   return (
     <Column>
-      {!!image?.sources && (
-        <LazyImage
-          aspectRatio="wide"
-          source={image.sources}
-          testID="ConstructionWorkProjectImage"
-        />
-      )}
+      <LazyImage
+        aspectRatio="wide"
+        missingSourceFallback={<ProjectWarningFallbackImage />}
+        source={image?.sources}
+        testID="ConstructionWorkProjectImage"
+      />
       <HorizontalSafeArea>
         <Box>
           <Column gutter="lg">
