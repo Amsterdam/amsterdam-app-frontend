@@ -36,6 +36,8 @@ describe('transform function for old address', () => {
         postcode: '1234AB',
         street: 'Hoofdstraat',
       },
+      locationType: 'address',
+      noLocationPermissionForAndroid: false,
     })
   })
   test('should transform old address state to the new one (with number addition)', () => {
@@ -71,6 +73,8 @@ describe('transform function for old address', () => {
         postcode: '1234AB',
         street: 'Hoofdstraat',
       },
+      locationType: 'address',
+      noLocationPermissionForAndroid: false,
     })
   })
 })

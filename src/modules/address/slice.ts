@@ -12,10 +12,13 @@ export type AddressState = {
   /**
    * We only know that the location is blocked or denied (i.e. the user has not given permission when asked) when we catch it from the permission request. We store that status here so it is available throughout the app.
    */
-  noLocationPermissionForAndroid?: boolean
+  noLocationPermissionForAndroid: boolean
 }
 
-const initialState: AddressState = {locationType: 'address'}
+const initialState: AddressState = {
+  locationType: 'address',
+  noLocationPermissionForAndroid: false,
+}
 
 export const addressSlice = createSlice({
   name: ReduxKey.address,
