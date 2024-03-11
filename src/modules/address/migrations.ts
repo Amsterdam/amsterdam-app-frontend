@@ -71,7 +71,7 @@ export const migrations: MigrationManifest = {
       return {} as PersistedState
     }
 
-    const addressState: Omit<AddressState, 'locationType'> = {
+    const addressState: AddressState = {
       address: {
         addition: getAddition(bag_huisletter, bag_toevoeging),
         additionLetter: bag_huisletter || undefined,
@@ -85,6 +85,8 @@ export const migrations: MigrationManifest = {
         postcode,
         street: straatnaam,
       },
+      locationType: 'address',
+      noLocationPermissionForAndroid: false,
     }
 
     return addressState as unknown as PersistedState
