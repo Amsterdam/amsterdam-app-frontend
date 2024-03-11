@@ -19,10 +19,10 @@ export const hasSnoozeTimeInSecondsPassed = (
   )
 
 export const hasSnoozeTimeInHoursPassed = (
-  snoozeTimeInSeconds: number,
+  snoozeTimeInHours: number,
   lastSeenTimestamp?: number | null,
 ) =>
   hasSnoozeTimeInMillisecondsPassed(
-    snoozeTimeInSeconds * 3600000,
+    snoozeTimeInHours * 3600000,
     lastSeenTimestamp,
   )
