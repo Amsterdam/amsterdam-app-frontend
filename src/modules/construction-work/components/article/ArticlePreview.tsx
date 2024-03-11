@@ -50,8 +50,6 @@ export const ArticlePreview = ({
     createStyles({isFirst, isLast}, isNewAndUnreadArticle),
   )
 
-  const imageSources = article.images?.[0]?.sources
-
   return (
     <View
       style={styles.item}
@@ -89,8 +87,8 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 <LazyImage
                   aspectRatio="extraWide"
-                  MissingSourceFallback={<ProjectWarningFallbackImage />}
-                  source={imageSources}
+                  missingSourceFallback={<ProjectWarningFallbackImage />}
+                  source={article.images?.[0]?.sources}
                   testID={`${testID}Image`}
                 />
               </View>

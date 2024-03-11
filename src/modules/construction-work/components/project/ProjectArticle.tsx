@@ -37,7 +37,7 @@ export const ProjectArticle = ({
       accessibilityLabel={image?.alternativeText ?? undefined}
       accessible={!!image?.alternativeText}
       aspectRatio="wide"
-      MissingSourceFallback={
+      missingSourceFallback={
         type === 'warning' ? <ProjectWarningFallbackImage /> : undefined
       }
       source={image?.sources}

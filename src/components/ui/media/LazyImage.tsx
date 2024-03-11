@@ -18,11 +18,11 @@ import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
-  /**
-   * If the source is undefined, show the MissingSourceFallback when it exists
-   */
-  MissingSourceFallback?: ReactElement
   imageStyle?: StyleProp<ImageStyle>
+  /**
+   * If the source is undefined, show the missingSourceFallback when it exists
+   */
+  missingSourceFallback?: ReactElement
 } & TestProps
 
 const hasImageSource = (source?: ImageSourcePropType) => {
@@ -38,7 +38,7 @@ export const LazyImage = ({
   imageStyle,
   onError,
   onLoadEnd,
-  MissingSourceFallback,
+  missingSourceFallback,
   testID,
   source,
   ...rest
@@ -66,12 +66,12 @@ export const LazyImage = ({
   const callback = useCallback(() => setShowSkeleton(false), [])
 
   if (!hasImageSource(source)) {
-    if (MissingSourceFallback) {
+    if (missingSourceFallback) {
       return (
         <View
-          style={[wrapperAspectRatio]}
+          style={wrapperAspectRatio}
           testID={testID}>
-          {MissingSourceFallback}
+          {missingSourceFallback}
         </View>
       )
     }
