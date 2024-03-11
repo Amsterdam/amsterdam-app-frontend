@@ -5,7 +5,6 @@ import {
   type ImageStyle,
   type NativeSyntheticEvent,
   type StyleProp,
-  type ViewStyle,
   StyleSheet,
   View,
 } from 'react-native'
@@ -24,7 +23,6 @@ type Props = Omit<ImageProps, 'style'> & {
    */
   MissingSourceFallback?: ReactElement
   imageStyle?: StyleProp<ImageStyle>
-  style?: StyleProp<ViewStyle>
 } & TestProps
 
 const hasImageSource = (source?: ImageSourcePropType) => {
@@ -40,7 +38,6 @@ export const LazyImage = ({
   imageStyle,
   onError,
   onLoadEnd,
-  style,
   MissingSourceFallback,
   testID,
   source,
@@ -50,9 +47,8 @@ export const LazyImage = ({
   const [loading, setLoading] = useState(true)
   const [showSkeleton, setShowSkeleton] = useState(true)
 
-  const {fader, image, positionedView, wrapperView} = useThemable(
-    useMemo(() => createStyles(aspectRatio), [aspectRatio]),
-  )
+  const {fader, image, positionedView, wrapperView, wrapperAspectRatio} =
+    useThemable(useMemo(() => createStyles(aspectRatio), [aspectRatio]))
 
   const handleError = useCallback(
     (error?: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -71,7 +67,7 @@ export const LazyImage = ({
 
   if (!hasImageSource(source)) {
     if (MissingSourceFallback) {
-      return MissingSourceFallback
+      return <View style={[wrapperAspectRatio]}>{MissingSourceFallback}</View>
     }
 
     return null
@@ -79,7 +75,7 @@ export const LazyImage = ({
 
   return (
     <View
-      style={[wrapperView, style]}
+      style={[wrapperView, wrapperAspectRatio]}
       testID={testID}>
       {!!showSkeleton && (
         <View style={positionedView}>
@@ -114,6 +110,9 @@ const createStyles =
   (aspectRatio: ImageAspectRatio) =>
   ({media}: Theme) =>
     StyleSheet.create({
+      wrapperAspectRatio: {
+        aspectRatio: media.aspectRatio[aspectRatio],
+      },
       fader: {
         flex: 1,
       },
@@ -128,7 +127,6 @@ const createStyles =
         top: 0,
       },
       wrapperView: {
-        aspectRatio: media.aspectRatio[aspectRatio],
         position: 'relative',
       },
     })
