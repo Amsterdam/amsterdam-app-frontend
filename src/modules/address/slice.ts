@@ -15,7 +15,10 @@ export type AddressState = {
   noLocationPermissionForAndroid?: boolean
 }
 
-const initialState: AddressState = {locationType: 'address'}
+const initialState: AddressState = {
+  locationType: 'address',
+  noLocationPermissionForAndroid: false,
+}
 
 export const addressSlice = createSlice({
   name: ReduxKey.address,
