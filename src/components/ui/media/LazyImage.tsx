@@ -22,6 +22,9 @@ import {useThemable} from '@/themes/useThemable'
 type Props = Omit<ImageProps, 'style'> & {
   imageStyle?: StyleProp<ImageStyle>
   style?: StyleProp<ViewStyle>
+  /**
+   * If the source is undefined, show the ProjectWarningFallbackImage
+   */
   withMissingSourceFallback?: boolean
 } & TestProps
 
