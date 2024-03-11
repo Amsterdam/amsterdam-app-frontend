@@ -1,5 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {Alert, Linking} from 'react-native'
 
 export const useNoInternetAlert = () => {
@@ -15,6 +15,11 @@ export const useNoInternetAlert = () => {
     [isAlertVisible],
   )
 
+  const openSettings = useCallback(() => {
+    setIsAlertVisible(false)
+    void Linking.openSettings()
+  }, [])
+
   useEffect(() => {
     if (isAlertVisible) {
       Alert.alert(
@@ -23,7 +28,7 @@ export const useNoInternetAlert = () => {
         [
           {
             text: 'Instellingen',
-            onPress: () => Linking.openSettings(),
+            onPress: openSettings,
             style: 'default',
           },
           {
@@ -34,8 +39,9 @@ export const useNoInternetAlert = () => {
         ],
         {
           cancelable: true,
+          onDismiss: () => setIsAlertVisible(false),
         },
       )
     }
-  }, [isAlertVisible])
+  }, [isAlertVisible, openSettings])
 }
