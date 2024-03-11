@@ -51,17 +51,14 @@ export const ProjectCard = memo(
           style={({pressed}) => [styles.pressable, pressed && styles.pressed]}
           testID={testID}
           {...logProps}>
-          {!!imageSource && (
-            <>
-              <AspectRatio aspectRatio="wide">
-                <LazyImage
-                  source={imageSource}
-                  testID="ConstructionWorkProjectCardImage"
-                />
-              </AspectRatio>
-              <Gutter height="sm" />
-            </>
-          )}
+          <AspectRatio aspectRatio="wide">
+            <LazyImage
+              showFallbackOnMissingSource
+              source={imageSource}
+              testID="ConstructionWorkProjectCardImage"
+            />
+          </AspectRatio>
+          <Gutter height="sm" />
           {!!children && (
             <>
               {children}

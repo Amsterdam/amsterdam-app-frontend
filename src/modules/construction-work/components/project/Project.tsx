@@ -105,13 +105,12 @@ export const Project = ({id}: Props) => {
 
   return (
     <Column>
-      {!!image?.sources && (
-        <LazyImage
-          aspectRatio="wide"
-          source={image.sources}
-          testID="ConstructionWorkProjectImage"
-        />
-      )}
+      <LazyImage
+        aspectRatio="wide"
+        showFallbackOnMissingSource
+        source={image?.sources}
+        testID="ConstructionWorkProjectImage"
+      />
       <HorizontalSafeArea>
         <Box>
           <Column gutter="lg">

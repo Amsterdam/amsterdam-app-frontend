@@ -1,5 +1,11 @@
 import {useCallback, useMemo, useState} from 'react'
-import {ImageStyle, StyleProp, View, ViewStyle} from 'react-native'
+import {
+  ImageSourcePropType,
+  ImageStyle,
+  StyleProp,
+  View,
+  ViewStyle,
+} from 'react-native'
 import {StyleSheet} from 'react-native'
 import {ImageErrorEventData} from 'react-native'
 import {NativeSyntheticEvent} from 'react-native'
@@ -7,13 +13,24 @@ import {Fader} from '@/components/ui/animations/Fader'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Image, ImageProps} from '@/components/ui/media/Image'
 import {ImageFallback} from '@/components/ui/media/ImageFallback'
+import {TestProps} from '@/components/ui/types'
+import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
   imageStyle?: StyleProp<ImageStyle>
+  showFallbackOnMissingSource?: boolean
   style?: StyleProp<ViewStyle>
+} & TestProps
+
+const hasImageSource = (source?: ImageSourcePropType) => {
+  if (!source) {
+    return false
+  }
+
+  return !(Array.isArray(source) && source.length === 0)
 }
 
 export const LazyImage = ({
@@ -22,6 +39,9 @@ export const LazyImage = ({
   onError,
   onLoadEnd,
   style,
+  showFallbackOnMissingSource = false,
+  testID,
+  source,
   ...rest
 }: Props) => {
   const [failed, setFailed] = useState(false)
@@ -47,8 +67,18 @@ export const LazyImage = ({
 
   const callback = useCallback(() => setShowSkeleton(false), [])
 
+  if (!hasImageSource(source)) {
+    if (showFallbackOnMissingSource) {
+      return <ProjectWarningFallbackImage />
+    }
+
+    return null
+  }
+
   return (
-    <View style={[wrapperView, style]}>
+    <View
+      style={[wrapperView, style]}
+      testID={testID}>
       {!!showSkeleton && (
         <View style={positionedView}>
           <Skeleton />
@@ -68,6 +98,7 @@ export const LazyImage = ({
               aspectRatio={aspectRatio}
               onError={handleError}
               onLoadEnd={handleLoadEnd}
+              source={source}
               style={[image, imageStyle]}
             />
           )}

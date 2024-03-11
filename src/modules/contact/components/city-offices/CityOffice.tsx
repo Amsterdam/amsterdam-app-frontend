@@ -57,6 +57,7 @@ export const CityOffice = () => {
         <LazyImage
           key={imageSources?.[0].uri}
           source={imageSources}
+          testID="ContactVisitUsImage"
         />
         <NameAndAddress
           address={address}
