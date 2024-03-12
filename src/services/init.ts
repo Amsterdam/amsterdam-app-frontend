@@ -12,6 +12,7 @@ import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-ed
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
+import {TimeOutDuration} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {deviceAuthorizationToken} from '@/utils/getAuthToken'
@@ -59,6 +60,7 @@ const dynamicBaseQuery: BaseQueryFn<
 
           return headers
         },
+        timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
 
       if (result.error?.status === 404) {
@@ -67,7 +69,7 @@ const dynamicBaseQuery: BaseQueryFn<
 
       return result
     },
-    {maxRetries: 5},
+    {maxRetries: 2},
   )(args, baseQueryApi, extraOptions as never)
 
 export const baseApi = createApi({

@@ -61,3 +61,9 @@ export type SortQueryArgs = {
   sort_by?: string
   sort_order?: 'asc' | 'desc'
 }
+
+export enum TimeOutDuration {
+  short = 1000,
+  medium = 5000,
+  long = 30000,
+}
