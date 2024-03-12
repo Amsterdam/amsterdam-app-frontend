@@ -10,6 +10,7 @@ import {authSlice} from '@/store/slices/auth'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
 import {modulesSlice} from '@/store/slices/modules'
+import {permissionsSlice} from '@/store/slices/permissions'
 import {updateAppSlice} from '@/store/slices/updateApp'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -21,6 +22,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
+  {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
   {key: ReduxKey.theme, slice: themeSlice},
   {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: -1},

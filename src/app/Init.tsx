@@ -1,40 +1,21 @@
-import {type ReactNode, useMemo} from 'react'
-import {useAppState} from '@/hooks/useAppState'
+import {type ReactNode} from 'react'
+import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
-import {useRegisterDevice} from '@/hooks/useRegisterDevice'
-import {useResetLocationPermissionForAndroid} from '@/modules/address/hooks/useResetLocationPermissionForAndroid'
+import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
-  useLogGeneralAnalytics()
-  useForegroundPushNotificationHandler()
-  useSetupSentry()
-  const {registerDeviceWithPermission, unregisterDevice} =
-    useRegisterDevice(false)
   const {enabledModules} = useModules()
 
-  const appStateHandlers = useMemo(
-    () => ({
-      onForeground: () => {
-        if (enabledModules?.some(module => module.requiresFirebaseToken)) {
-          registerDeviceWithPermission() // Because tokens refresh regularly, we need to re-register regularly
-        } else {
-          /* When the user has disabled all modules that require a Firebase token,
-          we unregister the device so the user stops receiving push notifications */
-          void unregisterDevice(undefined)
-        }
-      },
-    }),
-    [enabledModules, registerDeviceWithPermission, unregisterDevice],
-  )
-
-  useAppState(appStateHandlers)
-
-  useResetLocationPermissionForAndroid()
+  useCheckLocationPermission()
+  useForegroundPushNotificationHandler()
+  useLogGeneralAnalytics()
+  useDeviceRegistration()
+  useSetupSentry()
 
   return (
     <>

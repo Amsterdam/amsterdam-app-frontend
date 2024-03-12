@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react'
-import {RESULTS as permissionStatuses} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -16,19 +15,18 @@ import {
   GetCurrentPositionError,
   useGetCurrentCoordinates,
 } from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {
-  addLastKnownCoordinates,
-  useLocationType,
-  setNoLocationPermissionForAndroid,
-} from '@/modules/address/slice'
+import {addLastKnownCoordinates, useLocationType} from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {
+  setHasLocationPermission,
+  useHasLocationPermission,
+} from '@/store/slices/permissions'
 import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
 
 type Props = {
@@ -64,7 +62,7 @@ export const SelectLocationTypeBottomSheet = ({
   const [hasLocationTechnicalError, setHasLocationTechnicalError] =
     useState(false)
 
-  const hasLocationPermission = useLocationPermission()
+  const hasLocationPermission = useHasLocationPermission()
 
   useEffect(() => {
     if (!hasLocationPermission) {
@@ -83,11 +81,8 @@ export const SelectLocationTypeBottomSheet = ({
       const {status} = error as GetCurrentPositionError
       const isPermissionError = isPermissionErrorStatus(status)
 
-      dispatch(
-        setNoLocationPermissionForAndroid(
-          status !== permissionStatuses.GRANTED,
-        ),
-      )
+      // this is necesssary for Android: if permission is rejected via the dialog, the permission remains rejected
+      dispatch(setHasLocationPermission(false))
 
       if (!isPermissionError) {
         setHasLocationTechnicalError(true)

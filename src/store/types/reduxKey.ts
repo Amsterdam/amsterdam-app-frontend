@@ -10,6 +10,7 @@ export enum ReduxKey {
   messageDraft = 'messageDraft',
   modules = 'modules',
   onboarding = 'onboarding',
+  permissions = 'permissions',
   productTour = 'productTour',
   theme = 'theme',
   updateApp = 'updateApp',

@@ -1,25 +1,26 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useEffect} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAppState} from '@/hooks/useAppState'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
+import {setHasLocationPermission} from '@/store/slices/permissions'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
 import {checkLocationPermissionGranted} from '@/utils/permissions/location'
 
+/**
+ * Checks the location permission on start up and on foreground and saves it to the redux state.
+ */
 export const useCheckLocationPermission = () => {
+  const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
 
-  const [isCheckingLocationPermission, setCheckingLocationPermission] =
-    useState(true)
-  const [hasLocationPermission, setHasLocationPermission] =
-    useState<boolean>(false)
-  const checkLocationPermission = useCallback(() => {
+  const getSetPermission = useCallback(() => {
     checkLocationPermissionGranted()
       .then(() => {
-        setHasLocationPermission(true)
-        setCheckingLocationPermission(false)
+        dispatch(setHasLocationPermission(true))
       })
       .catch((error: unknown) => {
-        setHasLocationPermission(false)
-        setCheckingLocationPermission(false)
+        dispatch(setHasLocationPermission(false))
 
         if (!getStatusFromError(error)) {
           sendSentryErrorLog(
@@ -29,11 +30,13 @@ export const useCheckLocationPermission = () => {
           )
         }
       })
-  }, [sendSentryErrorLog])
+  }, [dispatch, sendSentryErrorLog])
 
-  return {
-    isCheckingLocationPermission,
-    hasLocationPermission,
-    checkLocationPermission,
-  }
+  useEffect(() => {
+    getSetPermission()
+  }, [getSetPermission])
+
+  useAppState({
+    onForeground: getSetPermission,
+  })
 }

@@ -86,7 +86,6 @@ export const migrations: MigrationManifest = {
         street: straatnaam,
       },
       locationType: 'address',
-      noLocationPermissionForAndroid: false,
     }
 
     return addressState as unknown as PersistedState
