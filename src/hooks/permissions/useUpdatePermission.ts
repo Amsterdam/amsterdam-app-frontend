@@ -10,6 +10,9 @@ import {
   requestIsPermissionGranted,
 } from '@/utils/permissions/isPermissionGranted'
 
+/**
+ * Generic hook to check or request a permission and to store the result in the redux state
+ */
 export const useUpdatePermission = <T extends AnyAction>(
   permission: AndroidPermission | IOSPermission,
   actionCreator: ActionCreator<T>,
