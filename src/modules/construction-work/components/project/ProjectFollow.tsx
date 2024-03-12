@@ -94,6 +94,9 @@ export const ProjectFollow = ({
               isUpdatingFollow || isUpdatingUnfollow || isFetchingProject
             }
             followed={isProjectFollowed}
+            isLoading={
+              isUpdatingFollow || isUpdatingUnfollow || isFetchingProject
+            }
             logDimensions={{
               [PiwikDimension.contentId]: projectId.toString(),
               [PiwikDimension.contentTitle]: projectTitle,

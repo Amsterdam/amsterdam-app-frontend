@@ -3,11 +3,13 @@ import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 
 type Props = {
   followed: boolean
+  isLoading?: boolean
   onPress: (followed: boolean) => void
 } & Omit<ButtonProps, 'onPress' | 'style'>
 
 export const FollowButton = ({
   followed,
+  isLoading,
   onPress,
   ...otherButtonProps
 }: Props) => {
@@ -18,6 +20,7 @@ export const FollowButton = ({
     return (
       <Button
         iconName="checkmark"
+        isLoading={isLoading}
         label="Volgend"
         onPress={unfollow}
         variant="primary"
@@ -29,6 +32,7 @@ export const FollowButton = ({
   return (
     <Button
       iconName="enlarge"
+      isLoading={isLoading}
       label="Volgen"
       onPress={follow}
       variant="secondary"
