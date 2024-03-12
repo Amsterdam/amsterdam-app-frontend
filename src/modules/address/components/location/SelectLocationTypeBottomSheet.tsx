@@ -81,7 +81,6 @@ export const SelectLocationTypeBottomSheet = ({
       const {status} = error as GetCurrentPositionError
       const isPermissionError = isPermissionErrorStatus(status)
 
-      // this is necesssary for Android: if permission is rejected via the dialog, the permission remains rejected
       dispatch(setHasLocationPermission(false))
 
       if (!isPermissionError) {

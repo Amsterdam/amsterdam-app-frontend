@@ -110,7 +110,7 @@ Add the new dimension to `src/types/piwik.ts`. See: https://help.piwik.pro/suppo
 
 #### The criteria for logging session dimensions
 
-A session dimension is often not related to a specific action. If that is the case, we can log them on start up and when the app comes to the foreground. See `src/hooks/piwik/useLogGeneralAnalytics.ts`. Note that you can log session dimensions multiple times. E.g. the mtric "user has given location permission" should be logged on start up/foreground, but can also be updated immediately after the user gives his/her permission in a dialog.
+A session dimension is often not related to a specific action. If that is the case, we can log them on start up and when the app comes to the foreground. See `src/hooks/piwik/useLogGeneralAnalytics.ts`. Note that you can log session dimensions multiple times. E.g. the metric "user has given location permission" should be logged on start up/foreground, but can also be updated immediately after the user gives his/her permission in a dialog.
 
 ## Tracking screens
 

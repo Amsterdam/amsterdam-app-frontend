@@ -2,17 +2,21 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
-import {useShouldRequestLocation} from '@/modules/address/hooks/useShouldRequestLocation'
+import {useHasValidLocation} from '@/modules/address/hooks/useHasValidLocation'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {RequestLocation} from '@/modules/waste-guide/components/RequestLocation'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useDeviceContext()
-  const shouldRequestLocation = useShouldRequestLocation()
+  const hasValidLocation = useHasValidLocation()
   const isFocused = useIsFocusedEffect()
 
-  return isFocused ? (
+  if (!isFocused) {
+    return null
+  }
+
+  return (
     <Screen
       bottomSheet={
         <SelectLocationTypeBottomSheet
@@ -21,11 +25,11 @@ export const WasteGuideScreen = () => {
           }
         />
       }
-      scroll={!shouldRequestLocation}
+      scroll={hasValidLocation}
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      {shouldRequestLocation ? <RequestLocation /> : <WasteGuide />}
+      {hasValidLocation ? <WasteGuide /> : <RequestLocation />}
     </Screen>
-  ) : null
+  )
 }

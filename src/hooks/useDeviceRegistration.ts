@@ -1,14 +1,12 @@
 import {useCallback, useEffect} from 'react'
 import {useAppState} from '@/hooks/useAppState'
-import {useModules} from '@/hooks/useModules'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {Module} from '@/modules/types'
 
 /**
  * Register or undregister the device for push notifications, on start up and on foreground
  */
-export const useDeviceRegistration = () => {
-  const {enabledModules} = useModules()
-
+export const useDeviceRegistration = (enabledModules?: Module[]) => {
   const {registerDeviceWithPermission, unregisterDevice} =
     useRegisterDevice(false)
 

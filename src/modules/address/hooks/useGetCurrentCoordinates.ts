@@ -6,11 +6,11 @@ import {
   PermissionStatus,
   requestLocationAccuracy,
 } from 'react-native-permissions'
+import {useRequestLocationPermissionCallback} from '@/hooks/permissions/location'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {getStatusFromError} from '@/utils/permissions/errorStatuses'
-import {requestLocationPermissionGranted} from '@/utils/permissions/location'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
 const defaultOptions: GeoOptions = {
@@ -36,11 +36,12 @@ export const useGetCurrentCoordinates = (
   purposeKey?: HighAccuracyPurposeKey,
 ) => {
   const {sendSentryErrorLog} = useSentry()
+  const requestPermission = useRequestLocationPermissionCallback()
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<Coordinates>((resolve, reject) => {
-        requestLocationPermissionGranted()
+        requestPermission()
           .then(async () => {
             if (
               purposeKey &&
@@ -93,6 +94,6 @@ export const useGetCurrentCoordinates = (
             reject(currentPositionError)
           })
       }),
-    [purposeKey, sendSentryErrorLog],
+    [purposeKey, requestPermission, sendSentryErrorLog],
   )
 }

@@ -1,8 +1,8 @@
 import {type ReactNode} from 'react'
+import {useCheckLocationPermission} from '@/hooks/permissions/location'
 import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
-import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
@@ -14,7 +14,7 @@ export const Init = ({children}: Props) => {
   useCheckLocationPermission()
   useForegroundPushNotificationHandler()
   useLogGeneralAnalytics()
-  useDeviceRegistration()
+  useDeviceRegistration(enabledModules)
   useSetupSentry()
 
   return (

@@ -2,29 +2,22 @@ import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoord
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {LocationType} from '@/modules/address/types'
 
-const getShouldRequestLocation = (
+const getHasValidLocation = (
   hasAddress: boolean,
   hasCoordinates: boolean,
-  locationType?: LocationType,
+  locationType: LocationType,
 ) => {
-  if (!locationType) {
-    return true
-  }
-
-  if (locationType === 'address') {
-    return !hasAddress
-  }
-
   if (locationType === 'location') {
-    return !hasCoordinates
+    return hasCoordinates
   }
 
-  return true
+  return hasAddress
 }
 
-export const useShouldRequestLocation = () => {
+/** Determines whether features dependent on address/location can display results */
+export const useHasValidLocation = () => {
   const {address, locationType} = useSelectedAddress()
   const coordinates = useLastKnownCoordinates()
 
-  return getShouldRequestLocation(!!address, !!coordinates, locationType)
+  return getHasValidLocation(!!address, !!coordinates, locationType)
 }
