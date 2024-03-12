@@ -36,8 +36,8 @@ type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
 >
 
 export const useInfiniteScroller = <
-  ItemOrDummyItem,
   Item,
+  ItemOrDummyItem,
   QueryArgs extends PaginationQueryArgs,
 >(
   defaultEmptyItem: ItemOrDummyItem,

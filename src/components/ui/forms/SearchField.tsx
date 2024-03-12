@@ -108,18 +108,20 @@ export const SearchField = forwardRef<TextInput, Props>(
           value={value}
         />
         {value ? (
-          <IconButton
-            accessibilityHint="Maak dit zoekveld leeg"
-            accessibilityLanguage={accessibilityLanguage}
-            icon={
-              <Icon
-                name="close"
-                testID={`${testID}Icon`}
-              />
-            }
-            onPress={handleClearText}
-            testID={`${testID}ClearButton`}
-          />
+          <View>
+            <IconButton
+              accessibilityHint="Maak dit zoekveld leeg"
+              accessibilityLanguage={accessibilityLanguage}
+              icon={
+                <Icon
+                  name="close"
+                  testID={`${testID}Icon`}
+                />
+              }
+              onPress={handleClearText}
+              testID={`${testID}ClearButton`}
+            />
+          </View>
         ) : (
           <IconButton
             accessibilityHint="Activeer dit zoekveld"

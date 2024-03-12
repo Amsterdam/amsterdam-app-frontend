@@ -36,7 +36,7 @@ const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 const keyExtractor = ({id}: ProjectsListItem) => id.toString()
 
 type ListItemProps = {
-  onPress: (id: string | number) => void
+  onPress: (id: number, isDummyItem?: boolean) => void
   project: ProjectsListItem
   readArticles: ReadArticle[]
   showTraits: boolean
@@ -78,7 +78,7 @@ const ListItem = memo(
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
         isDummyItem={isDummyItem}
-        onPress={() => onPress(id)}
+        onPress={() => onPress(id, isDummyItem)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
         title={title}
@@ -156,8 +156,8 @@ export const ProjectsList = ({
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         }}
-        onPress={(id: string | number) => {
-          if (typeof id === 'string') {
+        onPress={(id, isDummyItem) => {
+          if (isDummyItem) {
             return
           }
 

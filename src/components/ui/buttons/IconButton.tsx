@@ -27,30 +27,28 @@ export const IconButton = forwardRef<View, Props>(
       (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
     return (
-      <View>
-        <Row
-          align="start"
-          valign="center">
-          <Pressable
-            accessibilityLanguage="nl-NL"
-            accessibilityRole="button"
-            hitSlop={hitSlop}
-            ref={ref}
-            variant="transparent"
-            {...pressableProps}>
-            {icon}
-            {badgeValue ? (
-              <View style={styles.badgePosition}>
-                <Badge
-                  testID={`${pressableProps.testID}Badge`}
-                  value={badgeValue}
-                  variant="on-icon"
-                />
-              </View>
-            ) : null}
-          </Pressable>
-        </Row>
-      </View>
+      <Row
+        align="start"
+        valign="center">
+        <Pressable
+          accessibilityLanguage="nl-NL"
+          accessibilityRole="button"
+          hitSlop={hitSlop}
+          ref={ref}
+          variant="transparent"
+          {...pressableProps}>
+          {icon}
+          {badgeValue ? (
+            <View style={styles.badgePosition}>
+              <Badge
+                testID={`${pressableProps.testID}Badge`}
+                value={badgeValue}
+                variant="on-icon"
+              />
+            </View>
+          ) : null}
+        </Pressable>
+      </Row>
     )
   },
 )

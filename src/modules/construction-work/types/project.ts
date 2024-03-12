@@ -6,8 +6,7 @@ import {
   ProjectsItem,
 } from '@/modules/construction-work/types/api'
 
-export type ProjectsListItem = Omit<ProjectsItem, 'id'> & {
-  id: string | number
+export type ProjectsListItem = ProjectsItem & {
   isDummyItem?: boolean
 }
 

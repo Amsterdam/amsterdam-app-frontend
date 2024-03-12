@@ -29,7 +29,7 @@ const emptyProjectsItem: ProjectsListItem = {
   followed: false,
   image: null,
   meter: 0,
-  id: 'dummy',
+  id: -1,
   isDummyItem: true,
   recent_articles: [],
   strides: 0,
@@ -48,8 +48,8 @@ export const Projects = ({addressParam, HeaderButton}: Props) => {
   )
 
   const result = useInfiniteScroller<
-    ProjectsListItem,
     ProjectsItem,
+    ProjectsListItem,
     ProjectsQueryArgs
   >(
     emptyProjectsItem,
