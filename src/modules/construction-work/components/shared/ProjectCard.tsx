@@ -17,6 +17,7 @@ type Props = {
   additionalAccessibilityLabel?: string
   children?: ReactNode
   imageSource?: ImageSourcePropType
+  isDummyItem?: boolean
   onPress: () => void
   subtitle?: string | null
   title: string
@@ -29,6 +30,7 @@ export const ProjectCard = memo(
     additionalAccessibilityLabel,
     children,
     imageSource,
+    isDummyItem = false,
     onPress,
     subtitle,
     testID,
@@ -54,7 +56,9 @@ export const ProjectCard = memo(
           {...logProps}>
           <AspectRatio aspectRatio="wide">
             <LazyImage
-              missingSourceFallback={<ProjectWarningFallbackImage />}
+              missingSourceFallback={
+                !isDummyItem ? <ProjectWarningFallbackImage /> : undefined
+              }
               source={imageSource}
               testID="ConstructionWorkProjectCardImage"
             />

@@ -4,12 +4,13 @@ import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
-import {ProjectsItem} from '@/modules/construction-work/types/api'
+import {Project} from '@/modules/construction-work/types/api'
+import {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {getDistanceAndStrides} from '@/modules/construction-work/utils/getDistanceAndStrides'
 
 export type ProjectTraitsProps = {
   byDistance?: boolean
-  project: ProjectsItem
+  project: Project | ProjectsListItem
   unreadArticlesLength?: number
 }
 

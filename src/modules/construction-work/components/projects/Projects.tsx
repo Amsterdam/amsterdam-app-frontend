@@ -16,6 +16,7 @@ import {
   ProjectsItem,
   ProjectsQueryArgs,
 } from '@/modules/construction-work/types/api'
+import {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 import {AddressQueryArgs} from '@/types/api'
 
@@ -24,15 +25,12 @@ type Props = {
   addressParam?: AddressQueryArgs
 }
 
-export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
-  id: string
-}
-
-const emptyProjectsItem: DummyProjectsItem = {
+const emptyProjectsItem: ProjectsListItem = {
   followed: false,
   image: null,
   meter: 0,
-  id: '',
+  id: 'dummy',
+  isDummyItem: true,
   recent_articles: [],
   strides: 0,
   subtitle: ' ',
@@ -50,8 +48,8 @@ export const Projects = ({addressParam, HeaderButton}: Props) => {
   )
 
   const result = useInfiniteScroller<
+    ProjectsListItem,
     ProjectsItem,
-    DummyProjectsItem,
     ProjectsQueryArgs
   >(
     emptyProjectsItem,

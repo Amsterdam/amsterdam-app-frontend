@@ -36,13 +36,13 @@ type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
 >
 
 export const useInfiniteScroller = <
+  ItemOrDummyItem,
   Item,
-  DummyItem,
   QueryArgs extends PaginationQueryArgs,
 >(
-  defaultEmptyItem: DummyItem,
+  defaultEmptyItem: ItemOrDummyItem,
   endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
-  keyName: keyof DummyItem,
+  keyName: keyof ItemOrDummyItem,
   useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
   page = 1,
   pageSize = 10,
@@ -112,7 +112,7 @@ export const useInfiniteScroller = <
         const pageData =
           data?.result && status === QueryStatus.fulfilled
             ? data?.result
-            : getEmptyItems<DummyItem>(
+            : getEmptyItems<ItemOrDummyItem>(
                 Math.min(pageSize, totalElements - index * pageSize),
                 index * pageSize,
                 defaultEmptyItem,
@@ -120,7 +120,7 @@ export const useInfiniteScroller = <
               )
 
         return [...acc, ...pageData]
-      }, []) as Item[],
+      }, []) as ItemOrDummyItem[],
     error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:

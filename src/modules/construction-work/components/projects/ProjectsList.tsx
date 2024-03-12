@@ -24,6 +24,7 @@ import {
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
 import {ProjectsItem} from '@/modules/construction-work/types/api'
+import {ProjectsListItem} from '@/modules/construction-work/types/project'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
 import {LogProps, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
@@ -32,11 +33,11 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
-const keyExtractor = ({id}: ProjectsItem) => id.toString()
+const keyExtractor = ({id}: ProjectsListItem) => id.toString()
 
 type ListItemProps = {
-  onPress: (id: number) => void
-  project: ProjectsItem
+  onPress: (id: string | number) => void
+  project: ProjectsListItem
   readArticles: ReadArticle[]
   showTraits: boolean
 } & LogProps
@@ -70,12 +71,13 @@ const ListItem = memo(
       ]
     }, [followed, meter, readArticles, recent_articles, showTraits, strides])
 
-    const {id, image, subtitle, title} = project
+    const {id, image, isDummyItem, subtitle, title} = project
 
     return (
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
+        isDummyItem={isDummyItem}
         onPress={() => onPress(id)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
@@ -108,7 +110,7 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 
 type Props = {
   byDistance?: boolean
-  data?: ProjectsItem[]
+  data?: ProjectsListItem[]
   error?: FetchBaseQueryError | SerializedError
   isError: boolean
   isLoading: boolean
@@ -146,7 +148,7 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const renderItem: ListRenderItem<ProjectsItem> = useCallback(
+  const renderItem: ListRenderItem<ProjectsListItem> = useCallback(
     ({item}) => (
       <ListItem
         logDimensions={{
@@ -154,7 +156,11 @@ export const ProjectsList = ({
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         }}
-        onPress={(id: number) => {
+        onPress={(id: string | number) => {
+          if (typeof id === 'string') {
+            return
+          }
+
           setSearchFieldValue('')
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,

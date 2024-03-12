@@ -3,7 +3,13 @@ import {
   ProjectContact,
   ProjectSection,
   ProjectTimeline,
+  ProjectsItem,
 } from '@/modules/construction-work/types/api'
+
+export type ProjectsListItem = Omit<ProjectsItem, 'id'> & {
+  id: string | number
+  isDummyItem?: boolean
+}
 
 export type ProjectSegment = {
   contacts?: ProjectContact[] | null
