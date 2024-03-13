@@ -9,7 +9,7 @@ import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/Constru
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
-import { useSelectedAddress } from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'

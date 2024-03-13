@@ -11,7 +11,7 @@ export const timelineStyles = (
   isExpanded: boolean,
   lastItem: boolean,
 ) => {
-  const {color, size} = theme
+  const {color, size, z} = theme
 
   const tokens = {
     body: {
@@ -47,7 +47,7 @@ export const timelineStyles = (
       position: 'absolute',
       top: size.spacing.md + tokens.indicator.size,
       left: (tokens.indicator.size - tokens.line.width) / 2,
-      zIndex: -1,
+      zIndex: z.timelineLine,
       width: tokens.line.width,
       height: lastItem && !isExpanded ? 0 : '100%',
       backgroundColor:

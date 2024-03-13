@@ -110,7 +110,7 @@ const createStyles =
     {isFirst, isLast}: Partial<Props>,
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
-  ({color, size, media}: Theme) => {
+  ({color, size, media, z}: Theme) => {
     const itemBottomInset = isLast ? 0 : size.spacing.xl
 
     const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
@@ -144,7 +144,7 @@ const createStyles =
             : VERTICAL_LINE_TOP_WITHOUT_ALERT
           : 0,
         left: 0,
-        zIndex: -1,
+        zIndex: z.articlePreviewLine,
         width: LINE_WIDTH,
         backgroundColor: color.text.default,
       },

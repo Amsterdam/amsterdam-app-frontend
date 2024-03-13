@@ -16,6 +16,7 @@ import {
   useProjectUnfollowMutation,
 } from '@/modules/construction-work/service'
 import {PiwikDimension} from '@/processes/piwik/types'
+import {zTokens} from '@/themes/tokens/z'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const ONBOARDING_TIP =
@@ -63,7 +64,9 @@ export const ProjectFollow = ({
   )
 
   return (
-    <Column gutter="md">
+    <Column
+      gutter="md"
+      zIndex={zTokens.productTourTooltipWrapperParent}>
       {isFollowError || isUnfollowError ? (
         <Pressable
           onPress={() => onPressFollowButton(isProjectFollowed)}
@@ -77,8 +80,7 @@ export const ProjectFollow = ({
       ) : null}
       <Row
         gutter="md"
-        valign="center"
-        zIndex={1}>
+        valign="center">
         <ProductTourTipWrapper
           extraSpace="md"
           placement={Placement.below}

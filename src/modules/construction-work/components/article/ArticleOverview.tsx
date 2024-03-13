@@ -155,7 +155,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
 
 const yearInset = 4
 
-const createStyles = ({color, size}: Theme) =>
+const createStyles = ({color, size, z}: Theme) =>
   StyleSheet.create({
     line: {
       height: size.spacing.md,
@@ -170,6 +170,6 @@ const createStyles = ({color, size}: Theme) =>
       backgroundColor: color.background.cutout,
       left: -yearInset,
       position: 'relative',
-      zIndex: 2,
+      zIndex: z.articleOverviewYear,
     },
   })

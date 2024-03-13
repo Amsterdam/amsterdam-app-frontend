@@ -70,7 +70,7 @@ const createStyles =
     moveUp: Props['moveUp'],
     requestedImageWidth: Props['imageWidth'],
   ) =>
-  ({media}: Theme) => {
+  ({media, z}: Theme) => {
     const {aspectRatio, height: figureHeight} = figureProps
     const figureWidth = figureHeight * media.aspectRatio[aspectRatio ?? 'wide']
     const imageWidth = requestedImageWidth ?? figureWidth
@@ -87,7 +87,7 @@ const createStyles =
       figure: {
         position: 'relative',
         marginTop: moveUp ? -moveUp : undefined,
-        zIndex: moveUp ? -1 : undefined,
+        zIndex: moveUp ? z.figureWithFacadesBackgroundFigure : undefined,
       },
       image: {
         position: 'absolute',
