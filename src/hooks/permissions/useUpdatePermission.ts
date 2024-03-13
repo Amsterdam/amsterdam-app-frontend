@@ -11,12 +11,14 @@ import {
 } from '@/utils/permissions/isPermissionGranted'
 
 /**
- * Generic hook to check or request a permission and to store the result in the redux state
+ * Returns a function to check or request a permission and to store the result in the redux state. The function returns a promise that only resolves if the permission is granted.
  */
 export const useUpdatePermission = <T extends AnyAction>(
   permission: AndroidPermission | IOSPermission,
   actionCreator: ActionCreator<T>,
   request = false,
+  /** Prevent log warnings by not rejecting  */
+  silent = false,
 ) => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
@@ -42,9 +44,19 @@ export const useUpdatePermission = <T extends AnyAction>(
               )
             }
 
-            reject()
+            if (!silent) {
+              reject()
+            }
           })
       }),
-    [actionCreator, dispatch, fn, permission, request, sendSentryErrorLog],
+    [
+      actionCreator,
+      dispatch,
+      fn,
+      permission,
+      request,
+      sendSentryErrorLog,
+      silent,
+    ],
   )
 }

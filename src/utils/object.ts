@@ -17,7 +17,7 @@ export const isErrorObject = (maybeError: unknown) =>
   maybeError?.constructor === Error
 
 /**
- * Get the value of a specific property of an object, first checking if it actually is an object. This is useful for error handling when it is not certain what the type or content of the error is. We can use this to prevent use of TS trickery and casting in our error handling functions.
+ * Get the value of a specific property of an error object, if it actually is an error.
  */
 export const getPropertyFromMaybeError = <T>(
   maybeError: unknown,
@@ -28,6 +28,24 @@ export const getPropertyFromMaybeError = <T>(
   }
 
   return (maybeError as Record<string, unknown>)[property] as T
+}
+
+/**
+ * Get the value of a specific property of an object, if it actually is an object.
+ */
+export const getPropertyFromMaybeObject = <T>(
+  maybeObject: unknown,
+  property: string,
+) => {
+  if (
+    !maybeObject ||
+    typeof maybeObject !== 'object' ||
+    Array.isArray(maybeObject)
+  ) {
+    return
+  }
+
+  return (maybeObject as Record<string, unknown>)[property] as T
 }
 
 /**

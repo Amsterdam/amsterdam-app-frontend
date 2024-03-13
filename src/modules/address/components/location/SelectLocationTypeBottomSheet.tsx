@@ -11,10 +11,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {
-  GetCurrentPositionError,
-  useGetCurrentCoordinates,
-} from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
 import {addLastKnownCoordinates, useLocationType} from '@/modules/address/slice'
@@ -27,7 +24,7 @@ import {
   setHasLocationPermission,
   useHasLocationPermission,
 } from '@/store/slices/permissions'
-import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
+import {getPropertyFromMaybeObject} from '@/utils/object'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -78,12 +75,14 @@ export const SelectLocationTypeBottomSheet = ({
 
       setCurrentCoordinates(coordinates)
     } catch (error) {
-      const {status} = error as GetCurrentPositionError
-      const isPermissionError = isPermissionErrorStatus(status)
+      const isTechnicalError = getPropertyFromMaybeObject(
+        error,
+        'isTechnicalError',
+      )
 
       dispatch(setHasLocationPermission(false))
 
-      if (!isPermissionError) {
+      if (isTechnicalError) {
         setHasLocationTechnicalError(true)
       }
     } finally {

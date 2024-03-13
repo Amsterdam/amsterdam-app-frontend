@@ -14,7 +14,9 @@ const getHasValidLocation = (
   return hasAddress
 }
 
-/** Determines whether features dependent on address/location can display results */
+/**
+ * Determines whether features dependent on address/location can display results
+ */
 export const useHasValidLocation = () => {
   const {address, locationType} = useSelectedAddress()
   const coordinates = useLastKnownCoordinates()

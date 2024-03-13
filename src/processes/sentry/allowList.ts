@@ -1,7 +1,7 @@
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 
 export const sentryAllowList = {
-  [SentryErrorLogKey.currentCoordinates]: ['code', 'message'],
+  [SentryErrorLogKey.currentCoordinates]: ['error'],
   [SentryErrorLogKey.getModulesForAppQuery]: [
     'error',
     'retriesRemaining',

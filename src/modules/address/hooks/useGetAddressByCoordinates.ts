@@ -1,12 +1,10 @@
 import {useCallback, useState} from 'react'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
-import {
-  GetCurrentPositionError,
-  useGetCurrentCoordinates,
-} from '@/modules/address/hooks/useGetCurrentCoordinates'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {AddressModalName} from '@/modules/address/routes'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {getPropertyFromMaybeObject} from '@/utils/object'
 
 /** Number of suggestions returned by the address-for-coordinates Api */
 const SUGGESTION_COUNT = 5
@@ -17,6 +15,7 @@ export const useGetAddressByCoordinates = () => {
   const getCurrentCoordinates = useGetCurrentCoordinates(
     HighAccuracyPurposeKey.PreciseLocationAddressLookup,
   )
+
   const {pdokAddresses, ...rest} = useAddressForCoordinates({
     coordinates,
     rows: SUGGESTION_COUNT,
@@ -31,9 +30,12 @@ export const useGetAddressByCoordinates = () => {
 
       setCoordinates(currentCoordinates)
     } catch (error) {
-      const {status} = error as GetCurrentPositionError
+      const isTechnicalError = getPropertyFromMaybeObject(
+        error,
+        'isTechnicalError',
+      )
 
-      if (status) {
+      if (!isTechnicalError) {
         navigation.navigate(AddressModalName.locationPermissionInstructions)
       }
     } finally {
