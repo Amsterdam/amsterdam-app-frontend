@@ -16,7 +16,7 @@ export const useDeviceRegistration = (enabledModules?: Module[]) => {
     }
 
     if (
-      enabledModules?.some(({requiresFirebaseToken}) => requiresFirebaseToken)
+      enabledModules.some(({requiresFirebaseToken}) => requiresFirebaseToken)
     ) {
       // Because tokens refresh regularly, we need to re-register regularly
       registerDeviceWithPermission()

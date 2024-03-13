@@ -1,16 +1,11 @@
 import {useEffect} from 'react'
 import {useUpdatePermission} from '@/hooks/permissions/useUpdatePermission'
 import {useAppState} from '@/hooks/useAppState'
-import {setHasLocationPermission} from '@/store/slices/permissions'
+import {usePermission} from '@/store/slices/permissions'
 import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 const useUpdateLocationPermission = (request = false, silent = true) =>
-  useUpdatePermission(
-    PERMISSION_LOCATION,
-    setHasLocationPermission,
-    request,
-    silent,
-  )
+  useUpdatePermission(PERMISSION_LOCATION, request, silent)
 
 /**
  * Returns a function to request the location permission and save it to the redux state.
@@ -42,4 +37,13 @@ export const useCheckLocationPermission = () => {
   useAppState({
     onForeground: updatePermission,
   })
+}
+
+export const useLocationPermission = () => {
+  const {hasPermission, setHasPermission} = usePermission(PERMISSION_LOCATION)
+
+  return {
+    hasLocationPermission: hasPermission,
+    setHasLocationPermission: setHasPermission,
+  }
 }

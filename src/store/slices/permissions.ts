@@ -1,30 +1,44 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useCallback} from 'react'
+import {AndroidPermission, IOSPermission} from 'react-native-permissions'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type PermissionsState = {
-  location: boolean
-}
+type Permission = AndroidPermission | IOSPermission
 
-const initialState: PermissionsState = {
-  location: false,
-}
+export type PermissionsState = Partial<Record<Permission, boolean>>
+
+const initialState: PermissionsState = {}
 
 export const permissionsSlice = createSlice({
   name: ReduxKey.permissions,
   initialState,
   reducers: {
-    setHasLocationPermission: (state, {payload}: PayloadAction<boolean>) => {
-      state.location = payload
+    setPermission: (
+      state,
+      {
+        payload: {permission, granted},
+      }: PayloadAction<{granted: boolean; permission: Permission}>,
+    ) => {
+      state[permission] = granted
     },
   },
 })
 
-export const {setHasLocationPermission} = permissionsSlice.actions
+export const {setPermission} = permissionsSlice.actions
 
-export const selectHasLocationPermission = (state: RootState) =>
-  state[ReduxKey.permissions].location
+export const usePermission = (permission: Permission) => {
+  const dispatch = useDispatch()
+  const hasPermission =
+    useSelector(
+      (state: RootState) => state[ReduxKey.permissions][permission],
+    ) ?? false
+  const setHasPermission = useCallback(
+    (granted: boolean) => dispatch(setPermission({permission, granted})),
+    [dispatch, permission],
+  )
 
-export const useHasLocationPermission = () =>
-  useSelector(selectHasLocationPermission)
+  return {hasPermission, setHasPermission}
+}

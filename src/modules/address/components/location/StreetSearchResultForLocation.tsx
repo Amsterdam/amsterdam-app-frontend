@@ -6,11 +6,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {useLocationPermission} from '@/hooks/permissions/location'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
-import {useHasLocationPermission} from '@/store/slices/permissions'
 
 type Props = {
   selectResult: (item: PdokAddress) => void
@@ -32,7 +32,7 @@ export const StreetSearchResultForLocation = ({
     [pdokAddresses],
   )
 
-  const hasLocationPermission = useHasLocationPermission()
+  const {hasLocationPermission} = useLocationPermission()
 
   useBlurEffect(() => {
     setShowFeedbackForNoResults(false)
