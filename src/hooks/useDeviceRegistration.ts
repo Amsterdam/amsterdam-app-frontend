@@ -4,7 +4,7 @@ import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {Module} from '@/modules/types'
 
 /**
- * Register or undregister the device for push notifications, on start up and on foreground
+ * Register or unregister the device for push notifications, on start up and on foreground
  */
 export const useDeviceRegistration = (enabledModules?: Module[]) => {
   const {registerDeviceWithPermission, unregisterDevice} =
