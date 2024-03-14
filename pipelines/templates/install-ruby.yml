@@ -1,7 +1,12 @@
+parameters:
+  - name: workingDirectory
+    type: string
+    default: $(System.DefaultWorkingDirectory)
+
 # Install ruby based on version in .ruby-version
 steps:
   - script: |
-      RUBY_VERSION=$(cat '$(System.DefaultWorkingDirectory)/.ruby-version')
+      RUBY_VERSION=$(cat '${{ parameters.workingDirectory }}/.ruby-version')
       echo "##vso[task.setvariable variable=rubyVersion]${RUBY_VERSION%.*}"
     displayName: Read required Ruby version
   - task: UseRubyVersion@0

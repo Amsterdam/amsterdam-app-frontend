@@ -1,0 +1,36 @@
+trigger: none
+
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: build # Name of the pipeline resource.
+      source: "aapp_app_mobile [build]" # The name of the pipeline referenced by this pipeline resource.
+      trigger:
+        branches:
+          include:
+            - main
+stages:
+  - stage: AndroidInternal
+    displayName: "Android Internal"
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "android"
+          environment: "Internal"
+  - stage: AndroidStakeholders
+    displayName: "Android Stakeholders"
+    dependsOn: AndroidInternal
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "android"
+          environment: "Stakeholders"
+  - stage: AndroidProduction
+    displayName: "Android Production"
+    dependsOn: AndroidStakeholders
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "android"
+          environment: "Production"
