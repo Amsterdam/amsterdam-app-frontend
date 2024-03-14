@@ -1,5 +1,5 @@
-import {type TestProps} from '@/components/ui/types'
-import {
+import type {TestProps} from '@/components/ui/types'
+import type {
   ProjectContact,
   ProjectSection,
   ProjectTimeline,

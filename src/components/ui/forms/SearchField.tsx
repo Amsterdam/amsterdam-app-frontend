@@ -1,22 +1,22 @@
 import {forwardRef, useState} from 'react'
 import {
-  GestureResponderEvent,
-  NativeSyntheticEvent,
+  type GestureResponderEvent,
+  type NativeSyntheticEvent,
   StyleSheet,
   TextInput,
-  TextInputFocusEventData,
-  TextInputKeyPressEventData,
-  TextInputProps,
+  type TextInputFocusEventData,
+  type TextInputKeyPressEventData,
+  type TextInputProps,
   View,
 } from 'react-native'
+import type {TestProps} from '@/components/ui/types'
+import type {Theme} from '@/themes/themes'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {type TestProps} from '@/components/ui/types'
 import {useSearchField} from '@/hooks/useSearchField'
 import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrackSearchFromProps'
 import {PiwikDimension} from '@/processes/piwik/types'
-import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
