@@ -8,37 +8,14 @@ import {
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
-import {
-  CustomDimensions,
-  PiwikAction,
-  PiwikSessionDimension,
-} from '@/processes/piwik/types'
+import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {setPermission} from '@/store/slices/permissions'
-import {Permissions} from '@/types/permissions'
-
-const PERMISSIONS: Array<{
-  logDimension: PiwikSessionDimension
-  permission: Permissions
-}> = [
-  {
-    permission: Permissions.location,
-    logDimension: PiwikSessionDimension.hasLocationPermission,
-  },
-  {
-    permission: Permissions.camera,
-    logDimension: PiwikSessionDimension.hasCameraPermission,
-  },
-  {
-    permission: Permissions.photos,
-    logDimension: PiwikSessionDimension.hasPhotosPermission,
-  },
-  {
-    permission: Permissions.notifications,
-    logDimension: PiwikSessionDimension.hasNotificationPermission,
-  },
-]
+import {
+  ALL_PERMISSIONS_WITH_LOG_DIMENSION,
+  Permissions,
+} from '@/types/permissions'
 
 const checkPermission = async (
   permission: Permissions,
@@ -60,7 +37,7 @@ export const useCheckPermissions = () => {
   const checkPermissions = useCallback(
     (action = PiwikAction.toForeground) => {
       void Promise.all(
-        PERMISSIONS.map(
+        ALL_PERMISSIONS_WITH_LOG_DIMENSION.map(
           ({permission}) =>
             new Promise<boolean>(resolve => {
               checkPermission(permission)
@@ -88,7 +65,8 @@ export const useCheckPermissions = () => {
           const dimensions = results.reduce<CustomDimensions>(
             (acc, granted, index) => ({
               ...acc,
-              [PERMISSIONS[index].logDimension]: granted.toString(),
+              [ALL_PERMISSIONS_WITH_LOG_DIMENSION[index].logDimension]:
+                granted.toString(),
             }),
             {},
           )
