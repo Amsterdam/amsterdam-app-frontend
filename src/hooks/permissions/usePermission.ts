@@ -13,10 +13,7 @@ import {
   selectIsPermissionGranted,
   setPermission,
 } from '@/store/slices/permissions'
-import {
-  PERMISSION_NOTIFICATIONS,
-  Permissions,
-} from '@/utils/permissions/permissionsForPlatform'
+import {PERMISSION_NOTIFICATIONS, Permissions} from '@/types/permissions'
 
 const requestPermission = async (
   permission: Permissions,

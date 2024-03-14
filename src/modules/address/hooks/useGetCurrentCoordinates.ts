@@ -7,7 +7,7 @@ import {usePermission} from '@/hooks/permissions/usePermission'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
+import {PERMISSION_LOCATION} from '@/types/permissions'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
 const defaultOptions: GeoOptions = {

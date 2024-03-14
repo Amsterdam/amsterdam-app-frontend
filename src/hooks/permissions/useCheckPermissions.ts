@@ -23,7 +23,7 @@ import {
   PERMISSION_NOTIFICATIONS,
   PERMISSION_PHOTOS,
   Permissions,
-} from '@/utils/permissions/permissionsForPlatform'
+} from '@/types/permissions'
 
 const PERMISSIONS: Array<{
   logDimension: PiwikSessionDimension

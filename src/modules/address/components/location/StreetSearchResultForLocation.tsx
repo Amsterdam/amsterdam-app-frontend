@@ -11,7 +11,7 @@ import {AddressSearchSuggestions} from '@/modules/address/components/AddressSear
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
-import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
+import {PERMISSION_LOCATION} from '@/types/permissions'
 
 type Props = {
   selectResult: (item: PdokAddress) => void

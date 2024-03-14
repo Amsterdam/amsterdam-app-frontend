@@ -9,7 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
+import {PERMISSION_LOCATION} from '@/types/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()

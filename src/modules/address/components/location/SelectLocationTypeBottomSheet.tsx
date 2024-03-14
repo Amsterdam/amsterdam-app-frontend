@@ -21,8 +21,8 @@ import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {PERMISSION_LOCATION} from '@/types/permissions'
 import {getPropertyFromMaybeObject} from '@/utils/object'
-import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
