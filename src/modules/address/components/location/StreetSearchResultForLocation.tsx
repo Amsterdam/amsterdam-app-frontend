@@ -11,7 +11,7 @@ import {AddressSearchSuggestions} from '@/modules/address/components/AddressSear
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
-import {PERMISSION_LOCATION} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 
 type Props = {
   selectResult: (item: PdokAddress) => void
@@ -33,8 +33,9 @@ export const StreetSearchResultForLocation = ({
     [pdokAddresses],
   )
 
-  const {hasPermission: hasLocationPermission} =
-    usePermission(PERMISSION_LOCATION)
+  const {hasPermission: hasLocationPermission} = usePermission(
+    Permissions.location,
+  )
 
   useBlurEffect(() => {
     setShowFeedbackForNoResults(false)

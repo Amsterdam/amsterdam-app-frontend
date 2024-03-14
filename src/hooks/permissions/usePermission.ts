@@ -13,12 +13,12 @@ import {
   selectIsPermissionGranted,
   setPermission,
 } from '@/store/slices/permissions'
-import {PERMISSION_NOTIFICATIONS, Permissions} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 
 const requestPermission = async (
   permission: Permissions,
 ): Promise<PermissionStatus> => {
-  if (permission === PERMISSION_NOTIFICATIONS) {
+  if (permission === Permissions.notifications) {
     const result = await requestNotifications([
       'alert',
       'badge',

@@ -1,6 +1,5 @@
 import {useCallback, useEffect} from 'react'
 import {
-  Permission,
   PermissionStatus,
   RESULTS,
   check,
@@ -17,40 +16,34 @@ import {
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {setPermission} from '@/store/slices/permissions'
-import {
-  PERMISSION_CAMERA,
-  PERMISSION_LOCATION,
-  PERMISSION_NOTIFICATIONS,
-  PERMISSION_PHOTOS,
-  Permissions,
-} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 
 const PERMISSIONS: Array<{
   logDimension: PiwikSessionDimension
   permission: Permissions
 }> = [
   {
-    permission: PERMISSION_LOCATION,
+    permission: Permissions.location,
     logDimension: PiwikSessionDimension.hasLocationPermission,
   },
   {
-    permission: PERMISSION_CAMERA,
+    permission: Permissions.camera,
     logDimension: PiwikSessionDimension.hasCameraPermission,
   },
   {
-    permission: PERMISSION_PHOTOS,
+    permission: Permissions.photos,
     logDimension: PiwikSessionDimension.hasPhotosPermission,
   },
   {
-    permission: PERMISSION_NOTIFICATIONS,
+    permission: Permissions.notifications,
     logDimension: PiwikSessionDimension.hasNotificationPermission,
   },
 ]
 
 const checkPermission = async (
-  permission: Permission | typeof PERMISSION_NOTIFICATIONS,
+  permission: Permissions,
 ): Promise<PermissionStatus> => {
-  if (permission === PERMISSION_NOTIFICATIONS) {
+  if (permission === Permissions.notifications) {
     const result = await checkNotifications()
 
     return result.status

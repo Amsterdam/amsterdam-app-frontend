@@ -9,11 +9,11 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {PERMISSION_LOCATION} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()
-  const {hasPermission} = usePermission(PERMISSION_LOCATION)
+  const {hasPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
     if (hasPermission) {

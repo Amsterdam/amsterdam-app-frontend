@@ -7,7 +7,7 @@ import {usePermission} from '@/hooks/permissions/usePermission'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {PERMISSION_LOCATION} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
 const defaultOptions: GeoOptions = {
@@ -26,7 +26,7 @@ export const useGetCurrentCoordinates = (
   purposeKey?: HighAccuracyPurposeKey,
 ) => {
   const {sendSentryErrorLog} = useSentry()
-  const {hasPermission} = usePermission(PERMISSION_LOCATION)
+  const {hasPermission} = usePermission(Permissions.location)
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>

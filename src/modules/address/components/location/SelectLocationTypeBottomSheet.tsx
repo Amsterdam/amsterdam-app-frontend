@@ -21,7 +21,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {PERMISSION_LOCATION} from '@/types/permissions'
+import {Permissions} from '@/types/permissions'
 import {getPropertyFromMaybeObject} from '@/utils/object'
 
 type Props = {
@@ -60,7 +60,7 @@ export const SelectLocationTypeBottomSheet = ({
   const {
     hasPermission: hasLocationPermission,
     requestPermission: requestLocationPermission,
-  } = usePermission(PERMISSION_LOCATION)
+  } = usePermission(Permissions.location)
 
   useEffect(() => {
     if (!hasLocationPermission) {
