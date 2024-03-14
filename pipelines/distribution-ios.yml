@@ -22,6 +22,7 @@ stages:
   - stage: iOSStakeholders
     displayName: "iOS Stakeholders"
     dependsOn: iOSInternal
+    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: ./templates/distribution.yml
         parameters:
@@ -30,6 +31,7 @@ stages:
   - stage: iOSProduction
     displayName: "iOS Production"
     dependsOn: iOSStakeholders
+    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
     jobs:
       - template: ./templates/distribution.yml
         parameters:
