@@ -49,8 +49,7 @@ jobs:
               workingDirectory: "$(Pipeline.Workspace)/build/${{ parameters.platform }}-build"
               displayName: "Install Ruby gems"
             - script: |
-                fastlane lanes
-                echo "bundle exec fastlane distribute${{ parameters.environment }}"
+                bundle exec fastlane distribute${{ parameters.environment }}
               workingDirectory: "$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/${{ parameters.platform }}"
               displayName: "Fastlane distribute"
               env:
