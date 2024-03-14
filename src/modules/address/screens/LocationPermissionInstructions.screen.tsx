@@ -8,22 +8,18 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {
-  useLocationPermission,
-  useRequestLocationPermissionOnForeground,
-} from '@/hooks/permissions/location'
+import {usePermission} from '@/hooks/permissions/usePermission'
+import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()
-  const {hasLocationPermission} = useLocationPermission()
+  const {hasPermission} = usePermission(PERMISSION_LOCATION)
 
   useEffect(() => {
-    if (hasLocationPermission) {
+    if (hasPermission) {
       goBack()
     }
-  }, [goBack, hasLocationPermission])
-
-  useRequestLocationPermissionOnForeground()
+  }, [goBack, hasPermission])
 
   return (
     <Screen

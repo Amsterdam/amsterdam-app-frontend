@@ -7,7 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useLocationPermission} from '@/hooks/permissions/location'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -22,6 +22,7 @@ import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwi
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {getPropertyFromMaybeObject} from '@/utils/object'
+import {PERMISSION_LOCATION} from '@/utils/permissions/permissionsForPlatform'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -56,8 +57,10 @@ export const SelectLocationTypeBottomSheet = ({
   const [hasLocationTechnicalError, setHasLocationTechnicalError] =
     useState(false)
 
-  const {hasLocationPermission, setHasLocationPermission} =
-    useLocationPermission()
+  const {
+    hasPermission: hasLocationPermission,
+    requestPermission: requestLocationPermission,
+  } = usePermission(PERMISSION_LOCATION)
 
   useEffect(() => {
     if (!hasLocationPermission) {
@@ -78,19 +81,27 @@ export const SelectLocationTypeBottomSheet = ({
         'isTechnicalError',
       )
 
-      dispatch(setHasLocationPermission(false))
-
       if (isTechnicalError) {
         setHasLocationTechnicalError(true)
       }
     } finally {
       setRequestingCurrentCoordinates(false)
     }
-  }, [dispatch, getCurrentCoordinates, setHasLocationPermission])
+  }, [getCurrentCoordinates])
 
   useEffect(() => {
     if (!bottomSheetIsOpen) {
       setHasLocationTechnicalError(false)
+
+      return
+    }
+
+    if (!hasLocationPermission) {
+      void requestLocationPermission().then(granted => {
+        if (granted) {
+          void getCoordinates()
+        }
+      })
 
       return
     }
@@ -134,7 +145,7 @@ export const SelectLocationTypeBottomSheet = ({
     (hasValidAddressData: boolean) => {
       setHasLocationTechnicalError(false)
 
-      if (!setHasLocationPermission) {
+      if (!hasLocationPermission) {
         navigateToInstructionsScreen()
 
         return
@@ -164,10 +175,10 @@ export const SelectLocationTypeBottomSheet = ({
       closeBottomSheet,
       currentCoordinates,
       dispatch,
+      hasLocationPermission,
       locationType,
       navigateToInstructionsScreen,
       onEvent,
-      setHasLocationPermission,
       setLocationType,
     ],
   )

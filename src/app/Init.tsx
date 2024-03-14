@@ -1,5 +1,5 @@
 import {type ReactNode} from 'react'
-import {useCheckLocationPermission} from '@/hooks/permissions/location'
+import {useCheckPermissions} from '@/hooks/permissions/useCheckPermissions'
 import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
@@ -11,7 +11,7 @@ type Props = {children: ReactNode}
 export const Init = ({children}: Props) => {
   const {enabledModules} = useModules()
 
-  useCheckLocationPermission()
+  useCheckPermissions()
   useForegroundPushNotificationHandler()
   useLogGeneralAnalytics()
   useDeviceRegistration(enabledModules)
