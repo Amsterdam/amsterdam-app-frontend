@@ -1,0 +1,39 @@
+trigger: none
+
+pr: none
+
+resources:
+  pipelines:
+    - pipeline: build # Name of the pipeline resource.
+      source: "aapp_app_mobile [build]" # The name of the pipeline referenced by this pipeline resource.
+      trigger:
+        branches:
+          include:
+            - main
+
+stages:
+  - stage: iOSInternal
+    displayName: "iOS Internal"
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "ios"
+          environment: "Internal"
+  - stage: iOSStakeholders
+    displayName: "iOS Stakeholders"
+    dependsOn: iOSInternal
+    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "ios"
+          environment: "Stakeholders"
+  - stage: iOSProduction
+    displayName: "iOS Production"
+    dependsOn: iOSStakeholders
+    condition: and(not(or(failed(), canceled())), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - template: ./templates/distribution.yml
+        parameters:
+          platform: "ios"
+          environment: "Production"
