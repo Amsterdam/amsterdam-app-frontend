@@ -1,9 +1,14 @@
-import {type TestProps} from '@/components/ui/types'
-import {
+import type {TestProps} from '@/components/ui/types'
+import type {
   ProjectContact,
   ProjectSection,
   ProjectTimeline,
+  ProjectsItem,
 } from '@/modules/construction-work/types/api'
+
+export type ProjectsListItem = ProjectsItem & {
+  isDummyItem?: boolean
+}
 
 export type ProjectSegment = {
   contacts?: ProjectContact[] | null

@@ -26,7 +26,8 @@ export const AlertTopOfScreen = () => {
   return (
     <Pressable
       onPress={onPress}
-      testID={alert.testID}>
+      testID={alert.testID}
+      variant="transparent">
       <AlertBase
         {...alert}
         inset="md"

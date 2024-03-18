@@ -1,5 +1,7 @@
-import {ReactNode, useCallback, useState} from 'react'
-import {FlatGridProps} from 'react-native-super-grid'
+import {type ReactNode, useCallback, useState} from 'react'
+import type {ProjectsListItem} from '@/modules/construction-work/types/project'
+import type {AddressQueryArgs} from '@/types/api'
+import type {FlatGridProps} from 'react-native-super-grid'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
@@ -12,27 +14,23 @@ import {
   useProjectsQuery,
 } from '@/modules/construction-work/service'
 import {
+  type ProjectsItem,
+  type ProjectsQueryArgs,
   ProjectsEndpointName,
-  ProjectsItem,
-  ProjectsQueryArgs,
 } from '@/modules/construction-work/types/api'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
-import {AddressQueryArgs} from '@/types/api'
 
 type Props = {
   HeaderButton: ReactNode
   addressParam?: AddressQueryArgs
 }
 
-export type DummyProjectsItem = Omit<ProjectsItem, 'id'> & {
-  id: string
-}
-
-const emptyProjectsItem: DummyProjectsItem = {
+const emptyProjectsItem: ProjectsListItem = {
   followed: false,
   image: null,
   meter: 0,
-  id: '',
+  id: -1,
+  isDummyItem: true,
   recent_articles: [],
   strides: 0,
   subtitle: ' ',
@@ -51,7 +49,7 @@ export const Projects = ({addressParam, HeaderButton}: Props) => {
 
   const result = useInfiniteScroller<
     ProjectsItem,
-    DummyProjectsItem,
+    ProjectsListItem,
     ProjectsQueryArgs
   >(
     emptyProjectsItem,

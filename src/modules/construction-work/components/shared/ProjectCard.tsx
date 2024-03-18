@@ -1,15 +1,15 @@
-import {ReactNode, memo, useMemo} from 'react'
-import {ImageSourcePropType, StyleSheet} from 'react-native'
+import {type ReactNode, memo, useMemo} from 'react'
+import {type ImageSourcePropType, StyleSheet} from 'react-native'
+import type {TestProps} from '@/components/ui/types'
+import type {LogProps} from '@/processes/piwik/types'
+import type {Theme} from '@/themes/themes'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {type TestProps} from '@/components/ui/types'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
-import {LogProps} from '@/processes/piwik/types'
-import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -17,6 +17,7 @@ type Props = {
   additionalAccessibilityLabel?: string
   children?: ReactNode
   imageSource?: ImageSourcePropType
+  isDummyItem?: boolean
   onPress: () => void
   subtitle?: string | null
   title: string
@@ -29,6 +30,7 @@ export const ProjectCard = memo(
     additionalAccessibilityLabel,
     children,
     imageSource,
+    isDummyItem = false,
     onPress,
     subtitle,
     testID,
@@ -54,7 +56,9 @@ export const ProjectCard = memo(
           {...logProps}>
           <AspectRatio aspectRatio="wide">
             <LazyImage
-              missingSourceFallback={<ProjectWarningFallbackImage />}
+              missingSourceFallback={
+                !isDummyItem ? <ProjectWarningFallbackImage /> : undefined
+              }
               source={imageSource}
               testID="ConstructionWorkProjectCardImage"
             />

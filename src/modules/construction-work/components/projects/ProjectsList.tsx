@@ -1,15 +1,17 @@
-import {SerializedError} from '@reduxjs/toolkit'
-import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {memo, useCallback, useMemo} from 'react'
 import {type ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, type FlatGridProps} from 'react-native-super-grid'
+import type {TestProps} from '@/components/ui/types'
+import type {ProjectsItem} from '@/modules/construction-work/types/api'
+import type {ProjectsListItem} from '@/modules/construction-work/types/project'
+import type {SerializedError} from '@reduxjs/toolkit'
+import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
-import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -23,20 +25,19 @@ import {
   type ReadArticle,
   selectConstructionWorkReadArticles,
 } from '@/modules/construction-work/slice'
-import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
-import {LogProps, PiwikDimension} from '@/processes/piwik/types'
+import {type LogProps, PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
-const keyExtractor = ({id}: ProjectsItem) => id.toString()
+const keyExtractor = ({id}: ProjectsListItem) => id.toString()
 
 type ListItemProps = {
-  onPress: (id: number) => void
-  project: ProjectsItem
+  onPress: (id: number, isDummyItem?: boolean) => void
+  project: ProjectsListItem
   readArticles: ReadArticle[]
   showTraits: boolean
 } & LogProps
@@ -70,13 +71,14 @@ const ListItem = memo(
       ]
     }, [followed, meter, readArticles, recent_articles, showTraits, strides])
 
-    const {id, image, subtitle, title} = project
+    const {id, image, isDummyItem, subtitle, title} = project
 
     return (
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
-        onPress={() => onPress(id)}
+        isDummyItem={isDummyItem}
+        onPress={() => onPress(id, isDummyItem)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}
         title={title}
@@ -108,7 +110,7 @@ const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
 
 type Props = {
   byDistance?: boolean
-  data?: ProjectsItem[]
+  data?: ProjectsListItem[]
   error?: FetchBaseQueryError | SerializedError
   isError: boolean
   isLoading: boolean
@@ -146,7 +148,7 @@ export const ProjectsList = ({
 
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const renderItem: ListRenderItem<ProjectsItem> = useCallback(
+  const renderItem: ListRenderItem<ProjectsListItem> = useCallback(
     ({item}) => (
       <ListItem
         logDimensions={{
@@ -154,7 +156,11 @@ export const ProjectsList = ({
           [PiwikDimension.searchType]: searchType,
           [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
         }}
-        onPress={(id: number) => {
+        onPress={(id, isDummyItem) => {
+          if (isDummyItem) {
+            return
+          }
+
           setSearchFieldValue('')
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,

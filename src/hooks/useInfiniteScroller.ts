@@ -1,17 +1,17 @@
 import {
-  BaseQueryFn,
-  EndpointDefinitions,
-  FetchArgs,
-  FetchBaseQueryError,
-  QueryDefinition,
+  type BaseQueryFn,
+  type EndpointDefinitions,
+  type FetchArgs,
+  type FetchBaseQueryError,
+  type QueryDefinition,
   QueryStatus,
   skipToken,
 } from '@reduxjs/toolkit/dist/query'
-import {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
-import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
-import {ApiSlug} from '@/environment'
+import type {ApiSlug} from '@/environment'
+import type {Paginated, PaginationQueryArgs} from '@/types/api'
+import type {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
+import type {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 const getEmptyItems = <DummyItem>(
   length: number,
@@ -37,12 +37,12 @@ type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
 
 export const useInfiniteScroller = <
   Item,
-  DummyItem,
+  ItemOrDummyItem,
   QueryArgs extends PaginationQueryArgs,
 >(
-  defaultEmptyItem: DummyItem,
+  defaultEmptyItem: ItemOrDummyItem,
   endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
-  keyName: keyof DummyItem,
+  keyName: keyof ItemOrDummyItem,
   useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
   page = 1,
   pageSize = 10,
@@ -112,7 +112,7 @@ export const useInfiniteScroller = <
         const pageData =
           data?.result && status === QueryStatus.fulfilled
             ? data?.result
-            : getEmptyItems<DummyItem>(
+            : getEmptyItems<ItemOrDummyItem>(
                 Math.min(pageSize, totalElements - index * pageSize),
                 index * pageSize,
                 defaultEmptyItem,
@@ -120,7 +120,7 @@ export const useInfiniteScroller = <
               )
 
         return [...acc, ...pageData]
-      }, []) as Item[],
+      }, []) as ItemOrDummyItem[],
     error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:
