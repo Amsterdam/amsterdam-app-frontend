@@ -160,7 +160,7 @@ const createStyles =
   > & {
     tooltipHeight?: number
   }) =>
-  ({size}: Theme) => {
+  ({size, z}: Theme) => {
     const getPosition = (): {
       bottom?: number
       left?: number
@@ -192,7 +192,7 @@ const createStyles =
         alignItems: 'center',
         paddingHorizontal: size.spacing.lg,
         ...getPosition(),
-        zIndex: 15, // Set zIndex higher in component tree as well when not working as expected on iOS
+        zIndex: z.tooltip, // Set zIndex higher in component tree as well when not working as expected on iOS
       },
     })
   }

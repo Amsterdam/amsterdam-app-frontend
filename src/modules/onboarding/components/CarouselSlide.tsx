@@ -116,7 +116,7 @@ type StyleProps = {
 
 const createStyles =
   ({width, isImageVisible, isPortrait}: StyleProps) =>
-  ({size}: Theme) =>
+  ({size, z}: Theme) =>
     StyleSheet.create({
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
@@ -126,10 +126,10 @@ const createStyles =
         position: 'absolute',
         bottom: '15%',
         height: isPortrait ? '50%' : '100%',
-        zIndex: -10,
+        zIndex: z.carouselSlideBackgroundImageContainer,
       },
       content: {
-        zIndex: 1000,
+        zIndex: z.carouselSlideContent,
         width,
         paddingBottom: isPortrait ? size.spacing.lg : size.spacing.sm,
         overflow: 'hidden',
