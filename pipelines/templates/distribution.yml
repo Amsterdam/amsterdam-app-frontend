@@ -17,7 +17,7 @@ jobs:
         deploy:
           steps:
             - script: |
-                echo "##vso[task.setvariable variable=VersionNumber;isSecret=false;isOutput=true;]$(cat '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/version.txt')"
+                echo "##vso[task.setvariable variable=VersionNumber;]$(cat '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/version.txt')"
                 echo "##vso[build.updatebuildnumber]$(cat '$(Pipeline.Workspace)/build/${{ parameters.platform }}-build/version.txt')-$(Build.SourceBranchName)-$(System.JobId)"
               displayName: "Set version number"
             - task: DownloadSecureFile@1
