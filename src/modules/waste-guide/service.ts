@@ -6,7 +6,7 @@ import {
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
 import {baseApi} from '@/services/init'
-import {CacheLifetime} from '@/types/api'
+import {CacheLifetime, TimeOutDuration} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
 export const wasteGuideApi = baseApi.injectEndpoints({
@@ -21,6 +21,7 @@ export const wasteGuideApi = baseApi.injectEndpoints({
           params: {...params, _format: 'json'},
           path: '/search',
         }),
+        timeout: TimeOutDuration.long,
       }),
       transformResponse: (response: WasteGuideResponse) =>
         response._embedded.afvalwijzer,

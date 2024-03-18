@@ -16,6 +16,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   iconName?: IconName
+  isLoading?: boolean
   label?: string
   numberOfLines?: number
   small?: boolean
@@ -25,6 +26,7 @@ export type ButtonProps = {
 export const Button = ({
   ellipsizeMode,
   iconName,
+  isLoading,
   label,
   numberOfLines,
   small,
@@ -67,7 +69,7 @@ export const Button = ({
         {!!iconName && (
           <Icon
             color={variant === 'primary' ? 'inverse' : 'link'}
-            name={iconName}
+            name={isLoading ? 'spinner' : iconName}
             size="lg"
             testID={`${testID}Icon`}
           />
