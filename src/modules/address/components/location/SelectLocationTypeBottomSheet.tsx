@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react'
-import {RESULTS as permissionStatuses} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,28 +7,22 @@ import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {
-  GetCurrentPositionError,
-  useGetCurrentCoordinates,
-} from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {useLocationPermission} from '@/modules/address/hooks/useLocationPermission'
+import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {
-  addLastKnownCoordinates,
-  useLocationType,
-  setNoLocationPermissionForAndroid,
-} from '@/modules/address/slice'
+import {addLastKnownCoordinates, useLocationType} from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {isPermissionErrorStatus} from '@/utils/permissions/errorStatuses'
+import {Permissions} from '@/types/permissions'
+import {getPropertyFromMaybeObject} from '@/utils/object'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -64,7 +57,10 @@ export const SelectLocationTypeBottomSheet = ({
   const [hasLocationTechnicalError, setHasLocationTechnicalError] =
     useState(false)
 
-  const hasLocationPermission = useLocationPermission()
+  const {
+    hasPermission: hasLocationPermission,
+    requestPermission: requestLocationPermission,
+  } = usePermission(Permissions.location)
 
   useEffect(() => {
     if (!hasLocationPermission) {
@@ -80,26 +76,32 @@ export const SelectLocationTypeBottomSheet = ({
 
       setCurrentCoordinates(coordinates)
     } catch (error) {
-      const {status} = error as GetCurrentPositionError
-      const isPermissionError = isPermissionErrorStatus(status)
-
-      dispatch(
-        setNoLocationPermissionForAndroid(
-          status !== permissionStatuses.GRANTED,
-        ),
+      const isTechnicalError = getPropertyFromMaybeObject(
+        error,
+        'isTechnicalError',
       )
 
-      if (!isPermissionError) {
+      if (isTechnicalError) {
         setHasLocationTechnicalError(true)
       }
     } finally {
       setRequestingCurrentCoordinates(false)
     }
-  }, [dispatch, getCurrentCoordinates])
+  }, [getCurrentCoordinates])
 
   useEffect(() => {
     if (!bottomSheetIsOpen) {
       setHasLocationTechnicalError(false)
+
+      return
+    }
+
+    if (!hasLocationPermission) {
+      void requestLocationPermission().then(granted => {
+        if (granted) {
+          void getCoordinates()
+        }
+      })
 
       return
     }
@@ -170,14 +172,14 @@ export const SelectLocationTypeBottomSheet = ({
       closeBottomSheet()
     },
     [
-      hasLocationPermission,
-      currentCoordinates,
-      setLocationType,
-      locationType,
       closeBottomSheet,
-      navigateToInstructionsScreen,
+      currentCoordinates,
       dispatch,
+      hasLocationPermission,
+      locationType,
+      navigateToInstructionsScreen,
       onEvent,
+      setLocationType,
     ],
   )
 

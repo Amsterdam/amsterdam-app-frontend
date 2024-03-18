@@ -1,5 +1,4 @@
-import {useFocusEffect} from '@react-navigation/native'
-import {useCallback, useEffect, useMemo, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
@@ -7,11 +6,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {useCheckLocationPermission} from '@/modules/address/hooks/useCheckLocationPermission'
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
+import {Permissions} from '@/types/permissions'
 
 type Props = {
   selectResult: (item: PdokAddress) => void
@@ -33,16 +33,8 @@ export const StreetSearchResultForLocation = ({
     [pdokAddresses],
   )
 
-  const {
-    isCheckingLocationPermission,
-    hasLocationPermission,
-    checkLocationPermission,
-  } = useCheckLocationPermission()
-
-  useFocusEffect(
-    useCallback(() => {
-      checkLocationPermission()
-    }, [checkLocationPermission]),
+  const {hasPermission: hasLocationPermission} = usePermission(
+    Permissions.location,
   )
 
   useBlurEffect(() => {
@@ -53,13 +45,13 @@ export const StreetSearchResultForLocation = ({
     if (hasLocationPermission) {
       void getCoordinates()
     }
-  }, [checkLocationPermission, getCoordinates, hasLocationPermission])
+  }, [getCoordinates, hasLocationPermission])
 
   if (!showSuggestionsForLocation) {
     return null
   }
 
-  if (isCheckingLocationPermission || isGettingAddressForCoordinates) {
+  if (isGettingAddressForCoordinates) {
     return null
   }
 

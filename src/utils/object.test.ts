@@ -1,6 +1,7 @@
 import {
   filterOutUndefinedProperties,
   getPropertyFromMaybeError,
+  getPropertyFromMaybeObject,
   isEmptyObject,
   isErrorObject,
 } from './object'
@@ -42,6 +43,8 @@ describe('isErrorObject', () => {
 describe('getPropertyFromMaybeError', () => {
   test('undefined if not an Error', () => {
     expect(getPropertyFromMaybeError({}, 'foo')).toBe(undefined)
+    expect(getPropertyFromMaybeError(null, 'foo')).toBe(undefined)
+    expect(getPropertyFromMaybeError(true, 'foo')).toBe(undefined)
   })
   test('undefined if property does not exist', () => {
     const error = new Error('foo')
@@ -54,6 +57,24 @@ describe('getPropertyFromMaybeError', () => {
     // @ts-ignore
     error.foo = 'bar'
     expect(getPropertyFromMaybeError(error, 'foo')).toBe('bar')
+  })
+})
+
+describe('getPropertyFromMaybeObject', () => {
+  test('undefined if not an object', () => {
+    expect(getPropertyFromMaybeObject([], 'foo')).toBe(undefined)
+    expect(getPropertyFromMaybeObject(null, 'foo')).toBe(undefined)
+    expect(getPropertyFromMaybeObject(true, 'foo')).toBe(undefined)
+  })
+  test('undefined if property does not exist', () => {
+    const obj = {bar: 1}
+
+    expect(getPropertyFromMaybeObject(obj, 'foo')).toBe(undefined)
+  })
+  test('return value if property does exist', () => {
+    const obj = {foo: 1}
+
+    expect(getPropertyFromMaybeObject(obj, 'foo')).toBe(1)
   })
 })
 

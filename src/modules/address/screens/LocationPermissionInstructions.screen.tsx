@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useEffect} from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,44 +8,18 @@ import {Screen} from '@/components/ui/layout/Screen'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useAppState} from '@/hooks/useAppState'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {getStatusFromError} from '@/utils/permissions/errorStatuses'
-import {requestLocationPermissionGranted} from '@/utils/permissions/location'
+import {usePermission} from '@/hooks/permissions/usePermission'
+import {Permissions} from '@/types/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
   const {goBack} = useNavigation()
-  const {sendSentryErrorLog} = useSentry()
-  const [granted, setGranted] = useState(false)
-
-  useAppState({
-    onForeground: () => {
-      requestLocationPermissionGranted()
-        .then(() => {
-          setGranted(true)
-        })
-        .catch((error: unknown) => {
-          if (getStatusFromError(error)) {
-            setGranted(false)
-
-            return
-          }
-
-          sendSentryErrorLog(
-            SentryErrorLogKey.requestLocationPermission,
-            'LocationPermissionInstructions.screen.tsx',
-            {error},
-          )
-        })
-    },
-  })
+  const {hasPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
-    if (granted) {
+    if (hasPermission) {
       goBack()
     }
-  }, [granted, goBack])
+  }, [goBack, hasPermission])
 
   return (
     <Screen

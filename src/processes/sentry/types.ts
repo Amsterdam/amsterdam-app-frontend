@@ -21,7 +21,6 @@ export enum SentryErrorLogKey {
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
   isScreenReaderEnabled = 'Screenreader enabled check failed',
-  locationPermission = 'Check location permission failed',
   notSupportedStoredUrl = 'Can not use url to open store',
   openMailUrl = 'Open mail url failed',
   openPhoneUrl = 'Open phone url failed',
@@ -35,9 +34,9 @@ export enum SentryErrorLogKey {
   piwikTrackSearch = 'Piwik trackSearch failed',
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
-  resetLocationPermissionAndroid = 'Android: Check location permission on foreground failed',
   sentryMiddleWareError = 'Sentry middleware logger failed',
   takingPhotoFailed = 'Taking photo failed',
+  updatePermission = 'Update permission failed',
 }
 
 export type SendErrorLog = <T extends SentryErrorLogKey>(

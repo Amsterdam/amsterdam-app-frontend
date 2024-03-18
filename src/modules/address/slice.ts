@@ -9,15 +9,10 @@ export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
   locationType: LocationType
-  /**
-   * We only know that the location is blocked or denied (i.e. the user has not given permission when asked) when we catch it from the permission request. We store that status here so it is available throughout the app.
-   */
-  noLocationPermissionForAndroid: boolean
 }
 
 const initialState: AddressState = {
   locationType: 'address',
-  noLocationPermissionForAndroid: false,
 }
 
 export const addressSlice = createSlice({
@@ -36,13 +31,6 @@ export const addressSlice = createSlice({
       lastKnownCoordinates,
     }),
     removeAddress: ({address, ...rest}) => rest,
-    setNoLocationPermissionForAndroid: (
-      state,
-      {payload: noLocationPermissionForAndroid}: PayloadAction<boolean>,
-    ) => ({
-      ...state,
-      noLocationPermissionForAndroid,
-    }),
     setLocationType: (
       state,
       {payload: {locationType}}: PayloadAction<{locationType: LocationType}>,
@@ -57,7 +45,6 @@ export const {
   addAddress,
   addLastKnownCoordinates,
   removeAddress,
-  setNoLocationPermissionForAndroid,
   setLocationType,
 } = addressSlice.actions
 
@@ -67,16 +54,7 @@ export const selectAddress = (state: RootState) =>
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address].lastKnownCoordinates
 
-export const selectNoLocationPermissionForAndroid = (state: RootState) =>
-  state[ReduxKey.address].noLocationPermissionForAndroid
-
 export const selectLocationType = (state: RootState) =>
   state[ReduxKey.address].locationType
-
-export const useNoLocationPermissionForAndroid = () =>
-  useSelector(
-    (state: RootState) =>
-      state[ReduxKey.address].noLocationPermissionForAndroid,
-  )
 
 export const useLocationType = () => useSelector(selectLocationType)

@@ -1,7 +1,7 @@
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 
 export const sentryAllowList = {
-  [SentryErrorLogKey.currentCoordinates]: ['code', 'message'],
+  [SentryErrorLogKey.currentCoordinates]: ['error'],
   [SentryErrorLogKey.getModulesForAppQuery]: [
     'error',
     'retriesRemaining',
@@ -11,9 +11,9 @@ export const sentryAllowList = {
   [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.hideSplashScreen]: ['error'],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],
-  [SentryErrorLogKey.locationPermission]: ['error'],
   [SentryErrorLogKey.openMailUrl]: [],
   [SentryErrorLogKey.openPhoneUrl]: [],
+  [SentryErrorLogKey.openStore]: ['error'],
   [SentryErrorLogKey.openWebUrl]: ['url'],
   [SentryErrorLogKey.pickingImageFailed]: ['error', 'code', 'viaCamera'],
   [SentryErrorLogKey.piwikInitialization]: ['error'],
@@ -29,7 +29,6 @@ export const sentryAllowList = {
   [SentryErrorLogKey.piwikTrackSearch]: [],
   [SentryErrorLogKey.registerDevice]: ['error'],
   [SentryErrorLogKey.requestLocationPermission]: ['error'],
-  [SentryErrorLogKey.resetLocationPermissionAndroid]: ['error'],
   [SentryErrorLogKey.sentryMiddleWareError]: [
     'endpoint',
     'error',
@@ -38,7 +37,7 @@ export const sentryAllowList = {
     'url',
   ],
   [SentryErrorLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
-  [SentryErrorLogKey.openStore]: ['error'],
+  [SentryErrorLogKey.updatePermission]: ['error', 'permission', 'request'],
 } as const
 
 export type AllowListKeys<LogKey extends SentryErrorLogKey> =

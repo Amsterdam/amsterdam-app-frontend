@@ -16,9 +16,9 @@ describe('Sentry log whitelist', () => {
       getFilteredSentryData(SentryErrorLogKey.currentCoordinates, {
         code: '404',
         message: 'Not found',
-        viaCamera: true,
+        error: 'Not found',
       }),
-    ).toStrictEqual({code: '404', message: 'Not found'}))
+    ).toStrictEqual({error: 'Not found'}))
 
   it('No data object', () =>
     expect(
