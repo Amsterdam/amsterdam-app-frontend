@@ -31,45 +31,41 @@ export const useGetCurrentCoordinates = (
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<Coordinates>(async (resolve, reject) => {
-        try {
-          if (
-            purposeKey &&
-            Platform.OS === 'ios' &&
-            isVersionHigherOrEqual(DeviceInfo.getSystemVersion(), '14')
-          ) {
-            await requestLocationAccuracy({
-              purposeKey,
-            })
-          }
-
-          Geolocation.getCurrentPosition(
-            ({coords: {latitude, longitude}}) => {
-              const coordinates: Coordinates = {
-                lat: latitude,
-                lon: longitude,
-              }
-
-              resolve(coordinates)
-            },
-            error => {
-              throw error
-            },
-            {
-              ...defaultOptions,
-              ...options,
-            },
-          )
-        } catch (error: unknown) {
-          if (hasPermission) {
-            sendSentryErrorLog(
-              SentryErrorLogKey.currentCoordinates,
-              'useGetCurrentCoordinates.ts',
-              {error},
-            )
-          }
-
-          reject({isTechnicalError: hasPermission})
+        if (
+          purposeKey &&
+          Platform.OS === 'ios' &&
+          isVersionHigherOrEqual(DeviceInfo.getSystemVersion(), '14')
+        ) {
+          await requestLocationAccuracy({
+            purposeKey,
+          })
         }
+
+        Geolocation.getCurrentPosition(
+          ({coords: {latitude, longitude}}) => {
+            const coordinates: Coordinates = {
+              lat: latitude,
+              lon: longitude,
+            }
+
+            resolve(coordinates)
+          },
+          error => {
+            if (hasPermission) {
+              sendSentryErrorLog(
+                SentryErrorLogKey.currentCoordinates,
+                'useGetCurrentCoordinates.ts',
+                {error},
+              )
+            }
+
+            reject({isTechnicalError: hasPermission})
+          },
+          {
+            ...defaultOptions,
+            ...options,
+          },
+        )
       }),
     [hasPermission, purposeKey, sendSentryErrorLog],
   )

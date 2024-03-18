@@ -52,8 +52,8 @@ export const usePermission = (permission: Permissions) => {
 
             sendSentryErrorLog(
               SentryErrorLogKey.updatePermission,
-              'useUPermission.ts',
-              {error, permission, request},
+              'usePermission.ts',
+              {error, permission, request: true},
             )
 
             reject(error)
