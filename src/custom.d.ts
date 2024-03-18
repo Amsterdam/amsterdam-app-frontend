@@ -22,6 +22,7 @@ declare module '*.png' {
 }
 
 declare module '@env' {
+  export const API_KEY: string | undefined
   export const AUTH_PASSWORD: string | undefined
   export const AUTH_SHARED_SECRET: string | undefined
   export const BUILD_NUMBER: string | undefined

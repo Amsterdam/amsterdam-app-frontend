@@ -1,3 +1,4 @@
+import {API_KEY} from '@env'
 import {
   BaseQueryFn,
   createApi,
@@ -9,6 +10,7 @@ import {
 import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
+import {devError} from '@/processes/development'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -55,6 +57,12 @@ const dynamicBaseQuery: BaseQueryFn<
             headers.set('deviceid', SHA256EncryptedDeviceId)
 
           headers.set('DeviceAuthorization', deviceAuthorizationToken)
+
+          if (API_KEY) {
+            headers.set('X-API-KEY', API_KEY)
+          } else {
+            devError('No API key in .env.')
+          }
 
           headers.set('releaseVersion', VERSION_NUMBER)
 
