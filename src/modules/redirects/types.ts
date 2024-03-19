@@ -8,6 +8,7 @@ export enum RedirectKey {
   citypass = 'citypass',
   contactForm = 'contactForm',
   documents = 'documents',
+  elections = 'elections',
   feedbackForm = 'feedbackForm',
   immigration = 'immigration',
   income_help = 'income_help',
