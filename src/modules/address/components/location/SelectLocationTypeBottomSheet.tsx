@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,21 +8,18 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {addLastKnownCoordinates, useLocationType} from '@/modules/address/slice'
-import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {useLocationType} from '@/modules/address/slice'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Permissions} from '@/types/permissions'
-import {getPropertyFromMaybeObject} from '@/utils/object'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
@@ -31,7 +28,6 @@ type Props = {
 export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
 }: Props) => {
-  const dispatch = useDispatch()
   const locationType = useLocationType()
   const address = useAddress()
 
@@ -50,69 +46,9 @@ export const SelectLocationTypeBottomSheet = ({
     logName: 'BottomSheetAddressOrLocationSelect',
   })
 
-  const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
-  const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
-  const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
-    useState(false)
-  const [hasLocationTechnicalError, setHasLocationTechnicalError] =
-    useState(false)
-
-  const {
-    hasPermission: hasLocationPermission,
-    requestPermission: requestLocationPermission,
-  } = usePermission(Permissions.location)
-
-  useEffect(() => {
-    if (!hasLocationPermission) {
-      setLocationType('address')
-    }
-  }, [hasLocationPermission, setLocationType])
-
-  const getCoordinates = useCallback(async () => {
-    try {
-      setRequestingCurrentCoordinates(true)
-
-      const coordinates = await getCurrentCoordinates()
-
-      setCurrentCoordinates(coordinates)
-    } catch (error) {
-      const isTechnicalError = getPropertyFromMaybeObject(
-        error,
-        'isTechnicalError',
-      )
-
-      if (isTechnicalError) {
-        setHasLocationTechnicalError(true)
-      }
-    } finally {
-      setRequestingCurrentCoordinates(false)
-    }
-  }, [getCurrentCoordinates])
-
-  useEffect(() => {
-    if (!bottomSheetIsOpen) {
-      setHasLocationTechnicalError(false)
-
-      return
-    }
-
-    if (!hasLocationPermission) {
-      void requestLocationPermission().then(granted => {
-        if (granted) {
-          void getCoordinates()
-        }
-      })
-
-      return
-    }
-
-    if (!requestingCurrentCoordinates) {
-      void getCoordinates()
-    }
-
-    // Fetch coordinates only when the bottomsheet is opened
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [bottomSheetIsOpen])
+  const {hasPermission: hasLocationPermission} = usePermission(
+    Permissions.location,
+  )
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
@@ -141,47 +77,32 @@ export const SelectLocationTypeBottomSheet = ({
     setLocationType,
   ])
 
-  const onPressLocationButton = useCallback(
-    (hasValidAddressData: boolean) => {
-      setHasLocationTechnicalError(false)
+  const onPressLocationButton = useCallback(() => {
+    if (!hasLocationPermission) {
+      navigateToInstructionsScreen()
 
-      if (!hasLocationPermission) {
-        navigateToInstructionsScreen()
+      return
+    }
 
-        return
-      }
+    setLocationType('location')
 
-      setLocationType('location')
+    if (locationType !== 'location') {
+      onEvent(undefined, {
+        dimensions: {
+          [PiwikDimension.newState]: 'location',
+        },
+      })
+    }
 
-      if (!hasValidAddressData) {
-        return
-      }
-
-      if (currentCoordinates) {
-        dispatch(addLastKnownCoordinates(currentCoordinates))
-      }
-
-      if (locationType !== 'location') {
-        onEvent(undefined, {
-          dimensions: {
-            [PiwikDimension.newState]: 'location',
-          },
-        })
-      }
-
-      closeBottomSheet()
-    },
-    [
-      closeBottomSheet,
-      currentCoordinates,
-      dispatch,
-      hasLocationPermission,
-      locationType,
-      navigateToInstructionsScreen,
-      onEvent,
-      setLocationType,
-    ],
-  )
+    closeBottomSheet()
+  }, [
+    closeBottomSheet,
+    hasLocationPermission,
+    locationType,
+    navigateToInstructionsScreen,
+    onEvent,
+    setLocationType,
+  ])
 
   return (
     <BottomSheet testID="SelectLocationTypeBottomSheet">
@@ -215,12 +136,9 @@ export const SelectLocationTypeBottomSheet = ({
             testID="BottomSheetSelectAddressButton"
           />
           <LocationTopTaskButton
-            coordinates={currentCoordinates}
-            hasLocationPermission={hasLocationPermission}
-            hasTechnicalError={hasLocationTechnicalError}
-            loading={requestingCurrentCoordinates}
-            logName={`BottomSheetSelectLocationButton${hasLocationPermission && currentCoordinates ? 'SelectLocation' : 'AddLocation'}`}
+            highAccuracyPurposeKey={highAccuracyPurposeKey}
             onPress={onPressLocationButton}
+            shouldRequestPermission={bottomSheetIsOpen}
             testID="BottomSheetSelectLocationButton"
           />
         </Column>
