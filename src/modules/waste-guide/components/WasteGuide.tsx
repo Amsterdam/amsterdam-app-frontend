@@ -7,10 +7,12 @@ import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
+import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
-import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {useHasValidLocation} from '@/modules/address/hooks/useHasValidLocation'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressCity} from '@/modules/address/types'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
@@ -24,6 +26,7 @@ import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
+  const hasValidLocation = useHasValidLocation()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {
@@ -48,9 +51,40 @@ export const WasteGuide = () => {
 
   if (
     getGarbageCollectionAreaQueryIsFetching ||
-    selectedAddressForWasteGuideIsFetching
+    selectedAddressForWasteGuideIsFetching ||
+    !hasValidLocation
   ) {
-    return <PleaseWait testID="WasteGuideLoadingSpinner" />
+    return (
+      <Column
+        grow
+        gutter="xl">
+        <HorizontalSafeArea flex={1}>
+          <Box grow>
+            <Column
+              flex={1}
+              gutter="lg">
+              <Column gutter="md">
+                <Title text="Voor welke locatie wilt u informatie over afval?" />
+                <Row>
+                  <ShareLocationTopTaskButton testID="WasteGuide" />
+                </Row>
+              </Column>
+              {!!getGarbageCollectionAreaQueryIsFetching && (
+                <PleaseWait testID="WasteGuideLoadingSpinner" />
+              )}
+            </Column>
+          </Box>
+        </HorizontalSafeArea>
+        <FigureWithFacadesBackground
+          height={media.figureHeight.lg}
+          Image={<HouseholdWasteToContainerImage />}
+          imageAspectRatio={media.illustrationAspectRatio.landscape}
+          imageWidth={media.illustrationWidth.wide}
+          moveUp={isLandscape ? 128 : undefined}
+          testID="WasteGuideRequestLocationBackground"
+        />
+      </Column>
+    )
   }
 
   if (
@@ -71,7 +105,7 @@ export const WasteGuide = () => {
         text="Probeer het later nog een keer."
         title="Helaas is de afvalwijzer nu niet beschikbaar">
         <Row>
-          <ChangeLocationButton testID="WasteGuide" />
+          <ShareLocationTopTaskButton testID="WasteGuide" />
         </Row>
       </FullScreenError>
     )
@@ -94,7 +128,7 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column>
-              <ChangeLocationButton testID="WasteGuide" />
+              <ShareLocationTopTaskButton testID="WasteGuide" />
             </Column>
             {hasContent ? (
               <WasteGuideForCity wasteGuide={wasteGuideData} />

@@ -1,4 +1,3 @@
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Screen} from '@/components/ui/layout/Screen'
 import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
@@ -8,13 +7,8 @@ import {ProjectsByDate} from '@/modules/construction-work/components/projects/Pr
 import {ProjectsByDistance} from '@/modules/construction-work/components/projects/ProjectsByDistance'
 
 export const ConstructionWorkScreen = () => {
-  const {address, isFetching: selectedAddressForConstructionWorkIsFetching} =
-    useSelectedAddress()
+  const {address} = useSelectedAddress()
   const isFocused = useIsFocusedEffect()
-
-  if (selectedAddressForConstructionWorkIsFetching) {
-    return <PleaseWait testID="ConstructionWorkLoadingSpinner" />
-  }
 
   return isFocused ? (
     <Screen
