@@ -1,3 +1,4 @@
+export const API_KEY = ''
 export const AUTH_PASSWORD = ''
 export const AUTH_SHARED_SECRET = ''
 export const VERSION = '0.0.0'
