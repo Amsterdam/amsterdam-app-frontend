@@ -51,6 +51,10 @@ jest.mock('@react-native-async-storage/async-storage', () =>
   require('@react-native-async-storage/async-storage/jest/async-storage-mock'),
 )
 
+jest.mock('react-native-permissions', () =>
+  require('react-native-permissions/mock'),
+)
+
 NativeModules.RNCNetInfo = {
   getCurrentConnectivity: jest.fn(),
   isConnectionMetered: jest.fn(),
