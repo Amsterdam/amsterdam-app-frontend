@@ -32,6 +32,7 @@ export enum SentryErrorLogKey {
   piwikTrackOutlink = 'Piwik trackOutlink failed',
   piwikTrackScreen = 'Piwik trackScreen failed',
   piwikTrackSearch = 'Piwik trackSearch failed',
+  redirectNotFound = 'Redirect not found',
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
   sentryMiddleWareError = 'Sentry middleware logger failed',
