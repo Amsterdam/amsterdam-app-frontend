@@ -27,6 +27,7 @@ export const sentryAllowList = {
   [SentryErrorLogKey.piwikTrackOutlink]: ['url'],
   [SentryErrorLogKey.piwikTrackScreen]: ['path'],
   [SentryErrorLogKey.piwikTrackSearch]: [],
+  [SentryErrorLogKey.redirectNotFound]: ['urlKey'],
   [SentryErrorLogKey.registerDevice]: ['error'],
   [SentryErrorLogKey.requestLocationPermission]: ['error'],
   [SentryErrorLogKey.sentryMiddleWareError]: [
