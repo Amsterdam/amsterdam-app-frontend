@@ -64,6 +64,6 @@ export type SortQueryArgs = {
 
 export enum TimeOutDuration {
   short = 1000,
-  medium = 5000,
+  medium = 15000,
   long = 30000,
 }
