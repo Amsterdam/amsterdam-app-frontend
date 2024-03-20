@@ -2,17 +2,19 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Address, Coordinates, LocationType} from '@/modules/address/types'
+import {selectIsPermissionGranted} from '@/store/slices/permissions'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
+import {Permissions} from '@/types/permissions'
 
 export type AddressState = {
   address?: Address
   lastKnownCoordinates?: Coordinates
-  locationType: LocationType
+  locationType?: LocationType
 }
 
 const initialState: AddressState = {
-  locationType: 'address',
+  locationType: undefined,
 }
 
 export const addressSlice = createSlice({
@@ -54,7 +56,37 @@ export const selectAddress = (state: RootState) =>
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address].lastKnownCoordinates
 
-export const selectLocationType = (state: RootState) =>
-  state[ReduxKey.address].locationType
+export const selectLocationType = (
+  state: RootState,
+): LocationType | undefined => {
+  const locationType = state[ReduxKey.address].locationType
+  const address = selectAddress(state)
+  const hasLocationPermission = selectIsPermissionGranted(Permissions.location)(
+    state,
+  )
+
+  // If location type is address and there is an address available, return address
+  if (locationType === 'address' && address) {
+    return 'address'
+  }
+
+  // If location type is location and location permission is granted, return location
+  if (locationType === 'location' && hasLocationPermission) {
+    return 'location'
+  }
+
+  // If address is set, return address
+  if (address) {
+    return 'address'
+  }
+
+  // If location permission is granted, return location
+  if (hasLocationPermission) {
+    return 'location'
+  }
+
+  // Otherwise, return address
+  return undefined
+}
 
 export const useLocationType = () => useSelector(selectLocationType)

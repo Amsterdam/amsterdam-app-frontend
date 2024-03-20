@@ -4,7 +4,6 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
 import {useHasValidLocation} from '@/modules/address/hooks/useHasValidLocation'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
-import {RequestLocation} from '@/modules/waste-guide/components/RequestLocation'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 
 export const WasteGuideScreen = () => {
@@ -29,7 +28,7 @@ export const WasteGuideScreen = () => {
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
-      {hasValidLocation ? <WasteGuide /> : <RequestLocation />}
+      <WasteGuide />
     </Screen>
   )
 }

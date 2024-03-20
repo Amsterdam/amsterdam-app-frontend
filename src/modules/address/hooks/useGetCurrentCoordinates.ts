@@ -31,6 +31,8 @@ export const useGetCurrentCoordinates = (
   return useCallback(
     (options?: Partial<GeoOptions>) =>
       new Promise<Coordinates>(async (resolve, reject) => {
+        // TODO: check permission
+        // TODO: request permissions when shouldRequestPermission prop is added
         if (
           purposeKey &&
           Platform.OS === 'ios' &&

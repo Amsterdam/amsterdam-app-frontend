@@ -9,12 +9,12 @@ import {getPropertyFromMaybeObject} from '@/utils/object'
 /** Number of suggestions returned by the address-for-coordinates Api */
 const SUGGESTION_COUNT = 5
 
-export const useGetAddressByCoordinates = () => {
+export const useGetAddressByCoordinates = (
+  purposeKey: HighAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
+) => {
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
-  const getCurrentCoordinates = useGetCurrentCoordinates(
-    HighAccuracyPurposeKey.PreciseLocationAddressLookup,
-  )
+  const getCurrentCoordinates = useGetCurrentCoordinates(purposeKey)
 
   const {pdokAddresses, ...rest} = useAddressForCoordinates({
     coordinates,

@@ -1,4 +1,4 @@
-import {ChangeLocationButton} from '@/modules/address/components/location/ChangeLocationButton'
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {Address} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
@@ -13,7 +13,7 @@ export const ProjectsByDistance = ({address}: Props) => {
   return (
     <Projects
       addressParam={addressParam}
-      HeaderButton={<ChangeLocationButton testID="ConstructionWork" />}
+      HeaderButton={<ShareLocationTopTaskButton testID="ConstructionWork" />}
     />
   )
 }
