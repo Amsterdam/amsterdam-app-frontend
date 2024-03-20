@@ -46,9 +46,7 @@ export const SelectLocationTypeBottomSheet = ({
     logName: 'BottomSheetAddressOrLocationSelect',
   })
 
-  const {hasPermission: hasLocationPermission} = usePermission(
-    Permissions.location,
-  )
+  const {requestPermission} = usePermission(Permissions.location)
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
@@ -77,8 +75,10 @@ export const SelectLocationTypeBottomSheet = ({
     setLocationType,
   ])
 
-  const onPressLocationButton = useCallback(() => {
-    if (!hasLocationPermission) {
+  const onPressLocationButton = useCallback(async () => {
+    const permission = await requestPermission()
+
+    if (!permission) {
       navigateToInstructionsScreen()
 
       return
@@ -97,10 +97,10 @@ export const SelectLocationTypeBottomSheet = ({
     closeBottomSheet()
   }, [
     closeBottomSheet,
-    hasLocationPermission,
     locationType,
     navigateToInstructionsScreen,
     onEvent,
+    requestPermission,
     setLocationType,
   ])
 

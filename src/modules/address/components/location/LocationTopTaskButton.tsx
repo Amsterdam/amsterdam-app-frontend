@@ -54,8 +54,7 @@ export const LocationTopTaskButton = ({
   // TODO: switch to useGetAddressByCoordinates
   const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
 
-  const {hasPermission, requestPermission: requestLocationPermission} =
-    usePermission(Permissions.location)
+  const {hasPermission} = usePermission(Permissions.location)
 
   const getCoordinates = useCallback(async () => {
     try {
@@ -86,14 +85,6 @@ export const LocationTopTaskButton = ({
     setHasTechnicalError(false)
 
     if (!hasPermission) {
-      if (shouldRequestPermission) {
-        void requestLocationPermission().then(granted => {
-          if (granted) {
-            void getCoordinates()
-          }
-        })
-      }
-
       return
     }
 
