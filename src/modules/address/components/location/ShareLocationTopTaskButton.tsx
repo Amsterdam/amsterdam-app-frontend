@@ -1,6 +1,8 @@
+import {Row} from '@/components/ui/layout/Row'
 import {type TestProps} from '@/components/ui/types'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
+import {RequestTopTaskButton} from '@/modules/address/components/location/RequestTopTaskButton'
 import {useLocationType} from '@/modules/address/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
@@ -11,13 +13,19 @@ export const ShareLocationTopTaskButton = ({testID}: Props) => {
   const locationType = useLocationType()
 
   const TopTaskButton =
-    locationType === 'address' ? AddressTopTaskButton : LocationTopTaskButton
+    typeof locationType === 'undefined'
+      ? RequestTopTaskButton
+      : locationType === 'address'
+        ? AddressTopTaskButton
+        : LocationTopTaskButton
 
   return (
-    <TopTaskButton
-      hasTitleIcon
-      onPress={openBottomSheet}
-      testID={`${testID ?? ''}RequestLocationButton`}
-    />
+    <Row>
+      <TopTaskButton
+        hasTitleIcon
+        onPress={openBottomSheet}
+        testID={`${testID ?? ''}RequestLocationButton`}
+      />
+    </Row>
   )
 }

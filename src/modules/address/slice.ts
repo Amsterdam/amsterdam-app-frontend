@@ -56,13 +56,23 @@ export const selectAddress = (state: RootState) =>
 export const selectLastKnownCoordinates = (state: RootState) =>
   state[ReduxKey.address].lastKnownCoordinates
 
-export const selectLocationType = (state: RootState) => {
+export const selectLocationType = (
+  state: RootState,
+): LocationType | undefined => {
   const locationType = state[ReduxKey.address].locationType
   const address = selectAddress(state)
+  const hasLocationPermission = selectIsPermissionGranted(Permissions.location)(
+    state,
+  )
 
-  // If location type is set and location type is not address and there's no address available, return it
-  if (locationType && !(locationType === 'address' && !address)) {
-    return locationType
+  // If location type is address and there is an address available, return address
+  if (locationType === 'address' && address) {
+    return 'address'
+  }
+
+  // If location type is location and location permission is granted, return location
+  if (locationType === 'location' && hasLocationPermission) {
+    return 'location'
   }
 
   // If address is set, return address
@@ -71,12 +81,12 @@ export const selectLocationType = (state: RootState) => {
   }
 
   // If location permission is granted, return location
-  if (selectIsPermissionGranted(Permissions.location)(state)) {
+  if (hasLocationPermission) {
     return 'location'
   }
 
   // Otherwise, return address
-  return 'address'
+  return undefined
 }
 
 export const useLocationType = () => useSelector(selectLocationType)

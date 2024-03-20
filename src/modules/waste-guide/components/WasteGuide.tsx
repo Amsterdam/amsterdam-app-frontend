@@ -4,7 +4,6 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
-import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {Title} from '@/components/ui/text/Title'
@@ -64,10 +63,11 @@ export const WasteGuide = () => {
               flex={1}
               gutter="lg">
               <Column gutter="md">
-                <Title text="Voor welke locatie wilt u informatie over afval?" />
-                <Row>
-                  <ShareLocationTopTaskButton testID="WasteGuide" />
-                </Row>
+                {!getGarbageCollectionAreaQueryIsFetching &&
+                  !selectedAddressForWasteGuideIsFetching && (
+                    <Title text="Voor welke locatie wilt u informatie over afval?" />
+                  )}
+                <ShareLocationTopTaskButton testID="WasteGuide" />
               </Column>
               {!!getGarbageCollectionAreaQueryIsFetching && (
                 <PleaseWait testID="WasteGuideLoadingSpinner" />
@@ -104,9 +104,7 @@ export const WasteGuide = () => {
         }}
         text="Probeer het later nog een keer."
         title="Helaas is de afvalwijzer nu niet beschikbaar">
-        <Row>
-          <ShareLocationTopTaskButton testID="WasteGuide" />
-        </Row>
+        <ShareLocationTopTaskButton testID="WasteGuide" />
       </FullScreenError>
     )
   }

@@ -50,6 +50,8 @@ export const LocationTopTaskButton = ({
   const [hasTechnicalError, setHasTechnicalError] = useState(false)
   const {firstAddress: address, isFetching: addressForCoordinatesIsFetching} =
     useAddressForCoordinates({coordinates: currentCoordinates})
+
+  // TODO: switch to useGetAddressByCoordinates
   const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
 
   const {hasPermission, requestPermission: requestLocationPermission} =
