@@ -1,13 +1,11 @@
 import {Screen} from '@/components/ui/layout/Screen'
 import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
-import {ProjectsByDate} from '@/modules/construction-work/components/projects/ProjectsByDate'
-import {ProjectsByDistance} from '@/modules/construction-work/components/projects/ProjectsByDistance'
+import {Projects} from '@/modules/construction-work/components/projects/Projects'
 
 export const ConstructionWorkScreen = () => {
-  const {address} = useSelectedAddress()
   const isFocused = useIsFocusedEffect()
 
   return isFocused ? (
@@ -24,7 +22,9 @@ export const ConstructionWorkScreen = () => {
       withBottomInset={false}
       withLeftInset={false}
       withRightInset={false}>
-      {address ? <ProjectsByDistance address={address} /> : <ProjectsByDate />}
+      <Projects
+        HeaderButton={<ShareLocationTopTaskButton testID="ConstructionWork" />}
+      />
     </Screen>
   ) : null
 }

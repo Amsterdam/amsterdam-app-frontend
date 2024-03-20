@@ -9,7 +9,7 @@ import {Permissions} from '@/types/permissions'
 
 export type AddressState = {
   address?: Address
-  lastKnownCoordinates?: Coordinates
+  location?: Address
   locationType?: LocationType
 }
 
@@ -25,12 +25,9 @@ export const addressSlice = createSlice({
       ...state,
       address,
     }),
-    addLastKnownCoordinates: (
-      state,
-      {payload: lastKnownCoordinates}: PayloadAction<Coordinates>,
-    ) => ({
+    addLocation: (state, {payload: location}: PayloadAction<Address>) => ({
       ...state,
-      lastKnownCoordinates,
+      location,
     }),
     removeAddress: ({address, ...rest}) => rest,
     setLocationType: (
@@ -43,18 +40,14 @@ export const addressSlice = createSlice({
   },
 })
 
-export const {
-  addAddress,
-  addLastKnownCoordinates,
-  removeAddress,
-  setLocationType,
-} = addressSlice.actions
+export const {addAddress, addLocation, removeAddress, setLocationType} =
+  addressSlice.actions
 
 export const selectAddress = (state: RootState) =>
   state[ReduxKey.address].address
 
-export const selectLastKnownCoordinates = (state: RootState) =>
-  state[ReduxKey.address].lastKnownCoordinates
+export const selectLocation = (state: RootState) =>
+  state[ReduxKey.address].location
 
 export const selectLocationType = (
   state: RootState,

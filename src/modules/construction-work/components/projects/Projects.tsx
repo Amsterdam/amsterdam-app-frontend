@@ -1,8 +1,9 @@
 import {type ReactNode, useCallback, useState} from 'react'
 import type {ProjectsListItem} from '@/modules/construction-work/types/project'
-import type {AddressQueryArgs} from '@/types/api'
 import type {FlatGridProps} from 'react-native-super-grid'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
 import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
@@ -22,7 +23,6 @@ import {SearchFieldProvider} from '@/providers/searchField.provider'
 
 type Props = {
   HeaderButton: ReactNode
-  addressParam?: AddressQueryArgs
 }
 
 const emptyProjectsItem: ProjectsListItem = {
@@ -37,7 +37,9 @@ const emptyProjectsItem: ProjectsListItem = {
   title: ' ',
 }
 
-export const Projects = ({addressParam, HeaderButton}: Props) => {
+export const Projects = ({HeaderButton}: Props) => {
+  const {address} = useSelectedAddress()
+  const addressParam = getAddressParam(address)
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
   const [viewableItemIndex, setViewableItemIndex] = useState(1)

@@ -184,7 +184,7 @@ export const ProjectsList = ({
     ],
   )
 
-  if (isError) {
+  if (isError && (data?.length ?? 0) === 0) {
     return (
       <FullScreenError
         buttonLabel="Ga terug"

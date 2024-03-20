@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useMemo} from 'react'
-import {useLastKnownCoordinates} from '@/modules/address/hooks/useLastKnownCoordinates'
 import {useGetAddressForCoordinatesQuery} from '@/modules/address/service'
 import {Coordinates} from '@/modules/address/types'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
@@ -20,10 +19,8 @@ export const useAddressForCoordinates = ({
   rows = 1,
   shouldFetch = true,
 }: AddresForCoordinatesParams = {}) => {
-  const lastKnownCoordinates = useLastKnownCoordinates()
-  const coordinatesToUse = coordinates ?? lastKnownCoordinates
   const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
-    coordinatesToUse && shouldFetch ? {...coordinatesToUse, rows} : skipToken,
+    coordinates && shouldFetch ? {...coordinates, rows} : skipToken,
   )
 
   const memoizedAddresses = useMemo(() => {
