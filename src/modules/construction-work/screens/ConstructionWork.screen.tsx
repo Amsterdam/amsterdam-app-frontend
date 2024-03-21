@@ -1,7 +1,6 @@
 import {Screen} from '@/components/ui/layout/Screen'
 import {useIsFocusedEffect} from '@/hooks/navigation/useIsFocusedEffect'
 import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
 
@@ -22,9 +21,7 @@ export const ConstructionWorkScreen = () => {
       withBottomInset={false}
       withLeftInset={false}
       withRightInset={false}>
-      <Projects
-        HeaderButton={<ShareLocationTopTaskButton testID="ConstructionWork" />}
-      />
+      <Projects />
     </Screen>
   ) : null
 }

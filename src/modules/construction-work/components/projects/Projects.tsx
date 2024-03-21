@@ -1,7 +1,8 @@
-import {type ReactNode, useCallback, useState} from 'react'
+import {useCallback, useState} from 'react'
 import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {FlatGridProps} from 'react-native-super-grid'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
@@ -21,10 +22,6 @@ import {
 } from '@/modules/construction-work/types/api'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 
-type Props = {
-  HeaderButton: ReactNode
-}
-
 const emptyProjectsItem: ProjectsListItem = {
   followed: false,
   image: null,
@@ -37,7 +34,7 @@ const emptyProjectsItem: ProjectsListItem = {
   title: ' ',
 }
 
-export const Projects = ({HeaderButton}: Props) => {
+export const Projects = () => {
   const {address} = useSelectedAddress()
   const addressParam = getAddressParam(address)
   const {projectItemListPageSize} = config
@@ -90,7 +87,7 @@ export const Projects = ({HeaderButton}: Props) => {
         listHeader={
           <ProjectsListHeader>
             <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-            {HeaderButton}
+            <ShareLocationTopTaskButton testID="ConstructionWork" />
           </ProjectsListHeader>
         }
         noResultsMessage="We hebben geen werkzaamheden gevonden."
