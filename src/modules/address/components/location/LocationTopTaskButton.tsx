@@ -53,22 +53,20 @@ export const LocationTopTaskButton = ({
   useEffect(() => {
     setHasTechnicalError(false)
 
-    if (!hasPermission) {
+    if (!hasPermission || isGettingAddressForCoordinates) {
       return
     }
 
-    if (!isGettingAddressForCoordinates) {
-      getCurrentCoordinates().catch(error => {
-        const isTechnicalError = getPropertyFromMaybeObject(
-          error,
-          'isTechnicalError',
-        )
+    getCurrentCoordinates().catch(error => {
+      const isTechnicalError = getPropertyFromMaybeObject(
+        error,
+        'isTechnicalError',
+      )
 
-        if (isTechnicalError) {
-          setHasTechnicalError(true)
-        }
-      })
-    }
+      if (isTechnicalError) {
+        setHasTechnicalError(true)
+      }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldRequestPermission])
 
