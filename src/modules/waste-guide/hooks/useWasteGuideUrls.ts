@@ -27,7 +27,7 @@ export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
           ? getBulkyWasteAppointmentUrl(BULKY_WASTE_APPOINTMENT, address)
           : undefined,
       collectionPointsMapUrl:
-        afvalwijzerInstructie2.includes('een Recyclepunt') &&
+        afvalwijzerInstructie2?.includes('een Recyclepunt') &&
         afvalwijzerUrl === WASTE_COLLECTION_POINTS
           ? getCollectionPointsMapUrl(
               WASTE_COLLECTION_POINTS,

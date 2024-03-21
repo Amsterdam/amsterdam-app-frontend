@@ -42,7 +42,7 @@ export type WasteGuideResponseFraction = {
     type: string
   }
   afvalwijzerInstructie: string | null
-  afvalwijzerInstructie2: string
+  afvalwijzerInstructie2: string | null
   afvalwijzerInzamelgebiedCode: string | null
   afvalwijzerInzamelgebiedNaam: string | null
   afvalwijzerOphaaldagen: string | null
