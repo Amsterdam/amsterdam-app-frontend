@@ -28,7 +28,6 @@ export const WasteGuide = () => {
   const {media} = useTheme()
   const {
     address,
-    isError: selectedAddressForWasteGuideIsError,
     isFetching: selectedAddressForWasteGuideIsFetching,
     hasValidAddress,
   } = useSelectedAddress()
@@ -86,12 +85,7 @@ export const WasteGuide = () => {
     )
   }
 
-  if (
-    getGarbageCollectionAreaQueryIsError ||
-    selectedAddressForWasteGuideIsError ||
-    !wasteGuideData ||
-    !address
-  ) {
+  if (getGarbageCollectionAreaQueryIsError || !wasteGuideData || !address) {
     return (
       <FullScreenError
         buttonLabel="Ga terug"

@@ -25,7 +25,6 @@ const getSelectedAddress = (
 export const useSelectedAddress = (): {
   address: Address | undefined
   hasValidAddress: boolean
-  isError: boolean
   isFetching: boolean
   locationType: LocationType | undefined
 } => {
@@ -37,7 +36,6 @@ export const useSelectedAddress = (): {
   return {
     address: resultAddress,
     hasValidAddress: !!resultAddress,
-    isError: false,
     isFetching: locationType === 'location' && !location,
     locationType,
   }
