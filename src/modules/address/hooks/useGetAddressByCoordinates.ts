@@ -16,10 +16,9 @@ export const useGetAddressByCoordinates = (
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
   const getCurrentCoordinates = useGetCurrentCoordinates(purposeKey)
 
-  const {pdokAddresses, firstAddress, ...rest} = useAddressForCoordinates({
+  const {pdokAddresses, firstAddress, isFetching} = useAddressForCoordinates({
     coordinates,
     rows: SUGGESTION_COUNT,
-    shouldFetch: !!coordinates,
   })
 
   const getCoordinates = useCallback(async () => {
@@ -41,9 +40,8 @@ export const useGetAddressByCoordinates = (
 
   return {
     getCoordinates,
-    isGettingAddressForCoordinates: rest.isFetching || isGettingCoordinates,
+    isGettingAddressForCoordinates: isFetching || isGettingCoordinates,
     pdokAddresses,
     firstAddress,
-    ...rest,
   }
 }

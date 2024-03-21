@@ -11,16 +11,15 @@ type AddresForCoordinatesParams = {
 }
 
 /**
- * Get the address for a set of coordinates from the back end. Requests the address for the last known coordinates if the coordinates parameter is omitted.
+ * Get the address for a set of coordinates from the back end.
  * Returns the request metadata too, so loading and error states can be handled.
  */
 export const useAddressForCoordinates = ({
   coordinates,
   rows = 1,
-  shouldFetch = true,
 }: AddresForCoordinatesParams = {}) => {
-  const {currentData, ...rest} = useGetAddressForCoordinatesQuery(
-    coordinates && shouldFetch ? {...coordinates, rows} : skipToken,
+  const {currentData, isFetching} = useGetAddressForCoordinatesQuery(
+    coordinates ? {...coordinates, rows} : skipToken,
   )
 
   const memoizedAddresses = useMemo(() => {
@@ -37,7 +36,7 @@ export const useAddressForCoordinates = ({
   }, [currentData?.response.docs])
 
   return {
-    ...rest,
+    isFetching,
     ...memoizedAddresses,
   }
 }

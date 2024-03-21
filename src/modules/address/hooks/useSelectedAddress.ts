@@ -1,5 +1,5 @@
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useLocation} from '@/modules/address/hooks/useLastKnownCoordinates'
+import {useLocation} from '@/modules/address/hooks/useLocation'
 import {useLocationType} from '@/modules/address/slice'
 import {Address, LocationType} from '@/modules/address/types'
 
@@ -24,6 +24,7 @@ const getSelectedAddress = (
  */
 export const useSelectedAddress = (): {
   address: Address | undefined
+  hasValidAddress: boolean
   isError: boolean
   isFetching: boolean
   locationType: LocationType | undefined
@@ -31,9 +32,11 @@ export const useSelectedAddress = (): {
   const address = useAddress()
   const locationType = useLocationType()
   const location = useLocation()
+  const resultAddress = getSelectedAddress(address, location, locationType)
 
   return {
-    address: getSelectedAddress(address, location, locationType),
+    address: resultAddress,
+    hasValidAddress: !!resultAddress,
     isError: false,
     isFetching: locationType === 'location' && !location,
     locationType,

@@ -11,7 +11,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {useHasValidLocation} from '@/modules/address/hooks/useHasValidLocation'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressCity} from '@/modules/address/types'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
@@ -25,13 +24,13 @@ import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
-  const hasValidLocation = useHasValidLocation()
   const {isLandscape} = useDeviceContext()
   const {media} = useTheme()
   const {
     address,
     isError: selectedAddressForWasteGuideIsError,
     isFetching: selectedAddressForWasteGuideIsFetching,
+    hasValidAddress,
   } = useSelectedAddress()
 
   const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
@@ -51,7 +50,7 @@ export const WasteGuide = () => {
   if (
     getGarbageCollectionAreaQueryIsFetching ||
     selectedAddressForWasteGuideIsFetching ||
-    !hasValidLocation
+    !hasValidAddress
   ) {
     return (
       <Column
