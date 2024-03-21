@@ -4,6 +4,7 @@ import type {TestProps} from '@/components/ui/types'
 import type {LogProps} from '@/processes/piwik/types'
 import type {Theme} from '@/themes/themes'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
+import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -57,7 +58,7 @@ export const ProjectCard = memo(
           <AspectRatio aspectRatio="wide">
             <LazyImage
               missingSourceFallback={
-                !isDummyItem ? <ProjectWarningFallbackImage /> : undefined
+                !isDummyItem ? <ProjectWarningFallbackImage /> : <Skeleton />
               }
               source={imageSource}
               testID="ConstructionWorkProjectCardImage"

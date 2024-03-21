@@ -33,9 +33,8 @@ export const StreetSearchResultForLocation = ({
     [pdokAddresses],
   )
 
-  const {hasPermission: hasLocationPermission} = usePermission(
-    Permissions.location,
-  )
+  const {hasPermission: hasLocationPermission, requestPermission} =
+    usePermission(Permissions.location)
 
   useBlurEffect(() => {
     setShowFeedbackForNoResults(false)
@@ -64,7 +63,7 @@ export const StreetSearchResultForLocation = ({
             label="Gebruik mijn huidige locatie"
             onPress={() => {
               setShowFeedbackForNoResults(true)
-              void getCoordinates()
+              void requestPermission()
             }}
             testID="AddressUseLocationButton"
             variant="tertiary"

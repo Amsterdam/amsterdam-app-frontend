@@ -1,10 +1,9 @@
-import {useCallback, useState} from 'react'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useCallback, useEffect, useState} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
 import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {AddressModalName} from '@/modules/address/routes'
+import {addLocation} from '@/modules/address/slice'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
-import {getPropertyFromMaybeObject} from '@/utils/object'
 
 /** Number of suggestions returned by the address-for-coordinates Api */
 const SUGGESTION_COUNT = 5
@@ -12,16 +11,15 @@ const SUGGESTION_COUNT = 5
 export const useGetAddressByCoordinates = (
   purposeKey: HighAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 ) => {
+  const dispatch = useDispatch()
   const [coordinates, setCoordinates] = useState<Coordinates | undefined>()
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
   const getCurrentCoordinates = useGetCurrentCoordinates(purposeKey)
 
-  const {pdokAddresses, ...rest} = useAddressForCoordinates({
+  const {pdokAddresses, firstAddress, isFetching} = useAddressForCoordinates({
     coordinates,
     rows: SUGGESTION_COUNT,
-    shouldFetch: !!coordinates,
   })
-  const navigation = useNavigation<AddressModalName>()
 
   const getCoordinates = useCallback(async () => {
     try {
@@ -29,24 +27,21 @@ export const useGetAddressByCoordinates = (
       const currentCoordinates = await getCurrentCoordinates()
 
       setCoordinates(currentCoordinates)
-    } catch (error) {
-      const isTechnicalError = getPropertyFromMaybeObject(
-        error,
-        'isTechnicalError',
-      )
-
-      if (!isTechnicalError) {
-        navigation.navigate(AddressModalName.locationPermissionInstructions)
-      }
     } finally {
       setIsGettingCoordinates(false)
     }
-  }, [getCurrentCoordinates, navigation])
+  }, [getCurrentCoordinates])
+
+  useEffect(() => {
+    if (firstAddress) {
+      dispatch(addLocation(firstAddress))
+    }
+  }, [dispatch, firstAddress])
 
   return {
     getCoordinates,
-    isGettingAddressForCoordinates: rest.isFetching || isGettingCoordinates,
+    isGettingAddressForCoordinates: isFetching || isGettingCoordinates,
     pdokAddresses,
-    ...rest,
+    firstAddress,
   }
 }

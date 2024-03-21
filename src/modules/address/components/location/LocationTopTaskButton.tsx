@@ -1,12 +1,9 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useEffect, useState} from 'react'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useAddressForCoordinates} from '@/modules/address/hooks/useAddressForCoordinates'
-import {useGetCurrentCoordinates} from '@/modules/address/hooks/useGetCurrentCoordinates'
-import {addLastKnownCoordinates} from '@/modules/address/slice'
-import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {type LogProps} from '@/processes/piwik/types'
 import {Permissions} from '@/types/permissions'
 import {getPropertyFromMaybeObject} from '@/utils/object'
@@ -43,31 +40,24 @@ export const LocationTopTaskButton = ({
   testID,
   ...props
 }: Props) => {
-  const dispatch = useDispatch()
-  const [currentCoordinates, setCurrentCoordinates] = useState<Coordinates>()
-  const [requestingCurrentCoordinates, setRequestingCurrentCoordinates] =
-    useState(false)
   const [hasTechnicalError, setHasTechnicalError] = useState(false)
-  const {firstAddress: address, isFetching: addressForCoordinatesIsFetching} =
-    useAddressForCoordinates({coordinates: currentCoordinates})
 
-  // TODO: switch to useGetAddressByCoordinates
-  const getCurrentCoordinates = useGetCurrentCoordinates(highAccuracyPurposeKey)
+  const {
+    getCoordinates: getCurrentCoordinates,
+    firstAddress: address,
+    isGettingAddressForCoordinates,
+  } = useGetAddressByCoordinates(highAccuracyPurposeKey)
 
   const {hasPermission} = usePermission(Permissions.location)
 
-  const getCoordinates = useCallback(async () => {
-    try {
-      setRequestingCurrentCoordinates(true)
+  useEffect(() => {
+    setHasTechnicalError(false)
 
-      const coordinates = await getCurrentCoordinates()
+    if (!hasPermission || isGettingAddressForCoordinates) {
+      return
+    }
 
-      if (coordinates) {
-        dispatch(addLastKnownCoordinates(coordinates))
-      }
-
-      setCurrentCoordinates(coordinates)
-    } catch (error) {
+    getCurrentCoordinates().catch(error => {
       const isTechnicalError = getPropertyFromMaybeObject(
         error,
         'isTechnicalError',
@@ -76,34 +66,18 @@ export const LocationTopTaskButton = ({
       if (isTechnicalError) {
         setHasTechnicalError(true)
       }
-    } finally {
-      setRequestingCurrentCoordinates(false)
-    }
-  }, [dispatch, getCurrentCoordinates])
-
-  useEffect(() => {
-    setHasTechnicalError(false)
-
-    if (!hasPermission) {
-      return
-    }
-
-    if (!requestingCurrentCoordinates) {
-      void getCoordinates()
-    }
+    })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldRequestPermission])
 
-  const isLoading =
-    (addressForCoordinatesIsFetching || requestingCurrentCoordinates) &&
-    hasPermission
+  const isLoading = isGettingAddressForCoordinates && hasPermission
 
   return (
     <StatefulTopTaskButton
       iconName="location"
       isError={hasTechnicalError}
       isLoading={isLoading}
-      logName={`${testID}${hasPermission && currentCoordinates ? 'SelectLocation' : 'AddLocation'}`}
+      logName={`${testID}${hasPermission && address ? 'SelectLocation' : 'AddLocation'}`}
       onPress={onPress}
       testID={testID}
       text={getText(isLoading, hasPermission, address?.addressLine1)}
