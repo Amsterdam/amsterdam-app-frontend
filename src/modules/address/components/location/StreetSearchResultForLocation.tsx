@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
@@ -6,9 +6,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
+import {AddressModalName} from '@/modules/address/routes'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 import {Permissions} from '@/types/permissions'
@@ -46,6 +48,16 @@ export const StreetSearchResultForLocation = ({
     }
   }, [getCoordinates, hasLocationPermission])
 
+  const {navigate} = useNavigation<AddressModalName>()
+  const onPress = useCallback(() => {
+    setShowFeedbackForNoResults(true)
+    void requestPermission().then(granted => {
+      if (!granted) {
+        navigate(AddressModalName.locationPermissionInstructions)
+      }
+    })
+  }, [navigate, requestPermission])
+
   if (!showSuggestionsForLocation) {
     return null
   }
@@ -61,10 +73,7 @@ export const StreetSearchResultForLocation = ({
           <Button
             iconName="pointer"
             label="Gebruik mijn huidige locatie"
-            onPress={() => {
-              setShowFeedbackForNoResults(true)
-              void requestPermission()
-            }}
+            onPress={onPress}
             testID="AddressUseLocationButton"
             variant="tertiary"
           />
