@@ -33,10 +33,10 @@ export const useGetAddressByCoordinates = (
   }, [getCurrentCoordinates])
 
   useEffect(() => {
-    if (firstAddress && coordinates) {
+    if (firstAddress) {
       dispatch(addLocation(firstAddress))
     }
-  }, [coordinates, dispatch, firstAddress])
+  }, [dispatch, firstAddress])
 
   return {
     getCoordinates,
