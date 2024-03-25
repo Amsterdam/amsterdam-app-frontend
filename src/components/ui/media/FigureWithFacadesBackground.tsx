@@ -3,30 +3,30 @@ import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
-import {Figure, FigureProps} from '@/components/ui/media/Figure'
+import {Figure} from '@/components/ui/media/Figure'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
-import {mediaTokens} from '@/themes/tokens/media'
+import {ImageAspectRatio, mediaTokens} from '@/themes/tokens/media'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
-type SelectedFigureProps = Pick<FigureProps, 'aspectRatio' | 'height'>
-
 type Props = {
+  aspectRatio?: ImageAspectRatio
   backgroundImageHeightFraction?: number
   children?: ReactNode
+  height?: number
   horizontalInset?: keyof SpacingTokens
   imageAspectRatio?: number
   withWeesp?: boolean
-} & SelectedFigureProps &
-  TestProps
+} & TestProps
 
+/** If we have a width and an aspect ratio, use those to determine height, otherwise use a fraction of the available height */
 const getHeight = (deviceHeight: number, isLandscape: boolean) =>
-  Math.round(deviceHeight / (isLandscape ? 2 : 4))
+  Math.round(deviceHeight / (isLandscape ? 3 : 4))
 
 export const FigureWithFacadesBackground = ({
-  aspectRatio = 'wide',
+  aspectRatio,
   backgroundImageHeightFraction,
   children,
   height,
@@ -36,8 +36,8 @@ export const FigureWithFacadesBackground = ({
   withWeesp = false,
 }: Props) => {
   const {left, right} = useSafeAreaInsets()
-  const {height: deviceHeight, isLandscape} = useDeviceContext()
-  const figureHeight = height ?? getHeight(deviceHeight, isLandscape)
+  const {height: availableHeight, isLandscape} = useDeviceContext()
+  const figureHeight = height ?? getHeight(availableHeight, isLandscape)
 
   const styles = useThemable(
     createStyles({
@@ -65,7 +65,7 @@ export const FigureWithFacadesBackground = ({
           <BackgroundImage />
         </View>
         <View style={styles.imageOuter}>
-          <View style={styles.image}>{children}</View>
+          <View style={styles.imageInner}>{children}</View>
         </View>
       </Figure>
     </View>
@@ -102,6 +102,12 @@ const createStyles =
         position: 'relative',
         height,
       },
+      imageInner: {
+        aspectRatio: imageAspectRatio,
+        alignSelf: 'center',
+        maxHeight: height,
+        maxWidth: '100%',
+      },
       imageOuter: {
         paddingLeft: left + size.spacing[horizontalInset],
         paddingRight: right + size.spacing[horizontalInset],
@@ -111,11 +117,5 @@ const createStyles =
         left: 0,
         right: 0,
         height,
-      },
-      image: {
-        aspectRatio: imageAspectRatio,
-        alignSelf: 'center',
-        maxHeight: height,
-        maxWidth: '100%',
       },
     })
