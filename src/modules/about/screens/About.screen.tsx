@@ -4,7 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Screen} from '@/components/ui/layout/Screen'
 import {Track} from '@/components/ui/layout/Track'
-import {Figure} from '@/components/ui/media/Figure'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
@@ -77,14 +77,10 @@ export const AboutScreen = ({navigation}: Props) => (
             />
           </Column>
         </Column>
-        <Column
-          align="center"
-          flex={1}>
-          <Figure height={256}>
-            <TwoPersonsHighFiveImage />
-          </Figure>
-        </Column>
       </Track>
     </Box>
+    <FigureWithFacadesBackground testID="AboutTwoPersonsHighFiveImage">
+      <TwoPersonsHighFiveImage />
+    </FigureWithFacadesBackground>
   </Screen>
 )

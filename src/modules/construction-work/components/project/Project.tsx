@@ -4,6 +4,7 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {Title} from '@/components/ui/text/Title'
@@ -66,58 +67,64 @@ export const Project = ({id}: Props) => {
   const {image, followed, followers, meter, strides, subtitle, title} = project
 
   return (
-    <Column>
+    <>
       <LazyImage
         aspectRatio="wide"
-        missingSourceFallback={<ProjectWarningFallbackImage />}
+        missingSourceFallback={
+          <FigureWithFacadesBackground testID="ConstructionWorkProjectImageFallback">
+            <ProjectWarningFallbackImage />
+          </FigureWithFacadesBackground>
+        }
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
       />
-      <HorizontalSafeArea>
-        <Box>
-          <Column gutter="lg">
-            <ProjectFollow
-              followers={followers}
-              isFetchingProject={isFetching}
-              isProjectFollowed={followed}
-              projectId={id}
-              projectTitle={title}
-            />
-            <Column gutter="md">
-              <ProjectTraits
-                accessibilityLabel={accessibleText(
-                  getAccessibleDistanceText(meter, strides),
-                )}
-                byDistance={!!address}
-                project={project}
+      <Column>
+        <HorizontalSafeArea>
+          <Box>
+            <Column gutter="lg">
+              <ProjectFollow
+                followers={followers}
+                isFetchingProject={isFetching}
+                isProjectFollowed={followed}
+                projectId={id}
+                projectTitle={title}
               />
-              <SingleSelectable
-                accessibilityLabel={accessibleText(title, subtitle)}
-                accessibilityRole="header">
-                {!!title && (
-                  <Title
-                    testID="ConstructionWorkProjectTitle"
-                    text={title}
-                  />
-                )}
-                {!!subtitle && (
-                  <Title
-                    level="h4"
-                    testID="ConstructionWorkProjectSubtitle"
-                    text={subtitle}
-                  />
-                )}
-              </SingleSelectable>
+              <Column gutter="md">
+                <ProjectTraits
+                  accessibilityLabel={accessibleText(
+                    getAccessibleDistanceText(meter, strides),
+                  )}
+                  byDistance={!!address}
+                  project={project}
+                />
+                <SingleSelectable
+                  accessibilityLabel={accessibleText(title, subtitle)}
+                  accessibilityRole="header">
+                  {!!title && (
+                    <Title
+                      testID="ConstructionWorkProjectTitle"
+                      text={title}
+                    />
+                  )}
+                  {!!subtitle && (
+                    <Title
+                      level="h4"
+                      testID="ConstructionWorkProjectSubtitle"
+                      text={subtitle}
+                    />
+                  )}
+                </SingleSelectable>
+              </Column>
+              <ProjectSegmentMenu project={project} />
+              <ArticleOverview
+                projectId={id}
+                projectTitle={title}
+                title="Nieuws"
+              />
             </Column>
-            <ProjectSegmentMenu project={project} />
-            <ArticleOverview
-              projectId={id}
-              projectTitle={title}
-              title="Nieuws"
-            />
-          </Column>
-        </Box>
-      </HorizontalSafeArea>
-    </Column>
+          </Box>
+        </HorizontalSafeArea>
+      </Column>
+    </>
   )
 }

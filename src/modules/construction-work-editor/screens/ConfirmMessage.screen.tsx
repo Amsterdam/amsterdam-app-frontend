@@ -120,10 +120,10 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       ) : (
         <FigureWithFacadesBackground
           height={media.figureHeight.md}
-          Image={<ProjectWarningFallbackImage />}
           imageAspectRatio={media.aspectRatio.extraWide}
-          testID="ConstructionWorkEditorConfirmBackground"
-        />
+          testID="ConstructionWorkEditorConfirmBackground">
+          <ProjectWarningFallbackImage />
+        </FigureWithFacadesBackground>
       )}
       {!!mainImageDescription && <Paragraph>{mainImageDescription}</Paragraph>}
     </Column>

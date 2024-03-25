@@ -69,13 +69,11 @@ export const SelectCityScreen = ({navigation}: Props) => {
           </Box>
         </HorizontalSafeArea>
         <FigureWithFacadesBackground
-          height={media.figureHeight.xl}
-          Image={<PeopleAtCityOffice />}
           imageAspectRatio={media.illustrationAspectRatio.landscape}
-          imageWidth={media.illustrationWidth.wide}
           testID="RedirectsSelectCityBackground"
-          withWeesp
-        />
+          withWeesp>
+          <PeopleAtCityOffice />
+        </FigureWithFacadesBackground>
       </Column>
     </Screen>
   )
