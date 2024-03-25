@@ -16,30 +16,14 @@ type SelectedFigureProps = Pick<FigureProps, 'aspectRatio' | 'height'>
 type Props = {
   backgroundImageHeightFraction?: number
   children?: ReactNode
+  horizontalInset?: keyof SpacingTokens
   imageAspectRatio?: number
-  imageWidth?: number
-  inset?: keyof SpacingTokens
-  /**
-   * The number of pixels by which to move the figure up, sliding behind the content above it.
-   * This is especially useful on landscape devices.
-   */
-  moveUp?: number
   withWeesp?: boolean
 } & SelectedFigureProps &
   TestProps
 
-const getHeight = (
-  deviceHeight: number,
-  isLandscape: boolean,
-  imageWidth?: number,
-  imageAspectRatio?: number,
-) => {
-  if (imageWidth && imageAspectRatio) {
-    return imageWidth / imageAspectRatio
-  }
-
-  return Math.round(deviceHeight / (isLandscape ? 2 : 4))
-}
+const getHeight = (deviceHeight: number, isLandscape: boolean) =>
+  Math.round(deviceHeight / (isLandscape ? 2 : 4))
 
 export const FigureWithFacadesBackground = ({
   aspectRatio = 'wide',
@@ -47,24 +31,20 @@ export const FigureWithFacadesBackground = ({
   children,
   height,
   imageAspectRatio = mediaTokens.aspectRatio.wide,
-  imageWidth,
-  inset,
-  moveUp,
+  horizontalInset,
   testID,
   withWeesp = false,
 }: Props) => {
   const {left, right} = useSafeAreaInsets()
   const {height: deviceHeight, isLandscape} = useDeviceContext()
-  const figureHeight =
-    height ?? getHeight(deviceHeight, isLandscape, imageWidth, imageAspectRatio)
+  const figureHeight = height ?? getHeight(deviceHeight, isLandscape)
 
   const styles = useThemable(
     createStyles({
       backgroundImageHeightFraction,
-      figureHeight,
+      height: figureHeight,
       imageAspectRatio,
-      inset,
-      moveUp,
+      horizontalInset,
       left,
       right,
     }),
@@ -94,9 +74,9 @@ export const FigureWithFacadesBackground = ({
 
 type StyleProps = Pick<
   Props,
-  'backgroundImageHeightFraction' | 'imageAspectRatio' | 'inset' | 'moveUp'
+  'backgroundImageHeightFraction' | 'imageAspectRatio' | 'horizontalInset'
 > & {
-  figureHeight: number
+  height: number
   left: number
   right: number
 }
@@ -104,46 +84,38 @@ type StyleProps = Pick<
 const createStyles =
   ({
     backgroundImageHeightFraction = 3 / 4,
-    figureHeight,
+    height,
     imageAspectRatio = mediaTokens.aspectRatio.wide,
-    inset = 'md',
-    moveUp,
+    horizontalInset = 'md',
     left,
     right,
   }: StyleProps) =>
-  ({media, size, z}: Theme) => {
-    const backgroundImageHeight = figureHeight * backgroundImageHeightFraction
-    const paddingLeft = left + size.spacing[inset]
-    const paddingRight = right + size.spacing[inset]
-
-    return StyleSheet.create({
+  ({media, size}: Theme) =>
+    StyleSheet.create({
       backgroundImage: {
         aspectRatio: media.illustrationAspectRatio.facades,
         position: 'absolute',
-        height: backgroundImageHeight,
+        height: height * backgroundImageHeightFraction,
         alignSelf: 'center',
       },
       figure: {
         position: 'relative',
-        marginTop: moveUp ? -moveUp : undefined,
-        zIndex: moveUp ? z.figureWithFacadesBackgroundFigure : undefined,
-        height: figureHeight,
+        height,
       },
       imageOuter: {
-        paddingLeft,
-        paddingRight,
+        paddingLeft: left + size.spacing[horizontalInset],
+        paddingRight: right + size.spacing[horizontalInset],
         position: 'absolute',
         top: 0,
         bottom: 0,
         left: 0,
         right: 0,
-        height: figureHeight,
+        height,
       },
       image: {
         aspectRatio: imageAspectRatio,
         alignSelf: 'center',
-        maxHeight: figureHeight,
+        maxHeight: height,
         maxWidth: '100%',
       },
     })
-  }
