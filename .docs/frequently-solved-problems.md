@@ -92,3 +92,7 @@ To this:
 ```
   D76C6CCC2729820200E1460A,
 ```
+
+## iOS emails with "ITMS-91053: Missing API declaration"
+
+You need to add decarations to PrivacyInfo.xcprivacy (see [iOS Privacy](ios-privacy.md))
