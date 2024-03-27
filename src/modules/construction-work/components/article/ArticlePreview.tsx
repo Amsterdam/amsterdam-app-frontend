@@ -4,6 +4,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -87,8 +88,14 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 <LazyImage
                   aspectRatio="extraWide"
-                  missingSourceFallback={<ProjectWarningFallbackImage />}
-                  source={article.images?.[0]?.sources}
+                  missingSourceFallback={
+                    <FigureWithFacadesBackground
+                      aspectRatio="extraWide"
+                      height={113}
+                      testID={`${testID}ImageFallback`}>
+                      <ProjectWarningFallbackImage />
+                    </FigureWithFacadesBackground>
+                  }
                   testID={`${testID}Image`}
                 />
               </View>
@@ -110,7 +117,7 @@ const createStyles =
     {isFirst, isLast}: Partial<Props>,
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
-  ({color, size, media, z}: Theme) => {
+  ({color, size, z}: Theme) => {
     const itemBottomInset = isLast ? 0 : size.spacing.xl
 
     const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
@@ -130,7 +137,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       image: {
-        width: media.figureHeight.lg,
+        width: 256,
       },
       item: {
         paddingBottom: itemBottomInset,

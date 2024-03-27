@@ -6,11 +6,12 @@ import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
-import {IllustratioAspectRatio} from '@/themes/tokens/media'
+import {IllustratioAspectRatio, ImageAspectRatio} from '@/themes/tokens/media'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  aspectRatio?: ImageAspectRatio
   backgroundImageHeightFraction?: number
   children?: ReactNode
   height?: number
@@ -24,6 +25,7 @@ const getHeight = (deviceHeight: number, isLandscape: boolean) =>
   Math.round(deviceHeight / (isLandscape ? 3 : 4))
 
 export const FigureWithFacadesBackground = ({
+  aspectRatio,
   backgroundImageHeightFraction,
   children,
   height,
@@ -38,6 +40,7 @@ export const FigureWithFacadesBackground = ({
 
   const styles = useThemable(
     createStyles({
+      aspectRatio,
       backgroundImageHeightFraction,
       height: figureHeight,
       illustrationAspectRatio,
@@ -67,6 +70,7 @@ export const FigureWithFacadesBackground = ({
 
 type StyleProps = Pick<
   Props,
+  | 'aspectRatio'
   | 'backgroundImageHeightFraction'
   | 'illustrationAspectRatio'
   | 'horizontalInset'
@@ -78,6 +82,7 @@ type StyleProps = Pick<
 
 const createStyles =
   ({
+    aspectRatio,
     backgroundImageHeightFraction = 3 / 4,
     height,
     illustrationAspectRatio = 'landscape',
@@ -96,6 +101,7 @@ const createStyles =
         position: 'absolute',
       },
       figure: {
+        aspectRatio: aspectRatio ? media.aspectRatio[aspectRatio] : undefined,
         height,
         overflow: 'hidden',
         position: 'relative',
