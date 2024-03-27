@@ -96,6 +96,7 @@ export const ArticlePreview = ({
                       <ProjectWarningFallbackImage />
                     </FigureWithFacadesBackground>
                   }
+                  source={article.images?.[0]?.sources}
                   testID={`${testID}Image`}
                 />
               </View>
