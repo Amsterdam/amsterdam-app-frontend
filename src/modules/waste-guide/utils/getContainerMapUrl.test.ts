@@ -44,6 +44,6 @@ describe('getContainerMapUrl', () => {
       FractionCode.GA,
     )
 
-    expect(result).toBeUndefined()
+    expect(result).toBe('https://url.com')
   })
 })

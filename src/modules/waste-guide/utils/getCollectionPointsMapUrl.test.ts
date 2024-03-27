@@ -13,7 +13,7 @@ describe('getCollectionPointsMapUrl', () => {
 })
 
 it('should return a fallback URL when no coordinates are provided', () => {
-  const expectedUrl = `https://url.com/#13/0.00000/0.00000/brt/26795///0.00000,0.00000`
+  const expectedUrl = `https://url.com`
 
   const result = getCollectionPointsMapUrl('https://url.com', undefined)
 

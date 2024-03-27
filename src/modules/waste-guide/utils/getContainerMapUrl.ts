@@ -34,7 +34,7 @@ export const getContainerMapUrl = (
   fractionCode?: FractionCode,
 ) => {
   if (!coordinates) {
-    return
+    return wasteContainersUrl
   }
 
   const locationTypes = getLocationTypes(fractionCode)
