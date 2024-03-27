@@ -67,7 +67,7 @@ export const Project = ({id}: Props) => {
   const {image, followed, followers, meter, strides, subtitle, title} = project
 
   return (
-    <>
+    <Column>
       <LazyImage
         aspectRatio="wide"
         fallbackInheritsAspectRatio={false}
@@ -79,53 +79,51 @@ export const Project = ({id}: Props) => {
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
       />
-      <Column>
-        <HorizontalSafeArea>
-          <Box>
-            <Column gutter="lg">
-              <ProjectFollow
-                followers={followers}
-                isFetchingProject={isFetching}
-                isProjectFollowed={followed}
-                projectId={id}
-                projectTitle={title}
+      <HorizontalSafeArea>
+        <Box>
+          <Column gutter="lg">
+            <ProjectFollow
+              followers={followers}
+              isFetchingProject={isFetching}
+              isProjectFollowed={followed}
+              projectId={id}
+              projectTitle={title}
+            />
+            <Column gutter="md">
+              <ProjectTraits
+                accessibilityLabel={accessibleText(
+                  getAccessibleDistanceText(meter, strides),
+                )}
+                byDistance={!!address}
+                project={project}
               />
-              <Column gutter="md">
-                <ProjectTraits
-                  accessibilityLabel={accessibleText(
-                    getAccessibleDistanceText(meter, strides),
-                  )}
-                  byDistance={!!address}
-                  project={project}
-                />
-                <SingleSelectable
-                  accessibilityLabel={accessibleText(title, subtitle)}
-                  accessibilityRole="header">
-                  {!!title && (
-                    <Title
-                      testID="ConstructionWorkProjectTitle"
-                      text={title}
-                    />
-                  )}
-                  {!!subtitle && (
-                    <Title
-                      level="h4"
-                      testID="ConstructionWorkProjectSubtitle"
-                      text={subtitle}
-                    />
-                  )}
-                </SingleSelectable>
-              </Column>
-              <ProjectSegmentMenu project={project} />
-              <ArticleOverview
-                projectId={id}
-                projectTitle={title}
-                title="Nieuws"
-              />
+              <SingleSelectable
+                accessibilityLabel={accessibleText(title, subtitle)}
+                accessibilityRole="header">
+                {!!title && (
+                  <Title
+                    testID="ConstructionWorkProjectTitle"
+                    text={title}
+                  />
+                )}
+                {!!subtitle && (
+                  <Title
+                    level="h4"
+                    testID="ConstructionWorkProjectSubtitle"
+                    text={subtitle}
+                  />
+                )}
+              </SingleSelectable>
             </Column>
-          </Box>
-        </HorizontalSafeArea>
-      </Column>
-    </>
+            <ProjectSegmentMenu project={project} />
+            <ArticleOverview
+              projectId={id}
+              projectTitle={title}
+              title="Nieuws"
+            />
+          </Column>
+        </Box>
+      </HorizontalSafeArea>
+    </Column>
   )
 }
