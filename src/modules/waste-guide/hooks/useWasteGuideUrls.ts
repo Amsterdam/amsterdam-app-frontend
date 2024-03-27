@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {
   BULKY_WASTE_APPOINTMENT,
   SCHEDULE_WASTE_PICKUP,
@@ -17,7 +17,7 @@ import {getContainerMapUrl} from '@/modules/waste-guide/utils/getContainerMapUrl
 export const useWasteGuideUrls = (fraction: WasteGuideResponseFraction) => {
   const {afvalwijzerFractieCode, afvalwijzerInstructie2, afvalwijzerUrl} =
     fraction
-  const address = useAddress()
+  const {address} = useSelectedAddress()
 
   // TODO: remove url post processing once the API includes the url as a single property
   return useMemo(
