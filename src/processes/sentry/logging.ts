@@ -10,13 +10,13 @@ import {
   withScope,
 } from '@sentry/react-native'
 import {devLog} from '@/processes/development'
-import {getFilteredSentryData} from '@/processes/sentry/getFilteredSentryData'
 import {
   BreadcrumbCategory,
   SentryErrorLogKey,
   type CaptureBreadcrumb,
   type SendErrorLog,
 } from '@/processes/sentry/types'
+import {getFilteredSentryData} from '@/processes/sentry/utils'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 /**

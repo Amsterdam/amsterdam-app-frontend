@@ -1,6 +1,6 @@
 import {NavigationContainerRef} from '@react-navigation/native'
 import {
-  Breadcrumb,
+  type Breadcrumb,
   init,
   ReactNativeTracing,
   ReactNavigationInstrumentation,
@@ -8,11 +8,12 @@ import {
   setUser,
   wrap,
 } from '@sentry/react-native'
-import {RefObject} from 'react'
 import {Platform} from 'react-native'
-import {RootStackParams} from '@/app/navigation/types'
-import {Environment} from '@/environment'
+import type {RootStackParams} from '@/app/navigation/types'
+import type {Environment} from '@/environment'
+import type {ComponentType, RefObject} from 'react'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
+import {getEventWithoutFreeStorageForIos} from '@/processes/sentry/utils'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 import {BUILD_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
@@ -62,7 +63,8 @@ export const initSentry = () => {
 
       return breadcrumb
     },
-    // beforeSend: event => event, // process the event before sending it to Sentry
+    beforeSend: getEventWithoutFreeStorageForIos,
+    beforeSendTransaction: getEventWithoutFreeStorageForIos,
     // ignoreErrors: [], // can be used to filter out the occasional false positive
     tracesSampleRate: isDevApp ? 1 : 0.1,
     integrations: [
@@ -74,8 +76,8 @@ export const initSentry = () => {
 }
 
 export const sentryWrap = <P extends Record<string, unknown>>(
-  RootComponent: React.ComponentType<P>,
-): React.ComponentType<P> => {
+  RootComponent: ComponentType<P>,
+): ComponentType<P> => {
   if (!enableSentry) {
     return RootComponent
   }
