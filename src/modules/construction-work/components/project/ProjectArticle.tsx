@@ -2,6 +2,7 @@ import {ReactNode} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -37,8 +38,14 @@ export const ProjectArticle = ({
       accessibilityLabel={image?.alternativeText ?? undefined}
       accessible={!!image?.alternativeText}
       aspectRatio="wide"
+      fallbackInheritsAspectRatio={false}
       missingSourceFallback={
-        type === 'warning' ? <ProjectWarningFallbackImage /> : undefined
+        type !== 'warning' ? (
+          <FigureWithFacadesBackground
+            testID={`ConstructionWorkProjectArticle${id}ImageFallback`}>
+            <ProjectWarningFallbackImage />
+          </FigureWithFacadesBackground>
+        ) : undefined
       }
       source={image?.sources}
       testID={`ConstructionWorkProjectArticle${id}Image`}

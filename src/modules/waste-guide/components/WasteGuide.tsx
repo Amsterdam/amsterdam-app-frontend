@@ -19,11 +19,9 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
-import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
-  const {media} = useTheme()
   const {
     address,
     isFetching: selectedAddressForWasteGuideIsFetching,
@@ -71,9 +69,7 @@ export const WasteGuide = () => {
             </Column>
           </Box>
         </HorizontalSafeArea>
-        <FigureWithFacadesBackground
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
-          testID="WasteGuideRequestLocationBackground">
+        <FigureWithFacadesBackground testID="WasteGuideRequestLocationBackground">
           <HouseholdWasteToContainerImage />
         </FigureWithFacadesBackground>
       </Column>
@@ -125,14 +121,12 @@ export const WasteGuide = () => {
         </Box>
       </HorizontalSafeArea>
       {hasContent ? (
-        <FigureWithFacadesBackground
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
-          testID="WasteGuideBackground">
+        <FigureWithFacadesBackground testID="WasteGuideBackground">
           <HouseholdWasteToContainerImage />
         </FigureWithFacadesBackground>
       ) : (
         <FigureWithFacadesBackground
-          imageAspectRatio={media.illustrationAspectRatio.portrait}
+          illustrationAspectRatio="portrait"
           testID="WasteGuideNotFoundBackground">
           <WasteGuideNotFoundImage />
         </FigureWithFacadesBackground>

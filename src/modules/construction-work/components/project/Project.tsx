@@ -70,6 +70,7 @@ export const Project = ({id}: Props) => {
     <>
       <LazyImage
         aspectRatio="wide"
+        fallbackInheritsAspectRatio={false}
         missingSourceFallback={
           <FigureWithFacadesBackground testID="ConstructionWorkProjectImageFallback">
             <ProjectWarningFallbackImage />

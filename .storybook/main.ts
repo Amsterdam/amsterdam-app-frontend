@@ -79,6 +79,10 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/image-crop-picker'),
           },
           {
+            find: 'react-native-safe-area-context',
+            replacement: require.resolve('./mocks/safe-area-context'),
+          },
+          {
             find: 'react-native-svg',
             replacement: 'react-native-svg-web',
           },

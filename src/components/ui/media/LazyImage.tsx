@@ -18,6 +18,7 @@ import {type ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = Omit<ImageProps, 'style'> & {
+  fallbackInheritsAspectRatio?: boolean
   imageStyle?: StyleProp<ImageStyle>
   /**
    * If the source is undefined, show the missingSourceFallback when it exists
@@ -35,6 +36,7 @@ const hasImageSource = (source?: ImageSourcePropType) => {
 
 export const LazyImage = ({
   aspectRatio = 'wide',
+  fallbackInheritsAspectRatio = true,
   imageStyle,
   onError,
   onLoadEnd,
@@ -67,7 +69,13 @@ export const LazyImage = ({
 
   if (!hasImageSource(source)) {
     if (missingSourceFallback) {
-      return <View testID={testID}>{missingSourceFallback}</View>
+      return (
+        <View
+          style={fallbackInheritsAspectRatio ? wrapperAspectRatio : undefined}
+          testID={testID}>
+          {missingSourceFallback}
+        </View>
+      )
     }
 
     return null

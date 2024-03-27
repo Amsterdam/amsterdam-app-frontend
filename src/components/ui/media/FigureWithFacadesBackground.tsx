@@ -3,34 +3,31 @@ import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
-import {Figure} from '@/components/ui/media/Figure'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatio, mediaTokens} from '@/themes/tokens/media'
+import {IllustratioAspectRatio} from '@/themes/tokens/media'
 import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  aspectRatio?: ImageAspectRatio
   backgroundImageHeightFraction?: number
   children?: ReactNode
   height?: number
   horizontalInset?: keyof SpacingTokens
-  imageAspectRatio?: number
+  illustrationAspectRatio?: IllustratioAspectRatio
   withWeesp?: boolean
 } & TestProps
 
-/** If we have a width and an aspect ratio, use those to determine height, otherwise use a fraction of the available height */
+/** Get a sensible height as a fraction of the available height */
 const getHeight = (deviceHeight: number, isLandscape: boolean) =>
   Math.round(deviceHeight / (isLandscape ? 3 : 4))
 
 export const FigureWithFacadesBackground = ({
-  aspectRatio,
   backgroundImageHeightFraction,
   children,
   height,
-  imageAspectRatio = mediaTokens.aspectRatio.wide,
+  illustrationAspectRatio,
   horizontalInset,
   testID,
   withWeesp = false,
@@ -43,7 +40,7 @@ export const FigureWithFacadesBackground = ({
     createStyles({
       backgroundImageHeightFraction,
       height: figureHeight,
-      imageAspectRatio,
+      illustrationAspectRatio,
       horizontalInset,
       left,
       right,
@@ -58,23 +55,21 @@ export const FigureWithFacadesBackground = ({
     <View
       style={styles.figure}
       testID={testID}>
-      <Figure
-        aspectRatio={aspectRatio}
-        height={figureHeight}>
-        <View style={styles.backgroundImage}>
-          <BackgroundImage />
-        </View>
-        <View style={styles.imageOuter}>
-          <View style={styles.imageInner}>{children}</View>
-        </View>
-      </Figure>
+      <View style={styles.backgroundImage}>
+        <BackgroundImage />
+      </View>
+      <View style={styles.imageOuter}>
+        <View style={styles.imageInner}>{children}</View>
+      </View>
     </View>
   )
 }
 
 type StyleProps = Pick<
   Props,
-  'backgroundImageHeightFraction' | 'imageAspectRatio' | 'horizontalInset'
+  | 'backgroundImageHeightFraction'
+  | 'illustrationAspectRatio'
+  | 'horizontalInset'
 > & {
   height: number
   left: number
@@ -85,37 +80,39 @@ const createStyles =
   ({
     backgroundImageHeightFraction = 3 / 4,
     height,
-    imageAspectRatio = mediaTokens.aspectRatio.wide,
+    illustrationAspectRatio = 'landscape',
     horizontalInset = 'md',
     left,
     right,
   }: StyleProps) =>
-  ({media, size}: Theme) =>
-    StyleSheet.create({
+  ({media, size}: Theme) => {
+    const horizontalInsetSize = size.spacing[horizontalInset]
+
+    return StyleSheet.create({
       backgroundImage: {
-        aspectRatio: media.illustrationAspectRatio.facades,
-        position: 'absolute',
-        height: height * backgroundImageHeightFraction,
         alignSelf: 'center',
+        aspectRatio: media.illustrationAspectRatio.facades,
+        height: height * backgroundImageHeightFraction,
+        position: 'absolute',
       },
       figure: {
-        position: 'relative',
         height,
+        overflow: 'hidden',
+        position: 'relative',
       },
       imageInner: {
-        aspectRatio: imageAspectRatio,
-        alignSelf: 'center',
-        maxHeight: height,
+        aspectRatio: media.illustrationAspectRatio[illustrationAspectRatio],
+        height,
         maxWidth: '100%',
       },
       imageOuter: {
-        paddingLeft: left + size.spacing[horizontalInset],
-        paddingRight: right + size.spacing[horizontalInset],
-        position: 'absolute',
-        top: 0,
+        alignItems: 'center',
         bottom: 0,
-        left: 0,
-        right: 0,
         height,
+        left: left + horizontalInsetSize,
+        position: 'absolute',
+        right: right + horizontalInsetSize,
+        top: 0,
       },
     })
+  }

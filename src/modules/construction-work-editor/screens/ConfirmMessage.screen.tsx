@@ -32,7 +32,6 @@ import {
 } from '@/modules/construction-work-editor/services'
 import {useAddNotificationMutation} from '@/services/notifications'
 import {useAlert} from '@/store/slices/alert'
-import {useTheme} from '@/themes/useTheme'
 
 type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
 
@@ -58,8 +57,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     useAddProjectWarningImageMutation()
   const [addNotification, {isLoading: isLoadingAddNotification}] =
     useAddNotificationMutation()
-
-  const {media} = useTheme()
 
   useSetScreenTitle()
 
@@ -118,10 +115,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       {mainImage ? (
         <Image source={{uri: mainImage?.path}} />
       ) : (
-        <FigureWithFacadesBackground
-          height={media.figureHeight.md}
-          imageAspectRatio={media.aspectRatio.extraWide}
-          testID="ConstructionWorkEditorConfirmBackground">
+        <FigureWithFacadesBackground testID="ConstructionWorkEditorConfirmBackground">
           <ProjectWarningFallbackImage />
         </FigureWithFacadesBackground>
       )}

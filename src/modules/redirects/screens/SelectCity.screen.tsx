@@ -14,14 +14,12 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
-import {useTheme} from '@/themes/useTheme'
 
 type Props = NavigationProps<RedirectsRouteName.selectCity>
 
 export const SelectCityScreen = ({navigation}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useDeviceContext()
-  const {media} = useTheme()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
   return (
@@ -69,7 +67,6 @@ export const SelectCityScreen = ({navigation}: Props) => {
           </Box>
         </HorizontalSafeArea>
         <FigureWithFacadesBackground
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
           testID="RedirectsSelectCityBackground"
           withWeesp>
           <PeopleAtCityOffice />
