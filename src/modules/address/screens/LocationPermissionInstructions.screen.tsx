@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {Linking} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,17 +8,33 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
+import {useAppState} from '@/hooks/useAppState'
+import {AddressModalName} from '@/modules/address/routes'
 import {Permissions} from '@/types/permissions'
 
 export const LocationPermissionInstructionsScreen = () => {
-  const {goBack} = useNavigation()
-  const {hasPermission} = usePermission(Permissions.location)
+  const {getState, reset} = useNavigation<AddressModalName>()
+  const {requestPermission} = usePermission(Permissions.location)
 
-  useEffect(() => {
-    if (hasPermission) {
-      goBack()
-    }
-  }, [goBack, hasPermission])
+  useAppState({
+    onForeground: () => {
+      void requestPermission().then(granted => {
+        if (granted) {
+          const {index, routes, key, routeNames, type} = getState()
+
+          routes.pop()
+          reset({
+            index: index - 1,
+            routes,
+            stale: false,
+            key,
+            routeNames,
+            type,
+          })
+        }
+      })
+    },
+  })
 
   return (
     <Screen
