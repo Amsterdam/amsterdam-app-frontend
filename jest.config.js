@@ -24,7 +24,6 @@ module.exports = {
     'src/**/*.{ts,tsx}',
     '!**/node_modules/**',
     '!**/*.stories.{ts,tsx}',
-    '!src/utils/getAuthToken.ts',
     '!src/processes/piwik/init.ts',
   ],
   reporters: [

@@ -11,7 +11,6 @@ module.exports = {
         allowlist: [
           'API_KEY',
           'AUTH_PASSWORD',
-          'AUTH_SHARED_SECRET',
           'BUILD_NUMBER',
           'PIWIK_PRO_ID',
           'PIWIK_PRO_ID_ACCEPT',
