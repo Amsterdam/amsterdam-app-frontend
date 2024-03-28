@@ -16,7 +16,7 @@ import {
   type CaptureBreadcrumb,
   type SendErrorLog,
 } from '@/processes/sentry/types'
-import {getFilteredSentryData} from '@/processes/sentry/utils'
+import {getAllowedData} from '@/processes/sentry/utils'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 /**
@@ -38,7 +38,7 @@ export const getCaptureSentryBreadcrumb =
 export const getSendSentryErrorLog =
   (logData: boolean): SendErrorLog =>
   (logKey, filename, data, errorTitle) => {
-    const extraData = logData ? getFilteredSentryData(logKey, data) : undefined
+    const extraData = logData ? getAllowedData(logKey, data) : undefined
 
     devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, extraData)
 
