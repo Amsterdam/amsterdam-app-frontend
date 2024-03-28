@@ -30,3 +30,19 @@ See [the docs](https://developer.apple.com/documentation/bundleresources/privacy
 > Declare this reason to include disk space information in an optional bug report that the person using the device chooses to submit. The disk space information must be prominently displayed to the person as part of the report.
 >
 > Information accessed for this reason, or any derived information, may be sent off-device only after the user affirmatively chooses to submit the specific bug report including disk space information, and only for the purpose of investigating or responding to the bug report.
+
+### NSPrivacyAccessedAPICategorySystemBootTime
+
+#### 3D61.1
+
+> Declare this reason to include system boot time information in an optional bug report that the person using the device chooses to submit. The system boot time information must be prominently displayed to the person as part of the report.
+>
+> Information accessed for this reason, or any derived information, may be sent off-device only after the user affirmatively chooses to submit the specific bug report including system boot time information, and only for the purpose of investigating or responding to the bug report.
+
+### NSPrivacyAccessedAPICategoryUserDefaults
+
+#### CA92.1
+
+> Declare this reason to access user defaults to read and write information that is only accessible to the app itself.
+>
+> This reason does not permit reading information that was written by other apps or the system, or writing information that can be accessed by other apps.
