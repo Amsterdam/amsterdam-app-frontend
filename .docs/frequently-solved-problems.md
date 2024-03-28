@@ -95,4 +95,11 @@ To this:
 
 ## iOS emails with "ITMS-91053: Missing API declaration"
 
-You need to add decarations to PrivacyInfo.xcprivacy (see [iOS Privacy](ios-privacy.md))
+Apple offers a number of APIs, i.e. features of the operation system that can be used/accessed by the app. Usage of some of these features has to be declared in a "privacy manifest" (*PrivacyInfo.xcprivacy* file). Packages should declare a manifest themselves. In other words: we should not have to do this, unless we write custom native code using these APIs.
+
+If we get emails with this ITMS-91053 error, we can run a scan script to find the culprit:
+
+- https://gist.github.com/MarcoEidinger/22feb1588c3d7be41c42853a77e52772/
+- https://github.com/Wooder/ios_17_required_reason_api_scanner
+
+Then we should report the issue (if necessary) and when fixed, update the offending package.
