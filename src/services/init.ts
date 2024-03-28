@@ -17,7 +17,6 @@ import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
-import {deviceAuthorizationToken} from '@/utils/getAuthToken'
 import {VERSION_NUMBER} from '@/utils/version'
 
 const managerAuthorizedEndpoints = [
@@ -55,8 +54,6 @@ const dynamicBaseQuery: BaseQueryFn<
 
           deviceIdRequestingEndpoints.includes(endpoint) &&
             headers.set('deviceid', SHA256EncryptedDeviceId)
-
-          headers.set('DeviceAuthorization', deviceAuthorizationToken)
 
           if (API_KEY) {
             headers.set('X-API-KEY', API_KEY)
