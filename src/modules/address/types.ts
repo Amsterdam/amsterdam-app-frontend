@@ -22,6 +22,37 @@ export type Address = {
   street: string
 }
 
+export type AddressState = {
+  /**
+   * User provided address, settable via the user profile
+   */
+  address?: Address
+  /**
+   * True when user requests to get the location
+   */
+  getLocation: boolean | undefined
+  /**
+   * Error when getting coordinates or fetching address fails
+   */
+  getLocationIsError: boolean | undefined
+  /**
+   * Purpose key for high accuracy location
+   */
+  highAccuracyPurposeKey: HighAccuracyPurposeKey
+  /**
+   * True when getting coordinates or fetching address
+   */
+  isGettingLocation?: boolean
+  /**
+   * GPS provided address
+   */
+  location?: Address
+  /**
+   * user preference for using location or address
+   */
+  locationType?: LocationType
+}
+
 export type PdokAddress = {
   centroide_ll: `POINT(${number} ${number})`
   huisletter?: string

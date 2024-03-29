@@ -45,6 +45,7 @@ export const useCheckPermissions = () => {
                   const granted = result === RESULTS.GRANTED
 
                   dispatch(setPermission({permission, granted}))
+
                   resolve(granted)
                 })
                 .catch((error: unknown) => {
@@ -75,7 +76,7 @@ export const useCheckPermissions = () => {
         }
       })
     },
-    [dispatch, sendSentryErrorLog, trackCustomEvent, ready],
+    [dispatch, sendSentryErrorLog, ready, trackCustomEvent],
   )
 
   useEffect(() => {

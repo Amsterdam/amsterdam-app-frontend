@@ -1,5 +1,6 @@
 import {migrations} from '@/modules/address/migrations'
-import {AddressState, addressSlice} from '@/modules/address/slice'
+import {addressSlice} from '@/modules/address/slice'
+import {AddressState} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {CoreModuleConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
