@@ -1,6 +1,8 @@
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useLocation} from '@/modules/address/hooks/useLocation'
-import {useLocationType} from '@/modules/address/slice'
+import {useLocationType} from '@/modules/address/hooks/useLocationType'
+import {selectIsGettingLocation} from '@/modules/address/slice'
 import {Address, LocationType} from '@/modules/address/types'
 
 const getSelectedAddress = (
@@ -25,18 +27,19 @@ const getSelectedAddress = (
 export const useSelectedAddress = (): {
   address: Address | undefined
   hasValidAddress: boolean
-  isFetching: boolean
+  isFetching: boolean | undefined
   locationType: LocationType | undefined
 } => {
   const address = useAddress()
-  const locationType = useLocationType()
+  const {locationType} = useLocationType()
   const location = useLocation()
   const resultAddress = getSelectedAddress(address, location, locationType)
+  const isGettingLocation = useSelector(selectIsGettingLocation)
 
   return {
     address: resultAddress,
     hasValidAddress: !!resultAddress,
-    isFetching: locationType === 'location' && !location,
+    isFetching: locationType === 'location' && isGettingLocation,
     locationType,
   }
 }

@@ -1,29 +1,22 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {Address, LocationType} from '@/modules/address/types'
+import {
+  Address,
+  AddressState,
+  HighAccuracyPurposeKey,
+  LocationType,
+} from '@/modules/address/types'
 import {selectIsPermissionGranted} from '@/store/slices/permissions'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 import {Permissions} from '@/types/permissions'
 
-export type AddressState = {
-  /**
-   * User provided address, settable via the user profile
-   */
-  address?: Address
-  /**
-   * GPS provided address
-   */
-  location?: Address
-  /**
-   * user preference for using location or address
-   */
-  locationType?: LocationType
-}
-
 const initialState: AddressState = {
+  highAccuracyPurposeKey: HighAccuracyPurposeKey.PreciseLocationAddressLookup,
   locationType: undefined,
+  getLocation: undefined,
+  getLocationIsError: undefined,
+  isGettingLocation: undefined,
 }
 
 export const addressSlice = createSlice({
@@ -37,8 +30,44 @@ export const addressSlice = createSlice({
     addLocation: (state, {payload: location}: PayloadAction<Address>) => ({
       ...state,
       location,
+      getLocationIsError: false,
     }),
-    removeAddress: ({address, ...rest}) => rest,
+    removeAddress: ({address: _address, ...rest}) => rest,
+    setGetLocation: (
+      state,
+      {
+        payload,
+      }: PayloadAction<
+        {highAccuracyPurposeKey: HighAccuracyPurposeKey} | undefined
+      >,
+    ) => {
+      const {highAccuracyPurposeKey} = payload ?? {}
+
+      return {
+        ...state,
+        ...(highAccuracyPurposeKey
+          ? {highAccuracyPurposeKey}
+          : {highAccuracyPurposeKey: initialState.highAccuracyPurposeKey}),
+        getLocation: true,
+        getLocationIsError: false,
+      }
+    },
+    setGetLocationIsError: (
+      state,
+      {payload: getLocationIsError}: PayloadAction<boolean>,
+    ) => ({
+      ...state,
+      getLocationIsError,
+      ...(getLocationIsError && {getLocation: false}),
+    }),
+    setIsGettingLocation: (
+      state,
+      {payload: isGettingLocation}: PayloadAction<boolean>,
+    ) => ({
+      ...state,
+      isGettingLocation,
+      ...(isGettingLocation && {getLocation: false, getLocationIsError: false}),
+    }),
     setLocationType: (
       state,
       {payload: {locationType}}: PayloadAction<{locationType: LocationType}>,
@@ -49,14 +78,39 @@ export const addressSlice = createSlice({
   },
 })
 
-export const {addAddress, addLocation, removeAddress, setLocationType} =
-  addressSlice.actions
+export const {
+  addAddress,
+  addLocation,
+  removeAddress,
+  setGetLocation,
+  setGetLocationIsError,
+  setIsGettingLocation,
+  setLocationType,
+} = addressSlice.actions
 
 export const selectAddress = (state: RootState) =>
   state[ReduxKey.address].address
 
 export const selectLocation = (state: RootState) =>
   state[ReduxKey.address].location
+
+export const selectGetLocation = (state: RootState) =>
+  state[ReduxKey.address].getLocation
+export const selectGetLocationIsError = (state: RootState) =>
+  state[ReduxKey.address].getLocationIsError
+
+export const selectHighAccuracyPurposeKey = (state: RootState) =>
+  state[ReduxKey.address].highAccuracyPurposeKey
+export const selectIsGettingLocation = (state: RootState) =>
+  state[ReduxKey.address].isGettingLocation
+
+export const useLocation = () => ({
+  getLocation: useSelector(selectGetLocation),
+  getLocationIsError: useSelector(selectGetLocationIsError),
+  highAccuracyPurposeKey: useSelector(selectHighAccuracyPurposeKey),
+  isGettingLocation: useSelector(selectIsGettingLocation),
+  location: useSelector(selectLocation),
+})
 
 export const selectLocationType = (
   state: RootState,
@@ -90,5 +144,3 @@ export const selectLocationType = (
   // Otherwise, return address
   return undefined
 }
-
-export const useLocationType = () => useSelector(selectLocationType)
