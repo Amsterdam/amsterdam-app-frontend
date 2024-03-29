@@ -3,6 +3,7 @@ import {useCheckPermissions} from '@/hooks/permissions/useCheckPermissions'
 import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
 import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
 import {useModules} from '@/hooks/useModules'
+import {useGetLocation} from '@/modules/address/hooks/useGetLocation'
 import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
 import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
@@ -16,6 +17,7 @@ export const Init = ({children}: Props) => {
   useLogGeneralAnalytics()
   useDeviceRegistration(enabledModules)
   useSetupSentry()
+  useGetLocation()
 
   return (
     <>

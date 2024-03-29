@@ -6,11 +6,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {useGetAddressByCoordinates} from '@/modules/address/hooks/useGetAddressByCoordinates'
-import {AddressModalName} from '@/modules/address/routes'
+import {useGetLocation} from '@/modules/address/hooks/useGetLocation'
+import {useLocationType} from '@/modules/address/hooks/useLocationType'
+import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {setGetLocation} from '@/modules/address/slice'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 import {Permissions} from '@/types/permissions'
@@ -24,11 +26,12 @@ export const StreetSearchResultForLocation = ({
   selectResult,
   showSuggestionsForLocation,
 }: Props) => {
+  const dispatch = useDispatch()
   const [showFeedbackForNoResults, setShowFeedbackForNoResults] =
     useState(false)
-
-  const {getCoordinates, isGettingAddressForCoordinates, pdokAddresses} =
-    useGetAddressByCoordinates()
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
+  const {isGettingLocation, pdokAddresses} = useGetLocation()
+  const {setLocationType} = useLocationType()
 
   const addresses = useMemo(
     () => pdokAddresses?.filter(addressIsInAmsterdamMunicipality),
@@ -42,27 +45,28 @@ export const StreetSearchResultForLocation = ({
     setShowFeedbackForNoResults(false)
   })
 
-  useEffect(() => {
-    if (hasLocationPermission) {
-      void getCoordinates()
-    }
-  }, [getCoordinates, hasLocationPermission])
-
-  const {navigate} = useNavigation<AddressModalName>()
-  const onPress = useCallback(() => {
+  const onPressUseLocationButton = useCallback(async () => {
     setShowFeedbackForNoResults(true)
-    void requestPermission().then(granted => {
-      if (!granted) {
-        navigate(AddressModalName.locationPermissionInstructions)
-      }
-    })
-  }, [navigate, requestPermission])
+    const permission = await requestPermission()
+
+    if (!permission) {
+      navigateToInstructionsScreen()
+
+      return
+    }
+
+    setLocationType('location')
+  }, [setLocationType, navigateToInstructionsScreen, requestPermission])
+
+  useEffect(() => {
+    dispatch(setGetLocation())
+  }, [dispatch])
 
   if (!showSuggestionsForLocation) {
     return null
   }
 
-  if (isGettingAddressForCoordinates) {
+  if (isGettingLocation) {
     return null
   }
 
@@ -73,7 +77,7 @@ export const StreetSearchResultForLocation = ({
           <Button
             iconName="pointer"
             label="Gebruik mijn huidige locatie"
-            onPress={onPress}
+            onPress={onPressUseLocationButton}
             testID="AddressUseLocationButton"
             variant="tertiary"
           />
