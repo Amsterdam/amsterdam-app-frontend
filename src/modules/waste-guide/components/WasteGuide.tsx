@@ -18,35 +18,31 @@ import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuid
 import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
+import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
   const {
     address,
-    isFetching: selectedAddressForWasteGuideIsFetching,
+    isFetching: isFetchingAddress,
     hasValidAddress,
   } = useSelectedAddress()
 
   const isFocusedOrNotAndroid = useIsFocusedOrNotAndroid()
 
   const {
-    data: wasteGuideData,
+    data: wasteGuide,
     error,
-    isError: getGarbageCollectionAreaQueryIsError,
-    isFetching: getGarbageCollectionAreaQueryIsFetching,
-  } = useGetGarbageCollectionAreaQuery(
+    isError: getWasteGuideIsError,
+    isFetching: isFetchingWasteGuide,
+  } = useGetWasteGuideQuery(
     // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
     address?.bagId && isFocusedOrNotAndroid
       ? {bagNummeraanduidingId: address.bagId}
       : skipToken,
   )
 
-  if (
-    getGarbageCollectionAreaQueryIsFetching ||
-    selectedAddressForWasteGuideIsFetching ||
-    !hasValidAddress
-  ) {
+  if (isFetchingWasteGuide || isFetchingAddress || !hasValidAddress) {
     return (
       <Column
         grow
@@ -57,13 +53,12 @@ export const WasteGuide = () => {
               flex={1}
               gutter="lg">
               <Column gutter="md">
-                {!getGarbageCollectionAreaQueryIsFetching &&
-                  !selectedAddressForWasteGuideIsFetching && (
-                    <Title text="Voor welke locatie wilt u informatie over afval?" />
-                  )}
+                {!isFetchingWasteGuide && !isFetchingAddress && (
+                  <Title text="Voor welke locatie wilt u informatie over afval?" />
+                )}
                 <ShareLocationTopTaskButton testID="WasteGuide" />
               </Column>
-              {!!getGarbageCollectionAreaQueryIsFetching && (
+              {!!isFetchingWasteGuide && (
                 <PleaseWait testID="WasteGuideLoadingSpinner" />
               )}
             </Column>
@@ -76,7 +71,7 @@ export const WasteGuide = () => {
     )
   }
 
-  if (getGarbageCollectionAreaQueryIsError || !wasteGuideData || !address) {
+  if (getWasteGuideIsError || !wasteGuide || !address) {
     return (
       <FullScreenError
         buttonLabel="Ga terug"
@@ -98,7 +93,7 @@ export const WasteGuide = () => {
   const WasteGuideForCity = cityIsWeesp
     ? WasteGuideForWeesp
     : WasteGuideForAmsterdam
-  const hasContent = Object.keys(wasteGuideData).length > 0 || cityIsWeesp
+  const hasContent = Object.keys(wasteGuide).length > 0 || cityIsWeesp
 
   return (
     <Column
@@ -113,7 +108,7 @@ export const WasteGuide = () => {
               <ShareLocationTopTaskButton testID="WasteGuide" />
             </Column>
             {hasContent ? (
-              <WasteGuideForCity wasteGuide={wasteGuideData} />
+              <WasteGuideForCity wasteGuide={wasteGuide} />
             ) : (
               <WasteGuideNotFound />
             )}
