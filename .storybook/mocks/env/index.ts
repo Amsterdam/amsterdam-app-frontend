@@ -1,6 +1,5 @@
 export const API_KEY = ''
 export const AUTH_PASSWORD = ''
-export const AUTH_SHARED_SECRET = ''
 export const VERSION = '0.0.0'
 export const BUILD_NUMBER = '0'
 export const PIWIK_PRO_URL = ''

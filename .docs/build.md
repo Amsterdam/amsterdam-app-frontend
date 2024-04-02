@@ -6,7 +6,6 @@ A continuous integration & deployment pipeline using Azure DevOps and [Fastlane]
 - [Azure DevOps Pipelines](#pipelines)
 - [Fastlane](#fastlane)
 
-
 ## <a id="library"></a>Azure DevOps Library
 
 Azure DevOps Pipelines has a library where our secrets are stored. This consists of variables and secure files. When testing on local machines, these have to exist there as well.
@@ -14,8 +13,8 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 ### Variables
 
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
-- `AUTH_PASSWORD`: authorise project managers to send push notifications; used in the app as env var
-- `AUTH_SHARED_SECRET`: authorise project managers to send push notifications; used in the app as env var
+- `AUTH_PASSWORD`: authorize project managers to send push notifications; used in the app as env var
+- `API_KEY`: authorize api requests; used in the app as env var
 - `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
 - `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
 - `MATCH_GIT_BEARER_AUTHORIZATION`: token used by Fastlane Match to access the aapp_app_ios-certificates repo
@@ -24,14 +23,17 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 ### Secure files
 
 #### iOS
+
 - `App_Store_Connect_API_Key_4B3KZ8N747.p8`: App Store Connect API key for connecting with App Store Connect API
 - `GoogleService-Info.plist`: Firebase config and API key
 
 #### Android
+
 - `upload.keystore`: Google Play store upload key
 - `google-services.json`: Firebase config and API key
 
 #### Other/shared
+
 - `sentry.properties`: Sentry config and API key (for both iOS and Android)
 - `storybook-github-ssh`: SSH key to release the Storybook build to GitHub pages
 
@@ -76,6 +78,7 @@ The configuration of the release pipelines is done in the DevOps interface, not 
 Fastlane handles building, signing and releasing our app. Fastlane "lanes" are triggered by the build pipelines and can be run locally too (provided you have the necessary files and set the env vars).
 
 In the `/ios` and `/android` folders you can find a `fastlane` folder. This contains:
+
 - `Appfile`: config for Fastlane
 - `Fastfile`: the definitons of the lanes
 - `.env.example`: rename to `.env` to set the env vars locally
