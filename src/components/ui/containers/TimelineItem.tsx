@@ -75,7 +75,7 @@ export const TimelineItem = ({
               {!!body && (
                 <HtmlContent
                   content={body}
-                  testID={`${testID}ItemBody${pascalCase(title)}HtmlContent`}
+                  testID={`${testID}ItemBody${pascalCase(title ?? body ?? '')}HtmlContent`}
                 />
               )}
             </Fragment>
