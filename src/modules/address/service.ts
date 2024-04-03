@@ -86,7 +86,7 @@ export const addressApi = baseApi.injectEndpoints({
               ...defaultFq,
               `type:${street ? 'adres' : '(weg OR adres)'}`,
               `woonplaatsnaam:${city?.toLowerCase() ?? '(amsterdam OR weesp)'}`,
-              ...(street ? [`straatnaam:"${street.toLowerCase()}"`] : []),
+              ...(street ? [`straatnaam:${street.toLowerCase()}`] : []),
             ],
             q: address,
             rows,
