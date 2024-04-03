@@ -118,7 +118,7 @@ export type ProjectSections = {
 export type ProjectTimelineSubItem = {
   body: string | null
   date: string
-  title: string
+  title?: string
 }
 
 export type ProjectTimelineItem = {
