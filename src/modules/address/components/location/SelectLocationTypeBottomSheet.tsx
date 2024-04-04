@@ -37,11 +37,11 @@ export const SelectLocationTypeBottomSheet = ({
   const {close: closeBottomSheet} = useBottomSheet()
   const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
 
-  const {requestPermission} = usePermission(Permissions.location)
+  const {hasPermission, requestPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
     dispatch(setGetLocation({highAccuracyPurposeKey}))
-  }, [dispatch, highAccuracyPurposeKey])
+  }, [dispatch, hasPermission, highAccuracyPurposeKey])
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')

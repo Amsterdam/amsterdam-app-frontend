@@ -1,4 +1,4 @@
-import {useMemo} from 'react'
+import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {addLocation} from '@/modules/address/slice'
 import {PdokAddress} from '@/modules/address/types'
@@ -10,7 +10,7 @@ import {transformAddressApiResponse} from '@/modules/address/utils/transformAddr
 export const useSaveAddress = (pdokAddresses?: PdokAddress[]) => {
   const dispatch = useDispatch()
 
-  useMemo(() => {
+  useEffect(() => {
     if (!pdokAddresses?.length) {
       return
     }

@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useEffect, useMemo, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,13 +10,15 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {useGetLocation} from '@/modules/address/hooks/useGetLocation'
 import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
-import {setGetLocation} from '@/modules/address/slice'
+import {useGetLocationQuery} from '@/modules/address/service'
+import {setGetLocation, useLocation} from '@/modules/address/slice'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 import {Permissions} from '@/types/permissions'
+
+const NUM_OF_SEARCH_RESULTS = 5
 
 type Props = {
   selectResult: (item: PdokAddress) => void
@@ -30,7 +33,14 @@ export const StreetSearchResultForLocation = ({
   const [showFeedbackForNoResults, setShowFeedbackForNoResults] =
     useState(false)
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
-  const {isGettingLocation, pdokAddresses} = useGetLocation()
+  const {isGettingLocation, location} = useLocation()
+  const {currentData} = useGetLocationQuery(
+    !isGettingLocation && location?.coordinates
+      ? {...location?.coordinates, rows: NUM_OF_SEARCH_RESULTS}
+      : skipToken,
+  )
+  const pdokAddresses = currentData?.response?.docs
+
   const {setLocationType} = useLocationType()
 
   const addresses = useMemo(
@@ -60,7 +70,7 @@ export const StreetSearchResultForLocation = ({
 
   useEffect(() => {
     dispatch(setGetLocation())
-  }, [dispatch])
+  }, [dispatch, hasLocationPermission])
 
   if (!showSuggestionsForLocation) {
     return null

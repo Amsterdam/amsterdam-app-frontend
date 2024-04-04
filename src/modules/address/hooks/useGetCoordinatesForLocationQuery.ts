@@ -41,7 +41,6 @@ export const useGetCoordinatesForLocationQuery = () => {
 
   return {
     coordinatesForLocationQuery,
-    getCoordinatesForLocationQuery,
     isGettingCoordinates,
   }
 }

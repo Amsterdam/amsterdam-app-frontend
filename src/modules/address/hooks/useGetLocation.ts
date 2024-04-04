@@ -7,25 +7,20 @@ import {useGetLocationQuery} from '@/modules/address/service'
 import {
   setGetLocationIsError,
   setIsGettingLocation,
-  useLocation,
 } from '@/modules/address/slice'
 
-const NUM_OF_SUGGESTIONS = 5
+const NUM_OF_RESULTS = 1
 
 /**
  * Gets the GPS coordinates from the device, fetches the corresponding address which is then stored in redux.
  */
-export const useGetLocation = (rows: number = NUM_OF_SUGGESTIONS) => {
+export const useGetLocation = () => {
   const dispatch = useDispatch()
-  const {isGettingLocation, getLocationIsError} = useLocation()
-  const {
-    coordinatesForLocationQuery,
-    getCoordinatesForLocationQuery,
-    isGettingCoordinates,
-  } = useGetCoordinatesForLocationQuery()
+  const {coordinatesForLocationQuery, isGettingCoordinates} =
+    useGetCoordinatesForLocationQuery()
   const {currentData, isError, isFetching} = useGetLocationQuery(
     coordinatesForLocationQuery
-      ? {...coordinatesForLocationQuery, rows}
+      ? {...coordinatesForLocationQuery, rows: NUM_OF_RESULTS}
       : skipToken,
   )
 
@@ -40,11 +35,4 @@ export const useGetLocation = (rows: number = NUM_OF_SUGGESTIONS) => {
       dispatch(setGetLocationIsError(true))
     }
   }, [dispatch, isError])
-
-  return {
-    getLocationIsError,
-    getCoordinatesForLocationQuery,
-    isGettingLocation,
-    pdokAddresses: currentData?.response?.docs,
-  }
 }
