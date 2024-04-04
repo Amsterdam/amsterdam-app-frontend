@@ -13,7 +13,7 @@ import type {RootStackParams} from '@/app/navigation/types'
 import type {Environment} from '@/environment'
 import type {ComponentType, RefObject} from 'react'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
-import {getEventWithoutFreeStorageForIos} from '@/processes/sentry/utils'
+import {getSanitizedIosEvent} from '@/processes/sentry/utils'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 import {BUILD_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
@@ -63,8 +63,8 @@ export const initSentry = () => {
 
       return breadcrumb
     },
-    beforeSend: getEventWithoutFreeStorageForIos,
-    beforeSendTransaction: getEventWithoutFreeStorageForIos,
+    beforeSend: getSanitizedIosEvent,
+    beforeSendTransaction: getSanitizedIosEvent,
     // ignoreErrors: [], // can be used to filter out the occasional false positive
     tracesSampleRate: isDevApp ? 1 : 0.1,
     integrations: [

@@ -1216,7 +1216,7 @@ PODS:
     - React-perflogger (= 0.73.6)
   - RNBootSplash (4.7.5):
     - React-Core
-  - RNCAsyncStorage (1.21.0):
+  - RNCAsyncStorage (1.23.1):
     - React-Core
   - RNCMaskedView (0.2.9):
     - React-Core
@@ -1233,7 +1233,7 @@ PODS:
     - Firebase/Messaging (= 8.8.0)
     - React-Core
     - RNFBApp
-  - RNGestureHandler (2.15.0):
+  - RNGestureHandler (2.16.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -1652,13 +1652,13 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   RNBootSplash: 85f6b879c080e958afdb4c62ee04497b05fd7552
-  RNCAsyncStorage: 618d03a5f52fbccb3d7010076bc54712844c18ef
+  RNCAsyncStorage: 826b603ae9c0f88b5ac4e956801f755109fa4d5c
   RNCMaskedView: 949696f25ec596bfc697fc88e6f95cf0c79669b6
   RNDeviceInfo: db5c64a060e66e5db3102d041ebe3ef307a85120
   RNFastImage: 5c9c9fed9c076e521b3f509fe79e790418a544e8
   RNFBApp: 729c0666395b1953198dc4a1ec6deb8fbe1c302e
   RNFBMessaging: 8415ec196e5c1196caa26ec0742cdb48ed4d0f97
-  RNGestureHandler: 67fb54b3e6ca338a8044e85cd6f340265aa41091
+  RNGestureHandler: bc2cdb2dc42facdf34992ae364b8a728e19a3686
   RNImageCropPicker: d9616a0cb9b72e8551ff94a7a5021fbd29050aa5
   RNNotifee: f1ba270897bd7491f889a1a257d0c038a43376f7
   RNPermissions: 808e3670c10efb14e2c33a5e60645b17787ba89b
