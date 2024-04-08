@@ -20,6 +20,8 @@ type Props = {
   withWeesp?: boolean
 } & TestProps
 
+const DEFAULT_BACKGROUND_IMAGE_HEIGHT_FRACTION = 3 / 4
+
 /** Get a sensible height as a fraction of the available height */
 const getHeight = (deviceHeight: number, isLandscape: boolean) =>
   Math.round(deviceHeight / (isLandscape ? 3 : 4))
@@ -83,7 +85,7 @@ type StyleProps = Pick<
 const createStyles =
   ({
     aspectRatio,
-    backgroundImageHeightFraction = 3 / 4,
+    backgroundImageHeightFraction = DEFAULT_BACKGROUND_IMAGE_HEIGHT_FRACTION,
     height,
     illustrationAspectRatio = 'landscape',
     horizontalInset = 'md',

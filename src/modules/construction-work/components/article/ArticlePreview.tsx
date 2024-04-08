@@ -16,6 +16,7 @@ import {selectConstructionWorkReadArticles} from '@/modules/construction-work/sl
 import {ArticlesItem} from '@/modules/construction-work/types/api'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {Theme} from '@/themes/themes'
+import {mediaTokens} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
@@ -26,6 +27,16 @@ type Props = {
   isLast: boolean
   onPress: () => void
 } & TestProps
+
+const IMAGE_WIDTH = 256
+const IMAGE_ASPECT_RATIO = 'extraWide'
+const IMAGE_HEIGHT = Math.round(
+  IMAGE_WIDTH * mediaTokens.aspectRatio[IMAGE_ASPECT_RATIO],
+)
+const LINE_WIDTH = 2
+const VERTICAL_LINE_TOP_WITH_ALERT = 18
+const VERTICAL_LINE_TOP_WITHOUT_ALERT = 15
+const DATE_LINE_OFFSET = 4
 
 export const ArticlePreview = ({
   article,
@@ -90,8 +101,8 @@ export const ArticlePreview = ({
                   aspectRatio="extraWide"
                   missingSourceFallback={
                     <FigureWithFacadesBackground
-                      aspectRatio="extraWide"
-                      height={113}
+                      aspectRatio={IMAGE_ASPECT_RATIO}
+                      height={IMAGE_HEIGHT}
                       horizontalInset="no"
                       testID={`${testID}ImageFallback`}>
                       <ProjectWarningFallbackImage />
@@ -108,11 +119,6 @@ export const ArticlePreview = ({
     </View>
   )
 }
-
-const LINE_WIDTH = 2
-const VERTICAL_LINE_TOP_WITH_ALERT = 18
-const VERTICAL_LINE_TOP_WITHOUT_ALERT = 15
-const DATE_LINE_OFFSET = 4
 
 const createStyles =
   (
@@ -139,7 +145,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       image: {
-        width: 256,
+        width: IMAGE_WIDTH,
       },
       item: {
         paddingBottom: itemBottomInset,
