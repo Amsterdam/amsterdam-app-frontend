@@ -30,7 +30,7 @@ export const ProjectsTextSearchField = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const storeSearchTextInState = useCallback(
     debounce((text: string) => {
-      if (text.length > 0 && text.length < 3) {
+      if (text.length > 0 && text.trim().length < 3) {
         return
       }
 
