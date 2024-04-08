@@ -31,7 +31,7 @@ type Props = {
 const IMAGE_WIDTH = 256
 const IMAGE_ASPECT_RATIO = 'extraWide'
 const IMAGE_HEIGHT = Math.round(
-  IMAGE_WIDTH * mediaTokens.aspectRatio[IMAGE_ASPECT_RATIO],
+  IMAGE_WIDTH / mediaTokens.aspectRatio[IMAGE_ASPECT_RATIO],
 )
 const LINE_WIDTH = 2
 const VERTICAL_LINE_TOP_WITH_ALERT = 18
