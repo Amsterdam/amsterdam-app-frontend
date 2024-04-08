@@ -4,6 +4,7 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {Title} from '@/components/ui/text/Title'
@@ -69,7 +70,12 @@ export const Project = ({id}: Props) => {
     <Column>
       <LazyImage
         aspectRatio="wide"
-        missingSourceFallback={<ProjectWarningFallbackImage />}
+        fallbackInheritsAspectRatio={false}
+        missingSourceFallback={
+          <FigureWithFacadesBackground testID="ConstructionWorkProjectImageFallback">
+            <ProjectWarningFallbackImage />
+          </FigureWithFacadesBackground>
+        }
         source={image?.sources}
         testID="ConstructionWorkProjectImage"
       />

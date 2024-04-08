@@ -1,7 +1,6 @@
 export const zTokens = {
   articlePreviewLine: -1,
   carouselSlideBackgroundImageContainer: -1,
-  figureWithFacadesBackgroundFigure: -1,
   timelineLine: -1,
   articleOverviewYear: 1,
   carouselSlideContent: 1,

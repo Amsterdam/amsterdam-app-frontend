@@ -1,47 +1,55 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
-import {Figure, FigureProps} from '@/components/ui/media/Figure'
 import {type TestProps} from '@/components/ui/types'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
+import {IllustratioAspectRatio, ImageAspectRatio} from '@/themes/tokens/media'
+import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
-type SelectedFigureProps = Pick<FigureProps, 'aspectRatio'> &
-  Required<Pick<FigureProps, 'height'>>
-
 type Props = {
-  Image: ReactNode
+  aspectRatio?: ImageAspectRatio
   backgroundImageHeightFraction?: number
-  imageAspectRatio: number
-  imageWidth?: number
-  /**
-   * The number of pixels by which to move the figure up, sliding behind the content above it.
-   * This is especially useful on landscape devices.
-   */
-  moveUp?: number
+  children?: ReactNode
+  height?: number
+  horizontalInset?: keyof SpacingTokens
+  illustrationAspectRatio?: IllustratioAspectRatio
   withWeesp?: boolean
-} & SelectedFigureProps &
-  TestProps
+} & TestProps
+
+const DEFAULT_BACKGROUND_IMAGE_HEIGHT_FRACTION = 3 / 4
+
+/** Get a sensible height as a fraction of the available height */
+const getHeight = (deviceHeight: number, isLandscape: boolean) =>
+  Math.round(deviceHeight / (isLandscape ? 3 : 4))
 
 export const FigureWithFacadesBackground = ({
-  backgroundImageHeightFraction = 3 / 4,
-  Image,
-  imageAspectRatio,
-  imageWidth,
-  moveUp,
+  aspectRatio,
+  backgroundImageHeightFraction,
+  children,
+  height,
+  illustrationAspectRatio,
+  horizontalInset,
   testID,
   withWeesp = false,
-  ...figureProps
 }: Props) => {
+  const {left, right} = useSafeAreaInsets()
+  const {height: availableHeight, isLandscape} = useDeviceContext()
+  const figureHeight = height ?? getHeight(availableHeight, isLandscape)
+
   const styles = useThemable(
-    createStyles(
+    createStyles({
+      aspectRatio,
       backgroundImageHeightFraction,
-      imageAspectRatio,
-      figureProps,
-      moveUp,
-      imageWidth,
-    ),
+      height: figureHeight,
+      illustrationAspectRatio,
+      horizontalInset,
+      left,
+      right,
+    }),
   )
 
   const BackgroundImage = withWeesp
@@ -52,49 +60,67 @@ export const FigureWithFacadesBackground = ({
     <View
       style={styles.figure}
       testID={testID}>
-      <Figure {...figureProps}>
-        <View style={styles.backgroundImage}>
-          <BackgroundImage />
-        </View>
-        <View style={styles.image}>{Image}</View>
-      </Figure>
+      <View style={styles.backgroundImage}>
+        <BackgroundImage />
+      </View>
+      <View style={styles.imageOuter}>
+        <View style={styles.imageInner}>{children}</View>
+      </View>
     </View>
   )
 }
 
+type StyleProps = Pick<
+  Props,
+  | 'aspectRatio'
+  | 'backgroundImageHeightFraction'
+  | 'illustrationAspectRatio'
+  | 'horizontalInset'
+> & {
+  height: number
+  left: number
+  right: number
+}
+
 const createStyles =
-  (
-    backgroundImageHeightFraction: number,
-    imageAspectRatio: Props['imageAspectRatio'],
-    figureProps: SelectedFigureProps,
-    moveUp: Props['moveUp'],
-    requestedImageWidth: Props['imageWidth'],
-  ) =>
-  ({media, z}: Theme) => {
-    const {aspectRatio, height: figureHeight} = figureProps
-    const figureWidth = figureHeight * media.aspectRatio[aspectRatio ?? 'wide']
-    const imageWidth = requestedImageWidth ?? figureWidth
-    const imageHeight = imageWidth / imageAspectRatio
-    const backgroundImageHeight = figureHeight * backgroundImageHeightFraction
+  ({
+    aspectRatio,
+    backgroundImageHeightFraction = DEFAULT_BACKGROUND_IMAGE_HEIGHT_FRACTION,
+    height,
+    illustrationAspectRatio = 'landscape',
+    horizontalInset = 'md',
+    left,
+    right,
+  }: StyleProps) =>
+  ({media, size}: Theme) => {
+    const horizontalInsetSize = size.spacing[horizontalInset]
 
     return StyleSheet.create({
       backgroundImage: {
-        aspectRatio: media.illustrationAspectRatio.facades,
-        position: 'absolute',
-        height: backgroundImageHeight,
         alignSelf: 'center',
+        aspectRatio: media.illustrationAspectRatio.facades,
+        height: height * backgroundImageHeightFraction,
+        position: 'absolute',
       },
       figure: {
+        aspectRatio: aspectRatio ? media.aspectRatio[aspectRatio] : undefined,
+        height,
+        overflow: 'hidden',
         position: 'relative',
-        marginTop: moveUp ? -moveUp : undefined,
-        zIndex: moveUp ? z.figureWithFacadesBackgroundFigure : undefined,
       },
-      image: {
-        position: 'absolute',
+      imageInner: {
+        aspectRatio: media.illustrationAspectRatio[illustrationAspectRatio],
+        height,
+        maxWidth: '100%',
+      },
+      imageOuter: {
+        alignItems: 'center',
         bottom: 0,
-        aspectRatio: imageAspectRatio,
-        height: imageHeight,
-        alignSelf: 'center',
+        height,
+        left: left + horizontalInsetSize,
+        position: 'absolute',
+        right: right + horizontalInsetSize,
+        top: 0,
       },
     })
   }

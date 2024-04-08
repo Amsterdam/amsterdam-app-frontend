@@ -8,7 +8,6 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
@@ -20,12 +19,9 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetGarbageCollectionAreaQuery} from '@/modules/waste-guide/service'
-import {useTheme} from '@/themes/useTheme'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
-  const {isLandscape} = useDeviceContext()
-  const {media} = useTheme()
   const {
     address,
     isFetching: selectedAddressForWasteGuideIsFetching,
@@ -73,14 +69,9 @@ export const WasteGuide = () => {
             </Column>
           </Box>
         </HorizontalSafeArea>
-        <FigureWithFacadesBackground
-          height={media.figureHeight.lg}
-          Image={<HouseholdWasteToContainerImage />}
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
-          imageWidth={media.illustrationWidth.wide}
-          moveUp={isLandscape ? 128 : undefined}
-          testID="WasteGuideRequestLocationBackground"
-        />
+        <FigureWithFacadesBackground testID="WasteGuideRequestLocationBackground">
+          <HouseholdWasteToContainerImage />
+        </FigureWithFacadesBackground>
       </Column>
     )
   }
@@ -130,22 +121,15 @@ export const WasteGuide = () => {
         </Box>
       </HorizontalSafeArea>
       {hasContent ? (
-        <FigureWithFacadesBackground
-          height={media.figureHeight.lg}
-          Image={<HouseholdWasteToContainerImage />}
-          imageAspectRatio={media.illustrationAspectRatio.landscape}
-          imageWidth={media.illustrationWidth.wide}
-          testID="WasteGuideBackground"
-        />
+        <FigureWithFacadesBackground testID="WasteGuideBackground">
+          <HouseholdWasteToContainerImage />
+        </FigureWithFacadesBackground>
       ) : (
         <FigureWithFacadesBackground
-          height={media.figureHeight.lg}
-          Image={<WasteGuideNotFoundImage />}
-          imageAspectRatio={media.illustrationAspectRatio.portrait}
-          imageWidth={media.illustrationWidth.narrow}
-          moveUp={isLandscape ? 128 : undefined}
-          testID="WasteGuideNotFoundBackground"
-        />
+          illustrationAspectRatio="portrait"
+          testID="WasteGuideNotFoundBackground">
+          <WasteGuideNotFoundImage />
+        </FigureWithFacadesBackground>
       )}
     </Column>
   )

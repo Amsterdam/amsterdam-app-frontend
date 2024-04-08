@@ -4,6 +4,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -15,6 +16,7 @@ import {selectConstructionWorkReadArticles} from '@/modules/construction-work/sl
 import {ArticlesItem} from '@/modules/construction-work/types/api'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {Theme} from '@/themes/themes'
+import {mediaTokens} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays'
@@ -25,6 +27,16 @@ type Props = {
   isLast: boolean
   onPress: () => void
 } & TestProps
+
+const IMAGE_WIDTH = 256
+const IMAGE_ASPECT_RATIO = 'extraWide'
+const IMAGE_HEIGHT = Math.round(
+  IMAGE_WIDTH / mediaTokens.aspectRatio[IMAGE_ASPECT_RATIO],
+)
+const LINE_WIDTH = 2
+const VERTICAL_LINE_TOP_WITH_ALERT = 18
+const VERTICAL_LINE_TOP_WITHOUT_ALERT = 15
+const DATE_LINE_OFFSET = 4
 
 export const ArticlePreview = ({
   article,
@@ -87,7 +99,15 @@ export const ArticlePreview = ({
               <View style={styles.image}>
                 <LazyImage
                   aspectRatio="extraWide"
-                  missingSourceFallback={<ProjectWarningFallbackImage />}
+                  missingSourceFallback={
+                    <FigureWithFacadesBackground
+                      aspectRatio={IMAGE_ASPECT_RATIO}
+                      height={IMAGE_HEIGHT}
+                      horizontalInset="no"
+                      testID={`${testID}ImageFallback`}>
+                      <ProjectWarningFallbackImage />
+                    </FigureWithFacadesBackground>
+                  }
                   source={article.images?.[0]?.sources}
                   testID={`${testID}Image`}
                 />
@@ -100,17 +120,12 @@ export const ArticlePreview = ({
   )
 }
 
-const LINE_WIDTH = 2
-const VERTICAL_LINE_TOP_WITH_ALERT = 18
-const VERTICAL_LINE_TOP_WITHOUT_ALERT = 15
-const DATE_LINE_OFFSET = 4
-
 const createStyles =
   (
     {isFirst, isLast}: Partial<Props>,
     isNewAndUnreadArticle: boolean | undefined,
   ) =>
-  ({color, size, media, z}: Theme) => {
+  ({color, size, z}: Theme) => {
     const itemBottomInset = isLast ? 0 : size.spacing.xl
 
     const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
@@ -130,7 +145,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       image: {
-        width: media.figureHeight.lg,
+        width: IMAGE_WIDTH,
       },
       item: {
         paddingBottom: itemBottomInset,
