@@ -1,17 +1,13 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useMemo} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAppState} from '@/hooks/useAppState'
 import {clientModules} from '@/modules/modules'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {useGetReleaseQuery} from '@/services/modules.service'
 import {
   selectAuthorizedModules,
   selectDisabledModules,
 } from '@/store/slices/modules'
 import {postProcessModules} from '@/utils/modules'
-
-const MAX_RETRIES = 3
 
 /**
  * Handles the request for the serverside module configuration and returns various postprocessed lists of modules, not including core modules. It also returns the modules disabled by the user, plus the loading/error state of the endpoint and a refetch method.
@@ -25,7 +21,6 @@ export const useModules = () => {
     refetch,
   } = useGetReleaseQuery()
   const serverModules = release?.modules
-  const {sendSentryErrorLog} = useSentry()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
   const authorizedModulesBySlug = useSelector(
     selectAuthorizedModules,
@@ -33,7 +28,6 @@ export const useModules = () => {
       a.length === b.length &&
       a.every((value: string, index) => value === b[index]),
   )
-  const [retriesRemaining, setRetriesRemaining] = useState(MAX_RETRIES)
   const postProcessedModules = useMemo(() => {
     if (!serverModules) {
       return
@@ -47,37 +41,8 @@ export const useModules = () => {
     )
   }, [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules])
 
-  useEffect(() => {
-    if (error) {
-      sendSentryErrorLog(
-        SentryErrorLogKey.getModulesForAppQuery,
-        'useModules.ts',
-        {
-          error,
-          retriesRemaining,
-          serverModules,
-        },
-      )
-
-      if (retriesRemaining > 0) {
-        void refetch()
-        setRetriesRemaining(v => v - 1)
-      }
-    } else {
-      setRetriesRemaining(MAX_RETRIES)
-    }
-  }, [
-    error,
-    isLoading,
-    refetch,
-    retriesRemaining,
-    sendSentryErrorLog,
-    serverModules,
-  ])
-
   useAppState({
     onForeground: () => {
-      setRetriesRemaining(MAX_RETRIES)
       void refetch()
     },
   })

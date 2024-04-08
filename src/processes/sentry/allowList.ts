@@ -2,11 +2,6 @@ import {SentryErrorLogKey} from '@/processes/sentry/types'
 
 export const sentryAllowList = {
   [SentryErrorLogKey.currentCoordinates]: ['error'],
-  [SentryErrorLogKey.getModulesForAppQuery]: [
-    'error',
-    'retriesRemaining',
-    'serverModules',
-  ],
   [SentryErrorLogKey.getRedirectsUrl]: ['redirectsKey'],
   [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.hideSplashScreen]: ['error'],

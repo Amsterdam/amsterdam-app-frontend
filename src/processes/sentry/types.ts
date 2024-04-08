@@ -17,7 +17,6 @@ export type CaptureBreadcrumb = (
 
 export enum SentryErrorLogKey {
   currentCoordinates = 'Get current coordinates failed',
-  getModulesForAppQuery = 'Failed to get modules for app',
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
   isScreenReaderEnabled = 'Screenreader enabled check failed',
