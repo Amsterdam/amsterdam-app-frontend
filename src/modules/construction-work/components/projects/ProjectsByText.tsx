@@ -25,9 +25,11 @@ export const ProjectsByText = () => {
       : skipToken,
   )
 
-  const resultsLabel = data?.result
-    ? simplur`${data.result.length} zoekresulta[at|ten]`
-    : undefined
+  const resultsLabel =
+    hasSearchText && data?.result
+      ? simplur`${data.result.length} zoekresulta[at|ten]`
+      : undefined
+  const results = hasSearchText ? data?.result : undefined
 
   useAccessibilityAnnounceEffect(resultsLabel)
 
@@ -36,7 +38,7 @@ export const ProjectsByText = () => {
       amount={data?.result.length}
       type="projectsByText">
       <ProjectsList
-        data={data?.result}
+        data={results}
         isError={isError}
         isLoading={isLoading}
         listHeader={
