@@ -74,6 +74,10 @@ export const sentryLogRequestFailed = (
   const originalStatus = action.payload?.originalStatus
   const status = action.payload?.status
 
+  if (isStatusCodeDisallowedForLogging(originalStatus ?? status)) {
+    return
+  }
+
   if (endpoint) {
     title = `${originalStatus ?? status ?? 'Error'} for ${endpoint}`
   }
@@ -82,10 +86,7 @@ export const sentryLogRequestFailed = (
 
   const url = sanitizeUrl(action.meta?.baseQueryMeta?.request?.url ?? '')
 
-  if (
-    // !url.startsWith('http://localhost') &&
-    !isStatusCodeDisallowedForLogging(originalStatus ?? status)
-  ) {
+  if (!url.startsWith('http://localhost')) {
     setTag('endpoint', endpoint)
     setTag('originalStatus', originalStatus)
     setTag('status', status)
