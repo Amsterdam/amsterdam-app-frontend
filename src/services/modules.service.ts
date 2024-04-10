@@ -1,6 +1,6 @@
 import {GlobalApiSlug} from '@/environment'
 import {ModuleServerConfig} from '@/modules/types'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {VERSION_NUMBER} from '@/utils/version'
 
 export type ModulesResponse = {

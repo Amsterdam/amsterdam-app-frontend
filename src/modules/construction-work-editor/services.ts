@@ -7,7 +7,7 @@ import {
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {CacheLifetime, MutationResponse} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 

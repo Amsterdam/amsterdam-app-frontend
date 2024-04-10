@@ -1,5 +1,5 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {Notification, NotificationQueryArg} from '@/types/notification'
 
 export const notificationsApi = baseApi.injectEndpoints({

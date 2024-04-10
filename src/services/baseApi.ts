@@ -11,6 +11,7 @@ import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {devError} from '@/processes/development'
+import {sentryLogRequestFailed} from '@/processes/sentry/logging'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -67,6 +68,23 @@ const dynamicBaseQuery: BaseQueryFn<
         },
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
+
+      if (result.error) {
+        sentryLogRequestFailed(
+          {
+            meta: {
+              arg: {endpointName: baseQueryApi.endpoint},
+              baseQueryMeta: result.meta,
+            },
+            payload: {
+              error: result.error,
+              originalStatus: result.meta?.response?.status,
+              status: result.error?.status.toString(),
+            },
+          },
+          true,
+        )
+      }
 
       if (result.error?.status === 404) {
         retry.fail(result.error)
