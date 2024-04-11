@@ -5,7 +5,7 @@ import {
   WasteGuideResponse,
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {CacheLifetime, TimeOutDuration} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 

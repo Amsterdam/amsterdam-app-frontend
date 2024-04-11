@@ -4,7 +4,7 @@ import {
   WaitingTime,
 } from '@/modules/contact/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
 
 export const contactApi = baseApi.injectEndpoints({

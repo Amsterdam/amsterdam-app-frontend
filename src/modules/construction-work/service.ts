@@ -19,7 +19,7 @@ import {
 import {processSearchQueryArgs} from '@/modules/construction-work/utils/processSearchQueryArgs'
 import {tempPostProcessProjectDetails} from '@/modules/construction-work/utils/tempPostProcessProjectDetails'
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 

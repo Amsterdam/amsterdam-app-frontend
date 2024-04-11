@@ -1,5 +1,6 @@
 import {API_KEY} from '@env'
 import {
+  BaseQueryApi,
   BaseQueryFn,
   createApi,
   FetchArgs,
@@ -11,6 +12,7 @@ import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {devError} from '@/processes/development'
+import {sentryLogRequestFailed} from '@/processes/sentry/logging'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -36,6 +38,33 @@ const deviceIdRequestingEndpoints: string[] = [
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
+const prepareHeaders = (
+  headers: Headers,
+  {
+    endpoint,
+    getState,
+  }: Pick<BaseQueryApi, 'endpoint' | 'getState' | 'type' | 'extra' | 'forced'>,
+) => {
+  const token = selectAuthManagerToken(getState() as RootState)
+
+  token &&
+    managerAuthorizedEndpoints.includes(endpoint) &&
+    headers.set('userauthorization', token)
+
+  deviceIdRequestingEndpoints.includes(endpoint) &&
+    headers.set('deviceid', SHA256EncryptedDeviceId)
+
+  if (API_KEY) {
+    headers.set('X-API-KEY', API_KEY)
+  } else {
+    devError('No API key in .env.')
+  }
+
+  headers.set('releaseVersion', VERSION_NUMBER)
+
+  return headers
+}
+
 const dynamicBaseQuery: BaseQueryFn<
   FetchArgs & {slug: ApiSlug},
   unknown,
@@ -45,28 +74,26 @@ const dynamicBaseQuery: BaseQueryFn<
     async () => {
       const result = await fetchBaseQuery({
         baseUrl: selectApi(baseQueryApi.getState() as RootState, args.slug),
-        prepareHeaders: (headers, {endpoint, getState}) => {
-          const token = selectAuthManagerToken(getState() as RootState)
-
-          token &&
-            managerAuthorizedEndpoints.includes(endpoint) &&
-            headers.set('userauthorization', token)
-
-          deviceIdRequestingEndpoints.includes(endpoint) &&
-            headers.set('deviceid', SHA256EncryptedDeviceId)
-
-          if (API_KEY) {
-            headers.set('X-API-KEY', API_KEY)
-          } else {
-            devError('No API key in .env.')
-          }
-
-          headers.set('releaseVersion', VERSION_NUMBER)
-
-          return headers
-        },
+        prepareHeaders,
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
+
+      if (result.error) {
+        sentryLogRequestFailed(
+          {
+            meta: {
+              arg: {endpointName: baseQueryApi.endpoint},
+              baseQueryMeta: result.meta,
+            },
+            payload: {
+              error: result.error,
+              originalStatus: result.meta?.response?.status,
+              status: result.error?.status.toString(),
+            },
+          },
+          true,
+        )
+      }
 
       if (result.error?.status === 404) {
         retry.fail(result.error)

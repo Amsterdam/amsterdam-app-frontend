@@ -6,7 +6,7 @@ import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/sl
 import {ContactState} from '@/modules/contact/slice'
 import {OnboardingState} from '@/modules/onboarding/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {AlertState} from '@/store/slices/alert'
 import {AuthState} from '@/store/slices/auth'
 import {BottomSheetState} from '@/store/slices/bottomSheet'

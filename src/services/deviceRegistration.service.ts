@@ -1,6 +1,6 @@
 import {Platform} from 'react-native'
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {MutationResponse} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 

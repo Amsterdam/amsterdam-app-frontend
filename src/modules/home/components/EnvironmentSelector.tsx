@@ -9,7 +9,7 @@ import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {isDevApp} from '@/processes/development'
-import {baseApi} from '@/services/init'
+import {baseApi} from '@/services/baseApi'
 import {
   selectEnvironment,
   setCustomEnvironment,
