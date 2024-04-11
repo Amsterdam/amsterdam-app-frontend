@@ -1,4 +1,5 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit'
+import {Platform} from 'react-native'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
 import {clientModules, coreModules} from '@/modules/modules'
@@ -50,7 +51,7 @@ export const store = configureStore({
       },
     }).concat([baseApi.middleware, sentryLoggerMiddleware])
 
-    if (__DEV__) {
+    if (__DEV__ && Platform.OS === 'android') {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
       const createDebugger = require('redux-flipper').default
 

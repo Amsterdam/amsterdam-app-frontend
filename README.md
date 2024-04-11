@@ -25,7 +25,6 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Start the Android phone emulator: `npm run android:phone:dev`
   - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
     - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
-- We recommend installing the [Flipper](https://fbflipper.com/) debugger
 
 ### Secret files
 

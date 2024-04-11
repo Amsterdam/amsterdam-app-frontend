@@ -1,9 +1,9 @@
-import {useFlipper} from '@react-navigation/devtools'
 import {NavigationContainer} from '@react-navigation/native'
 import {type ReactNode} from 'react'
 import {linking} from '@/app/navigation/linking'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type RootStackParams} from '@/app/navigation/types'
+import {useFlipperForAndroid} from '@/hooks/useFlipperForAndroid'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {registerNavigationContainer} from '@/processes/sentry/init'
 
@@ -14,7 +14,7 @@ type Props = {
 export const AppNavigationContainer = ({children}: Props) => {
   const hideSplashScreen = useHideSplashScreen()
 
-  useFlipper(navigationRef)
+  useFlipperForAndroid(navigationRef)
 
   return (
     <NavigationContainer<RootStackParams>
