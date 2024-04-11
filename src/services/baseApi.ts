@@ -1,5 +1,6 @@
 import {API_KEY} from '@env'
 import {
+  BaseQueryApi,
   BaseQueryFn,
   createApi,
   FetchArgs,
@@ -37,6 +38,33 @@ const deviceIdRequestingEndpoints: string[] = [
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
+const prepareHeaders = (
+  headers: Headers,
+  {
+    endpoint,
+    getState,
+  }: Pick<BaseQueryApi, 'endpoint' | 'getState' | 'type' | 'extra' | 'forced'>,
+) => {
+  const token = selectAuthManagerToken(getState() as RootState)
+
+  token &&
+    managerAuthorizedEndpoints.includes(endpoint) &&
+    headers.set('userauthorization', token)
+
+  deviceIdRequestingEndpoints.includes(endpoint) &&
+    headers.set('deviceid', SHA256EncryptedDeviceId)
+
+  if (API_KEY) {
+    headers.set('X-API-KEY', API_KEY)
+  } else {
+    devError('No API key in .env.')
+  }
+
+  headers.set('releaseVersion', VERSION_NUMBER)
+
+  return headers
+}
+
 const dynamicBaseQuery: BaseQueryFn<
   FetchArgs & {slug: ApiSlug},
   unknown,
@@ -46,26 +74,7 @@ const dynamicBaseQuery: BaseQueryFn<
     async () => {
       const result = await fetchBaseQuery({
         baseUrl: selectApi(baseQueryApi.getState() as RootState, args.slug),
-        prepareHeaders: (headers, {endpoint, getState}) => {
-          const token = selectAuthManagerToken(getState() as RootState)
-
-          token &&
-            managerAuthorizedEndpoints.includes(endpoint) &&
-            headers.set('userauthorization', token)
-
-          deviceIdRequestingEndpoints.includes(endpoint) &&
-            headers.set('deviceid', SHA256EncryptedDeviceId)
-
-          if (API_KEY) {
-            headers.set('X-API-KEY', API_KEY)
-          } else {
-            devError('No API key in .env.')
-          }
-
-          headers.set('releaseVersion', VERSION_NUMBER)
-
-          return headers
-        },
+        prepareHeaders,
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
 
