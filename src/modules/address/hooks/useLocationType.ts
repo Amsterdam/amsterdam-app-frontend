@@ -9,6 +9,9 @@ import {LocationType} from '@/modules/address/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
+/**
+ * Hook to set the location type for the address module and log the change to Piwik.
+ */
 export const useLocationType = () => {
   const dispatch = useDispatch()
   const locationType = useSelector(selectLocationType)
