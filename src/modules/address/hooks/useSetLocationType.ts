@@ -1,9 +1,8 @@
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {
-  selectLocationType,
   setLocationType as setLocationTypeAction,
+  useLocationType,
 } from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
@@ -12,15 +11,15 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 /**
  * Hook to set the location type for the address module and log the change to Piwik.
  */
-export const useLocationType = () => {
+export const useSetLocationType = () => {
   const dispatch = useDispatch()
-  const locationType = useSelector(selectLocationType)
+  const locationType = useLocationType()
   const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
     logAction: PiwikAction.locationOrAddressSelectionChange,
     logName: 'BottomSheetAddressOrLocationSelect',
   })
 
-  const setLocationType = useCallback(
+  return useCallback(
     (type: LocationType) => {
       dispatch(
         setLocationTypeAction({
@@ -38,6 +37,4 @@ export const useLocationType = () => {
     },
     [dispatch, locationType, onEvent],
   )
-
-  return {locationType, setLocationType}
 }

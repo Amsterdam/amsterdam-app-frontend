@@ -10,8 +10,8 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useGetLocationQuery} from '@/modules/address/service'
 import {setStartGettingLocation, useLocation} from '@/modules/address/slice'
 import {PdokAddress} from '@/modules/address/types'
@@ -41,7 +41,7 @@ export const StreetSearchResultForLocation = ({
   )
   const pdokAddresses = currentData?.response?.docs
 
-  const {setLocationType} = useLocationType()
+  const setLocationType = useSetLocationType()
 
   const addresses = useMemo(
     () => pdokAddresses?.filter(addressIsInAmsterdamMunicipality),

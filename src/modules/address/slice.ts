@@ -147,3 +147,5 @@ export const selectLocationType = (
   // Otherwise, return address
   return undefined
 }
+
+export const useLocationType = () => useSelector(selectLocationType)

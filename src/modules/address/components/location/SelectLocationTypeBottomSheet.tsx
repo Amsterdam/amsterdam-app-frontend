@@ -12,8 +12,8 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
-import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
 import {setStartGettingLocation} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -30,7 +30,7 @@ export const SelectLocationTypeBottomSheet = ({
 }: Props) => {
   const dispatch = useDispatch()
   const address = useAddress()
-  const {setLocationType} = useLocationType()
+  const setLocationType = useSetLocationType()
   const {navigate} = useNavigation<AddressModalName>()
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
 
