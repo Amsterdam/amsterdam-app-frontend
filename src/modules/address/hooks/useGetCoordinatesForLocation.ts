@@ -5,20 +5,21 @@ import {useLocation, setGetLocationIsError} from '@/modules/address/slice'
 import {Coordinates} from '@/modules/address/types'
 import {getPropertyFromMaybeObject} from '@/utils/object'
 
-export const useGetCoordinatesForLocationQuery = () => {
+export const useGetCoordinatesForLocation = () => {
   const dispatch = useDispatch()
-  const [coordinatesForLocationQuery, setCoordinatesForLocationQuery] =
-    useState<Coordinates | undefined>()
+  const [coordinatesForLocation, setCoordinatesForLocation] = useState<
+    Coordinates | undefined
+  >()
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
   const {startGettingLocation, highAccuracyPurposeKey} = useLocation()
   const getCoordinates = useGetCoordinates(highAccuracyPurposeKey)
 
-  const getCoordinatesForLocationQuery = useCallback(async () => {
+  const getCoordinatesForLocation = useCallback(async () => {
     try {
       setIsGettingCoordinates(true)
       const coordinates = await getCoordinates()
 
-      setCoordinatesForLocationQuery(coordinates)
+      setCoordinatesForLocation(coordinates)
     } catch (error) {
       const isTechnicalError = getPropertyFromMaybeObject(
         error,
@@ -35,13 +36,13 @@ export const useGetCoordinatesForLocationQuery = () => {
 
   useEffect(() => {
     if (startGettingLocation) {
-      void getCoordinatesForLocationQuery()
+      void getCoordinatesForLocation()
     }
-  }, [getCoordinatesForLocationQuery, startGettingLocation])
+  }, [getCoordinatesForLocation, startGettingLocation])
 
   return {
-    coordinatesForLocationQuery,
-    getCoordinatesForLocationQuery,
+    coordinatesForLocation,
+    getCoordinatesForLocation,
     isGettingCoordinates,
   }
 }
