@@ -40,18 +40,13 @@ export const addressSlice = createSlice({
       }: PayloadAction<
         {highAccuracyPurposeKey: HighAccuracyPurposeKey} | undefined
       >,
-    ) => {
-      const {highAccuracyPurposeKey} = payload ?? {}
-
-      return {
-        ...state,
-        ...(highAccuracyPurposeKey
-          ? {highAccuracyPurposeKey}
-          : {highAccuracyPurposeKey: initialState.highAccuracyPurposeKey}),
-        startGettingLocation: true,
-        getLocationIsError: false,
-      }
-    },
+    ) => ({
+      ...state,
+      highAccuracyPurposeKey:
+        payload?.highAccuracyPurposeKey ?? initialState.highAccuracyPurposeKey,
+      startGettingLocation: true,
+      getLocationIsError: false,
+    }),
     setGetLocationIsError: (
       state,
       {payload: getLocationIsError}: PayloadAction<boolean>,
