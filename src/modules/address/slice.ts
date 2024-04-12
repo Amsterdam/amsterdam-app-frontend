@@ -14,7 +14,7 @@ import {Permissions} from '@/types/permissions'
 const initialState: AddressState = {
   highAccuracyPurposeKey: HighAccuracyPurposeKey.PreciseLocationAddressLookup,
   locationType: undefined,
-  getLocation: undefined,
+  startGettingLocation: undefined,
   getLocationIsError: undefined,
   isGettingLocation: undefined,
 }
@@ -33,7 +33,7 @@ export const addressSlice = createSlice({
       getLocationIsError: false,
     }),
     removeAddress: ({address: _address, ...rest}) => rest,
-    setGetLocation: (
+    setStartGettingLocation: (
       state,
       {
         payload,
@@ -48,7 +48,7 @@ export const addressSlice = createSlice({
         ...(highAccuracyPurposeKey
           ? {highAccuracyPurposeKey}
           : {highAccuracyPurposeKey: initialState.highAccuracyPurposeKey}),
-        getLocation: true,
+        startGettingLocation: true,
         getLocationIsError: false,
       }
     },
@@ -58,7 +58,7 @@ export const addressSlice = createSlice({
     ) => ({
       ...state,
       getLocationIsError,
-      ...(getLocationIsError && {getLocation: false}),
+      ...(getLocationIsError && {startGettingLocation: false}),
     }),
     setIsGettingLocation: (
       state,
@@ -66,7 +66,10 @@ export const addressSlice = createSlice({
     ) => ({
       ...state,
       isGettingLocation,
-      ...(isGettingLocation && {getLocation: false, getLocationIsError: false}),
+      ...(isGettingLocation && {
+        startGettingLocation: false,
+        getLocationIsError: false,
+      }),
     }),
     setLocationType: (
       state,
@@ -82,7 +85,7 @@ export const {
   addAddress,
   addLocation,
   removeAddress,
-  setGetLocation,
+  setStartGettingLocation,
   setGetLocationIsError,
   setIsGettingLocation,
   setLocationType,
@@ -94,8 +97,8 @@ export const selectAddress = (state: RootState) =>
 export const selectLocation = (state: RootState) =>
   state[ReduxKey.address].location
 
-export const selectGetLocation = (state: RootState) =>
-  state[ReduxKey.address].getLocation
+export const selectStartGettingLocation = (state: RootState) =>
+  state[ReduxKey.address].startGettingLocation
 export const selectGetLocationIsError = (state: RootState) =>
   state[ReduxKey.address].getLocationIsError
 
@@ -105,7 +108,7 @@ export const selectIsGettingLocation = (state: RootState) =>
   state[ReduxKey.address].isGettingLocation
 
 export const useLocation = () => ({
-  getLocation: useSelector(selectGetLocation),
+  startGettingLocation: useSelector(selectStartGettingLocation),
   getLocationIsError: useSelector(selectGetLocationIsError),
   highAccuracyPurposeKey: useSelector(selectHighAccuracyPurposeKey),
   isGettingLocation: useSelector(selectIsGettingLocation),

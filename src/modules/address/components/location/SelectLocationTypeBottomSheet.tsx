@@ -15,7 +15,7 @@ import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {AddressModalName} from '@/modules/address/routes'
-import {setGetLocation} from '@/modules/address/slice'
+import {setStartGettingLocation} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -40,7 +40,7 @@ export const SelectLocationTypeBottomSheet = ({
   const {hasPermission, requestPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
-    dispatch(setGetLocation({highAccuracyPurposeKey}))
+    dispatch(setStartGettingLocation({highAccuracyPurposeKey}))
   }, [dispatch, hasPermission, highAccuracyPurposeKey])
 
   const onPressAddressButton = useCallback(() => {
@@ -58,7 +58,7 @@ export const SelectLocationTypeBottomSheet = ({
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
 
-    dispatch(setGetLocation({highAccuracyPurposeKey}))
+    dispatch(setStartGettingLocation({highAccuracyPurposeKey}))
 
     if (!permission) {
       navigateToInstructionsScreen()

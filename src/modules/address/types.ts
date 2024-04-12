@@ -28,10 +28,6 @@ export type AddressState = {
    */
   address?: Address
   /**
-   * True when user requests to get the location
-   */
-  getLocation: boolean | undefined
-  /**
    * Error when getting coordinates or fetching address fails
    */
   getLocationIsError: boolean | undefined
@@ -51,6 +47,10 @@ export type AddressState = {
    * user preference for using location or address
    */
   locationType?: LocationType
+  /**
+   * True when user requests to get the location
+   */
+  startGettingLocation: boolean | undefined
 }
 
 export type PdokAddress = {

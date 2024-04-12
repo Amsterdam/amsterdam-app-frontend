@@ -13,7 +13,7 @@ import {AddressSearchSuggestions} from '@/modules/address/components/AddressSear
 import {useLocationType} from '@/modules/address/hooks/useLocationType'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useGetLocationQuery} from '@/modules/address/service'
-import {setGetLocation, useLocation} from '@/modules/address/slice'
+import {setStartGettingLocation, useLocation} from '@/modules/address/slice'
 import {PdokAddress} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 import {Permissions} from '@/types/permissions'
@@ -69,7 +69,7 @@ export const StreetSearchResultForLocation = ({
   }, [setLocationType, navigateToInstructionsScreen, requestPermission])
 
   useEffect(() => {
-    dispatch(setGetLocation())
+    dispatch(setStartGettingLocation())
   }, [dispatch, hasLocationPermission])
 
   if (!showSuggestionsForLocation) {
