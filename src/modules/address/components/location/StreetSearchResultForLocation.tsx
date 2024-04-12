@@ -10,7 +10,6 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
-import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {useGetLocationQuery} from '@/modules/address/service'
 import {useLocation} from '@/modules/address/slice'
@@ -33,14 +32,12 @@ export const StreetSearchResultForLocation = ({
     useState(false)
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
   const {isGettingLocation, location} = useLocation()
-  const {currentData} = useGetLocationQuery(
+  const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates
-      ? {...location?.coordinates, rows: NUM_OF_SEARCH_RESULTS}
+      ? {...location.coordinates, rows: NUM_OF_SEARCH_RESULTS}
       : skipToken,
   )
   const pdokAddresses = currentData?.response?.docs
-
-  const setLocationType = useSetLocationType()
 
   const addresses = useMemo(
     () => pdokAddresses?.filter(addressIsInAmsterdamMunicipality),
@@ -60,22 +57,10 @@ export const StreetSearchResultForLocation = ({
 
     if (!permission) {
       navigateToInstructionsScreen()
-
-      return
     }
-
-    setLocationType('location')
-  }, [setLocationType, navigateToInstructionsScreen, requestPermission])
+  }, [navigateToInstructionsScreen, requestPermission])
 
   useStartGettingLocation()
-
-  if (!showSuggestionsForLocation) {
-    return null
-  }
-
-  if (isGettingLocation) {
-    return null
-  }
 
   if (!hasLocationPermission && !pdokAddresses) {
     return (
@@ -93,9 +78,18 @@ export const StreetSearchResultForLocation = ({
     )
   }
 
+  if (
+    !showSuggestionsForLocation ||
+    isGettingLocation ||
+    isLoading ||
+    isUninitialized
+  ) {
+    return null
+  }
+
   const hasResults = !!addresses && addresses.length > 0
   const showTitle = hasResults || showFeedbackForNoResults
-  const showNoResultsMessage = !hasResults && !!showFeedbackForNoResults
+  const showNoResultsMessage = !hasResults && showFeedbackForNoResults
 
   return (
     <Box insetTop="lg">
