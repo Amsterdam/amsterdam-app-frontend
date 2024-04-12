@@ -5,7 +5,7 @@ import {
   useLocationType,
 } from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
-import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
+import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
 /**
@@ -14,10 +14,7 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 export const useSetLocationType = () => {
   const dispatch = useDispatch()
   const locationType = useLocationType()
-  const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
-    logAction: PiwikAction.locationOrAddressSelectionChange,
-    logName: 'BottomSheetAddressOrLocationSelect',
-  })
+  const {trackCustomEvent} = usePiwik()
 
   return useCallback(
     (type: LocationType) => {
@@ -28,13 +25,15 @@ export const useSetLocationType = () => {
       )
 
       if (locationType !== type) {
-        onEvent(undefined, {
-          dimensions: {
+        trackCustomEvent(
+          'BottomSheetAddressOrLocationSelect',
+          PiwikAction.locationOrAddressSelectionChange,
+          {
             [PiwikDimension.newState]: type,
           },
-        })
+        )
       }
     },
-    [dispatch, locationType, onEvent],
+    [dispatch, locationType, trackCustomEvent],
   )
 }
