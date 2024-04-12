@@ -36,14 +36,12 @@ export const addressSlice = createSlice({
     setStartGettingLocation: (
       state,
       {
-        payload,
-      }: PayloadAction<
-        {highAccuracyPurposeKey: HighAccuracyPurposeKey} | undefined
-      >,
+        payload: highAccuracyPurposeKey,
+      }: PayloadAction<HighAccuracyPurposeKey | undefined>,
     ) => ({
       ...state,
       highAccuracyPurposeKey:
-        payload?.highAccuracyPurposeKey ?? initialState.highAccuracyPurposeKey,
+        highAccuracyPurposeKey ?? initialState.highAccuracyPurposeKey,
       startGettingLocation: true,
       getLocationIsError: false,
     }),

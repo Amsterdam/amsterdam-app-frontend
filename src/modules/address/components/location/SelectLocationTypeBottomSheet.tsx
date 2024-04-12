@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,14 +8,13 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
+import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {AddressModalName} from '@/modules/address/routes'
-import {setStartGettingLocation} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -28,7 +27,6 @@ type Props = {
 export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
 }: Props) => {
-  const dispatch = useDispatch()
   const address = useAddress()
   const setLocationType = useSetLocationType()
   const {navigate} = useNavigation<AddressModalName>()
@@ -37,12 +35,11 @@ export const SelectLocationTypeBottomSheet = ({
   const {close: closeBottomSheet} = useBottomSheet()
   const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
 
-  const {hasPermission, requestPermission} = usePermission(Permissions.location)
+  const {requestPermission} = usePermission(Permissions.location)
 
-  useEffect(() => {
-    dispatch(setStartGettingLocation({highAccuracyPurposeKey}))
-  }, [dispatch, hasPermission, highAccuracyPurposeKey])
-
+  const {makeSetStartGettingLocation} = useStartGettingLocation(
+    highAccuracyPurposeKey,
+  )
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
 
@@ -58,7 +55,7 @@ export const SelectLocationTypeBottomSheet = ({
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
 
-    dispatch(setStartGettingLocation({highAccuracyPurposeKey}))
+    makeSetStartGettingLocation()
 
     if (!permission) {
       navigateToInstructionsScreen()
@@ -71,8 +68,7 @@ export const SelectLocationTypeBottomSheet = ({
     closeBottomSheet()
   }, [
     closeBottomSheet,
-    dispatch,
-    highAccuracyPurposeKey,
+    makeSetStartGettingLocation,
     navigateToInstructionsScreen,
     requestPermission,
     setLocationType,
