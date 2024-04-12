@@ -32,7 +32,7 @@ export const useGetCoordinates = (
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
-      new Promise<Coordinates | undefined>((resolve, reject) => {
+      new Promise<Coordinates | undefined>(async (resolve, reject) => {
         if (!hasPermission) {
           reject({isTechnicalError: false})
 
@@ -47,10 +47,8 @@ export const useGetCoordinates = (
             LOCATION_ACCURACY_IOS_VERSION,
           )
         ) {
-          requestLocationAccuracy({
+          await requestLocationAccuracy({
             purposeKey: highAccuracyPurposeKey,
-          }).catch(() => {
-            reject({isTechnicalError: true})
           })
         }
 
