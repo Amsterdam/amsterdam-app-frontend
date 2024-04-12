@@ -21,13 +21,9 @@ const NUM_OF_SEARCH_RESULTS = 5
 
 type Props = {
   selectResult: (item: PdokAddress) => void
-  showSuggestionsForLocation: boolean
 }
 
-export const StreetSearchResultForLocation = ({
-  selectResult,
-  showSuggestionsForLocation,
-}: Props) => {
+export const StreetSearchResultForLocation = ({selectResult}: Props) => {
   const [showFeedbackForNoResults, setShowFeedbackForNoResults] =
     useState(false)
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
@@ -78,12 +74,7 @@ export const StreetSearchResultForLocation = ({
     )
   }
 
-  if (
-    !showSuggestionsForLocation ||
-    isGettingLocation ||
-    isLoading ||
-    isUninitialized
-  ) {
+  if (isGettingLocation || isLoading || isUninitialized) {
     return null
   }
 

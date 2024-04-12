@@ -46,10 +46,9 @@ export const StreetInput = ({
       />
       {isStreetSelected ? null : (
         <>
-          <StreetSearchResultForLocation
-            selectResult={selectResult}
-            showSuggestionsForLocation={street.length === 0} // Only show location suggestions before user starts typing
-          />
+          {street.length === 0 && (
+            <StreetSearchResultForLocation selectResult={selectResult} />
+          )}
           {!isBelowCharacterThreshold && (
             <StreetSearchResult
               bagList={bagList}
