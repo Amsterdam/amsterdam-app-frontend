@@ -22,10 +22,9 @@ export const LocationPermissionInstructionsScreen = () => {
         if (granted) {
           const {index, routes, key, routeNames, type} = getState()
 
-          routes.pop()
           reset({
             index: index - 1,
-            routes,
+            routes: routes.slice(0, -1),
             stale: false,
             key,
             routeNames,
