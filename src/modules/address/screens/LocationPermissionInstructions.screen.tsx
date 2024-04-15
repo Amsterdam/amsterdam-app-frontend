@@ -18,18 +18,20 @@ export const LocationPermissionInstructionsScreen = () => {
   const {hasPermission, requestPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
-    if (hasPermission) {
-      const {index, routes, key, routeNames, type} = getState()
-
-      reset({
-        index: index - 1,
-        routes: routes.slice(0, -1),
-        stale: false,
-        key,
-        routeNames,
-        type,
-      })
+    if (!hasPermission) {
+      return
     }
+
+    const {index, routes, key, routeNames, type} = getState()
+
+    reset({
+      index: index - 1,
+      routes: routes.slice(0, -1),
+      stale: false,
+      key,
+      routeNames,
+      type,
+    })
   }, [getState, hasPermission, reset])
 
   useAppState({
