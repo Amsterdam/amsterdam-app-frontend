@@ -55,7 +55,7 @@ const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: ({query}) => ({
-    getAddressForCoordinates: query<
+    getLocation: query<
       AddressResponse | undefined,
       AddressForCoordinatesQueryParams
     >({
@@ -101,5 +101,4 @@ export const addressApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useGetAddressForCoordinatesQuery, useGetAddressSuggestionsQuery} =
-  addressApi
+export const {useGetLocationQuery, useGetAddressSuggestionsQuery} = addressApi

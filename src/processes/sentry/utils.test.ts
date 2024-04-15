@@ -14,7 +14,7 @@ describe('Sentry log whitelist', () => {
 
   it('Filtering data', () =>
     expect(
-      getAllowedData(SentryErrorLogKey.currentCoordinates, {
+      getAllowedData(SentryErrorLogKey.coordinates, {
         code: '404',
         message: 'Not found',
         error: 'Not found',
@@ -22,14 +22,14 @@ describe('Sentry log whitelist', () => {
     ).toStrictEqual({error: 'Not found'}))
 
   it('No data object', () =>
-    expect(getAllowedData(SentryErrorLogKey.currentCoordinates)).toStrictEqual(
+    expect(getAllowedData(SentryErrorLogKey.coordinates)).toStrictEqual(
       undefined,
     ))
 
   it('Empty data object', () =>
-    expect(
-      getAllowedData(SentryErrorLogKey.currentCoordinates, {}),
-    ).toStrictEqual(undefined))
+    expect(getAllowedData(SentryErrorLogKey.coordinates, {})).toStrictEqual(
+      undefined,
+    ))
 
   it('Empty sentry whitelist', () =>
     expect(getAllowedData(SentryErrorLogKey.openMailUrl, {})).toStrictEqual(

@@ -1,5 +1,5 @@
 export enum WasteGuideEndpointName {
-  getGarbageCollectionArea = 'getGarbageCollectionArea',
+  getWasteGuide = 'getWasteGuide',
 }
 
 export enum FractionCode {

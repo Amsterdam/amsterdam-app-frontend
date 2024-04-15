@@ -10,6 +10,8 @@ import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {Permissions} from '@/types/permissions'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
+const LOCATION_ACCURACY_IOS_VERSION = '14'
+
 const defaultOptions: GeoOptions = {
   forceLocationManager: false,
   forceRequestLocation: false,
@@ -22,30 +24,37 @@ const defaultOptions: GeoOptions = {
 /**
  * Returns a promise of the current position (location) of the user. Will request the permission if necessary and will handle error logging if requesting the position fails.
  */
-export const useGetCurrentCoordinates = (
-  purposeKey?: HighAccuracyPurposeKey,
+export const useGetCoordinates = (
+  highAccuracyPurposeKey?: HighAccuracyPurposeKey,
 ) => {
   const {sendSentryErrorLog} = useSentry()
   const {hasPermission} = usePermission(Permissions.location)
 
   return useCallback(
     (options?: Partial<GeoOptions>) =>
-      new Promise<Coordinates>(async (resolve, reject) => {
-        // TODO: check permission
-        // TODO: request permissions when shouldRequestPermission prop is added
+      new Promise<Coordinates | undefined>(async (resolve, reject) => {
+        if (!hasPermission) {
+          reject({isTechnicalError: false})
+
+          return
+        }
+
         if (
-          purposeKey &&
+          highAccuracyPurposeKey &&
           Platform.OS === 'ios' &&
-          isVersionHigherOrEqual(DeviceInfo.getSystemVersion(), '14')
+          isVersionHigherOrEqual(
+            DeviceInfo.getSystemVersion(),
+            LOCATION_ACCURACY_IOS_VERSION,
+          )
         ) {
           await requestLocationAccuracy({
-            purposeKey,
+            purposeKey: highAccuracyPurposeKey,
           })
         }
 
         Geolocation.getCurrentPosition(
           ({coords: {latitude, longitude}}) => {
-            const coordinates: Coordinates = {
+            const coordinates = {
               lat: latitude,
               lon: longitude,
             }
@@ -53,15 +62,12 @@ export const useGetCurrentCoordinates = (
             resolve(coordinates)
           },
           error => {
-            if (hasPermission) {
-              sendSentryErrorLog(
-                SentryErrorLogKey.currentCoordinates,
-                'useGetCurrentCoordinates.ts',
-                {error},
-              )
-            }
-
-            reject({isTechnicalError: hasPermission})
+            sendSentryErrorLog(
+              SentryErrorLogKey.coordinates,
+              'useGetCoordinates.ts',
+              {error},
+            )
+            reject({isTechnicalError: true})
           },
           {
             ...defaultOptions,
@@ -69,6 +75,6 @@ export const useGetCurrentCoordinates = (
           },
         )
       }),
-    [hasPermission, purposeKey, sendSentryErrorLog],
+    [hasPermission, highAccuracyPurposeKey, sendSentryErrorLog],
   )
 }

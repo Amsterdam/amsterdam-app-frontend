@@ -1,5 +1,5 @@
 import {ProductTourState} from '@/components/features/product-tour/slice'
-import {AddressState} from '@/modules/address/slice'
+import {AddressState} from '@/modules/address/types'
 import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/slice'

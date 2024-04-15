@@ -1,5 +1,5 @@
 import {MigrationManifest, PersistedState} from 'redux-persist'
-import {AddressState} from '@/modules/address/slice'
+import {AddressState} from '@/modules/address/types'
 import {Address, AddressCity} from '@/modules/address/types'
 import {
   getAddition,
@@ -71,7 +71,7 @@ export const migrations: MigrationManifest = {
       return {} as PersistedState
     }
 
-    const addressState: AddressState = {
+    const addressState: Partial<AddressState> = {
       address: {
         addition: getAddition(bag_huisletter, bag_toevoeging),
         additionLetter: bag_huisletter || undefined,

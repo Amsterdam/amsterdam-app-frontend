@@ -11,53 +11,37 @@ import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
+import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {AddressModalName} from '@/modules/address/routes'
-import {useLocationType} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
-import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Permissions} from '@/types/permissions'
 
 type Props = {
-  highAccuracyPurposeKey?: HighAccuracyPurposeKey
+  highAccuracyPurposeKey: HighAccuracyPurposeKey
 }
 
 export const SelectLocationTypeBottomSheet = ({
   highAccuracyPurposeKey,
 }: Props) => {
-  const locationType = useLocationType()
   const address = useAddress()
-
-  const {navigate} = useNavigation<AddressModalName>()
   const setLocationType = useSetLocationType()
-  const navigateToInstructionsScreen = useCallback(
-    () => navigate(AddressModalName.locationPermissionInstructions),
-    [navigate],
-  )
+  const {navigate} = useNavigation<AddressModalName>()
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
 
-  const {close: closeBottomSheet, isOpen: bottomSheetIsOpen} = useBottomSheet()
+  const {close: closeBottomSheet} = useBottomSheet()
   const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
-
-  const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
-    logAction: PiwikAction.locationOrAddressSelectionChange,
-    logName: 'BottomSheetAddressOrLocationSelect',
-  })
 
   const {requestPermission} = usePermission(Permissions.location)
 
+  const {makeSetStartGettingLocation} = useStartGettingLocation(
+    highAccuracyPurposeKey,
+  )
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
-
-    if (locationType !== 'address') {
-      onEvent(undefined, {
-        dimensions: {
-          [PiwikDimension.newState]: 'address',
-        },
-      })
-    }
 
     if (!address) {
       navigate(AddressModalName.addressForm)
@@ -66,17 +50,12 @@ export const SelectLocationTypeBottomSheet = ({
     }
 
     closeBottomSheet()
-  }, [
-    address,
-    closeBottomSheet,
-    locationType,
-    navigate,
-    onEvent,
-    setLocationType,
-  ])
+  }, [setLocationType, address, closeBottomSheet, navigate])
 
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
+
+    makeSetStartGettingLocation()
 
     if (!permission) {
       navigateToInstructionsScreen()
@@ -86,20 +65,11 @@ export const SelectLocationTypeBottomSheet = ({
 
     setLocationType('location')
 
-    if (locationType !== 'location') {
-      onEvent(undefined, {
-        dimensions: {
-          [PiwikDimension.newState]: 'location',
-        },
-      })
-    }
-
     closeBottomSheet()
   }, [
     closeBottomSheet,
-    locationType,
+    makeSetStartGettingLocation,
     navigateToInstructionsScreen,
-    onEvent,
     requestPermission,
     setLocationType,
   ])
@@ -138,7 +108,6 @@ export const SelectLocationTypeBottomSheet = ({
           <LocationTopTaskButton
             highAccuracyPurposeKey={highAccuracyPurposeKey}
             onPress={onPressLocationButton}
-            shouldRequestPermission={bottomSheetIsOpen}
             testID="BottomSheetSelectLocationButton"
           />
         </Column>
