@@ -17,7 +17,7 @@ export const useStartGettingLocation = (
   )
 
   useEffect(() => {
-    dispatch(makeSetStartGettingLocation())
+    makeSetStartGettingLocation()
   }, [dispatch, hasPermission, makeSetStartGettingLocation])
 
   return {makeSetStartGettingLocation}

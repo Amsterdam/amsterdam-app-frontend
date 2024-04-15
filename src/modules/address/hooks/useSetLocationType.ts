@@ -26,7 +26,7 @@ export const useSetLocationType = () => {
 
       if (locationType !== type) {
         trackCustomEvent(
-          'BottomSheetAddressOrLocationSelect',
+          'useSetLocationType',
           PiwikAction.locationOrAddressSelectionChange,
           {
             [PiwikDimension.newState]: type,

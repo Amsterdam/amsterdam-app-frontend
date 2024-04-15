@@ -49,10 +49,15 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
 
   const onPressUseLocationButton = useCallback(async () => {
     setShowFeedbackForNoResults(true)
-    const permission = await requestPermission()
 
-    if (!permission) {
-      navigateToInstructionsScreen()
+    try {
+      const permission = await requestPermission()
+
+      if (!permission) {
+        navigateToInstructionsScreen()
+      }
+    } catch (error) {
+      return
     }
   }, [navigateToInstructionsScreen, requestPermission])
 
