@@ -44,7 +44,7 @@ export const contactOptions: ContactOption[] = [
     key: 'whatsapp',
     url: 'https://wa.me/31644440655',
     testID: 'ContactWhatsAppButton',
-    text: 'Reactie binnen 2 uur',
+    text: 'Reactie binnen 4 uur',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
   {
