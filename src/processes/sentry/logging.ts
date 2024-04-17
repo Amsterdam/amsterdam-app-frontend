@@ -3,6 +3,7 @@ import {
   type Middleware,
   type PayloadAction,
 } from '@reduxjs/toolkit'
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {
   addBreadcrumb,
   captureException,
@@ -16,7 +17,11 @@ import {
   type CaptureBreadcrumb,
   type SendErrorLog,
 } from '@/processes/sentry/types'
-import {getAllowedData} from '@/processes/sentry/utils'
+import {
+  getAllowedData,
+  isExpectedError,
+  isStatusCodeAllowedForLogging,
+} from '@/processes/sentry/utils'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 /**
@@ -56,27 +61,25 @@ type Payload =
   | {error: unknown; originalStatus?: number | string; status?: string}
   | undefined
 
-const disallowedStatusCodesForLogging = [0, '0']
-
-const isStatusCodeDisallowedForLogging = (
-  status: string | number | undefined,
-) => disallowedStatusCodesForLogging.includes(status ?? '')
-
 export const sentryLogRequestFailed = (
   action: Pick<PayloadAction<Payload, string, Meta>, 'meta' | 'payload'>,
   singleRequest = false,
 ) => {
-  // @TODO: when we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
+  // @TODO: if we implement a consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting
   const consent = true
 
-  let title = 'Rejected RTK action'
   const endpoint = action.meta?.arg?.endpointName
   const originalStatus = action.payload?.originalStatus
   const status = action.payload?.status
 
-  if (isStatusCodeDisallowedForLogging(originalStatus ?? status)) {
+  if (
+    !isStatusCodeAllowedForLogging(originalStatus ?? status) ||
+    isExpectedError(endpoint, action.payload as FetchBaseQueryError)
+  ) {
     return
   }
+
+  let title = 'Rejected RTK action'
 
   if (endpoint) {
     title = `${originalStatus ?? status ?? 'Error'} for ${endpoint}`

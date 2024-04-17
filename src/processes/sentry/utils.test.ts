@@ -1,6 +1,13 @@
+import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import type {ErrorEvent} from '@sentry/types'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
-import {getSanitizedIosEvent, getAllowedData} from '@/processes/sentry/utils'
+import {
+  getSanitizedIosEvent,
+  getAllowedData,
+  isExpectedError,
+  isStatusCodeAllowedForLogging,
+} from '@/processes/sentry/utils'
+import {DeviceRegistrationEndpointName} from '@/types/device'
 
 describe('Sentry log whitelist', () => {
   it('With valid logkey', () =>
@@ -98,5 +105,57 @@ describe('getSanitizedIosEvent', () => {
 
     expect(result.contexts?.device?.free_storage).toBe(100)
     expect(result.contexts?.device?.boot_time).toBe('some_timestamp')
+  })
+})
+
+describe('isExpectedError', () => {
+  test('should return true for expected error', () => {
+    const endpointName = DeviceRegistrationEndpointName.unregisterDevice
+    const error: FetchBaseQueryError = {status: 404, data: 'No record found'}
+
+    expect(isExpectedError(endpointName, error)).toBe(true)
+  })
+
+  test('should return false for unexpected error, based on endpoint', () => {
+    const endpointName = DeviceRegistrationEndpointName.registerDevice
+    const error: FetchBaseQueryError = {status: 404, data: 'No record found'}
+
+    expect(isExpectedError(endpointName, error)).toBe(false)
+  })
+
+  test('should return false for unexpected error, based on code', () => {
+    const endpointName = DeviceRegistrationEndpointName.unregisterDevice
+    const error: FetchBaseQueryError = {status: 500, data: 'No record found'}
+
+    expect(isExpectedError(endpointName, error)).toBe(false)
+  })
+
+  test('should return false for unexpected error, based on data', () => {
+    const endpointName = DeviceRegistrationEndpointName.unregisterDevice
+    const error: FetchBaseQueryError = {status: 404, data: 'Idk lol'}
+
+    expect(isExpectedError(endpointName, error)).toBe(false)
+  })
+})
+
+describe('isStatusCodeAllowedForLogging', () => {
+  test('should return false for disallowed status code', () => {
+    expect(isStatusCodeAllowedForLogging(0)).toBe(false)
+  })
+
+  test('should return true for allowed status code', () => {
+    expect(isStatusCodeAllowedForLogging(200)).toBe(true)
+  })
+
+  test('should return false for disallowed status code as string', () => {
+    expect(isStatusCodeAllowedForLogging('0')).toBe(false)
+  })
+
+  test('should return true for allowed status code as string', () => {
+    expect(isStatusCodeAllowedForLogging('200')).toBe(true)
+  })
+
+  test('should return false for undefined status code', () => {
+    expect(isStatusCodeAllowedForLogging(undefined)).toBe(false)
   })
 })

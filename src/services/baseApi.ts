@@ -13,6 +13,7 @@ import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {devError} from '@/processes/development'
 import {sentryLogRequestFailed} from '@/processes/sentry/logging'
+import {isExpectedError} from '@/processes/sentry/utils'
 import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -78,25 +79,27 @@ const dynamicBaseQuery: BaseQueryFn<
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
 
-      if (result.error) {
+      const {error, meta} = result
+
+      if (error && !isExpectedError(baseQueryApi.endpoint, error)) {
         sentryLogRequestFailed(
           {
             meta: {
               arg: {endpointName: baseQueryApi.endpoint},
-              baseQueryMeta: result.meta,
+              baseQueryMeta: meta,
             },
             payload: {
-              error: result.error,
-              originalStatus: result.meta?.response?.status,
-              status: result.error?.status.toString(),
+              error: error,
+              originalStatus: meta?.response?.status,
+              status: error?.status.toString(),
             },
           },
           true,
         )
       }
 
-      if (result.error?.status === 404) {
-        retry.fail(result.error)
+      if (error?.status === 404) {
+        retry.fail(error)
       }
 
       return result
