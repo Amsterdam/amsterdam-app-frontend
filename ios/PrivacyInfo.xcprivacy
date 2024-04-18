@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--This is a temporary fix for missing privacy manifest in some packages (see PBI 110679)-->
+<plist version="1.0">
+   <dict>
+      <key>NSPrivacyAccessedAPITypes</key>
+      <array>
+         <dict>
+               <key>NSPrivacyAccessedAPITypeReasons</key>
+               <array>
+                  <!--C617.1: Declare this reason to access the timestamps, size, or other metadata of files inside the app container, app group container, or the app’s CloudKit container.-->  
+                  <string>C617.1</string>
+                  <!--3B52.1: Declare this reason to access the timestamps, size, or other metadata of files or directories that the user specifically granted access to, such as using a document picker view controller.-->  
+                  <string>3B52.1</string>
+               </array>
+               <key>NSPrivacyAccessedAPIType</key>
+               <string>NSPrivacyAccessedAPICategoryFileTimestamp</string>
+         </dict>
+         <dict>
+               <key>NSPrivacyAccessedAPITypeReasons</key>
+               <array>
+                  <!--7D9E.1: Declare this reason to include disk space information in an optional bug report that the person using the device chooses to submit. The disk space information must be prominently displayed to the person as part of the report.-->
+                  <string>7D9E.1</string>
+               </array>
+               <key>NSPrivacyAccessedAPIType</key>
+               <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+         </dict>
+         <dict>
+               <key>NSPrivacyAccessedAPITypeReasons</key>
+               <array>
+                  <!--3D61.1: Declare this reason to include system boot time information in an optional bug report that the person using the device chooses to submit. The system boot time information must be prominently displayed to the person as part of the report.-->
+                  <string>3D61.1</string>
+               </array>
+               <key>NSPrivacyAccessedAPIType</key>
+               <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+         </dict>
+         <dict>
+               <key>NSPrivacyAccessedAPITypeReasons</key>
+               <array>
+                  <!--CA92.1: Declare this reason to access user defaults to read and write information that is only accessible to the app itself.-->
+                  <string>CA92.1</string>
+               </array>
+               <key>NSPrivacyAccessedAPIType</key>
+               <string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+         </dict>
+      </array>
+   </dict>
+</plist>
