@@ -59,11 +59,12 @@ def parseVersionNumber(fullVersionNumber)
   end
 end
 
-def getReleaseInfoForVersion
+def getReleaseInfoForVersion(isInternal = false)
   require 'uri'
   require 'net/http'
   require 'json'
-  uri = URI('https://app.amsterdam.nl/modules/api/v1/release/' + parseVersionNumber(ENV["VERSION_NUMBER"])[:version])
+  baseUri = isInternal ? 'https://acc.app.amsterdam.nl/modules/api/v1/release/' : 'https://app.amsterdam.nl/modules/api/v1/release/'
+  uri = URI(baseUri + parseVersionNumber(ENV["VERSION_NUMBER"])[:version])
   res = Net::HTTP.get_response(uri)
   if res.is_a?(Net::HTTPSuccess)
     json = JSON.parse(res.body)
@@ -115,7 +116,7 @@ platform :android do
   end
 
   lane :distributeInternal do
-    releaseNotes = getReleaseInfoForVersion()['releaseNotes']
+    releaseNotes = getReleaseInfoForVersion(true)['releaseNotes']
     writeReleaseNotes(releaseNotes)
     apps.each do |app|
       isAab = app[:task] == "bundle"
