@@ -1,4 +1,4 @@
-import {Fragment, ReactNode, useEffect, useRef} from 'react'
+import {Fragment, ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {
   AlertProps,
@@ -50,15 +50,9 @@ export const AlertBase = ({
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  const ref = useRef(null)
+  const hasContent = !!text || !!title
 
-  useEffect(() => {
-    if (ref.current) {
-      setAccessibilityFocus(ref.current)
-    }
-  }, [setAccessibilityFocus])
-
-  if (!alert.content) {
+  if (!hasContent) {
     return null
   }
 
@@ -69,11 +63,7 @@ export const AlertBase = ({
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
           accessible
-          ref={component => {
-            if (alert.content) {
-              setAccessibilityFocus(component)
-            }
-          }}
+          ref={setAccessibilityFocus}
           style={styles?.view}
           testID={testID}>
           <Row align="between">

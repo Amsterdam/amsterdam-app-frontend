@@ -3,6 +3,7 @@ import {SentryErrorLogKey} from '@/processes/sentry/types'
 export const sentryAllowList = {
   [SentryErrorLogKey.coordinates]: ['error'],
   [SentryErrorLogKey.getRedirectsUrl]: ['redirectsKey'],
+  [SentryErrorLogKey.nodeNotFound]: [],
   [SentryErrorLogKey.notSupportedStoredUrl]: [],
   [SentryErrorLogKey.hideSplashScreen]: ['error'],
   [SentryErrorLogKey.isScreenReaderEnabled]: ['error'],

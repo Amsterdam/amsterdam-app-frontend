@@ -20,6 +20,7 @@ export enum SentryErrorLogKey {
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
   isScreenReaderEnabled = 'Screenreader enabled check failed',
+  nodeNotFound = 'Node not found for ref',
   notSupportedStoredUrl = 'Can not use url to open store',
   openMailUrl = 'Open mail url failed',
   openPhoneUrl = 'Open phone url failed',

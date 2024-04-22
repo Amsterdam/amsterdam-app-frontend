@@ -102,17 +102,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
     ref,
   ) => {
     const direction = mapPlacementToDirection(placement)
-    const setAccessibilityFocus = useAccessibilityFocus<View>()
-
-    const wrapperRef = useRef(null)
-
-    useEffect(() => {
-      if (!wrapperRef?.current) {
-        return
-      }
-
-      setAccessibilityFocus(wrapperRef.current)
-    }, [setAccessibilityFocus])
+    const setAccessibilityFocus = useAccessibilityFocus()
 
     const Pointer = <Triangle direction={direction} />
 
@@ -130,6 +120,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
           accessibilityLanguage={accessibilityLanguage}
           accessibilityRole="alert"
           onPress={onPress}
+          ref={setAccessibilityFocus}
           testID={testID}>
           <Row>
             {placement === Placement.after && Pointer}
