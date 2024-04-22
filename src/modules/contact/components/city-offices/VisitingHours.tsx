@@ -79,7 +79,7 @@ export const VisitingHours = ({
   )
   const {value: isOpen, toggle: toggleTooltip} = useToggle()
 
-  const a11yAutoFocusRef = useAccessibilityAutoFocus<View>({
+  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !isOpen,
   })
 
@@ -115,7 +115,7 @@ export const VisitingHours = ({
             />
           }
           onPress={toggleTooltip}
-          ref={a11yAutoFocusRef}
+          ref={accessibilityAutoFocusRef}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>

@@ -43,7 +43,7 @@ export const CarouselSlide = ({
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
   const styles = useThemable(createStyles({width, isImageVisible, isPortrait}))
-  const a11yAutoFocusRef = useAccessibilityAutoFocus<Text>({
+  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<Text>({
     isActive: isCurrentSlide,
   })
   const isLargeFontScale = fontScale >= 1.5
@@ -90,7 +90,7 @@ export const CarouselSlide = ({
               <ContentView>
                 <Wrapper>
                   <Title
-                    ref={a11yAutoFocusRef}
+                    ref={accessibilityAutoFocusRef}
                     text={title}
                   />
                   <Phrase

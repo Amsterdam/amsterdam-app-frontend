@@ -16,9 +16,9 @@ export const useAccessibilityFocus = (focusDelay: Duration = Duration.none) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
   return useCallback(
-    (ref: Component | null) => {
-      if (ref && isScreenReaderEnabled) {
-        setTimeout(() => focusOnElement(ref), focusDelay)
+    (component: Component | null) => {
+      if (component && isScreenReaderEnabled) {
+        setTimeout(() => focusOnElement(component), focusDelay)
       }
     },
     [focusDelay, focusOnElement, isScreenReaderEnabled, setTimeout],
