@@ -36,7 +36,6 @@ export const isOpenForVisiting = (
       const closing = exception?.closing ?? regularClosing
 
       return (
-        // dateIsWeekDay(date, dayOfWeek) &&
         dateIsAfterOpeningTime(date, opening) &&
         dateIsBeforeClosingTime(date, closing)
       )
