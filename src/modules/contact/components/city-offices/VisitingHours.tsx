@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 import {useToggle} from '@/hooks/useToggle'
-import {CityOffice, VisitingHour} from '@/modules/contact/types'
+import {CityOffice, ExceptionDate, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -17,10 +17,14 @@ import {nonNullable} from '@/utils/nonNullable'
 type Props = {
   visitingHours: VisitingHour[]
   visitingHoursContent: CityOffice['visitingHoursContent']
+  visitingHoursExceptions: ExceptionDate[]
 }
 
-const getVisitingHoursSentence = (visitingHours: VisitingHour[]) => {
-  const visitingState = getVisitingState(visitingHours)
+const getVisitingHoursSentence = (
+  visitingHours: VisitingHour[],
+  exceptionDates: ExceptionDate[],
+) => {
+  const visitingState = getVisitingState(visitingHours, exceptionDates)
 
   if (visitingState) {
     const {dayName, preposition, time24hr, time12hr} = visitingState
@@ -63,8 +67,15 @@ const getTooltipContent = (form: 'spoken' | 'written') => {
   ].join(' ')
 }
 
-export const VisitingHours = ({visitingHours, visitingHoursContent}: Props) => {
-  const visitingHoursSentence = getVisitingHoursSentence(visitingHours)
+export const VisitingHours = ({
+  visitingHours,
+  visitingHoursContent,
+  visitingHoursExceptions,
+}: Props) => {
+  const visitingHoursSentence = getVisitingHoursSentence(
+    visitingHours,
+    visitingHoursExceptions,
+  )
   const {value: isOpen, toggle: toggleTooltip} = useToggle()
 
   const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({

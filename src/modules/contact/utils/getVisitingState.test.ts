@@ -1,10 +1,10 @@
 import {getVisitingState} from './getVisitingState'
-import {day, visitingHours} from './visitingHours.mock'
+import {day, exceptionDates, visitingHours} from './visitingHours.mock'
 import {Preposition} from '@/types/datetime'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 const wrapGetVisitingState = (date: string, time: string) =>
-  getVisitingState(visitingHours, dayjs(`${date}T${time}.000`))
+  getVisitingState(visitingHours, exceptionDates, dayjs(`${date}T${time}.000`))
 
 describe('getVisitingState', () => {
   it('handles a Wednesday before opening time', () => {
@@ -172,6 +172,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeKingsDay}T08:59:59.000`),
       ),
     ).toEqual({
@@ -185,6 +186,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeKingsDay}T09:00:00.000`),
       ),
     ).toEqual({
@@ -198,6 +200,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeKingsDay}T17:00:00.000`),
       ),
     ).toEqual({
@@ -211,6 +214,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeKingsDay}T20:00:00.000`),
       ),
     ).toEqual({
@@ -256,6 +260,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeChristmas}T08:59:59.000`),
       ),
     ).toEqual({
@@ -269,6 +274,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeChristmas}T09:00:00.000`),
       ),
     ).toEqual({
@@ -282,6 +288,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeChristmas}T17:00:00.000`),
       ),
     ).toEqual({
@@ -295,6 +302,7 @@ describe('getVisitingState', () => {
     expect(
       getVisitingState(
         visitingHours,
+        exceptionDates,
         dayjs(`${day.beforeChristmas}T20:00:00.000`),
       ),
     ).toEqual({
@@ -362,6 +370,30 @@ describe('getVisitingState', () => {
   })
   it('handles the Sunday just when DST ends', () => {
     expect(wrapGetVisitingState(day.dstEnd, '02:00:00')).toEqual({
+      dayName: 'morgen',
+      preposition: Preposition.from,
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles exception with special opening times before opening', () => {
+    expect(wrapGetVisitingState(day.sinterklaas, '07:00:00')).toEqual({
+      dayName: undefined,
+      preposition: Preposition.from,
+      time24hr: '09.00',
+      time12hr: '9:00',
+    })
+  })
+  it('handles exception with special opening times during opening', () => {
+    expect(wrapGetVisitingState(day.sinterklaas, '11:00:00')).toEqual({
+      dayName: undefined,
+      preposition: Preposition.until,
+      time24hr: '16.00',
+      time12hr: '4:00',
+    })
+  })
+  it('handles exception with special opening times during regular opening but outside special opening times', () => {
+    expect(wrapGetVisitingState(day.sinterklaas, '16:30:00')).toEqual({
       dayName: 'morgen',
       preposition: Preposition.from,
       time24hr: '09.00',
