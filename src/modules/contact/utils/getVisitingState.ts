@@ -3,6 +3,7 @@ import {
   OpeningAndClosingTimes,
   VisitingHour,
 } from '@/modules/contact/types'
+import {findRegularVisitingHoursForDate} from '@/modules/contact/utils/findRegularVisitingHoursForDate'
 import {getExceptionOpeningTimesForDate} from '@/modules/contact/utils/getExceptionOpeningTimesForDate'
 import {Preposition} from '@/types/datetime'
 import {adjustHoursAndMinutes} from '@/utils/datetime/adjustHoursAndMinutes'
@@ -68,25 +69,25 @@ export const getVisitingState = (
     let candidateVisitingHours: OpeningAndClosingTimes | undefined
 
     if (exception) {
-      if (
-        exception.closing &&
-        exception.opening &&
-        date.isBefore(adjustHoursAndMinutes(candidate, exception.closing))
-      ) {
+      if (exception.closing && exception.opening) {
         candidateVisitingHours = exception as OpeningAndClosingTimes
       }
     } else {
-      // Find available visiting hours on this date, meaning it should be
-      // the correct day of the week and before closing time.
-      candidateVisitingHours = visitingHours.find(
-        ({closing, dayOfWeek}) =>
-          candidate.day() === dayOfWeek &&
-          date.isBefore(adjustHoursAndMinutes(candidate, closing)),
+      // Find regular visiting hours for this date
+      candidateVisitingHours = findRegularVisitingHoursForDate(
+        visitingHours,
+        candidate,
       )
     }
 
-    // After finding the next interesting date, extract data from it.
-    if (candidateVisitingHours) {
+    // Only consider candidates for which closing time is still in the future
+    if (
+      candidateVisitingHours &&
+      date.isBefore(
+        adjustHoursAndMinutes(candidate, candidateVisitingHours.closing),
+      )
+    ) {
+      // After finding the first acceptable date, extract data from it
       return getVisitingStateFromDateWithOpeningAndClosingTimes(
         candidate,
         candidateVisitingHours,
