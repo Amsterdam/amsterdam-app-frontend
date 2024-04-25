@@ -67,6 +67,7 @@ export const CityOffice = () => {
         <VisitingHours
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}
+          visitingHoursExceptions={visitingHours.exceptions}
         />
         {appointment ? (
           <Column gutter="md">
@@ -82,9 +83,10 @@ export const CityOffice = () => {
             />
           </Column>
         ) : (
-          isOpenForVisiting(visitingHours.regular) && (
-            <WaitingTime cityOfficeId={identifier} />
-          )
+          isOpenForVisiting(
+            visitingHours.regular,
+            visitingHours.exceptions,
+          ) && <WaitingTime cityOfficeId={identifier} />
         )}
         {!!directionsUrl && (
           <Button

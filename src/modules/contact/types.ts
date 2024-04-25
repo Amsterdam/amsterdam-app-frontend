@@ -40,7 +40,7 @@ export type CityOffice = {
   image: Image
   title: string
   visitingHours: {
-    exceptions: VisitingHour[]
+    exceptions: ExceptionDate[]
     regular: VisitingHour[]
   }
   visitingHoursContent?: string
@@ -66,7 +66,7 @@ export type ExceptionDate = {
   date: string
 } & Partial<OpeningAndClosingTimes>
 
-type OpeningAndClosingTimes = {
+export type OpeningAndClosingTimes = {
   closing: HoursAndMinutes
   opening: HoursAndMinutes
 }
