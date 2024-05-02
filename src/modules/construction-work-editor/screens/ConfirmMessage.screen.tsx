@@ -5,7 +5,6 @@ import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Checkbox} from '@/components/ui/forms/Checkbox'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Screen} from '@/components/ui/layout/Screen'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Image} from '@/components/ui/media/Image'
 import {Link} from '@/components/ui/text/Link'
@@ -17,6 +16,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useToggle} from '@/hooks/useToggle'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {
   clearDraft,
   selectCurrentProjectId,
@@ -124,7 +124,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   )
 
   return (
-    <Screen
+    <LoginBoundaryScreen
       hasStickyAlert
       scroll
       stickyFooter={
@@ -192,6 +192,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           )}
         </Column>
       </Box>
-    </Screen>
+    </LoginBoundaryScreen>
   )
 }

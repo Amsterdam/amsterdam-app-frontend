@@ -1,4 +1,4 @@
-import {Platform} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import {
   WebView as WebViewRN,
   WebViewProps as WebViewRNProps,
@@ -8,6 +8,7 @@ import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 type Props = {
+  grow?: boolean
   sliceFromTop?: {
     landscape: number
     portrait: number
@@ -35,6 +36,7 @@ const webViewInjection = (fontScale: number, injectedJavaScript?: string) => {
 }
 
 export const WebView = ({
+  grow,
   sliceFromTop,
   url,
   urlParams,
@@ -52,6 +54,7 @@ export const WebView = ({
 
   return (
     <WebViewRN
+      containerStyle={!!grow && styles.grow}
       renderLoading={() => <PleaseWait testID={testID} />}
       source={{uri: urlWithParams}}
       startInLoadingState
@@ -68,3 +71,9 @@ export const WebView = ({
     />
   )
 }
+
+const styles = StyleSheet.create({
+  grow: {
+    flexGrow: 1,
+  },
+})

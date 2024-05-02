@@ -7,11 +7,6 @@ export enum ConstructionWorkEditorEndpointName {
   getProjects = 'getProjects',
 }
 
-export type ConstructionWorkEditor = {
-  hasSeenWelcomeMessage: boolean
-  id?: string
-}
-
 export type ConstructionWorkEditorResponseProject = {
   id: string
   images: ApiImage[]
@@ -19,11 +14,8 @@ export type ConstructionWorkEditorResponseProject = {
   title: string
 }
 
-export type ConstructionWorkEditorResponse = {
-  email: string
-  identifier: string
-  projects: ConstructionWorkEditorResponseProject[]
-}
+export type ConstructionWorkEditorResponse =
+  ConstructionWorkEditorResponseProject[]
 
 export type ProjectWarningImageQueryArg = {
   image: {

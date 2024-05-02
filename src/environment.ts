@@ -12,6 +12,7 @@ export enum Environment {
 
 export enum GlobalApiSlug {
   modules = 'modules',
+  admin = 'beheer',
 }
 
 export type ApiSlug = GlobalApiSlug | ModuleSlug
@@ -39,10 +40,11 @@ const getEnvForApiUrl = (environment: Environment) => {
   }
 }
 
-const getApiUrl = (
+export const getApi = (
   environment: Environment,
   custom: typeof customDefaultUrls,
   slug: ApiSlug,
+  apiVersionPath = '/api/v1',
 ) => {
   if (environment === Environment.custom && slug in custom) {
     return custom[slug as keyof typeof customDefaultUrls]
@@ -51,11 +53,5 @@ const getApiUrl = (
   const env = getEnvForApiUrl(environment)
   const interPunction = environment === Environment.production ? '' : '.'
 
-  return `https://${env}${interPunction}app.amsterdam.nl/${slug}/api/v1`
+  return `https://${env}${interPunction}app.amsterdam.nl/${slug}${apiVersionPath}`
 }
-
-export const getApi = (
-  environment: Environment,
-  custom: typeof customDefaultUrls,
-  slug: ApiSlug,
-) => getApiUrl(environment, custom, slug)

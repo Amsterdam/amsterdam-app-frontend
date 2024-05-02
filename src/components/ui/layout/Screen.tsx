@@ -27,7 +27,7 @@ import {
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 type WrapperProps = Pick<
-  Props,
+  ScreenProps,
   'children' | 'keyboardAware' | 'scroll' | 'trackScroll'
 > & {
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
@@ -96,7 +96,7 @@ type WithInsetProps = {
   withTopInset?: boolean
 }
 
-type Props = {
+export type ScreenProps = {
   bottomSheet?: ReactNode
   children: ReactNode
   hasStickyAlert?: boolean
@@ -148,7 +148,7 @@ export const ScreenBase = ({
   testID,
   trackScroll,
   ...wrapperProps
-}: Props) => {
+}: ScreenProps) => {
   const insets = useSafeAreaInsets()
 
   const hasStickyFooter = !!stickyFooter
@@ -236,7 +236,7 @@ const createStyles = (
     },
   })
 
-type ScreenOutsideNavigationProps = Props & {
+type ScreenOutsideNavigationProps = ScreenProps & {
   name: ScreenOutsideNavigationName
 }
 
@@ -249,7 +249,7 @@ export const ScreenOutsideNavigation = ({
   return <ScreenBase {...screenProps} />
 }
 
-export const Screen = (props: Props) => {
+export const Screen = (props: ScreenProps) => {
   useTrackScreenOnFocus()
 
   return <ScreenBase {...props} />

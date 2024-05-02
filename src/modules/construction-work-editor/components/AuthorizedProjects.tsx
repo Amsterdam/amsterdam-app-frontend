@@ -13,8 +13,8 @@ import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components/ContactConstructionWorkSupport'
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
+import {useGetProjectsQuery} from '@/modules/construction-work-editor/services'
 import {useTheme} from '@/themes/useTheme'
-import {isApiAuthorizationError} from '@/utils/api'
 
 type ListItemProps = {
   navigation: NavigationProp<ConstructionWorkEditorRouteName>
@@ -46,35 +46,27 @@ const ListEmptyMessage = () => (
 )
 
 type Props = {
-  deeplinkId?: string
   initialMetrics?: Metrics | null
 }
 
-export const AuthorizedProjects = ({deeplinkId, initialMetrics}: Props) => {
+export const AuthorizedProjects = ({initialMetrics}: Props) => {
   const navigation = useNavigation<ConstructionWorkEditorRouteName>()
 
   const {fontScale} = useDeviceContext()
   const {size} = useTheme()
   const itemDimension = 16 * size.spacing.md * Math.max(fontScale, 1)
 
-  const {
-    currentProjectManager,
-    isGetProjectManagerFetching,
-    getProjectManagerError,
-  } = useRegisterConstructionWorkEditor(deeplinkId)
+  const {data: authorizedProjects, isFetching, isError} = useGetProjectsQuery()
 
-  const authorizedProjects = currentProjectManager?.projects
+  useRegisterConstructionWorkEditor()
 
-  if (isGetProjectManagerFetching) {
+  if (isFetching) {
     return (
       <PleaseWait testID="ConstructionWorkEditorAuthorizedProjectsLoadingSpinner" />
     )
   }
 
-  if (
-    getProjectManagerError &&
-    !isApiAuthorizationError(getProjectManagerError)
-  ) {
+  if (isError) {
     return <SomethingWentWrong />
   }
 

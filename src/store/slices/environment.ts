@@ -40,9 +40,11 @@ export const {setEnvironment, setCustomEnvironment} = environmentSlice.actions
 export const selectEnvironment = (state: RootState) =>
   state[ReduxKey.environment]
 
-export const selectApi = (state: RootState, api: ApiSlug) =>
-  getApi(
-    state[ReduxKey.environment].environment,
-    state[ReduxKey.environment].custom,
-    api,
-  )
+export const selectApi =
+  (api: ApiSlug, apiVersionPath?: string) => (state: RootState) =>
+    getApi(
+      state[ReduxKey.environment].environment,
+      state[ReduxKey.environment].custom,
+      api,
+      apiVersionPath,
+    )

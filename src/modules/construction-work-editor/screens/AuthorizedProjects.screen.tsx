@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {Screen} from '@/components/ui/layout/Screen'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
+import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {useAlert} from '@/store/slices/alert'
 
@@ -10,7 +10,6 @@ type Props = NavigationProps<ConstructionWorkEditorRouteName.authorizedProjects>
 
 export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   const {setAlert} = useAlert()
-  const deeplinkId = route.params?.id ?? undefined
 
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
@@ -25,11 +24,11 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   }, [navigation, route.params?.showSuccessfullySentMessageAlert, setAlert])
 
   return (
-    <Screen
+    <LoginBoundaryScreen
       hasStickyAlert
       scroll={false}
       testID="ConstructionWorkEditorAuthorizedProjectsScreen">
-      <AuthorizedProjects deeplinkId={deeplinkId} />
-    </Screen>
+      <AuthorizedProjects />
+    </LoginBoundaryScreen>
   )
 }

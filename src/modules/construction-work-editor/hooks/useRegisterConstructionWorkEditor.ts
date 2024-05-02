@@ -1,106 +1,43 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
-import {useSaveIdAndToken} from '@/modules/construction-work-editor/hooks/useSaveIdAndToken'
-import {useSetModuleAuthorization} from '@/modules/construction-work-editor/hooks/useSetModuleAuthorization'
 import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
-import {useGetProjectManagerQuery} from '@/modules/construction-work-editor/services'
-import {
-  selectConstructionWorkEditorHasSeenWelcomeMessage,
-  selectConstructionWorkEditorId,
-  setHasSeenWelcomeMessage,
-} from '@/modules/construction-work-editor/slice'
-import {selectAuthManagerToken} from '@/store/slices/auth'
+import {useGetProjectsQuery} from '@/modules/construction-work-editor/services'
+import {selectConstructionWorkEditorHasSeenWelcomeMessage} from '@/modules/construction-work-editor/slice'
 import {isApiAuthorizationError} from '@/utils/api'
 
-export const useRegisterConstructionWorkEditor = (
-  deeplinkId?: string | undefined,
-) => {
-  const constructionWorkEditorHasSeenWelcomeMessage = useSelector(
+export const useRegisterConstructionWorkEditor = () => {
+  const hasSeenWelcomeMessage = useSelector(
     selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
-  const dispatch = useDispatch()
-  const {setModuleAuthorization} = useSetModuleAuthorization()
-  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
-  const authManagerToken = useSelector(selectAuthManagerToken)
-  const showAuthorizedFeedback = useShowAuthorizedFeedback()
-  const {follow} = useFollowAuthorizedProjects()
-  const {saveIdAndToken} = useSaveIdAndToken()
-
-  // Since the user enters with a deeplink, we want to show the welcome message
-  // and store the id and manager token
-  useEffect(() => {
-    if (deeplinkId) {
-      dispatch(setHasSeenWelcomeMessage(false))
-      saveIdAndToken(deeplinkId)
-    }
-  }, [deeplinkId, dispatch, saveIdAndToken])
-
-  // Get project manager from endpoint
-  const {
-    currentData: currentProjectManager,
-    isError: isGetProjectManagerError,
-    error: getProjectManagerError,
-    isFetching: isGetProjectManagerFetching,
-    isLoading: isGetProjectManagerLoading,
-    isSuccess: isGetProjectManagerSuccess,
-  } = useGetProjectManagerQuery(
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    constructionWorkEditorId && authManagerToken
-      ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        {id: constructionWorkEditorId}
-      : skipToken,
+  const hasAutoFollowedProjects = useSelector(
+    selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
-  const authorizedProjects = currentProjectManager?.projects
+  const {follow} = useFollowAuthorizedProjects()
 
-  // Add to or remove module from authorized modules, depending on the response
-  useEffect(() => {
-    currentProjectManager &&
-      setModuleAuthorization(isGetProjectManagerSuccess, getProjectManagerError)
-  }, [
-    currentProjectManager,
-    isGetProjectManagerSuccess,
-    getProjectManagerError,
-    setModuleAuthorization,
-  ])
+  // Get authorized projects from endpoint
+  const {data: authorizedProjects, isError, error} = useGetProjectsQuery()
 
   // Follow authorized projects
   useEffect(() => {
-    authorizedProjects && deeplinkId && follow(authorizedProjects)
-  }, [authorizedProjects, deeplinkId, follow])
+    if (!hasAutoFollowedProjects && authorizedProjects) {
+      follow(authorizedProjects)
+    }
+  }, [authorizedProjects, follow, hasAutoFollowedProjects])
+
+  const showAuthorizedFeedback = useShowAuthorizedFeedback()
 
   // Show success message if fetching succeeded and welcome message has not been seen yet
   useEffect(() => {
-    currentProjectManager &&
-      !constructionWorkEditorHasSeenWelcomeMessage &&
+    if (!hasSeenWelcomeMessage) {
       showAuthorizedFeedback.success()
-  }, [
-    constructionWorkEditorHasSeenWelcomeMessage,
-    currentProjectManager,
-    showAuthorizedFeedback,
-  ])
+    }
+  }, [hasSeenWelcomeMessage, showAuthorizedFeedback])
 
   // Show error message if fetching failed and welcome message has not been seen yet
   useEffect(() => {
-    isGetProjectManagerError &&
-      isApiAuthorizationError(getProjectManagerError) &&
-      !constructionWorkEditorHasSeenWelcomeMessage &&
+    if (isError && isApiAuthorizationError(error) && !hasSeenWelcomeMessage) {
       showAuthorizedFeedback.error()
-  }, [
-    constructionWorkEditorHasSeenWelcomeMessage,
-    getProjectManagerError,
-    isGetProjectManagerError,
-    showAuthorizedFeedback,
-  ])
-
-  return {
-    currentProjectManager,
-    getProjectManagerError,
-    isGetProjectManagerFetching,
-    isGetProjectManagerLoading,
-  }
+    }
+  }, [error, hasSeenWelcomeMessage, isError, showAuthorizedFeedback])
 }

@@ -1,4 +1,4 @@
-import {ProjectIdQueryArgs} from '@/modules/construction-work/types/api'
+import {selectConstructionWorkEditorAccessToken} from '@/modules/construction-work-editor/slice'
 import {
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
@@ -7,26 +7,35 @@ import {
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {baseApi} from '@/services/baseApi'
+import {PrepareHeaders, baseApi} from '@/services/baseApi'
+import {RootState} from '@/store/types/rootState'
 import {CacheLifetime, MutationResponse} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
 const MODULE_SLUG = ModuleSlug['construction-work']
 
+const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
+  const token = selectConstructionWorkEditorAccessToken(getState() as RootState)
+
+  if (token) {
+    headers.set('Authorization', `Bearer ${token}`)
+  }
+
+  return headers
+}
+
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [ConstructionWorkEditorEndpointName.getProjectManager]: builder.query<
+    [ConstructionWorkEditorEndpointName.getProjects]: builder.query<
       ConstructionWorkEditorResponse,
-      ProjectIdQueryArgs
+      void
     >({
-      query: params => ({
+      query: () => ({
         slug: MODULE_SLUG,
-        url: generateRequestUrl({path: '/project/manager', params}),
+        url: generateRequestUrl({path: '/manage/project', params: {}}),
+        prepareHeaders,
       }),
       keepUnusedDataFor: CacheLifetime.second,
-      transformResponse: (response: {
-        result: [ConstructionWorkEditorResponse]
-      }) => response.result[0],
     }),
     [ConstructionWorkEditorEndpointName.addProjectWarning]: builder.mutation<
       ProjectWarningResponse,
@@ -38,6 +47,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
         method: 'POST',
         slug: MODULE_SLUG,
         url: '/project/warning',
+        prepareHeaders,
       }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
@@ -51,6 +61,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
           method: 'POST',
           slug: MODULE_SLUG,
           url: '/project/warning/image',
+          prepareHeaders,
         }),
       }),
   }),
@@ -60,5 +71,5 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
 export const {
   useAddProjectWarningImageMutation,
   useAddProjectWarningMutation,
-  useGetProjectManagerQuery,
+  useGetProjectsQuery,
 } = constructionWorkEditorApi
