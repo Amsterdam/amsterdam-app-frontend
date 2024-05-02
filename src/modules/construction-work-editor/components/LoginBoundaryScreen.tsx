@@ -15,6 +15,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {selectApi} from '@/store/slices/environment'
 import {addAuthorizedModule} from '@/store/slices/modules'
 
+// TODO: also check token is not expired and move to separate file
 const checkIsTokenValid = (token: string | undefined) => !!token
 
 type Props = {

@@ -57,6 +57,7 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
           title: data.title,
           body: data.body,
           project_identifier: currentProjectId,
+          // TODO remove this workaround for typescript
           project_manager_id: '',
         }
 
