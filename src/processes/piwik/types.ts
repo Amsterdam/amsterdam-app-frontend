@@ -68,6 +68,10 @@ export enum PiwikDimension {
   newState = 36,
   /** The route of an url. e.g. route of external link */
   routeName = 43,
+  /** The title of a push-notification */
+  pushTitle = 44,
+  /** The content of a push-notification */
+  pushContent = 45,
 }
 
 /**
@@ -130,6 +134,8 @@ export enum PiwikAction {
   finishedReport = 'finishedReport',
   locationOrAddressSelectionChange = 'locationOrAddressSelectionChange',
   moduleChange = 'moduleChange',
+  pushNotificationDisplay = 'pushNotificationDisplay',
+  pushNotificationTap = 'pushNotificationTap',
   radioChange = 'radioChange',
   startUp = 'startUp',
   swipeOut = 'swipeOut',
