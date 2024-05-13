@@ -4,13 +4,13 @@ import {Box} from '@/components/ui/containers/Box'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ImagePreview} from '@/modules/construction-work-editor/components/ImagePreview'
+import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {
   selectCurrentProjectId,
   selectMainImage,
@@ -65,7 +65,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
   }
 
   return (
-    <Screen
+    <LoginBoundaryScreen
       keyboardAware
       stickyFooter={
         <Box>
@@ -117,6 +117,6 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
           </FormProvider>
         </Column>
       </Box>
-    </Screen>
+    </LoginBoundaryScreen>
   )
 }

@@ -1,24 +1,28 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {ConstructionWorkEditor} from '@/modules/construction-work-editor/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type ConstructionWorkEditorState = ConstructionWorkEditor
+export type ConstructionWorkEditorState = {
+  accessToken?: string
+  hasAutoFollowedProjects: boolean
+  hasSeenWelcomeMessage: boolean
+}
 
 const initialState: ConstructionWorkEditorState = {
-  id: undefined,
+  accessToken: undefined,
   hasSeenWelcomeMessage: false,
+  hasAutoFollowedProjects: false,
 }
 
 export const constructionWorkEditorSlice = createSlice({
   name: ReduxKey.constructionWorkEditor,
   initialState,
   reducers: {
-    addConstructionWorkEditorId: (
+    saveConstructionWorkEditorToken: (
       state,
-      {payload: id}: PayloadAction<string>,
+      {payload: accessToken}: PayloadAction<string>,
     ) => {
-      state.id = id
+      state.accessToken = accessToken
     },
     setHasSeenWelcomeMessage: (
       state,
@@ -26,18 +30,24 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.hasSeenWelcomeMessage = hasSeen
     },
+    setHasAutoFollowedProjects: (
+      state,
+      {payload: hasFollowed}: PayloadAction<boolean>,
+    ) => {
+      state.hasAutoFollowedProjects = hasFollowed
+    },
     removeConstructionWorkEditor: () => initialState,
   },
 })
 
 export const {
-  addConstructionWorkEditorId,
+  saveConstructionWorkEditorToken,
   setHasSeenWelcomeMessage,
   removeConstructionWorkEditor,
 } = constructionWorkEditorSlice.actions
 
-export const selectConstructionWorkEditorId = (state: RootState) =>
-  state[ReduxKey.constructionWorkEditor].id
+export const selectConstructionWorkEditorAccessToken = (state: RootState) =>
+  state[ReduxKey.constructionWorkEditor].accessToken
 
 export const selectConstructionWorkEditorHasSeenWelcomeMessage = (
   state: RootState,

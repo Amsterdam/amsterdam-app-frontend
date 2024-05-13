@@ -17,7 +17,6 @@ import {
   setMainImageDescription,
   setMessage,
 } from '@/modules/construction-work-editor/messageDraftSlice'
-import {selectConstructionWorkEditorId} from '@/modules/construction-work-editor/slice'
 import {NewMessage} from '@/modules/construction-work-editor/types'
 
 const maxCharacters = {
@@ -39,7 +38,6 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
 
   const currentProjectId = useSelector(selectCurrentProjectId)
   const selectedMessage = useSelector(selectMessage(currentProjectId))
-  const constructionWorkEditorId = useSelector(selectConstructionWorkEditorId)
   const mainImageDescription = useSelector(
     selectMainImageDescription(currentProjectId),
   )
@@ -54,18 +52,19 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
 
   const saveMessage = useCallback(
     (data: FormData) => {
-      if (currentProjectId && constructionWorkEditorId) {
+      if (currentProjectId) {
         const message: NewMessage = {
           title: data.title,
           body: data.body,
           project_identifier: currentProjectId,
-          project_manager_id: constructionWorkEditorId,
+          // TODO remove this workaround for typescript
+          project_manager_id: '',
         }
 
         dispatch(setMessage({projectId: currentProjectId, message}))
       }
     },
-    [constructionWorkEditorId, dispatch, currentProjectId],
+    [dispatch, currentProjectId],
   )
 
   const openImagePicker = useOpenImagePicker()

@@ -24,7 +24,6 @@ export const screenConfig: StackNavigationRoutes<
   },
   [ConstructionWorkEditorRouteName.createMessage]: {
     component: CreateMessageScreen,
-    requiresAuthorization: true,
     name: ConstructionWorkEditorRouteName.createMessage,
     options: {
       preventInitialFocus: true,
@@ -32,7 +31,6 @@ export const screenConfig: StackNavigationRoutes<
   },
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: {
     component: AddMainImageToMessageScreen,
-    requiresAuthorization: true,
     name: ConstructionWorkEditorRouteName.addMainImageToMessage,
     options: {
       preventInitialFocus: true,
@@ -40,7 +38,6 @@ export const screenConfig: StackNavigationRoutes<
   },
   [ConstructionWorkEditorRouteName.confirmMessage]: {
     component: ConfirmMessageScreen,
-    requiresAuthorization: true,
     name: ConstructionWorkEditorRouteName.confirmMessage,
   },
 }

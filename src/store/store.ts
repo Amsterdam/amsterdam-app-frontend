@@ -7,7 +7,6 @@ import {sentryLoggerMiddleware} from '@/processes/sentry/logging'
 import {baseApi} from '@/services/baseApi'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
-import {authSlice} from '@/store/slices/auth'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
 import {modulesSlice} from '@/store/slices/modules'
@@ -19,7 +18,6 @@ import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
-  {key: ReduxKey.auth, slice: authSlice, persistVersion: -1},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},

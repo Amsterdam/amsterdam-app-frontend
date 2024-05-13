@@ -27,10 +27,10 @@ export enum CacheLifetime {
   none = 0,
   second = 1,
   minute = 60,
-  fiveMinutes = 60 * 5,
-  hour = 60 * 60,
-  day = 60 * 60 * 24,
-  week = 60 * 60 * 24 * 7,
+  fiveMinutes = 300, // 5 * 60
+  hour = 3600, // 60 * 60
+  day = 86400, // 60 * 60 * 24
+  week = 604800, // 60 * 60 * 24 * 7
 }
 
 export type ApiImageSource = {

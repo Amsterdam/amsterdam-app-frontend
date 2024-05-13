@@ -66,7 +66,6 @@ export type StackNavigationRoutes<R, Route extends string = string> = Record<
     component: ComponentType<any>
     name: keyof R
     options?: StackNavigationOptions & HeaderContentOptions
-    requiresAuthorization?: boolean
     title?: string
   }
 >

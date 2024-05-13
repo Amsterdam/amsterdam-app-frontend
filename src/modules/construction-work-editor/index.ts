@@ -1,4 +1,3 @@
-import {PreRenderComponent} from '@/modules/construction-work-editor/components/PreRenderComponent'
 import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
@@ -8,10 +7,10 @@ import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const constructionWorkEditorModule: ModuleClientConfig = {
-  PreRenderComponent,
   requiresAuthorization: true,
   linking: {
-    [ConstructionWorkEditorRouteName.authorizedProjects]: 'project-manager/:id',
+    [ConstructionWorkEditorRouteName.authorizedProjects]:
+      'construction-work-editor',
   },
   logDimension: PiwikSessionDimension.constructionWorkEditorModule,
   name: 'ConstructionWorkEditorModule',

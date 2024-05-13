@@ -10,11 +10,9 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
-import {ConstructionWorkEditorEndpointName} from '@/modules/construction-work-editor/types'
 import {devError} from '@/processes/development'
 import {sentryLogRequestFailed} from '@/processes/sentry/logging'
 import {isExpectedError} from '@/processes/sentry/utils'
-import {selectAuthManagerToken} from '@/store/slices/auth'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
@@ -22,13 +20,6 @@ import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sleep} from '@/utils/sleep'
 import {VERSION_NUMBER} from '@/utils/version'
-
-const managerAuthorizedEndpoints = [
-  'addNotification',
-  ConstructionWorkEditorEndpointName.getProjectManager,
-  ConstructionWorkEditorEndpointName.addProjectWarning,
-  ConstructionWorkEditorEndpointName.addProjectWarningImage,
-]
 
 const deviceIdRequestingEndpoints: string[] = [
   ProjectsEndpointName.projectFollow,
@@ -40,19 +31,15 @@ const deviceIdRequestingEndpoints: string[] = [
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
-const prepareHeaders = (
+export type PrepareHeaders = (
   headers: Headers,
-  {
-    endpoint,
-    getState,
-  }: Pick<BaseQueryApi, 'endpoint' | 'getState' | 'type' | 'extra' | 'forced'>,
-) => {
-  const token = selectAuthManagerToken(getState() as RootState)
+  api: Pick<
+    BaseQueryApi,
+    'endpoint' | 'getState' | 'type' | 'extra' | 'forced'
+  >,
+) => Headers
 
-  token &&
-    managerAuthorizedEndpoints.includes(endpoint) &&
-    headers.set('userauthorization', token)
-
+const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
   deviceIdRequestingEndpoints.includes(endpoint) &&
     headers.set('deviceid', SHA256EncryptedDeviceId)
 
@@ -68,15 +55,21 @@ const prepareHeaders = (
 }
 
 const dynamicBaseQuery: BaseQueryFn<
-  FetchArgs & {slug: ApiSlug},
+  FetchArgs & {
+    prepareHeaders?: PrepareHeaders
+    slug: ApiSlug
+  },
   unknown,
   FetchBaseQueryError
 > = async (args, baseQueryApi, extraOptions) =>
   retry(
     async () => {
       const result = await fetchBaseQuery({
-        baseUrl: selectApi(baseQueryApi.getState() as RootState, args.slug),
-        prepareHeaders,
+        baseUrl: selectApi(args.slug)(baseQueryApi.getState() as RootState),
+        prepareHeaders: (headers, api) =>
+          args.prepareHeaders
+            ? prepareHeaders(args.prepareHeaders(headers, api), api)
+            : prepareHeaders(headers, api),
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
 
@@ -90,7 +83,7 @@ const dynamicBaseQuery: BaseQueryFn<
               baseQueryMeta: meta,
             },
             payload: {
-              error: error,
+              error,
               originalStatus: meta?.response?.status,
               status: error?.status.toString(),
             },
