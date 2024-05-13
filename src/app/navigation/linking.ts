@@ -1,4 +1,3 @@
-import notifee from '@notifee/react-native'
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
@@ -103,30 +102,8 @@ export const linking: LinkingOptions<RootStackParams> = {
     // navigate from push when app is in background-state
     messaging().onNotificationOpenedApp(onMessageReceived)
 
-    // display a notification when the app is in foreground-state
-    // will be listened for in the useForegroundPushNotificationHandler hook which handles
-    // the navigation
-    const unsubscribeFg = messaging().onMessage(async message => {
-      const channelId = await notifee.createChannel({
-        id: 'default',
-        name: 'Default Channel',
-      })
-
-      if (message.notification) {
-        void notifee.displayNotification({
-          title: message.notification.title,
-          body: message.notification.body,
-          android: {
-            channelId: channelId,
-          },
-          data: message.data,
-        })
-      }
-    })
-
     return () => {
       subscription.remove()
-      unsubscribeFg()
     }
   },
 }
