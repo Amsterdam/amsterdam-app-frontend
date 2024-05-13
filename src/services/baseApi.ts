@@ -105,7 +105,8 @@ const dynamicBaseQuery: BaseQueryFn<
 
       if (
         error?.status === 'FETCH_ERROR' ||
-        error?.status === 'TIMEOUT_ERROR'
+        error?.status === 'TIMEOUT_ERROR' ||
+        error?.status === 502
       ) {
         await sleep(100)
       }
