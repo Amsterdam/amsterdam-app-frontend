@@ -20,6 +20,7 @@ import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
+import {sleep} from '@/utils/sleep'
 import {VERSION_NUMBER} from '@/utils/version'
 
 const managerAuthorizedEndpoints = [
@@ -100,6 +101,13 @@ const dynamicBaseQuery: BaseQueryFn<
 
       if (error?.status === 404) {
         retry.fail(error)
+      }
+
+      if (
+        error?.status === 'FETCH_ERROR' ||
+        error?.status === 'TIMEOUT_ERROR'
+      ) {
+        await sleep(100)
       }
 
       return result
