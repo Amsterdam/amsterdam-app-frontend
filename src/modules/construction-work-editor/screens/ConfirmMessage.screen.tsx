@@ -26,11 +26,7 @@ import {
   selectProject,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {
-  useAddProjectWarningImageMutation,
-  useAddProjectWarningMutation,
-} from '@/modules/construction-work-editor/services'
-import {useAddNotificationMutation} from '@/services/notifications'
+import {useAddProjectWarningMutation} from '@/modules/construction-work-editor/service'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
@@ -53,10 +49,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
   const [addWarning, {isLoading: isLoadingAddProjectWarning}] =
     useAddProjectWarningMutation()
-  const [addProjectWarningImage, {isLoading: isLoadingAddProjectWarningImage}] =
-    useAddProjectWarningImageMutation()
-  const [addNotification, {isLoading: isLoadingAddNotification}] =
-    useAddNotificationMutation()
 
   useSetScreenTitle()
 
@@ -68,17 +60,21 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     resetAlert()
 
     try {
+      // TODO implement this properly
       const warningResponse = await addWarning(message).unwrap()
 
+      // eslint-disable-next-line no-console
+      console.log(warningResponse)
+
       if (mainImage?.data) {
-        await addProjectWarningImage({
-          project_warning_id: warningResponse.warning_identifier,
-          image: {
-            main: true,
-            description: mainImageDescription ?? 'Vervangende afbeelding',
-            data: mainImage.data,
-          },
-        }).unwrap()
+        // await addProjectWarningImage({
+        //   project_warning_id: warningResponse.warning_identifier,
+        //   image: {
+        //     main: true,
+        //     description: mainImageDescription ?? 'Vervangende afbeelding',
+        //     data: mainImage.data,
+        //   },
+        // }).unwrap()
       }
 
       if (
@@ -87,12 +83,12 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         !!project.id &&
         !!message.title
       ) {
-        await addNotification({
-          title: project.title,
-          body: message.title,
-          project_identifier: project.id,
-          warning_identifier: warningResponse.warning_identifier,
-        }).unwrap()
+        // await addNotification({
+        //   title: project.title,
+        //   body: message.title,
+        //   project_identifier: project.id,
+        //   warning_identifier: warningResponse.warning_identifier,
+        // }).unwrap()
       }
 
       dispatch(clearDraft())
@@ -131,11 +127,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Box>
           <Column gutter="md">
             <Button
-              disabled={
-                isLoadingAddProjectWarning ||
-                isLoadingAddProjectWarningImage ||
-                isLoadingAddNotification
-              }
+              disabled={isLoadingAddProjectWarning}
               label="Plaats bericht"
               onPress={onSubmit}
               testID="ConstructionWorkEditorCreateMessageSubmitButton"

@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
 import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
-import {useGetProjectsQuery} from '@/modules/construction-work-editor/services'
+import {useGetProjectsQuery} from '@/modules/construction-work-editor/service'
 import {selectConstructionWorkEditorHasSeenWelcomeMessage} from '@/modules/construction-work-editor/slice'
 import {isApiAuthorizationError} from '@/utils/api'
 

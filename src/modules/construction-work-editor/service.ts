@@ -3,13 +3,12 @@ import {
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
   NewMessage,
-  ProjectWarningImageQueryArg,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {PrepareHeaders, baseApi} from '@/services/baseApi'
 import {RootState} from '@/store/types/rootState'
-import {CacheLifetime, MutationResponse} from '@/types/api'
+import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
 const MODULE_SLUG = ModuleSlug['construction-work']
@@ -32,7 +31,7 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
     >({
       query: () => ({
         slug: MODULE_SLUG,
-        url: generateRequestUrl({path: '/manage/project', params: {}}),
+        url: generateRequestUrl({path: '/manage/projects', params: {}}),
         prepareHeaders,
       }),
       keepUnusedDataFor: CacheLifetime.second,
@@ -46,30 +45,15 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
         body,
         method: 'POST',
         slug: MODULE_SLUG,
-        url: '/project/warning',
+        url: '/manage/projects/{id}/warnings',
         prepareHeaders,
       }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
     }),
-
-    [ConstructionWorkEditorEndpointName.addProjectWarningImage]:
-      builder.mutation<MutationResponse, ProjectWarningImageQueryArg>({
-        invalidatesTags: ['Articles', 'Projects'],
-        query: body => ({
-          body,
-          method: 'POST',
-          slug: MODULE_SLUG,
-          url: '/project/warning/image',
-          prepareHeaders,
-        }),
-      }),
   }),
   overrideExisting: true,
 })
 
-export const {
-  useAddProjectWarningImageMutation,
-  useAddProjectWarningMutation,
-  useGetProjectsQuery,
-} = constructionWorkEditorApi
+export const {useAddProjectWarningMutation, useGetProjectsQuery} =
+  constructionWorkEditorApi

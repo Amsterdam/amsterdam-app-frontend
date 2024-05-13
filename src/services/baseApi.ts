@@ -65,13 +65,7 @@ const dynamicBaseQuery: BaseQueryFn<
     async () => {
       const result = await fetchBaseQuery({
         baseUrl: selectApi(args.slug)(baseQueryApi.getState() as RootState),
-        prepareHeaders: (
-          headers: Headers,
-          api: Pick<
-            BaseQueryApi,
-            'endpoint' | 'getState' | 'type' | 'extra' | 'forced'
-          >,
-        ) =>
+        prepareHeaders: (headers, api) =>
           args.prepareHeaders
             ? prepareHeaders(args.prepareHeaders(headers, api), api)
             : prepareHeaders(headers, api),

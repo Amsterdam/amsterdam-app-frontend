@@ -13,7 +13,7 @@ import {ProjectsItem} from '@/modules/construction-work/types/api'
 import {ContactConstructionWorkSupport} from '@/modules/construction-work-editor/components/ContactConstructionWorkSupport'
 import {useRegisterConstructionWorkEditor} from '@/modules/construction-work-editor/hooks/useRegisterConstructionWorkEditor'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {useGetProjectsQuery} from '@/modules/construction-work-editor/services'
+import {useGetProjectsQuery} from '@/modules/construction-work-editor/service'
 import {useTheme} from '@/themes/useTheme'
 
 type ListItemProps = {
