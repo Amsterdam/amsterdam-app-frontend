@@ -30,7 +30,9 @@ export const SelectLocationTypeBottomSheet = ({
   const address = useAddress()
   const setLocationType = useSetLocationType()
   const {navigate} = useNavigation<AddressModalName>()
-  const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
+    Permissions.location,
+  )
 
   const {close: closeBottomSheet} = useBottomSheet()
   const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
@@ -40,6 +42,7 @@ export const SelectLocationTypeBottomSheet = ({
   const {makeSetStartGettingLocation} = useStartGettingLocation(
     highAccuracyPurposeKey,
   )
+
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
 

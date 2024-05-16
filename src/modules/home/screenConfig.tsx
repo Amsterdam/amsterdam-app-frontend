@@ -2,12 +2,14 @@ import {StackNavigationRoutes} from '@/app/navigation/types'
 import {HeaderLogo} from '@/modules/home/components/HeaderLogo'
 import {HeaderNavigation} from '@/modules/home/components/HeaderNavigation'
 import {
+  HomeModalName,
   HomeModalParams,
   HomeRouteName,
   HomeStackParams,
 } from '@/modules/home/routes'
 import {AdminScreen} from '@/modules/home/screens/Admin.screen'
 import {HomeScreen} from '@/modules/home/screens/Home.screen'
+import {PermissionInstructionsScreen} from '@/modules/home/screens/PermissionInstructions.screen'
 import {SettingsScreen} from '@/modules/home/screens/Settings.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -39,4 +41,9 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const homeModals: StackNavigationRoutes<HomeModalParams> = {}
+export const homeModals: StackNavigationRoutes<HomeModalParams> = {
+  [HomeModalName.permissionInstructions]: {
+    component: PermissionInstructionsScreen,
+    name: HomeModalName.permissionInstructions,
+  },
+}
