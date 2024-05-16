@@ -5,7 +5,7 @@ import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
@@ -32,7 +32,7 @@ const ModuleSettingBox = ({children, slug}: ModuleSettingWrapperProps) => (
 type ModuleSettingContentProps = {
   description: string
   disabled: boolean
-  iconName: IconName
+  iconName: SvgIconName
   title: string
 } & TestProps
 

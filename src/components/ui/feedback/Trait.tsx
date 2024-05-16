@@ -2,7 +2,7 @@ import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 
@@ -17,7 +17,7 @@ type Props = {
   /**
    * The name of the icon to visually support the trait label.
    */
-  iconName?: IconName
+  iconName?: SvgIconName
   /**
    * The label identifying the trait.
    * Should be one or a few words.

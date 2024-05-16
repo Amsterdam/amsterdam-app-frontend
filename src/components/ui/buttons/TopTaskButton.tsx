@@ -4,7 +4,7 @@ import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {Theme} from '@/themes/themes'
@@ -12,11 +12,11 @@ import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type TopTaskButtonProps = {
-  iconName: IconName
+  iconName: SvgIconName
   isError?: boolean
   text?: ReactNode
   title: string
-  titleIconName?: IconName
+  titleIconName?: SvgIconName
 } & Omit<PressableProps, 'children'>
 
 export const TopTaskButton = ({
