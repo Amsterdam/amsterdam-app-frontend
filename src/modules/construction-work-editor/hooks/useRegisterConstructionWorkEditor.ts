@@ -3,7 +3,10 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useFollowAuthorizedProjects} from '@/modules/construction-work-editor/hooks/useFollowAuthorizedProjects'
 import {useShowAuthorizedFeedback} from '@/modules/construction-work-editor/hooks/useShowAuthorizedFeedback'
 import {useGetProjectsQuery} from '@/modules/construction-work-editor/service'
-import {selectConstructionWorkEditorHasSeenWelcomeMessage} from '@/modules/construction-work-editor/slice'
+import {
+  selectConstructionWorkEditorHasAutoFollowedProjects,
+  selectConstructionWorkEditorHasSeenWelcomeMessage,
+} from '@/modules/construction-work-editor/slice'
 import {isApiAuthorizationError} from '@/utils/api'
 
 export const useRegisterConstructionWorkEditor = () => {
@@ -11,7 +14,7 @@ export const useRegisterConstructionWorkEditor = () => {
     selectConstructionWorkEditorHasSeenWelcomeMessage,
   )
   const hasAutoFollowedProjects = useSelector(
-    selectConstructionWorkEditorHasSeenWelcomeMessage,
+    selectConstructionWorkEditorHasAutoFollowedProjects,
   )
   const {follow} = useFollowAuthorizedProjects()
 

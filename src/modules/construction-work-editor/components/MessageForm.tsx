@@ -17,7 +17,7 @@ import {
   setMainImageDescription,
   setMessage,
 } from '@/modules/construction-work-editor/messageDraftSlice'
-import {NewMessage} from '@/modules/construction-work-editor/types'
+import {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
 
 const maxCharacters = {
   title: 100,
@@ -53,12 +53,11 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
   const saveMessage = useCallback(
     (data: FormData) => {
       if (currentProjectId) {
-        const message: NewMessage = {
+        const message: AddProjectWarningQueryArgs = {
           title: data.title,
           body: data.body,
-          project_identifier: currentProjectId,
-          // TODO remove this workaround for typescript
-          project_manager_id: '',
+          projectId: currentProjectId,
+          send_push_notification: false,
         }
 
         dispatch(setMessage({projectId: currentProjectId, message}))

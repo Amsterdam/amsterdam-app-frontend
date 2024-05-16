@@ -1,6 +1,6 @@
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Image} from 'react-native-image-crop-picker'
-import {NewMessage} from '@/modules/construction-work-editor/types'
+import {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 import {NotificationQueryArg} from '@/types/notification'
@@ -10,7 +10,7 @@ export type ProjectIdAndTitle = {id: string; title: string}
 export type MessageDraft = {
   mainImage?: Image
   mainImageDescription?: string
-  message?: NewMessage
+  message?: AddProjectWarningQueryArgs
   notification?: NotificationQueryArg
   project?: ProjectIdAndTitle
 }
@@ -82,7 +82,10 @@ export const messageDraftSlice = createSlice({
       state,
       {
         payload: {projectId, message},
-      }: PayloadAction<{message: NewMessage; projectId: string}>,
+      }: PayloadAction<{
+        message: AddProjectWarningQueryArgs
+        projectId: string
+      }>,
     ) => {
       state[projectId] = {
         ...state[projectId],

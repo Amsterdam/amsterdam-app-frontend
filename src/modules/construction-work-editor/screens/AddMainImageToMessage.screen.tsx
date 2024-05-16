@@ -57,7 +57,9 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
         mainImageDescription: title,
       }),
     )
-    navigation.navigate(ConstructionWorkEditorRouteName.confirmMessage)
+    navigation.navigate(ConstructionWorkEditorRouteName.confirmMessage, {
+      screenHeaderTitle: project?.title ?? '',
+    })
   }
 
   if (!image) {

@@ -24,6 +24,9 @@ export const constructionWorkEditorSlice = createSlice({
     ) => {
       state.accessToken = accessToken
     },
+    removeConstructionWorkEditorToken: state => {
+      state.accessToken = undefined
+    },
     setHasSeenWelcomeMessage: (
       state,
       {payload: hasSeen}: PayloadAction<boolean>,
@@ -44,6 +47,7 @@ export const {
   saveConstructionWorkEditorToken,
   setHasSeenWelcomeMessage,
   removeConstructionWorkEditor,
+  removeConstructionWorkEditorToken,
 } = constructionWorkEditorSlice.actions
 
 export const selectConstructionWorkEditorAccessToken = (state: RootState) =>
@@ -52,3 +56,6 @@ export const selectConstructionWorkEditorAccessToken = (state: RootState) =>
 export const selectConstructionWorkEditorHasSeenWelcomeMessage = (
   state: RootState,
 ) => state[ReduxKey.constructionWorkEditor].hasSeenWelcomeMessage
+export const selectConstructionWorkEditorHasAutoFollowedProjects = (
+  state: RootState,
+) => state[ReduxKey.constructionWorkEditor].hasAutoFollowedProjects

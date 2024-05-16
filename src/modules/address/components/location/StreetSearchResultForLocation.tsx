@@ -100,7 +100,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
           <EmptyMessage
             showTitle={false}
             testID="AddressNoSuggestionsMessage"
-            text="Geen suggesties gevonden voor je huidige locatie."
+            text="Geen suggesties gevonden voor uw huidige locatie."
           />
         )}
         <AddressSearchSuggestions

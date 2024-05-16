@@ -1,8 +1,17 @@
-import {selectConstructionWorkEditorAccessToken} from '@/modules/construction-work-editor/slice'
+import {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 import {
+  FetchBaseQueryError,
+  FetchBaseQueryMeta,
+  BaseQueryApi,
+} from '@reduxjs/toolkit/query'
+import {
+  removeConstructionWorkEditorToken,
+  selectConstructionWorkEditorAccessToken,
+} from '@/modules/construction-work-editor/slice'
+import {
+  AddProjectWarningQueryArgs,
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
-  NewMessage,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -23,6 +32,20 @@ const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   return headers
 }
 
+const afterError = (
+  {error}: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>,
+  {
+    dispatch,
+  }: Pick<
+    BaseQueryApi,
+    'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
+  >,
+) => {
+  if (error?.status === 403) {
+    dispatch(removeConstructionWorkEditorToken())
+  }
+}
+
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ConstructionWorkEditorEndpointName.getProjects]: builder.query<
@@ -33,20 +56,22 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
         slug: MODULE_SLUG,
         url: generateRequestUrl({path: '/manage/projects', params: {}}),
         prepareHeaders,
+        afterError,
       }),
       keepUnusedDataFor: CacheLifetime.second,
     }),
     [ConstructionWorkEditorEndpointName.addProjectWarning]: builder.mutation<
       ProjectWarningResponse,
-      NewMessage
+      AddProjectWarningQueryArgs
     >({
       invalidatesTags: ['Articles', 'Projects'],
-      query: body => ({
+      query: ({projectId, ...body}) => ({
         body,
         method: 'POST',
         slug: MODULE_SLUG,
-        url: '/manage/projects/{id}/warnings',
+        url: `/manage/projects/${projectId}/warnings`,
         prepareHeaders,
+        afterError,
       }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,

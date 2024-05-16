@@ -1,4 +1,5 @@
 import {API_KEY} from '@env'
+import {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
 import {
   BaseQueryApi,
   BaseQueryFn,
@@ -6,6 +7,7 @@ import {
   FetchArgs,
   fetchBaseQuery,
   FetchBaseQueryError,
+  FetchBaseQueryMeta,
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {ApiSlug} from '@/environment'
@@ -56,6 +58,28 @@ const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
 
 const dynamicBaseQuery: BaseQueryFn<
   FetchArgs & {
+    afterError?: (
+      result: QueryReturnValue<
+        unknown,
+        FetchBaseQueryError,
+        FetchBaseQueryMeta
+      >,
+      api: Pick<
+        BaseQueryApi,
+        'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
+      >,
+    ) => void
+    afterSuccess?: (
+      result: QueryReturnValue<
+        unknown,
+        FetchBaseQueryError,
+        FetchBaseQueryMeta
+      >,
+      api: Pick<
+        BaseQueryApi,
+        'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
+      >,
+    ) => void
     prepareHeaders?: PrepareHeaders
     slug: ApiSlug
   },
@@ -64,8 +88,10 @@ const dynamicBaseQuery: BaseQueryFn<
 > = async (args, baseQueryApi, extraOptions) =>
   retry(
     async () => {
+      const {slug, afterError, afterSuccess} = args
+
       const result = await fetchBaseQuery({
-        baseUrl: selectApi(args.slug)(baseQueryApi.getState() as RootState),
+        baseUrl: selectApi(slug)(baseQueryApi.getState() as RootState),
         prepareHeaders: (headers, api) =>
           args.prepareHeaders
             ? prepareHeaders(args.prepareHeaders(headers, api), api)
@@ -102,6 +128,12 @@ const dynamicBaseQuery: BaseQueryFn<
         error?.status === 502
       ) {
         await sleep(100)
+      }
+
+      if (error) {
+        afterError?.(result, baseQueryApi)
+      } else {
+        afterSuccess?.(result, baseQueryApi)
       }
 
       return result
