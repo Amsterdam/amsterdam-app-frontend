@@ -1,6 +1,6 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {ElementType} from 'react'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {ModuleSlug} from '@/modules/slugs'
 import {CustomDimensionKeys} from '@/processes/piwik/types'
 import {ReduxConfig} from '@/store/types/reduxConfig'
@@ -74,7 +74,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
  */
 export type ModuleServerConfig = {
   description: string
-  icon: IconName
+  icon: SvgIconName
   moduleSlug: ModuleSlug
   status: ModuleStatus
   title: string
