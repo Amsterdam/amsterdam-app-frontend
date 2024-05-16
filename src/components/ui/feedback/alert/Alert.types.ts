@@ -1,4 +1,4 @@
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
 export enum AlertVariant {
@@ -20,6 +20,6 @@ export type AlertVariantConfig = {
     backgroundColor: string
     borderColor: string
     borderWidth: number
-    iconName: IconName
+    iconName: SvgIconName
   }
 }

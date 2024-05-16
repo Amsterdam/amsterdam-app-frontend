@@ -26,7 +26,9 @@ type Props = {
 export const StreetSearchResultForLocation = ({selectResult}: Props) => {
   const [showFeedbackForNoResults, setShowFeedbackForNoResults] =
     useState(false)
-  const navigateToInstructionsScreen = useNavigateToInstructionsScreen()
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
+    Permissions.location,
+  )
   const {isGettingLocation, location} = useLocation()
   const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates

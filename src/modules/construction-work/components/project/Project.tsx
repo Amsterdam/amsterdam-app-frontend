@@ -28,11 +28,8 @@ type Props = {
 
 export const Project = ({id}: Props) => {
   const {address} = useSelectedAddress()
-
   const navigation = useNavigation()
-
   const addressParam = getAddressParam(address)
-
   const {
     data: project,
     isLoading,

@@ -11,6 +11,7 @@ export enum IconSize {
   ml = 20,
   lg = 24,
   xl = 32,
+  xxl = 60,
 }
 
 export enum Orientation {

@@ -11,12 +11,14 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Placement} from '@/components/ui/types'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
+import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {
   useProjectFollowMutation,
   useProjectUnfollowMutation,
 } from '@/modules/construction-work/service'
 import {PiwikDimension} from '@/processes/piwik/types'
 import {zTokens} from '@/themes/tokens/z'
+import {Permissions} from '@/types/permissions'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const ONBOARDING_TIP =
@@ -43,8 +45,11 @@ export const ProjectFollow = ({
     unfollowProject,
     {isError: isUnfollowError, isLoading: isUpdatingUnfollow},
   ] = useProjectUnfollowMutation()
-  const {registerDeviceWithPermission} = useRegisterDevice()
   const followersPhrase = simplur`${[followers]} volger[|s]`
+  const {registerDeviceIfPermitted} = useRegisterDevice()
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
+    Permissions.notifications,
+  )
 
   const onPressFollowButton = useCallback(
     (isFollowed: boolean) => {
@@ -57,10 +62,18 @@ export const ProjectFollow = ({
       void followProject({id: projectId})
         .unwrap()
         .then(() => {
-          registerDeviceWithPermission()
+          void registerDeviceIfPermitted(true).then(hasPermission => {
+            !hasPermission && navigateToInstructionsScreen()
+          })
         })
     },
-    [followProject, projectId, registerDeviceWithPermission, unfollowProject],
+    [
+      followProject,
+      navigateToInstructionsScreen,
+      projectId,
+      registerDeviceIfPermitted,
+      unfollowProject,
+    ],
   )
 
   return (

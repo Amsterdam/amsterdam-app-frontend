@@ -1,21 +1,30 @@
-import {useCallback, useEffect} from 'react'
+import {useEffect, useCallback} from 'react'
 import {Linking} from 'react-native'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {ModalHeader} from '@/components/ui/containers/ModalHeader'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Screen} from '@/components/ui/layout/Screen'
+import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useAppState} from '@/hooks/useAppState'
 import {AddressModalName} from '@/modules/address/routes'
-import {Permissions} from '@/types/permissions'
+import {HomeModalName} from '@/modules/home/routes'
 
-export const LocationPermissionInstructionsScreen = () => {
+type Props = NavigationProps<HomeModalName.permissionInstructions>
+
+export const PermissionInstructionsScreen = ({route}: Props) => {
+  const {
+    params: {icon, paragraph, permission, screenTitle, title},
+  } = route
+  const {hasPermission, requestPermission} = usePermission(permission)
+
   const {getState, reset} = useNavigation<AddressModalName>()
-  const {hasPermission, requestPermission} = usePermission(Permissions.location)
 
   useEffect(() => {
     if (!hasPermission) {
@@ -45,33 +54,41 @@ export const LocationPermissionInstructionsScreen = () => {
       stickyFooter={
         <Box>
           <Button
-            label="Ga naar instellingen"
+            label="Ga naar Instellingen"
             onPress={() => Linking.openSettings()}
-            testID="AddressLocationPermissionInstructionModalCloseButton"
+            testID="PermissionInstructionModalCloseButton"
           />
         </Box>
       }
       stickyHeader={
         <ModalHeader
-          testID="AddressLocationPermissionInstructionModalHeader"
-          title="Locatie delen"
+          testID="PermissionInstructionModalHeader"
+          title={screenTitle}
         />
       }
-      testID="AddressLocationPermissionInstructionScreen">
+      testID="PermissionInstructionScreen">
       <Box
         insetHorizontal="md"
         insetVertical="xxl">
-        <Column gutter="md">
-          <Title
-            text="Geef je locatie door"
-            textAlign="center"
-          />
-          <Paragraph
-            textAlign="center"
-            variant="intro">
-            Ontdek hoe je je locatie aanzet, zodat je altijd relevante
-            informatie ziet.
-          </Paragraph>
+        <Column gutter="lg">
+          <Row align="center">
+            <Icon
+              name={icon}
+              size="xxl"
+              testID="PermissionInstructionScreenIcon"
+            />
+          </Row>
+          <Column gutter="md">
+            <Title
+              text={title}
+              textAlign="center"
+            />
+            <Paragraph
+              textAlign="center"
+              variant="intro">
+              {paragraph}
+            </Paragraph>
+          </Column>
         </Column>
       </Box>
     </Screen>

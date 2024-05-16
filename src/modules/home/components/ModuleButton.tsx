@@ -6,7 +6,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -21,7 +21,7 @@ import {useThemable} from '@/themes/useThemable'
 type ModuleButtonContentProps = {
   badgeValue?: ElementType
   disabled: boolean | undefined
-  iconName: IconName | 'projects'
+  iconName: SvgIconName | 'projects'
   label: string
   variant: ButtonVariants
 } & TestProps
@@ -89,7 +89,7 @@ type ModuleButtonProps = {
   alwaysEnabled?: boolean
   badgeValue?: ElementType
   disabled?: boolean
-  iconName: IconName | 'projects'
+  iconName: SvgIconName | 'projects'
   label: string
   slug: ModuleSlug
   variant?: ButtonVariants

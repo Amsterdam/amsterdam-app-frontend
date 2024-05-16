@@ -2,7 +2,7 @@ import {ComponentType, Fragment} from 'react'
 import {View} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
-import {IconName, IconPath} from '@/components/ui/media/iconPaths'
+import {SvgIconName, SvgIconsConfig} from '@/components/ui/media/svgIcons'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
@@ -15,7 +15,9 @@ type AdditionalIconConfig = {
   stroke: boolean
   strokeWidth?: number
 }
-const AdditionalIconConfigs: Partial<Record<IconName, AdditionalIconConfig>> = {
+const AdditionalIconConfigs: Partial<
+  Record<SvgIconName, AdditionalIconConfig>
+> = {
   spinner: {Wrapper: Rotator, stroke: true},
 }
 
@@ -27,13 +29,15 @@ export type IconProps = {
   /**
    * The name of the icon to display.
    */
-  name: IconName
+  name: SvgIconName
   'sentry-label'?: string
   /**
    * The size of the icon.
    */
   size?: keyof typeof IconSize
 } & TestProps
+
+const DEFAULT_VIEW_BOX = '0 0 32 32'
 
 export const Icon = ({
   color = 'default',
@@ -45,6 +49,7 @@ export const Icon = ({
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
+  const icon = SvgIconsConfig[name]
 
   const {
     Wrapper = Fragment,
@@ -60,10 +65,10 @@ export const Icon = ({
         <Svg
           fillRule="evenodd"
           height={scaledSize}
-          viewBox="0 0 32 32"
+          viewBox={icon.viewBox ? icon.viewBox : DEFAULT_VIEW_BOX}
           width={scaledSize}>
           <Path
-            d={IconPath[name]}
+            d={icon.path}
             fill={!stroke ? colorTokens.text[color] : 'none'}
             stroke={stroke ? colorTokens.text[color] : undefined}
             strokeWidth={stroke ? strokeWidth : undefined}

@@ -7,7 +7,7 @@ import {
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {IconName} from '@/components/ui/media/iconPaths'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -15,7 +15,7 @@ export type ButtonVariant = 'primary' | 'secondary' | 'tertiary'
 
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
-  iconName?: IconName
+  iconName?: SvgIconName
   isLoading?: boolean
   label?: string
   numberOfLines?: number

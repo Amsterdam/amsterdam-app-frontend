@@ -5,16 +5,16 @@ import {ConstructionWorkEditorResponseProject} from '@/modules/construction-work
 
 export const useFollowAuthorizedProjects = () => {
   const [followProject] = useProjectFollowMutation()
-  const {registerDeviceWithPermission} = useRegisterDevice()
+  const {registerDeviceIfPermitted} = useRegisterDevice()
 
   const follow = useCallback(
     (authorizedProjects: ConstructionWorkEditorResponseProject[]) => {
       authorizedProjects.forEach(async ({id}) => {
         await followProject({id: Number(id)})
       })
-      registerDeviceWithPermission()
+      void registerDeviceIfPermitted(true)
     },
-    [followProject, registerDeviceWithPermission],
+    [followProject, registerDeviceIfPermitted],
   )
 
   return {follow}
