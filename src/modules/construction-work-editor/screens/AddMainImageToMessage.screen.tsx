@@ -67,55 +67,57 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
   return (
     <LoginBoundaryScreen
       keyboardAware
-      stickyFooter={
-        <Box>
-          <Row
-            align="between"
-            valign="center">
-            <Link
-              label="Vorige"
-              onPress={navigation.goBack}
-              testID="ConstructionWorkEditorAddImageToMessagePreviousButton"
-              variant="backward"
-            />
-            <Link
-              label="Volgende"
-              onPress={handleSubmit(onSubmit)}
-              testID="ConstructionWorkEditorAddImageToMessageNextButton"
-              variant="forward"
-            />
-          </Row>
-        </Box>
-      }
       testID="ConstructionWorkEditorAddMainImageToMessageScreen">
-      <Box>
-        <Column gutter="md">
-          <Title text="Foto toevoegen" />
-          <ImagePreview
-            image={image}
-            onPress={resetAndGoBack}
-            testID="ConstructionWorkEditorAddMainImagePreview"
-          />
-          <FormProvider {...form}>
-            <TextInputField
-              autoFocus
-              defaultValue={imageDescription ?? ''}
-              label="Beschrijf kort wat er op de foto staat"
-              maxCharacters={maxCharacters.title}
-              name="title"
-              numberOfLines={3}
-              placeholder="Voer een tekst in …"
-              rules={{
-                maxLength: {
-                  value: maxCharacters.title,
-                  message: 'Het maximum aantal tekens is bereikt',
-                },
-                required: 'Vul een tekst in',
-              }}
-              testID="ConstructionWorkEditorCreateMessageImageDescription"
+      <Column grow>
+        <Box>
+          <Column
+            grow
+            gutter="md">
+            <Title text="Foto toevoegen" />
+            <ImagePreview
+              image={image}
+              onPress={resetAndGoBack}
+              testID="ConstructionWorkEditorAddMainImagePreview"
             />
-          </FormProvider>
-        </Column>
+            <FormProvider {...form}>
+              <TextInputField
+                autoFocus
+                defaultValue={imageDescription ?? ''}
+                label="Beschrijf kort wat er op de foto staat"
+                maxCharacters={maxCharacters.title}
+                name="title"
+                numberOfLines={3}
+                placeholder="Voer een tekst in …"
+                rules={{
+                  maxLength: {
+                    value: maxCharacters.title,
+                    message: 'Het maximum aantal tekens is bereikt',
+                  },
+                  required: 'Vul een tekst in',
+                }}
+                testID="ConstructionWorkEditorCreateMessageImageDescription"
+              />
+            </FormProvider>
+          </Column>
+        </Box>
+      </Column>
+      <Box>
+        <Row
+          align="between"
+          valign="center">
+          <Link
+            label="Vorige"
+            onPress={navigation.goBack}
+            testID="ConstructionWorkEditorAddImageToMessagePreviousButton"
+            variant="backward"
+          />
+          <Link
+            label="Volgende"
+            onPress={handleSubmit(onSubmit)}
+            testID="ConstructionWorkEditorAddImageToMessageNextButton"
+            variant="forward"
+          />
+        </Row>
       </Box>
     </LoginBoundaryScreen>
   )
