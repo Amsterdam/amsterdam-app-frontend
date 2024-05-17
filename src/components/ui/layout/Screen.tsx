@@ -30,6 +30,7 @@ type WrapperProps = Pick<
   ScreenProps,
   'children' | 'keyboardAware' | 'scroll' | 'trackScroll'
 > & {
+  keyboardAwareScrollViewContentStyle: StyleProp<ViewStyle>
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
 } & {elementRef?: MutableRefObject<View | null>}
 
@@ -37,6 +38,7 @@ const ScrollableWrapper = ({
   children,
   keyboardAware,
   keyboardAwareScrollViewStyle,
+  keyboardAwareScrollViewContentStyle,
   trackScroll,
 }: WrapperProps) => {
   const seenTips = useSelector(selectSeenTips)
@@ -50,6 +52,7 @@ const ScrollableWrapper = ({
 
     return (
       <CustomKeyboardAwareScrollView
+        contentContainerStyle={keyboardAwareScrollViewContentStyle}
         keyboardShouldPersistTaps="handled"
         style={keyboardAwareScrollViewStyle}>
         {children}
@@ -66,6 +69,7 @@ const Wrapper = ({
   children,
   keyboardAware = false,
   keyboardAwareScrollViewStyle,
+  keyboardAwareScrollViewContentStyle,
   scroll = true,
   trackScroll,
 }: WrapperProps) => {
@@ -75,6 +79,9 @@ const Wrapper = ({
     return (
       <ScrollableWrapper
         keyboardAware={keyboardAware}
+        keyboardAwareScrollViewContentStyle={
+          keyboardAwareScrollViewContentStyle
+        }
         keyboardAwareScrollViewStyle={keyboardAwareScrollViewStyle}
         trackScroll={trackScroll}>
         {children}
@@ -183,6 +190,9 @@ export const ScreenBase = ({
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
         <Wrapper
+          keyboardAwareScrollViewContentStyle={
+            styles.keyboardAwareScrollViewContent
+          }
           keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
           trackScroll={trackScroll}
           {...wrapperProps}>
@@ -226,6 +236,10 @@ const createStyles = (
     },
     keyboardAwareScrollView: {
       flex: 1,
+      flexGrow: 1,
+    },
+    keyboardAwareScrollViewContent: {
+      flexGrow: 1,
     },
     screen: {
       flex: 1,
