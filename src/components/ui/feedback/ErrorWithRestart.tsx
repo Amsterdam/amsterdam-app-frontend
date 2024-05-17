@@ -1,6 +1,6 @@
 import {StyleSheet, View} from 'react-native'
 import RNRestart from 'react-native-restart'
-import {ScreenOutsideNavigation} from '@/components/features/screen/Screen'
+import {ScreenOutsideNavigation} from '@/components/features/screen/ScreenOutsideNavigation'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Warning} from '@/components/ui/feedback/Warning'
