@@ -69,7 +69,6 @@ const createStyles =
         alignItems: mapCrossAxisAlignment(halign),
         flex,
         flexGrow: grow ? 1 : undefined,
-        flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         rowGap: gutter && size.spacing[gutter],
         zIndex,
