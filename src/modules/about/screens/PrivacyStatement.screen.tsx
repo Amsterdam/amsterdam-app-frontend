@@ -1,6 +1,6 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Screen} from '@/components/ui/layout/Screen'
 import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'

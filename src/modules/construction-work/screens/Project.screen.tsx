@@ -1,6 +1,6 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {Tip} from '@/components/features/product-tour/types'
-import {Screen} from '@/components/ui/layout/Screen'
+import {Screen} from '@/components/features/screen/Screen'
 import {Project} from '@/modules/construction-work/components/project/Project'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 

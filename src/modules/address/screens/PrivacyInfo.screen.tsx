@@ -1,6 +1,6 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {CloseModalButton} from '@/components/ui/buttons/CloseModalButton'
 import {ModalHeader} from '@/components/ui/containers/ModalHeader'
-import {Screen} from '@/components/ui/layout/Screen'
 import {PrivacyInfo} from '@/modules/address/components/PrivacyInfo'
 
 export const PrivacyInfoScreen = () => (

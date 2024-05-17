@@ -1,5 +1,5 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {WebView} from '@/components/ui/containers/WebView'
-import {Screen} from '@/components/ui/layout/Screen'
 
 export const WasteGuideFeedbackScreen = () => (
   <Screen

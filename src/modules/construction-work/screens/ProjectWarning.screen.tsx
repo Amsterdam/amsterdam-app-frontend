@@ -1,5 +1,5 @@
 import {NavigationProps} from '@/app/navigation/types'
-import {Screen} from '@/components/ui/layout/Screen'
+import {Screen} from '@/components/features/screen/Screen'
 import {ProjectWarning} from '@/modules/construction-work/components/project/ProjectWarning'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 

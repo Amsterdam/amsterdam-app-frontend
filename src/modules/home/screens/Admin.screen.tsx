@@ -1,6 +1,6 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Screen} from '@/components/ui/layout/Screen'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {EnvironmentSelector} from '@/modules/home/components/EnvironmentSelector'
 import {ResetIosImageCache} from '@/modules/home/components/ResetIosImageCache'
