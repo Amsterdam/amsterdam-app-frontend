@@ -60,17 +60,20 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     resetAlert()
 
     try {
-      await addWarning({
+      const arg = {
         ...message,
-        image: mainImage?.data
-          ? {
-              main: true,
-              description: mainImageDescription ?? 'Vervangende afbeelding',
-              data: mainImage.data,
-            }
-          : undefined,
         send_push_notification: isPushNotificationChecked,
-      }).unwrap()
+      }
+
+      if (mainImage?.data) {
+        arg.image = {
+          main: true,
+          description: mainImageDescription ?? 'Vervangende afbeelding',
+          data: mainImage.data,
+        }
+      }
+
+      await addWarning(arg).unwrap()
 
       dispatch(clearDraft())
 

@@ -1,9 +1,3 @@
-import {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
-import {
-  FetchBaseQueryError,
-  FetchBaseQueryMeta,
-  BaseQueryApi,
-} from '@reduxjs/toolkit/query'
 import {
   removeConstructionWorkEditorToken,
   selectConstructionWorkEditorAccessToken,
@@ -15,7 +9,8 @@ import {
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {PrepareHeaders, baseApi} from '@/services/baseApi'
+import {baseApi} from '@/services/baseApi'
+import {AfterBaseQueryFn, PrepareHeaders} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -32,15 +27,10 @@ const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   return headers
 }
 
-const afterError = (
-  {error}: QueryReturnValue<unknown, FetchBaseQueryError, FetchBaseQueryMeta>,
-  {
-    dispatch,
-  }: Pick<
-    BaseQueryApi,
-    'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
-  >,
-) => {
+/**
+ * Removes a token that causes the backend to return a 403 forbidden error
+ */
+const afterError: AfterBaseQueryFn = ({error}, {dispatch}) => {
   if (error?.status === 403) {
     dispatch(removeConstructionWorkEditorToken())
   }
