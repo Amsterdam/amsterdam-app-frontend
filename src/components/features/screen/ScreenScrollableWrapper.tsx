@@ -5,19 +5,18 @@ import {
   KeyboardAwareTrackScrollView,
   TrackScrollView,
 } from '@/components/features/product-tour/withTrackScroll'
-import {WrapperProps} from '@/components/features/screen/Wrapper'
+import {ScreenWrapperProps} from '@/components/features/screen/ScreenWrapper'
 import {useSelector} from '@/hooks/redux/useSelector'
 
-export const ScrollableWrapper = ({
+export const ScreenScrollableWrapper = ({
   children,
   keyboardAware,
   keyboardAwareScrollViewStyle,
   keyboardAwareScrollViewContentStyle,
   trackScroll,
-}: WrapperProps) => {
+}: ScreenWrapperProps) => {
   const seenTips = useSelector(selectSeenTips)
-  const hasUnseenTips =
-    trackScroll && trackScroll.some(t => seenTips.includes(t))
+  const hasUnseenTips = trackScroll?.some(t => seenTips.includes(t))
 
   if (keyboardAware) {
     const CustomKeyboardAwareScrollView = hasUnseenTips

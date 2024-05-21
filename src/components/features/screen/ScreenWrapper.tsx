@@ -1,10 +1,10 @@
 import {MutableRefObject} from 'react'
 import {StyleProp, ViewStyle, View, KeyboardAvoidingView} from 'react-native'
 import {ScreenProps} from '@/components/features/screen/Screen'
-import {ScrollableWrapper} from '@/components/features/screen/ScrollableWrapper'
+import {ScreenScrollableWrapper} from '@/components/features/screen/ScreenScrollableWrapper'
 import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'
 
-export type WrapperProps = Pick<
+export type ScreenWrapperProps = Pick<
   ScreenProps,
   'children' | 'keyboardAware' | 'scroll' | 'trackScroll'
 > & {
@@ -12,19 +12,19 @@ export type WrapperProps = Pick<
   keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
 } & {elementRef?: MutableRefObject<View | null>}
 
-export const Wrapper = ({
+export const ScreenWrapper = ({
   children,
   keyboardAware = false,
   keyboardAwareScrollViewStyle,
   keyboardAwareScrollViewContentStyle,
   scroll = true,
   trackScroll,
-}: WrapperProps) => {
+}: ScreenWrapperProps) => {
   const isScrollDisabled = useIsScreenScrollDisabled()
 
   if (scroll && !isScrollDisabled) {
     return (
-      <ScrollableWrapper
+      <ScreenScrollableWrapper
         keyboardAware={keyboardAware}
         keyboardAwareScrollViewContentStyle={
           keyboardAwareScrollViewContentStyle
@@ -32,7 +32,7 @@ export const Wrapper = ({
         keyboardAwareScrollViewStyle={keyboardAwareScrollViewStyle}
         trackScroll={trackScroll}>
         {children}
-      </ScrollableWrapper>
+      </ScreenScrollableWrapper>
     )
   }
 

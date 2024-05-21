@@ -1,9 +1,9 @@
 import {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {InnerWrapper} from '@/components/features/screen/InnerWrapper'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
-import {Wrapper} from '@/components/features/screen/Wrapper'
+import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
+import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
@@ -55,19 +55,19 @@ export const ScreenBase = ({
         testID={testID}>
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
-        <Wrapper
+        <ScreenWrapper
           keyboardAwareScrollViewContentStyle={
             styles.keyboardAwareScrollViewContent
           }
           keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
           trackScroll={trackScroll}
           {...wrapperProps}>
-          <InnerWrapper
+          <ScreenInnerWrapper
             hasBottomsheet={!!bottomSheet}
             style={styles.content}>
             {children}
-          </InnerWrapper>
-        </Wrapper>
+          </ScreenInnerWrapper>
+        </ScreenWrapper>
         {(!!stickyFooter || !!bottomSheet) && (
           <>
             <Gutter height="sm" />
