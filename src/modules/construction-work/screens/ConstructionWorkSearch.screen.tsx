@@ -1,4 +1,4 @@
-import {Screen} from '@/components/ui/layout/Screen'
+import {Screen} from '@/components/features/screen/Screen'
 import {ProjectsByText} from '@/modules/construction-work/components/projects/ProjectsByText'
 
 export const ConstructionWorkSearchScreen = () => (

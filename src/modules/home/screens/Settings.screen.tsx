@@ -1,4 +1,4 @@
-import {Screen} from '@/components/ui/layout/Screen'
+import {Screen} from '@/components/features/screen/Screen'
 import {ModuleSettings} from '@/modules/home/components/ModuleSettings'
 
 export const SettingsScreen = () => (

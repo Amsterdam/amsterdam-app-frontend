@@ -1,5 +1,5 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {ModalHeader} from '@/components/ui/containers/ModalHeader'
-import {Screen} from '@/components/ui/layout/Screen'
 import {AddressForm} from '@/modules/address/components/AddressForm'
 
 export const AddressFormScreen = () => (

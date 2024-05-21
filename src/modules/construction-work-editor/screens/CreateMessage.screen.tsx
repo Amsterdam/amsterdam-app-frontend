@@ -54,7 +54,6 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
     <LoginBoundaryScreen
       hasStickyAlert
       keyboardAware
-      scroll
       testID="ConstructionWorkEditorCreateMessageScreen">
       <Column
         align="between"

@@ -49,7 +49,9 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
       hitSlop={(config.minTouchSize - text.lineHeight.body) / 2}
       onPress={onPress}
       testID={testID}>
-      <Row gutter="sm">
+      <Row
+        gutter="sm"
+        valign={variant !== 'external' ? 'center' : undefined}>
         {variant === 'external' && (
           <LinkIcon
             external
