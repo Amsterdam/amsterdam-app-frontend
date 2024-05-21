@@ -1,5 +1,5 @@
 import {type ReactNode, useEffect} from 'react'
-import {ScreenOutsideNavigation} from '@/components/features/screen/Screen'
+import {ScreenOutsideNavigation} from '@/components/features/screen/ScreenOutsideNavigation'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {UpdateFigure} from '@/components/ui/media/errors/UpdateFigure'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
