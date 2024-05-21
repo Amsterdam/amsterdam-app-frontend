@@ -100,6 +100,7 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
                     )
                   : navigation.navigate(
                       ConstructionWorkEditorRouteName.confirmMessage,
+                      {screenHeaderTitle: projectTitle},
                     )
               })
             }

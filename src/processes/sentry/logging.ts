@@ -3,7 +3,7 @@ import {
   type Middleware,
   type PayloadAction,
 } from '@reduxjs/toolkit'
-import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import {FetchBaseQueryError, FetchBaseQueryMeta} from '@reduxjs/toolkit/query'
 import {
   addBreadcrumb,
   captureException,
@@ -52,6 +52,22 @@ export const getSendSentryErrorLog =
       captureException(new Error(errorTitle ?? logKey))
     })
   }
+
+export const createActionFromSingleRequestResult = (
+  endpointName: string,
+  meta: FetchBaseQueryMeta | undefined,
+  error: FetchBaseQueryError,
+) => ({
+  meta: {
+    arg: {endpointName},
+    baseQueryMeta: meta,
+  },
+  payload: {
+    error,
+    originalStatus: meta?.response?.status,
+    status: error?.status.toString(),
+  },
+})
 
 export type Meta =
   | {arg?: {endpointName?: string}; baseQueryMeta?: {request?: {url: string}}}

@@ -17,22 +17,25 @@ export type ConstructionWorkEditorResponseProject = {
 export type ConstructionWorkEditorResponse =
   ConstructionWorkEditorResponseProject[]
 
-export type ProjectWarningImageQueryArg = {
-  image: {
+type ImageQueryArgs = {
+  image?: {
     data: string
     description: string
     main: boolean
   }
-  project_warning_id: string
 }
 
 export type ProjectWarningResponse = {
   warning_identifier: string
 }
 
-export type NewMessage = {
+type ProjectWarningQueryArgs = {
   body: string
-  project_identifier: string
-  project_manager_id: string
+  send_push_notification: boolean
   title: string
 }
+
+export type AddProjectWarningQueryArgs = {
+  projectId: string
+} & ProjectWarningQueryArgs &
+  ImageQueryArgs

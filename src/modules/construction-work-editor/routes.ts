@@ -13,7 +13,7 @@ export type ConstructionWorkEditorStackParams = {
     id?: string
     showSuccessfullySentMessageAlert?: boolean
   }
-  [ConstructionWorkEditorRouteName.confirmMessage]: undefined
+  [ConstructionWorkEditorRouteName.confirmMessage]: TitleParams
   [ConstructionWorkEditorRouteName.createMessage]: TitleParams & {
     projectId: number
   }

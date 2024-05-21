@@ -12,7 +12,7 @@ export const useSetScreenTitle = <RouteName extends keyof RootStackParams>(
   const navigation = useNavigation<RouteName>()
   const {params} = useRoute<RouteName>()
 
-  const {screenHeaderTitle} = params as unknown as TitleParams
+  const {screenHeaderTitle} = (params as unknown as TitleParams) ?? {}
 
   const headerTitle = screenHeaderTitle ?? defaultTitle
 

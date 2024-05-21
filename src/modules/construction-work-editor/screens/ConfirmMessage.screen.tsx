@@ -60,36 +60,20 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     resetAlert()
 
     try {
-      // TODO implement this properly
-      const warningResponse = await addWarning(message).unwrap()
-
-      // eslint-disable-next-line no-console
-      console.log(warningResponse)
+      const arg = {
+        ...message,
+        send_push_notification: isPushNotificationChecked,
+      }
 
       if (mainImage?.data) {
-        // await addProjectWarningImage({
-        //   project_warning_id: warningResponse.warning_identifier,
-        //   image: {
-        //     main: true,
-        //     description: mainImageDescription ?? 'Vervangende afbeelding',
-        //     data: mainImage.data,
-        //   },
-        // }).unwrap()
+        arg.image = {
+          main: true,
+          description: mainImageDescription ?? 'Vervangende afbeelding',
+          data: mainImage.data,
+        }
       }
 
-      if (
-        !!isPushNotificationChecked &&
-        !!project?.title &&
-        !!project.id &&
-        !!message.title
-      ) {
-        // await addNotification({
-        //   title: project.title,
-        //   body: message.title,
-        //   project_identifier: project.id,
-        //   warning_identifier: warningResponse.warning_identifier,
-        // }).unwrap()
-      }
+      await addWarning(arg).unwrap()
 
       dispatch(clearDraft())
 
@@ -165,7 +149,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
                     Wil je ook een pushbericht versturen?
                   </Phrase>
                 }
-                onValueChange={() => togglePushNotificationChecked()}
+                onValueChange={togglePushNotificationChecked}
                 testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckbox"
                 value={isPushNotificationChecked}
               />

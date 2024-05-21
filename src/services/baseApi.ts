@@ -1,6 +1,5 @@
 import {API_KEY} from '@env'
 import {
-  BaseQueryApi,
   BaseQueryFn,
   createApi,
   FetchArgs,
@@ -11,8 +10,12 @@ import {
 import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {devError} from '@/processes/development'
-import {sentryLogRequestFailed} from '@/processes/sentry/logging'
+import {
+  createActionFromSingleRequestResult,
+  sentryLogRequestFailed,
+} from '@/processes/sentry/logging'
 import {isExpectedError} from '@/processes/sentry/utils'
+import {PrepareHeaders, AfterBaseQueryFn} from '@/services/types'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
@@ -31,14 +34,6 @@ const deviceIdRequestingEndpoints: string[] = [
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
-export type PrepareHeaders = (
-  headers: Headers,
-  api: Pick<
-    BaseQueryApi,
-    'endpoint' | 'getState' | 'type' | 'extra' | 'forced'
-  >,
-) => Headers
-
 const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
   deviceIdRequestingEndpoints.includes(endpoint) &&
     headers.set('deviceid', SHA256EncryptedDeviceId)
@@ -56,6 +51,10 @@ const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
 
 const dynamicBaseQuery: BaseQueryFn<
   FetchArgs & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    afterError?: AfterBaseQueryFn<any>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    afterSuccess?: AfterBaseQueryFn<any>
     prepareHeaders?: PrepareHeaders
     slug: ApiSlug
   },
@@ -64,12 +63,17 @@ const dynamicBaseQuery: BaseQueryFn<
 > = async (args, baseQueryApi, extraOptions) =>
   retry(
     async () => {
+      const {
+        slug,
+        afterError,
+        afterSuccess,
+        prepareHeaders: argsPrepareHeaders = headers => headers,
+      } = args
+
       const result = await fetchBaseQuery({
-        baseUrl: selectApi(args.slug)(baseQueryApi.getState() as RootState),
+        baseUrl: selectApi(slug)(baseQueryApi.getState() as RootState),
         prepareHeaders: (headers, api) =>
-          args.prepareHeaders
-            ? prepareHeaders(args.prepareHeaders(headers, api), api)
-            : prepareHeaders(headers, api),
+          prepareHeaders(argsPrepareHeaders(headers, api), api),
         timeout: TimeOutDuration.medium,
       })(args, baseQueryApi, extraOptions)
 
@@ -77,17 +81,11 @@ const dynamicBaseQuery: BaseQueryFn<
 
       if (error && !isExpectedError(baseQueryApi.endpoint, error)) {
         sentryLogRequestFailed(
-          {
-            meta: {
-              arg: {endpointName: baseQueryApi.endpoint},
-              baseQueryMeta: meta,
-            },
-            payload: {
-              error,
-              originalStatus: meta?.response?.status,
-              status: error?.status.toString(),
-            },
-          },
+          createActionFromSingleRequestResult(
+            baseQueryApi.endpoint,
+            meta,
+            error,
+          ),
           true,
         )
       }
@@ -102,6 +100,12 @@ const dynamicBaseQuery: BaseQueryFn<
         error?.status === 502
       ) {
         await sleep(100)
+      }
+
+      if (error) {
+        afterError?.(result, baseQueryApi)
+      } else {
+        afterSuccess?.(result, baseQueryApi)
       }
 
       return result

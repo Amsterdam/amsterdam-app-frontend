@@ -9,10 +9,12 @@ export const useFollowAuthorizedProjects = () => {
 
   const follow = useCallback(
     (authorizedProjects: ConstructionWorkEditorResponseProject[]) => {
-      authorizedProjects.forEach(async ({id}) => {
-        await followProject({id: Number(id)})
-      })
+      if (authorizedProjects.length < 20) {
+        authorizedProjects.forEach(async ({id}) => {
+          await followProject({id: Number(id)})
+        })
       void registerDeviceIfPermitted(true)
+      }
     },
     [followProject, registerDeviceIfPermitted],
   )

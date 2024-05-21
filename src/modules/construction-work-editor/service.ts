@@ -1,12 +1,16 @@
-import {selectConstructionWorkEditorAccessToken} from '@/modules/construction-work-editor/slice'
 import {
+  removeConstructionWorkEditorToken,
+  selectConstructionWorkEditorAccessToken,
+} from '@/modules/construction-work-editor/slice'
+import {
+  AddProjectWarningQueryArgs,
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
-  NewMessage,
   ProjectWarningResponse,
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {PrepareHeaders, baseApi} from '@/services/baseApi'
+import {baseApi} from '@/services/baseApi'
+import {AfterBaseQueryFn, PrepareHeaders} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -23,6 +27,15 @@ const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   return headers
 }
 
+/**
+ * Removes a token that causes the backend to return a 403 forbidden error
+ */
+const afterError: AfterBaseQueryFn = ({error}, {dispatch}) => {
+  if (error?.status === 403) {
+    dispatch(removeConstructionWorkEditorToken())
+  }
+}
+
 export const constructionWorkEditorApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ConstructionWorkEditorEndpointName.getProjects]: builder.query<
@@ -33,20 +46,22 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
         slug: MODULE_SLUG,
         url: generateRequestUrl({path: '/manage/projects', params: {}}),
         prepareHeaders,
+        afterError,
       }),
       keepUnusedDataFor: CacheLifetime.second,
     }),
     [ConstructionWorkEditorEndpointName.addProjectWarning]: builder.mutation<
       ProjectWarningResponse,
-      NewMessage
+      AddProjectWarningQueryArgs
     >({
       invalidatesTags: ['Articles', 'Projects'],
-      query: body => ({
+      query: ({projectId, ...body}) => ({
         body,
         method: 'POST',
         slug: MODULE_SLUG,
-        url: '/manage/projects/{id}/warnings',
+        url: `/manage/projects/${projectId}/warnings`,
         prepareHeaders,
+        afterError,
       }),
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
