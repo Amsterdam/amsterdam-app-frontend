@@ -11,8 +11,8 @@ import {useSelector} from '@/hooks/redux/useSelector'
 export const ScreenScrollableWrapper = ({
   children,
   keyboardAware,
-  keyboardAwareScrollViewStyle,
-  keyboardAwareScrollViewContentStyle,
+  scrollViewStyle,
+  scrollViewContentStyle,
   trackScroll,
 }: ScreenWrapperProps) => {
   const seenTips = useSelector(selectSeenTips)
@@ -25,9 +25,9 @@ export const ScreenScrollableWrapper = ({
 
     return (
       <CustomKeyboardAwareScrollView
-        contentContainerStyle={keyboardAwareScrollViewContentStyle}
+        contentContainerStyle={scrollViewContentStyle}
         keyboardShouldPersistTaps="handled"
-        style={keyboardAwareScrollViewStyle}>
+        style={scrollViewStyle}>
         {children}
       </CustomKeyboardAwareScrollView>
     )
@@ -35,5 +35,11 @@ export const ScreenScrollableWrapper = ({
 
   const CustomScrollView = hasUnseenTips ? TrackScrollView : ScrollView
 
-  return <CustomScrollView grow>{children}</CustomScrollView>
+  return (
+    <CustomScrollView
+      contentContainerStyle={scrollViewContentStyle}
+      style={scrollViewStyle}>
+      {children}
+    </CustomScrollView>
+  )
 }

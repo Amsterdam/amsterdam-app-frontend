@@ -56,10 +56,8 @@ export const ScreenBase = ({
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
         <ScreenWrapper
-          keyboardAwareScrollViewContentStyle={
-            styles.keyboardAwareScrollViewContent
-          }
-          keyboardAwareScrollViewStyle={styles.keyboardAwareScrollView}
+          scrollViewContentStyle={styles.scrollViewContent}
+          scrollViewStyle={styles.scrollView}
           trackScroll={trackScroll}
           {...wrapperProps}>
           <ScreenInnerWrapper
@@ -100,11 +98,11 @@ const createStyles = (
       paddingBottom: withBottomInset && !hasStickyFooter ? bottom : 0,
       paddingTop: withTopInset && !hasStickyHeader ? top : 0,
     },
-    keyboardAwareScrollView: {
+    scrollView: {
       flex: 1,
       flexGrow: 1,
     },
-    keyboardAwareScrollViewContent: {
+    scrollViewContent: {
       flexGrow: 1,
     },
     screen: {
