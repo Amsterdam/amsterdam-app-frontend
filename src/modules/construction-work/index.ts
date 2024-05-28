@@ -1,4 +1,5 @@
 import {BadgeValue} from '@/modules/construction-work/components/BadgeValue'
+import {PreRenderComponent} from '@/modules/construction-work/components/PreRenderComponent'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
   ConstructionWorkState,
@@ -12,6 +13,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule: ModuleClientConfig = {
+  PreRenderComponent,
   BadgeValue,
   linking: {
     [ConstructionWorkRouteName.projectNews]:

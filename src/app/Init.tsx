@@ -19,5 +19,12 @@ export const Init = ({children}: Props) => {
   useSetupSentry()
   useGetLocation()
 
-  return <>{children}</>
+  return (
+    <>
+      {enabledModules?.map(({PreRenderComponent, slug}) =>
+        PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
+      )}
+      {children}
+    </>
+  )
 }
