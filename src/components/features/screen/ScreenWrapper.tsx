@@ -8,15 +8,15 @@ export type ScreenWrapperProps = Pick<
   ScreenProps,
   'children' | 'keyboardAware' | 'scroll' | 'trackScroll'
 > & {
-  keyboardAwareScrollViewContentStyle: StyleProp<ViewStyle>
-  keyboardAwareScrollViewStyle: StyleProp<ViewStyle>
+  scrollViewContentStyle: StyleProp<ViewStyle>
+  scrollViewStyle: StyleProp<ViewStyle>
 } & {elementRef?: MutableRefObject<View | null>}
 
 export const ScreenWrapper = ({
   children,
   keyboardAware = false,
-  keyboardAwareScrollViewStyle,
-  keyboardAwareScrollViewContentStyle,
+  scrollViewStyle,
+  scrollViewContentStyle,
   scroll = true,
   trackScroll,
 }: ScreenWrapperProps) => {
@@ -26,10 +26,8 @@ export const ScreenWrapper = ({
     return (
       <ScreenScrollableWrapper
         keyboardAware={keyboardAware}
-        keyboardAwareScrollViewContentStyle={
-          keyboardAwareScrollViewContentStyle
-        }
-        keyboardAwareScrollViewStyle={keyboardAwareScrollViewStyle}
+        scrollViewContentStyle={scrollViewContentStyle}
+        scrollViewStyle={scrollViewStyle}
         trackScroll={trackScroll}>
         {children}
       </ScreenScrollableWrapper>

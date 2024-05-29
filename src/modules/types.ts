@@ -47,6 +47,10 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   BadgeValue?: ElementType
   /**
+   * A component for preprocessing purposes at the app's root level.
+   */
+  PreRenderComponent?: ElementType
+  /**
    * If true, the user is not allowed to disable the module in the settings.
    */
   alwaysEnabled?: boolean

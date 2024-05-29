@@ -20,7 +20,7 @@ type Props = {
   children: ReactNode
 } & TestProps
 
-export const LoginBoundary: FC<Props> = ({children}) => {
+export const LoginBoundary: FC<Props> = ({children, testID}) => {
   const dispatch = useDispatch()
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -46,14 +46,16 @@ export const LoginBoundary: FC<Props> = ({children}) => {
   }
 
   return (
-    <Column grow>
-      <WebView
-        grow
-        onMessage={onMessage}
-        testID="ConstructionWorkEditorLoginWebView"
-        url={url}
-      />
-    </Column>
+    <Screen testID={testID}>
+      <Column grow>
+        <WebView
+          grow
+          onMessage={onMessage}
+          testID="ConstructionWorkEditorLoginWebView"
+          url={url}
+        />
+      </Column>
+    </Screen>
   )
 }
 
