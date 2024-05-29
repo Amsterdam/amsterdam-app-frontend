@@ -35,7 +35,7 @@ export const useRegisterDevice = () => {
   }, [registerDeviceMutation, sendSentryErrorLog])
 
   const registerDeviceIfPermitted = useCallback(
-    (requestNotificationPermission?: boolean) =>
+    (requestNotificationPermission = false) =>
       new Promise<boolean>((resolve, _reject) => {
         if (requestNotificationPermission) {
           void requestPermission().then(granted => {
