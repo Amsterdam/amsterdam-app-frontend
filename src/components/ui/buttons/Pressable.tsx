@@ -14,10 +14,6 @@ type PressableVariant = 'primary' | 'tertiary' | 'negative' | 'transparent'
 
 export type PressableProps = {
   children: ReactNode
-  /**
-   * Whether the button grows to fill its parent container.
-   */
-  grow?: boolean
   'sentry-label'?: string
   variant?: PressableVariant
 } & PressableBaseProps &
@@ -33,7 +29,6 @@ export const Pressable = forwardRef<View, PressableProps>(
   (
     {
       children,
-      grow,
       inset = 'no',
       insetHorizontal,
       insetVertical,
@@ -42,7 +37,7 @@ export const Pressable = forwardRef<View, PressableProps>(
     },
     ref,
   ) => {
-    const styles = useThemable(createStyles(grow, variant))
+    const styles = useThemable(createStyles(variant))
 
     return (
       <PressableBase
@@ -52,7 +47,6 @@ export const Pressable = forwardRef<View, PressableProps>(
         style={({pressed}) => [styles.button, pressed && styles.pressed]}
         {...pressableProps}>
         <Box
-          grow
           inset={inset}
           insetHorizontal={insetHorizontal}
           insetVertical={insetVertical}>
@@ -64,7 +58,7 @@ export const Pressable = forwardRef<View, PressableProps>(
 )
 
 const createStyles =
-  (grow: PressableProps['grow'], variant: PressableVariant) =>
+  (variant: PressableVariant) =>
   ({color}: Theme) =>
     StyleSheet.create({
       button: {
@@ -72,8 +66,6 @@ const createStyles =
           variant !== 'transparent'
             ? color.pressable[variant].default
             : undefined,
-        flex: grow ? 1 : undefined,
-        flexShrink: grow ? 0 : 1,
       },
       pressed: {
         backgroundColor:
