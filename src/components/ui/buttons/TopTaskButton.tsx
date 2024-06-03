@@ -40,7 +40,6 @@ export const TopTaskButton = ({
       )}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
-      grow
       onPress={onPress}
       testID={testID}
       {...pressableProps}
