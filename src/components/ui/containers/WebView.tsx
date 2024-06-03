@@ -4,6 +4,7 @@ import {
   WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
@@ -55,7 +56,11 @@ export const WebView = ({
   return (
     <WebViewRN
       containerStyle={!!grow && styles.grow}
-      renderLoading={() => <PleaseWait testID={testID} />}
+      renderLoading={() => (
+        <Column grow>
+          <PleaseWait testID={testID} />
+        </Column>
+      )}
       source={{uri: urlWithParams}}
       startInLoadingState
       style={
