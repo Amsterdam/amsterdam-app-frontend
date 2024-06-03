@@ -38,7 +38,7 @@ export const useAlert = () => {
   const alert = useSelector(selectAlert)
 
   const setAlert = useCallback(
-    (a: AlertState) => dispatch(setAlertAction(a)),
+    (a: AlertState) => setTimeout(() => dispatch(setAlertAction(a)), 100), // Delay to prevent reset to come after set
     [dispatch],
   )
   const resetAlert = useCallback(() => dispatch(resetAlertAction()), [dispatch])
