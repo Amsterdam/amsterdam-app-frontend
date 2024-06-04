@@ -13,6 +13,8 @@ import {useThemable} from '@/themes/useThemable'
 export type ColumnProps = {
   /** The vertical alignment of the items in the column. */
   align?: MainAxisAlignment
+  /** The flex basis factor of the column. */
+  basis?: number
   /** The content of the column. */
   children: ReactNode
   /** Whether the column should grow to fill the available space. */
@@ -37,6 +39,7 @@ export type ColumnProps = {
  */
 export const Column = ({
   align,
+  basis,
   children,
   flex,
   grow,
@@ -46,7 +49,7 @@ export const Column = ({
   zIndex,
 }: ColumnProps) => {
   const styles = useThemable(
-    createStyles({align, flex, grow, gutter, halign, reverse, zIndex}),
+    createStyles({align, basis, flex, grow, gutter, halign, reverse, zIndex}),
   )
 
   return <View style={styles.column}>{children}</View>
@@ -55,6 +58,7 @@ export const Column = ({
 const createStyles =
   ({
     align,
+    basis,
     flex,
     grow,
     gutter,
@@ -68,6 +72,7 @@ const createStyles =
         flexDirection: reverse ? 'column-reverse' : 'column',
         alignItems: mapCrossAxisAlignment(halign),
         flex,
+        flexBasis: basis,
         flexGrow: grow ? 1 : undefined,
         justifyContent: mapMainAxisAlignment(align),
         rowGap: gutter && size.spacing[gutter],

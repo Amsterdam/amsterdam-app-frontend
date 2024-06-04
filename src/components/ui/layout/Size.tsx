@@ -1,5 +1,7 @@
 import {useMemo} from 'react'
 import {DimensionValue, StyleSheet, View, ViewProps} from 'react-native'
+import {MainAxisAlignment} from '@/components/ui/layout/types'
+import {mapMainAxisAlignment} from '@/components/ui/layout/utils/mapMainAxisAlignment'
 
 export type SizeProps = {
   height?: DimensionValue
@@ -7,6 +9,8 @@ export type SizeProps = {
   maxWidth?: DimensionValue
   minHeight?: DimensionValue
   minWidth?: DimensionValue
+  /** The vertical alignment of the items in the column. */
+  valign?: MainAxisAlignment
   width?: DimensionValue
 }
 
@@ -19,13 +23,22 @@ export const Size = ({
   maxWidth,
   minHeight,
   minWidth,
+  valign = 'center',
   width,
   ...viewProps
 }: Props) => {
   const styles = useMemo(
     () =>
-      createStyles({height, maxHeight, maxWidth, minHeight, minWidth, width}),
-    [height, maxHeight, maxWidth, minHeight, minWidth, width],
+      createStyles({
+        height,
+        maxHeight,
+        maxWidth,
+        minHeight,
+        minWidth,
+        valign,
+        width,
+      }),
+    [height, maxHeight, maxWidth, minHeight, minWidth, valign, width],
   )
 
   return (
@@ -40,7 +53,7 @@ export const Size = ({
 const createStyles = (sizeProps: SizeProps) =>
   StyleSheet.create({
     view: {
-      justifyContent: 'center',
+      justifyContent: mapMainAxisAlignment(sizeProps.valign),
       ...sizeProps,
     },
   })
