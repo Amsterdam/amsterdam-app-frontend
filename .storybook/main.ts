@@ -102,6 +102,10 @@ const config: StorybookConfig = {
             find: '@sentry/react-native',
             replacement: require.resolve('./mocks/sentry'),
           },
+          {
+            find: '@react-native-firebase/messaging',
+            replacement: require.resolve('./mocks/firebase'),
+          },
           ...aliases,
         ],
         extensions,
