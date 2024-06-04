@@ -19,6 +19,10 @@ const defaultOptions: GeoOptions = {
   maximumAge: 10000,
   showLocationDialog: true,
   timeout: 60000,
+  accuracy: {
+    ios: 'best',
+    android: 'high',
+  },
 }
 
 /**
