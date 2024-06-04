@@ -12,7 +12,6 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 315F40D229098DCA009B5A4A /* BootSplash.storyboard */; };
 		6A19800B395FA72D9E5D77B7 /* libPods-AmsterdamApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */; };
-		AE16A09A2BCF1D6600515E05 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = AE16A0992BCF1D6600515E05 /* PrivacyInfo.xcprivacy */; };
 		BFEC3A0229826EB500C469AA /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */; };
 		BFEC3A0329826EB500C469AA /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */; };
 		BFEC3A0429826EB500C469AA /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */; };
@@ -30,7 +29,6 @@
 		315F40D229098DCA009B5A4A /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = AmsterdamApp/BootSplash.storyboard; sourceTree = "<group>"; };
 		6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3830F9D08EB4C084763DC88 /* Pods-AmsterdamApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.release.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.release.xcconfig"; sourceTree = "<group>"; };
-		AE16A0992BCF1D6600515E05 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		B12AB5ECD661CF7F7D25E413 /* Pods-AmsterdamApp.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devrelease.xcconfig"; sourceTree = "<group>"; };
 		BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Regular.otf"; sourceTree = "<group>"; };
 		BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
@@ -55,7 +53,6 @@
 		13B07FAE1A68108700A75B9A /* AmsterdamApp */ = {
 			isa = PBXGroup;
 			children = (
-				AE16A0992BCF1D6600515E05 /* PrivacyInfo.xcprivacy */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				315F40D229098DCA009B5A4A /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -191,7 +188,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE16A09A2BCF1D6600515E05 /* PrivacyInfo.xcprivacy in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */,
 				BFEC3A0429826EB500C469AA /* AmsterdamSans-ExtraBold.otf in Resources */,
