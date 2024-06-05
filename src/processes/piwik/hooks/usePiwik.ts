@@ -1,3 +1,4 @@
+import {IApplicationInsights} from '@microsoft/applicationinsights-web'
 import {type PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
@@ -13,6 +14,7 @@ import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {postProcessDimensions} from '@/processes/piwik/utils/postProcessDimensions'
 import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
 import {type SendErrorLog} from '@/processes/sentry/types'
+import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
 import {getCurrentModuleSlugFromNavigationRootState} from '@/utils/getCurrentModuleSlugFromNavigationRootState'
@@ -44,6 +46,7 @@ const getPiwik = (
   {trackCustomEvent, trackOutlink, trackScreen, trackSearch}: PiwikProSdkType,
   sendSentryErrorLog: SendErrorLog,
   suggestedCategory: PiwikCategory,
+  appInsights: IApplicationInsights,
   routeName?: keyof RootStackParams,
   params?: Params,
 ): Piwik => ({
@@ -107,6 +110,7 @@ const getPiwik = (
         path,
       })
     })
+    appInsights.trackPageView({name}, postProcessDimensions(customDimensions))
   },
   trackSearch: (keyword, options) => {
     trackSearch(keyword, {
@@ -127,6 +131,8 @@ export const usePiwik = () => {
   const suggestedCategory =
     getCurrentModuleSlugFromNavigationRootState() ?? 'general'
 
+  const appInsights = useAppInsights()
+
   return useMemo(() => {
     if (!PiwikInstance) {
       return DEFAULT_PIWIK_CONTEXT
@@ -136,6 +142,7 @@ export const usePiwik = () => {
       PiwikInstance,
       sendSentryErrorLog,
       suggestedCategory,
+      appInsights,
       route?.name,
       route?.params as Params,
     )
@@ -143,6 +150,7 @@ export const usePiwik = () => {
     PiwikInstance,
     sendSentryErrorLog,
     suggestedCategory,
+    appInsights,
     route?.name,
     route?.params,
   ])
