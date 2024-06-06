@@ -1,3 +1,4 @@
+import notifee, {EventType} from '@notifee/react-native'
 import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
@@ -33,31 +34,18 @@ export const pushNotificationTypes: Record<
 
 export const createPathFromNotification = ({
   data,
-  notification,
-}: PushNotification) => {
+  title = '',
+  body = '',
+}: PushNotification): string | undefined => {
   const notificationType = data?.type && pushNotificationTypes[data.type]
 
   if (!notificationType?.routeWithPrefix || !data?.linkSourceid) {
     return
   }
 
-  const baseRoute = `${notificationType.routeWithPrefix}/${data.linkSourceid}`
+  const analyticsTitle = encodeURIComponent(`${title} - ${body}`)
 
-  if (!notification?.title) {
-    return baseRoute
-  }
-
-  const baseRouteWithTitle = `${baseRoute}/${encodeURIComponent(notification.title)}`
-
-  if (!notification.body) {
-    return baseRouteWithTitle
-  }
-
-  const analyticsTitle = encodeURIComponent(
-    `${notification.title} - ${notification.body}`,
-  )
-
-  return `${baseRouteWithTitle}/${analyticsTitle}`
+  return `${notificationType.routeWithPrefix}/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}`
 }
 
 export const linking: LinkingOptions<RootStackParams> = {
@@ -73,11 +61,17 @@ export const linking: LinkingOptions<RootStackParams> = {
         return url
       }
 
-      const initialNotification =
-        (await messaging().getInitialNotification()) as PushNotification
+      const initialFirebaseNotification =
+        await messaging().getInitialNotification()
+
       const routeWithPrefix =
-        initialNotification?.data &&
-        createPathFromNotification(initialNotification)
+        initialFirebaseNotification?.data &&
+        initialFirebaseNotification.notification &&
+        createPathFromNotification({
+          data: initialFirebaseNotification.data,
+          title: initialFirebaseNotification.notification.title,
+          body: initialFirebaseNotification.notification.body,
+        })
 
       return routeWithPrefix ?? null
     } catch (error) {
@@ -112,9 +106,11 @@ export const linking: LinkingOptions<RootStackParams> = {
         return
       }
 
-      const routeWithPrefix = createPathFromNotification(
-        message as PushNotification,
-      )
+      const routeWithPrefix = createPathFromNotification({
+        data: message.data,
+        title: message.notification?.title,
+        body: message.notification?.body,
+      })
 
       if (!routeWithPrefix) {
         return
@@ -126,8 +122,33 @@ export const linking: LinkingOptions<RootStackParams> = {
     // navigate from push when app is in background-state
     messaging().onNotificationOpenedApp(onMessageReceived)
 
+    const navigateToUrlFromNotification = (notification?: PushNotification) => {
+      if (!notification?.data) {
+        return
+      }
+
+      const url = createPathFromNotification(notification)
+
+      if (!url) {
+        return
+      }
+
+      listener(url)
+    }
+
+    const removeListener = notifee.onForegroundEvent(({type, detail}) => {
+      if (type === EventType.PRESS) {
+        navigateToUrlFromNotification(detail.notification)
+        // trackCustomEvent('push-notification', PiwikAction.pushNotificationTap, {
+        //   [PiwikDimension.pushTitle]: detail.notification?.title,
+        //   [PiwikDimension.pushContent]: detail.notification?.body,
+        // })
+      }
+    })
+
     return () => {
       subscription.remove()
+      removeListener()
     }
   },
 }

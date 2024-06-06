@@ -1,6 +1,8 @@
 import notifee from '@notifee/react-native'
-import messaging from '@react-native-firebase/messaging'
-import {useMemo} from 'react'
+import messaging, {
+  FirebaseMessagingTypes,
+} from '@react-native-firebase/messaging'
+import {useEffect} from 'react'
 import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
@@ -11,8 +13,43 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 export const useDisplayNotificationOnAppForeground = () => {
   const {trackCustomEvent} = usePiwik()
 
-  useMemo(() => {
-    messaging().onMessage(async message => {
+  useEffect(() => {
+    const onMessage = async (message: FirebaseMessagingTypes.RemoteMessage) => {
+      /**
+       * example message:
+       * Android:
+      {
+        collapseKey: 'nl.amsterdam.app.dev',
+        data: {
+          linkSourceid: '20',
+          type: 'ProjectWarningCreatedByProjectManager',
+        },
+        from: '346299586823',
+        messageId: '0:1717589352922991%cb56d100cb56d100',
+        notification: {
+          android: {},
+          body: 'foreground',
+          title: 'Test project voor team communicare',
+        },
+        sentTime: 1717589352915,
+        ttl: 2419200,
+      }
+
+      * iOS:
+      {
+        data: {
+          linkSourceid: '20',
+          type: 'ProjectWarningCreatedByProjectManager',
+        },
+        from: '346299586823',
+        messageId: '1717589352953305',
+        notification: {
+          body: 'foreground',
+          title: 'Test project voor team communicare',
+        },
+      }
+      */
+
       const channelId = await notifee.createChannel({
         id: 'default',
         name: 'Default Channel',
@@ -24,7 +61,8 @@ export const useDisplayNotificationOnAppForeground = () => {
             title: message.notification.title,
             body: message.notification.body,
             android: {
-              channelId: channelId,
+              channelId,
+              pressAction: {id: 'default'},
             },
             data: message.data,
           })
@@ -39,6 +77,8 @@ export const useDisplayNotificationOnAppForeground = () => {
             )
           })
       }
-    })
+    }
+
+    return messaging().onMessage(onMessage)
   }, [trackCustomEvent])
 }

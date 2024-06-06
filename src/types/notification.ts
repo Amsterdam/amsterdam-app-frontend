@@ -1,19 +1,11 @@
+import {Notification} from '@notifee/react-native'
+
 export type NotificationQueryArg = {
   body: string
   news_identifier?: string
   project_identifier: string
   title: string
   warning_identifier?: string
-}
-
-export type Notification = NotificationQueryArg & {
-  identifier: string
-  publication_date: string
-}
-
-export type NotificationWithProjectTitleAndReadState = Notification & {
-  isRead?: boolean
-  projectTitle: string
 }
 
 export type PushNotificationType =
@@ -31,7 +23,4 @@ export type PushNotificationData = {
   type?: PushNotificationType
 }
 
-export type PushNotification = {
-  data?: PushNotificationData
-  notification?: Notification
-}
+export type PushNotification = Notification & {data?: PushNotificationData}
