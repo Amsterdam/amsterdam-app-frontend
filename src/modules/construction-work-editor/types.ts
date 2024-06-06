@@ -1,3 +1,4 @@
+import {JwtPayload} from 'jwt-decode'
 import {ApiImage} from '@/types/api'
 
 export enum ConstructionWorkEditorEndpointName {
@@ -39,3 +40,7 @@ export type AddProjectWarningQueryArgs = {
   projectId: string
 } & ProjectWarningQueryArgs &
   ImageQueryArgs
+
+export type DecodedJwtToken = {
+  groups?: string[]
+} & JwtPayload

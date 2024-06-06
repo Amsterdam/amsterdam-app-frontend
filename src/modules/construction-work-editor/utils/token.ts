@@ -1,11 +1,8 @@
 import {decode} from 'base-64'
 global.atob = decode
-import {JwtPayload, jwtDecode} from 'jwt-decode'
+import {jwtDecode} from 'jwt-decode'
+import {DecodedJwtToken} from '@/modules/construction-work-editor/types'
 import {devLog} from '@/processes/development'
-
-type DecodedJwtToken = {
-  groups?: string[]
-} & JwtPayload
 
 export const decryptToken = (token: string) => jwtDecode<DecodedJwtToken>(token)
 
