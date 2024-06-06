@@ -57,7 +57,7 @@ export const WebView = ({
     <WebViewRN
       containerStyle={!!grow && styles.grow}
       renderLoading={() => (
-        <Column grow>
+        <Column grow={1}>
           <PleaseWait testID={testID} />
         </Column>
       )}

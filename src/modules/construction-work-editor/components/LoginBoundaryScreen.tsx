@@ -47,7 +47,7 @@ export const LoginBoundary: FC<Props> = ({children, testID}) => {
 
   return (
     <Screen testID={testID}>
-      <Column grow>
+      <Column grow={1}>
         <WebView
           grow
           onMessage={onMessage}

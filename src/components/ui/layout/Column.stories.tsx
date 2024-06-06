@@ -18,7 +18,6 @@ export const Default: ComponentStory<typeof Column> = args => (
 
 Default.args = {
   align: 'start',
-  grow: false,
   gutter: 'md',
   halign: 'stretch',
   reverse: false,

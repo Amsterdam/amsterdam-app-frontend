@@ -45,7 +45,7 @@ export const WasteGuide = () => {
   if (isFetchingWasteGuide || isFetchingAddress || !hasValidAddress) {
     return (
       <Column
-        grow
+        grow={1}
         gutter="xl">
         <HorizontalSafeArea flex={1}>
           <Box grow>
@@ -97,7 +97,7 @@ export const WasteGuide = () => {
 
   return (
     <Column
-      grow
+      grow={1}
       gutter="xl">
       <HorizontalSafeArea flex={1}>
         <Box grow>

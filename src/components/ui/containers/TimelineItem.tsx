@@ -51,7 +51,7 @@ export const TimelineItem = ({
           )}
         </View>
         <Accordion
-          grow
+          grow={1}
           initiallyExpanded={!!isCurrent}
           isExpandable={!!item.body || !!item.items?.length}
           key={item.title}

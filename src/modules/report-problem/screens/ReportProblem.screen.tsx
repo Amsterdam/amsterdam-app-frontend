@@ -44,7 +44,7 @@ export const ReportProblemScreen = ({navigation}: Props) => {
             <Row
               gutter="md"
               wrap>
-              <Column grow>
+              <Column grow={1}>
                 <Button
                   label="Doe een melding"
                   onPress={() =>

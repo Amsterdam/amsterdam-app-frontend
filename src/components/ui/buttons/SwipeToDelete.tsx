@@ -37,7 +37,7 @@ const DeleteButton = ({
     {...props}>
     <Column
       align="center"
-      grow>
+      grow={1}>
       <Row
         align="end"
         gutter="sm"

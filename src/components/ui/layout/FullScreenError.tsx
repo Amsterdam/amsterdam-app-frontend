@@ -104,7 +104,7 @@ export const FullScreenError = ({
               width={isPortrait ? '100%' : '50%'}>
               <Column
                 align={trackAlignment}
-                grow>
+                grow={1}>
                 <Box
                   grow
                   insetHorizontal={isPortrait ? 'md' : 'no'}
@@ -130,7 +130,7 @@ export const FullScreenError = ({
                 </Box>
               </Column>
             </Size>
-            <Column grow>
+            <Column grow={1}>
               <View
                 onLayout={e => setImageHeight(e.nativeEvent.layout.height)}
                 style={styles.imageVisibility}>

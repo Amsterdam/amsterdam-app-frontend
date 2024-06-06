@@ -24,7 +24,7 @@ export const FeedbackScreen = () => {
       <Box grow>
         <Column
           align="between"
-          grow
+          grow={1}
           gutter="lg">
           <Column gutter="md">
             <Title

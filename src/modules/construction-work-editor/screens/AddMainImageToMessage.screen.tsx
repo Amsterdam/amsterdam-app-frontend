@@ -70,10 +70,10 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
     <LoginBoundaryScreen
       keyboardAware
       testID="ConstructionWorkEditorAddMainImageToMessageScreen">
-      <Column grow>
+      <Column grow={1}>
         <Box>
           <Column
-            grow
+            grow={1}
             gutter="md">
             <Title text="Foto toevoegen" />
             <ImagePreview

@@ -16,7 +16,7 @@ export type RowProps = {
   /** The content of the row. */
   children: ReactNode
   /** Whether the row should grow to fill the available space. */
-  grow?: boolean
+  grow?: number
   /** The amount of horizontal spacing between the items in the row. */
   gutter?: keyof SpacingTokens
   /** Whether the items in the row should be reversed. */
@@ -87,7 +87,7 @@ const createStyles =
         flexDirection: reverse ? 'row-reverse' : 'row',
         flexWrap: wrap ? 'wrap' : undefined,
         flex,
-        flexGrow: grow ? 1 : undefined,
+        flexGrow: grow,
         flexShrink: 1,
         justifyContent: mapMainAxisAlignment(align),
         alignItems: mapCrossAxisAlignment(valign),

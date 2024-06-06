@@ -44,7 +44,7 @@ const AccordionTitle = ({icon, title}: AccordionTitleProps) => (
 
 type AccordionProps = {
   children: ReactNode | undefined
-  grow?: boolean
+  grow?: number
   initiallyExpanded?: boolean
   isExpandable?: boolean
   onChangeExpanded?: (state: boolean) => void
