@@ -20,7 +20,7 @@ export const AboutScreen = ({navigation}: Props) => (
       <Track
         align="between"
         alwaysDisplayAsRowForScreenReader
-        grow
+        grow={1}
         gutter="xl">
         <Column
           flex={1}

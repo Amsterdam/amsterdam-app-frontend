@@ -1,4 +1,4 @@
-import {Row} from '@/components/ui/layout/Row'
+import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -20,12 +20,12 @@ export const ShareLocationTopTaskButton = ({testID}: Props) => {
         : LocationTopTaskButton
 
   return (
-    <Row>
+    <Column>
       <TopTaskButton
         hasTitleIcon
         onPress={openBottomSheet}
         testID={`${testID ?? ''}RequestLocationButton`}
       />
-    </Row>
+    </Column>
   )
 }

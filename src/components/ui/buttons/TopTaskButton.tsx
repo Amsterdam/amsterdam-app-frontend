@@ -56,7 +56,8 @@ export const TopTaskButton = ({
         </View>
         <Column
           align="center"
-          grow>
+          grow={1}
+          shrink={1}>
           <Row
             gutter="sm"
             valign="center">

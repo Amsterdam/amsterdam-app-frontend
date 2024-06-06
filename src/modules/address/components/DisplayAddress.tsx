@@ -31,7 +31,7 @@ const AddressDeleteButton = ({
         showIcon={false}
         testID="AddressDeleteSwiper">
         <Row>
-          <Row grow>{children}</Row>
+          <Row grow={1}>{children}</Row>
           <Button
             accessibilityLabel="Verwijder mijn adres"
             iconName="trash-bin"

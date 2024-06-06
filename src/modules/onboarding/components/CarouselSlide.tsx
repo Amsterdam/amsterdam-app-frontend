@@ -80,7 +80,7 @@ export const CarouselSlide = ({
         <Column
           align={isPortrait ? 'start' : 'center'}
           basis={isPortrait ? undefined : 1}
-          grow={!isPortrait}>
+          grow={isPortrait ? undefined : 1}>
           <Size
             minHeight={minHeightTextContainer}
             valign="start">
@@ -105,7 +105,7 @@ export const CarouselSlide = ({
         </Column>
         <Column
           basis={!isPortrait ? 1 : undefined}
-          grow>
+          grow={1}>
           <View
             onLayout={e => setImageHeight(e.nativeEvent.layout.height)}
             style={styles.imageVisibility}>
