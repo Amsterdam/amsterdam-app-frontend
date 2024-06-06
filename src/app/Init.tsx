@@ -1,7 +1,7 @@
 import {type ReactNode} from 'react'
 import {useCheckPermissions} from '@/hooks/permissions/useCheckPermissions'
 import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
-import {useForegroundPushNotificationHandler} from '@/hooks/useForegroundPushNotificationHandler'
+import {useDisplayNotificationOnAppForeground} from '@/hooks/useDisplayNotificationOnAppForeground'
 import {useModules} from '@/hooks/useModules'
 import {useGetLocation} from '@/modules/address/hooks/useGetLocation'
 import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
@@ -13,7 +13,7 @@ export const Init = ({children}: Props) => {
   const {enabledModules} = useModules()
 
   useCheckPermissions()
-  useForegroundPushNotificationHandler()
+  useDisplayNotificationOnAppForeground()
   useLogGeneralAnalytics()
   useDeviceRegistration(enabledModules)
   useSetupSentry()

@@ -1,20 +1,15 @@
 import {createPathFromNotification} from './linking'
-import {Notification, PushNotification} from '@/types/notification'
+import {PushNotification} from '@/types/notification'
 
 describe('createRoute', () => {
-  const mockNotification: PushNotification = {
+  const mockNotification = {
     data: {
       type: 'NewsUpdatedByProjectManager',
       linkSourceid: '123',
     },
-    notification: {
-      identifier: '123',
-      publication_date: '2024-02-12',
-      project_identifier: '456',
-      title: 'Title',
-      body: 'Body',
-    },
-  }
+    title: 'Title',
+    body: 'Body',
+  } as const
 
   it('should return undefined if data or notification is not provided', () => {
     expect(createPathFromNotification({} as PushNotification)).toBeUndefined()
@@ -24,33 +19,28 @@ describe('createRoute', () => {
     expect(
       createPathFromNotification({
         data: {},
-        notification: mockNotification.notification,
+        title: mockNotification.title,
+        body: mockNotification.body,
       }),
     ).toBeUndefined()
   })
 
   it('should return route with only linkSourceid param, if notification title is missing', () => {
-    const notificationWithoutTitle = {...mockNotification.notification}
-
-    delete notificationWithoutTitle.title
     expect(
       createPathFromNotification({
         data: mockNotification.data,
-        notification: notificationWithoutTitle as Notification,
+        body: mockNotification.body,
       }),
-    ).toBe('amsterdam://news/123')
+    ).toBe('amsterdam://news/123//%20-%20Body')
   })
 
   it('should return route with linkSourceid param and title param, if body is missing', () => {
-    const notificationWithoutBody = {...mockNotification.notification}
-
-    delete notificationWithoutBody.body
     expect(
       createPathFromNotification({
         data: mockNotification.data,
-        notification: notificationWithoutBody as Notification,
+        title: mockNotification.title,
       }),
-    ).toBe('amsterdam://news/123/Title')
+    ).toBe('amsterdam://news/123/Title/Title%20-%20')
   })
 
   it('should return route with all params', () => {
@@ -60,44 +50,31 @@ describe('createRoute', () => {
   })
 
   it('should return route with only linkSourceid param, if notification title is an empty string', () => {
-    const notificationWithEmptyTitle = {
-      ...mockNotification.notification,
-      title: '',
-    }
-
     expect(
       createPathFromNotification({
         data: mockNotification.data,
-        notification: notificationWithEmptyTitle as Notification,
+        body: mockNotification.body,
+        title: '',
       }),
-    ).toBe('amsterdam://news/123')
+    ).toBe('amsterdam://news/123//%20-%20Body')
   })
 
   it('should return route with linkSourceid param and title param, if body is an empty string', () => {
-    const notificationWithEmptyBody = {
-      ...mockNotification.notification,
-      body: '',
-    }
-
     expect(
       createPathFromNotification({
         data: mockNotification.data,
-        notification: notificationWithEmptyBody as Notification,
+        title: mockNotification.title,
+        body: '',
       }),
-    ).toBe(`amsterdam://news/123/Title`)
+    ).toBe(`amsterdam://news/123/Title/Title%20-%20`)
   })
 
   it('should url encode title and body', () => {
-    const notificationWithSpecialCharacters = {
-      ...mockNotification.notification,
-      title: 'Test title',
-      body: 'Test/body',
-    }
-
     expect(
       createPathFromNotification({
         data: mockNotification.data,
-        notification: notificationWithSpecialCharacters as Notification,
+        title: 'Test title',
+        body: 'Test/body',
       }),
     ).toBe(`amsterdam://news/123/Test%20title/Test%20title%20-%20Test%2Fbody`)
   })
