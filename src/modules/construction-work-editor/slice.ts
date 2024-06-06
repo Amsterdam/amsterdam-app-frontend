@@ -48,6 +48,7 @@ export const {
   setHasSeenWelcomeMessage,
   removeConstructionWorkEditor,
   removeConstructionWorkEditorToken,
+  setHasAutoFollowedProjects,
 } = constructionWorkEditorSlice.actions
 
 export const selectConstructionWorkEditorAccessToken = (state: RootState) =>

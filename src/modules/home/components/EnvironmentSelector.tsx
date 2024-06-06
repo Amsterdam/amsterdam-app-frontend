@@ -8,6 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {setHasAutoFollowedProjects} from '@/modules/construction-work-editor/slice'
 import {isDevApp} from '@/processes/development'
 import {baseApi} from '@/services/baseApi'
 import {
@@ -59,6 +60,7 @@ export const EnvironmentSelector = () => {
               label={env}
               onPress={() => {
                 dispatch(setEnvironment(env))
+                dispatch(setHasAutoFollowedProjects(false))
                 dispatch(baseApi.util.resetApiState())
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
