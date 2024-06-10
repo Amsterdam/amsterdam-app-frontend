@@ -1,6 +1,7 @@
 import {useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {NoInternet} from '@/components/features/NoInternet'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
@@ -71,6 +72,7 @@ export const ScreenBase = ({
             <Gutter height="sm" />
             {stickyFooter}
             {bottomSheet}
+            <NoInternet />
           </>
         )}
       </View>

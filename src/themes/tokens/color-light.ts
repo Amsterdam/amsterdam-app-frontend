@@ -11,6 +11,7 @@ export const lightColorTokens = {
     inverse: baseColor.neutral.grey5,
     pagination: baseColor.primary.blue,
     skeleton: baseColor.neutral.grey3,
+    warning: baseColor.primary.red,
   },
   border: {
     default: baseColor.neutral.grey2,
@@ -87,6 +88,9 @@ export const lightColorTokens = {
   severity: {
     positive: baseColor.support.valid,
     negative: baseColor.support.invalid,
+  },
+  shadow: {
+    default: baseColor.primary.black,
   },
   text: {
     default: baseColor.primary.black,
