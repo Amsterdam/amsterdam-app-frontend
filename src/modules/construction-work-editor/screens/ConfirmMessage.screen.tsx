@@ -28,8 +28,12 @@ import {
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {useAddProjectWarningMutation} from '@/modules/construction-work-editor/service'
 import {useAlert} from '@/store/slices/alert'
+import {escapeHtml} from '@/utils/escapeHtml'
 
 type Props = NavigationProps<ConstructionWorkEditorRouteName.confirmMessage>
+
+// Escape HTML and convert newlines to <br /> tags
+const encodeBody = (input: string) => escapeHtml(input).replace(/\n/g, '<br />')
 
 export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
@@ -62,6 +66,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
     try {
       const arg = {
         ...message,
+        body: encodeBody(message.body),
         send_push_notification: isPushNotificationChecked,
       }
 
