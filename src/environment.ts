@@ -23,7 +23,7 @@ export const editableApiSlug = {
   modules: GlobalApiSlug.modules,
 } as const
 
-export type EnvUrlMap = Partial<Record<Environment, string>>
+export type EnvUrlMap = Record<Environment, string>
 
 const getEnvForApiUrl = (environment: Environment) => {
   switch (environment) {
