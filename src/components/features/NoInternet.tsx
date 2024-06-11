@@ -22,8 +22,7 @@ export const NoInternet = () => {
     () =>
       NetInfo.addEventListener(({isInternetReachable}) => {
         if (isInternetReachable) {
-          !hasInternet &&
-            accessibilityAnnounce('Internet verbinding §hersteld.')
+          !hasInternet && accessibilityAnnounce('Internet verbinding hersteld.')
           setHasInternet(true)
         } else {
           setIsClosed(false)
