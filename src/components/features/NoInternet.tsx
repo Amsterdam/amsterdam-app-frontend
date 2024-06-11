@@ -8,6 +8,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -15,18 +16,22 @@ export const NoInternet = () => {
   const [hasInternet, setHasInternet] = useState(true)
   const [isClosed, setIsClosed] = useState(false)
   const styles = useThemable(createStyles)
+  const accessibilityAnnounce = useAccessibilityAnnounce()
 
   useEffect(
     () =>
       NetInfo.addEventListener(({isInternetReachable}) => {
-        if (!isInternetReachable) {
+        if (isInternetReachable) {
+          !hasInternet &&
+            accessibilityAnnounce('Internet verbinding §hersteld.')
+          setHasInternet(true)
+        } else {
           setIsClosed(false)
           setHasInternet(false)
-        } else {
-          setHasInternet(true)
+          accessibilityAnnounce('Geen internetverbinding.')
         }
       }),
-    [],
+    [accessibilityAnnounce, hasInternet],
   )
 
   return (
@@ -56,6 +61,7 @@ export const NoInternet = () => {
                     Geen internetverbinding
                   </Phrase>
                   <IconButton
+                    accessibilityHint="Sluit deze melding"
                     icon={
                       <Icon
                         color="inverse"

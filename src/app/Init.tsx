@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {NoInternet} from '@/components/features/NoInternet'
 import {useCheckPermissions} from '@/hooks/permissions/useCheckPermissions'
 import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
 import {useDisplayNotificationOnAppForeground} from '@/hooks/useDisplayNotificationOnAppForeground'
@@ -25,6 +26,7 @@ export const Init = ({children}: Props) => {
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
       )}
       {children}
+      <NoInternet />
     </>
   )
 }
