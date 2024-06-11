@@ -1,9 +1,9 @@
-import {Environment} from '@/environment'
+import {EnvUrlMap, Environment} from '@/environment'
 
-export const hiddenProject: Record<Environment, string> = {
+export const hiddenProject: EnvUrlMap = {
   [Environment.custom]: '351',
   [Environment.development]: '351',
   [Environment.test]: '353',
-  [Environment.acceptance]: '',
-  [Environment.production]: '',
+  [Environment.acceptance]: '348',
+  [Environment.production]: '354',
 }
