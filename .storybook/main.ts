@@ -1,6 +1,7 @@
 import path from 'path'
 import {isPreservingSymlinks} from '@storybook/core-common'
 import {StorybookConfig} from '@storybook/react-vite'
+import react from '@vitejs/plugin-react'
 import merge from 'lodash/merge'
 import svgr from 'vite-plugin-svgr'
 
@@ -29,19 +30,22 @@ const extensions = [
 
 const config: StorybookConfig = {
   addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
+
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
+
   core: {
     builder: '@storybook/builder-vite',
     disableTelemetry: true,
   },
-  docs: {
-    autodocs: true,
-  },
+
+  docs: {},
+
   staticDirs: ['./public'],
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
   viteFinal: viteConfig =>
     merge(viteConfig, {
       base: './',
@@ -63,6 +67,7 @@ const config: StorybookConfig = {
         },
       },
       plugins: [
+        react(),
         svgr({
           include: '**/*.svg',
         }),
@@ -112,6 +117,10 @@ const config: StorybookConfig = {
         extensions,
       },
     }),
+
+  typescript: {
+    reactDocgen: 'react-docgen-typescript',
+  },
 }
 
 export default config
