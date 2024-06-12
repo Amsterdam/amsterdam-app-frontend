@@ -24,12 +24,7 @@ steps:
     displayName: 'Install node dependencies'
 
   # Tests
-  - script: npm run lint
-    displayName: 'Run lint'
-  - script: npm run typescript
-    displayName: 'Run TypeScript checks'
-  - script: npm run test
-    displayName: 'Run unit tests'
+  - template: ./checks.yml
 
   # Version info
   - template: ./save-version-info.yml
