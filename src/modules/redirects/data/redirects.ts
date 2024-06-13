@@ -61,11 +61,4 @@ export const redirects: RedirectResponse[] = [
     title: 'Stadspas',
     urlKey: RedirectKey.citypass,
   },
-  {
-    iconName: 'vote',
-    testID: 'RedirectsElectionsButton',
-    text: 'Meer informatie over de verkiezingen voor het Europees Parlement en referendum Hoofdgroenstructuur op donderdag 6 juni.',
-    title: 'Verkiezingen',
-    urlKey: RedirectKey.elections,
-  },
 ]
