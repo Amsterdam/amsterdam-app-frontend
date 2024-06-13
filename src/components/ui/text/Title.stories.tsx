@@ -1,11 +1,11 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {Title} from './Title'
 
 export default {
   component: Title,
-} as ComponentMeta<typeof Title>
+} as Meta<typeof Title>
 
-export const Default: ComponentStory<typeof Title> = args => <Title {...args} />
+export const Default: StoryFn<typeof Title> = args => <Title {...args} />
 Default.args = {
   color: 'default',
   level: 'h1',

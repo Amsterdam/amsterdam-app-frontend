@@ -1,16 +1,12 @@
-import {
-  ComponentMeta,
-  ComponentStory,
-  ComponentStoryObj,
-} from '@storybook/react'
+import {Meta, StoryFn, StoryObj} from '@storybook/react'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 
 export default {
   component: Trait,
-} as ComponentMeta<typeof Trait>
+} as Meta<typeof Trait>
 
-export const Default: ComponentStory<typeof Trait> = args => (
+export const Default: StoryFn<typeof Trait> = args => (
   <Trait
     {...args}
     iconName="strides"
@@ -20,7 +16,7 @@ Default.args = {
   label: '123 meter',
 }
 
-export const WithBadge: ComponentStoryObj<typeof Trait> = {
+export const WithBadge: StoryObj<typeof Trait> = {
   args: {
     children: (
       <Badge

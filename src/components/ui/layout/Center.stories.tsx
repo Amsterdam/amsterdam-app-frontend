@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {Center} from '@/components/ui/layout/Center'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Canvas} from '@/storybook/components'
@@ -15,9 +15,9 @@ export default {
       </Canvas>
     ),
   ],
-} as ComponentMeta<typeof Center>
+} as Meta<typeof Center>
 
-export const Default: ComponentStory<typeof Center> = args => (
+export const Default: StoryFn<typeof Center> = args => (
   <Center {...args}>
     <Phrase testID="Phrase">Ik sta in het midden</Phrase>
   </Center>

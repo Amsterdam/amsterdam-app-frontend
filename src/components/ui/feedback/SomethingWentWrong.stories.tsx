@@ -1,10 +1,10 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 
 export default {
   component: SomethingWentWrong,
-} as ComponentMeta<typeof SomethingWentWrong>
+} as Meta<typeof SomethingWentWrong>
 
-export const Default: ComponentStory<typeof SomethingWentWrong> = () => (
+export const Default: StoryFn<typeof SomethingWentWrong> = () => (
   <SomethingWentWrong />
 )

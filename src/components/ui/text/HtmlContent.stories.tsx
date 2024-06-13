@@ -1,11 +1,11 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {HtmlContent} from './HtmlContent'
 
 export default {
   component: HtmlContent,
-} as ComponentMeta<typeof HtmlContent>
+} as Meta<typeof HtmlContent>
 
-export const Default: ComponentStory<typeof HtmlContent> = args => (
+export const Default: StoryFn<typeof HtmlContent> = args => (
   <HtmlContent {...args} />
 )
 Default.args = {

@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {PhoneButton} from './PhoneButton'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof PhoneButton>
+} as Meta<typeof PhoneButton>
 
-export const Default: ComponentStoryObj<typeof PhoneButton> = {
+export const Default: StoryObj<typeof PhoneButton> = {
   args: {
     phoneNumber: '0610000000',
   },

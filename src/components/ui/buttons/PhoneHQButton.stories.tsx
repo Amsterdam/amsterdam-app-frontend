@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {PhoneHQButton} from './PhoneHQButton'
 
 export default {
@@ -8,6 +8,6 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof PhoneHQButton>
+} as Meta<typeof PhoneHQButton>
 
-export const Default: ComponentStoryObj<typeof PhoneHQButton> = {}
+export const Default: StoryObj<typeof PhoneHQButton> = {}

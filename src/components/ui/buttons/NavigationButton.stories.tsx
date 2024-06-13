@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {NavigationButton} from './NavigationButton'
 
 export default {
@@ -8,15 +8,15 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof NavigationButton>
+} as Meta<typeof NavigationButton>
 
-export const Default: ComponentStoryObj<typeof NavigationButton> = {
+export const Default: StoryObj<typeof NavigationButton> = {
   args: {
     label: 'Label',
   },
 }
 
-export const Previous: ComponentStoryObj<typeof NavigationButton> = {
+export const Previous: StoryObj<typeof NavigationButton> = {
   args: {
     direction: 'backward',
     label: 'Vorige',

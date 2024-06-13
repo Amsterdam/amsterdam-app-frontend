@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {EmailButton} from './EmailButton'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof EmailButton>
+} as Meta<typeof EmailButton>
 
-export const Default: ComponentStoryObj<typeof EmailButton> = {
+export const Default: StoryObj<typeof EmailButton> = {
   args: {
     email: 'ontwikkelingzeeburgereiland@amsterdam.nl',
     subject: 'Vraag over zeeburg.',

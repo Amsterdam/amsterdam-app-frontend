@@ -1,13 +1,13 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Canvas} from '@/storybook/components'
 
 export default {
   component: AspectRatio,
-} as ComponentMeta<typeof AspectRatio>
+} as Meta<typeof AspectRatio>
 
-export const Default: ComponentStory<typeof AspectRatio> = args => (
+export const Default: StoryFn<typeof AspectRatio> = args => (
   <AspectRatio {...args}>
     <Canvas highlight>
       <Phrase testID="Phrase">Ik heb een bepaalde beeldverhouding.</Phrase>

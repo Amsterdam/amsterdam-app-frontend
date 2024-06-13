@@ -1,12 +1,12 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {Direction} from '@/components/ui/types'
 
 export default {
   component: Triangle,
-} as ComponentMeta<typeof Triangle>
+} as Meta<typeof Triangle>
 
-export const Default: ComponentStoryObj<typeof Triangle> = {
+export const Default: StoryObj<typeof Triangle> = {
   args: {
     direction: Direction.right,
   },

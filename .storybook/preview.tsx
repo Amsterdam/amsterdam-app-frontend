@@ -20,8 +20,8 @@ const MainDecorator = (Story: FC) => (
 
 const preview: Preview = {
   decorators: [MainDecorator],
+
   parameters: {
-    actions: {argTypesRegex: '^on[A-Z].*'},
     backgrounds: {
       values: [
         {
@@ -61,6 +61,8 @@ const preview: Preview = {
       defaultViewport: 'iphonex',
     },
   },
+
+  tags: ['autodocs'],
 }
 
 export default preview

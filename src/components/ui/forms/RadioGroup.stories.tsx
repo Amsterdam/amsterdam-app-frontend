@@ -1,9 +1,9 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 
 export default {
   component: RadioGroup,
-} as ComponentMeta<typeof RadioGroup>
+} as Meta<typeof RadioGroup>
 
 const options = [
   {
@@ -20,7 +20,7 @@ const options = [
   },
 ]
 
-export const Default: ComponentStoryObj<typeof RadioGroup> = {
+export const Default: StoryObj<typeof RadioGroup> = {
   args: {
     options,
     value: 'valiant',

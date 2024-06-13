@@ -1,11 +1,11 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {List} from './List'
 
 export default {
   component: List,
-} as ComponentMeta<typeof List>
+} as Meta<typeof List>
 
-export const Default: ComponentStory<typeof List> = args => <List {...args} />
+export const Default: StoryFn<typeof List> = args => <List {...args} />
 Default.args = {
   items: [
     'Centrum',

@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {FauxButton} from './FauxButton'
 
 export default {
@@ -9,6 +9,6 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof FauxButton>
+} as Meta<typeof FauxButton>
 
-export const Default: ComponentStoryObj<typeof FauxButton> = {}
+export const Default: StoryObj<typeof FauxButton> = {}

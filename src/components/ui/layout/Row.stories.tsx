@@ -1,13 +1,13 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {Block, Canvas} from '@/storybook/components'
 
 export default {
   component: Row,
-} as ComponentMeta<typeof Row>
+} as Meta<typeof Row>
 
-export const Default: ComponentStory<typeof Row> = args => (
+export const Default: StoryFn<typeof Row> = args => (
   <Canvas highlight>
     <Row {...args}>
       <Block label="A" />
@@ -23,7 +23,7 @@ Default.args = {
   wrap: false,
 }
 
-export const Wrapping: ComponentStory<typeof Button & typeof Row> = args => (
+export const Wrapping: StoryFn<typeof Button & typeof Row> = args => (
   /**
    * Zet `wrap` aan om de items in een rij automatisch over meerdere regels te laten vallen.
    * De `gutter` wordt dan gebruikt als verticale ruimte tussen de items.

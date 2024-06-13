@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Text} from 'react-native'
 import {Switch} from './Switch'
 
@@ -9,9 +9,9 @@ export default {
       action: 'onValueChange',
     },
   },
-} as ComponentMeta<typeof Switch>
+} as Meta<typeof Switch>
 
-export const Default: ComponentStoryObj<typeof Switch> = {
+export const Default: StoryObj<typeof Switch> = {
   args: {
     label: <Text>Ik ga akkoord met de voorwaarden</Text>,
     labelPosition: 'end',

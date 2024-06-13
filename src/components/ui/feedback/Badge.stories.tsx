@@ -1,4 +1,4 @@
-import {ComponentMeta} from '@storybook/react'
+import {Meta} from '@storybook/react'
 import {Badge} from './Badge'
 
 export default {
@@ -6,7 +6,7 @@ export default {
   args: {
     value: 3,
   },
-} as ComponentMeta<typeof Badge>
+} as Meta<typeof Badge>
 
 export const Default = {}
 
