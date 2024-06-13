@@ -5,5 +5,4 @@ export type Layout = {
 
 export enum Tip {
   constructionWorkProjectFollowButton = 'constructionWorkProjectFollowButton',
-  homeModuleSettingsButton = 'homeModuleSettingsButton',
 }
