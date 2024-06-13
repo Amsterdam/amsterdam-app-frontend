@@ -1,16 +1,12 @@
-import {
-  ComponentMeta,
-  ComponentStory,
-  ComponentStoryObj,
-} from '@storybook/react'
+import {Meta, StoryFn, StoryObj} from '@storybook/react'
 import {View} from 'react-native'
 import {Phrase} from './Phrase'
 
 export default {
   component: Phrase,
-} as ComponentMeta<typeof Phrase>
+} as Meta<typeof Phrase>
 
-export const Default: ComponentStoryObj<typeof Phrase> = {
+export const Default: StoryObj<typeof Phrase> = {
   args: {
     children: 'Phrase content',
     color: 'default',
@@ -19,7 +15,7 @@ export const Default: ComponentStoryObj<typeof Phrase> = {
   },
 }
 
-export const Pattern: ComponentStory<typeof Phrase> = () => (
+export const Pattern: StoryFn<typeof Phrase> = () => (
   <View>
     <Phrase
       emphasis="strong"

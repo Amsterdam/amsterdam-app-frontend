@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {TopTaskButton} from './TopTaskButton'
 
 export default {
@@ -8,9 +8,9 @@ export default {
       action: 'onPress',
     },
   },
-} as ComponentMeta<typeof TopTaskButton>
+} as Meta<typeof TopTaskButton>
 
-export const Default: ComponentStoryObj<typeof TopTaskButton> = {
+export const Default: StoryObj<typeof TopTaskButton> = {
   args: {
     iconName: 'email',
     text: 'Reactie binnen 1 werkdag',

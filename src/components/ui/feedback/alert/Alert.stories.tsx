@@ -25,7 +25,7 @@ const meta: Meta<typeof AlertBase> = {
       },
     },
     variant: {
-      options: AlertVariant,
+      options: Object.values(AlertVariant),
       control: {
         type: 'radio',
       },

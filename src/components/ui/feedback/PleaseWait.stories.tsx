@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Canvas} from '@/storybook/components'
 
@@ -14,9 +14,9 @@ export default {
       </Canvas>
     ),
   ],
-} as ComponentMeta<typeof PleaseWait>
+} as Meta<typeof PleaseWait>
 
-export const Default: ComponentStoryObj<typeof PleaseWait> = {
+export const Default: StoryObj<typeof PleaseWait> = {
   args: {
     grow: true,
   },

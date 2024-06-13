@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Text} from 'react-native'
 import {Checkbox} from './Checkbox'
 
@@ -9,9 +9,9 @@ export default {
       action: 'onValueChange',
     },
   },
-} as ComponentMeta<typeof Checkbox>
+} as Meta<typeof Checkbox>
 
-export const Default: ComponentStoryObj<typeof Checkbox> = {
+export const Default: StoryObj<typeof Checkbox> = {
   args: {
     label: <Text>Ik ga akkoord met de voorwaarden</Text>,
     labelPosition: 'end',

@@ -1,11 +1,11 @@
-import {ComponentMeta, ComponentStoryObj} from '@storybook/react'
+import {Meta, StoryObj} from '@storybook/react'
 import {Label} from '@/components/ui/forms/Label'
 
 export default {
   component: Label,
-} as ComponentMeta<typeof Label>
+} as Meta<typeof Label>
 
-export const Default: ComponentStoryObj<typeof Label> = {
+export const Default: StoryObj<typeof Label> = {
   args: {
     text: 'Wat is de titel van je bericht?',
   },

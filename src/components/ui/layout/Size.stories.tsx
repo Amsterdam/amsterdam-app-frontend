@@ -1,13 +1,13 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Canvas} from '@/storybook/components'
 
 export default {
   component: Size,
-} as ComponentMeta<typeof Size>
+} as Meta<typeof Size>
 
-export const Default: ComponentStory<typeof Size> = args => (
+export const Default: StoryFn<typeof Size> = args => (
   <Size {...args}>
     <Canvas highlight>
       <Phrase testID="Phrase">Ik accepteer afmetingen</Phrase>

@@ -1,4 +1,4 @@
-import {ComponentMeta, ComponentStory} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react'
 import {Box} from '@/components/ui/containers/Box'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {baseColor} from '@/themes/tokens/base-color'
@@ -24,9 +24,9 @@ export default {
       ],
     },
   },
-} as ComponentMeta<typeof Box>
+} as Meta<typeof Box>
 
-export const Default: ComponentStory<typeof Box> = args => (
+export const Default: StoryFn<typeof Box> = args => (
   <Box {...args}>
     <Phrase testID="Phrase">I’m a box.</Phrase>
   </Box>
