@@ -19,7 +19,7 @@ export const AddressTopTaskButton = ({
 
   return (
     <TopTaskButton
-      iconName="location"
+      iconName="housing"
       onPress={onPress}
       testID={testID}
       text={address?.addressLine1 ?? 'Vul een adres in'}
