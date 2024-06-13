@@ -20,7 +20,7 @@ export const redirects: RedirectResponse[] = [
     urlKey: RedirectKey.parking,
   },
   {
-    iconName: 'login',
+    iconName: 'park-sign',
     testID: 'RedirectsParkingStartStopButton',
     text: 'Bezoekers- of kraskaart-vergunning? Geef hier parkeertijd van uw bezoek door.',
     title: 'Parkeertijd bezoek doorgeven',

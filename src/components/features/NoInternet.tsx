@@ -51,7 +51,7 @@ export const NoInternet = () => {
                   valign="center">
                   <Icon
                     color="inverse"
-                    name="wifiDisconnect"
+                    name="wifi-disconnect"
                     size="lg"
                     testID="NoInternetIcon"
                   />
