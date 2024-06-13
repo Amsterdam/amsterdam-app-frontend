@@ -1,0 +1,24 @@
+steps:
+  - script: npm run typescript
+    displayName: Run Type Check
+  - script: npm run test-ci
+    displayName: Run Unit Tests
+    condition: succeededOrFailed()
+  - script: npm run lint
+    displayName: Run Linter
+    condition: succeededOrFailed()
+  - task: PublishTestResults@2
+    displayName: "Publish Jest Unit Test Results"
+    inputs:
+      testResultsFiles: .jest/jestTestResults.trx
+      testResultsFormat: VSTest
+      mergeTestResults: true
+      testRunTitle: "Jest Unit Tests - $(Build.SourceBranch)"
+      failTaskOnFailedTests: true
+    condition: succeededOrFailed()
+  - task: PublishCodeCoverageResults@2
+    displayName: "Publish code coverage from Jest tests"
+    inputs:
+      summaryFileLocation: "$(System.DefaultWorkingDirectory)/coverage/cobertura-coverage.xml"
+      failIfCoverageEmpty: true
+    condition: succeededOrFailed()

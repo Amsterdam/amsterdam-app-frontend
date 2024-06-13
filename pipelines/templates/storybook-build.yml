@@ -4,12 +4,7 @@ steps:
   - template: ./install-node.yml
   - script: npm ci --ignore-scripts
     displayName: 'Install node dependencies'
-  - script: npm run lint
-    displayName: 'Run lint'
-  - script: npm run typescript
-    displayName: 'Run typescript checks'
-  - script: npm run test
-    displayName: 'Run unit tests'
+  - template: ./checks.yml
   - script: npm run storybook:build
     displayName: Build storybook
   - template: ./save-version-info.yml
