@@ -1,3 +1,6 @@
+/**
+ * Format an enumeration string. For example, 'a, b, c' becomes 'a, b en c'.
+ */
 export const formatEnumeration = (
   enumeration: string | null,
 ): string | null => {

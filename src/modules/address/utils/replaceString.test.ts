@@ -1,4 +1,4 @@
-import {replaceString} from '@/utils/replaceString'
+import {replaceString} from '@/modules/address/utils/replaceString'
 
 describe('replaceString', () => {
   it('should remove invalid characters including # from address strings', () => {

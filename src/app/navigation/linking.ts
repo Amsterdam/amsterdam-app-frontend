@@ -6,13 +6,13 @@ import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
+import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 import {devLog} from '@/processes/development'
 import {
   PushNotification,
   PushNotificationRouteConfig,
   PushNotificationType,
 } from '@/types/notification'
-import {moduleLinkings} from '@/utils/moduleLinkings'
 
 const appPrefix = 'amsterdam://'
 
