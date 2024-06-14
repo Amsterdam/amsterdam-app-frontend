@@ -68,7 +68,7 @@ export const projectsApi = baseApi.injectEndpoints({
         slug: MODULE_SLUG,
         url: generateRequestUrl({path: '/project/news', params}),
       }),
-      keepUnusedDataFor: CacheLifetime.hour,
+      keepUnusedDataFor: CacheLifetime.minute,
     }),
 
     // /project/warning GET
@@ -80,7 +80,7 @@ export const projectsApi = baseApi.injectEndpoints({
         slug: MODULE_SLUG,
         url: generateRequestUrl({path: '/project/warning', params}),
       }),
-      keepUnusedDataFor: CacheLifetime.week,
+      keepUnusedDataFor: CacheLifetime.minute,
     }),
 
     // /projects GET
