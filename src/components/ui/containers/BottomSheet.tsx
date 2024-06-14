@@ -80,7 +80,6 @@ export const BottomSheet = ({
       backdropComponent={Backdrop}
       enableDynamicSizing
       enablePanDownToClose
-      handleHeight={24}
       index={-1}
       onChange={snapPointIndex => {
         onChangeHandler(snapPointIndex)
