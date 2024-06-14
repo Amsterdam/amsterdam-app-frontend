@@ -43,20 +43,6 @@ const showTimeBoundNotification = ({
   )
 }
 
-/**
- * Get content for the "buitenzetten" section, if any
- */
-const getBuitenzettenContent = ({
-  afvalwijzerBuitenzettenTot,
-  afvalwijzerBuitenzettenVanaf,
-}: WasteGuideResponseFraction) => {
-  if (!afvalwijzerBuitenzettenVanaf || !afvalwijzerBuitenzettenTot) {
-    return undefined
-  }
-
-  return `${afvalwijzerBuitenzettenVanaf} ${afvalwijzerBuitenzettenTot}`
-}
-
 export const Fraction = ({fraction, testID}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {
@@ -70,6 +56,7 @@ export const Fraction = ({fraction, testID}: Props) => {
     afvalwijzerAfvalkalenderFrequentie,
     afvalwijzerAfvalkalenderMelding,
     afvalwijzerAfvalkalenderOpmerking,
+    afvalwijzerBuitenzetten,
     afvalwijzerButtontekst,
     afvalwijzerFractieCode,
     afvalwijzerFractieNaam,
@@ -141,7 +128,7 @@ export const Fraction = ({fraction, testID}: Props) => {
           testID={`${testID}DaySection`}
         />
         <FractionSection
-          content={getBuitenzettenContent(fraction)}
+          content={afvalwijzerBuitenzetten}
           sectionTitle="Buitenzetten"
           testID={`${testID}OutsideSection`}
         />
