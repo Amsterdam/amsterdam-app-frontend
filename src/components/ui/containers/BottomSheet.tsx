@@ -55,7 +55,8 @@ export const useBottomSheetHandler = () => {
 }
 
 /**
- * Use in combination with <HideFromAccessibility /> and useAccessibilityFocusWhenBottomsheetIsOpen.
+ * To autofocus on an element within the bottom sheet, use the `useSetBottomSheetElementFocus` hook.
+ * To hide children from accessibility when the bottom sheet is open, use the `HideFromAccessibilityWithBottomSheetOpen` component.
  */
 export const BottomSheet = ({
   children,
