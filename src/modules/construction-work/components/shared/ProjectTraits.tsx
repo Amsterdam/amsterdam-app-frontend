@@ -42,13 +42,7 @@ export const ProjectTraits = memo(
                   variant="small"
                 />
               </Trait>
-            ) : (
-              <Trait
-                iconName="checkmark"
-                label="Volgend"
-                testID="ConstructionWorkProjectFollowingTrait"
-              />
-            ))}
+            ) : null)}
           {!!distanceText && (
             <Trait
               accessibilityLabel={distanceA11yText}
