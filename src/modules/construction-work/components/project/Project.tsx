@@ -16,8 +16,6 @@ import ProjectWarningFallbackImage from '@/modules/construction-work/assets/imag
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
 import {ProjectFollow} from '@/modules/construction-work/components/project/ProjectFollow'
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
-import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
-import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -61,7 +59,7 @@ export const Project = ({id}: Props) => {
     )
   }
 
-  const {image, followed, followers, meter, subtitle, title} = project
+  const {image, followed, followers, subtitle, title} = project
 
   return (
     <Column>
@@ -87,13 +85,6 @@ export const Project = ({id}: Props) => {
               projectTitle={title}
             />
             <Column gutter="md">
-              <ProjectTraits
-                accessibilityLabel={accessibleText(
-                  getAccessibleDistanceText(meter),
-                )}
-                byDistance={!!address}
-                project={project}
-              />
               <SingleSelectable
                 accessibilityLabel={accessibleText(title, subtitle)}
                 accessibilityRole="header">
