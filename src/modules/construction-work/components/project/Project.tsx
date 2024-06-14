@@ -61,7 +61,7 @@ export const Project = ({id}: Props) => {
     )
   }
 
-  const {image, followed, followers, meter, strides, subtitle, title} = project
+  const {image, followed, followers, meter, subtitle, title} = project
 
   return (
     <Column>
@@ -89,7 +89,7 @@ export const Project = ({id}: Props) => {
             <Column gutter="md">
               <ProjectTraits
                 accessibilityLabel={accessibleText(
-                  getAccessibleDistanceText(meter, strides),
+                  getAccessibleDistanceText(meter),
                 )}
                 byDistance={!!address}
                 project={project}

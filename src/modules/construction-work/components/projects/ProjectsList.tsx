@@ -50,7 +50,7 @@ const ListItem = memo(
     showTraits,
     ...logProps
   }: ListItemProps) => {
-    const {followed, meter, recent_articles, strides} = project
+    const {followed, meter, recent_articles} = project
 
     const [additionalAccessibilityLabel, unreadArticlesLength] = useMemo(() => {
       if (!showTraits) {
@@ -65,11 +65,11 @@ const ListItem = memo(
       return [
         accessibleText(
           getAccessibleFollowingText(!!followed, unreadLength ?? 0),
-          getAccessibleDistanceText(meter, strides),
+          getAccessibleDistanceText(meter),
         ),
         unreadLength,
       ]
-    }, [followed, meter, readArticles, recent_articles, showTraits, strides])
+    }, [followed, meter, readArticles, recent_articles, showTraits])
 
     const {id, image, isDummyItem, subtitle, title} = project
 

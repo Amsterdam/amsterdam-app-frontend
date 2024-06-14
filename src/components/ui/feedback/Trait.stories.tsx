@@ -9,7 +9,7 @@ export default {
 export const Default: StoryFn<typeof Trait> = args => (
   <Trait
     {...args}
-    iconName="strides"
+    iconName="location"
   />
 )
 Default.args = {

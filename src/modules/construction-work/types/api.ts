@@ -63,7 +63,6 @@ export type ProjectBase = {
   id: number
   image: ApiImage | null
   meter: number | null
-  strides: number | null
   subtitle: string | null
   title: string
 }

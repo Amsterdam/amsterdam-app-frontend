@@ -6,7 +6,7 @@ import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 import {Row} from '@/components/ui/layout/Row'
 import {Project} from '@/modules/construction-work/types/api'
-import {getDistanceAndStrides} from '@/modules/construction-work/utils/getDistanceAndStrides'
+import {getDistance} from '@/modules/construction-work/utils/getDistance'
 
 export type ProjectTraitsProps = {
   byDistance?: boolean
@@ -18,16 +18,13 @@ type Props = ProjectTraitsProps & ViewProps
 
 export const ProjectTraits = memo(
   ({project, unreadArticlesLength, ...viewProps}: Props) => {
-    const {followed, meter, strides} = project
+    const {followed, meter} = project
 
-    if (!followed && !meter && !strides) {
+    if (!followed && !meter) {
       return null
     }
 
-    const {distanceA11yText, distanceText, stridesText} = getDistanceAndStrides(
-      meter,
-      strides,
-    )
+    const {distanceA11yText, distanceText} = getDistance(meter)
 
     return (
       <View {...viewProps}>
@@ -58,13 +55,6 @@ export const ProjectTraits = memo(
               iconName="location"
               label={distanceText}
               testID="ConstructionWorkProjectMetersTrait"
-            />
-          )}
-          {!!stridesText && (
-            <Trait
-              iconName="strides"
-              label={stridesText}
-              testID="ConstructionWorkProjectStridesTrait"
             />
           )}
         </Row>
