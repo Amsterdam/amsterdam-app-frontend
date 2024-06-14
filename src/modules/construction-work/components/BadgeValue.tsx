@@ -1,3 +1,4 @@
+import {useMemo} from 'react'
 import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -13,9 +14,14 @@ export const BadgeValue = () => {
     article_max_age: recentArticleMaxAge,
   })
 
+  const recentArticles = useMemo(
+    () => data && Object.keys(data).flatMap(key => data[key]),
+    [data],
+  )
+
   const unreadArticlesLength = useUnreadArticlesLength(
     readArticles,
-    data?.recent_articles,
+    recentArticles,
   )
 
   if (!unreadArticlesLength) {
