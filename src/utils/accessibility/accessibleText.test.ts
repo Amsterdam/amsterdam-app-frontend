@@ -18,3 +18,11 @@ test(`abbreviation and inject comma's`, () =>
   expect(accessibleText('het is van 5 t/m 7 oktober', 'in de ochtend')).toBe(
     'het is van 5 tot en met 7 oktober, in de ochtend',
   ))
+
+test('kommas tussen stukken tekst', () =>
+  expect(accessibleText('a', 'b')).toBe('a, b'))
+
+test('undefined', () => expect(accessibleText(undefined)).toBe(''))
+
+// @ts-ignore
+test('null', () => expect(accessibleText(null)).toBe(''))
