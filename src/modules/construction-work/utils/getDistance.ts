@@ -1,11 +1,7 @@
 import round from 'lodash/round'
-import simplur from 'simplur'
 
-export const getDistanceAndStrides = (
-  meter?: number | null,
-  strides?: number | null,
-) => {
-  if (!meter || !strides) {
+export const getDistance = (meter?: number | null) => {
+  if (!meter) {
     return {}
   }
 
@@ -23,6 +19,5 @@ export const getDistanceAndStrides = (
   return {
     distanceA11yText: distanceText,
     distanceText,
-    stridesText: simplur`${strides} stap[|pen]`,
   }
 }

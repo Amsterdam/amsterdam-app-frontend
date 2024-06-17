@@ -29,7 +29,6 @@ const emptyProjectsItem: ProjectsListItem = {
   id: -1,
   isDummyItem: true,
   recent_articles: [],
-  strides: 0,
   subtitle: ' ',
   title: ' ',
 }

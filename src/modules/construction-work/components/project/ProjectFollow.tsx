@@ -126,19 +126,17 @@ export const ProjectFollow = ({
             followers.toString(),
             followersPhrase,
           )}>
-          <Column>
+          <Phrase
+            testID="ConstructionWorkProjectFollowersText"
+            variant="small">
             <Phrase
               emphasis="strong"
               testID="ConstructionWorkProjectFollowersNumber"
               variant="small">
-              {followers}
+              {`${followers} `}
             </Phrase>
-            <Phrase
-              testID="ConstructionWorkProjectFollowersText"
-              variant="small">
-              {followersPhrase}
-            </Phrase>
-          </Column>
+            {followersPhrase}
+          </Phrase>
         </SingleSelectable>
       </Row>
     </Column>
