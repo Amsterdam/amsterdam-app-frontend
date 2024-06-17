@@ -7,11 +7,5 @@ export const getAccessibleDistanceText = (meter?: number | null) => {
     return
   }
 
-  const textParts = ['vanaf uw adres']
-
-  if (hasMeters) {
-    textParts.unshift(`${meter} meter`)
-  }
-
-  return textParts.join(' ')
+  return `${meter} meter vanaf uw adres`
 }
