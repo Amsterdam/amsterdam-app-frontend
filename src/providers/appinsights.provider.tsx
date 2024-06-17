@@ -11,8 +11,6 @@ const appInsights = new ApplicationInsights({
 })
 
 appInsights.loadAppInsights()
-appInsights.trackEvent({name: 'test'})
-appInsights.trackPageView({name: 'home'})
 
 export const AppInsightsContext = createContext(appInsights)
 
