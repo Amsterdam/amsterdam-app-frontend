@@ -1,7 +1,7 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {useNavigateToHomeIfModuleInactive} from '@/hooks/useIsModuleActive'
+import {useNavigateToHomeIfModuleInactive} from '@/hooks/useNavigateToHomeIfModuleInactive'
 import {ProjectNews} from '@/modules/construction-work/components/project/ProjectNews'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -17,7 +17,7 @@ export const ProjectNewsScreen = ({route}: Props) => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ProjectNewsScreenPleaseWait" />
+    return <PleaseWait testID="ConstructionWorkProjectNewsScreenPleaseWait" />
   }
 
   return (

@@ -2,7 +2,7 @@ import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {useNavigateToHomeIfModuleInactive} from '@/hooks/useIsModuleActive'
+import {useNavigateToHomeIfModuleInactive} from '@/hooks/useNavigateToHomeIfModuleInactive'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
@@ -30,7 +30,9 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
   }, [navigation, route.params?.showSuccessfullySentMessageAlert, setAlert])
 
   if (isLoading) {
-    return <PleaseWait testID="AuthorizedProjectsScreenPleaseWait" />
+    return (
+      <PleaseWait testID="ConstructionWorkEditorAuthorizedProjectsScreenPleaseWait" />
+    )
   }
 
   return (
