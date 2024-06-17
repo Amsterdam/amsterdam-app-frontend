@@ -7,7 +7,7 @@ import {Duration} from '@/types/duration'
  * Set accessibility focus on a component when the bottom sheet is open
  * @returns ref - Ref to the component to set accessibility focus on
  */
-export const useAccessibilityFocusWhenBottomsheetIsOpen = () => {
+export const useSetBottomSheetElementFocus = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
   const {isOpen} = useBottomSheet()

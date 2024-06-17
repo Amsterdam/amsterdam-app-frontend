@@ -5,7 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Title} from '@/components/ui/text/Title'
-import {useAccessibilityFocusWhenBottomsheetIsOpen} from '@/hooks/accessibility/useAccessibilityFocusWhenBottomsheetIsOpen'
+import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
@@ -35,7 +35,7 @@ export const SelectLocationTypeBottomSheet = ({
   )
 
   const {close: closeBottomSheet} = useBottomSheet()
-  const focusRef = useAccessibilityFocusWhenBottomsheetIsOpen()
+  const focusRef = useSetBottomSheetElementFocus()
 
   const {requestPermission} = usePermission(Permissions.location)
 

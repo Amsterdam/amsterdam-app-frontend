@@ -1,6 +1,6 @@
-import {ReactNode, FC} from 'react'
+import {ReactNode} from 'react'
 import {StyleProp, ViewStyle, View} from 'react-native'
-import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
+import {HideFromAccessibilityWithBottomSheetOpen} from '@/components/ui/containers/HideFromAccessibilityWithBottomSheetOpen'
 
 type ScreenInnerWrapperProps = {
   children: ReactNode
@@ -8,20 +8,15 @@ type ScreenInnerWrapperProps = {
   style: StyleProp<ViewStyle>
 }
 
-export const ScreenInnerWrapper: FC<ScreenInnerWrapperProps> = ({
+export const ScreenInnerWrapper = ({
   hasBottomsheet,
+  children,
   style,
-  ...props
-}) =>
+}: ScreenInnerWrapperProps) =>
   hasBottomsheet ? (
-    <HideFromAccessibility
-      {...props}
-      style={style}
-      whileBottomSheetIsOpen
-    />
+    <HideFromAccessibilityWithBottomSheetOpen style={style}>
+      {children}
+    </HideFromAccessibilityWithBottomSheetOpen>
   ) : (
-    <View
-      style={style}
-      {...props}
-    />
+    <View style={style}>{children}</View>
   )

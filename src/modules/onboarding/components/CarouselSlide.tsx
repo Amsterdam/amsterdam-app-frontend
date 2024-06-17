@@ -1,5 +1,5 @@
 import {useMemo, useState} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, Text, View} from 'react-native'
 import {AmsterdamHuisjesBackground} from '@/assets/images/AmsterdamHuisjesBackground'
 import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
@@ -43,7 +43,7 @@ export const CarouselSlide = ({
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
   const styles = useThemable(createStyles({width, isImageVisible, isPortrait}))
-  const setAccessibilityAutoFocus = useAccessibilityAutoFocus<View>({
+  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<Text>({
     isActive: isCurrentSlide,
   })
   const isLargeFontScale = fontScale >= 1.5
@@ -90,7 +90,7 @@ export const CarouselSlide = ({
               <ContentView>
                 <Wrapper>
                   <Title
-                    ref={setAccessibilityAutoFocus}
+                    ref={accessibilityAutoFocusRef}
                     text={title}
                   />
                   <Phrase

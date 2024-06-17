@@ -1,3 +1,4 @@
+import {View} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Column} from '@/components/ui/layout/Column'
@@ -78,7 +79,7 @@ export const VisitingHours = ({
   )
   const {value: isOpen, toggle: toggleTooltip} = useToggle()
 
-  const setAccessibilityAutoFocusRef = useAccessibilityAutoFocus({
+  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !isOpen,
   })
 
@@ -114,7 +115,7 @@ export const VisitingHours = ({
             />
           }
           onPress={toggleTooltip}
-          ref={setAccessibilityAutoFocusRef}
+          ref={accessibilityAutoFocusRef}
           testID="ContactVisitingHoursTooltipButton"
         />
       </Row>

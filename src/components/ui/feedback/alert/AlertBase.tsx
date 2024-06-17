@@ -1,4 +1,4 @@
-import {Fragment, ReactNode, useEffect, useRef} from 'react'
+import {Fragment, ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import type {
   AlertProps,
@@ -19,6 +19,10 @@ import {useThemable} from '@/themes/useThemable'
 import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
+export type AlertBaseProps = {
+  inset?: keyof SpacingTokens
+} & AlertProps
+
 type WrapperProps = {
   children: ReactNode
   inset: AlertBaseProps['inset']
@@ -31,10 +35,6 @@ const Wrapper = ({children, inset}: WrapperProps) => {
 
   return <Fragment>{children}</Fragment>
 }
-
-export type AlertBaseProps = {
-  inset?: keyof SpacingTokens
-} & AlertProps
 
 export const AlertBase = ({
   hasCloseIcon = false,
@@ -50,13 +50,11 @@ export const AlertBase = ({
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  const ref = useRef(null)
+  const hasContent = !!text || !!title
 
-  useEffect(() => {
-    if (ref.current) {
-      setAccessibilityFocus(ref.current)
-    }
-  }, [setAccessibilityFocus])
+  if (!hasContent) {
+    return null
+  }
 
   return (
     <Wrapper inset={inset}>
@@ -65,7 +63,7 @@ export const AlertBase = ({
           accessibilityLanguage="nl-NL"
           accessibilityRole="alert"
           accessible
-          ref={ref}
+          ref={setAccessibilityFocus}
           style={styles?.view}
           testID={testID}>
           <Row align="between">
