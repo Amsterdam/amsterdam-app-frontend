@@ -25,6 +25,9 @@ export const useIsModuleActive = (moduleSlug: ModuleSlug) => {
   return isModuleActive
 }
 
+/**
+ * Navigates to the home screen if the module is inactive. E.g. to be used in screens with deep linking.
+ */
 export const useNavigateToHomeIfModuleInactive = (moduleSlug: ModuleSlug) => {
   const isModuleActive = useIsModuleActive(moduleSlug)
   const {navigate} = useNavigation()
