@@ -9,7 +9,7 @@ const dictionary: Record<string, string> = {
 export const wordCleanup = (text: string) =>
   text.toLowerCase().replaceAll(/[()]/g, '')
 
-export const replaceAbbreviations = (text: string) =>
+export const abbreviationsPronounce = (text: string) =>
   text
     .split(' ')
     .map((word: string) => dictionary[wordCleanup(word)] || word)

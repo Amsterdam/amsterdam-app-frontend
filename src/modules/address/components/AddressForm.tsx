@@ -13,10 +13,10 @@ import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
 import {AddressCity, PdokAddress} from '@/modules/address/types'
+import {replaceString} from '@/modules/address/utils/replaceString'
 import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
-import {replaceString} from '@/utils/replaceString'
 
 export const AddressForm = () => {
   const {isLandscape, isTablet} = useDeviceContext()

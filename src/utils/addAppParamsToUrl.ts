@@ -4,6 +4,9 @@ import {ModuleSlug} from '@/modules/slugs'
 export const isAmsterdamNlUrl = (url: string) =>
   /^https?:\/\/([\w-.]+.)?amsterdam\.nl/.test(url)
 
+/**
+ * Adds app parameters to an Amsterdam.nl URL. Used to track outlinks in Piwik.
+ */
 export const addAppParamsToUrl = (url: string, slug?: ModuleSlug) => {
   if (!isAmsterdamNlUrl(url)) {
     return url

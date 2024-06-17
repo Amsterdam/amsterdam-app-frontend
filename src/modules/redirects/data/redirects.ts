@@ -20,7 +20,7 @@ export const redirects: RedirectResponse[] = [
     urlKey: RedirectKey.parking,
   },
   {
-    iconName: 'login',
+    iconName: 'park-sign',
     testID: 'RedirectsParkingStartStopButton',
     text: 'Bezoekers- of kraskaart-vergunning? Geef hier parkeertijd van uw bezoek door.',
     title: 'Parkeertijd bezoek doorgeven',
@@ -60,12 +60,5 @@ export const redirects: RedirectResponse[] = [
     text: 'Voor Amsterdammers met een laag inkomen.',
     title: 'Stadspas',
     urlKey: RedirectKey.citypass,
-  },
-  {
-    iconName: 'vote',
-    testID: 'RedirectsElectionsButton',
-    text: 'Meer informatie over de verkiezingen voor het Europees Parlement en referendum Hoofdgroenstructuur op donderdag 6 juni.',
-    title: 'Verkiezingen',
-    urlKey: RedirectKey.elections,
   },
 ]

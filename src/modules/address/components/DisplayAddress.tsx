@@ -73,7 +73,7 @@ export const DisplayAddress = () => {
           <TopTaskButton
             accessibilityHint="Tik om het adres te wijzigen"
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
-            iconName="location"
+            iconName="housing"
             logName={
               address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
             }

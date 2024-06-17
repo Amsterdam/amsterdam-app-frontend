@@ -1,9 +1,8 @@
-import {Platform} from 'react-native'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {replaceDots} from '@/utils/accessibility/replaceDots'
+import {emailPronounce} from '@/utils/accessibility/emailPronounce'
 
 type Props = {
   email: string
@@ -19,7 +18,7 @@ export const EmailButton = ({email, subject, ...buttonProps}: Props) => {
         {...buttonProps}
         accessibilityLabel={accessibleText(
           'Stuur een e-mail naar',
-          Platform.OS === 'ios' ? replaceDots(email) : email,
+          emailPronounce(email),
         )}
         ellipsizeMode="tail"
         iconName="email"
