@@ -2,7 +2,7 @@ steps:
   - checkout: self
     fetchDepth: 0
   - template: ./install-node.yml
-  - script: npm ci --ignore-scripts
+  - script: npm ci
     displayName: 'Install node dependencies'
   - template: ./checks.yml
   - script: npm run storybook:build
