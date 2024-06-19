@@ -7,6 +7,10 @@ import {
   setSentryUserData,
 } from '@/processes/sentry/init'
 import {BreadcrumbKey, BreadcrumbCategory} from '@/processes/sentry/types'
+import {
+  getApplicationInsightsConfig,
+  useAppInsights,
+} from '@/providers/appinsights.provider'
 
 /**
  * Initialize Sentry and related listeners and side effects
@@ -14,6 +18,7 @@ import {BreadcrumbKey, BreadcrumbCategory} from '@/processes/sentry/types'
 export const useSetupSentry = () => {
   const environment = useSelector(state => state.environment.environment)
   const {captureSentryBreadcrumb} = useSentry()
+  const appInsights = useAppInsights()
 
   // TODO When we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting.
   const consent = true
@@ -36,5 +41,6 @@ export const useSetupSentry = () => {
 
   useEffect(() => {
     setSentryBackEndEnvironment(environment)
-  }, [environment])
+    appInsights.updateCfg(getApplicationInsightsConfig(environment).config)
+  }, [appInsights, environment])
 }
