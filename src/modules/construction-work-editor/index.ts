@@ -10,7 +10,7 @@ export const constructionWorkEditorModule: ModuleClientConfig = {
   requiresAuthorization: true,
   linking: {
     [ConstructionWorkEditorRouteName.authorizedProjects]:
-      'construction-work-editor',
+      'construction-work-editor/:accessToken?',
   },
   logDimension: PiwikSessionDimension.constructionWorkEditorModule,
   name: 'ConstructionWorkEditorModule',

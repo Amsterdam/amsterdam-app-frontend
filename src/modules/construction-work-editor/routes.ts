@@ -10,6 +10,7 @@ export enum ConstructionWorkEditorRouteName {
 export type ConstructionWorkEditorStackParams = {
   [ConstructionWorkEditorRouteName.addMainImageToMessage]: undefined
   [ConstructionWorkEditorRouteName.authorizedProjects]: {
+    accessToken?: string
     id?: string
     showSuccessfullySentMessageAlert?: boolean
   }
