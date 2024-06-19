@@ -5,8 +5,10 @@ import {WebView} from '@/components/ui/containers/WebView'
 import {Column} from '@/components/ui/layout/Column'
 import {TestProps} from '@/components/ui/types'
 import {GlobalApiSlug} from '@/environment'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {
   saveConstructionWorkEditorToken,
   selectConstructionWorkEditorAccessToken,
@@ -21,6 +23,8 @@ type Props = {
 } & TestProps
 
 export const LoginBoundary: FC<Props> = ({children, testID}) => {
+  const {params} =
+    useRoute<ConstructionWorkEditorRouteName.authorizedProjects>()
   const dispatch = useDispatch()
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
@@ -32,6 +36,13 @@ export const LoginBoundary: FC<Props> = ({children, testID}) => {
     },
     [dispatch],
   )
+
+  useEffect(() => {
+    if (params?.accessToken?.length) {
+      dispatch(saveConstructionWorkEditorToken(params.accessToken))
+    }
+  }, [dispatch, params?.accessToken])
+
   const token = useSelector(selectConstructionWorkEditorAccessToken)
 
   useEffect(() => {
