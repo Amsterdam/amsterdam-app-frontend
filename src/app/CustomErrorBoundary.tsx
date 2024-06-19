@@ -1,24 +1,37 @@
+import {SeverityLevel} from '@microsoft/applicationinsights-web'
 import {Component, ReactNode} from 'react'
-import {StyleSheet, Text} from 'react-native'
-import RNRestart from 'react-native-restart'
-import {SafeAreaView} from 'react-native-safe-area-context'
-import {PressableBase} from '@/components/ui/buttons/PressableBase'
-import {devLog} from '@/processes/development'
+import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
+import {AppInsightsContext} from '@/providers/appinsights.provider'
 
 type Props = {children: ReactNode}
 
 type State = {hasError: boolean}
 
 export class CustomErrorBoundary extends Component<Props, State> {
+  static readonly contextType = AppInsightsContext
+  declare context: React.ContextType<typeof AppInsightsContext>
+
   constructor(props: Props) {
     super(props)
     this.state = {hasError: false}
   }
 
-  static getDerivedStateFromError(error: unknown) {
-    devLog(error)
-
+  static getDerivedStateFromError(_error: unknown) {
     return {hasError: true}
+  }
+
+  componentDidCatch(
+    error: Error & {
+      cause?: Error
+    },
+    errorInfo: React.ErrorInfo,
+  ) {
+    this.context.appInsights.trackException({
+      error,
+      exception: error,
+      properties: errorInfo,
+      severityLevel: SeverityLevel.Critical,
+    })
   }
 
   render() {
@@ -26,45 +39,6 @@ export class CustomErrorBoundary extends Component<Props, State> {
       return this.props.children
     }
 
-    const {wrapper, text, paragraph, button, buttonText} = styles
-
-    return (
-      <SafeAreaView style={wrapper}>
-        <Text style={[paragraph, text]}>
-          Er is iets misgegaan met de app. Sorry voor het ongemak!
-        </Text>
-        <PressableBase
-          accessibilityRole="button"
-          onPress={() => RNRestart.Restart()}
-          style={button}
-          testID="ErrorBoundaryRestartButton">
-          <Text style={[text, buttonText]}>Herstart de app</Text>
-        </PressableBase>
-      </SafeAreaView>
-    )
+    return <ErrorWithRestart />
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    backgroundColor: '#fff',
-    flex: 1,
-    padding: 40,
-  },
-  text: {
-    fontSize: 18,
-    lineHeight: 28,
-  },
-  paragraph: {
-    marginBottom: 16,
-  },
-  button: {
-    backgroundColor: '#004699',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  buttonText: {
-    color: '#fff',
-    textAlign: 'center',
-  },
-})
