@@ -1,4 +1,3 @@
-import {ErrorBoundary} from '@sentry/react-native'
 import {StatusBar, StyleSheet} from 'react-native'
 import {
   initialWindowMetrics,
@@ -11,7 +10,6 @@ import {Init} from '@/app/Init'
 import {UpdateScreen} from '@/app/UpdateScreen'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
-import {ErrorWithRestart} from '@/components/ui/feedback/ErrorWithRestart'
 import {initSentry, sentryWrap} from '@/processes/sentry/init'
 import {AppInsightsProvider} from '@/providers/appinsights.provider'
 import {RootProvider} from '@/providers/root.provider'
@@ -39,9 +37,9 @@ const AppComponent = () => (
             <UpdateScreen>
               <AppNavigationContainer>
                 <Init>
-                  <ErrorBoundary fallback={<ErrorWithRestart />}>
+                  <CustomErrorBoundary>
                     <RootStackNavigator />
-                  </ErrorBoundary>
+                  </CustomErrorBoundary>
                 </Init>
               </AppNavigationContainer>
             </UpdateScreen>
