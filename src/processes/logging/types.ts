@@ -1,5 +1,7 @@
 export enum EventLogKey {
+  fullStartup = 'Full startup',
   internetConnection = 'Internet connection changed',
+  nativeStartup = 'Native startup',
 }
 export enum ErrorLogKey {
   coordinates = 'Failed to get coordinates to determine location',

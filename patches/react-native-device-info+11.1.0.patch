@@ -1,0 +1,431 @@
+diff --git a/node_modules/react-native-device-info/android/build/.transforms/317fe6209b558066dd51f050bac38e98/results.bin b/node_modules/react-native-device-info/android/build/.transforms/317fe6209b558066dd51f050bac38e98/results.bin
+new file mode 100644
+index 0000000..e3f0ff0
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/.transforms/317fe6209b558066dd51f050bac38e98/results.bin
+@@ -0,0 +1 @@
++i/classes_global-synthetics
+diff --git a/node_modules/react-native-device-info/android/build/.transforms/7d225a87b144c282bcf36a3a127fe0ba/results.bin b/node_modules/react-native-device-info/android/build/.transforms/7d225a87b144c282bcf36a3a127fe0ba/results.bin
+new file mode 100644
+index 0000000..61a58fa
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/.transforms/7d225a87b144c282bcf36a3a127fe0ba/results.bin
+@@ -0,0 +1 @@
++i/classes_dex
+diff --git a/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/results.bin b/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/results.bin
+new file mode 100644
+index 0000000..0d259dd
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/results.bin
+@@ -0,0 +1 @@
++o/classes
+diff --git a/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/transformed/classes/classes_dex/classes.dex
+new file mode 100644
+index 0000000..04e1ce6
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/.transforms/947596c0a3a5aae6526d1760c348cec3/transformed/classes/classes_dex/classes.dex differ
+diff --git a/node_modules/react-native-device-info/android/build/generated/source/buildConfig/debug/com/learnium/RNDeviceInfo/BuildConfig.java b/node_modules/react-native-device-info/android/build/generated/source/buildConfig/debug/com/learnium/RNDeviceInfo/BuildConfig.java
+new file mode 100644
+index 0000000..6fc4719
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/generated/source/buildConfig/debug/com/learnium/RNDeviceInfo/BuildConfig.java
+@@ -0,0 +1,10 @@
++/**
++ * Automatically generated file. DO NOT MODIFY
++ */
++package com.learnium.RNDeviceInfo;
++
++public final class BuildConfig {
++  public static final boolean DEBUG = Boolean.parseBoolean("true");
++  public static final String LIBRARY_PACKAGE_NAME = "com.learnium.RNDeviceInfo";
++  public static final String BUILD_TYPE = "debug";
++}
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml b/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+new file mode 100644
+index 0000000..f4e8ec5
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.learnium.RNDeviceInfo" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json b/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+new file mode 100644
+index 0000000..5455cea
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/aapt_friendly_merged_manifests/debug/aapt/output-metadata.json
+@@ -0,0 +1,18 @@
++{
++  "version": 3,
++  "artifactType": {
++    "type": "AAPT_FRIENDLY_MERGED_MANIFESTS",
++    "kind": "Directory"
++  },
++  "applicationId": "com.learnium.RNDeviceInfo",
++  "variantName": "debug",
++  "elements": [
++    {
++      "type": "SINGLE",
++      "filters": [],
++      "attributes": [],
++      "outputFile": "AndroidManifest.xml"
++    }
++  ],
++  "elementType": "File"
++}
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/aar_metadata/debug/aar-metadata.properties b/node_modules/react-native-device-info/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+new file mode 100644
+index 0000000..776557e
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/aar_metadata/debug/aar-metadata.properties
+@@ -0,0 +1,5 @@
++aarFormatVersion=1.0
++aarMetadataVersion=1.0
++minCompileSdk=1
++minCompileSdkExtension=0
++minAndroidGradlePluginVersion=1.0.0
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json b/node_modules/react-native-device-info/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+new file mode 100644
+index 0000000..9e26dfe
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/annotation_processor_list/debug/annotationProcessors.json
+@@ -0,0 +1 @@
++{}
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-device-info/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..a352b63
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-device-info/android/build/intermediates/compile_r_class_jar/debug/R.jar
+new file mode 100644
+index 0000000..9ac540f
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/react-native-device-info/android/build/intermediates/compile_symbol_list/debug/R.txt
+new file mode 100644
+index 0000000..e69de29
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties b/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+new file mode 100644
+index 0000000..81855f6
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+@@ -0,0 +1 @@
++#Thu Jun 06 09:07:00 CEST 2024
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml b/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+new file mode 100644
+index 0000000..5d57060
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="main" generated-set="main$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="debug" generated-set="debug$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/debug/res"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated$Generated" generated="true" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/build/generated/res/resValues/debug"/></dataSet><dataSet aapt-namespace="http://schemas.android.com/apk/res-auto" config="generated" generated-set="generated$Generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/build/generated/res/resValues/debug"/></dataSet><mergedItems/></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml b/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+new file mode 100644
+index 0000000..8c7ecff
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/jniLibs"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/debug/jniLibs"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugShaders/merger.xml b/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+new file mode 100644
+index 0000000..a24b78f
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/incremental/mergeDebugShaders/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/shaders"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/debug/shaders"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/incremental/packageDebugAssets/merger.xml b/node_modules/react-native-device-info/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+new file mode 100644
+index 0000000..b391e63
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/incremental/packageDebugAssets/merger.xml
+@@ -0,0 +1,2 @@
++<?xml version="1.0" encoding="utf-8"?>
++<merger version="3"><dataSet config="main" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/assets"/></dataSet><dataSet config="debug" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/debug/assets"/></dataSet><dataSet config="generated" ignore_pattern="!.svn:!.git:!.ds_store:!*.scc:.*:&lt;dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"><source path="/Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/build/intermediates/shader_assets/debug/out"/></dataSet></merger>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/BuildConfig.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/BuildConfig.class
+new file mode 100644
+index 0000000..a01f4bc
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/BuildConfig.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/DeviceType.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/DeviceType.class
+new file mode 100644
+index 0000000..a32dbb5
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/DeviceType.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceInfo.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceInfo.class
+new file mode 100644
+index 0000000..46408f1
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceInfo.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$1.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$1.class
+new file mode 100644
+index 0000000..5da1c86
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$1.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$2.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$2.class
+new file mode 100644
+index 0000000..9667f7f
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$2.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$3.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$3.class
+new file mode 100644
+index 0000000..113a77a
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$3.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$4.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$4.class
+new file mode 100644
+index 0000000..7ef8a87
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule$4.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule.class
+new file mode 100644
+index 0000000..849f4ca
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNDeviceModule.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient$InstallReferrerStateListenerProxy.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient$InstallReferrerStateListenerProxy.class
+new file mode 100644
+index 0000000..d4dc2cd
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient$InstallReferrerStateListenerProxy.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient.class
+new file mode 100644
+index 0000000..b599227
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/RNInstallReferrerClient.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceIdResolver.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceIdResolver.class
+new file mode 100644
+index 0000000..b0ada76
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceIdResolver.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceTypeResolver.class b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceTypeResolver.class
+new file mode 100644
+index 0000000..9a5639a
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/javac/debug/classes/com/learnium/RNDeviceInfo/resolver/DeviceTypeResolver.class differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/react-native-device-info/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+new file mode 100644
+index 0000000..78ac5b8
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
+@@ -0,0 +1,2 @@
++R_DEF: Internal format may change without notice
++local
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt b/node_modules/react-native-device-info/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+new file mode 100644
+index 0000000..0c589ca
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/manifest_merge_blame_file/debug/manifest-merger-blame-debug-report.txt
+@@ -0,0 +1,7 @@
++1<?xml version="1.0" encoding="utf-8"?>
++2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++3    package="com.learnium.RNDeviceInfo" >
++4
++5    <uses-sdk android:minSdkVersion="23" />
++6
++7</manifest>
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml b/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+new file mode 100644
+index 0000000..f4e8ec5
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/merged_manifest/debug/AndroidManifest.xml
+@@ -0,0 +1,7 @@
++<?xml version="1.0" encoding="utf-8"?>
++<manifest xmlns:android="http://schemas.android.com/apk/res/android"
++    package="com.learnium.RNDeviceInfo" >
++
++    <uses-sdk android:minSdkVersion="23" />
++
++</manifest>
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/navigation_json/debug/navigation.json b/node_modules/react-native-device-info/android/build/intermediates/navigation_json/debug/navigation.json
+new file mode 100644
+index 0000000..0637a08
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/navigation_json/debug/navigation.json
+@@ -0,0 +1 @@
++[]
+\ No newline at end of file
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-device-info/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
+new file mode 100644
+index 0000000..5439670
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
+diff --git a/node_modules/react-native-device-info/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-device-info/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+new file mode 100644
+index 0000000..f5de1c1
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
+@@ -0,0 +1 @@
++com.learnium.RNDeviceInfo
+diff --git a/node_modules/react-native-device-info/android/build/outputs/logs/manifest-merger-debug-report.txt b/node_modules/react-native-device-info/android/build/outputs/logs/manifest-merger-debug-report.txt
+new file mode 100644
+index 0000000..158dd39
+--- /dev/null
++++ b/node_modules/react-native-device-info/android/build/outputs/logs/manifest-merger-debug-report.txt
+@@ -0,0 +1,17 @@
++-- Merging decision tree log ---
++manifest
++ADDED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml:1:1-3:12
++INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml:1:1-3:12
++	package
++		ADDED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml:2:11-46
++		INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml
++	xmlns:android
++		ADDED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml:1:11-69
++uses-sdk
++INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
++INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml
++INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml
++	android:targetSdkVersion
++		INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml
++	android:minSdkVersion
++		INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-device-info/android/src/main/AndroidManifest.xml
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/DeviceIdResolver.class.uniqueId0 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/DeviceIdResolver.class.uniqueId0
+new file mode 100644
+index 0000000..b0ada76
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/DeviceIdResolver.class.uniqueId0 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceInfo.class.uniqueId6 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceInfo.class.uniqueId6
+new file mode 100644
+index 0000000..46408f1
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceInfo.class.uniqueId6 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$1.class.uniqueId5 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$1.class.uniqueId5
+new file mode 100644
+index 0000000..5da1c86
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$1.class.uniqueId5 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$2.class.uniqueId1 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$2.class.uniqueId1
+new file mode 100644
+index 0000000..9667f7f
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$2.class.uniqueId1 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$3.class.uniqueId3 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$3.class.uniqueId3
+new file mode 100644
+index 0000000..113a77a
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$3.class.uniqueId3 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$4.class.uniqueId2 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$4.class.uniqueId2
+new file mode 100644
+index 0000000..7ef8a87
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule$4.class.uniqueId2 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule.class.uniqueId4 b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule.class.uniqueId4
+new file mode 100644
+index 0000000..60efcc8
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/compileTransaction/stash-dir/RNDeviceModule.class.uniqueId4 differ
+diff --git a/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
+new file mode 100644
+index 0000000..62dc13a
+Binary files /dev/null and b/node_modules/react-native-device-info/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
+diff --git a/node_modules/react-native-device-info/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java b/node_modules/react-native-device-info/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java
+index c560889..4d06db4 100644
+--- a/node_modules/react-native-device-info/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java
++++ b/node_modules/react-native-device-info/android/src/main/java/com/learnium/RNDeviceInfo/RNDeviceModule.java
+@@ -24,6 +24,7 @@ import android.os.StatFs;
+ import android.os.BatteryManager;
+ import android.os.Debug;
+ import android.os.Process;
++import android.os.SystemClock;
+ import android.provider.Settings;
+ import android.view.inputmethod.InputMethodManager;
+ import android.view.inputmethod.InputMethodInfo;
+@@ -402,6 +403,18 @@ public class RNDeviceModule extends ReactContextBaseJavaModule {
+   @ReactMethod
+   public void getMacAddress(Promise p) { p.resolve(getMacAddressSync()); }
+ 
++  @ReactMethod(isBlockingSynchronousMethod = true)
++  public String getStartupTimeSync() {
++    long currentTime = System.currentTimeMillis();
++    // Get the uptime when the process started
++    long processStartTime = Process.getStartUptimeMillis();
++    // Get the current uptime
++    long currentUptime = SystemClock.uptimeMillis();
++    long startupTime = currentTime - currentUptime + processStartTime;
++    return Long.toString(startupTime);
++    // return Long.toString(SystemClock.currentTimeMillis() - SystemClock.uptimeMillis() + Process.getStartUptimeMillis());
++  }
++
+   @ReactMethod(isBlockingSynchronousMethod = true)
+   public String getCarrierSync() {
+     TelephonyManager telMgr = (TelephonyManager) getReactApplicationContext().getSystemService(Context.TELEPHONY_SERVICE);
+diff --git a/node_modules/react-native-device-info/ios/RNDeviceInfo/RNDeviceInfo.m b/node_modules/react-native-device-info/ios/RNDeviceInfo/RNDeviceInfo.m
+index 2797a3f..fec0dd7 100644
+--- a/node_modules/react-native-device-info/ios/RNDeviceInfo/RNDeviceInfo.m
++++ b/node_modules/react-native-device-info/ios/RNDeviceInfo/RNDeviceInfo.m
+@@ -440,6 +440,25 @@ - (BOOL) isEmulator {
+     return @(self.isEmulator);
+ }
+ 
++- (NSString *) getStartupTime {
++    size_t len = 4;
++    int mib[len];
++    struct kinfo_proc kp;
++
++    sysctlnametomib("kern.proc.pid", mib, &len);
++    mib[3] = getpid();
++    len = sizeof(kp);
++    sysctl(mib, 4, &kp, &len, NULL, 0);
++
++    struct timeval startTime = kp.kp_proc.p_un.__p_starttime;
++    double startTimeMilliSeconds = startTime.tv_sec * 1e3 + startTime.tv_usec / 1e3;
++    return [NSString stringWithFormat:@"%.0f", startTimeMilliSeconds];
++}
++
++RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getStartupTimeSync) {
++    return [self getStartupTime];
++}
++
+ RCT_EXPORT_METHOD(isEmulator:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject) {
+     resolve(@(self.isEmulator));
+ }
+diff --git a/node_modules/react-native-device-info/lib/typescript/index.d.ts b/node_modules/react-native-device-info/lib/typescript/index.d.ts
+index b015d62..37092a0 100644
+--- a/node_modules/react-native-device-info/lib/typescript/index.d.ts
++++ b/node_modules/react-native-device-info/lib/typescript/index.d.ts
+@@ -72,6 +72,7 @@ export declare function isLandscapeSync(): boolean;
+ export declare const isAirplaneMode: import("./internal/privateTypes").Getter<Promise<boolean>>, isAirplaneModeSync: import("./internal/privateTypes").Getter<boolean>;
+ export declare const getDeviceType: () => string;
+ export declare const getDeviceTypeSync: () => string;
++export declare const getStartupTimeSync: () => string;
+ export declare const supportedAbis: import("./internal/privateTypes").Getter<Promise<string[]>>, supportedAbisSync: import("./internal/privateTypes").Getter<string[]>;
+ export declare const supported32BitAbis: import("./internal/privateTypes").Getter<Promise<string[]>>, supported32BitAbisSync: import("./internal/privateTypes").Getter<string[]>;
+ export declare const supported64BitAbis: import("./internal/privateTypes").Getter<Promise<string[]>>, supported64BitAbisSync: import("./internal/privateTypes").Getter<string[]>;
+diff --git a/node_modules/react-native-device-info/src/index.ts b/node_modules/react-native-device-info/src/index.ts
+index e2de7df..4a7a480 100644
+--- a/node_modules/react-native-device-info/src/index.ts
++++ b/node_modules/react-native-device-info/src/index.ts
+@@ -613,6 +613,15 @@ export const getDeviceTypeSync = () => {
+   });
+ };
+ 
++export const getStartupTimeSync = () => {
++  return getSupportedPlatformInfoSync({
++    memoKey: 'startupTime',
++    supportedPlatforms: ['android', 'ios', ],
++    defaultValue: 'unknown',
++    getter: () => RNDeviceInfo.getStartupTimeSync(),
++  });
++};
++
+ export const [supportedAbis, supportedAbisSync] = getSupportedPlatformInfoFunctions({
+   memoKey: '_supportedAbis',
+   supportedPlatforms: ['android', 'ios', 'windows'],
+@@ -972,6 +981,7 @@ const DeviceInfo: DeviceInfoModule = {
+   getSecurityPatchSync,
+   getSerialNumber,
+   getSerialNumberSync,
++  getStartupTimeSync,
+   getSystemAvailableFeatures,
+   getSystemAvailableFeaturesSync,
+   getSystemName,
+diff --git a/node_modules/react-native-device-info/src/internal/privateTypes.ts b/node_modules/react-native-device-info/src/internal/privateTypes.ts
+index 860465b..531e9f4 100644
+--- a/node_modules/react-native-device-info/src/internal/privateTypes.ts
++++ b/node_modules/react-native-device-info/src/internal/privateTypes.ts
+@@ -103,6 +103,7 @@ interface ExposedNativeMethods {
+   getSecurityPatchSync: () => string;
+   getSerialNumber: () => Promise<string>;
+   getSerialNumberSync: () => string;
++  getStartupTimeSync: () => string;
+   getSystemAvailableFeatures: () => Promise<string[]>;
+   getSystemAvailableFeaturesSync: () => string[];
+   getTags: () => Promise<string>;
+@@ -175,6 +176,7 @@ export interface DeviceInfoModule extends ExposedNativeMethods {
+   getPowerState: () => Promise<Partial<PowerState>>;
+   getPowerStateSync: () => Partial<PowerState>;
+   getReadableVersion: () => string;
++  getStartupTimeSync: () => string;
+   getSystemName: () => string;
+   getSystemVersion: () => string;
+   getUniqueId: () => Promise<string>;

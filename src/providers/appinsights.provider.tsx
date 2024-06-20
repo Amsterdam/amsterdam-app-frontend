@@ -7,8 +7,10 @@ import {
 import {ReactNativePlugin} from '@microsoft/applicationinsights-react-native'
 import {ApplicationInsights, Snippet} from '@microsoft/applicationinsights-web'
 import {createContext, ReactNode, useContext} from 'react'
+import {getStartupTimeSync} from 'react-native-device-info'
 import {Environment, EnvUrlMap} from '@/environment'
 import {isProductionApp} from '@/processes/development'
+import {EventLogKey} from '@/processes/logging/types'
 
 const environmentInstrumentationKey: EnvUrlMap = {
   [Environment.custom]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV ?? '',
@@ -43,6 +45,13 @@ export const appInsights = new ApplicationInsights(
 )
 
 appInsights.loadAppInsights()
+
+if (!__DEV__) {
+  appInsights.trackMetric({
+    name: EventLogKey.nativeStartup,
+    average: new Date().getTime() - Number(getStartupTimeSync()),
+  })
+}
 
 export const AppInsightsContext = createContext(appInsights)
 
