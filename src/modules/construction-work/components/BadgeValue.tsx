@@ -1,4 +1,5 @@
-import {useMemo} from 'react'
+import {useFocusEffect} from '@react-navigation/core'
+import {useCallback, useMemo} from 'react'
 import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -10,9 +11,15 @@ import {selectConstructionWorkReadArticles} from '@/modules/construction-work/sl
 export const BadgeValue = () => {
   const readArticles = useSelector(selectConstructionWorkReadArticles)
 
-  const {data} = useProjectsFollowedArticlesQuery({
+  const {data, refetch} = useProjectsFollowedArticlesQuery({
     article_max_age: recentArticleMaxAge,
   })
+
+  const refetchData = useCallback(() => {
+    void refetch()
+  }, [refetch])
+
+  useFocusEffect(refetchData)
 
   const recentArticles = useMemo(
     () => data && Object.keys(data).flatMap(key => data[key]),
