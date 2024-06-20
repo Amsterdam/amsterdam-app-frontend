@@ -19,6 +19,11 @@ export const getApplicationInsightsConfig = (
   config: {
     instrumentationKey: environmentInstrumentationKey[environment],
     extensions: [RNPlugin],
+    excludeRequestFromAutoTrackingPatterns: [
+      /https:\/\/clients3.google.com\/generate_204\?.*/,
+      /https:\/\/js.monitor.azure.com.*/,
+      /http:\/\/[^/a-z]+\/(index.bundle\/\/?)?symbolicate/,
+    ],
   },
 })
 
