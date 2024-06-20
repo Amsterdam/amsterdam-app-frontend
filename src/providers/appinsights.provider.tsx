@@ -4,13 +4,21 @@ import {
   APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC,
   APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD,
 } from '@env'
-import {ReactNativePlugin} from '@microsoft/applicationinsights-react-native'
-import {ApplicationInsights, Snippet} from '@microsoft/applicationinsights-web'
+import {
+  IDeviceInfoModule,
+  ReactNativePlugin,
+} from '@microsoft/applicationinsights-react-native'
+import {
+  ApplicationInsights,
+  ITelemetryItem,
+  Snippet,
+} from '@microsoft/applicationinsights-web'
 import {createContext, ReactNode, useContext} from 'react'
-import {getStartupTimeSync} from 'react-native-device-info'
+import {getStartupTimeSync, isEmulator} from 'react-native-device-info'
 import {Environment, EnvUrlMap} from '@/environment'
 import {isProductionApp} from '@/processes/development'
 import {EventLogKey} from '@/processes/logging/types'
+import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 
 const environmentInstrumentationKey: EnvUrlMap = {
   [Environment.custom]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV ?? '',
@@ -37,14 +45,29 @@ export const getApplicationInsightsConfig = (
 })
 
 const RNPlugin = new ReactNativePlugin()
+const myDeviceInfoModule: IDeviceInfoModule = {
+  getModel: () => 'deviceModel',
+  getDeviceType: () => 'deviceType',
+  getUniqueId: () => SHA256EncryptedDeviceId,
+}
 
-export const appInsights = new ApplicationInsights(
+RNPlugin.setDeviceInfoModule(myDeviceInfoModule)
+const appInsights = new ApplicationInsights(
   getApplicationInsightsConfig(
     isProductionApp ? Environment.production : Environment.development,
   ),
 )
 
+const telemetryInitializer = (envelope: ITelemetryItem) => {
+  if (!envelope.tags) {
+    envelope.tags = {}
+  }
+
+  envelope.tags['ai.device.isEmulator'] = isEmulator
+}
+
 appInsights.loadAppInsights()
+appInsights.addTelemetryInitializer(telemetryInitializer)
 
 if (!__DEV__) {
   appInsights.trackMetric({
