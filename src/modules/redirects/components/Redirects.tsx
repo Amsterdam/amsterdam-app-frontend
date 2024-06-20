@@ -35,19 +35,17 @@ export const Redirects = () => {
             onPress={() => {
               if (routeName) {
                 navigation.navigate(routeName)
+              } else if (urlKey && redirectUrls?.[urlKey]) {
+                openWebUrl(redirectUrls[urlKey])
               } else {
-                if (urlKey && redirectUrls?.[urlKey]) {
-                  openWebUrl(redirectUrls[urlKey])
-                } else {
-                  Alert.alert('Sorry, deze functie is niet beschikbaar.')
-                  sendSentryErrorLog(
-                    SentryErrorLogKey.redirectNotFound,
-                    'Redirects.tsx',
-                    {
-                      urlKey,
-                    },
-                  )
-                }
+                Alert.alert('Sorry, deze functie is niet beschikbaar.')
+                sendSentryErrorLog(
+                  SentryErrorLogKey.redirectNotFound,
+                  'Redirects.tsx',
+                  {
+                    urlKey,
+                  },
+                )
               }
             }}
             testID={testID}
