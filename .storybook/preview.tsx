@@ -5,17 +5,20 @@ import {FC} from 'react'
 import {DeviceProvider} from '../src/providers/device.provider'
 import {StoreProvider} from '../src/providers/store.provider'
 import {baseColor} from '../src/themes/tokens/base-color'
+import {AppInsightsProvider} from '@/providers/appinsights.provider'
 
 import './preview.css'
 
 const MainDecorator = (Story: FC) => (
-  <NavigationContainer>
-    <StoreProvider>
-      <DeviceProvider>
-        <Story />
-      </DeviceProvider>
-    </StoreProvider>
-  </NavigationContainer>
+  <AppInsightsProvider>
+    <NavigationContainer>
+      <StoreProvider>
+        <DeviceProvider>
+          <Story />
+        </DeviceProvider>
+      </StoreProvider>
+    </NavigationContainer>
+  </AppInsightsProvider>
 )
 
 const preview: Preview = {

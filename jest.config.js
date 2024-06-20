@@ -40,4 +40,17 @@ module.exports = {
   transformIgnorePatterns: [
     'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@sentry)',
   ],
+  globals: {
+    API_KEY: '',
+    VERSION: '0.0.0',
+    BUILD_NUMBER: 0,
+    PIWIK_PRO_URL: '',
+    PIWIK_PRO_ID: '',
+    PIWIK_PRO_URL_ACCEPT: '',
+    PIWIK_PRO_ID_ACCEPT: '',
+    APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV: '',
+    APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST: '',
+    APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC: '',
+    APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD: '',
+  },
 }
