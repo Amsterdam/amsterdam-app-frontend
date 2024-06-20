@@ -3,7 +3,7 @@ import {Platform} from 'react-native'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
 import {clientModules, coreModules} from '@/modules/modules'
-import {sentryLoggerMiddleware} from '@/processes/sentry/logging'
+import {loggerMiddleware} from '@/processes/sentry/logging'
 import {baseApi} from '@/services/baseApi'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
@@ -47,7 +47,7 @@ export const store = configureStore({
       immutableCheck: {
         warnAfter: 256,
       },
-    }).concat([baseApi.middleware, sentryLoggerMiddleware])
+    }).concat([baseApi.middleware, loggerMiddleware])
 
     if (__DEV__ && Platform.OS === 'android') {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access

@@ -9,12 +9,7 @@ import {
 } from '@reduxjs/toolkit/query/react'
 import {ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
-import {devError} from '@/processes/development'
-import {
-  createActionFromSingleRequestResult,
-  sentryLogRequestFailed,
-} from '@/processes/sentry/logging'
-import {isExpectedError} from '@/processes/sentry/utils'
+import {devError, devInfo} from '@/processes/development'
 import {PrepareHeaders, AfterBaseQueryFn} from '@/services/types'
 import {selectApi} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
@@ -70,8 +65,14 @@ const dynamicBaseQuery: BaseQueryFn<
         prepareHeaders: argsPrepareHeaders = headers => headers,
       } = args
 
+      const baseUrl = selectApi(slug)(baseQueryApi.getState() as RootState)
+
+      const requestInfo = `${baseQueryApi.endpoint}: ${args.method ?? 'GET'} ${baseUrl}${args.url}`
+
+      devInfo(`Request started: ${requestInfo}`)
+
       const result = await fetchBaseQuery({
-        baseUrl: selectApi(slug)(baseQueryApi.getState() as RootState),
+        baseUrl,
         prepareHeaders: (headers, api) =>
           prepareHeaders(argsPrepareHeaders(headers, api), api),
         timeout: TimeOutDuration.medium,
@@ -79,18 +80,15 @@ const dynamicBaseQuery: BaseQueryFn<
 
       const {error, meta} = result
 
-      if (error && !isExpectedError(baseQueryApi.endpoint, error)) {
-        sentryLogRequestFailed(
-          createActionFromSingleRequestResult(
-            baseQueryApi.endpoint,
-            meta,
-            error,
-          ),
-          true,
-        )
+      const status = meta?.response?.status ?? error?.status ?? 0
+
+      if (!error) {
+        devInfo(`Request success: ${requestInfo}`)
+      } else {
+        devError(`Request failed (${status}): ${requestInfo}`)
       }
 
-      if (error?.status === 404) {
+      if (status === 404) {
         retry.fail(error)
       }
 

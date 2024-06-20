@@ -28,7 +28,8 @@ export const getApplicationInsightsConfig = (
 })
 
 const RNPlugin = new ReactNativePlugin()
-const appInsights = new ApplicationInsights(
+
+export const appInsights = new ApplicationInsights(
   getApplicationInsightsConfig(
     isProductionApp ? Environment.production : Environment.development,
   ),
