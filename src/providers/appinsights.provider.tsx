@@ -1,3 +1,9 @@
+import {
+  APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV,
+  APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST,
+  APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC,
+  APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD,
+} from '@env'
 import {ReactNativePlugin} from '@microsoft/applicationinsights-react-native'
 import {ApplicationInsights, Snippet} from '@microsoft/applicationinsights-web'
 import {createContext, ReactNode, useContext} from 'react'
@@ -5,19 +11,20 @@ import {Environment, EnvUrlMap} from '@/environment'
 import {isProductionApp} from '@/processes/development'
 
 const environmentInstrumentationKey: EnvUrlMap = {
-  // eslint-disable-next-line sonarjs/no-duplicate-string
-  [Environment.custom]: 'cd99e81f-a8f6-421d-845d-d00e0448655a',
-  [Environment.development]: 'cd99e81f-a8f6-421d-845d-d00e0448655a',
-  [Environment.test]: 'c84d291c-ffe6-4aea-9409-bd1cdf62ad98',
-  [Environment.acceptance]: 'cd99e81f-a8f6-421d-845d-d00e0448655a', // TODO: enter acc key
-  [Environment.production]: 'cd99e81f-a8f6-421d-845d-d00e0448655a', // TODO: enter prod key
+  [Environment.custom]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV ?? '',
+  [Environment.development]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV ?? '',
+  [Environment.test]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST ?? '',
+  [Environment.acceptance]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC ?? '',
+  [Environment.production]: APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD ?? '',
 }
 
 export const getApplicationInsightsConfig = (
   environment: Environment,
 ): Snippet => ({
   config: {
-    instrumentationKey: environmentInstrumentationKey[environment],
+    instrumentationKey:
+      environmentInstrumentationKey[environment] ??
+      environmentInstrumentationKey[Environment.production],
     extensions: [RNPlugin],
     excludeRequestFromAutoTrackingPatterns: [
       /https:\/\/clients3.google.com\/generate_204\?.*/,

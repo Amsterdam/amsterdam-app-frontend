@@ -30,4 +30,8 @@ declare module '@env' {
   export const PIWIK_PRO_URL: string | undefined
   export const PIWIK_PRO_URL_ACCEPT: string | undefined
   export const VERSION: string | undefined
+  export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV: string | undefined
+  export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST: string | undefined
+  export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC: string | undefined
+  export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD: string | undefined
 }

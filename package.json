@@ -19,11 +19,12 @@
     "postinstall": "patch-package && node ./nodescripts/fix-appinghts.js",
     "prepare": "husky",
     "start": "react-native start",
+    "start:reset:cache": "react-native start --reset-cache",
     "storybook": "storybook dev -p 7007",
     "storybook:build": "storybook build",
     "test": "jest",
-    "test-ci": "npx jest --ci --coverage",
-    "typescript": "npx tsc"
+    "test-ci": "jest --ci --coverage",
+    "typescript": "tsc"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "4.5.1",
