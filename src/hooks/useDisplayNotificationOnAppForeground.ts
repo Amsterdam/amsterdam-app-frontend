@@ -3,7 +3,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
 import {useEffect} from 'react'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
 /** display a notification when the app is in foreground-state

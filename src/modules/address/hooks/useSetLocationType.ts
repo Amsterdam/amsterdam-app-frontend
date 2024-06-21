@@ -5,7 +5,7 @@ import {
   useLocationType,
 } from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
 /**

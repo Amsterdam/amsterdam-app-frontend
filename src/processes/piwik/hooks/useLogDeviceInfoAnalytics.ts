@@ -4,7 +4,7 @@ import {
   PiwikAction,
   PiwikSessionDimension,
   usePiwik,
-} from '@/processes/piwik/hooks/usePiwik'
+} from '@/processes/logging/hooks/usePiwik'
 
 export const useLogDeviceInfoAnalytics = () => {
   const {ready, trackCustomEvent} = usePiwik()

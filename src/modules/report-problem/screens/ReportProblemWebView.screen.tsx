@@ -7,7 +7,7 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {PiwikAction, usePiwik} from '@/processes/logging/hooks/usePiwik'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 

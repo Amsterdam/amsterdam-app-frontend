@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {type TestProps} from '@/components/ui/types'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {
   CustomDimensions,
   PiwikAction,

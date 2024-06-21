@@ -2,7 +2,7 @@ import {useCallback} from 'react'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 
 export type OpenUrl = (href: string) => void
 

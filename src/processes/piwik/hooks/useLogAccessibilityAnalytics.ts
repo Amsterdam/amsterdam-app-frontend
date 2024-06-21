@@ -4,7 +4,7 @@ import {
   PiwikAction,
   PiwikSessionDimension,
   usePiwik,
-} from '@/processes/piwik/hooks/usePiwik'
+} from '@/processes/logging/hooks/usePiwik'
 import {
   type AccessibilityFeatureLogConfig,
   type CustomDimensions,

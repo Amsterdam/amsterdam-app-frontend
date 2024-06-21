@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {Alert, Linking, Platform} from 'react-native'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {STORE_LINK} from '@/utils/storeLink'

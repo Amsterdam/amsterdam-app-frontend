@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {clientModules} from '@/modules/modules'
-import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {PiwikAction, usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {CustomDimensions} from '@/processes/piwik/types'
 import {selectDisabledModules} from '@/store/slices/modules'
 

@@ -1,5 +1,5 @@
 import {AccessibilityChangeEventName, AccessibilityInfo} from 'react-native'
-import {PiwikSessionDimension} from '@/processes/piwik/hooks/usePiwik'
+import {PiwikSessionDimension} from '@/processes/logging/hooks/usePiwik'
 import {type AccessibilityFeatureLogConfig} from '@/processes/piwik/types'
 
 export const accessibilityFeaturesForPlatfom: AccessibilityFeatureLogConfig[] =

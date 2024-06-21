@@ -7,7 +7,7 @@ import {
 } from 'react-native-permissions'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {usePiwik} from '@/processes/logging/hooks/usePiwik'
 import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
