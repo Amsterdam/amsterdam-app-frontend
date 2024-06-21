@@ -5,7 +5,7 @@ import {
   useLocationType,
 } from '@/modules/address/slice'
 import {LocationType} from '@/modules/address/types'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
 /**
@@ -14,7 +14,7 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 export const useSetLocationType = () => {
   const dispatch = useDispatch()
   const locationType = useLocationType()
-  const {trackCustomEvent} = usePiwik()
+  const {trackCustomEvent} = useTrackEvents()
 
   return useCallback(
     (type: LocationType) => {

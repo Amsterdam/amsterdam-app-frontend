@@ -1,4 +1,4 @@
-import {postProcessDimensions} from './postProcessDimensions'
+import {getCustomDimensions} from './getCustomDimensions'
 import {PiwikDimension, PiwikSessionDimension} from '@/processes/piwik/types'
 import {VERSION_NUMBER} from '@/utils/version'
 
@@ -10,7 +10,7 @@ describe('postProcessDimensions', () => {
       [PiwikDimension.pageType]: 'foo',
     }
 
-    const result = postProcessDimensions(customDimensions)
+    const result = getCustomDimensions(customDimensions)
 
     expect(result).toEqual({
       [PiwikDimension.pageType]: 'foo',
@@ -20,7 +20,7 @@ describe('postProcessDimensions', () => {
   })
 
   it('should handle undefined dimensions', () => {
-    const result = postProcessDimensions()
+    const result = getCustomDimensions()
 
     expect(result).toEqual({
       [PiwikSessionDimension.appVersion]: VERSION_NUMBER,
@@ -33,7 +33,7 @@ describe('postProcessDimensions', () => {
       [PiwikDimension.pageType]: undefined,
     }
 
-    const result = postProcessDimensions(customDimensions)
+    const result = getCustomDimensions(customDimensions)
 
     expect(result).toEqual({
       [PiwikSessionDimension.appVersion]: VERSION_NUMBER,

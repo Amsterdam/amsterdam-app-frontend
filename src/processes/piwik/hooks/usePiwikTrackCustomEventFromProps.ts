@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {type TestProps} from '@/components/ui/types'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {
   CustomDimensions,
   PiwikAction,
@@ -31,7 +31,7 @@ export const usePiwikTrackCustomEventFromProps = <T = unknown>({
   logName,
   'sentry-label': sentryLabel,
 }: Props<T>) => {
-  const {trackCustomEvent} = usePiwik()
+  const {trackCustomEvent} = useTrackEvents()
 
   return useCallback(
     (

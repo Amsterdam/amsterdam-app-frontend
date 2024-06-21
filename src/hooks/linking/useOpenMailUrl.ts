@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {Alert, Linking} from 'react-native'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 
@@ -8,7 +8,7 @@ export type OpenMailUrl = (emailAddress: string, subject?: string) => void
 
 export const useOpenMailUrl = (): OpenMailUrl => {
   const {sendSentryErrorLog} = useSentry()
-  const {trackOutlink} = usePiwik()
+  const {trackOutlink} = useTrackEvents()
 
   return useCallback(
     (emailAddress: string, subject?: string) => {

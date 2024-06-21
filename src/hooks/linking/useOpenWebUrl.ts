@@ -1,6 +1,6 @@
 import {useCallback} from 'react'
 import {Alert, Linking} from 'react-native'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
@@ -10,7 +10,7 @@ export type OpenWebUrl = (url: string) => void
 
 export const useOpenWebUrl = (): OpenWebUrl => {
   const {sendSentryErrorLog} = useSentry()
-  const {trackOutlink} = usePiwik()
+  const {trackOutlink} = useTrackEvents()
 
   return useCallback(
     (url: string) => {

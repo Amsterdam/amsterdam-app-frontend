@@ -1,6 +1,6 @@
 import {TrackSearchOptions} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {useCallback} from 'react'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {ReplaceCustomDimensions} from '@/processes/piwik/types'
 
 type Props<T> = {
@@ -14,7 +14,7 @@ export const usePiwikTrackSearchFromProps = <T = unknown>({
   options,
   onEvent,
 }: Props<T>) => {
-  const {trackSearch} = usePiwik()
+  const {trackSearch} = useTrackEvents()
 
   return useCallback(
     (event: T) => {

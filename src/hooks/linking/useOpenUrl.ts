@@ -2,7 +2,7 @@ import {useCallback} from 'react'
 import {useOpenMailUrl} from '@/hooks/linking/useOpenMailUrl'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {usePiwik} from '@/processes/logging/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 
 export type OpenUrl = (href: string) => void
 
@@ -10,7 +10,7 @@ export const useOpenUrl = (): OpenUrl => {
   const openMailUrl = useOpenMailUrl()
   const openPhoneUrl = useOpenPhoneUrl()
   const openWebUrl = useOpenWebUrl()
-  const {trackOutlink} = usePiwik()
+  const {trackOutlink} = useTrackEvents()
 
   return useCallback(
     (href: string) => {
