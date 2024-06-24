@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {getStartupTimeSync} from 'react-native-device-info'
-import {useAppInsights} from '@/processes/logging/hooks/useAppInsights'
 import {EventLogKey} from '@/processes/logging/types'
+import {useAppInsights} from '@/providers/appinsights.provider'
 
 export const useLogStartup = () => {
   const {appInsights} = useAppInsights()
