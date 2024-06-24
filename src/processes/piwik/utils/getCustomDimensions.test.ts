@@ -40,4 +40,40 @@ describe('postProcessDimensions', () => {
       [PiwikSessionDimension.appVersionWithBuild]: VERSION_NUMBER_WITH_BUILD,
     })
   })
+
+  it('should keep any dimensions already defined appInsights', () => {
+    const customDimensions = {
+      [PiwikDimension.pageType]: 'foo',
+    }
+
+    const result = getCustomDimensions(customDimensions, true)
+
+    expect(result).toEqual({
+      pageType: 'foo',
+      appVersion: VERSION_NUMBER,
+      appVersionWithBuild: VERSION_NUMBER_WITH_BUILD,
+    })
+  })
+
+  it('should handle undefined dimensions appInsights', () => {
+    const result = getCustomDimensions(undefined, true)
+
+    expect(result).toEqual({
+      appVersion: VERSION_NUMBER,
+      appVersionWithBuild: VERSION_NUMBER_WITH_BUILD,
+    })
+  })
+
+  it('should filter out undefined values appInsights', () => {
+    const customDimensions = {
+      [PiwikDimension.pageType]: undefined,
+    }
+
+    const result = getCustomDimensions(customDimensions, true)
+
+    expect(result).toEqual({
+      appVersion: VERSION_NUMBER,
+      appVersionWithBuild: VERSION_NUMBER_WITH_BUILD,
+    })
+  })
 })

@@ -2,6 +2,7 @@ import {
   type CustomDimensions,
   PiwikSessionDimension,
   CustomDimensionKeys,
+  PiwikDimension,
 } from '@/processes/piwik/types'
 import {filterOutUndefinedProperties} from '@/utils/object'
 import {VERSION_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
@@ -19,16 +20,17 @@ const getDimensions = (
     return inputObj
   }
 
-  const outputObj: CustomDimensions = {}
+  return (Object.keys(inputObj) as unknown as CustomDimensionKeys[]).reduce<
+    Record<string, string>
+  >((acc, key) => {
+    const newKey = PiwikSessionDimension[key] ?? PiwikDimension[key]
 
-  Object.keys(inputObj).forEach(key => {
-    const newKey = PiwikSessionDimension[key as unknown as CustomDimensionKeys]
+    if (newKey) {
+      acc[newKey] = inputObj[key] as string
+    }
 
-    outputObj[newKey as unknown as CustomDimensionKeys] =
-      inputObj[key as unknown as CustomDimensionKeys]
-  })
-
-  return outputObj
+    return acc
+  }, {})
 }
 
 export const getCustomDimensions = (
