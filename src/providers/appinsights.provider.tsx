@@ -45,7 +45,7 @@ export const appInsights = new ApplicationInsights(
 )
 
 appInsights.addDependencyInitializer(
-  initializer => !(initializer.item.responseCode === 0),
+  initializer => initializer.item.responseCode !== 0,
 )
 
 appInsights.loadAppInsights()
