@@ -86,7 +86,7 @@ export const NoInternet = () => {
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
     container: {
-      margin: size.spacing.md,
+      margin: size.spacing.xl,
       position: 'absolute',
       bottom: 0,
       left: 0,
