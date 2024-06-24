@@ -112,6 +112,10 @@ const config: StorybookConfig = {
             find: '@react-native-firebase/messaging',
             replacement: require.resolve('./mocks/firebase'),
           },
+          {
+            find: '@microsoft/applicationinsights-web',
+            replacement: require.resolve('./mocks/application-insights'),
+          },
           ...aliases,
         ],
         extensions,
