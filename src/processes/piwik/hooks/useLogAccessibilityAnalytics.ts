@@ -3,8 +3,8 @@ import {AccessibilityInfo} from 'react-native'
 import {
   PiwikAction,
   PiwikSessionDimension,
-  usePiwik,
-} from '@/processes/piwik/hooks/usePiwik'
+  useTrackEvents,
+} from '@/processes/logging/hooks/useTrackEvents'
 import {
   type AccessibilityFeatureLogConfig,
   type CustomDimensions,
@@ -35,7 +35,7 @@ const getDimensions = (results: boolean[]) =>
   }, {})
 
 export const useLogAccessibilityAnalytics = () => {
-  const {ready, trackCustomEvent} = usePiwik()
+  const {ready, trackCustomEvent} = useTrackEvents()
 
   useEffect(() => {
     if (!ready) {

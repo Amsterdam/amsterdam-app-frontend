@@ -7,7 +7,7 @@ import {
 } from 'react-native-permissions'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
@@ -32,7 +32,7 @@ const checkPermission = async (
 export const useCheckPermissions = () => {
   const dispatch = useDispatch()
   const {sendSentryErrorLog} = useSentry()
-  const {ready, trackCustomEvent} = usePiwik()
+  const {ready, trackCustomEvent} = useTrackEvents()
 
   const checkPermissions = useCallback(
     (action = PiwikAction.toForeground) => {

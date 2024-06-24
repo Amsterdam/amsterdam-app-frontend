@@ -1,10 +1,8 @@
 import {useFocusEffect} from '@react-navigation/native'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 
 export const useTrackScreenOnFocus = () => {
-  const {trackScreen} = usePiwik()
+  const {trackScreen} = useTrackEvents()
 
-  useFocusEffect(() => {
-    trackScreen()
-  })
+  useFocusEffect(trackScreen)
 }

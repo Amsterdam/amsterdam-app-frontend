@@ -1,13 +1,13 @@
 import {useCallback} from 'react'
 import {Alert, Linking, Platform} from 'react-native'
-import {usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {SentryErrorLogKey} from '@/processes/sentry/types'
 import {STORE_LINK} from '@/utils/storeLink'
 
 export const useOpenStore = () => {
   const {sendSentryErrorLog} = useSentry()
-  const {trackOutlink} = usePiwik()
+  const {trackOutlink} = useTrackEvents()
 
   return useCallback(() => {
     const log = (error: unknown) =>

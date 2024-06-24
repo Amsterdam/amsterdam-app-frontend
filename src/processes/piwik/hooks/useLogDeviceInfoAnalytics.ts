@@ -3,11 +3,11 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {
   PiwikAction,
   PiwikSessionDimension,
-  usePiwik,
-} from '@/processes/piwik/hooks/usePiwik'
+  useTrackEvents,
+} from '@/processes/logging/hooks/useTrackEvents'
 
 export const useLogDeviceInfoAnalytics = () => {
-  const {ready, trackCustomEvent} = usePiwik()
+  const {ready, trackCustomEvent} = useTrackEvents()
   const {fontScale, isLandscape, isPortrait, isTablet} = useDeviceContext()
 
   useEffect(() => {

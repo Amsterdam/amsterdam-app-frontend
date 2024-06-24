@@ -7,7 +7,10 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {
+  PiwikAction,
+  useTrackEvents,
+} from '@/processes/logging/hooks/useTrackEvents'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
@@ -23,7 +26,7 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
 
   const [hasFinishedAtLeastOnce, setHasFinishedAtLeastOnce] = useState(false)
 
-  const {trackCustomEvent} = usePiwik()
+  const {trackCustomEvent} = useTrackEvents()
 
   const onBlur = useCallback(() => {
     trackCustomEvent(

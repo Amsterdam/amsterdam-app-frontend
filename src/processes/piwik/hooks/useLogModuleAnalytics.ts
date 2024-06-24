@@ -1,12 +1,15 @@
 import {useEffect} from 'react'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {clientModules} from '@/modules/modules'
-import {PiwikAction, usePiwik} from '@/processes/piwik/hooks/usePiwik'
+import {
+  PiwikAction,
+  useTrackEvents,
+} from '@/processes/logging/hooks/useTrackEvents'
 import {CustomDimensions} from '@/processes/piwik/types'
 import {selectDisabledModules} from '@/store/slices/modules'
 
 export const useLogModuleAnalytics = () => {
-  const {ready, trackCustomEvent} = usePiwik()
+  const {ready, trackCustomEvent} = useTrackEvents()
   const userDisabledModulesBySlug = useSelector(selectDisabledModules)
 
   useEffect(() => {
