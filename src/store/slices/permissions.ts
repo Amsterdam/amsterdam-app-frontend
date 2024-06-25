@@ -27,3 +27,6 @@ export const {setPermission} = permissionsSlice.actions
 export const selectIsPermissionGranted =
   (permission: Permissions) => (state: RootState) =>
     state[ReduxKey.permissions][permission] ?? false
+
+export const selectPermissions = (state: RootState) =>
+  state[ReduxKey.permissions]

@@ -44,6 +44,10 @@ export const appInsights = new ApplicationInsights(
   ),
 )
 
+appInsights.addDependencyInitializer(
+  initializer => initializer.item.responseCode !== 0,
+)
+
 appInsights.loadAppInsights()
 
 if (!__DEV__) {

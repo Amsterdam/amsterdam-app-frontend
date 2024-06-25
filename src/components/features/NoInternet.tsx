@@ -1,5 +1,5 @@
 import NetInfo from '@react-native-community/netinfo'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, memo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {SlideInDown, SlideOutDown} from 'react-native-reanimated'
 import Animated from 'react-native-reanimated'
@@ -12,7 +12,7 @@ import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAn
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const NoInternet = () => {
+export const NoInternet = memo(() => {
   const [hasInternet, setHasInternet] = useState(true)
   const [isClosed, setIsClosed] = useState(false)
   const styles = useThemable(createStyles)
@@ -81,7 +81,7 @@ export const NoInternet = () => {
       ) : null}
     </>
   )
-}
+})
 
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({

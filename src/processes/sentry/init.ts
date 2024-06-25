@@ -5,7 +5,6 @@ import {
   ReactNativeTracing,
   ReactNavigationInstrumentation,
   setTag,
-  setUser,
   wrap,
 } from '@sentry/react-native'
 import {Platform} from 'react-native'
@@ -14,7 +13,6 @@ import type {Environment} from '@/environment'
 import type {ComponentType, RefObject} from 'react'
 import {AppFlavour, appFlavour, devLog, isDevApp} from '@/processes/development'
 import {getSanitizedIosEvent} from '@/processes/sentry/utils'
-import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 import {BUILD_NUMBER, VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
@@ -92,12 +90,4 @@ export const sentryWrap = <P extends Record<string, unknown>>(
  */
 export const setSentryBackEndEnvironment = (environment: Environment): void => {
   setTag('backEndEnvironment', environment)
-}
-
-/**
- * Set the user ID to be sent to Sentry; if enabled is false we do not send anything (user ID will be a unique hash)
- */
-export const setSentryUserData = (enabled: boolean) => {
-  // we explicitly cast user ID to string, since non-string type will cause issues
-  setUser(enabled ? {id: SHA256EncryptedDeviceId} : null)
 }

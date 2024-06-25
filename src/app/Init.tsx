@@ -1,27 +1,27 @@
 import {type ReactNode} from 'react'
+import {AppInsights} from '@/app/init/AppInsights'
+import {CheckPermissions} from '@/app/init/CheckPermissions'
+import {DeviceRegistration} from '@/app/init/DeviceRegistration'
+import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
+import {GetLocation} from '@/app/init/GetLocation'
+import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
 import {NoInternet} from '@/components/features/NoInternet'
-import {useCheckPermissions} from '@/hooks/permissions/useCheckPermissions'
-import {useDeviceRegistration} from '@/hooks/useDeviceRegistration'
-import {useDisplayNotificationOnAppForeground} from '@/hooks/useDisplayNotificationOnAppForeground'
 import {useModules} from '@/hooks/useModules'
-import {useGetLocation} from '@/modules/address/hooks/useGetLocation'
-import {useLogGeneralAnalytics} from '@/processes/piwik/hooks/useLogGeneralAnalytics'
-import {useSetupSentry} from '@/processes/sentry/hooks/useSetupSentry'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   const {enabledModules} = useModules()
 
-  useCheckPermissions()
-  useDisplayNotificationOnAppForeground()
-  useLogGeneralAnalytics()
-  useDeviceRegistration(enabledModules)
-  useSetupSentry()
-  useGetLocation()
-
   return (
     <>
+      <AppInsights />
+      <CheckPermissions />
+      <DisplayNotificationOnForeground />
+      <LogGeneralAnalytics />
+      <DeviceRegistration enabledModules={enabledModules} />
+      <GetLocation />
+
       {enabledModules?.map(({PreRenderComponent, slug}) =>
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
       )}
