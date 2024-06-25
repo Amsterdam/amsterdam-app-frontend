@@ -12,4 +12,4 @@ export const sizeTokens = {
     xxl: 80,
     xxxl: 120,
   },
-}
+} as const
