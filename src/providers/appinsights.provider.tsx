@@ -7,6 +7,7 @@ import {
 import {ReactNativePlugin} from '@microsoft/applicationinsights-react-native'
 import {ApplicationInsights, Snippet} from '@microsoft/applicationinsights-web'
 import {createContext, ReactNode, useContext} from 'react'
+import {Platform} from 'react-native'
 import {getStartupTimeSync} from 'react-native-device-info'
 import {Environment, EnvUrlMap} from '@/environment'
 import {isProductionApp} from '@/processes/development'
@@ -50,7 +51,33 @@ appInsights.addDependencyInitializer(
 
 appInsights.loadAppInsights()
 
-if (!__DEV__) {
+/**
+ * Threshold of 3 minutes to prevent useless logging:
+ * Found in the code of Sentry:
+ * According to a talk at WWDC about optimizing app launch
+ * (https://devstreaming-cdn.apple.com/videos/wwdc/2019/423lzf3qsjedrzivc7/423/423_optimizing_app_launch.pdf?dl=1
+ * slide 17) no process exists for cold and warm launches. Since iOS 15, though, the system
+ * might decide to pre-warm your app before the user tries to open it.
+ * Prewarming can stop at any of the app launch steps. Our findings show that most of
+ * the prewarmed app starts don't call the main method. Therefore we subtract the
+ * time before the module initialization / main method to calculate the app start
+ * duration. If the app start stopped during a later launch step, we drop it below with
+ * checking the SENTRY_APP_START_MAX_DURATION. With this approach, we will
+ * lose some warm app starts, but we accept this tradeoff. Useful resources:
+ * https://developer.apple.com/documentation/uikit/app_and_environment/responding_to_the_launch_of_your_app/about_the_app_launch_sequence#3894431
+ * https://developer.apple.com/documentation/metrickit/mxapplaunchmetric,
+ * https://twitter.com/steipete/status/1466013492180312068,
+ * https://github.com/MobileNativeFoundation/discussions/discussions/146
+ * https://eisel.me/startup
+ */
+export const APP_START_MAX_DURATION_IOS = 180000
+
+if (
+  !__DEV__ &&
+  (Platform.OS !== 'ios' ||
+    new Date().getTime() - Number(getStartupTimeSync()) <
+      APP_START_MAX_DURATION_IOS)
+) {
   appInsights.trackMetric({
     name: EventLogKey.nativeStartup,
     average: new Date().getTime() - Number(getStartupTimeSync()),
