@@ -20,8 +20,8 @@ const navigationParams: Record<
     paragraph:
       'Ga naar Instellingen en zet de Meldingen aan zodat u geen belangrijke informatie mist.',
     permission: Permissions.notifications,
-    screenTitle: 'Notificatie',
-    title: 'U ontvangt geen notificaties',
+    screenTitle: 'Meldingen',
+    title: 'U ontvangt geen meldingen',
   },
 }
 

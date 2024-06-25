@@ -45,7 +45,7 @@ export const PrivacyStatementScreen = () => {
               items={[
                 'Het kunnen tonen van informatie op basis van locatie.',
                 'Het kunnen volgen van werkzaamheden.',
-                'Het kunnen versturen van push-notificaties.',
+                'Het kunnen versturen van push-meldingen.',
               ]}
               testID="AboutPrivacyStatementGoalList"
             />
