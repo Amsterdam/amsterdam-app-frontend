@@ -6,7 +6,7 @@ import {type RootStackParams} from '@/app/navigation/types'
 import {useFlipperForAndroid} from '@/hooks/useFlipperForAndroid'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useLogStartup} from '@/processes/logging/hooks/useLogStartup'
-import {registerNavigationContainer} from '@/processes/sentry/init'
+import {registerNavigationContainer} from '@/processes/logging/navigation'
 
 type Props = {
   children: ReactNode
