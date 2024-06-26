@@ -2,7 +2,6 @@ import {type ReactNode} from 'react'
 import {type Tip} from '@/components/features/product-tour/types'
 import {ScreenBase} from '@/components/features/screen/ScreenBase'
 import {type TestProps} from '@/components/ui/types'
-import {useTrackScreenOnFocus} from '@/processes/piwik/hooks/useTrackScreenOnFocus'
 
 export type WithInsetProps = {
   withBottomInset?: boolean
@@ -26,8 +25,4 @@ export type ScreenProps = {
 } & TestProps &
   WithInsetProps
 
-export const Screen = (props: ScreenProps) => {
-  useTrackScreenOnFocus()
-
-  return <ScreenBase {...props} />
-}
+export const Screen = (props: ScreenProps) => <ScreenBase {...props} />

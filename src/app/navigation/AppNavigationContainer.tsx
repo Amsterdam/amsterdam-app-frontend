@@ -6,7 +6,7 @@ import {type RootStackParams} from '@/app/navigation/types'
 import {useFlipperForAndroid} from '@/hooks/useFlipperForAndroid'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
 import {useLogStartup} from '@/processes/logging/hooks/useLogStartup'
-import {useRegisterNavigationContainer} from '@/processes/logging/navigation'
+import {useRegisterNavigationContainerForLogging} from '@/processes/logging/hooks/useRegisterNavigationContainerForLogging'
 
 type Props = {
   children: ReactNode
@@ -17,13 +17,14 @@ export const AppNavigationContainer = ({children}: Props) => {
   const logStartup = useLogStartup()
 
   useFlipperForAndroid(navigationRef)
-  const registerNavigationContainer = useRegisterNavigationContainer()
+  const registerNavigationContainerForLogging =
+    useRegisterNavigationContainerForLogging()
 
   return (
     <NavigationContainer<RootStackParams>
       linking={linking}
       onReady={() => {
-        registerNavigationContainer(navigationRef)
+        registerNavigationContainerForLogging(navigationRef)
         hideSplashScreen()
         logStartup()
       }}
