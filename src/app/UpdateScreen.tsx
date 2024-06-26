@@ -13,7 +13,7 @@ type Props = {
   children: ReactNode
 }
 
-export const SNOOZE_TIME_IN_HOURS = 4
+const SNOOZE_TIME_IN_HOURS = 4
 
 export const UpdateScreen = ({children}: Props) => {
   const {data: releaseData, isError} = useGetReleaseQuery()

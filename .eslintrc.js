@@ -8,6 +8,7 @@ module.exports = {
     'jest',
     'sonarjs',
     'amsterdam',
+    'react-refresh',
   ],
   extends: [
     '@react-native',
@@ -15,7 +16,7 @@ module.exports = {
     'plugin:storybook/csf',
     'plugin:storybook/csf-strict',
     'plugin:react/jsx-runtime',
-    'plugin:sonarjs/recommended',
+    'plugin:sonarjs/recommended-legacy', // legacy is for ESlint 8
   ],
   ignorePatterns: [
     '!.storybook',
@@ -28,6 +29,7 @@ module.exports = {
     'storybook-static',
   ],
   rules: {
+    'react-refresh/only-export-components': 'warn',
     'react-native/no-raw-text': [
       'error',
       {skip: ['Phrase', 'Paragraph', 'InlineLink']},

@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV,
   APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST,

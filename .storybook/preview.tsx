@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import {NavigationContainer} from '@react-navigation/native'
 import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
 import {Preview} from '@storybook/react'
