@@ -25,4 +25,4 @@ export type ScreenProps = {
 } & TestProps &
   WithInsetProps
 
-export const Screen = (props: ScreenProps) => <ScreenBase {...props} />
+export const Screen = ScreenBase
