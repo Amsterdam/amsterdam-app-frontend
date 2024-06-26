@@ -103,6 +103,10 @@ export type ProjectContact = {
 
 export type ProjectSection = {
   body: string | null
+  links?: Array<{
+    label: string
+    url: string
+  }>
   title: string | null
 }
 
