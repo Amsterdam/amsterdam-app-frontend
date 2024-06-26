@@ -26,7 +26,7 @@ type Props = Partial<
   >
 > & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
 
-export const useBottomSheetHandler = () => {
+const useBottomSheetHandler = () => {
   const {close, isOpen, open} = useBottomSheet()
   const ref = useRef<BottomSheetOriginal>(null)
 
