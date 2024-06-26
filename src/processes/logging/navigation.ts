@@ -1,4 +1,5 @@
 import {NavigationContainerRefWithCurrent, Route} from '@react-navigation/core'
+import {useRef, useCallback} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'
 import {appInsights} from '@/providers/appinsights.provider'
@@ -7,37 +8,24 @@ type NavigationRoute = Route<string>
 
 type NavigationContainer = NavigationContainerRefWithCurrent<RootStackParams>
 
-/**
- * Instrumentation for React-Navigation V5 and above. See docs or sample app for usage.
- *
- * How this works:
- * - `_onDispatch` is called every time a dispatch happens and sets an IdleTransaction on the scope without any route context.
- * - `_onStateChange` is then called AFTER the state change happens due to a dispatch and sets the route context onto the active transaction.
- * - If `_onStateChange` isn't called within `STATE_CHANGE_TIMEOUT_DURATION` of the dispatch, then the transaction is not sampled and finished.
- */
-export class ReactNavigationInstrumentation {
-  private _navigationContainer: NavigationContainer | null = null
+export class ReactNavigationLogging {
+  private _navigationContainer?: NavigationContainer
 
   private readonly _maxRecentRouteLen: number = 200
 
   private _latestRoute?: NavigationRoute
-  private _latestTransaction?: number
+  private _navigationStartTime?: number
 
   private _recentRouteKeys: string[] = []
 
   /**
-   * Pass the ref to the navigation container to register it to the instrumentation
+   * Pass the ref to the navigation container to register it for logging
    * @param navigationContainerRef Ref to a `NavigationContainer`
    */
-
   public registerNavigationContainer(
     navigationContainerRef: NavigationContainer,
   ): void {
-    /* We prevent duplicate routing instrumentation to be initialized on fast refreshes
-
-      Explanation: If the user triggers a fast refresh on the file that the instrumentation is
-      initialized in, it will initialize a new instance and will cause undefined behavior.
-     */
+    // only register the navigation container once
     if (!this._navigationContainer) {
       if ('current' in navigationContainerRef) {
         this._navigationContainer =
@@ -69,9 +57,7 @@ export class ReactNavigationInstrumentation {
   }
 
   /**
-   * To be called on every React-Navigation action dispatch.
-   * It does not name the transaction or populate it with route information. Instead, it waits for the state to fully change
-   * and gets the route information from there, @see _onStateChange
+   * This method is responsible for storing the start time of every React-Navigation action dispatch.
    */
   private _onDispatch(params?: {data: {noop: boolean}}): void {
     const noop = params?.data.noop
@@ -80,11 +66,11 @@ export class ReactNavigationInstrumentation {
       return
     }
 
-    this._latestTransaction = new Date().getTime()
+    this._navigationStartTime = new Date().getTime()
   }
 
   /**
-   * To be called AFTER the state has been changed to populate the transaction with the current route.
+   * This method is responsible for saving the new navigation state as screen view
    */
   private _onStateChange(_?: unknown, isInitialState = false): void {
     // Use the getCurrentRoute method to be accurate.
@@ -100,7 +86,7 @@ export class ReactNavigationInstrumentation {
 
     const route = this._navigationContainer.getCurrentRoute()
 
-    if (route && (this._latestTransaction || isInitialState)) {
+    if (route && (this._navigationStartTime || isInitialState)) {
       if (!previousRoute || previousRoute.key !== route.key) {
         const routeHasBeenSeen = this._recentRouteKeys.includes(route.key)
 
@@ -110,8 +96,8 @@ export class ReactNavigationInstrumentation {
           refUri: previousRoute?.name,
           properties: {
             ...(route.params ?? {}),
-            duration: this._latestTransaction
-              ? new Date().getTime() - this._latestTransaction
+            duration: this._navigationStartTime
+              ? new Date().getTime() - this._navigationStartTime
               : undefined,
             routeHasBeenSeen,
           },
@@ -121,8 +107,7 @@ export class ReactNavigationInstrumentation {
       this._pushRecentRouteKey(route.key)
       this._latestRoute = route
 
-      // Clear the latest transaction as it has been handled.
-      this._latestTransaction = undefined
+      this._navigationStartTime = undefined
     }
   }
 
@@ -138,10 +123,10 @@ export class ReactNavigationInstrumentation {
   }
 }
 
-const routingInstrumentation = new ReactNavigationInstrumentation()
+const routingInstrumentation = new ReactNavigationLogging()
 
 /**
- * To be used in the onReady of the NavigationContainer: register the navigation with Sentry
+ * To be used in the onReady of the NavigationContainer: register the navigation actions for logging
  */
 export const registerNavigationContainer = (
   ref: NavigationContainerRefWithCurrent<RootStackParams>,
@@ -151,4 +136,121 @@ export const registerNavigationContainer = (
   } catch (e) {
     devLog(e)
   }
+}
+
+const MAX_RECENT_ROUTE_LENGTH = 200
+
+export const useRegisterNavigationContainer = () => {
+  const navigationContainer = useRef<NavigationContainer>()
+  const navigationStartTime = useRef<number>()
+  const recentRouteKeys = useRef<string[]>([])
+  const latestRoute = useRef<Route<string>>()
+
+  /**
+   * This method is responsible for storing the start time of every React-Navigation action dispatch.
+   */
+  const onDispatch = useCallback((params?: {data: {noop: boolean}}): void => {
+    const noop = params?.data.noop
+
+    if (noop) {
+      return
+    }
+
+    navigationStartTime.current = new Date().getTime()
+  }, [])
+
+  /**
+   * The `_pushRecentRouteKey` method is responsible for adding a new route key to the list of recent route keys stored in the `_recentRouteKeys` array.
+   * If the number of route keys exceeds the maximum allowed length specified by `_maxRecentRouteLen`, it will trim the array to keep only the most recent route keys based on the maximum length.
+   */
+  const pushRecentRouteKey = useCallback((key: string): void => {
+    recentRouteKeys.current.push(key)
+
+    if (recentRouteKeys.current.length > MAX_RECENT_ROUTE_LENGTH) {
+      recentRouteKeys.current = recentRouteKeys.current.slice(
+        recentRouteKeys.current.length - MAX_RECENT_ROUTE_LENGTH,
+      )
+    }
+  }, [])
+
+  /**
+   * This method is responsible for saving the new navigation state as screen view
+   */
+  const onStateChange = useCallback(
+    (_?: unknown, isInitialState = false): void => {
+      const previousRoute = latestRoute.current
+
+      if (!navigationContainer.current) {
+        devError(
+          'Missing navigation container ref. Route transactions will not be sent.',
+        )
+
+        return
+      }
+
+      const route = navigationContainer.current.getCurrentRoute()
+
+      if (route && (navigationStartTime.current || isInitialState)) {
+        if (!previousRoute || previousRoute.key !== route.key) {
+          const routeHasBeenSeen = recentRouteKeys.current.includes(route.key)
+
+          appInsights.trackPageView({
+            name: route.name,
+            uri: route.path,
+            refUri: previousRoute?.name,
+            properties: {
+              ...(route.params ?? {}),
+              duration: navigationStartTime.current
+                ? new Date().getTime() - navigationStartTime.current
+                : undefined,
+              routeHasBeenSeen,
+            },
+          })
+        }
+
+        pushRecentRouteKey(route.key)
+        latestRoute.current = route
+
+        navigationStartTime.current = undefined
+      }
+    },
+    [pushRecentRouteKey],
+  )
+
+  return useCallback(
+    (
+      navigationContainerRef: NavigationContainerRefWithCurrent<RootStackParams>,
+    ): void => {
+      // only register the navigation container once
+      if (!navigationContainer.current) {
+        if ('current' in navigationContainerRef) {
+          navigationContainer.current =
+            navigationContainerRef.current as NavigationContainer
+        } else {
+          navigationContainer.current = navigationContainerRef
+        }
+
+        if (navigationContainer.current) {
+          navigationContainer.current.addListener(
+            '__unsafe_action__', // This action is emitted on every dispatch
+            onDispatch.bind(this),
+          )
+          navigationContainer.current.addListener(
+            'state', // This action is emitted on every state change
+            onStateChange.bind(this),
+          )
+
+          // Navigation container already registered, just populate with route state
+          onStateChange(undefined, true)
+        } else {
+          devError('Received invalid navigation container ref')
+        }
+      } else {
+        devLog(
+          'Instrumentation already exists, but register has been called again, doing nothing.',
+        )
+      }
+    },
+    [onDispatch, onStateChange],
+  )
 }
