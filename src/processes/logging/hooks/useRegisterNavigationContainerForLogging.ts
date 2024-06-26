@@ -105,9 +105,9 @@ export const useRegisterNavigationContainerForLogging = () => {
             refUri: previousRoute?.name,
             properties: {
               ...getCustomDimensions(customDimensions, true),
-              duration: navigationStartTime.current
-                ? new Date().getTime() - navigationStartTime.current
-                : undefined,
+              ...(navigationStartTime.current
+                ? {duration: new Date().getTime() - navigationStartTime.current}
+                : {}),
               routeHasBeenSeen,
             },
           })
