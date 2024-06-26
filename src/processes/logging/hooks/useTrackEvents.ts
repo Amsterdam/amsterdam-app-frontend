@@ -16,7 +16,7 @@ export {
 export type Params = Record<string, unknown>
 
 export const useTrackEvents = () => {
-  const PiwikInstance = useContext(PiwikContext)
+  const piwikInstance = useContext(PiwikContext)
   const {sendSentryErrorLog} = useSentry()
   const route = navigationRef.isReady()
     ? navigationRef.getCurrentRoute()
@@ -32,12 +32,12 @@ export const useTrackEvents = () => {
         sendSentryErrorLog,
         suggestedCategory,
         appInsights,
-        PiwikInstance,
+        piwikInstance,
         route?.name,
         route?.params as Params,
       ),
     [
-      PiwikInstance,
+      piwikInstance,
       sendSentryErrorLog,
       suggestedCategory,
       appInsights,
