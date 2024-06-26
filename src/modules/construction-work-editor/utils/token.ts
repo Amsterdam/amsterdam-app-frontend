@@ -14,7 +14,7 @@ export const isTokenValid = (token: string | undefined) => {
   const decryptedToken = decryptToken(token)
 
   if (Date.now() >= (decryptedToken.exp ?? 0) * 1000) {
-    devLog('token expired')
+    devLog('construction-work-editor', 'access token expired')
 
     return false
   }

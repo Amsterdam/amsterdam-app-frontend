@@ -106,6 +106,8 @@ const getBorderColor = (
   if (variant === 'tertiary') {
     return isPressed ? color.pressable.pressed.background : 'transparent'
   }
+
+  return 'transparent'
 }
 
 const getLabelColor = (
