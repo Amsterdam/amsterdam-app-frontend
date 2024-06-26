@@ -12,7 +12,7 @@ end
 
 # TF_BUILD will be true when this is run in a DevOps pipeline
 if ENV["TF_BUILD"]
-  xcode_select("/Applications/Xcode_15.0.app")
+  xcode_select("/Applications/Xcode_15.4.app")
   setup_ci()
 end
 
