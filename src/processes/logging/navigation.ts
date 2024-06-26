@@ -86,7 +86,7 @@ export class ReactNavigationInstrumentation {
   /**
    * To be called AFTER the state has been changed to populate the transaction with the current route.
    */
-  private _onStateChange(_?: unknown, isInitialState?: boolean): void {
+  private _onStateChange(_?: unknown, isInitialState = false): void {
     // Use the getCurrentRoute method to be accurate.
     const previousRoute = this._latestRoute
 
@@ -112,7 +112,7 @@ export class ReactNavigationInstrumentation {
             ...(route.params ?? {}),
             duration: this._latestTransaction
               ? new Date().getTime() - this._latestTransaction
-              : 0,
+              : undefined,
             routeHasBeenSeen,
           },
         })
