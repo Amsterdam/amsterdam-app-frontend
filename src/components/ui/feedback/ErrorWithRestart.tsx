@@ -1,46 +1,57 @@
-import {StyleSheet, View} from 'react-native'
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native'
 import RNRestart from 'react-native-restart'
-import {ScreenOutsideNavigation} from '@/components/features/screen/ScreenOutsideNavigation'
-import {Button} from '@/components/ui/buttons/Button'
-import {Box} from '@/components/ui/containers/Box'
-import {Warning} from '@/components/ui/feedback/Warning'
-import {Column} from '@/components/ui/layout/Column'
-import {ScreenOutsideNavigationName} from '@/processes/piwik/types'
-import {type Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
+import {lightColorTokens} from '@/themes/tokens/color-light'
+import {sizeTokens} from '@/themes/tokens/size'
+import {textTokens} from '@/themes/tokens/text'
 
-export const ErrorWithRestart = () => {
-  const styles = useThemable(createStyles)
-
-  return (
+/**
+ * Error component with restart app button
+ * Can be used outside a redux context
+ */
+export const ErrorWithRestart = () => (
+  <SafeAreaView style={styles.screen}>
     <View style={styles.screen}>
-      <ScreenOutsideNavigation
-        name={ScreenOutsideNavigationName.errorWithRestart}
-        scroll={false}
-        testID={'ErrorWithRestartScreen'}
-        withTopInset>
-        <Box inset="lg">
-          <Column gutter="md">
-            <Warning
-              text="Er is iets misgegaan met de app."
-              title="Sorry …"
-            />
-            <Button
-              label="Herstart de app"
-              onPress={() => RNRestart.Restart()}
-              testID="ErrorRestartButton"
-            />
-          </Column>
-        </Box>
-      </ScreenOutsideNavigation>
+      <Text style={[styles.paragraph, styles.title]}>Sorry …</Text>
+      <Text style={[styles.paragraph, styles.text]}>
+        Er is iets misgegaan met de app.
+      </Text>
+      <PressableBase
+        accessibilityRole="button"
+        onPress={() => RNRestart.Restart()}
+        style={styles.button}
+        testID="ErrorRestartButton">
+        <Text style={[styles.text, styles.buttonText]}>Herstart de app</Text>
+      </PressableBase>
     </View>
-  )
-}
+  </SafeAreaView>
+)
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    screen: {
-      backgroundColor: color.screen.background.default,
-      flex: 1,
-    },
-  })
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: lightColorTokens.screen.background.default,
+    flex: 1,
+    padding: sizeTokens.spacing.xl,
+  },
+  title: {
+    fontSize: textTokens.fontSize.h4,
+    lineHeight: textTokens.lineHeight.h4,
+    fontFamily: textTokens.fontFamily.bold,
+  },
+  text: {
+    fontSize: textTokens.fontSize.body,
+    lineHeight: textTokens.lineHeight.body,
+  },
+  paragraph: {
+    marginBottom: sizeTokens.spacing.md,
+  },
+  button: {
+    backgroundColor: lightColorTokens.pressable.primary.default,
+    paddingHorizontal: sizeTokens.spacing.md,
+    paddingVertical: sizeTokens.spacing.sm,
+  },
+  buttonText: {
+    color: lightColorTokens.text.inverse,
+    textAlign: 'center',
+  },
+})

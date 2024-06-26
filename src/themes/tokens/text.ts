@@ -74,4 +74,4 @@ export const textTokens: TextTokens = {
     quote: 1.3 * FontSize.quote,
     small: 1.5 * FontSize.small,
   },
-}
+} as const
