@@ -7,8 +7,7 @@ import {useRef, useCallback, useEffect, useContext} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'
 import {ErrorLogKey} from '@/processes/logging/types'
-import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
-import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
+import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/createCustomDimensionsFromRouteParams'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
@@ -80,7 +79,12 @@ export const useRegisterNavigationContainerForLogging = () => {
         if (!previousRoute || previousRoute.key !== route.key) {
           const routeHasBeenSeen = recentRouteKeys.current.includes(route.key)
 
-          const customDimensions = addIdFromParamsToDimensions(route.params)
+          const {
+            appInsights: customDimensionsAppInsights,
+            piwik: customDimensionsPiwik,
+          } = createCustomDimensionsFromRouteParams(
+            route.params as Record<string, unknown>,
+          )
 
           if (piwikInstance) {
             piwikInstance
@@ -88,7 +92,9 @@ export const useRegisterNavigationContainerForLogging = () => {
                 title: getTitleFromParams(
                   route.params as Record<string, unknown>,
                 ),
-                customDimensions: getCustomDimensions(customDimensions),
+                customDimensions: customDimensionsPiwik as {
+                  [index: number]: string
+                },
               })
               .catch(() => {
                 appInsights.trackException({
@@ -104,11 +110,14 @@ export const useRegisterNavigationContainerForLogging = () => {
             uri: route.path,
             refUri: previousRoute?.name,
             properties: {
-              ...getCustomDimensions(customDimensions, true),
+              title: getTitleFromParams(
+                route.params as Record<string, unknown>,
+              ),
+              routeHasBeenSeen,
+              ...customDimensionsAppInsights,
               ...(navigationStartTime.current
                 ? {duration: new Date().getTime() - navigationStartTime.current}
                 : {}),
-              routeHasBeenSeen,
             },
           })
         }

@@ -4,7 +4,7 @@ import {RootStackParams} from '@/app/navigation/types'
 import {devError} from '@/processes/development'
 import {Params} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikCategory, Piwik, PiwikDimension} from '@/processes/piwik/types'
-import {addIdFromParamsToDimensions} from '@/processes/piwik/utils/addIdFromParamsToDimensions'
+import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/createCustomDimensionsFromRouteParams'
 import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {SendErrorLog, SentryErrorLogKey} from '@/processes/sentry/types'
@@ -71,24 +71,25 @@ export const getTrackEvents = (
           })
       : piwikDevError()
   },
-  trackScreen: (path, options) => {
+  trackScreen: path => {
     const name = path ?? routeName
 
     if (!name) {
       return
     }
 
-    const customDimensions = addIdFromParamsToDimensions(
-      options?.customDimensions,
-      params,
-    )
+    const {
+      appInsights: customDimensionsAppInsights,
+      piwik: customDimensionsPiwik,
+    } = createCustomDimensionsFromRouteParams(params)
 
     piwikInstance
       ? piwikInstance
           .trackScreen(name, {
-            ...options,
             title: getTitleFromParams(params),
-            customDimensions: getCustomDimensions(customDimensions),
+            customDimensions: customDimensionsPiwik as {
+              [index: number]: string
+            },
           })
           .catch(() => {
             sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
@@ -99,7 +100,10 @@ export const getTrackEvents = (
 
     appInsights.trackPageView(
       {name},
-      getCustomDimensions(customDimensions, true),
+      {
+        ...customDimensionsAppInsights,
+        title: getTitleFromParams(params as Record<string, unknown>),
+      },
     )
   },
   trackSearch: (keyword, options) => {

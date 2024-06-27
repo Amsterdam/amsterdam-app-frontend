@@ -18,10 +18,7 @@ export type Piwik = {
     url: string,
     options?: ReplaceCustomDimensions<CommonEventOptions>,
   ) => void
-  trackScreen: (
-    path?: ScreenOutsideNavigationName,
-    options?: ReplaceCustomDimensions<TrackScreenOptions>,
-  ) => void
+  trackScreen: (path?: ScreenOutsideNavigationName) => void
   trackSearch: (
     keyword: string,
     options?: ReplaceCustomDimensions<TrackScreenOptions>,
