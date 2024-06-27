@@ -16,7 +16,7 @@ export enum RedirectKey {
   marriage = 'marriage',
   marriagePermission = 'marriagePermission',
   naturalisation = 'naturalisation',
-  parking = 'park-sign',
+  parking = 'parking',
   parking_visitors = 'parking_visitors',
   passing = 'passing',
   passingForFuneralDirectors = 'passingForFuneralDirectors',
