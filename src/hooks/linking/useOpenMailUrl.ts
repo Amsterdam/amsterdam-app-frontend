@@ -1,13 +1,16 @@
 import {useCallback} from 'react'
 import {Alert, Linking} from 'react-native'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 export type OpenMailUrl = (emailAddress: string, subject?: string) => void
 
 export const useOpenMailUrl = (): OpenMailUrl => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {trackOutlink} = useTrackEvents()
 
   return useCallback(
@@ -22,9 +25,9 @@ export const useOpenMailUrl = (): OpenMailUrl => {
 
       Linking.openURL(mailUrl).catch(() => {
         Alert.alert('Sorry, deze functie is niet beschikbaar.')
-        sendSentryErrorLog(SentryErrorLogKey.openMailUrl, 'useOpenMailUrl.ts')
+        trackException(ExceptionLogKey.openMailUrl, 'useOpenMailUrl.ts')
       })
     },
-    [sendSentryErrorLog, trackOutlink],
+    [trackException, trackOutlink],
   )
 }

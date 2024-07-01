@@ -5,8 +5,11 @@ import Geolocation, {GeoOptions} from 'react-native-geolocation-service'
 import {requestLocationAccuracy} from 'react-native-permissions'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {Coordinates, HighAccuracyPurposeKey} from '@/modules/address/types'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {Permissions} from '@/types/permissions'
 import {isVersionHigherOrEqual} from '@/utils/versionCompare'
 
@@ -31,7 +34,7 @@ const defaultOptions: GeoOptions = {
 export const useGetCoordinates = (
   highAccuracyPurposeKey?: HighAccuracyPurposeKey,
 ) => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {hasPermission} = usePermission(Permissions.location)
 
   return useCallback(
@@ -66,8 +69,8 @@ export const useGetCoordinates = (
             resolve(coordinates)
           },
           error => {
-            sendSentryErrorLog(
-              SentryErrorLogKey.coordinates,
+            trackException(
+              ExceptionLogKey.coordinates,
               'useGetCoordinates.ts',
               {error},
             )
@@ -79,6 +82,6 @@ export const useGetCoordinates = (
           },
         )
       }),
-    [hasPermission, highAccuracyPurposeKey, sendSentryErrorLog],
+    [hasPermission, highAccuracyPurposeKey, trackException],
   )
 }

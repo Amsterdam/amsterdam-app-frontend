@@ -11,13 +11,16 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 export const FeedbackScreen = () => {
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
 
   return (
     <Screen testID="AboutFeedbackScreen">
@@ -52,8 +55,8 @@ export const FeedbackScreen = () => {
                       'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
                     )
 
-                    sendSentryErrorLog(
-                      SentryErrorLogKey.getRedirectsUrl,
+                    trackException(
+                      ExceptionLogKey.getRedirectsUrl,
                       'FeedbackScreen.ts',
                       {redirectsKey: 'feedback'},
                     )

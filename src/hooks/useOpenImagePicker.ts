@@ -2,8 +2,11 @@ import ImageCropPicker, {
   Options as ImageCropPickerOptions,
 } from 'react-native-image-crop-picker'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
+
 import {useAlert} from '@/store/slices/alert'
 import {getPropertyFromMaybeError} from '@/utils/object'
 
@@ -52,7 +55,7 @@ export const useOpenImagePicker = (
   options?: Partial<ImageCropPickerOptions>,
 ) => {
   const {setAlert} = useAlert()
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
 
   return async (viaCamera = false) => {
     try {
@@ -82,10 +85,10 @@ export const useOpenImagePicker = (
         hasIcon: false,
       })
 
-      sendSentryErrorLog(
+      trackException(
         viaCamera
-          ? SentryErrorLogKey.takingPhotoFailed
-          : SentryErrorLogKey.pickingImageFailed,
+          ? ExceptionLogKey.takingPhotoFailed
+          : ExceptionLogKey.pickingImageFailed,
         'useOpenImagePicker.ts',
         {error, code, viaCamera},
       )

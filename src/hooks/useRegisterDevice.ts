@@ -1,8 +1,11 @@
 import messaging from '@react-native-firebase/messaging'
 import {useCallback} from 'react'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {
   useRegisterDeviceMutation,
   useUnregisterDeviceMutation,
@@ -12,7 +15,7 @@ import {Permissions} from '@/types/permissions'
 export const useRegisterDevice = () => {
   const [registerDeviceMutation] = useRegisterDeviceMutation()
   const [unregisterDevice] = useUnregisterDeviceMutation()
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {hasPermission, requestPermission} = usePermission(
     Permissions.notifications,
   )
@@ -24,15 +27,11 @@ export const useRegisterDevice = () => {
         void registerDeviceMutation({firebase_token})
       })
       .catch((error: unknown) => {
-        sendSentryErrorLog(
-          SentryErrorLogKey.registerDevice,
-          'useRegisterDevice.ts',
-          {
-            error,
-          },
-        )
+        trackException(ExceptionLogKey.registerDevice, 'useRegisterDevice.ts', {
+          error,
+        })
       })
-  }, [registerDeviceMutation, sendSentryErrorLog])
+  }, [registerDeviceMutation, trackException])
 
   const registerDeviceIfPermitted = useCallback(
     (requestNotificationPermission = false) =>

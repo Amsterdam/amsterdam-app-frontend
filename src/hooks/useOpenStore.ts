@@ -1,17 +1,20 @@
 import {useCallback} from 'react'
 import {Alert, Linking, Platform} from 'react-native'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {STORE_LINK} from '@/utils/storeLink'
 
 export const useOpenStore = () => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {trackOutlink} = useTrackEvents()
 
   return useCallback(() => {
     const log = (error: unknown) =>
-      sendSentryErrorLog(SentryErrorLogKey.openStore, 'useOpenStore.ts', {
+      trackException(ExceptionLogKey.openStore, 'useOpenStore.ts', {
         error,
       })
 
@@ -20,8 +23,8 @@ export const useOpenStore = () => {
         trackOutlink(STORE_LINK)
 
         if (!supported) {
-          sendSentryErrorLog(
-            SentryErrorLogKey.notSupportedStoredUrl,
+          trackException(
+            ExceptionLogKey.notSupportedStoredUrl,
             'useOpenStore.ts',
           )
         }
@@ -43,5 +46,5 @@ export const useOpenStore = () => {
         )
       })
       .catch(log)
-  }, [sendSentryErrorLog, trackOutlink])
+  }, [trackException, trackOutlink])
 }
