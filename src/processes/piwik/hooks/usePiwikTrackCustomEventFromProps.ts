@@ -10,8 +10,8 @@ import {getLogNameFromProps} from '@/processes/piwik/utils/getLogNameFromProps'
 import {type RequirePick} from '@/types/utils'
 
 type Props<T> = {
+  'logging-label'?: string
   onEvent?: ((event: T) => void) | (() => void)
-  'sentry-label'?: string
 } & Partial<TestProps> &
   RequirePick<LogProps, 'logAction'>
 
@@ -29,7 +29,7 @@ export const usePiwikTrackCustomEventFromProps = <T = unknown>({
   onEvent,
   testID,
   logName,
-  'sentry-label': sentryLabel,
+  'logging-label': loggingLabel,
 }: Props<T>) => {
   const {trackCustomEvent} = useTrackEvents()
 
@@ -42,7 +42,7 @@ export const usePiwikTrackCustomEventFromProps = <T = unknown>({
       const name = getLogNameFromProps({
         testID,
         logName,
-        'sentry-label': sentryLabel,
+        'logging-label': loggingLabel,
       })
 
       if (name) {
@@ -64,7 +64,7 @@ export const usePiwikTrackCustomEventFromProps = <T = unknown>({
       logName,
       logValue,
       onEvent,
-      sentryLabel,
+      loggingLabel,
       testID,
       trackCustomEvent,
     ],

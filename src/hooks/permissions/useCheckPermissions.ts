@@ -8,9 +8,12 @@ import {
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAppState} from '@/hooks/useAppState'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {CustomDimensions, PiwikAction} from '@/processes/piwik/types'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
 import {setPermission} from '@/store/slices/permissions'
 import {
   ALL_PERMISSIONS_WITH_LOG_DIMENSION,
@@ -31,7 +34,7 @@ const checkPermission = async (
 
 export const useCheckPermissions = () => {
   const dispatch = useDispatch()
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {ready, trackCustomEvent} = useTrackEvents()
 
   const checkPermissions = useCallback(
@@ -51,8 +54,8 @@ export const useCheckPermissions = () => {
                 .catch((error: unknown) => {
                   dispatch(setPermission({permission, granted: false}))
 
-                  sendSentryErrorLog(
-                    SentryErrorLogKey.updatePermission,
+                  trackException(
+                    ExceptionLogKey.updatePermission,
                     'useCheckPermissions.ts',
                     {error, permission, request: false},
                   )
@@ -76,7 +79,7 @@ export const useCheckPermissions = () => {
         }
       })
     },
-    [dispatch, sendSentryErrorLog, ready, trackCustomEvent],
+    [dispatch, trackException, ready, trackCustomEvent],
   )
 
   useEffect(() => {

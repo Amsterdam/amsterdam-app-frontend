@@ -4,50 +4,11 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
-import {addBreadcrumb, captureException, withScope} from '@sentry/react-native'
-import {devLog} from '@/processes/development'
-import {
-  BreadcrumbCategory,
-  type CaptureBreadcrumb,
-  type SendErrorLog,
-} from '@/processes/sentry/types'
-import {
-  getAllowedData,
-  isExpectedError,
-  isStatusCodeAllowedForLogging,
-} from '@/processes/sentry/utils'
+import {isExpectedError} from '@/processes/logging/utils/isExpectedError'
+import {isStatusCodeAllowedForLogging} from '@/processes/logging/utils/isStatusCodeAllowedForLogging'
 import {appInsights} from '@/providers/appinsights.provider'
 
-/**
- * Get the function to: add a breadcrumb to the stack trace in the error report
- */
-export const getCaptureSentryBreadcrumb =
-  (logData: boolean): CaptureBreadcrumb =>
-  (message, data, category = BreadcrumbCategory.default): void => {
-    addBreadcrumb({
-      message,
-      category,
-      data: logData ? data : undefined,
-    })
-  }
-
-/**
- * Get the function to: manually send an error to Sentry; to be used in catch statements and other error handling
- */
-export const getSendSentryErrorLog =
-  (logData: boolean): SendErrorLog =>
-  (logKey, filename, data, errorTitle) => {
-    const extraData = logData ? getAllowedData(logKey, data) : undefined
-
-    devLog('sendSentryErrorLog', errorTitle ?? logKey, filename, extraData)
-
-    withScope(scope => {
-      scope.setContext('data', {filename, ...extraData})
-      captureException(new Error(errorTitle ?? logKey))
-    })
-  }
-
-export type Meta =
+type Meta =
   | {arg?: {endpointName?: string}; baseQueryMeta?: {request?: {url: string}}}
   | undefined
 
@@ -55,7 +16,7 @@ type Payload =
   | {error: unknown; originalStatus?: number | string; status?: string}
   | undefined
 
-export const logRequestFailed = (
+const logRequestFailed = (
   action: Pick<PayloadAction<Payload, string, Meta>, 'meta' | 'payload'>,
 ) => {
   const endpoint = action.meta?.arg?.endpointName
@@ -96,7 +57,7 @@ export const logRequestFailed = (
 /**
  * RTK middleware to catch API errors and other rejections
  */
-export const loggerMiddleware: Middleware =
+export const reduxLoggerMiddleware: Middleware =
   () => next => (action: PayloadAction<Payload, string, Meta>) => {
     if (isRejectedWithValue(action)) {
       logRequestFailed(action)

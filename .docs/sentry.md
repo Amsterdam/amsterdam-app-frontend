@@ -59,16 +59,16 @@ Note that the `useSentry` hooks has 2 parameters to optionally override the cons
 When a touch event is triggered in the app a transaction (with component tree) is send to Sentry.
 We decide to define `testID` as the default name for components in de component tree.
 Sometimes, the name of the components in this tree includes sensitive data.
-In the case of sensitive data in the `testID` we decide to override the `testID` with `sentry-label`.
-In this specific case the `testID` have the sensitive data but it's not send to Sentry because we have defined a `sentry-label`.
-When there is no `testID` or `sentry-label` defined the fallback is the `displayName` will be send to Sentry.
+In the case of sensitive data in the `testID` we decide to override the `testID` with `logging-label`.
+In this specific case the `testID` have the sensitive data but it's not send to Sentry because we have defined a `logging-label`.
+When there is no `testID` or `logging-label` defined the fallback is the `displayName` will be send to Sentry.
 
 Below an example:
 
 ```js
   <SuggestionButton
     ...
-    sentry-label="AddressSearchResultButton"
+    logging-label="AddressSearchResultButton"
     testID={`AddressSearchResult${address}Button`}
   />
 ```

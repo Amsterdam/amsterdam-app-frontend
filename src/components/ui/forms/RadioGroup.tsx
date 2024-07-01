@@ -50,6 +50,7 @@ export const RadioGroup = <T extends RadioValue>({
             isSelected={value === optionValue}
             key={label}
             label={label}
+            logging-label={logName}
             logName={logName}
             onPress={() =>
               onPress(
@@ -63,7 +64,6 @@ export const RadioGroup = <T extends RadioValue>({
                   : {},
               )
             }
-            sentry-label={logName}
             testID={`${testID}${optionValue.toString()}RadioButton`}
           />
         )

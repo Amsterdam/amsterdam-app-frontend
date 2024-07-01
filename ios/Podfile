@@ -57,8 +57,6 @@ target 'AmsterdamApp' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
-  pod 'RNSentry', :path => '../node_modules/@sentry/react-native'
   
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true

@@ -8,9 +8,9 @@ import {PdokAddress} from '@/modules/address/types'
 
 type Props = {
   label: string
+  'logging-label'?: string
   pdokAddress: PdokAddress
   selectResult: (item: PdokAddress) => void
-  'sentry-label'?: string
 } & Pick<AccessibilityProps, 'accessibilityLabel'> &
   TestProps
 
@@ -21,29 +21,29 @@ export const SuggestionButton = ({
   pdokAddress,
   selectResult,
   testID,
-  'sentry-label': sentryLabel,
+  'logging-label': loggingLabel,
 }: Props) => (
   <Pressable
     accessibilityLabel={accessibilityLabel}
     accessibilityRole="button"
     insetVertical="md"
+    logging-label={loggingLabel}
     onPress={() => selectResult(pdokAddress)}
-    sentry-label={sentryLabel}
     testID={testID}>
     <Row
       gutter="sm"
       valign="center">
       <Icon
         color="link"
+        logging-label={`${loggingLabel ?? ''}Icon`}
         name="location"
-        sentry-label={`${sentryLabel ?? ''}Icon`}
         size="lg"
         testID={`${testID}Icon`}
       />
       <Phrase
         color="link"
         ellipsizeMode="tail"
-        sentry-label={`${sentryLabel ?? ''}Label`}
+        logging-label={`${loggingLabel ?? ''}Label`}
         testID={`${testID}Label`}>
         {label}
       </Phrase>

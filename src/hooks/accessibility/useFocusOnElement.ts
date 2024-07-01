@@ -1,12 +1,15 @@
 import {Component, useCallback} from 'react'
 import {findNodeHandle, AccessibilityInfo} from 'react-native'
-import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 /**
  * Returns a function to set accessibility focus to element reference
  */
 export const useFocusOnElement = () => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
 
   return useCallback(
     (component: Component | null) => {
@@ -17,13 +20,13 @@ export const useFocusOnElement = () => {
       const node = findNodeHandle(component)
 
       if (!node) {
-        sendSentryErrorLog(SentryErrorLogKey.nodeNotFound, 'useFocusOnElement')
+        trackException(ExceptionLogKey.nodeNotFound, 'useFocusOnElement')
 
         return
       }
 
       AccessibilityInfo.setAccessibilityFocus(node)
     },
-    [sendSentryErrorLog],
+    [trackException],
   )
 }

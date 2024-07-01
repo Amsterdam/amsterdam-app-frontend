@@ -1,17 +1,20 @@
 import {useCallback} from 'react'
 import RNBootSplash from 'react-native-bootsplash'
-import {SentryErrorLogKey, useSentry} from '@/processes/sentry/hooks/useSentry'
+import {
+  useTrackException,
+  ExceptionLogKey,
+} from '@/processes/logging/hooks/useTrackException'
 
 export const useHideSplashScreen = () => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
 
   return useCallback(() => {
     RNBootSplash.hide({fade: true}).catch((error: unknown) => {
-      sendSentryErrorLog(
-        SentryErrorLogKey.hideSplashScreen,
+      trackException(
+        ExceptionLogKey.hideSplashScreen,
         'AppNavigationContainer.tsx',
         {error},
       )
     })
-  }, [sendSentryErrorLog])
+  }, [trackException])
 }

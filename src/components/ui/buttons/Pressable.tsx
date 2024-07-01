@@ -14,7 +14,7 @@ type PressableVariant = 'primary' | 'tertiary' | 'negative' | 'transparent'
 
 export type PressableProps = {
   children: ReactNode
-  'sentry-label'?: string
+  'logging-label'?: string
   variant?: PressableVariant
 } & PressableBaseProps &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &

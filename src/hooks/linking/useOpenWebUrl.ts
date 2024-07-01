@@ -1,15 +1,18 @@
 import {useCallback} from 'react'
 import {Alert, Linking} from 'react-native'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
 import {getCurrentModuleSlugFromNavigationRootState} from '@/utils/getCurrentModuleSlugFromNavigationRootState'
 
 export type OpenWebUrl = (url: string) => void
 
 export const useOpenWebUrl = (): OpenWebUrl => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const {trackOutlink} = useTrackEvents()
 
   return useCallback(
@@ -23,11 +26,11 @@ export const useOpenWebUrl = (): OpenWebUrl => {
 
       Linking.openURL(fullUrl).catch(() => {
         Alert.alert('Sorry, deze functie is niet beschikbaar.')
-        sendSentryErrorLog(SentryErrorLogKey.openWebUrl, 'useOpenWebUrl.ts', {
+        trackException(ExceptionLogKey.openWebUrl, 'useOpenWebUrl.ts', {
           url,
         })
       })
     },
-    [sendSentryErrorLog, trackOutlink],
+    [trackException, trackOutlink],
   )
 }

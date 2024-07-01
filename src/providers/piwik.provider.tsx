@@ -1,10 +1,12 @@
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
 import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
 import {createContext, ReactNode, useEffect, useState} from 'react'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {initPiwik} from '@/processes/piwik/init'
 import {PiwikError} from '@/processes/piwik/types'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
 
 type PiwikContextType = PiwikProSdkType | null | undefined
 
@@ -18,7 +20,7 @@ type Props = {
 }
 
 export const PiwikProvider = ({children}: Props) => {
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
   const [piwikInstance, setPiwikInstance] = useState<PiwikContextType>()
 
   useEffect(() => {
@@ -40,8 +42,8 @@ export const PiwikProvider = ({children}: Props) => {
             return
           }
 
-          sendSentryErrorLog(
-            SentryErrorLogKey.piwikInitialization,
+          trackException(
+            ExceptionLogKey.piwikInitialization,
             'piwik.provider.tsx',
             {
               error,
@@ -49,7 +51,7 @@ export const PiwikProvider = ({children}: Props) => {
           )
         })
     }
-  }, [piwikInstance, sendSentryErrorLog])
+  }, [piwikInstance, trackException])
 
   return (
     <PiwikContext.Provider value={piwikInstance}>

@@ -45,7 +45,6 @@ You can find these files in the Keepass database. To access this database:
 #### Files
 
 - `.env` - Environment variables to be used in the JS. This should be added to the project root. Also see `.env.example`.
-- `sentry.properties` - The Sentry config/key for both platforms. This should be added to the project root.
 - `android/app/google-services.json` - Production Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app)).
 - `android/app/src/debug/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
 - `ios/GoogleService-Info-Prod.plist` - Production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app)).

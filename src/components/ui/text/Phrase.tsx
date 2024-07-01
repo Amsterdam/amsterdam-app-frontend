@@ -15,7 +15,7 @@ export type PhraseProps = {
    * Allows the phrase to convey more emphasis.
    */
   emphasis?: keyof typeof Emphasis
-  'sentry-label'?: string
+  'logging-label'?: string
   /**
    * Defines the alignment of the text. Maps with the textAlign style prop options.
    */
@@ -43,7 +43,7 @@ export const Phrase = ({
   underline = false,
   variant = 'body',
   testID,
-  'sentry-label': sentryLabel,
+  'logging-label': loggingLabel,
   textAlign = 'left',
   ...textProps
 }: PhraseProps) => {
@@ -56,7 +56,7 @@ export const Phrase = ({
   return (
     <Text
       accessibilityLanguage="nl-NL"
-      sentry-label={sentryLabel}
+      logging-label={loggingLabel}
       style={styles.text}
       testID={testID}
       {...textProps}>
