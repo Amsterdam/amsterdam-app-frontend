@@ -1,3 +1,5 @@
+import {AllowListKeys} from '@/processes/logging/allowList'
+
 export enum EventLogKey {
   fullStartup = 'Full startup',
   internetConnection = 'Internet connection changed',
@@ -26,3 +28,23 @@ export enum ExceptionLogKey {
   takingPhotoFailed = 'Taking photo failed',
   updatePermission = 'Update permission failed',
 }
+
+export const enum SeverityLevel {
+  Verbose = 0,
+  Information = 1,
+  Warning = 2,
+  Error = 3,
+  Critical = 4,
+}
+
+export type TrackException = <T extends ExceptionLogKey>(
+  logKey: T,
+  filename: string,
+  data?: AllowListKeys<T> extends never
+    ? never
+    : Partial<Record<AllowListKeys<T>, unknown>>,
+  /**
+   * @default `SeverityLevel.Error`
+   */
+  severityLevel?: SeverityLevel,
+) => void
