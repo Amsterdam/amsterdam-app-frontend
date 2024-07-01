@@ -22,9 +22,9 @@ export const AddressSearchSuggestions = ({
         )}
         key={pdokAddress.id}
         label={getSuggestionLabel(pdokAddress, showNumbersOnly)}
+        logging-label="AddressSearchResultButton"
         pdokAddress={pdokAddress}
         selectResult={selectResult}
-        sentry-label="AddressSearchResultButton"
         testID={`AddressSearchResult${pdokAddress.id}Button`}
       />
     ))}

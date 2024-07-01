@@ -26,11 +26,11 @@ export type IconProps = {
    * The color of the icon to display.
    */
   color?: keyof Theme['color']['text']
+  'logging-label'?: string
   /**
    * The name of the icon to display.
    */
   name: SvgIconName
-  'sentry-label'?: string
   /**
    * The size of the icon.
    */
@@ -44,7 +44,7 @@ export const Icon = ({
   name,
   size = 'md',
   testID,
-  'sentry-label': sentryLabel,
+  'logging-label': loggingLabel,
 }: IconProps) => {
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
@@ -59,7 +59,7 @@ export const Icon = ({
 
   return (
     <View
-      sentry-label={sentryLabel}
+      logging-label={loggingLabel}
       testID={testID}>
       <Wrapper>
         <Svg

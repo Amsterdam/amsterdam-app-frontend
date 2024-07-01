@@ -12,7 +12,7 @@ import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwi
 import {LogProps, PiwikAction} from '@/processes/piwik/types'
 
 export type PressableBaseProps = {
-  'sentry-label'?: string
+  'logging-label'?: string
 } & PressableRNProps &
   LogProps &
   TestProps
