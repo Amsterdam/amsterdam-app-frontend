@@ -10,7 +10,6 @@ import {Init} from '@/app/Init'
 import {UpdateScreen} from '@/app/UpdateScreen'
 import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
-import {initSentry, sentryWrap} from '@/processes/sentry/init'
 import {AppInsightsProvider} from '@/providers/appinsights.provider'
 import {RootProvider} from '@/providers/root.provider'
 import {store} from '@/store/store'
@@ -19,7 +18,7 @@ import '@/processes/logging'
 
 const persistor = persistStore(store)
 
-const AppComponent = () => (
+export const App = () => (
   <AppInsightsProvider>
     <SafeAreaProvider
       initialMetrics={initialWindowMetrics}
@@ -49,10 +48,6 @@ const AppComponent = () => (
     </SafeAreaProvider>
   </AppInsightsProvider>
 )
-
-initSentry()
-
-export const App = sentryWrap(AppComponent)
 
 const styles = StyleSheet.create({
   appContainer: {
