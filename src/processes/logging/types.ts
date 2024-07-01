@@ -26,6 +26,7 @@ export enum ExceptionLogKey {
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
   takingPhotoFailed = 'Taking photo failed',
+  tokenInvalid = 'Access token invalid',
   updatePermission = 'Update permission failed',
 }
 

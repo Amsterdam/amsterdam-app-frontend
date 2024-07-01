@@ -28,6 +28,7 @@ export const allowList = {
   [ExceptionLogKey.requestLocationPermission]: ['error'],
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [ExceptionLogKey.updatePermission]: ['error', 'permission', 'request'],
+  [ExceptionLogKey.tokenInvalid]: ['message'],
 } as const
 
 export type AllowListKeys<LogKey extends ExceptionLogKey> =
