@@ -2,7 +2,7 @@ import {allowList} from '@/processes/logging/allowList'
 import {type ExceptionLogKey} from '@/processes/logging/types'
 
 /**
- * Get only whitelisted data for Sentry
+ * Get only allowed data for logging
  */
 export const getAllowedData = (
   logKey: ExceptionLogKey,

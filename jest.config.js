@@ -38,7 +38,7 @@ module.exports = {
   ],
   testTimeout: 30000,
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@sentry)',
+    'node_modules/(?!(jest-)?react-native|@react-native|@notifee)',
   ],
   globals: {
     API_KEY: '',

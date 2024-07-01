@@ -30,9 +30,6 @@ steps:
   - template: ./save-version-info.yml
 
   # Download and move secure files
-  - template: ./copy-files.yml
-    parameters: 
-      platform: ${{ parameters.platform }}
   - template: ./copy-android-files.yml
     parameters: 
       condition: eq('${{ parameters.platform }}', 'android')
@@ -55,8 +52,6 @@ steps:
     env:
       VERSION: $(VERSION)
       BUILD_NUMBER: $(BUILD_NUMBER)
-      SENTRY_RELEASE: "${{ parameters.platform }}@$(VERSION).$(BUILD_NUMBER)"
-      SENTRY_DIST: $(BUILD_NUMBER)
       PIWIK_PRO_URL: $(PIWIK_PRO_URL)
       PIWIK_PRO_ID: $(PIWIK_PRO_ID)
       PIWIK_PRO_URL_ACCEPT: $(PIWIK_PRO_URL_ACCEPT)

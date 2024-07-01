@@ -30,7 +30,7 @@ describe('Log allowlist', () => {
       undefined,
     ))
 
-  it('Empty sentry whitelist', () =>
+  it('Empty allowlist', () =>
     expect(getAllowedData(ExceptionLogKey.openMailUrl, {})).toStrictEqual(
       undefined,
     ))

@@ -49,7 +49,7 @@ const getAddPhotoFeedback = (
 }
 
 /**
- * Returns a function, which depending on the viaCamera param will open an image picker or the device camera. Any relevant errors are logged to Sentry and communicated via an alert. Errors do not have to be handled further (you can use the `void` keyword).
+ * Returns a function, which depending on the viaCamera param will open an image picker or the device camera. Any relevant errors are logged and communicated via an alert. Errors do not have to be handled further (you can use the `void` keyword).
  */
 export const useOpenImagePicker = (
   options?: Partial<ImageCropPickerOptions>,

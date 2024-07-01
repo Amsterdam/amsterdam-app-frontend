@@ -1263,11 +1263,6 @@ PODS:
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
     - React-RCTImage
-  - RNSentry (5.20.0):
-    - hermes-engine
-    - React-Core
-    - React-hermes
-    - Sentry/HybridSDK (= 8.21.0)
   - RNSVG (14.2.0):
     - React-Core
   - SDWebImage (5.11.1):
@@ -1276,9 +1271,6 @@ PODS:
   - SDWebImageWebPCoder (0.8.5):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
-  - Sentry/HybridSDK (8.21.0):
-    - SentryPrivate (= 8.21.0)
-  - SentryPrivate (8.21.0)
   - SocketRocket (0.6.1)
   - TOCropViewController (2.7.4)
   - Yoga (1.14.0)
@@ -1361,7 +1353,6 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSVG (from `../node_modules/react-native-svg`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1385,8 +1376,6 @@ SPEC REPOS:
     - PromisesObjC
     - SDWebImage
     - SDWebImageWebPCoder
-    - Sentry
-    - SentryPrivate
     - SocketRocket
     - TOCropViewController
 
@@ -1532,8 +1521,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNSentry:
-    :path: "../node_modules/@sentry/react-native"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -1626,16 +1613,13 @@ SPEC CHECKSUMS:
   RNPermissions: cd09ba2d55b3838d47e6c2eb87fd606b213a8969
   RNReanimated: 5307ba390921b76ddf9c0aa69876916ad427a61f
   RNScreens: e842cdccb23c0a084bd6307f6fa83fd1c1738029
-  RNSentry: 5381e9284aec59a546e4a7d40e33ad0839b99c1e
   RNSVG: 963a95f1f5d512a13d11ffd50d351c87fb5c6890
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
-  Sentry: ebc12276bd17613a114ab359074096b6b3725203
-  SentryPrivate: d651efb234cf385ec9a1cdd3eff94b5e78a0e0fe
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   Yoga: 805bf71192903b20fc14babe48080582fee65a80
 
-PODFILE CHECKSUM: 9562f55d422380a7f814d5af72628be691675054
+PODFILE CHECKSUM: 6302142c5e5dd306823a326676bc1aff4183d81a
 
 COCOAPODS: 1.14.3

@@ -105,10 +105,6 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/notifee'),
           },
           {
-            find: '@sentry/react-native',
-            replacement: require.resolve('./mocks/sentry'),
-          },
-          {
             find: '@react-native-firebase/messaging',
             replacement: require.resolve('./mocks/firebase'),
           },

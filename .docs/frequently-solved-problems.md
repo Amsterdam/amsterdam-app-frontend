@@ -43,8 +43,6 @@ Occasionally, something will be cached outside of the build folder. To make sure
 
 #### Archive failed
 
-If you see something resembling `The following build commands failed: PhaseScriptExecution Upload\ Debug\ Symbols\ to\ Sentry`, it is just a connectivity issue. Run the build again.
-
 During the Fastlane `build_app` task:
 
 ```shell
@@ -69,29 +67,6 @@ adb install android/app/build/outputs/apk/dev/debug/app-dev-debug.apk
 
 #### Cannot connect to debugger
 If the app on your Android device cannot connect to the debugger (Flipper), run `adb reverse tcp:8081 tcp:8081`.
-
-## Sentry pod issue
-
-Installing the Sentry pod may result in an invalid syntax in `project.pbxproject` which will cause the build to fail on an unclear error.
-
-```
-SyntaxError: Expected "{" [...] but ";" found
-```
-
-The solution is to rewrite this:
-
-```
-{
-  value = D76C6CCC2729820200E1460A;
-  comment = ;
-},
-```
-
-To this:
-
-```
-  D76C6CCC2729820200E1460A,
-```
 
 ## iOS emails with "ITMS-91053: Missing API declaration"
 

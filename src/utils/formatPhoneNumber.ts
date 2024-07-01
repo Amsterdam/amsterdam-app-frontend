@@ -63,6 +63,6 @@ export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
     }
   }
 
-  // TODO How can we send this to Sentry? We can’t use our hook here.
+  // TODO Log this as exception
   return phoneNumber
 }

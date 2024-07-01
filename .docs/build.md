@@ -37,7 +37,6 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 
 #### Other/shared
 
-- `sentry.properties`: Sentry config and API key (for both iOS and Android)
 - `storybook-github-ssh`: SSH key to release the Storybook build to GitHub pages
 
 ## <a id="pipelines"></a>Azure DevOps Pipelines
