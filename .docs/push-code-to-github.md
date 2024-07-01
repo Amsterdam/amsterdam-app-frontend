@@ -1,8 +1,8 @@
 # Push code to GitHub
 
-We make our code available as open source: https://github.com/Amsterdam/amsterdam-app-frontend
+We make our code available as open source on GitHub: [https://github.com/Amsterdam/amsterdam-app-frontend](https://github.com/Amsterdam/amsterdam-app-frontend)
 
-Publishing code as open source is a best practice and for the City of Amsterdam, GitHub is the place to do it. Because we want to keep the Azure DevOps repos as the source of truth, we have added a job to the build pipeline. This job automatically publishes the source code to GitHub on every front end build.
+Publishing code as open source is a best practice. For the City of Amsterdam, GitHub is the place to do it. Because we want to keep the Azure DevOps repos as the source of truth, we have added a job to the build pipeline that automatically publishes the source code to GitHub on every front end build.
 
 ## Configuration
 
