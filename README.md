@@ -117,8 +117,8 @@ We use `detect-secrets` to scan the codebase for secrets. This results in a .sec
 More documentation can be found in the `.docs` folder:
 
 - [Build documentation](./.docs/build.md)
+- [Certificate pinning (security)](./.docs/certificate-pinning.md)
 - [Pushing code to GitHub](./.docs/push-code-to-github.md)
 - [Cache durations](./.docs/cache-durations.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
-- [Sentry](./.docs/sentry.md)
 - [Test automation](./.docs/test-automation.md)
