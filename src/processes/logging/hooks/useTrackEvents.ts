@@ -1,7 +1,7 @@
 import {useContext, useMemo} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {getTrackEvents} from '@/processes/logging/utils/getTrackEvents'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
 import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
 import {PiwikContext} from '@/providers/piwik.provider'
@@ -17,7 +17,6 @@ export type Params = Record<string, unknown>
 
 export const useTrackEvents = () => {
   const piwikInstance = useContext(PiwikContext)
-  const {sendSentryErrorLog} = useSentry()
   const route = navigationRef.isReady()
     ? navigationRef.getCurrentRoute()
     : undefined
@@ -25,11 +24,12 @@ export const useTrackEvents = () => {
     getCurrentModuleSlugFromNavigationRootState() ?? 'general'
 
   const appInsights = useAppInsights()
+  const trackException = useTrackException()
 
   return useMemo(
     () =>
       getTrackEvents(
-        sendSentryErrorLog,
+        trackException,
         suggestedCategory,
         appInsights,
         piwikInstance,
@@ -38,7 +38,7 @@ export const useTrackEvents = () => {
       ),
     [
       piwikInstance,
-      sendSentryErrorLog,
+      trackException,
       suggestedCategory,
       appInsights,
       route?.name,

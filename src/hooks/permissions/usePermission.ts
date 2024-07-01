@@ -7,8 +7,10 @@ import {
 } from 'react-native-permissions'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useSentry} from '@/processes/sentry/hooks/useSentry'
-import {SentryErrorLogKey} from '@/processes/sentry/types'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {
   selectIsPermissionGranted,
   setPermission,
@@ -35,7 +37,7 @@ const requestPermission = async (
 export const usePermission = (permission: Permissions) => {
   const hasPermission = useSelector(selectIsPermissionGranted(permission))
   const dispatch = useDispatch()
-  const {sendSentryErrorLog} = useSentry()
+  const trackException = useTrackException()
 
   const requestPermissionFn = useCallback(
     () =>
@@ -50,8 +52,8 @@ export const usePermission = (permission: Permissions) => {
           .catch((error: unknown) => {
             dispatch(setPermission({permission, granted: false}))
 
-            sendSentryErrorLog(
-              SentryErrorLogKey.updatePermission,
+            trackException(
+              ExceptionLogKey.updatePermission,
               'usePermission.ts',
               {error, permission, request: true},
             )
@@ -59,7 +61,7 @@ export const usePermission = (permission: Permissions) => {
             reject(error)
           })
       }),
-    [dispatch, permission, sendSentryErrorLog],
+    [dispatch, permission, trackException],
   )
 
   return {hasPermission, requestPermission: requestPermissionFn}

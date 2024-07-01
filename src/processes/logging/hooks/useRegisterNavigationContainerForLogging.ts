@@ -6,7 +6,8 @@ import {
 import {useRef, useCallback, useEffect, useContext} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'
-import {ErrorLogKey} from '@/processes/logging/types'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/createCustomDimensionsFromRouteParams'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {useAppInsights} from '@/providers/appinsights.provider'
@@ -21,6 +22,7 @@ export const useRegisterNavigationContainerForLogging = () => {
   const navigationStartTime = useRef<number>()
   const recentRouteKeys = useRef<string[]>([])
   const latestRoute = useRef<Route<string>>()
+  const trackException = useTrackException()
   const appInsights = useAppInsights()
 
   const piwikInstance = useContext(PiwikContext)
@@ -97,9 +99,10 @@ export const useRegisterNavigationContainerForLogging = () => {
                 },
               })
               .catch(() => {
-                appInsights.trackException({
-                  exception: new Error(ErrorLogKey.piwikTrackScreen),
-                })
+                trackException(
+                  ExceptionLogKey.piwikTrackScreen,
+                  'useRegisterNavigationContainerForLogging',
+                )
               })
           } else {
             devError('piwik not initialized')
@@ -128,7 +131,7 @@ export const useRegisterNavigationContainerForLogging = () => {
         navigationStartTime.current = undefined
       }
     },
-    [appInsights, piwikInstance, pushRecentRouteKey],
+    [appInsights, piwikInstance, pushRecentRouteKey, trackException],
   )
 
   /**

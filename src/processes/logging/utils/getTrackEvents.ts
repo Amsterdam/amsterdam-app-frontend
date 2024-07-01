@@ -3,11 +3,11 @@ import type {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError} from '@/processes/development'
 import {Params} from '@/processes/logging/hooks/useTrackEvents'
+import {ExceptionLogKey, TrackException} from '@/processes/logging/types'
 import {PiwikCategory, Piwik, PiwikDimension} from '@/processes/piwik/types'
 import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/createCustomDimensionsFromRouteParams'
 import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
-import {SendErrorLog, SentryErrorLogKey} from '@/processes/sentry/types'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
 
 const piwikDevError = () => devError('piwik not initialized')
@@ -15,7 +15,7 @@ const piwikDevError = () => devError('piwik not initialized')
 const FILENAME = 'useTrackEvents.ts'
 
 export const getTrackEvents = (
-  sendSentryErrorLog: SendErrorLog,
+  trackException: TrackException,
   suggestedCategory: PiwikCategory,
   appInsights: IApplicationInsights,
   piwikInstance?: PiwikProSdkType | null,
@@ -38,17 +38,13 @@ export const getTrackEvents = (
             value,
           })
           .catch(() => {
-            sendSentryErrorLog(
-              SentryErrorLogKey.piwikTrackCustomEvent,
-              FILENAME,
-              {
-                category,
-                action,
-                name,
-                path: routeName,
-                value,
-              },
-            )
+            trackException(ExceptionLogKey.piwikTrackCustomEvent, FILENAME, {
+              category,
+              action,
+              name,
+              path: routeName,
+              value,
+            })
           })
       : piwikDevError()
   },
@@ -65,7 +61,7 @@ export const getTrackEvents = (
             }),
           })
           .catch(() => {
-            sendSentryErrorLog(SentryErrorLogKey.piwikTrackOutlink, FILENAME, {
+            trackException(ExceptionLogKey.piwikTrackOutlink, FILENAME, {
               url,
             })
           })
@@ -92,7 +88,7 @@ export const getTrackEvents = (
             },
           })
           .catch(() => {
-            sendSentryErrorLog(SentryErrorLogKey.piwikTrackScreen, FILENAME, {
+            trackException(ExceptionLogKey.piwikTrackScreen, FILENAME, {
               path,
             })
           })
@@ -114,7 +110,7 @@ export const getTrackEvents = (
             customDimensions: getCustomDimensions(options?.customDimensions),
           })
           .catch(() => {
-            sendSentryErrorLog(SentryErrorLogKey.piwikTrackSearch, FILENAME)
+            trackException(ExceptionLogKey.piwikTrackSearch, FILENAME)
           })
       : piwikDevError()
   },
