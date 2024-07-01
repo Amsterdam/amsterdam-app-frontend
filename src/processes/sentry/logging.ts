@@ -4,32 +4,15 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
-import {addBreadcrumb, captureException, withScope} from '@sentry/react-native'
+import {captureException, withScope} from '@sentry/react-native'
 import {devLog} from '@/processes/development'
-import {
-  BreadcrumbCategory,
-  type CaptureBreadcrumb,
-  type SendErrorLog,
-} from '@/processes/sentry/types'
+import {type SendErrorLog} from '@/processes/sentry/types'
 import {
   getAllowedData,
   isExpectedError,
   isStatusCodeAllowedForLogging,
 } from '@/processes/sentry/utils'
 import {appInsights} from '@/providers/appinsights.provider'
-
-/**
- * Get the function to: add a breadcrumb to the stack trace in the error report
- */
-export const getCaptureSentryBreadcrumb =
-  (logData: boolean): CaptureBreadcrumb =>
-  (message, data, category = BreadcrumbCategory.default): void => {
-    addBreadcrumb({
-      message,
-      category,
-      data: logData ? data : undefined,
-    })
-  }
 
 /**
  * Get the function to: manually send an error to Sentry; to be used in catch statements and other error handling

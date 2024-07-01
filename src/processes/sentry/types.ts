@@ -50,6 +50,5 @@ export type SendErrorLog = <T extends SentryErrorLogKey>(
 ) => void
 
 export type SentryHandler = {
-  captureSentryBreadcrumb: CaptureBreadcrumb
   sendSentryErrorLog: SendErrorLog
 }

@@ -1,8 +1,5 @@
 import {useMemo} from 'react'
-import {
-  getCaptureSentryBreadcrumb,
-  getSendSentryErrorLog,
-} from '@/processes/sentry/logging'
+import {getSendSentryErrorLog} from '@/processes/sentry/logging'
 import {SentryHandler} from '@/processes/sentry/types'
 
 export {SentryErrorLogKey} from '@/processes/sentry/types'
@@ -12,28 +9,10 @@ export {SentryErrorLogKey} from '@/processes/sentry/types'
  * In this case, we log the message and category or filename by default and the additional data only if dangerouslyLogAdditionalDataAnyway is true.
  * Note: only use this if you HAVE TO and make sure you're not sending any personal data!
  */
-export const useSentry = (
-  dangerouslyOverrideConsent = false,
-  dangerouslyLogAdditionalDataAnyway = false,
-): SentryHandler => {
-  // TODO When we implement the consent feature (user data usage), we can get this from the Redux state and disable Sentry features depending on that setting.
-  const consent = true
-
-  return useMemo(() => {
-    if (consent || dangerouslyOverrideConsent) {
-      return {
-        captureSentryBreadcrumb: getCaptureSentryBreadcrumb(
-          consent || dangerouslyLogAdditionalDataAnyway,
-        ),
-        sendSentryErrorLog: getSendSentryErrorLog(
-          consent || dangerouslyLogAdditionalDataAnyway,
-        ),
-      }
-    }
-
-    return {
-      captureSentryBreadcrumb: () => null,
-      sendSentryErrorLog: () => null,
-    }
-  }, [consent, dangerouslyOverrideConsent, dangerouslyLogAdditionalDataAnyway])
-}
+export const useSentry = (): SentryHandler =>
+  useMemo(
+    () => ({
+      sendSentryErrorLog: getSendSentryErrorLog(true),
+    }),
+    [],
+  )

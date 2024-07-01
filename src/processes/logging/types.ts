@@ -3,7 +3,7 @@ export enum EventLogKey {
   internetConnection = 'Internet connection changed',
   nativeStartup = 'Native startup',
 }
-export enum ErrorLogKey {
+export enum ExceptionLogKey {
   coordinates = 'Failed to get coordinates to determine location',
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
@@ -23,7 +23,6 @@ export enum ErrorLogKey {
   redirectNotFound = 'Redirect not found',
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
-  sentryMiddleWareError = 'Sentry middleware logger failed',
   takingPhotoFailed = 'Taking photo failed',
   updatePermission = 'Update permission failed',
 }
