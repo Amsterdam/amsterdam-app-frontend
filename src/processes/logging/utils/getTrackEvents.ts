@@ -42,11 +42,20 @@ export const getTrackEvents = (
               category,
               action,
               name,
-              path: routeName,
+              routeName,
               value,
             })
           })
       : piwikDevError()
+    appInsights.trackEvent({
+      name: action,
+      properties: {
+        ...getCustomDimensions(dimensions, true),
+        value,
+        routeName,
+        category,
+      },
+    })
   },
   trackOutlink: (rawUrl, options) => {
     const url = sanitizeUrl(rawUrl)
@@ -66,6 +75,15 @@ export const getTrackEvents = (
             })
           })
       : piwikDevError()
+    appInsights.trackEvent({
+      name: 'outlink',
+      properties: {
+        ...getCustomDimensions(options?.customDimensions, true),
+        url,
+        routeName,
+        category: suggestedCategory,
+      },
+    })
   },
   trackScreen: path => {
     const name = path ?? routeName
@@ -113,5 +131,14 @@ export const getTrackEvents = (
             trackException(ExceptionLogKey.piwikTrackSearch, FILENAME)
           })
       : piwikDevError()
+    appInsights.trackEvent({
+      name: 'search',
+      properties: {
+        ...getCustomDimensions(options?.customDimensions, true),
+        keyword,
+        routeName,
+        category: suggestedCategory,
+      },
+    })
   },
 })
