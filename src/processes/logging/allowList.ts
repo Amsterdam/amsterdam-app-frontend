@@ -17,7 +17,7 @@ export const allowList = {
     'category',
     'action',
     'name',
-    'path',
+    'routeName',
     'value',
   ],
   [ExceptionLogKey.piwikTrackOutlink]: ['url'],
