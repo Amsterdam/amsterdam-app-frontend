@@ -1,4 +1,6 @@
-module.exports = {
+import {Config} from 'jest'
+
+const config: Config = {
   preset: 'react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
   setupFiles: [
@@ -54,3 +56,6 @@ module.exports = {
     APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD: '',
   },
 }
+
+// eslint-disable-next-line import/no-default-export
+export default config
