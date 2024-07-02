@@ -3,6 +3,11 @@
         "ms-azure-devops.azure-pipelines",
         "orta.vscode-jest",
         "dbaeumer.vscode-eslint",
-        "atabixsolutions.hephaestus"
+        "atabixsolutions.hephaestus",
+        "jingkaizhao.vscode-redux-devtools",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-dutch",
+        "sonarsource.sonarlint-vscode",
+        "pflannery.vscode-versionlens"
     ]
 }
