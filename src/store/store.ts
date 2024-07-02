@@ -36,6 +36,9 @@ const reducers = getReducers([
 const enhancers: StoreEnhancer[] = []
 
 if (__DEV__) {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore somehow required for the redux devtools
+  Symbol.asyncIterator ??= Symbol.for('Symbol.asyncIterator')
   require('react-native-get-random-values')
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const {devToolsEnhancer} = require('@redux-devtools/remote')
