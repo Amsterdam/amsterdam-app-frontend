@@ -26,4 +26,10 @@ const config = {
   },
 }
 
+/* redux-devtools-cli start */
+import('@redux-devtools/cli').then(({default: devtools}) => {
+  devtools({host: 'localhost', port: 8000, protocol: 'http'})
+})
+/* redux-devtools-cli end */
+
 module.exports = mergeConfig(getDefaultConfig(__dirname), config)

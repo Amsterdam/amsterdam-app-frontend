@@ -1,5 +1,7 @@
 {
     "files.associations": {
         "*.yml": "azure-pipelines"
-    }
+    },
+    "reduxdev.port": 8000,
+    "reduxdev.hostname": "localhost"
 }
