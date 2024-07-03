@@ -110,7 +110,7 @@ const config: StorybookConfig = {
           },
           {
             find: '@microsoft/applicationinsights-web',
-            replacement: require.resolve('./mocks/application-insights'),
+            replacement: require.resolve('./mocks/application-insights-web'),
           },
           ...aliases,
         ],
