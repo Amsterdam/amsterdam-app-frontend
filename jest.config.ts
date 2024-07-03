@@ -3,6 +3,12 @@ import {Config} from 'jest'
 const config: Config = {
   preset: 'react-native',
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleNameMapper: {
+    '@microsoft/applicationinsights-react-native':
+      '<rootDir>/.storybook/mocks/application-insights-react-native',
+    '@microsoft/applicationinsights-web':
+      '<rootDir>/.storybook/mocks/application-insights-web',
+  },
   setupFiles: [
     './.config/jest-init.js',
     '<rootDir>/node_modules/react-native-gesture-handler/jestSetup.js',
