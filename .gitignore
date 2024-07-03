@@ -5,7 +5,7 @@
 ios/builds/
 ios/build/
 ios/certs
-/ios/Pods/
+**/Pods/
 GoogleService-Info.plist
 GoogleService-Info-Test.plist
 GoogleService-Info-Prod.plist
@@ -29,7 +29,7 @@ DerivedData
 *.hmap
 *.ipa
 *.xcuserstate
-ios/.xcode.env.local
+**/.xcode.env.local
 IDEWorkspaceChecks.plist
 
 # Android
@@ -92,3 +92,11 @@ logs/
 # TypeScript/tsc-files
 tsconfig.tsbuildinfo
 tsconfig.*.json
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

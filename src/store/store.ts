@@ -64,8 +64,8 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     ...reducers,
   }),
-  middleware: getDefaultMiddleware => {
-    const middleware = getDefaultMiddleware({
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         warnAfter: 256,
@@ -73,16 +73,5 @@ export const store = configureStore({
       immutableCheck: {
         warnAfter: 256,
       },
-    }).concat([baseApi.middleware, reduxLoggerMiddleware])
-
-    if (__DEV__ && Platform.OS === 'android') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-      const createDebugger = require('redux-flipper').default
-
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
-      middleware.push(createDebugger())
-    }
-
-    return middleware
-  },
+    }).concat([baseApi.middleware, reduxLoggerMiddleware]),
 })
