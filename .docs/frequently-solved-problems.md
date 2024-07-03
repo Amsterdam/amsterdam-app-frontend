@@ -56,6 +56,7 @@ This will happen if in Xcode, in the list of "Supported Destinations" there are 
 ### Android specific
 
 #### Installation issues
+
 If `react-native run-android` can build the app, but cannot install the app on your device, then:
 
 1. Make sure there is no other version of the app installed on the device.
@@ -66,7 +67,8 @@ adb install android/app/build/outputs/apk/dev/debug/app-dev-debug.apk
 ```
 
 #### Cannot connect to debugger
-If the app on your Android device cannot connect to the debugger (Flipper), run `adb reverse tcp:8081 tcp:8081`.
+
+If the app on your Android device cannot connect to the debugger, run `adb reverse tcp:8081 tcp:8081`.
 
 ## iOS emails with "ITMS-91053: Missing API declaration"
 
