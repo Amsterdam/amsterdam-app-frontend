@@ -203,9 +203,6 @@ dependencies {
     // Firebase
     implementation 'com.google.firebase:firebase-core:9.6.1'
 
-    // Flipper
-    implementation("com.facebook.react:flipper-integration")
-
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
