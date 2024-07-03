@@ -1,4 +1,4 @@
-import {combineReducers, configureStore, StoreEnhancer} from '@reduxjs/toolkit'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {Platform} from 'react-native'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
@@ -33,33 +33,33 @@ const reducers = getReducers([
   ...getReduxConfigs(clientModules),
 ])
 
-const enhancers: StoreEnhancer[] = []
-
-if (__DEV__) {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore somehow required for the redux devtools
-  Symbol.asyncIterator ??= Symbol.for('Symbol.asyncIterator')
-  require('react-native-get-random-values')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const {devToolsEnhancer} = require('@redux-devtools/remote')
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  const {getDeviceNameSync} = require('react-native-device-info')
-
-  enhancers.push(
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-call
-    devToolsEnhancer({
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
-      name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
-      hostname: Platform.select({ios: 'localhost', android: '10.0.2.2'}),
-      port: 8000,
-      secure: false,
-      realtime: true,
-    }),
-  )
-}
-
 export const store = configureStore({
-  enhancers,
+  enhancers: enhancers => {
+    if (__DEV__) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore somehow required for the redux devtools
+      Symbol.asyncIterator ??= Symbol.for('Symbol.asyncIterator')
+      require('react-native-get-random-values')
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const {devToolsEnhancer} = require('@redux-devtools/remote')
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const {getDeviceNameSync} = require('react-native-device-info')
+
+      return enhancers.concat(
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        devToolsEnhancer({
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
+          name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
+          hostname: Platform.select({ios: 'localhost', android: '10.0.2.2'}),
+          port: 8000,
+          secure: false,
+          realtime: true,
+        }),
+      )
+    }
+
+    return enhancers
+  },
   reducer: combineReducers({
     [baseApi.reducerPath]: baseApi.reducer,
     ...reducers,

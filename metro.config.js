@@ -24,17 +24,17 @@ const config = {
     assetExts: defaultAssetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...defaultSourceExts, 'svg'],
   },
-}
+  server: {
+    enhanceMiddleware: (metroMiddleware, metroServer) => {
+      /* redux-devtools-cli start */
+      import('@redux-devtools/cli').then(({default: devtools}) => {
+        devtools({host: 'localhost', port: 8000, protocol: 'http'})
+      })
 
-/* redux-devtools-cli start */
-if (/start|^react-native$/.test(process.env.npm_lifecycle_script)) {
-  import('@redux-devtools/cli').then(({default: devtools}) => {
-    devtools({host: 'localhost', port: 8000, protocol: 'http'})
-  })
-} else {
-  // eslint-disable-next-line no-console
-  console.log('Not starting Redux DevTools')
+      /* redux-devtools-cli end */
+      return metroMiddleware
+    },
+  },
 }
-/* redux-devtools-cli end */
 
 module.exports = mergeConfig(getDefaultConfig(__dirname), config)
