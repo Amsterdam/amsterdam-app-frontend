@@ -7,6 +7,9 @@ steps:
   - script: npm run lint
     displayName: Run Linter
     condition: succeededOrFailed()
+  - script: npm run test:bundle
+    displayName: Run react-native bundle
+    condition: succeededOrFailed()
   - task: PublishTestResults@2
     displayName: "Publish Jest Unit Test Results"
     inputs:
