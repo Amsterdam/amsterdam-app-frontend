@@ -1,6 +1,7 @@
 export enum ModuleSlug {
   about = 'about',
   address = 'address',
+  'city-pass' = 'city-pass',
   'construction-work' = 'construction-work',
   'construction-work-editor' = 'construction-work-editor',
   'contact' = 'contact',

@@ -27,6 +27,7 @@ module.exports = {
     'patches',
     'pipelines',
     'storybook-static',
+    'coverage',
   ],
   rules: {
     'react-refresh/only-export-components': 'warn',

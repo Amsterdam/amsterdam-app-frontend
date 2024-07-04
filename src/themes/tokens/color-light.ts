@@ -27,6 +27,7 @@ export const lightColorTokens = {
       grey: baseColor.neutral.grey1,
       invalid: baseColor.support.invalid,
       white: baseColor.primary.white,
+      cityPass: baseColor.custom.purple1,
     },
   },
   control: {

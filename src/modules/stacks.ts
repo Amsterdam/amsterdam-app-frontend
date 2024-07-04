@@ -9,6 +9,13 @@ import {
   AddressStackParams,
 } from '@/modules/address/routes'
 import {addressModals} from '@/modules/address/screenConfig'
+import {CityPassStack} from '@/modules/city-pass/Stack'
+import {
+  CityPassModalParams,
+  CityPassRouteName,
+  CityPassStackParams,
+} from '@/modules/city-pass/routes'
+import {cityPassModals} from '@/modules/city-pass/screenConfig'
 import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
 import {
   ConstructionWorkRouteName,
@@ -80,6 +87,7 @@ import {devError} from '@/processes/development'
 export type ModuleRoutes =
   | AboutRouteName
   | AddressRouteName
+  | CityPassRouteName
   | ConstructionWorkRouteName
   | ConstructionWorkEditorRouteName
   | ContactRouteName
@@ -93,6 +101,7 @@ export type ModuleRoutes =
 
 export type ModuleStackParams = AboutStackParams &
   AddressStackParams &
+  CityPassStackParams &
   ConstructionWorkStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
@@ -107,6 +116,7 @@ export type ModuleStackParams = AboutStackParams &
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
   [ModuleSlug.address]: AddressStack,
+  [ModuleSlug['city-pass']]: CityPassStack,
   [ModuleSlug['construction-work']]: ConstructionWorkStack,
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
@@ -120,6 +130,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
 }
 
 export type ModalParams = AddressModalParams &
+  CityPassModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
   HomeModalParams &
@@ -130,6 +141,7 @@ export type ModalParams = AddressModalParams &
 
 export const modals: StackNavigationRoutes<RootStackParams> = {
   ...addressModals,
+  ...cityPassModals,
   ...constructionWorkModals,
   ...constructionWorkEditorModals,
   ...contactModals,

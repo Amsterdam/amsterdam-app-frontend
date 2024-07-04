@@ -5,6 +5,9 @@ export enum RedirectEndpointName {
 export enum RedirectKey {
   acknowledgeChild = 'acknowledgeChild',
   birth = 'birth',
+  cityPassChildBudget = 'cityPassChildBudget',
+  cityPassRequest = 'cityPassRequest',
+  cityPassUsage = 'cityPassUsage',
   citypass = 'citypass',
   contactForm = 'contactForm',
   documents = 'documents',

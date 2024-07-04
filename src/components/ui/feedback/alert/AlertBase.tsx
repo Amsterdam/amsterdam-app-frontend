@@ -111,7 +111,7 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     backgroundColor: color.box.background.alert,
     borderColor: color.box.background.alert,
     borderWidth: 2,
-    iconName: 'alert',
+    iconName: 'info',
   },
   [AlertVariant.negative]: {
     backgroundColor: color.box.background.white,

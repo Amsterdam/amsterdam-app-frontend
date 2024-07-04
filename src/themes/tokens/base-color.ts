@@ -31,6 +31,7 @@ export const baseColor = {
   },
   custom: {
     grey1: '#f3f5f7',
+    purple1: '#A00078',
   },
   transparent: {
     white30: '#ffffff4c',
