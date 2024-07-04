@@ -23,6 +23,10 @@ export type BoxProps = {
    */
   inset?: keyof SpacingTokens
   /**
+   * The amount of inner spacing at the end of ltr
+   */
+  insetBottom?: keyof SpacingTokens
+  /**
    * The amount of inner spacing at the left and right.
    */
   insetHorizontal?: keyof SpacingTokens
@@ -34,6 +38,10 @@ export type BoxProps = {
    * The amount of inner spacing at the top and bottom.
    */
   insetVertical?: keyof SpacingTokens
+  /**
+   *
+   */
+  variant?: 'default' | 'city-pass'
 } & Omit<ViewProps, 'style'>
 
 /**
@@ -49,8 +57,10 @@ export const Box = memo(
     grow,
     inset = 'md',
     insetHorizontal,
-    insetTop,
     insetVertical,
+    insetTop,
+    insetBottom,
+    variant,
     ...viewProps
   }: BoxProps) => {
     const styles = useThemable(
@@ -62,6 +72,8 @@ export const Box = memo(
         insetHorizontal,
         insetTop,
         insetVertical,
+        insetBottom,
+        variant,
       }),
     )
 
@@ -84,20 +96,31 @@ const createStyles =
     insetHorizontal,
     insetTop,
     insetVertical,
+    insetBottom,
+    variant,
   }: Partial<BoxProps>) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       box: {
-        backgroundColor: distinct ? color.box.background.white : undefined,
+        backgroundColor: distinct
+          ? color.box.background.white
+          : variant === 'city-pass'
+            ? color.box.background.cityPass
+            : undefined,
         borderColor: borderColor ? color.border[borderColor] : undefined,
         borderStyle,
         borderWidth: borderStyle ? 1 : undefined,
         padding:
-          inset && !insetHorizontal && !insetTop && !insetVertical
+          inset &&
+          !insetHorizontal &&
+          !insetTop &&
+          !insetBottom &&
+          !insetVertical
             ? size.spacing[inset]
             : 0,
         paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
         paddingTop: insetTop && size.spacing[insetTop],
+        paddingBottom: insetBottom && size.spacing[insetBottom],
         paddingVertical: insetVertical && size.spacing[insetVertical],
       },
     })
