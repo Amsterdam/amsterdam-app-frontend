@@ -1,6 +1,6 @@
-import {useEffect} from 'react'
+import {useEffect, useRef} from 'react'
 import {AppStateStatus} from 'react-native'
-import {AppLifecycle, useAppLifecycle} from 'react-native-applifecycle'
+import {AppLifecycle} from 'react-native-applifecycle'
 
 type AppStateHandlers = {
   onBackground?: () => void
@@ -14,26 +14,24 @@ export const useAppState = ({
   onForeground,
   onBackground,
   onInactive,
-}: AppStateHandlers = {}): AppStateStatus => {
-  const currentLifecycle = useAppLifecycle()
+}: AppStateHandlers = {}) => {
+  const cur = useRef('unknown' as AppStateStatus)
 
   useEffect(() => {
     const handleAppStateChange = (nextAppState: AppStateStatus): void => {
-      if (currentLifecycle !== 'active' && nextAppState === 'active') {
+      if (cur.current !== 'active' && nextAppState === 'active') {
         onForeground?.()
-      } else if (
-        currentLifecycle !== 'inactive' &&
-        nextAppState === 'inactive'
-      ) {
+      } else if (cur.current !== 'inactive' && nextAppState === 'inactive') {
         onInactive?.()
       } else if (
-        currentLifecycle !== 'background' &&
+        cur.current !== 'background' &&
         nextAppState === 'background'
       ) {
         onBackground?.()
       }
 
       onChange?.(nextAppState)
+      cur.current = nextAppState
     }
     const listener = AppLifecycle.addEventListener(
       'change',
@@ -41,7 +39,5 @@ export const useAppState = ({
     )
 
     return () => listener.remove()
-  }, [onChange, onForeground, onBackground, onInactive, currentLifecycle])
-
-  return currentLifecycle
+  }, [onChange, onForeground, onBackground, onInactive])
 }
