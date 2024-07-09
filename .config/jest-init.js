@@ -62,3 +62,7 @@ NativeModules.RNCNetInfo = {
   addListener: jest.fn(),
   removeListeners: jest.fn(),
 }
+
+jest.mock('react-native-applifecycle', () =>
+  require('react-native-applifecycle/jest/AppLifecycleMock'),
+)
