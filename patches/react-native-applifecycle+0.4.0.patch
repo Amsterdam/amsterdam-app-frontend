@@ -67,8 +67,7 @@ index 0000000..0d259dd
 +o/classes
 diff --git a/node_modules/react-native-applifecycle/android/build/.transforms/4dbf002bf78e2bf9cbbdfcfd3495be6e/transformed/classes/classes_dex/classes.dex b/node_modules/react-native-applifecycle/android/build/.transforms/4dbf002bf78e2bf9cbbdfcfd3495be6e/transformed/classes/classes_dex/classes.dex
 new file mode 100644
-index 0000000..a330a5a
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/.transforms/4dbf002bf78e2bf9cbbdfcfd3495be6e/transformed/classes/classes_dex/classes.dex differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/generated/source/buildConfig/debug/com/github/douglasjunior/reactNativeAppLifecycle/BuildConfig.java b/node_modules/react-native-applifecycle/android/build/generated/source/buildConfig/debug/com/github/douglasjunior/reactNativeAppLifecycle/BuildConfig.java
 new file mode 100644
 index 0000000..fdfc884
@@ -146,12 +145,10 @@ index 0000000..9e26dfe
 \ No newline at end of file
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/compile_library_classes_jar/debug/classes.jar b/node_modules/react-native-applifecycle/android/build/intermediates/compile_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..d341010
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/compile_library_classes_jar/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/compile_r_class_jar/debug/R.jar b/node_modules/react-native-applifecycle/android/build/intermediates/compile_r_class_jar/debug/R.jar
 new file mode 100644
-index 0000000..71e2f4c
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/compile_r_class_jar/debug/R.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/compile_symbol_list/debug/R.txt b/node_modules/react-native-applifecycle/android/build/intermediates/compile_symbol_list/debug/R.txt
 new file mode 100644
 index 0000000..e69de29
@@ -200,16 +197,13 @@ index 0000000..d798590
 \ No newline at end of file
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/AppLifecyclePackage.class b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/AppLifecyclePackage.class
 new file mode 100644
-index 0000000..3b4e783
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/AppLifecyclePackage.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/BuildConfig.class b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/BuildConfig.class
 new file mode 100644
-index 0000000..d3d1eb2
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/BuildConfig.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.class b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.class
 new file mode 100644
-index 0000000..5aa8dad
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/javac/debug/classes/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.class differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/local_only_symbol_list/debug/R-def.txt b/node_modules/react-native-applifecycle/android/build/intermediates/local_only_symbol_list/debug/R-def.txt
 new file mode 100644
 index 0000000..78ac5b8
@@ -255,8 +249,7 @@ index 0000000..0637a08
 \ No newline at end of file
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar b/node_modules/react-native-applifecycle/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar
 new file mode 100644
-index 0000000..b8ac718
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/intermediates/runtime_library_classes_jar/debug/classes.jar differ
+index 0000000..e69de29
 diff --git a/node_modules/react-native-applifecycle/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt b/node_modules/react-native-applifecycle/android/build/intermediates/symbol_list_with_package_name/debug/package-aware-r.txt
 new file mode 100644
 index 0000000..4a507a8
@@ -286,8 +279,50 @@ index 0000000..e0ea0f3
 +		INJECTED from /Users/rik/workspace/aapp_app_mobile/node_modules/react-native-applifecycle/android/src/main/AndroidManifest.xml
 diff --git a/node_modules/react-native-applifecycle/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin b/node_modules/react-native-applifecycle/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin
 new file mode 100644
-index 0000000..fa05fab
-Binary files /dev/null and b/node_modules/react-native-applifecycle/android/build/tmp/compileDebugJavaWithJavac/previous-compilation-data.bin differ
+index 0000000..e69de29
+diff --git a/node_modules/react-native-applifecycle/android/src/main/java/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.java b/node_modules/react-native-applifecycle/android/src/main/java/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.java
+index 61af9ec..2ec2143 100644
+--- a/node_modules/react-native-applifecycle/android/src/main/java/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.java
++++ b/node_modules/react-native-applifecycle/android/src/main/java/com/github/douglasjunior/reactNativeAppLifecycle/modules/AppLifecycleModule.java
+@@ -46,22 +46,26 @@ public class AppLifecycleModule extends BaseJavaModule implements DefaultLifecyc
+ 
+     @Override
+     public void initialize() {
+-        reactApplicationContext.getCurrentActivity().runOnUiThread(() ->
+-                ProcessLifecycleOwner
+-                        .get()
+-                        .getLifecycle()
+-                        .addObserver(AppLifecycleModule.this)
+-        );
++        if(reactApplicationContext.getCurrentActivity() != null) {  
++            reactApplicationContext.getCurrentActivity().runOnUiThread(() ->
++                    ProcessLifecycleOwner
++                            .get()
++                            .getLifecycle()
++                            .addObserver(AppLifecycleModule.this)
++            );
++        }
+     }
+ 
+     @Override
+     public void invalidate() {
+-        reactApplicationContext.getCurrentActivity().runOnUiThread(() ->
+-                ProcessLifecycleOwner
+-                        .get()
+-                        .getLifecycle()
+-                        .removeObserver(AppLifecycleModule.this)
+-        );
++        if(reactApplicationContext.getCurrentActivity() != null) {  
++            reactApplicationContext.getCurrentActivity().runOnUiThread(() ->
++                    ProcessLifecycleOwner
++                            .get()
++                            .getLifecycle()
++                            .removeObserver(AppLifecycleModule.this)
++            );
++        }
+     }
+ 
+     @NonNull
 diff --git a/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js b/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js
 index 94e79a9..917e219 100644
 --- a/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js
