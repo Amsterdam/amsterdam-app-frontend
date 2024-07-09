@@ -12,6 +12,7 @@ export const lightColorTokens = {
     pagination: baseColor.primary.blue,
     skeleton: baseColor.neutral.grey3,
     warning: baseColor.primary.red,
+    appSwitcher: baseColor.primary.red,
   },
   border: {
     default: baseColor.neutral.grey2,
