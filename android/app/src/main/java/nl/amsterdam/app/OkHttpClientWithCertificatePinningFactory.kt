@@ -21,6 +21,11 @@ class OkHttpClientWithCertificatePinningFactory : OkHttpClientFactory {
                 .add("test.app.amsterdam.nl", "sha256/lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=")
                 .add("acc.app.amsterdam.nl", "sha256/lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=")
                 .add("app.amsterdam.nl", "sha256/lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=")
+                // DigiCert Global Root G2
+                .add("ontw.app.amsterdam.nl", "sha256/i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=")
+                .add("test.app.amsterdam.nl", "sha256/i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=")
+                .add("acc.app.amsterdam.nl", "sha256/i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=")
+                .add("app.amsterdam.nl", "sha256/i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=")
                 // QuoVadis Global SSL ICA G2
                 .add("test.app.amsterdam.nl", "sha256/tYkfFN27P1GUjH5ME128BCg302dL2iwOYhz5wwFJb50=")
                 .add("acc.app.amsterdam.nl", "sha256/tYkfFN27P1GUjH5ME128BCg302dL2iwOYhz5wwFJb50=")
