@@ -323,19 +323,3 @@ index 61af9ec..2ec2143 100644
      }
  
      @NonNull
-diff --git a/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js b/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js
-index 94e79a9..917e219 100644
---- a/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js
-+++ b/node_modules/react-native-applifecycle/jest/AppLifecycleMock.js
-@@ -10,5 +10,10 @@ const AppLifecycle = {
- 
- module.exports = {
-   __esModule: true,
--  default: AppLifecycle,
-+  default: {
-+    AppLifecycle, 
-+    useAppLifecycle: jest.fn(),
-+  },
-+  useAppLifecycle: jest.fn(),
-+  AppLifecycle,
- };
