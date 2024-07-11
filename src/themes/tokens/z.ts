@@ -6,6 +6,7 @@ export const zTokens = {
   carouselSlideContent: 1,
   productTourTooltipWrapperParent: 1, // this should be lower than the value for `tooltip`, set this on a view higher in the component tree to prevent z index issues
   tooltip: 2,
+  appSwitcher: 10,
 }
 
 export type ZTokens = typeof zTokens
