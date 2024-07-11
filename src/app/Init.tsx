@@ -1,6 +1,5 @@
 import {type ReactNode} from 'react'
 import {AppInsights} from '@/app/init/AppInsights'
-import {AppSwitcher} from '@/app/init/AppSwitcher'
 import {CheckPermissions} from '@/app/init/CheckPermissions'
 import {DeviceRegistration} from '@/app/init/DeviceRegistration'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
@@ -22,7 +21,6 @@ export const Init = ({children}: Props) => {
       <LogGeneralAnalytics />
       <DeviceRegistration enabledModules={enabledModules} />
       <GetLocation />
-      <AppSwitcher />
 
       {enabledModules?.map(({PreRenderComponent, slug}) =>
         PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
