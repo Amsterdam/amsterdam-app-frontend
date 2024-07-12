@@ -1,5 +1,5 @@
 import {StyleSheet, View} from 'react-native'
-import {SwiperFlatListWithGestureHandler} from 'react-native-swiper-flatlist/WithGestureHandler'
+import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {PassOwner} from '@/modules/city-pass/types'
@@ -67,13 +67,19 @@ export const CityPassesSwiper = () => {
 
   return (
     <View style={styles.container}>
-      <SwiperFlatListWithGestureHandler
+      <SwiperFlatList
         data={list}
         paginationStyle={styles.pagination}
         paginationStyleItem={styles.paginationItem}
         paginationStyleItemActive={styles.paginationItemActive}
         paginationStyleItemInactive={styles.paginationItemInactive}
-        renderItem={({item}: CarouselItem) => <CityPass passOwner={item} />}
+        renderItem={({item, index}: CarouselItem) => (
+          <CityPass
+            index={index}
+            itemCount={list.length}
+            passOwner={item}
+          />
+        )}
         showPagination
       />
     </View>

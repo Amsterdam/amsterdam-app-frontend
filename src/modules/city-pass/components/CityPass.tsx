@@ -1,4 +1,5 @@
 import {StyleSheet, useWindowDimensions, View} from 'react-native'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
@@ -63,10 +64,12 @@ const cityPass = {
 }
 
 type Props = {
+  index: number
+  itemCount: number
   passOwner: PassOwner
 }
 
-export const CityPass = ({passOwner}: Props) => {
+export const CityPass = ({index, itemCount, passOwner}: Props) => {
   const {achternaam, initialen} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
   const passNumber = activePass?.pasnummer.toString() ?? '0'
@@ -79,49 +82,54 @@ export const CityPass = ({passOwner}: Props) => {
   return (
     <View style={styles.container}>
       <View style={styles.containerInner}>
-        <ScrollView style={styles.pass}>
-          <Column
-            grow={1}
-            gutter="md">
-            <View style={styles.passHeader}>
-              <Box>
-                <Logo />
-              </Box>
-            </View>
-            <View style={styles.passInner}>
-              <Column
-                grow={1}
-                gutter="md"
-                halign="center">
-                <Phrase
-                  emphasis="strong"
-                  testID="CityPassCityPassName">
-                  {initialen} {achternaam}
-                </Phrase>
-                <Column halign="center">
+        <ScrollView
+          accessibilityLabel={`De stadspas van ${initialen} ${achternaam} kan nu gescand worden. Stadspas ${passNumber}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessible
+          style={styles.pass}>
+          <HideFromAccessibility>
+            <Column
+              grow={1}
+              gutter="md">
+              <View style={styles.passHeader}>
+                <Box>
+                  <Logo />
+                </Box>
+              </View>
+              <View style={styles.passInner}>
+                <Column
+                  grow={1}
+                  gutter="md"
+                  halign="center">
+                  <Phrase
+                    emphasis="strong"
+                    testID="CityPassCityPassName">
+                    {initialen} {achternaam}
+                  </Phrase>
+                  <Column halign="center">
+                    <BarCode
+                      format="CODE128"
+                      value={passNumber}
+                      width={passWidth}
+                    />
+                    <View style={styles.passNumber}>
+                      <Phrase
+                        emphasis="strong"
+                        testID="CityPassCityPassPassNumber">
+                        {passNumber}
+                      </Phrase>
+                    </View>
+                  </Column>
                   <BarCode
-                    format="CODE128"
+                    format="QR"
                     value={passNumber}
-                    width={passWidth}
                   />
-                  <View style={styles.passNumber}>
-                    <Phrase
-                      emphasis="strong"
-                      testID="CityPassCityPassPassNumber">
-                      {passNumber}
-                    </Phrase>
-                  </View>
+                  <Paragraph textAlign="center">
+                    Geldig tot en met {formatDate(cityPass.expiry_date)}
+                  </Paragraph>
                 </Column>
-                <BarCode
-                  format="QR"
-                  value={passNumber}
-                />
-                <Paragraph textAlign="center">
-                  Geldig tot en met {formatDate(cityPass.expiry_date)}
-                </Paragraph>
-              </Column>
-            </View>
-          </Column>
+              </View>
+            </Column>
+          </HideFromAccessibility>
         </ScrollView>
       </View>
     </View>
