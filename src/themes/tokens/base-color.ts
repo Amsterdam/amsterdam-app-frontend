@@ -35,5 +35,6 @@ export const baseColor = {
   },
   transparent: {
     white30: '#ffffff4c',
+    black90: 'rgba(0, 0, 0, 0.9)',
   },
 } as const

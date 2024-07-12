@@ -1,3 +1,4 @@
+import {CityPasses} from '@/modules/city-pass/components/CityPasses'
 import {cityPassSlice} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
@@ -7,6 +8,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 export const cityPassModule: ModuleClientConfig = {
   logDimension: PiwikSessionDimension.cityPassModule,
   name: 'CityPassModule',
+  PreRenderComponent: CityPasses,
   reduxConfigs: [
     {
       key: ReduxKey.cityPass,

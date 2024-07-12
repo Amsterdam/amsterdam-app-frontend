@@ -6,7 +6,6 @@ import {
 } from '@/modules/city-pass/routes'
 import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
 import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
-import {ViewCityPassScreen} from '@/modules/city-pass/screens/ViewCityPass.screen'
 
 export const screenConfig: StackNavigationRoutes<
   CityPassStackParams,
@@ -22,13 +21,6 @@ export const screenConfig: StackNavigationRoutes<
   [CityPassRouteName.cityPassDetails]: {
     component: CityPassDetailsScreen,
     name: CityPassRouteName.cityPassDetails,
-    options: {
-      headerTitle: 'Stadspas',
-    },
-  },
-  [CityPassRouteName.cityPassView]: {
-    component: ViewCityPassScreen,
-    name: CityPassRouteName.cityPassView,
     options: {
       headerTitle: 'Stadspas',
     },

@@ -18,7 +18,7 @@ import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {resetCityPass} from '@/modules/city-pass/slice'
+import {resetCityPass, showCityPasses} from '@/modules/city-pass/slice'
 import {CityPass} from '@/modules/city-pass/types'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -174,7 +174,9 @@ export const DashboardScreen = () => {
             <Button
               iconName="city-pass"
               label={simplur`Laat mijn [pas|passen] zien${[cityPasses.length]}`}
-              onPress={() => navigate(CityPassRouteName.cityPassView)}
+              onPress={() => {
+                dispatch(showCityPasses())
+              }}
               testID="CityPassLogoutButton"
             />
             <Gutter height="sm" />
