@@ -49,9 +49,9 @@ RCTBridge *_bridge;
     }
 }
 
-- (void)secureViewWithImageAlignment:(nonnull NSDictionary *)source
-                           withScale:(nonnull NSNumber *)scale
-                 withBackgroundColor:(nonnull NSString *)backgroundColor 
+- (void)secureViewWithImage:(nonnull NSDictionary *)source
+                  withScale:(nonnull NSNumber *)scale
+        withBackgroundColor:(nonnull NSString *)backgroundColor 
 {
     [self disableBlockScreenshotFn];
     if (@available(iOS 13.0, *)) {
@@ -129,7 +129,7 @@ RCT_EXPORT_METHOD(enableBlockScreenshot:(nonnull NSDictionary *)data) {
     NSString *backgroundColor = data[@"backgroundColor"];
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self secureViewWithImageAlignment:source withScale:scale withBackgroundColor:backgroundColor];
+        [self secureViewWithImage:source withScale:scale withBackgroundColor:backgroundColor];
     });
 }
 
@@ -197,8 +197,6 @@ RCT_EXPORT_METHOD(removeEventListener) {
                       name:UIScreenCapturedDidChangeNotification
                     object:nil];
 }
-
-// Override required RCTEventEmitter methods if needed
 
 // Override method to specify which events to support
 - (NSArray<NSString *> *)supportedEvents {

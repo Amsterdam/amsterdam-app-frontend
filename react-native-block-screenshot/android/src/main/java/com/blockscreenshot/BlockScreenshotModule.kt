@@ -16,13 +16,6 @@ class BlockScreenshotModule internal constructor(reactContext: ReactApplicationC
     return NAME
   }
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
-  @ReactMethod
-  override fun multiply(a: Double, b: Double, promise: Promise) {
-    promise.resolve(a * b)
-  }
-
   @ReactMethod
   fun enableBlockScreenshot(promise: Promise) {
     val activity: Activity? = currentReactContext.currentActivity
