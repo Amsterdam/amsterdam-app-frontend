@@ -25,6 +25,7 @@ const config: Config = {
     '.husky',
     'logs',
     'patches',
+    'react-native-block-screenshot/lib',
   ],
   cacheDirectory: '.jest/cache',
   coverageReporters: ['cobertura'],
