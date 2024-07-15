@@ -1076,6 +1076,27 @@ PODS:
     - React-debug
   - react-native-barcode-creator (0.1.7):
     - React-Core
+  - react-native-block-screenshot (0.1.0):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - react-native-build-config (0.3.2):
     - React
   - react-native-geolocation-service (5.3.1):
@@ -1497,6 +1518,7 @@ DEPENDENCIES:
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - React-Mapbuffer (from `../node_modules/react-native/ReactCommon`)
   - react-native-barcode-creator (from `../node_modules/react-native-barcode-creator`)
+  - react-native-block-screenshot (from `../node_modules/react-native-block-screenshot`)
   - react-native-build-config (from `../node_modules/react-native-build-config`)
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
@@ -1635,6 +1657,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   react-native-barcode-creator:
     :path: "../node_modules/react-native-barcode-creator"
+  react-native-block-screenshot:
+    :path: "../node_modules/react-native-block-screenshot"
   react-native-build-config:
     :path: "../node_modules/react-native-build-config"
   react-native-geolocation-service:
@@ -1779,6 +1803,7 @@ SPEC CHECKSUMS:
   React-logger: fa92ba4d3a5d39ac450f59be2a3cec7b099f0304
   React-Mapbuffer: 9f68550e7c6839d01411ac8896aea5c868eff63a
   react-native-barcode-creator: a311a66cf233b58a3993dcf6902fb227399b7a87
+  react-native-block-screenshot: 8cdda461effa00b5f1a0a60cc1708ee9c62f44ca
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
