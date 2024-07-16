@@ -27,7 +27,7 @@ export const CityPasses = () => {
   return isCityPassesVisible ? (
     <Overlay
       backgroundColor={color.cityPass.overlay}
-      closeButtonWidth={DEFAULT_PASS_WIDTH}
+      closeButtonContainerWidth={DEFAULT_PASS_WIDTH}
       onClose={() => {
         dispatch(hideCityPasses())
       }}>

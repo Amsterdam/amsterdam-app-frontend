@@ -12,17 +12,22 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   backgroundColor: string
   children: ReactNode
-  closeButtonWidth?: number
+  /**
+   * Used to outline close-button on top of another component
+   */
+  closeButtonContainerWidth?: number
   onClose: () => void
 }
 
 export const Overlay = ({
   backgroundColor,
   children,
-  closeButtonWidth,
+  closeButtonContainerWidth,
   onClose,
 }: Props) => {
-  const styles = useThemable(theme => createStyles(theme, closeButtonWidth))
+  const styles = useThemable(theme =>
+    createStyles(theme, closeButtonContainerWidth),
+  )
 
   return (
     <Animated.View
@@ -60,7 +65,10 @@ export const Overlay = ({
   )
 }
 
-const createStyles = ({z}: Theme, closeButtonWidth: number | undefined) =>
+const createStyles = (
+  {z}: Theme,
+  closeButtonContainerWidth: number | undefined,
+) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -69,6 +77,6 @@ const createStyles = ({z}: Theme, closeButtonWidth: number | undefined) =>
       zIndex: z.overlay,
     },
     closeButtonInnerContainer: {
-      width: closeButtonWidth,
+      width: closeButtonContainerWidth,
     },
   })

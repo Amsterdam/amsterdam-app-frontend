@@ -48,4 +48,5 @@ export type PassOwner = {
     actief: boolean
     pasnummer: number
   }[]
+  voornaam: string
 }

@@ -33,10 +33,10 @@ export const lightColorTokens = {
   },
   cityPass: {
     overlay: baseColor.transparent.black90,
-    swiperPagination: 'rgba(156, 156, 156, 1)',
+    swiperPagination: baseColor.neutral.grey6,
     swiperPaginationItemActive: baseColor.primary.white,
-    swiperPaginationItemInactive: 'rgba(255, 255, 255, 0.3)',
-    passHeader: '#f2f2f2',
+    swiperPaginationItemInactive: baseColor.transparent.white30,
+    passHeader: baseColor.neutral.grey1,
   },
   control: {
     default: {
