@@ -40,3 +40,13 @@ export type PassType = {
   id: number
   naam: string
 }
+
+export type PassOwner = {
+  achternaam: string
+  initialen: string
+  passen: {
+    actief: boolean
+    pasnummer: number
+  }[]
+  voornaam: string
+}

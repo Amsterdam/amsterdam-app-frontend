@@ -1,5 +1,5 @@
 import {ReactNode} from 'react'
-import {HideFromAccessibility} from '@/components/ui/containers/HideFromAccessibility'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Row} from '@/components/ui/layout/Row'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {layoutStyles} from '@/styles/layoutStyles'

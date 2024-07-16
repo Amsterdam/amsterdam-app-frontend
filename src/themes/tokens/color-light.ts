@@ -5,6 +5,7 @@ export type ColorTokens = typeof lightColorTokens
 // TODO OMG Improve background tokens
 export const lightColorTokens = {
   background: {
+    appSwitcher: baseColor.primary.red,
     cutout: baseColor.primary.white,
     emphasis: baseColor.primary.blue,
     inactive: baseColor.neutral.grey4,
@@ -12,7 +13,6 @@ export const lightColorTokens = {
     pagination: baseColor.primary.blue,
     skeleton: baseColor.neutral.grey3,
     warning: baseColor.primary.red,
-    appSwitcher: baseColor.primary.red,
   },
   border: {
     default: baseColor.neutral.grey2,
@@ -30,6 +30,13 @@ export const lightColorTokens = {
       white: baseColor.primary.white,
       cityPass: baseColor.custom.purple1,
     },
+  },
+  cityPass: {
+    overlay: baseColor.transparent.black90,
+    swiperPagination: baseColor.neutral.grey6,
+    swiperPaginationItemActive: baseColor.primary.white,
+    swiperPaginationItemInactive: baseColor.transparent.white30,
+    passHeader: baseColor.neutral.grey1,
   },
   control: {
     default: {

@@ -60,9 +60,7 @@ export const ScreenBase = ({
           scrollViewStyle={styles.scrollView}
           trackScroll={trackScroll}
           {...wrapperProps}>
-          <ScreenInnerWrapper
-            hasBottomsheet={!!bottomSheet}
-            style={styles.content}>
+          <ScreenInnerWrapper style={styles.content}>
             {children}
           </ScreenInnerWrapper>
         </ScreenWrapper>

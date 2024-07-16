@@ -66,3 +66,16 @@ NativeModules.RNCNetInfo = {
 jest.mock('react-native-applifecycle/dist/AppLifecycle', () =>
   require('react-native-applifecycle/jest/AppLifecycleMock'),
 )
+
+jest.mock('react-native-orientation-locker', () => ({
+  addEventListener: jest.fn(),
+  removeEventListener: jest.fn(),
+  lockToPortrait: jest.fn(),
+  lockToLandscapeLeft: jest.fn(),
+  lockToLandscapeRight: jest.fn(),
+  unlockAllOrientations: jest.fn(),
+}))
+
+jest.mock('react-native-barcode-creator', () => ({
+  getConstants: jest.fn(),
+}))

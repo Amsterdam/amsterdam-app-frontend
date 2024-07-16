@@ -12,6 +12,9 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 
+// Needed by react-native-orientation-locker
+import org.wonday.orientation.OrientationActivityLifecycle;
+
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -42,5 +45,7 @@ class MainApplication : Application(), ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
     }
+    // Needed by react-native-orientation-locker
+    registerActivityLifecycleCallbacks(OrientationActivityLifecycle.getInstance())
   }
 }

@@ -14,6 +14,7 @@ export const baseColor = {
     grey3: '#b4b4b4',
     grey4: '#767676',
     grey5: '#323232',
+    grey6: '#9C9C9C',
   },
   support: {
     focus: '#fec813',
@@ -35,5 +36,6 @@ export const baseColor = {
   },
   transparent: {
     white30: '#ffffff4c',
+    black90: '#000000e6',
   },
 } as const
