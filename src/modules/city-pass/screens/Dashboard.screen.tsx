@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
-import simplur from 'simplur'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,8 +16,9 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {resetCityPass, showCityPasses} from '@/modules/city-pass/slice'
+import {resetCityPass} from '@/modules/city-pass/slice'
 import {CityPass} from '@/modules/city-pass/types'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -171,14 +171,7 @@ export const DashboardScreen = () => {
           </>
         ) : (
           <Column gutter="md">
-            <Button
-              iconName="city-pass"
-              label={simplur`Laat mijn [pas|passen] zien${[cityPasses.length]}`}
-              onPress={() => {
-                dispatch(showCityPasses())
-              }}
-              testID="CityPassLogoutButton"
-            />
+            <ShowCityPassButton passCount={cityPasses.length} />
             <Gutter height="sm" />
             {cityPasses.map(({eigenaar, pasnummer}) => (
               <CityPassCard

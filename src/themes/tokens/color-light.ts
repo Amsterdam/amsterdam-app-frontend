@@ -19,6 +19,7 @@ export const lightColorTokens = {
     onGrey: baseColor.neutral.grey3,
     invalid: baseColor.support.invalid,
     primary: baseColor.primary.blue,
+    cityPass: baseColor.custom.purple1,
   },
   box: {
     background: {
@@ -102,6 +103,7 @@ export const lightColorTokens = {
     default: baseColor.primary.black,
   },
   text: {
+    cityPass: baseColor.custom.purple1,
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
     link: baseColor.primary.blue,
