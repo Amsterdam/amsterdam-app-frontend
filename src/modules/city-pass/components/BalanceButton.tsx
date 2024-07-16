@@ -1,6 +1,7 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -26,18 +27,20 @@ export const BalanceButton = () => {
               gutter="md"
               valign="center">
               <BalanceSvg />
-              <Column>
-                <Phrase
-                  color="inverse"
-                  testID="CityPassBalanceButtonBalanceLabel">
-                  Saldo Kindtegoed
-                </Phrase>
-                <Title
-                  color="inverse"
-                  testID="CityPassBalanceButtonBalanceValue"
-                  text="€ 86,43"
-                />
-              </Column>
+              <SingleSelectable>
+                <Column>
+                  <Phrase
+                    color="inverse"
+                    testID="CityPassBalanceButtonBalanceLabel">
+                    Saldo Kindtegoed
+                  </Phrase>
+                  <Title
+                    color="inverse"
+                    testID="CityPassBalanceButtonBalanceValue"
+                    text="€ 86,43"
+                  />
+                </Column>
+              </SingleSelectable>
             </Row>
           </Box>
           <Box>
