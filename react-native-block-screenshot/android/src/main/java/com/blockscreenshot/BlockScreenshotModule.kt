@@ -2,6 +2,7 @@ package com.blockscreenshot
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactMethod
+import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.Promise
 import android.view.WindowManager;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ class BlockScreenshotModule internal constructor(reactContext: ReactApplicationC
   }
 
   @ReactMethod
-  fun enableBlockScreenshot(promise: Promise) {
+  override fun enableBlockScreenshot(params: ReadableMap, promise: Promise) {
     val activity: Activity? = currentReactContext.currentActivity
     if (activity != null) {
       activity.runOnUiThread {
@@ -30,7 +31,7 @@ class BlockScreenshotModule internal constructor(reactContext: ReactApplicationC
   }
 
   @ReactMethod
-  fun disableBlockScreenshot(promise: Promise) {
+  override fun disableBlockScreenshot(promise: Promise) {
     val activity: Activity? = currentReactContext.currentActivity
     if (activity != null) {
       activity.runOnUiThread {
