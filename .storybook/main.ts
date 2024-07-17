@@ -13,19 +13,19 @@ const aliases = Object.entries(
 }))
 
 const extensions = [
-  '.css',
-  '.jpg',
-  '.js',
-  '.json',
-  '.jsx',
-  '.png',
-  '.svg',
-  '.ts',
-  '.tsx',
   '.web.jsx',
   '.web.js',
-  '.web.ts',
   '.web.tsx',
+  '.web.ts',
+  '.jsx',
+  '.js',
+  '.tsx',
+  '.ts',
+  '.css',
+  '.jpg',
+  '.json',
+  '.png',
+  '.svg',
 ]
 
 const config: StorybookConfig = {
