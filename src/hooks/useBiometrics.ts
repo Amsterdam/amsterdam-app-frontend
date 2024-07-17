@@ -5,13 +5,31 @@ const rnBiometrics = new ReactNativeBiometrics()
 
 export const useBiometrics = ({
   autoTrigger = true,
-  cancelButtonText,
+  cancelButtonText = 'Annuleer',
   fallbackPromptMessage,
   promptMessage,
 }: {
+  /**
+   * trigger biometrics when the hook is called for the first time
+   * @default true
+   * @platform Android, iOS
+   */
   autoTrigger?: boolean
+  /**
+   * Text to be displayed for the cancel button on biometric prompts
+   * @default 'Annuleer''
+   * @platform Android
+   */
   cancelButtonText?: string
+  /**
+   * Message that will be shown when FaceID or TouchID has failed and a passcode has been set on the device.
+   * @platform iOS
+   */
   fallbackPromptMessage?: string
+  /**
+   * Message that will be displayed in the biometrics prompt
+   * @platform Android, iOS
+   */
   promptMessage: string
 }) => {
   const [authenticated, setAuthenticated] = useState(false)
