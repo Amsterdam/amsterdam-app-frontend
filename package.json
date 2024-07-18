@@ -29,6 +29,7 @@
     "typescript": "tsc"
   },
   "dependencies": {
+    "@adrianso/react-native-device-brightness": "^1.2.7",
     "@gorhom/bottom-sheet": "4.5.1",
     "@microsoft/applicationinsights-react-native": "^4.3.0",
     "@microsoft/applicationinsights-web": "^3.3.0",
