@@ -53,7 +53,6 @@ export const Size = ({
 const createStyles = (sizeProps: SizeProps) =>
   StyleSheet.create({
     view: {
-      backgroundColor: 'red',
       justifyContent: mapMainAxisAlignment(sizeProps.valign),
       ...sizeProps,
     },

@@ -19,19 +19,21 @@ export const CityPassDetailsScreen = () => {
       <Box grow>
         <Column gutter="lg">
           <Column halign="center">
-            <Title
-              testID="CityPassCityPassDetailsTitle"
-              text="Ryan"
-            />
-            <Phrase
-              emphasis="strong"
-              testID="CityPassCityPassDetailsSubtitle">
-              Huisman
-            </Phrase>
+            <SingleSelectable testID="CityPassCityPassDetailsName">
+              <Title
+                testID="CityPassCityPassDetailsTitle"
+                text="Ryan"
+              />
+              <Phrase
+                emphasis="strong"
+                testID="CityPassCityPassDetailsSubtitle">
+                Huisman
+              </Phrase>
+            </SingleSelectable>
           </Column>
           <ShowCityPassButton passCount={3} />
           <Column gutter="md">
-            <SingleSelectable>
+            <SingleSelectable testID="CityPassCityPassDetailsPassNumber">
               <Row
                 align="between"
                 gutter="md">
@@ -46,7 +48,7 @@ export const CityPassDetailsScreen = () => {
                 </Phrase>
               </Row>
             </SingleSelectable>
-            <SingleSelectable>
+            <SingleSelectable testID="CityPassCityPassDetailsSecurityCode">
               <Row
                 align="between"
                 gutter="md">
@@ -63,7 +65,7 @@ export const CityPassDetailsScreen = () => {
                 />
               </Row>
             </SingleSelectable>
-            <SingleSelectable>
+            <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
               <Row
                 align="between"
                 gutter="md">
