@@ -3,12 +3,15 @@ import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {BalanceButton} from '@/modules/city-pass/components/BalanceButton'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
+import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 export const CityPassDetailsScreen = () => {
@@ -81,8 +84,14 @@ export const CityPassDetailsScreen = () => {
             </SingleSelectable>
           </Column>
           <BalanceButton />
+          <Box insetTop="md">
+            <TransactionHistory />
+          </Box>
         </Column>
       </Box>
+      <FigureWithFacadesBackground testID="CityPassStartImage">
+        <SportsImage />
+      </FigureWithFacadesBackground>
     </CityPassLoginBoundaryScreen>
   )
 }

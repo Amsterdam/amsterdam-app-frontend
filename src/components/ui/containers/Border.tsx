@@ -6,10 +6,10 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   bottom?: boolean
   children: ReactNode
-  color: keyof Theme['color']['border']
+  color?: keyof Theme['color']['border']
   left?: boolean
   right?: boolean
-  size: keyof Theme['border']['width']
+  size?: keyof Theme['border']['width']
   top?: boolean
 }
 
@@ -21,7 +21,14 @@ export const Border = ({children, ...styleProps}: Props) => {
 
 const createStyles = (
   {color: themeColor, border}: Theme,
-  {bottom, color, left, right, size, top}: Omit<Props, 'children'>,
+  {
+    bottom,
+    color = 'default',
+    left,
+    right,
+    size = 'sm',
+    top,
+  }: Omit<Props, 'children'>,
 ) => {
   const noDirection = !(bottom || left || right || top)
 

@@ -50,3 +50,14 @@ export type PassOwner = {
   }[]
   voornaam: string
 }
+
+export type Transaction = {
+  aanbieder: {
+    id: number
+    naam: string
+  }
+  bedrag: number
+  id: number
+  omschrijving?: string
+  transactiedatum: string
+}
