@@ -4,13 +4,19 @@ import {
   CityPassRouteName,
   CityPassStackParams,
 } from '@/modules/city-pass/routes'
+import {BalanceScreen} from '@/modules/city-pass/screens/Balance.screen'
 import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
 import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
+import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
 
 export const screenConfig: StackNavigationRoutes<
   CityPassStackParams,
   CityPassRouteName
 > = {
+  [CityPassRouteName.balance]: {
+    component: BalanceScreen,
+    name: CityPassRouteName.balance,
+  },
   [CityPassRouteName.dashboard]: {
     component: DashboardScreen,
     name: CityPassRouteName.dashboard,
@@ -24,6 +30,10 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Stadspas',
     },
+  },
+  [CityPassRouteName.securityCode]: {
+    component: SecurityCodeScreen,
+    name: CityPassRouteName.securityCode,
   },
 }
 

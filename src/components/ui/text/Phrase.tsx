@@ -10,7 +10,7 @@ export type PhraseProps = {
   /**
    * Defines the color of the phrase. Maps with the text color tokens.
    */
-  color?: 'default' | 'inverse' | 'link' | 'secondary'
+  color?: keyof Theme['color']['text']
   /**
    * Allows the phrase to convey more emphasis.
    */
