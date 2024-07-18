@@ -6,10 +6,16 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {useBiometrics} from '@/hooks/useBiometrics'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 
 export const SecurityCodeScreen = () => {
   useSetScreenTitle('Ryan')
+  const {authenticated, authenticate} = useBiometrics({
+    promptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
+    cancelButtonText: 'Terug',
+    fallbackPromptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
+  })
 
   return (
     <CityPassLoginBoundaryScreen testID="CityPassSecurityCodeScreen">
@@ -23,11 +29,19 @@ export const SecurityCodeScreen = () => {
               text="Beveiligingscode"
             />
             <Row>
-              <Button
-                label="Toon"
-                testID="CityPassSecurityCodeButton"
-                variant="secondary"
-              />
+              {authenticated ? (
+                <Title
+                  level="h4"
+                  text="1234"
+                />
+              ) : (
+                <Button
+                  label="Toon"
+                  onPress={authenticate}
+                  testID="CityPassSecurityCodeButton"
+                  variant="secondary"
+                />
+              )}
             </Row>
             <Paragraph testID="CityPassSecurityCodeText">
               Deze code is strikt persoonlijk, deel deze niet met andere mensen.

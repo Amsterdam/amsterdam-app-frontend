@@ -45,9 +45,13 @@ export const useBiometrics = ({
           promptMessage,
         })
         .then(
-          () => {
-            setAuthenticated(true)
-            setFailed(false)
+          ({success}) => {
+            if (success) {
+              setAuthenticated(true)
+              setFailed(false)
+            } else {
+              setFailed(true)
+            }
           },
           () => {
             setFailed(true)
