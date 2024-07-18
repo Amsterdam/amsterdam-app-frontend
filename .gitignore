@@ -91,7 +91,6 @@ logs/
 
 # TypeScript/tsc-files
 tsconfig.tsbuildinfo
-tsconfig.*.json
 
 # Yarn
 .yarn/*

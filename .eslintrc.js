@@ -28,6 +28,7 @@ module.exports = {
     'pipelines',
     'storybook-static',
     'coverage',
+    'react-native-block-screenshot',
   ],
   rules: {
     'react-refresh/only-export-components': 'warn',

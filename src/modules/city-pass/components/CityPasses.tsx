@@ -3,6 +3,7 @@ import Orientation from 'react-native-orientation-locker'
 import {Overlay} from '@/components/ui/containers/Overlay'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {CityPassesSwiper} from '@/modules/city-pass/components/CityPassesSwiper'
 import {DEFAULT_PASS_WIDTH} from '@/modules/city-pass/constants'
 import {
@@ -23,6 +24,10 @@ export const CityPasses = () => {
       Orientation.unlockAllOrientations()
     }
   }, [isCityPassesVisible])
+
+  useBlockScreenshots({
+    enabled: isCityPassesVisible,
+  })
 
   return isCityPassesVisible ? (
     <Overlay

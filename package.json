@@ -58,6 +58,7 @@
     "react-native": "0.74.3",
     "react-native-applifecycle": "^0.4.0",
     "react-native-barcode-creator": "^0.1.7",
+    "react-native-block-screenshot": "file:./react-native-block-screenshot",
     "react-native-bootsplash": "^4.7.5",
     "react-native-build-config": "^0.3.2",
     "react-native-device-info": "^11.1.0",
