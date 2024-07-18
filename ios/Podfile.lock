@@ -1466,6 +1466,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - RNSecureStorage (3.0.1):
+    - React
   - RNSVG (14.2.0):
     - React-Core
   - SDWebImage (5.11.1):
@@ -1565,6 +1567,7 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - RNSecureStorage (from `../node_modules/rn-secure-storage`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - TrustKit
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
@@ -1751,6 +1754,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSecureStorage:
+    :path: "../node_modules/rn-secure-storage"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   Yoga:
@@ -1850,6 +1855,7 @@ SPEC CHECKSUMS:
   RNPermissions: cd09ba2d55b3838d47e6c2eb87fd606b213a8969
   RNReanimated: f9192536fa8a312c737eaf15c905f78831193ef1
   RNScreens: 5aeecbb09aa7285379b6e9f3c8a3c859bb16401c
+  RNSecureStorage: d7de7dd7321ae113a6f7dad1747a4992a20b4955
   RNSVG: 963a95f1f5d512a13d11ffd50d351c87fb5c6890
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
