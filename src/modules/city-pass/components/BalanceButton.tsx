@@ -18,9 +18,7 @@ export const BalanceButton = () => {
     <Pressable
       onPress={() => navigate(CityPassRouteName.balance)}
       testID="CityPassBalanceButton">
-      <Border
-        color="cityPass"
-        size="sm">
+      <Border color="cityPass">
         <Column>
           <Box variant="city-pass">
             <Row
