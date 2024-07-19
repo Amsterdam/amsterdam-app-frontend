@@ -74,6 +74,8 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Dit is nodig om locatiegebonden informatie te kunnen tonen.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Face ID kan nodig zijn wanneer wordt gevraagd om met biometrische gegevens te authenticeren.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot je foto’s om die te kunnen delen.</string>
 	<key>UIAppFonts</key>
