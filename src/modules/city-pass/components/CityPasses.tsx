@@ -4,6 +4,7 @@ import {Overlay} from '@/components/ui/containers/Overlay'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
+import {useBrightScreen} from '@/hooks/useBrightScreen'
 import {CityPassesSwiper} from '@/modules/city-pass/components/CityPassesSwiper'
 import {DEFAULT_PASS_WIDTH} from '@/modules/city-pass/constants'
 import {
@@ -26,6 +27,10 @@ export const CityPasses = () => {
   }, [isCityPassesVisible])
 
   useBlockScreenshots({
+    enabled: isCityPassesVisible,
+  })
+
+  useBrightScreen({
     enabled: isCityPassesVisible,
   })
 
