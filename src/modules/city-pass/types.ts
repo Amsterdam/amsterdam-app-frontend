@@ -1,31 +1,36 @@
+import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {RedirectKey} from '@/modules/redirects/types'
+
 export enum CityPassEndpointName {
   getCityPasses = 'getCityPasses',
 }
 
-export type CityPass = {
+export type CityPassBase = {
   actief: boolean
-  balance_update_time: Date
-  budgetten: Budget[]
-  budgetten_actief: boolean
+  budgetten: BudgetBase[]
   categorie: string
   categorie_code: string
-  eigenaar: string
-  expiry_date: Date
+  expiry_date: string
   id: number
-  originele_pas: OriginalPass
   pasnummer: number
   pasnummer_volledig: string
   passoort: PassType
 }
+export type CityPass = CityPassBase & {
+  balance_update_time: Date
+  budgetten_actief: boolean
+  eigenaar: string
+  originele_pas: OriginalPass
+}
 
-export type Budget = {
+export type Budget = BudgetBase & {
   budget_assigned: number
   budget_balance: number
-  code: string
-  expiry_date: Date
-  naam: string
+  expiry_date: string
   omschrijving: string
 }
+
+export type BudgetBase = {code: string; naam: string}
 
 export type OriginalPass = {
   categorie: string
@@ -44,20 +49,35 @@ export type PassType = {
 export type PassOwner = {
   achternaam: string
   initialen: string
-  passen: {
-    actief: boolean
-    pasnummer: number
-  }[]
+  passen: CityPassBase[]
   voornaam: string
 }
 
 export type Transaction = {
-  aanbieder: {
-    id: number
-    naam: string
-  }
+  aanbieder?: TransActionSupplier
   bedrag: number
+  budget?: TransactionBudget
   id: number
   omschrijving?: string
   transactiedatum: string
+}
+
+type TransactionBudget = {
+  aanbieder: TransActionSupplier
+  code: string
+  id: number
+  naam: string
+}
+
+type TransActionSupplier = {
+  id: number
+  naam: string
+}
+
+export type AboutBlock = {
+  icon: SvgIconName
+  redirectKey: RedirectKey
+  testID: string
+  text: string
+  title: string
 }

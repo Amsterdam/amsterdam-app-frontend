@@ -10,13 +10,20 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import BalanceSvg from '@/modules/city-pass/assets/balance.svg'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {Budget} from '@/modules/city-pass/types'
+import {formatNumber} from '@/utils/formatNumber'
 
-export const BalanceButton = () => {
+type Props = {
+  budget: Budget
+}
+
+export const BudgetBalanceButton = ({budget}: Props) => {
   const {navigate} = useNavigation()
+  const {budget_balance, omschrijving} = budget
 
   return (
     <Pressable
-      onPress={() => navigate(CityPassRouteName.balance)}
+      onPress={() => navigate(CityPassRouteName.budget, {budget})}
       testID="CityPassBalanceButton">
       <Border color="cityPass">
         <Column>
@@ -30,12 +37,12 @@ export const BalanceButton = () => {
                   <Phrase
                     color="inverse"
                     testID="CityPassBalanceButtonBalanceLabel">
-                    Saldo Kindtegoed
+                    {omschrijving}
                   </Phrase>
                   <Title
                     color="inverse"
                     testID="CityPassBalanceButtonBalanceValue"
-                    text="€ 86,43"
+                    text={formatNumber(budget_balance, true)}
                   />
                 </Column>
               </SingleSelectable>
