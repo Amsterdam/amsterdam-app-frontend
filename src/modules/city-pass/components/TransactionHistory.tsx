@@ -92,7 +92,7 @@ type TransactionsByDate = {
 
 const transactionsByDate = transactions?.reduce(
   (result: TransactionsByDate[], transaction) => {
-    const date = transaction.transactiedatum
+    const date = formatDate(transaction.transactiedatum)
     const section = result.find(s => s.date === date)
 
     if (section) {
@@ -129,7 +129,7 @@ const TransactionItem = ({transaction}: {transaction: Transaction}) => (
       <Phrase
         emphasis="strong"
         testID="">
-        {formatNumber(transaction.bedrag, {currency: 'EUR'})}
+        {formatNumber(transaction.bedrag, true)}
       </Phrase>
     </Row>
     {!!transaction.omschrijving && (
@@ -142,7 +142,7 @@ export const TransactionHistory = () => (
   <Column gutter="md">
     <Title text="Mijn acties" />
     <Paragraph>
-      {`In in totaal heb je ${formatNumber(103.95, {currency: 'EUR'})} bespaard. Deze informatie kan 1 dag achterlopen.`}
+      {`In in totaal heb je ${formatNumber(103.95, true)} bespaard. Deze informatie kan 1 dag achterlopen.`}
     </Paragraph>
     <Border bottom>
       <Box insetBottom="sm">
@@ -176,7 +176,7 @@ export const TransactionHistory = () => (
                 <Phrase
                   color="secondary"
                   testID="">
-                  {formatDate(dateGroup.date)}
+                  {dateGroup.date}
                 </Phrase>
                 {dateGroup.data.map(transaction => (
                   <TransactionItem
