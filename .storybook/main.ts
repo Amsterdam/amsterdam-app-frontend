@@ -85,6 +85,12 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/image-crop-picker'),
           },
           {
+            find: 'react-native-barcode-creator',
+            replacement: require.resolve(
+              './mocks/react-native-barcode-creator',
+            ),
+          },
+          {
             find: 'react-native-safe-area-context',
             replacement: require.resolve('./mocks/safe-area-context'),
           },
