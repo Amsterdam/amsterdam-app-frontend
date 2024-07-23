@@ -1,4 +1,5 @@
 package nl.amsterdam.app
+import expo.modules.ReactActivityDelegateWrapper
 
 // Needed by react-navigation:
 import android.os.Bundle
@@ -30,7 +31,7 @@ class MainActivity : ReactActivity() {
    * which allows you to enable New Architecture with a single boolean flags [fabricEnabled]
    */
   override fun createReactActivityDelegate(): ReactActivityDelegate =
-    DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled)
+    ReactActivityDelegateWrapper(this, BuildConfig.IS_NEW_ARCHITECTURE_ENABLED, DefaultReactActivityDelegate(this, mainComponentName, fabricEnabled))
 
   // Needed by react-navigation:
   override fun onCreate(savedInstanceState: Bundle?) {

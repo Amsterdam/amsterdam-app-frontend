@@ -14,7 +14,7 @@ export const SecurityCodeScreen = () => {
   const {authenticated, authenticate} = useBiometrics({
     promptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
     cancelButtonText: 'Terug',
-    fallbackPromptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
+    fallbackPromptMessage: 'Ontgrendel de beveiligingscode',
   })
 
   return (
