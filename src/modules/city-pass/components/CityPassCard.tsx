@@ -1,3 +1,4 @@
+import {title} from 'process'
 import {StyleSheet} from 'react-native'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -6,31 +7,39 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {cityPass} from '@/modules/city-pass/mocks/cityPass'
+import {PassOwner} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
+import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
-  text?: string
-  title: string
+  passOwner: PassOwner
 } & Omit<PressableProps, 'children' | 'variant'>
 
 export const CityPassCard = ({
   onPress,
-  text,
-  title,
+  passOwner,
   testID,
   accessibilityRole = 'button',
   ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
+  const activePass = passOwner.passen.find(({actief}) => actief === true)
+  const {voornaam} = passOwner
+  const budgets = cityPass.find(pass => pass.id === activePass?.id)?.budgetten
+  const budgetsBalance = budgets?.reduce(
+    (acc, budget) => acc + budget.budget_balance,
+    0,
+  )
+  const budgetsBalanceSentence = budgetsBalance
+    ? `Totaal saldo ${formatNumber(budgetsBalance, true)}`
+    : ''
 
   return (
     <Pressable
-      accessibilityLabel={accessibleText(
-        title,
-        typeof text === 'string' ? text : '',
-      )}
+      accessibilityLabel={accessibleText(title, budgetsBalanceSentence)}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       onPress={onPress}
@@ -43,7 +52,7 @@ export const CityPassCard = ({
         <Box insetTop="sm">
           <Icon
             color="link"
-            name="arrowTopRight"
+            name="city-pass"
             size="xl"
             testID={`${testID}Icon`}
           />
@@ -57,13 +66,21 @@ export const CityPassCard = ({
             color="link"
             level="h3"
             testID={`${testID}Title`}
-            text={title}
+            text="Stadspas details"
           />
-          <Paragraph
-            testID={`${testID}Text`}
-            variant="small">
-            {text}
-          </Paragraph>
+          <Title
+            color="link"
+            level="h3"
+            testID={`${testID}Name`}
+            text={voornaam}
+          />
+          {!!budgetsBalance && (
+            <Paragraph
+              testID={`${testID}Text`}
+              variant="small">
+              {budgetsBalanceSentence}
+            </Paragraph>
+          )}
         </Column>
         <Row valign="center">
           <Icon
