@@ -1,3 +1,4 @@
+require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 # Adjusted this following section as per instruction from react-native-permissions
 def node_require(script)
   # Resolve script with node to allow for hoisting
@@ -49,6 +50,14 @@ project 'AmsterdamApp',
         'DevRelease' => :release
 
 target 'AmsterdamApp' do
+  use_expo_modules!
+  post_integrate do |installer|
+    begin
+      expo_patch_react_imports!(installer)
+    rescue => e
+      Pod::UI.warn e
+    end
+  end
   pod 'React-RCTLinking', :path => '../node_modules/react-native/Libraries/LinkingIOS'
   config = use_native_modules!
 

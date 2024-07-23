@@ -1,7 +1,9 @@
+import {
+  authenticateAsync,
+  getEnrolledLevelAsync,
+  SecurityLevel,
+} from 'expo-local-authentication'
 import {useState, useCallback, useEffect} from 'react'
-import ReactNativeBiometrics from 'react-native-biometrics'
-
-const rnBiometrics = new ReactNativeBiometrics()
 
 export const useBiometrics = ({
   autoTrigger = true,
@@ -35,28 +37,26 @@ export const useBiometrics = ({
   const [authenticated, setAuthenticated] = useState(false)
   const [failed, setFailed] = useState(false)
   const authenticate = useCallback(async () => {
-    const {available} = await rnBiometrics.isSensorAvailable()
+    const enrolledLevel = await getEnrolledLevelAsync()
 
-    if (available) {
-      rnBiometrics
-        .simplePrompt({
-          cancelButtonText,
-          fallbackPromptMessage,
-          promptMessage,
-        })
-        .then(
-          ({success}) => {
-            if (success) {
-              setAuthenticated(true)
-              setFailed(false)
-            } else {
-              setFailed(true)
-            }
-          },
-          () => {
+    if (enrolledLevel !== SecurityLevel.NONE) {
+      authenticateAsync({
+        promptMessage,
+        fallbackLabel: fallbackPromptMessage,
+        cancelLabel: cancelButtonText,
+      }).then(
+        ({success}) => {
+          if (success) {
+            setAuthenticated(true)
+            setFailed(false)
+          } else {
             setFailed(true)
-          },
-        )
+          }
+        },
+        () => {
+          setFailed(true)
+        },
+      )
     } else {
       setFailed(false)
       setAuthenticated(true)

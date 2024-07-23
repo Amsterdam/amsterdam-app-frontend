@@ -17,6 +17,7 @@
 		BFEC3A0329826EB500C469AA /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */; };
 		BFEC3A0429826EB500C469AA /* AmsterdamSans-ExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */; };
 		D71BAD6826FA2FE7001B5972 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71BAD6726FA2FE7001B5972 /* File.swift */; };
+		E799C6585E4E37E592D6AA0A /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Regular.otf"; sourceTree = "<group>"; };
 		BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-Bold.otf"; sourceTree = "<group>"; };
 		BFEC3A0129826EB400C469AA /* AmsterdamSans-ExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmsterdamSans-ExtraBold.otf"; sourceTree = "<group>"; };
+		CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-AmsterdamApp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		D71BAD6726FA2FE7001B5972 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		DFC95A086219933539042EB5 /* Pods-AmsterdamApp.devdebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devdebug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devdebug.xcconfig"; sourceTree = "<group>"; };
 		E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = AmsterdamApp/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
@@ -52,6 +54,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1282CB287AC905AC9D161A12 /* AmsterdamApp */ = {
+			isa = PBXGroup;
+			children = (
+				CAD915A4441343B8B41BE39B /* ExpoModulesProvider.swift */,
+			);
+			name = AmsterdamApp;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* AmsterdamApp */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,6 +96,14 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		487490CE6783EF7714491E1C /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				1282CB287AC905AC9D161A12 /* AmsterdamApp */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		720F794A08B2E6964BBDB320 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -113,6 +131,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				720F794A08B2E6964BBDB320 /* Pods */,
 				33C66B9996D642ECB7D265F6 /* Resources */,
+				487490CE6783EF7714491E1C /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -135,6 +154,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "AmsterdamApp" */;
 			buildPhases = (
 				E84DB0D2D38D43C09664F989 /* [CP] Check Pods Manifest.lock */,
+				29C9520B1812E3E818EA5BB1 /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				314D4FA628A2BB480075F2FF /* Copy GoogleServices-Info.plist */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
@@ -217,6 +237,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		29C9520B1812E3E818EA5BB1 /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-AmsterdamApp/expo-configure-project.sh\"\n";
 		};
 		2F0A5DA56F1B77E9CFEDCC00 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -334,6 +373,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				D71BAD6826FA2FE7001B5972 /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				E799C6585E4E37E592D6AA0A /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,6 +469,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app;
 				PRODUCT_NAME = Amsterdam;
 				PROVISIONING_PROFILE_SPECIFIER = "amsterdam-app";
@@ -532,6 +573,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app;
 				PRODUCT_NAME = Amsterdam;
 				PROVISIONING_PROFILE = "";
@@ -718,6 +760,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app.dev;
 				PRODUCT_NAME = "Amsterdam test";
 				PROVISIONING_PROFILE_SPECIFIER = "amsterdam-app-test";
@@ -893,6 +936,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = nl.amsterdam.app.dev;
 				PRODUCT_NAME = "Amsterdam test";
 				PROVISIONING_PROFILE = "";
