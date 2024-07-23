@@ -23,7 +23,6 @@ export const PassOwners = ({logout}: Props) => {
   const passOwnersWithActivePass = passOwners.filter(({passen}) =>
     passen.some(({actief}) => actief === true),
   )
-  const passes = passOwnersWithActivePass.flatMap(({passen}) => passen)
   const openRedirect = useOpenRedirect()
 
   return (
@@ -31,12 +30,12 @@ export const PassOwners = ({logout}: Props) => {
       insetBottom="xl"
       insetHorizontal="md"
       insetTop="md">
-      {passes.some(({actief}) => actief === true) ? (
+      {passOwnersWithActivePass.length ? (
         <Column gutter="md">
           <ShowCityPassButton passCount={passOwnersWithActivePass.length} />
           <Gutter height="sm" />
           {passOwnersWithActivePass.map(passOwner => {
-            const {id, voornaam} = passOwner
+            const {id} = passOwner
 
             return (
               <CityPassCard
@@ -46,8 +45,8 @@ export const PassOwners = ({logout}: Props) => {
                     passOwner,
                   })
                 }
+                passOwner={passOwner}
                 testID={`CityPassOwnerButton-${id}`}
-                title={`Stadspas details van ${voornaam}`}
               />
             )
           })}

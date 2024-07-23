@@ -6,7 +6,7 @@ import {useRoute} from '@/hooks/navigation/useRoute'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
-import {transactions} from '@/modules/city-pass/mocks/transactions'
+import {budgetTransactions} from '@/modules/city-pass/mocks/budgetTransactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatNumber} from '@/utils/formatNumber'
@@ -14,7 +14,7 @@ import {formatNumber} from '@/utils/formatNumber'
 export const BudgetScreen = () => {
   const {
     params: {
-      budget: {budget_assigned, budget_balance, expiry_date, omschrijving},
+      budget: {budget_balance, budget_assigned, expiry_date, omschrijving},
     },
   } = useRoute<CityPassRouteName.budget>()
 
@@ -39,7 +39,7 @@ export const BudgetScreen = () => {
             <Paragraph>{`Geldig tot en met ${formatDate(expiry_date)}.`}</Paragraph>
           </Column>
           <TransactionHistory
-            transactions={transactions.transacties}
+            transactions={budgetTransactions}
             type="budget"
           />
         </Column>

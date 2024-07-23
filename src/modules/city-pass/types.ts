@@ -23,14 +23,14 @@ export type CityPass = CityPassBase & {
   originele_pas: OriginalPass
 }
 
+export type BudgetBase = {code: string; naam: string}
+
 export type Budget = BudgetBase & {
   budget_assigned: number
   budget_balance: number
   expiry_date: string
   omschrijving: string
 }
-
-export type BudgetBase = {code: string; naam: string}
 
 export type OriginalPass = {
   categorie: string
