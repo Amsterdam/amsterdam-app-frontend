@@ -1,4 +1,5 @@
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
+import {AccessibilityInfo, Alert} from 'react-native'
 import Orientation from 'react-native-orientation-locker'
 import {Overlay} from '@/components/ui/containers/Overlay'
 import {useDispatch} from '@/hooks/redux/useDispatch'
@@ -26,8 +27,18 @@ export const CityPasses = () => {
     }
   }, [isCityPassesVisible])
 
+  const onScreenshot = useCallback(() => {
+    const screenshotMessage = 'Deze app staat geen screenshots toe'
+
+    Alert.alert(screenshotMessage)
+    AccessibilityInfo.announceForAccessibilityWithOptions(screenshotMessage, {
+      queue: true,
+    })
+  }, [])
+
   useBlockScreenshots({
     enabled: isCityPassesVisible,
+    onScreenshot,
   })
 
   useBrightScreen({
