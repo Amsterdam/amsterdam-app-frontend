@@ -14,7 +14,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import HouseholdWasteToContainerImage from '@/modules/city-pass/assets/city-pass.svg'
+import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {saveCityPass} from '@/modules/city-pass/slice'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -57,19 +57,13 @@ export const LoginScreen = () => {
       hasStickyAlert
       testID="CityPassDashboardScreen">
       <FigureWithFacadesBackground testID="CityPassStartImage">
-        <Row
-          align="center"
-          flex={1}
-          grow={1}
-          valign="center">
-          <HouseholdWasteToContainerImage />
-        </Row>
+        <CityPassImage />
       </FigureWithFacadesBackground>
       <Box>
         <Title text="Zet uw Stadspas in de app" />
         <Gutter height="sm" />
         <Paragraph>
-          Log eenmalig in met DigiD en zet uw Stadpas in de app. Daarna kunt u
+          Log eaenmalig in met DigiD en zet uw Stadpas in de app. Daarna kunt u
           de Stadspas gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
