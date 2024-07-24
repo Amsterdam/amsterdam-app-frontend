@@ -53,7 +53,6 @@ RCTBridge *_bridge;
                   withScale:(nonnull NSNumber *)scale
         withBackgroundColor:(nonnull NSString *)backgroundColor 
 {
-    [self disableBlockScreenshotFn];
     if (@available(iOS 13.0, *)) {
         if (!textField) {
             [self initTextField];
@@ -172,17 +171,25 @@ RCT_EXPORT_METHOD(disableBlockScreenshot) {
     return image;
 }
 
+// Declare an instance variable to store the observer
+id screenshotObserver;
+
 // Register screenshot event listener and emit events
 RCT_EXPORT_METHOD(addEventListener) {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
-    [center removeObserver:self
-                      name:UIApplicationUserDidTakeScreenshotNotification
-                    object:nil];
-    [center addObserverForName:UIApplicationUserDidTakeScreenshotNotification
-                        object:nil
-                         queue:mainQueue
-                    usingBlock:^(NSNotification *notification) {
+    
+    // Remove the existing observer if it exists
+    if (screenshotObserver) {
+        [center removeObserver:screenshotObserver];
+        screenshotObserver = nil;
+    }
+
+    // Add a new observer and store it in the instance variable
+    screenshotObserver = [center addObserverForName:UIApplicationUserDidTakeScreenshotNotification
+                                             object:nil
+                                              queue:mainQueue
+                                         usingBlock:^(NSNotification *notification) {
         [self sendEventWithName:@"onScreenshot" body:nil]; // Emit event to JavaScript
     }];
 }
@@ -190,12 +197,10 @@ RCT_EXPORT_METHOD(addEventListener) {
 RCT_EXPORT_METHOD(removeEventListener) {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
-    [center removeObserver:self
-                      name:UIApplicationUserDidTakeScreenshotNotification
-                    object:nil];
-    [center removeObserver:self
-                      name:UIScreenCapturedDidChangeNotification
-                    object:nil];
+     if (screenshotObserver) {
+        [center removeObserver:screenshotObserver];
+        screenshotObserver = nil;
+    }
 }
 
 // Override method to specify which events to support
