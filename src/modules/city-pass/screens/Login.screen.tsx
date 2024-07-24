@@ -63,7 +63,7 @@ export const LoginScreen = () => {
         <Title text="Zet uw Stadspas in de app" />
         <Gutter height="sm" />
         <Paragraph>
-          Log eaenmalig in met DigiD en zet uw Stadpas in de app. Daarna kunt u
+          Log eenmalig in met DigiD en zet uw Stadpas in de app. Daarna kunt u
           de Stadspas gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
