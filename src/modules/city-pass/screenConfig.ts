@@ -7,6 +7,7 @@ import {
 import {BudgetScreen} from '@/modules/city-pass/screens/Budget.screen'
 import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
 import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
+import {LogoutScreen} from '@/modules/city-pass/screens/Logout.screen'
 import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -29,6 +30,13 @@ export const screenConfig: StackNavigationRoutes<
     name: CityPassRouteName.cityPassDetails,
     options: {
       headerTitle: 'Stadspas',
+    },
+  },
+  [CityPassRouteName.cityPassLogout]: {
+    component: LogoutScreen,
+    name: CityPassRouteName.cityPassLogout,
+    options: {
+      headerTitle: 'Verwijderen',
     },
   },
   [CityPassRouteName.securityCode]: {
