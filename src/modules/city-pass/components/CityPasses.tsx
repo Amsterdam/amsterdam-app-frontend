@@ -28,7 +28,7 @@ export const CityPasses = () => {
   }, [isCityPassesVisible])
 
   const onScreenshot = useCallback(() => {
-    const screenshotMessage = 'Deze app staat geen screenshots toe'
+    const screenshotMessage = 'Dit scherm staat geen schermafdrukken toe'
 
     Alert.alert(screenshotMessage)
     AccessibilityInfo.announceForAccessibilityWithOptions(screenshotMessage, {

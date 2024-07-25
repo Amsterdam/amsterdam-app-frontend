@@ -58,23 +58,23 @@ export const disableBlockScreenshot = (): Promise<void> => {
   return BlockScreenshot.disableBlockScreenshot();
 };
 
-let eventListener: NativeEventEmitter;
+let eventListener: NativeEventEmitter | null;
 
 export const addEventListener = (callBack: () => void) => {
+  let remove = (): void => undefined;
   if (Platform.OS === 'ios') {
-    console.log('reg');
-    BlockScreenshot.addEventListener();
-    if (eventListener == null) {
+    if (!eventListener) {
+      BlockScreenshot.addEventListener();
       eventListener = new NativeEventEmitter(BlockScreenshot);
-      eventListener.addListener('onScreenshot', callBack);
     }
+    const add = eventListener.addListener('onScreenshot', callBack);
+    remove = add.remove;
   }
-  return removeEventListener;
-};
-
-export const removeEventListener = () => {
-  if (Platform.OS === 'ios') {
-    console.log('unreg');
-    BlockScreenshot.removeEventListener();
-  }
+  return () => {
+    remove();
+    if (eventListener?.listenerCount('onScreenshot') === 0) {
+      BlockScreenshot.removeEventListener();
+      eventListener = null;
+    }
+  };
 };

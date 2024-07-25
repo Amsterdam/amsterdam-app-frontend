@@ -1,3 +1,5 @@
+import {useCallback} from 'react'
+import {Alert, AccessibilityInfo} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
@@ -7,6 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useBiometrics} from '@/hooks/useBiometrics'
+import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 
 export const SecurityCodeScreen = () => {
@@ -15,6 +18,20 @@ export const SecurityCodeScreen = () => {
     promptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
     cancelButtonText: 'Terug',
     fallbackPromptMessage: 'Ontgrendel de beveiligingscode',
+  })
+
+  const onScreenshot = useCallback(() => {
+    const screenshotMessage = 'Dit scherm staat geen schermafdrukken toe'
+
+    Alert.alert(screenshotMessage)
+    AccessibilityInfo.announceForAccessibilityWithOptions(screenshotMessage, {
+      queue: true,
+    })
+  }, [])
+
+  useBlockScreenshots({
+    enabled: true,
+    onScreenshot,
   })
 
   return (
@@ -43,7 +60,9 @@ export const SecurityCodeScreen = () => {
                 />
               )}
             </Row>
-            <Paragraph testID="CityPassSecurityCodeText">
+            <Paragraph
+              testID="CityPassSecurityCodeText"
+              textAlign="center">
               Deze code is strikt persoonlijk, deel deze niet met andere mensen.
             </Paragraph>
           </Column>

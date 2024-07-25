@@ -8,6 +8,7 @@ export interface Spec extends TurboModule {
     source: ImageSourcePropType;
   }): Promise<void>;
   disableBlockScreenshot(): Promise<void>;
+  addEventListener(callback: () => void): () => void;
 }
 
 export default TurboModuleRegistry.getEnforcing<Spec>('BlockScreenshot');

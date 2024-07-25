@@ -25,9 +25,8 @@ export const useBlockScreenshots = ({
       })
     }
 
-    const unregister = onScreenshot
-      ? addEventListener(onScreenshot)
-      : () => null
+    const unregister =
+      onScreenshot && enabled ? addEventListener(onScreenshot) : () => null
 
     return () => {
       unregister()
