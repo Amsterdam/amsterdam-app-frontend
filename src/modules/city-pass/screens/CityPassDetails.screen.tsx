@@ -97,8 +97,7 @@ export const CityPassDetailsScreen = () => {
               </Row>
             </SingleSelectable>
           </Column>
-          {!!budgets?.length &&
-            budgets.map(budget => (
+          {budgets?.map(budget => (
               <BudgetBalanceButton
                 budget={budget}
                 key={budget.code}
