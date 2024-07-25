@@ -18,7 +18,7 @@ export const HeaderComponent = () => {
       icon={
         <Icon
           color="link"
-          name="city-pass"
+          name="city-pass-pass"
           size="lg"
           testID="HeaderCityPassIcon"
         />
