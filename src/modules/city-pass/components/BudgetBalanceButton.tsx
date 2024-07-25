@@ -19,7 +19,7 @@ type Props = {
 
 export const BudgetBalanceButton = ({budget}: Props) => {
   const {navigate} = useNavigation()
-  const {budget_balance, omschrijving} = budget
+  const {omschrijving, budget_balance} = budget
 
   return (
     <Pressable

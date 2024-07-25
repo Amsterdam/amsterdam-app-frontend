@@ -1,449 +1,76 @@
-const naam = 'Ander budget'
-const transactiedatum = '2020-10-05T04:01:01.0000'
+import {Transaction} from '@/modules/city-pass/types'
 
-export const transactions = {
-  number_of_items: 20,
-  total_items: 42,
-  transacties: [
-    {
+const omschrijving = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+
+export const transactions: Transaction[] = [
+  {
+    id: 1,
+    aanbieder: {
       id: 1,
-      transactiedatum,
-      bedrag: 17,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 0'},
-      },
+      naam: 'Over het IJ Festival',
     },
-    {
+    bedrag: 104.95,
+    omschrijving,
+    transactiedatum: '2024-06-10T04:01:01.0000',
+  },
+  {
+    id: 2,
+    aanbieder: {
       id: 2,
-      transactiedatum,
-      bedrag: 10,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 1'},
-      },
+      naam: 'Stedelijk Museum Amsterdam',
     },
-    {
+    bedrag: 22.5,
+    omschrijving,
+    transactiedatum: '2024-06-10T04:01:01.0000',
+  },
+  {
+    id: 3,
+    aanbieder: {
       id: 3,
-      transactiedatum,
-      bedrag: 1,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 2'},
-      },
+      naam: 'ARTIS',
     },
-    {
+    bedrag: 29.95,
+    omschrijving,
+    transactiedatum: '2024-06-04T04:01:01.0000',
+  },
+  {
+    id: 4,
+    aanbieder: {
       id: 4,
-      transactiedatum,
-      bedrag: 16,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 3'},
-      },
+      naam: 'NEMO Science Museum',
     },
-    {
+    bedrag: 27.5,
+    omschrijving,
+    transactiedatum: '2024-05-22T04:01:01.0000',
+  },
+  {
+    id: 5,
+    aanbieder: {
       id: 5,
-      transactiedatum,
-      bedrag: 17,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 4'},
-      },
+      naam: 'Eye Filmmuseum',
     },
-    {
-      id: 6,
-      transactiedatum,
-      bedrag: 19,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 5'},
-      },
+    bedrag: 11.5,
+    omschrijving,
+    transactiedatum: '2024-05-22T04:01:01.0000',
+  },
+  {
+    id: 6,
+    aanbieder: {
+      id: 2,
+      naam: 'Stedelijk Museum Amsterdam',
     },
-    {
-      id: 7,
-      transactiedatum,
-      bedrag: 11,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 6'},
-      },
+    bedrag: 22.5,
+    omschrijving,
+    transactiedatum: '2024-05-06T04:01:01.0000',
+  },
+  {
+    id: 7,
+    aanbieder: {
+      id: 3,
+      naam: 'ARTIS',
     },
-    {
-      id: 8,
-      transactiedatum,
-      bedrag: 7,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 7'},
-      },
-    },
-    {
-      id: 9,
-      transactiedatum,
-      bedrag: 7,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 8'},
-      },
-    },
-    {
-      id: 10,
-      transactiedatum,
-      bedrag: 13,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 9'},
-      },
-    },
-    {
-      id: 11,
-      transactiedatum,
-      bedrag: 19,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 10'},
-      },
-    },
-    {
-      id: 12,
-      transactiedatum,
-      bedrag: 9,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 11'},
-      },
-    },
-    {
-      id: 13,
-      transactiedatum,
-      bedrag: 10,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 12'},
-      },
-    },
-    {
-      id: 14,
-      transactiedatum,
-      bedrag: 10,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 13'},
-      },
-    },
-    {
-      id: 15,
-      transactiedatum,
-      bedrag: 8,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 14'},
-      },
-    },
-    {
-      id: 16,
-      transactiedatum,
-      bedrag: 8,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 15'},
-      },
-    },
-    {
-      id: 17,
-      transactiedatum,
-      bedrag: 2,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 16'},
-      },
-    },
-    {
-      id: 18,
-      transactiedatum,
-      bedrag: 15,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 17'},
-      },
-    },
-    {
-      id: 19,
-      transactiedatum,
-      bedrag: 6,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam,
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 18'},
-      },
-    },
-    {
-      id: 20,
-      transactiedatum,
-      bedrag: 6,
-      pashouder: {id: 1, hoofd_pashouder_id: 2},
-      pas: {
-        id: 2,
-        pasnummer: 6666666666666,
-        pasnummer_volledig: '66666666666666',
-        originele_pas: {
-          id: 1,
-          pasnummer: 66666666666666,
-          pasnummer_volledig: '66666666666666',
-        },
-      },
-      budget: {
-        id: 44,
-        code: 'GPAS05_19',
-        naam: 'Schoolactiviteiten',
-        aanbieder: {id: 222222, naam: 'Fietsenwinkel - B.V. 19'},
-      },
-    },
-  ],
-}
+    bedrag: 29.95,
+    omschrijving,
+    transactiedatum: '2024-02-16T04:01:01.0000',
+  },
+]

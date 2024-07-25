@@ -12,7 +12,7 @@ export const ShowCityPassButton = ({passCount}: Props) => {
 
   return (
     <Button
-      iconName="city-pass"
+      iconName="city-pass-pass"
       label={simplur`Laat mijn [pas|passen] zien${[passCount]}`}
       onPress={() => {
         dispatch(showCityPasses())
