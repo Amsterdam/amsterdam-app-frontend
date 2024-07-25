@@ -2,9 +2,11 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {NoInternetErrorFullScreen} from '@/components/ui/layout/NoInternetFullScreenError'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
@@ -13,6 +15,7 @@ import {
   useProjectDetailsQuery,
 } from '@/modules/construction-work/service'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
+import {selectIsInternetReachable} from '@/store/slices/internet'
 
 type Props = {
   id: number
@@ -56,12 +59,17 @@ export const ProjectNews = ({id, projectId}: Props) => {
   }, [article, id, markAsRead])
 
   const projectTitle = useSetScreenTitle(project?.title)
+  const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (articleIsLoading || projectIsLoading) {
     return <PleaseWait testID="ConstructionWorkNewsLoadingSpinner" />
   }
 
   if (!article || articleIsError) {
+    if (isInternetReachable === false) {
+      return <NoInternetErrorFullScreen />
+    }
+
     return (
       <FullScreenError
         backgroundVisible={false}

@@ -3,11 +3,14 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type InternetState = {
-  isConnected?: boolean
-  isInternetReachable?: boolean
+  isConnected: boolean | null
+  isInternetReachable: boolean | null
 }
 
-const initialState: InternetState = {}
+const initialState: InternetState = {
+  isConnected: null,
+  isInternetReachable: null,
+}
 
 export const internetSlice = createSlice({
   name: ReduxKey.internet,
@@ -15,9 +18,12 @@ export const internetSlice = createSlice({
   reducers: {
     setInternetState: (
       state,
-      {payload: internetState}: PayloadAction<InternetState>,
+      {
+        payload: {isConnected, isInternetReachable},
+      }: PayloadAction<InternetState>,
     ) => {
-      state = internetState
+      state.isConnected = isConnected
+      state.isInternetReachable = isInternetReachable
     },
   },
 })

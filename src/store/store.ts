@@ -52,7 +52,7 @@ export const store = configureStore({
         devToolsEnhancer({
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
           name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
-          hostname: Platform.select({ios: 'localhost', android: '10.0.2.2'}),
+          hostname: 'localhost',
           port: 8000,
           secure: false,
           realtime: true,

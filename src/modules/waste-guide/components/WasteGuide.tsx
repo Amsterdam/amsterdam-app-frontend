@@ -4,10 +4,12 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {NoInternetErrorFullScreen} from '@/components/ui/layout/NoInternetFullScreenError'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useIsFocusedOrNotAndroid} from '@/hooks/useIsFocusedOrNotAndroid'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
@@ -19,6 +21,7 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
+import {selectIsInternetReachable} from '@/store/slices/internet'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
@@ -41,6 +44,7 @@ export const WasteGuide = () => {
       ? {bagNummeraanduidingId: address.bagId}
       : skipToken,
   )
+  const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (isFetchingWasteGuide || isFetchingAddress || !hasValidAddress) {
     return (
@@ -72,6 +76,10 @@ export const WasteGuide = () => {
   }
 
   if (getWasteGuideIsError || !wasteGuide || !address) {
+    if (isInternetReachable === false) {
+      return <NoInternetErrorFullScreen />
+    }
+
     return (
       <FullScreenError
         buttonLabel="Ga terug"
