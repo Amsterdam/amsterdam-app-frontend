@@ -36,7 +36,7 @@ export const screenConfig: StackNavigationRoutes<
     component: LogoutScreen,
     name: CityPassRouteName.cityPassLogout,
     options: {
-      headerTitle: 'Verwijderen',
+      headerTitle: 'Uitloggen',
     },
   },
   [CityPassRouteName.securityCode]: {

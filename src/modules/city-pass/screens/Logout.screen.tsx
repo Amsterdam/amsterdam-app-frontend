@@ -38,11 +38,11 @@ export const LogoutScreen = ({navigation}: Props) => {
   return (
     <CityPassLoginBoundaryScreen testID="CityPassLogoutScreen">
       <Box>
-        <Title text="Weet je zeker dat je wilt uitloggen van de Stadspas in de app?" />
+        <Title text="Weet je zeker dat je wilt uitloggen?" />
         <Gutter height="sm" />
         <Paragraph>
           Als je meerdere passen hebt, worden die allemaal uitgelogd. Je kunt je
-          Stadspas altijd weer inloggen.
+          Stadspas altijd weer toevoegen door in te loggen.
         </Paragraph>
         <Gutter height="xl" />
         <Button
