@@ -22,7 +22,7 @@ export type SvgIconName =
   | 'circle'
   | 'city-office'
   | 'city-pass'
-  | 'cityPassPass'
+  | 'city-pass-pass'
   | 'clock'
   | 'close'
   | 'collaborate'
@@ -103,7 +103,7 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   'city-office': {
     path: 'M16 8c2.2 0 4-1.8 4-4s-1.8-4-4-4-4 1.8-4 4 1.8 4 4 4zm16 9v2h-2v13h-2v-2H4v2H2V19H0v-2h32zm-4 9v-5H4v5h24zM8 15V12.2c.1-1.7 1.5-3.1 3.2-3.2H20.5c1.8 0 3.3 1.4 3.4 3.2V15H8z',
   },
-  cityPassPass: {
+  'city-pass-pass': {
     path: 'M4 6C1.79086 6 0 7.79086 0 10V22C0 24.2091 1.79086 26 4 26H28C30.2091 26 32 24.2091 32 22V10C32 7.79086 30.2091 6 28 6H4ZM18.1818 10.5H11.0909V14.3182H15.4545L10 19.7727L12.6999 22.4726L18.1818 16.9906V21.4091H22V14.3182V10.5H18.1818Z',
   },
   'city-pass': {
