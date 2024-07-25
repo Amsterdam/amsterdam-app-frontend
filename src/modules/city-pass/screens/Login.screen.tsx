@@ -3,7 +3,6 @@ import {Alert} from 'react-native'
 import DigiD from '@/assets/icons/digid.svg'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
-import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
@@ -68,11 +67,7 @@ export const LoginScreen = () => {
         </Paragraph>
         <Gutter height="lg" />
         <Row gutter="sm">
-          <Pressable
-            onPress={login}
-            testID="CityPassDigiDIconPressable">
-            <DigiD />
-          </Pressable>
+          <DigiD />
           <Column
             grow={1}
             halign="stretch">
