@@ -18,7 +18,7 @@ export const NoInternetErrorFullScreen = () => {
         Image={NoInternetFigure}
         onPress={() => {
           if (Platform.OS === 'ios') {
-            void Linking.openURL('App-Prefs')
+            void Linking.openURL('App-Prefs:root')
           } else {
             void Linking.sendIntent('android.settings.SETTINGS')
           }
