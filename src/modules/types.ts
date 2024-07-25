@@ -47,6 +47,10 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   BadgeValue?: ElementType
   /**
+   * A component to show in the header of the Home screen.
+   */
+  HeaderComponent?: ElementType
+  /**
    * A component for preprocessing purposes at the app's root level.
    */
   PreRenderComponent?: ElementType
