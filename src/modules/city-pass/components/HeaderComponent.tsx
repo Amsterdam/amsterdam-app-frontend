@@ -14,17 +14,17 @@ export const HeaderComponent = () => {
 
   return (
     <IconButton
-      accessibilityLabel="Mijn profiel"
+      accessibilityLabel="Toon Stadspas"
       icon={
         <Icon
           color="link"
           name="city-pass"
           size="lg"
-          testID="HeaderUserIcon"
+          testID="HeaderCityPassIcon"
         />
       }
       onPress={() => dispatch(showCityPasses())}
-      testID="HeaderUserButton"
+      testID="HeaderCityPassButton"
     />
   )
 }
