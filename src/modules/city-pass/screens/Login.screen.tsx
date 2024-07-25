@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import DigiD from '@/assets/icons/digid.svg'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Pressable} from '@/components/ui/buttons/Pressable'
@@ -68,11 +69,13 @@ export const LoginScreen = () => {
         </Paragraph>
         <Gutter height="lg" />
         <Row gutter="sm">
-          <Pressable
-            onPress={login}
-            testID="CityPassDigiDIconPressable">
-            <DigiD />
-          </Pressable>
+          <HideFromAccessibility>
+            <Pressable
+              onPress={login}
+              testID="CityPassDigiDIconPressable">
+              <DigiD />
+            </Pressable>
+          </HideFromAccessibility>
           <Column
             grow={1}
             halign="stretch">
