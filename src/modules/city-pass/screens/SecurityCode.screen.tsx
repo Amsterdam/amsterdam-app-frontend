@@ -11,6 +11,7 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
 
 export const SecurityCodeScreen = () => {
   useSetScreenTitle('Ryan')
@@ -34,6 +35,8 @@ export const SecurityCodeScreen = () => {
     onScreenshot,
   })
 
+  const securityCode = 1234
+
   return (
     <CityPassLoginBoundaryScreen testID="CityPassSecurityCodeScreen">
       <Center grow>
@@ -48,8 +51,9 @@ export const SecurityCodeScreen = () => {
             <Row>
               {authenticated ? (
                 <Title
+                  accessibilityLabel={pronounceCharacters(securityCode)}
                   level="h4"
-                  text="1234"
+                  text={securityCode.toString()}
                 />
               ) : (
                 <Button
