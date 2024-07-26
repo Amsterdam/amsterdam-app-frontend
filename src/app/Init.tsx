@@ -1,4 +1,4 @@
-import {type ReactNode} from 'react'
+import {useCallback, type ReactNode} from 'react'
 import {AppInsights} from '@/app/init/AppInsights'
 import {CheckPermissions} from '@/app/init/CheckPermissions'
 import {DeviceRegistration} from '@/app/init/DeviceRegistration'
@@ -7,11 +7,26 @@ import {GetLocation} from '@/app/init/GetLocation'
 import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
 import {NoInternet} from '@/components/features/NoInternet'
 import {useModules} from '@/hooks/useModules'
+import {clientModules} from '@/modules/modules'
 
 type Props = {children: ReactNode}
 
 export const Init = ({children}: Props) => {
   const {enabledModules} = useModules()
+
+  const preRenderComponents = useCallback(() => {
+    const modulesWithPreRenderComponentBeforeServerModules =
+      clientModules.filter(m => m.PreRenderComponent?.renderBeforeServerModules)
+
+    const modules =
+      enabledModules ?? modulesWithPreRenderComponentBeforeServerModules
+
+    return modules.map(({PreRenderComponent, slug}) =>
+      PreRenderComponent?.Component ? (
+        <PreRenderComponent.Component key={slug} />
+      ) : null,
+    )
+  }, [enabledModules])
 
   return (
     <>
@@ -22,9 +37,7 @@ export const Init = ({children}: Props) => {
       <DeviceRegistration enabledModules={enabledModules} />
       <GetLocation />
 
-      {enabledModules?.map(({PreRenderComponent, slug}) =>
-        PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
-      )}
+      {preRenderComponents()}
       {children}
       <NoInternet />
     </>

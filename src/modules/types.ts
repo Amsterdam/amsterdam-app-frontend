@@ -52,8 +52,12 @@ export type ModuleClientConfig = BaseModuleConfig & {
   HeaderComponent?: ElementType
   /**
    * A component for preprocessing purposes at the app's root level.
+   * If `renderBeforeServerModules` is true, the component will be rendered before the server modules are fetched.
    */
-  PreRenderComponent?: ElementType
+  PreRenderComponent?: {
+    Component: ElementType
+    renderBeforeServerModules?: boolean
+  }
   /**
    * If true, the user is not allowed to disable the module in the settings.
    */
