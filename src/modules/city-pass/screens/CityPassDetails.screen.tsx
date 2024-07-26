@@ -1,3 +1,4 @@
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -56,10 +57,13 @@ export const CityPassDetailsScreen = () => {
               <Row
                 align="between"
                 gutter="md">
-                <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
-                  Pasnummer
-                </Phrase>
+                <HideFromAccessibility>
+                  <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
+                    Pasnummer
+                  </Phrase>
+                </HideFromAccessibility>
                 <Phrase
+                  accessibilityLabel={`Pasnummer ${stringGroupInto(pasnummer_volledig, 4)}`}
                   emphasis="strong"
                   selectable
                   testID="CityPassCityPassDetailsPassNumberValue">
@@ -71,11 +75,11 @@ export const CityPassDetailsScreen = () => {
               align="between"
               gutter="md"
               valign="center">
-              <Phrase
-                accessible={false}
-                testID="CityPassCityPassDetailsSecurityCodeLabel">
-                Beveiligingscode
-              </Phrase>
+              <HideFromAccessibility>
+                <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
+                  Beveiligingscode
+                </Phrase>
+              </HideFromAccessibility>
               <Button
                 accessibilityLabel="Toon beveiligingscode"
                 label="Toon"

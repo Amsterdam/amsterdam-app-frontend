@@ -46,10 +46,12 @@ const NoTransactions = () => (
 
 type TransactionItemProps = {
   transaction: Transaction
+  type: Props['type']
 }
 
 const TransactionItem = ({
   transaction: {aanbieder, bedrag, budget, omschrijving},
+  type,
 }: TransactionItemProps) => (
   <Column>
     <Row align="between">
@@ -59,6 +61,11 @@ const TransactionItem = ({
         {budget?.aanbieder?.naam ?? aanbieder?.naam}
       </Phrase>
       <Phrase
+        accessibilityLabel={
+          type === 'savings'
+            ? `${formatNumber(bedrag, true)} bespaard.`
+            : formatNumber(bedrag, true)
+        }
         emphasis="strong"
         testID="">
         {formatNumber(bedrag, true)}
@@ -99,25 +106,23 @@ export const TransactionHistory = ({transactions, type}: Props) => {
       )}
       <Border bottom>
         <Box insetBottom="sm">
-          {type === 'savings' && (
-            <SingleSelectable
-              accessibilityLabel="Hieronder volgt een overzicht van jouw acties"
-              accessibilityRole="header"
-              testID="CityPassTransactionHistoryTableHeader">
-              <Row align="between">
-                <Phrase
-                  emphasis="strong"
-                  testID="CityPassTransactionHistoryTableHeaderDescription">
-                  Omschrijving
-                </Phrase>
-                <Phrase
-                  emphasis="strong"
-                  testID="CityPassTransactionHistoryTableHeaderValue">
-                  Besparing
-                </Phrase>
-              </Row>
-            </SingleSelectable>
-          )}
+          <SingleSelectable
+            accessibilityLabel={`Hieronder volgt een overzicht van jouw ${type === 'savings' ? 'acties en het bedrag dat je bespaard hebt.' : 'betalingen en het bedrag dat je hebt uitgegeven.'}`}
+            accessibilityRole="header"
+            testID="CityPassTransactionHistoryTableHeader">
+            <Row align="between">
+              <Phrase
+                emphasis="strong"
+                testID="CityPassTransactionHistoryTableHeaderDescription">
+                Omschrijving
+              </Phrase>
+              <Phrase
+                emphasis="strong"
+                testID="CityPassTransactionHistoryTableHeaderValue">
+                {type === 'savings' ? 'Besparing' : 'Bedrag'}
+              </Phrase>
+            </Row>
+          </SingleSelectable>
         </Box>
       </Border>
       {transactionsByDate.length ? (
@@ -137,6 +142,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
                     <TransactionItem
                       key={transaction.id}
                       transaction={transaction}
+                      type={type}
                     />
                   ))}
                 </Column>
