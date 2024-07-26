@@ -36,6 +36,7 @@ export const BudgetBalanceButton = ({budget}: Props) => {
                 <Column>
                   <Phrase
                     color="inverse"
+                    emphasis="strong"
                     testID="CityPassBalanceButtonBalanceLabel">
                     {omschrijving}
                   </Phrase>
@@ -48,7 +49,9 @@ export const BudgetBalanceButton = ({budget}: Props) => {
               </SingleSelectable>
             </Row>
           </Box>
-          <Box>
+          <Box
+            insetHorizontal="md"
+            insetVertical="sm">
             <Row
               align="between"
               valign="center">

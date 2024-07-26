@@ -67,23 +67,25 @@ export const CityPassDetailsScreen = () => {
                 </Phrase>
               </Row>
             </SingleSelectable>
-            <SingleSelectable testID="CityPassCityPassDetailsSecurityCode">
-              <Row
-                align="between"
-                gutter="md">
-                <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
-                  Beveiligingscode
-                </Phrase>
-                <Button
-                  label="Toon"
-                  onPress={() => {
-                    navigate(CityPassRouteName.securityCode)
-                  }}
-                  testID="CityPassCityPassDetailsSecurityCodeButton"
-                  variant="secondary"
-                />
-              </Row>
-            </SingleSelectable>
+            <Row
+              align="between"
+              gutter="md"
+              valign="center">
+              <Phrase
+                accessible={false}
+                testID="CityPassCityPassDetailsSecurityCodeLabel">
+                Beveiligingscode
+              </Phrase>
+              <Button
+                accessibilityLabel="Toon beveiligingscode"
+                label="Toon"
+                onPress={() => {
+                  navigate(CityPassRouteName.securityCode)
+                }}
+                testID="CityPassCityPassDetailsSecurityCodeButton"
+                variant="secondary"
+              />
+            </Row>
             <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
               <Row
                 align="between"
