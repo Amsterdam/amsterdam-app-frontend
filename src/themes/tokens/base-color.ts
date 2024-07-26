@@ -37,5 +37,6 @@ export const baseColor = {
   transparent: {
     white30: '#ffffff4c',
     black90: '#000000e6',
+    grey50: '#46464680',
   },
 } as const
