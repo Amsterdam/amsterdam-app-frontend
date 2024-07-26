@@ -73,11 +73,9 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
   const {achternaam, initialen} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
   const passNumber = activePass?.pasnummer.toString() ?? '0'
-  const {width: windowWidth} = useWindowDimensions()
-  const passWidth = Math.min(windowWidth, DEFAULT_PASS_WIDTH)
-  const styles = useThemable(theme =>
-    createStyles(theme, passWidth, windowWidth),
-  )
+  const {width} = useWindowDimensions()
+  const passWidth = Math.min(width, DEFAULT_PASS_WIDTH)
+  const styles = useThemable(theme => createStyles(theme, passWidth, width))
 
   return (
     <View style={styles.container}>
@@ -136,14 +134,10 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
   )
 }
 
-const createStyles = (
-  {color, size}: Theme,
-  passWidth: number,
-  windowWidth: number,
-) =>
+const createStyles = ({color, size}: Theme, passWidth: number, width: number) =>
   StyleSheet.create({
     container: {
-      width: windowWidth,
+      width,
       justifyContent: 'flex-start',
       alignItems: 'center',
     },

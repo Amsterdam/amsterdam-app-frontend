@@ -8,7 +8,7 @@ import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
-import {passOwner as passOwnerMock} from '@/modules/city-pass/mocks/passOwner'
+import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 
@@ -18,11 +18,7 @@ type Props = {
 
 export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
-  const {sub_pashouders, ...pashouder} = passOwnerMock
-  const passOwners = [pashouder, ...sub_pashouders]
-  const passOwnersWithActivePass = passOwners.filter(({passen}) =>
-    passen.some(({actief}) => actief === true),
-  )
+  const {passOwnersWithActivePass} = usePassOwners()
   const openRedirect = useOpenRedirect()
 
   return (
