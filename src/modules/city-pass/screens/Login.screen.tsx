@@ -16,6 +16,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
+import {useAccessTokens} from '@/modules/city-pass/hooks/useAccessTokens'
 import {saveCityPass} from '@/modules/city-pass/slice'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -26,6 +27,10 @@ import {useAlert} from '@/store/slices/alert'
 export const LoginScreen = () => {
   const {setAlert} = useAlert()
   const dispatch = useDispatch()
+  const openWebUrl = useOpenWebUrl()
+
+  const {accessToken} = useAccessTokens() ?? {}
+
   const login = useCallback(() => {
     dispatch(saveCityPass('test'))
 
@@ -38,7 +43,15 @@ export const LoginScreen = () => {
       testID: 'CityPassLoggedInAlert',
     })
   }, [dispatch, setAlert])
-  const openWebUrl = useOpenWebUrl()
+
+  const loginMijnAmsterdam = useCallback(() => {
+    if (accessToken) {
+      openWebUrl(
+        `https://az-acc.mijn.amsterdam.nl/api/v1/services/amsapp/stadspas/login/${accessToken}`,
+      )
+    }
+  }, [accessToken, openWebUrl])
+
   const {data: redirectUrls} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
 
@@ -78,11 +91,17 @@ export const LoginScreen = () => {
           </HideFromAccessibility>
           <Column
             grow={1}
+            gutter="md"
             halign="stretch">
             <Button
               label="Inloggen met DigiD"
               onPress={login}
               testID="CityPassLoginButton"
+            />
+            <Button
+              label="Open Mijn Amsterdam"
+              onPress={loginMijnAmsterdam}
+              testID="CityPassLoginMijnAmsterdamButton"
             />
           </Column>
         </Row>
