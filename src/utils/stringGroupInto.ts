@@ -4,5 +4,14 @@
  * @param n number of characters to group into
  * @returns string
  */
-export const stringGroupInto = (str: string, n: number) =>
-  str.replace(new RegExp(`.{1,${n === 0 ? str.length : n}}`, 'g'), '$& ').trim()
+export const stringGroupInto = (str: string, n: number) => {
+  if (!str) {
+    return ''
+  }
+
+  if (!n) {
+    return str
+  }
+
+  return str.replace(new RegExp(`.{1,${n}}`, 'g'), '$& ').trim()
+}
