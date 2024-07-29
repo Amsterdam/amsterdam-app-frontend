@@ -3,6 +3,7 @@ import {appInsights} from '@/providers/appinsights.provider'
 
 export enum SecureItemKey {
   cityPassAccessToken = 'cityPassAccessToken',
+  cityPassAdministrationNumber = 'cityPassAdministrationNumber',
   cityPassRefreshToken = 'cityPassRefreshToken',
 }
 
