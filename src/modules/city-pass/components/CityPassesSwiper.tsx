@@ -74,15 +74,6 @@ export const CityPassesSwiper = () => {
         width={windowWidth}
       />
       <View style={styles.paginationContainer}>
-        {/* <Pagination
-          // paginationIndex={currentIndex}
-          paginationStyle={styles.pagination}
-          paginationStyleItem={styles.paginationItem}
-          paginationStyleItemActive={styles.paginationItemActive}
-          paginationStyleItemInactive={styles.paginationItemInactive}
-          scrollToIndex={({index}) => onPressPagination(index)}
-          size={list.length}
-        /> */}
         <Basic
           activeDotStyle={styles.paginationItemActive}
           containerStyle={styles.pagination}
