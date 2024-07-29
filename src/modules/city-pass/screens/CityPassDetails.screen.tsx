@@ -1,3 +1,4 @@
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -16,7 +17,9 @@ import {TransactionHistory} from '@/modules/city-pass/components/TransactionHist
 import {cityPass} from '@/modules/city-pass/mocks/cityPass'
 import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {CityPass} from '@/modules/city-pass/types'
 import {formatDate} from '@/utils/datetime/formatDate'
+import {stringGroupInto} from '@/utils/stringGroupInto'
 
 export const CityPassDetailsScreen = () => {
   const {
@@ -25,8 +28,8 @@ export const CityPassDetailsScreen = () => {
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
   const {navigate} = useNavigation()
-  const activePass = passen.find(pass => pass.actief)
-  const {expiry_date, pasnummer} = activePass ?? {}
+  const activePass = passen.find(pass => pass.actief) ?? ({} as CityPass) // There is always an active pass
+  const {expiry_date, pasnummer_volledig} = activePass
   const budgets = cityPass.find(
     pass => pass.pasnummer_volledig === activePass?.pasnummer_volledig,
   )?.budgetten
@@ -54,34 +57,39 @@ export const CityPassDetailsScreen = () => {
               <Row
                 align="between"
                 gutter="md">
-                <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
-                  Pasnummer
-                </Phrase>
+                <HideFromAccessibility>
+                  <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
+                    Pasnummer
+                  </Phrase>
+                </HideFromAccessibility>
                 <Phrase
+                  accessibilityLabel={`Pasnummer ${stringGroupInto(pasnummer_volledig, 4)}`}
                   emphasis="strong"
                   selectable
                   testID="CityPassCityPassDetailsPassNumberValue">
-                  {pasnummer}
+                  {stringGroupInto(pasnummer_volledig, 4)}
                 </Phrase>
               </Row>
             </SingleSelectable>
-            <SingleSelectable testID="CityPassCityPassDetailsSecurityCode">
-              <Row
-                align="between"
-                gutter="md">
+            <Row
+              align="between"
+              gutter="md"
+              valign="center">
+              <HideFromAccessibility>
                 <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
                   Beveiligingscode
                 </Phrase>
-                <Button
-                  label="Toon"
-                  onPress={() => {
-                    navigate(CityPassRouteName.securityCode)
-                  }}
-                  testID="CityPassCityPassDetailsSecurityCodeButton"
-                  variant="secondary"
-                />
-              </Row>
-            </SingleSelectable>
+              </HideFromAccessibility>
+              <Button
+                accessibilityLabel="Toon beveiligingscode"
+                label="Toon"
+                onPress={() => {
+                  navigate(CityPassRouteName.securityCode)
+                }}
+                testID="CityPassCityPassDetailsSecurityCodeButton"
+                variant="secondary"
+              />
+            </Row>
             <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
               <Row
                 align="between"
@@ -98,11 +106,11 @@ export const CityPassDetailsScreen = () => {
             </SingleSelectable>
           </Column>
           {budgets?.map(budget => (
-              <BudgetBalanceButton
-                budget={budget}
-                key={budget.code}
-              />
-            ))}
+            <BudgetBalanceButton
+              budget={budget}
+              key={budget.code}
+            />
+          ))}
           <Box insetTop="md">
             <TransactionHistory
               transactions={transactions}

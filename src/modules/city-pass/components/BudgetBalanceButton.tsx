@@ -1,7 +1,6 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -32,23 +31,24 @@ export const BudgetBalanceButton = ({budget}: Props) => {
               gutter="md"
               valign="center">
               <BalanceSvg />
-              <SingleSelectable>
-                <Column>
-                  <Phrase
-                    color="inverse"
-                    testID="CityPassBalanceButtonBalanceLabel">
-                    {omschrijving}
-                  </Phrase>
-                  <Title
-                    color="inverse"
-                    testID="CityPassBalanceButtonBalanceValue"
-                    text={formatNumber(budget_balance, true)}
-                  />
-                </Column>
-              </SingleSelectable>
+              <Column>
+                <Phrase
+                  color="inverse"
+                  emphasis="strong"
+                  testID="CityPassBalanceButtonBalanceLabel">
+                  {omschrijving}
+                </Phrase>
+                <Title
+                  color="inverse"
+                  testID="CityPassBalanceButtonBalanceValue"
+                  text={formatNumber(budget_balance, true)}
+                />
+              </Column>
             </Row>
           </Box>
-          <Box>
+          <Box
+            insetHorizontal="md"
+            insetVertical="sm">
             <Row
               align="between"
               valign="center">

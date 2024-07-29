@@ -15,6 +15,7 @@ import {PassOwner} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {formatDate} from '@/utils/datetime/formatDate'
+import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
 
@@ -72,18 +73,16 @@ type Props = {
 export const CityPass = ({index, itemCount, passOwner}: Props) => {
   const {achternaam, initialen} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
-  const passNumber = activePass?.pasnummer.toString() ?? '0'
-  const {width: windowWidth} = useWindowDimensions()
-  const passWidth = Math.min(windowWidth, DEFAULT_PASS_WIDTH)
-  const styles = useThemable(theme =>
-    createStyles(theme, passWidth, windowWidth),
-  )
+  const passNumber = activePass?.pasnummer_volledig ?? '0'
+  const {width} = useWindowDimensions()
+  const passWidth = Math.min(width, DEFAULT_PASS_WIDTH)
+  const styles = useThemable(theme => createStyles(theme, passWidth, width))
 
   return (
     <View style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
-          accessibilityLabel={`De stadspas van ${initialen} ${achternaam} kan nu gescand worden. Stadspas ${passNumber}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessibilityLabel={`De stadspas van ${initialen} ${achternaam} kan nu gescand worden. Stadspas ${stringGroupInto(passNumber, 4)}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
           accessible
           style={styles.pass}>
           <HideFromAccessibility>
@@ -115,7 +114,7 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
                       <Phrase
                         emphasis="strong"
                         testID="CityPassCityPassPassNumber">
-                        {passNumber}
+                        {stringGroupInto(passNumber, 4)}
                       </Phrase>
                     </View>
                   </Column>
@@ -136,20 +135,16 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
   )
 }
 
-const createStyles = (
-  {color, size}: Theme,
-  passWidth: number,
-  windowWidth: number,
-) =>
+const createStyles = ({color, size}: Theme, passWidth: number, width: number) =>
   StyleSheet.create({
     container: {
-      width: windowWidth,
+      width,
       justifyContent: 'flex-start',
       alignItems: 'center',
     },
     containerInner: {
-      overflow: 'hidden',
-      borderRadius: 10,
+      overflow: 'hidden', // to make sure the border radius is visible in all cases
+      borderRadius: PASS_BORDER_RADIUS,
     },
     pass: {
       backgroundColor: color.background.cutout,
