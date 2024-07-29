@@ -5,6 +5,7 @@ import {DeviceRegistration} from '@/app/init/DeviceRegistration'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
 import {GetLocation} from '@/app/init/GetLocation'
 import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
+import {PreRenderComponents} from '@/app/init/PreRenderComponents'
 import {NoInternet} from '@/components/features/NoInternet'
 import {useModules} from '@/hooks/useModules'
 
@@ -22,9 +23,7 @@ export const Init = ({children}: Props) => {
       <DeviceRegistration enabledModules={enabledModules} />
       <GetLocation />
 
-      {enabledModules?.map(({PreRenderComponent, slug}) =>
-        PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
-      )}
+      <PreRenderComponents enabledModules={enabledModules} />
       {children}
       <NoInternet />
     </>
