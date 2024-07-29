@@ -8,7 +8,6 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {ApiSlug} from '@/environment'
-import {CityPassEndpointName} from '@/modules/city-pass/types'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {devError, devInfo} from '@/processes/development'
 import {PrepareHeaders, AfterBaseQueryFn} from '@/services/types'
@@ -36,11 +35,6 @@ const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
 
   if (API_KEY) {
     headers.set('X-API-KEY', API_KEY)
-
-    // TODO: Remove this when the general API key is implemented on the backend for this endpoint
-    if (endpoint === CityPassEndpointName.getAccessToken) {
-      headers.set('X-API-KEY', '28170de1-4585-48fc-92e7-62d93176ed75')
-    }
   } else {
     devError('No API key in .env.')
   }

@@ -15,7 +15,9 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
+import {cityPassExternalLinks} from '@/modules/city-pass/external-links'
 import {useAccessTokens} from '@/modules/city-pass/hooks/useAccessTokens'
 import {saveCityPass} from '@/modules/city-pass/slice'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
@@ -31,7 +33,7 @@ export const LoginScreen = () => {
 
   const {accessToken} = useAccessTokens() ?? {}
 
-  const login = useCallback(() => {
+  const loginMock = useCallback(() => {
     dispatch(saveCityPass('test'))
 
     setAlert({
@@ -46,9 +48,7 @@ export const LoginScreen = () => {
 
   const loginMijnAmsterdam = useCallback(() => {
     if (accessToken) {
-      openWebUrl(
-        `https://az-acc.mijn.amsterdam.nl/api/v1/services/amsapp/stadspas/login/${accessToken}`,
-      )
+      openWebUrl(useUrlForEnv(cityPassExternalLinks) + accessToken)
     }
   }, [accessToken, openWebUrl])
 
@@ -84,7 +84,7 @@ export const LoginScreen = () => {
         <Row gutter="sm">
           <HideFromAccessibility>
             <Pressable
-              onPress={login}
+              onPress={loginMock}
               testID="CityPassDigiDIconPressable">
               <DigiD />
             </Pressable>
@@ -94,12 +94,12 @@ export const LoginScreen = () => {
             gutter="md"
             halign="stretch">
             <Button
-              label="Inloggen met DigiD"
-              onPress={login}
+              label="Inloggen met DigiD (Mock)"
+              onPress={loginMock}
               testID="CityPassLoginButton"
             />
             <Button
-              label="Open Mijn Amsterdam"
+              label="Inloggen Mijn Amsterdam"
               onPress={loginMijnAmsterdam}
               testID="CityPassLoginMijnAmsterdamButton"
             />
