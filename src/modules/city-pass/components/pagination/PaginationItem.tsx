@@ -1,0 +1,89 @@
+import React from 'react'
+import {StyleSheet, View} from 'react-native'
+import Animated, {
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle,
+} from 'react-native-reanimated'
+import type {PropsWithChildren} from 'react'
+import type {ViewStyle} from 'react-native'
+
+export type DotStyle = Omit<ViewStyle, 'width' | 'height'> & {
+  height?: number
+  width?: number
+}
+
+export const PaginationItem: React.FC<
+  PropsWithChildren<{
+    activeDotStyle?: DotStyle
+    animValue: Animated.SharedValue<number>
+    count: number
+    dotStyle?: DotStyle
+    horizontal?: boolean
+    index: number
+    size?: number
+  }>
+> = props => {
+  const {
+    animValue,
+    dotStyle,
+    activeDotStyle,
+    index,
+    count,
+    size,
+    horizontal,
+    children,
+  } = props
+
+  const defaultDotSize = 10
+
+  const sizes = {
+    width: size || dotStyle?.width || defaultDotSize,
+    height: size || dotStyle?.height || defaultDotSize,
+  }
+
+  const {width} = sizes
+  const {height} = sizes
+
+  const animStyle = useAnimatedStyle(() => {
+    const animatedSize = horizontal ? height : width
+    let inputRange = [index - 1, index, index + 1]
+    let outputRange = [-animatedSize, 0, animatedSize]
+
+    if (index === 0 && animValue?.value > count - 1) {
+      inputRange = [count - 1, count, count + 1]
+      outputRange = [-animatedSize, 0, animatedSize]
+    }
+
+    return {
+      transform: [
+        {
+          translateX: interpolate(
+            animValue?.value,
+            inputRange,
+            outputRange,
+            Extrapolate.CLAMP,
+          ),
+        },
+      ],
+    }
+  }, [animValue, index, count, horizontal])
+
+  return (
+    <View style={[{width, height}, styles.dot, dotStyle]}>
+      <Animated.View style={[styles.activeDot, animStyle, activeDotStyle]}>
+        {children}
+      </Animated.View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  dot: {
+    overflow: 'hidden',
+  },
+  activeDot: {
+    backgroundColor: 'black',
+    flex: 1,
+  },
+})

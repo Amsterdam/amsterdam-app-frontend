@@ -1,7 +1,13 @@
-import {StyleSheet, View} from 'react-native'
-import {SwiperFlatList} from 'react-native-swiper-flatlist'
+import React from 'react'
+import {StyleSheet, useWindowDimensions, View} from 'react-native'
+import {useSharedValue} from 'react-native-reanimated'
+import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
-import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
+import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
+import {
+  CITY_PASS_HEIGHT,
+  DEFAULT_PASS_WIDTH,
+} from '@/modules/city-pass/constants'
 import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
 import {PassOwner} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
@@ -17,15 +23,42 @@ type CarouselItem = {
 export const CityPassesSwiper = () => {
   const styles = useThemable(createStyles)
   const {passOwnersWithActivePass} = usePassOwners()
+  const {width: windowWidth} = useWindowDimensions()
+
+  const progress = useSharedValue<number>(0)
+
+  const ref = React.useRef<ICarouselInstance>(null)
+
+  const onPressPagination = (index: number) => {
+    ref.current?.scrollTo({
+      /**
+       * Calculate the difference between the current index and the target index
+       * to ensure that the carousel scrolls to the nearest index
+       */
+      count: index - progress.value,
+      animated: true,
+    })
+  }
+
+  const passWidth = Math.min(windowWidth * 0.8, DEFAULT_PASS_WIDTH)
 
   return (
     <View style={styles.container}>
-      <SwiperFlatList
+      <Carousel
         data={passOwnersWithActivePass}
-        paginationStyle={styles.pagination}
-        paginationStyleItem={styles.paginationItem}
-        paginationStyleItemActive={styles.paginationItemActive}
-        paginationStyleItemInactive={styles.paginationItemInactive}
+        loop={false}
+        mode="parallax"
+        modeConfig={{
+          parallaxScrollingScale: 1,
+          parallaxScrollingOffset: (windowWidth - passWidth) * 0.66,
+          parallaxAdjacentItemScale: 1,
+        }}
+        // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
+        onProgressChange={(_, absoluteProgress) => {
+          progress.value = absoluteProgress
+        }}
+        pagingEnabled
+        ref={ref}
         renderItem={({item, index}: CarouselItem) => (
           <CityPass
             index={index}
@@ -33,8 +66,32 @@ export const CityPassesSwiper = () => {
             passOwner={item}
           />
         )}
-        showPagination
+        snapEnabled
+        style={{
+          width: windowWidth,
+        }}
+        vertical={false}
+        width={windowWidth}
       />
+      <View style={styles.paginationContainer}>
+        {/* <Pagination
+          // paginationIndex={currentIndex}
+          paginationStyle={styles.pagination}
+          paginationStyleItem={styles.paginationItem}
+          paginationStyleItemActive={styles.paginationItemActive}
+          paginationStyleItemInactive={styles.paginationItemInactive}
+          scrollToIndex={({index}) => onPressPagination(index)}
+          size={list.length}
+        /> */}
+        <Basic
+          activeDotStyle={styles.paginationItemActive}
+          containerStyle={styles.pagination}
+          data={passOwnersWithActivePass}
+          dotStyle={styles.paginationItem}
+          onPress={onPressPagination}
+          progress={progress}
+        />
+      </View>
     </View>
   )
 }
@@ -43,6 +100,10 @@ const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
     container: {
       flexBasis: CITY_PASS_HEIGHT + PAGINATION_HEIGHT,
+    },
+    paginationContainer: {
+      height: PAGINATION_HEIGHT,
+      justifyContent: 'flex-end',
     },
     pagination: {
       borderRadius: 25,
@@ -55,11 +116,11 @@ const createStyles = ({color, size}: Theme) =>
       width: size.spacing.sm,
       height: size.spacing.sm,
       marginHorizontal: size.spacing.xs,
+      backgroundColor: color.cityPass.swiperPaginationItemInactive,
+      borderRadius: size.spacing.sm,
     },
     paginationItemActive: {
       backgroundColor: color.cityPass.swiperPaginationItemActive,
     },
-    paginationItemInactive: {
-      backgroundColor: color.cityPass.swiperPaginationItemInactive,
-    },
+    paginationItemInactive: {},
   })
