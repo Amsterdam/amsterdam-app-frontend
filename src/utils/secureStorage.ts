@@ -3,8 +3,8 @@ import {appInsights} from '@/providers/appinsights.provider'
 
 export enum SecureItemKey {
   cityPassAccessToken = 'cityPassAccessToken',
-  cityPassAdministrationNumber = 'cityPassAdministrationNumber',
   cityPassRefreshToken = 'cityPassRefreshToken',
+  cityPasses = 'cityPasses',
 }
 
 export const setSecureItem = (key: SecureItemKey, value: string) =>
