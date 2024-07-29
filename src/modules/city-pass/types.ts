@@ -87,3 +87,8 @@ export type AboutBlock = {
   text: string
   title: string
 }
+
+export enum LoginResult {
+  failed = 'mislukt',
+  success = 'gelukt',
+}
