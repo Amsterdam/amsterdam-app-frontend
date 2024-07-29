@@ -12,9 +12,10 @@ import {
   hideCityPasses,
   selectIsCityPassesVisible,
 } from '@/modules/city-pass/slice'
+import {ModuleClientConfig} from '@/modules/types'
 import {useTheme} from '@/themes/useTheme'
 
-export const CityPasses = () => {
+export const CityPasses: ModuleClientConfig['PreRenderComponent'] = () => {
   const dispatch = useDispatch()
   const isCityPassesVisible = useSelector(selectIsCityPassesVisible)
   const {color} = useTheme()
@@ -56,3 +57,5 @@ export const CityPasses = () => {
     </Overlay>
   ) : null
 }
+
+CityPasses.renderBeforeServerModules = true

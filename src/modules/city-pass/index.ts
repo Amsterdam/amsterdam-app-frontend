@@ -10,7 +10,7 @@ export const cityPassModule: ModuleClientConfig = {
   logDimension: PiwikSessionDimension.cityPassModule,
   name: 'CityPassModule',
   HeaderComponent,
-  PreRenderComponent: {Component: CityPasses, renderBeforeServerModules: true},
+  PreRenderComponent: CityPasses,
   reduxConfigs: [
     {
       key: ReduxKey.cityPass,

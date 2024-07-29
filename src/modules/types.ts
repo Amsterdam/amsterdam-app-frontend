@@ -1,5 +1,5 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
-import {ElementType} from 'react'
+import {ComponentType} from 'react'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {ModuleSlug} from '@/modules/slugs'
 import {CustomDimensionKeys} from '@/processes/piwik/types'
@@ -45,17 +45,16 @@ export type ModuleClientConfig = BaseModuleConfig & {
   /**
    * A component for displaying a badge on the module’s button.
    */
-  BadgeValue?: ElementType
+  BadgeValue?: ComponentType
   /**
    * A component to show in the header of the Home screen.
    */
-  HeaderComponent?: ElementType
+  HeaderComponent?: ComponentType
   /**
    * A component for preprocessing purposes at the app's root level.
    * If `renderBeforeServerModules` is true, the component will be rendered before the server modules are fetched.
    */
-  PreRenderComponent?: {
-    Component: ElementType
+  PreRenderComponent?: ComponentType & {
     renderBeforeServerModules?: boolean
   }
   /**
