@@ -5,11 +5,13 @@ import {RootState} from '@/store/types/rootState'
 export type InternetConnectionState = {
   isConnected: boolean | null
   isInternetReachable: boolean | null
+  isNoInternetFullScreenErrorVisible: boolean
 }
 
 const initialState: InternetConnectionState = {
   isConnected: null,
   isInternetReachable: null,
+  isNoInternetFullScreenErrorVisible: false,
 }
 
 export const internetConnectionSlice = createSlice({
@@ -20,18 +22,30 @@ export const internetConnectionSlice = createSlice({
       state,
       {
         payload: {isConnected, isInternetReachable},
-      }: PayloadAction<InternetConnectionState>,
+      }: PayloadAction<
+        Pick<InternetConnectionState, 'isConnected' | 'isInternetReachable'>
+      >,
     ) => {
       state.isConnected = isConnected
       state.isInternetReachable = isInternetReachable
     },
+    setIsNoInternetFullScreenErrorVisible: (
+      state,
+      {payload: value}: PayloadAction<boolean>,
+    ) => {
+      state.isNoInternetFullScreenErrorVisible = value
+    },
   },
 })
 
-export const {setInternetState} = internetConnectionSlice.actions
+export const {setInternetState, setIsNoInternetFullScreenErrorVisible} =
+  internetConnectionSlice.actions
 
 export const selectIsConnected = (state: RootState) =>
   state[ReduxKey.internetConnection].isConnected
 
 export const selectIsInternetReachable = (state: RootState) =>
   state[ReduxKey.internetConnection].isInternetReachable
+
+export const selectIsNoInternetFullScreenErrorVisible = (state: RootState) =>
+  state[ReduxKey.internetConnection].isNoInternetFullScreenErrorVisible
