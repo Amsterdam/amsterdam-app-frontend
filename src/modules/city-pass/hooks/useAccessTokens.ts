@@ -1,4 +1,5 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useEffect, useState} from 'react'
+import {useAsync} from '@/hooks/useAsync'
 import {useGetAccessTokenQuery} from '@/modules/city-pass/service'
 import {getSecureTokens} from '@/modules/city-pass/utils/getSecureTokens'
 import {hasSecureTokens} from '@/modules/city-pass/utils/hasSecureTokens'
@@ -17,16 +18,14 @@ export const useAccessTokens = () => {
     skip: hasSetTokens !== false,
   })
 
-  void useMemo(async () => {
+  useAsync(async () => {
     const hasTokens = await hasSecureTokens()
 
     if (hasTokens) {
       const secureTokens = await getSecureTokens()
 
       setTokens(secureTokens)
-    }
-
-    if (hasTokens === false) {
+    } else {
       setHasSetTokens(false)
     }
   }, [])
