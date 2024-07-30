@@ -4,6 +4,7 @@ import {appInsights} from '@/providers/appinsights.provider'
 export enum SecureItemKey {
   cityPassAccessToken = 'cityPassAccessToken',
   cityPassRefreshToken = 'cityPassRefreshToken',
+  cityPasses = 'cityPasses',
 }
 
 export const setSecureItem = (key: SecureItemKey, value: string) =>

@@ -31,6 +31,12 @@ module.exports = {
     'react-native-block-screenshot',
   ],
   rules: {
+    'react-hooks/exhaustive-deps': [
+      'error',
+      {
+        additionalHooks: '(useAsync)',
+      },
+    ],
     'react-refresh/only-export-components': 'warn',
     'react-native/no-raw-text': [
       'error',

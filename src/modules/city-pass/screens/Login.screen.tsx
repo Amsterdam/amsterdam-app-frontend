@@ -15,7 +15,10 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
+import {cityPassExternalLinks} from '@/modules/city-pass/external-links'
+import {useAccessTokens} from '@/modules/city-pass/hooks/useAccessTokens'
 import {saveCityPass} from '@/modules/city-pass/slice'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {RedirectKey} from '@/modules/redirects/types'
@@ -26,7 +29,11 @@ import {useAlert} from '@/store/slices/alert'
 export const LoginScreen = () => {
   const {setAlert} = useAlert()
   const dispatch = useDispatch()
-  const login = useCallback(() => {
+  const openWebUrl = useOpenWebUrl()
+
+  const {accessToken} = useAccessTokens() ?? {}
+
+  const loginMock = useCallback(() => {
     dispatch(saveCityPass('test'))
 
     setAlert({
@@ -38,7 +45,13 @@ export const LoginScreen = () => {
       testID: 'CityPassLoggedInAlert',
     })
   }, [dispatch, setAlert])
-  const openWebUrl = useOpenWebUrl()
+
+  const loginMijnAmsterdam = useCallback(() => {
+    if (accessToken) {
+      openWebUrl(useUrlForEnv(cityPassExternalLinks) + accessToken)
+    }
+  }, [accessToken, openWebUrl])
+
   const {data: redirectUrls} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
 
@@ -71,18 +84,24 @@ export const LoginScreen = () => {
         <Row gutter="sm">
           <HideFromAccessibility>
             <Pressable
-              onPress={login}
+              onPress={loginMock}
               testID="CityPassDigiDIconPressable">
               <DigiD />
             </Pressable>
           </HideFromAccessibility>
           <Column
             grow={1}
+            gutter="md"
             halign="stretch">
             <Button
-              label="Inloggen met DigiD"
-              onPress={login}
+              label="Inloggen met DigiD (Mock)"
+              onPress={loginMock}
               testID="CityPassLoginButton"
+            />
+            <Button
+              label="Inloggen Mijn Amsterdam"
+              onPress={loginMijnAmsterdam}
+              testID="CityPassLoginMijnAmsterdamButton"
             />
           </Column>
         </Row>

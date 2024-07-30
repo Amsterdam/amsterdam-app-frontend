@@ -11,7 +11,7 @@ export enum CityPassRouteName {
 export type CityPassStackParams = {
   [CityPassRouteName.cityPassDetails]: {passOwner: PassOwner}
   [CityPassRouteName.cityPassLogout]: undefined
-  [CityPassRouteName.dashboard]: undefined
+  [CityPassRouteName.dashboard]: {loginResult?: string}
   [CityPassRouteName.budget]: {budget: Budget}
   [CityPassRouteName.securityCode]: undefined
 }

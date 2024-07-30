@@ -2,7 +2,13 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export enum CityPassEndpointName {
+  getAccessToken = 'getAccessToken',
   getCityPasses = 'getCityPasses',
+}
+
+export type CityPassTokensResponse = {
+  access_token: string
+  refresh_token: string
 }
 
 export type CityPassBase = {
@@ -80,4 +86,9 @@ export type AboutBlock = {
   testID: string
   text: string
   title: string
+}
+
+export enum LoginResult {
+  failed = 'mislukt',
+  success = 'gelukt',
 }
