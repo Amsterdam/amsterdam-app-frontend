@@ -7,11 +7,9 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/BarCode'
-import {
-  DEFAULT_PASS_WIDTH,
-  CITY_PASS_HEIGHT,
-} from '@/modules/city-pass/constants'
+import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {PassOwner} from '@/modules/city-pass/types'
+import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {formatDate} from '@/utils/datetime/formatDate'
@@ -74,9 +72,10 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
   const {achternaam, initialen} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
   const passNumber = activePass?.pasnummer_volledig ?? '0'
-  const {width} = useWindowDimensions()
-  const passWidth = Math.min(width, DEFAULT_PASS_WIDTH)
-  const styles = useThemable(theme => createStyles(theme, passWidth, width))
+  const {width: windowWidth} = useWindowDimensions()
+  const passWidth = getPassWidth(windowWidth)
+
+  const styles = useThemable(theme => createStyles(theme, passWidth))
 
   return (
     <View style={styles.container}>
@@ -135,11 +134,11 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
   )
 }
 
-const createStyles = ({color, size}: Theme, passWidth: number, width: number) =>
+const createStyles = ({color, size}: Theme, passWidth: number) =>
   StyleSheet.create({
     container: {
-      width,
-      justifyContent: 'flex-start',
+      flex: 1,
+      justifyContent: 'center',
       alignItems: 'center',
     },
     containerInner: {

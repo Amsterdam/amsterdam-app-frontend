@@ -1,4 +1,5 @@
 import {StatusBar, StyleSheet} from 'react-native'
+import {GestureHandlerRootView} from 'react-native-gesture-handler'
 import {
   initialWindowMetrics,
   SafeAreaProvider,
@@ -23,28 +24,30 @@ export const App = () => (
     <SafeAreaProvider
       initialMetrics={initialWindowMetrics}
       style={styles.appContainer}>
-      <CustomErrorBoundary>
-        <StatusBar
-          backgroundColor="transparent"
-          barStyle="dark-content"
-          translucent
-        />
-        <RootProvider>
-          <PersistGate
-            loading={null}
-            persistor={persistor}>
-            <UpdateScreen>
-              <AppNavigationContainer>
-                <Init>
-                  <CustomErrorBoundary>
-                    <RootStackNavigator />
-                  </CustomErrorBoundary>
-                </Init>
-              </AppNavigationContainer>
-            </UpdateScreen>
-          </PersistGate>
-        </RootProvider>
-      </CustomErrorBoundary>
+      <GestureHandlerRootView style={styles.flex}>
+        <CustomErrorBoundary>
+          <StatusBar
+            backgroundColor="transparent"
+            barStyle="dark-content"
+            translucent
+          />
+          <RootProvider>
+            <PersistGate
+              loading={null}
+              persistor={persistor}>
+              <UpdateScreen>
+                <AppNavigationContainer>
+                  <Init>
+                    <CustomErrorBoundary>
+                      <RootStackNavigator />
+                    </CustomErrorBoundary>
+                  </Init>
+                </AppNavigationContainer>
+              </UpdateScreen>
+            </PersistGate>
+          </RootProvider>
+        </CustomErrorBoundary>
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   </AppInsightsProvider>
 )
@@ -53,5 +56,8 @@ const styles = StyleSheet.create({
   appContainer: {
     // This is needed to prevent black flashing screen between splash screen when using dark-mode on iOS
     backgroundColor: lightColorTokens.screen.background.default,
+  },
+  flex: {
+    flex: 1,
   },
 })
