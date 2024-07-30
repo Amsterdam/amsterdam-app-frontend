@@ -36,6 +36,28 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
+  - ExpoScreenOrientation (7.0.5):
+    - DoubleConversion
+    - ExpoModulesCore
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Codegen
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - FBLazyVector (0.74.3)
   - Firebase (10.27.0):
     - Firebase/Core (= 10.27.0)
@@ -1140,8 +1162,6 @@ PODS:
     - React-Core
   - react-native-netinfo (11.3.2):
     - React-Core
-  - react-native-orientation-locker (1.7.0):
-    - React-Core
   - react-native-piwik-pro-sdk (1.1.0):
     - PiwikPROSDK (= 1.2.1)
     - React-Core
@@ -1526,6 +1546,7 @@ DEPENDENCIES:
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
+  - ExpoScreenOrientation (from `../node_modules/expo-screen-orientation/ios`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - Firebase
   - FirebaseCore
@@ -1567,7 +1588,6 @@ DEPENDENCIES:
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
-  - react-native-orientation-locker (from `../node_modules/react-native-orientation-locker`)
   - "react-native-piwik-pro-sdk (from `../node_modules/@piwikpro/react-native-piwik-pro-sdk`)"
   - react-native-render-html (from `../node_modules/react-native-render-html`)
   - react-native-restart (from `../node_modules/react-native-restart`)
@@ -1655,6 +1675,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-local-authentication/ios"
   ExpoModulesCore:
     :path: "../node_modules/expo-modules-core"
+  ExpoScreenOrientation:
+    :path: "../node_modules/expo-screen-orientation/ios"
   FBLazyVector:
     :path: "../node_modules/react-native/Libraries/FBLazyVector"
   fmt:
@@ -1726,8 +1748,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-get-random-values"
   react-native-netinfo:
     :path: "../node_modules/@react-native-community/netinfo"
-  react-native-orientation-locker:
-    :path: "../node_modules/react-native-orientation-locker"
   react-native-piwik-pro-sdk:
     :path: "../node_modules/@piwikpro/react-native-piwik-pro-sdk"
   react-native-render-html:
@@ -1827,6 +1847,7 @@ SPEC CHECKSUMS:
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
   ExpoLocalAuthentication: 9e02a56a4cf9868f0052656a93d4c94101a42ed7
   ExpoModulesCore: 734c1802786b23c9598f4d15273753a779969368
+  ExpoScreenOrientation: 5d6a977177dc2f904cc072b51a0d37d0983c0d6a
   FBLazyVector: 7e977dd099937dc5458851233141583abba49ff2
   Firebase: 26b040b20866a55f55eb3611b9fcf3ae64816b86
   FirebaseAnalytics: f9211b719db260cc91aebee8bb539cb367d0dfd1
@@ -1876,7 +1897,6 @@ SPEC CHECKSUMS:
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-netinfo: 076df4f9b07f6670acf4ce9a75aac8d34c2e2ccc
-  react-native-orientation-locker: 5819fd23ca89cbac0d736fb4314745f62716d517
   react-native-piwik-pro-sdk: 21d69f9e0aa4d9a1a898bae62db33af358a480d7
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162

@@ -1,8 +1,5 @@
 #import "AppDelegate.h"
 
-// required for react-native-orientation-locker
-#import "Orientation.h"
-
 // required for splashscreen
 #import "RNBootSplash.h"
 
@@ -18,11 +15,6 @@
 #import <TrustKit/TrustKit.h>
 
 @implementation AppDelegate
-
-// required for react-native-orientation-locker
-- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window {
-  return [Orientation getOrientation];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

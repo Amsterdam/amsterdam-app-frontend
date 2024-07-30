@@ -15,10 +15,6 @@ import com.facebook.react.defaults.DefaultReactActivityDelegate
 // Needed for certificate pinning
 import com.facebook.react.modules.network.OkHttpClientProvider
 
-// Needed for react-native-orientation-locker
-import android.content.Intent;
-import android.content.res.Configuration;
-
 class MainActivity : ReactActivity() {
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -39,13 +35,5 @@ class MainActivity : ReactActivity() {
     super.onCreate(null)
 
     OkHttpClientProvider.setOkHttpClientFactory(OkHttpClientWithCertificatePinningFactory());
-  }
-
-  // Needed by react-native-orientation-locker
-  override fun onConfigurationChanged(newConfig: Configuration) {
-    super.onConfigurationChanged(newConfig)
-    val intent = Intent("onConfigurationChanged")
-    intent.putExtra("newConfig", newConfig)
-    sendBroadcast(intent)
   }
 }
