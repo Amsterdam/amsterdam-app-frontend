@@ -27,4 +27,4 @@ export const mediaTokens = {
     narrow: 128,
     wide: 320,
   },
-}
+} as const

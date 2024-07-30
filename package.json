@@ -3,7 +3,7 @@
   "version": "1.6.0",
   "private": true,
   "scripts": {
-    "android:connect:device": "adb reverse tcp:8081 tcp:8081",
+    "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
     "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev",
     "android:phone:prod": "react-native run-android --mode=prodDebug",
     "android:tablet": "emulator @Pixel_C_API_30 & react-native run-android --deviceId='Pixel_C_API_30' --mode=devDebug --appIdSuffix=dev",
@@ -82,7 +82,7 @@
     "react-native-screens": "^3.32.0",
     "react-native-skeleton-placeholder": "^5.2.4",
     "react-native-super-grid": "^5.1.0",
-    "react-native-svg": "^14.2.0",
+    "react-native-svg": "^15.4.0",
     "react-native-swiper-flatlist": "^3.2.4",
     "react-native-webview": "^13.10.4",
     "react-redux": "^8.1.3",

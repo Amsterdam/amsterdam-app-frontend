@@ -120,10 +120,11 @@ export const FullScreenError = ({
                         textAlign="center"
                       />
                     </Box>
-                    {!!error && !!text && (
+                    {(!!error || !!text) && (
                       <Paragraph textAlign="center">
                         {text ?? ''}
-                        {!!error && ` Foutcode is ${getErrorCode(error)}`}
+                        {text && error ? ' ' : ''}
+                        {!!error && `Foutcode is ${getErrorCode(error)}`}
                       </Paragraph>
                     )}
                   </ScrollView>
@@ -146,7 +147,7 @@ export const FullScreenError = ({
       <Gutter height="sm" />
       <Box
         insetHorizontal={isPortrait ? 'md' : 'xl'}
-        insetVertical="no">
+        insetVertical={isPortrait ? 'xl' : 'md'}>
         <Button
           accessibilityHint={buttonAccessibilityLabel ?? buttonLabel}
           label={buttonLabel}
@@ -200,6 +201,7 @@ const createStyles =
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
         padding: isPortrait ? size.spacing.lg : size.spacing.no,
+        flex: 1,
       },
       screen: {
         flex: 1,

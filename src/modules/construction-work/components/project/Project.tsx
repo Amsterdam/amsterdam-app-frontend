@@ -1,3 +1,4 @@
+import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -10,6 +11,7 @@ import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/Constru
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
@@ -18,6 +20,7 @@ import {ProjectFollow} from '@/modules/construction-work/components/project/Proj
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
@@ -36,12 +39,17 @@ export const Project = ({id}: Props) => {
   } = useProjectDetailsQuery({id, ...addressParam})
 
   useSetScreenTitle(project?.title)
+  const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (isLoading) {
     return <PleaseWait testID="ConstructionWorkProjectLoadingSpinner" />
   }
 
   if (!project) {
+    if (isInternetReachable === false) {
+      return <NoInternetErrorFullScreen />
+    }
+
     return (
       <FullScreenError
         backgroundVisible={false}

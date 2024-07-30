@@ -95,6 +95,10 @@ module.exports = {
               'Import createStackNavigator from @/utils/navigation/createStackNavigator.',
           },
           {
+            name: '@react-native-community/netinfo',
+            message: 'Get the internet state from the internet redux slice.',
+          },
+          {
             name: 'dayjs',
             importNames: ['default'],
             message:

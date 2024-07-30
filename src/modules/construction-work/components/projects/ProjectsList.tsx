@@ -7,6 +7,7 @@ import type {ProjectsItem} from '@/modules/construction-work/types/api'
 import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {SerializedError} from '@reduxjs/toolkit'
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
+import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -27,6 +28,7 @@ import {
 } from '@/modules/construction-work/slice'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
 import {type LogProps, PiwikDimension} from '@/processes/piwik/types'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -184,7 +186,13 @@ export const ProjectsList = ({
     ],
   )
 
+  const isInternetReachable = useSelector(selectIsInternetReachable)
+
   if (isError && !data?.length) {
+    if (isInternetReachable === false) {
+      return <NoInternetErrorFullScreen />
+    }
+
     return (
       <FullScreenError
         buttonLabel="Ga terug"

@@ -1,4 +1,5 @@
-import NetInfo from '@react-native-community/netinfo'
+// eslint-disable-next-line no-restricted-imports
+import {addEventListener} from '@react-native-community/netinfo'
 import {useState, useEffect, memo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import Animated, {SlideInDown, SlideOutDown} from 'react-native-reanimated'
@@ -8,6 +9,12 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {
+  selectIsNoInternetFullScreenErrorVisible,
+  setInternetState,
+} from '@/store/slices/internetConnection'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -16,10 +23,14 @@ export const NoInternet = memo(() => {
   const [isClosed, setIsClosed] = useState(false)
   const styles = useThemable(createStyles)
   const accessibilityAnnounce = useAccessibilityAnnounce()
+  const dispatch = useDispatch()
+  const isNoInternetFullScreenErrorVisible = useSelector(
+    selectIsNoInternetFullScreenErrorVisible,
+  )
 
   useEffect(
     () =>
-      NetInfo.addEventListener(({isInternetReachable}) => {
+      addEventListener(({isInternetReachable, isConnected}) => {
         if (isInternetReachable) {
           if (!hasInternet) {
             accessibilityAnnounce('Internet verbinding hersteld.')
@@ -30,13 +41,20 @@ export const NoInternet = memo(() => {
           setHasInternet(false)
           accessibilityAnnounce('Geen internetverbinding.')
         }
+
+        dispatch(
+          setInternetState({
+            isConnected,
+            isInternetReachable,
+          }),
+        )
       }),
-    [accessibilityAnnounce, hasInternet],
+    [accessibilityAnnounce, dispatch, hasInternet],
   )
 
   return (
     <>
-      {!hasInternet && !isClosed ? (
+      {!hasInternet && !isClosed && !isNoInternetFullScreenErrorVisible ? (
         <View style={styles.container}>
           <Animated.View
             entering={SlideInDown}

@@ -9,6 +9,7 @@ import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
+import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {modulesSlice} from '@/store/slices/modules'
 import {permissionsSlice} from '@/store/slices/permissions'
 import {updateAppSlice} from '@/store/slices/updateApp'
@@ -20,6 +21,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
+  {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
@@ -50,7 +52,7 @@ export const store = configureStore({
         devToolsEnhancer({
           // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
           name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
-          hostname: Platform.select({ios: 'localhost', android: '10.0.2.2'}),
+          hostname: 'localhost',
           port: 8000,
           secure: false,
           realtime: true,
