@@ -4,12 +4,11 @@ import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
-import {
-  CITY_PASS_HEIGHT,
-  DEFAULT_PASS_WIDTH,
-} from '@/modules/city-pass/constants'
+import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
 import {PassOwner} from '@/modules/city-pass/types'
+import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
+import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -40,7 +39,7 @@ export const CityPassesSwiper = () => {
     })
   }
 
-  const passWidth = Math.min(windowWidth * 0.8, DEFAULT_PASS_WIDTH)
+  const passWidth = getPassWidth(windowWidth)
 
   return (
     <View style={styles.container}>
@@ -50,7 +49,10 @@ export const CityPassesSwiper = () => {
         mode="parallax"
         modeConfig={{
           parallaxScrollingScale: 1,
-          parallaxScrollingOffset: (windowWidth - passWidth) * 0.66,
+          parallaxScrollingOffset: getParallaxScrollingOffset(
+            windowWidth,
+            passWidth,
+          ),
           parallaxAdjacentItemScale: 1,
         }}
         // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
