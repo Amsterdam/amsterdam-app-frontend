@@ -53,24 +53,22 @@ export const CityPassDetailsScreen = () => {
           </Column>
           <ShowCityPassButton passCount={1} />
           <Column gutter="md">
-            <SingleSelectable testID="CityPassCityPassDetailsPassNumber">
-              <Row
-                align="between"
-                gutter="md">
-                <HideFromAccessibility>
-                  <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
-                    Pasnummer
-                  </Phrase>
-                </HideFromAccessibility>
-                <Phrase
-                  accessibilityLabel={`Pasnummer ${stringGroupInto(pasnummer_volledig, 4)}`}
-                  emphasis="strong"
-                  selectable
-                  testID="CityPassCityPassDetailsPassNumberValue">
-                  {stringGroupInto(pasnummer_volledig, 4)}
+            <Row
+              align="between"
+              gutter="md">
+              <HideFromAccessibility>
+                <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
+                  Pasnummer
                 </Phrase>
-              </Row>
-            </SingleSelectable>
+              </HideFromAccessibility>
+              <Phrase
+                accessibilityLabel={`Pasnummer ${stringGroupInto(pasnummer_volledig, 4)}`}
+                emphasis="strong"
+                selectable
+                testID="CityPassCityPassDetailsPassNumberValue">
+                {stringGroupInto(pasnummer_volledig, 4)}
+              </Phrase>
+            </Row>
             <Row
               align="between"
               gutter="md"
