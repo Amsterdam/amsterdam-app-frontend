@@ -28,7 +28,7 @@ import {
 } from '@/modules/construction-work/slice'
 import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
 import {type LogProps, PiwikDimension} from '@/processes/piwik/types'
-import {selectIsInternetReachable} from '@/store/slices/internet'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 import {useTheme} from '@/themes/useTheme'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 

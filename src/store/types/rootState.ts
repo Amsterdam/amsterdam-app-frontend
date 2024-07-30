@@ -11,7 +11,7 @@ import {baseApi} from '@/services/baseApi'
 import {AlertState} from '@/store/slices/alert'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
-import {InternetState} from '@/store/slices/internet'
+import {InternetConnectionState} from '@/store/slices/internetConnection'
 import {ModulesState} from '@/store/slices/modules'
 import {PermissionsState} from '@/store/slices/permissions'
 import {UpdateState} from '@/store/slices/updateApp'
@@ -28,7 +28,7 @@ export type RootState = {
   [ReduxKey.constructionWorkEditor]: ConstructionWorkEditorState
   [ReduxKey.contact]: ContactState
   [ReduxKey.environment]: EnvironmentState
-  [ReduxKey.internet]: InternetState
+  [ReduxKey.internetConnection]: InternetConnectionState
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.onboarding]: OnboardingState

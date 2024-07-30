@@ -2,25 +2,25 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type InternetState = {
+export type InternetConnectionState = {
   isConnected: boolean | null
   isInternetReachable: boolean | null
 }
 
-const initialState: InternetState = {
+const initialState: InternetConnectionState = {
   isConnected: null,
   isInternetReachable: null,
 }
 
-export const internetSlice = createSlice({
-  name: ReduxKey.internet,
+export const internetConnectionSlice = createSlice({
+  name: ReduxKey.internetConnection,
   initialState,
   reducers: {
     setInternetState: (
       state,
       {
         payload: {isConnected, isInternetReachable},
-      }: PayloadAction<InternetState>,
+      }: PayloadAction<InternetConnectionState>,
     ) => {
       state.isConnected = isConnected
       state.isInternetReachable = isInternetReachable
@@ -28,10 +28,10 @@ export const internetSlice = createSlice({
   },
 })
 
-export const {setInternetState} = internetSlice.actions
+export const {setInternetState} = internetConnectionSlice.actions
 
 export const selectIsConnected = (state: RootState) =>
-  state[ReduxKey.internet].isConnected
+  state[ReduxKey.internetConnection].isConnected
 
 export const selectIsInternetReachable = (state: RootState) =>
-  state[ReduxKey.internet].isInternetReachable
+  state[ReduxKey.internetConnection].isInternetReachable

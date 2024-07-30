@@ -7,7 +7,7 @@ export enum ReduxKey {
   constructionWorkEditor = 'constructionWorkEditor',
   contact = 'contact',
   environment = 'environment',
-  internet = 'internet',
+  internetConnection = 'internetConnection',
   messageDraft = 'messageDraft',
   modules = 'modules',
   onboarding = 'onboarding',

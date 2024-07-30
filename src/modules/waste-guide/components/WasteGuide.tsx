@@ -21,7 +21,7 @@ import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideFor
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
-import {selectIsInternetReachable} from '@/store/slices/internet'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const WasteGuide = () => {
   const navigation = useNavigation<WasteGuideRouteName>()

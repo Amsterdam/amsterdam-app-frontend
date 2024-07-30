@@ -11,7 +11,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {setInternetState} from '@/store/slices/internet'
+import {setInternetState} from '@/store/slices/internetConnection'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 

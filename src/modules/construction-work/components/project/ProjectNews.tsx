@@ -15,7 +15,7 @@ import {
   useProjectDetailsQuery,
 } from '@/modules/construction-work/service'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
-import {selectIsInternetReachable} from '@/store/slices/internet'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 type Props = {
   id: number

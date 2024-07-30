@@ -9,7 +9,7 @@ import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
-import {internetSlice} from '@/store/slices/internet'
+import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {modulesSlice} from '@/store/slices/modules'
 import {permissionsSlice} from '@/store/slices/permissions'
 import {updateAppSlice} from '@/store/slices/updateApp'
@@ -21,7 +21,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
-  {key: ReduxKey.internet, slice: internetSlice},
+  {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},

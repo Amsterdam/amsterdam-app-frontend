@@ -9,7 +9,7 @@ import {
 import {
   selectIsConnected,
   selectIsInternetReachable,
-} from '@/store/slices/internet'
+} from '@/store/slices/internetConnection'
 
 export const AppInsights = () => {
   const environment = useSelector(state => state.environment.environment)

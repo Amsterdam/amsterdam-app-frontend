@@ -7,7 +7,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {Modules} from '@/modules/home/components/Modules'
-import {selectIsInternetReachable} from '@/store/slices/internet'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const HomeScreen = () => {
   const {modulesError, modulesLoading, refetchModules} = useModules()

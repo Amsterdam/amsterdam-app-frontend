@@ -20,7 +20,7 @@ import {ProjectFollow} from '@/modules/construction-work/components/project/Proj
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
-import {selectIsInternetReachable} from '@/store/slices/internet'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
