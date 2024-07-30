@@ -5,6 +5,7 @@ import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
+import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
 import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
 import {PassOwner} from '@/modules/city-pass/types'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
@@ -52,6 +53,7 @@ export const CityPassesSwiper = () => {
           parallaxScrollingOffset: getParallaxScrollingOffset(
             windowWidth,
             passWidth,
+            NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE,
           ),
           parallaxAdjacentItemScale: 1,
         }}

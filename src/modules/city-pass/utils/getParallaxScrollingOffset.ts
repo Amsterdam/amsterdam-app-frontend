@@ -1,8 +1,8 @@
-import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
-
 export const getParallaxScrollingOffset = (
   windowWidth: number,
-  passWidth: number,
+  cardWidth: number,
+  nextCardVisibleFractionOfAvailableSpace: number,
 ) =>
-  (windowWidth - passWidth) *
-  (1 - 0.5 * NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE)
+  (windowWidth - cardWidth) *
+  0.5 * // because only the available space on 1 side of the card should be calculated
+  (1 + nextCardVisibleFractionOfAvailableSpace)
