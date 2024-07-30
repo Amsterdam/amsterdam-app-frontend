@@ -1,6 +1,6 @@
+import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
 import {useCallback, useEffect} from 'react'
 import {AccessibilityInfo, Alert} from 'react-native'
-import Orientation from 'react-native-orientation-locker'
 import {Overlay} from '@/components/ui/containers/Overlay'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -21,10 +21,13 @@ export const CityPasses: ModuleClientConfig['PreRenderComponent'] = () => {
   const {color} = useTheme()
 
   useEffect(() => {
-    isCityPassesVisible && Orientation.lockToPortrait()
+    // isCityPassesVisible && Orientation.lockToPortrait()
+    if (isCityPassesVisible) {
+      void lockAsync(OrientationLock.PORTRAIT_UP)
+    }
 
     return () => {
-      Orientation.unlockAllOrientations()
+      void unlockAsync()
     }
   }, [isCityPassesVisible])
 
