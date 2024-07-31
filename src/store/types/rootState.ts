@@ -12,6 +12,7 @@ import {AlertState} from '@/store/slices/alert'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {ModulesState} from '@/store/slices/modules'
+import {OverlayState} from '@/store/slices/overlay'
 import {PermissionsState} from '@/store/slices/permissions'
 import {UpdateState} from '@/store/slices/updateApp'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -30,6 +31,7 @@ export type RootState = {
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.onboarding]: OnboardingState
+  [ReduxKey.overlay]: OverlayState
   [ReduxKey.permissions]: PermissionsState
   [ReduxKey.productTour]: ProductTourState
   [ReduxKey.theme]: ThemeState

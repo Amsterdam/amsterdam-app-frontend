@@ -1,6 +1,5 @@
 import {ReactNode} from 'react'
-import {StyleProp, ViewStyle} from 'react-native'
-import {HideFromAccessibilityWhenInBackground} from '@/components/features/accessibility/HideBackgroundFromAccessibility'
+import {StyleProp, View, ViewStyle} from 'react-native'
 
 type ScreenInnerWrapperProps = {
   children: ReactNode
@@ -10,8 +9,4 @@ type ScreenInnerWrapperProps = {
 export const ScreenInnerWrapper = ({
   children,
   style,
-}: ScreenInnerWrapperProps) => (
-  <HideFromAccessibilityWhenInBackground style={style}>
-    {children}
-  </HideFromAccessibilityWhenInBackground>
-)
+}: ScreenInnerWrapperProps) => <View style={style}>{children}</View>
