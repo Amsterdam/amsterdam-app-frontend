@@ -1,6 +1,8 @@
 import {useMemo} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {HideFromAccessibilityWhenBottomSheetIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenBottomSheetIsOpen'
+import {HideFromAccessibilityWhenOverlayIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenOverlayIsOpen'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
@@ -50,20 +52,23 @@ export const ScreenBase = ({
 
   return (
     <DisableScrollProvider>
-      <View
+      <HideFromAccessibilityWhenOverlayIsOpen
         style={styles.screen}
         testID={testID}>
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
-        <ScreenWrapper
-          scrollViewContentStyle={styles.scrollViewContent}
-          scrollViewStyle={styles.scrollView}
-          trackScroll={trackScroll}
-          {...wrapperProps}>
-          <ScreenInnerWrapper style={styles.content}>
-            {children}
-          </ScreenInnerWrapper>
-        </ScreenWrapper>
+        <HideFromAccessibilityWhenBottomSheetIsOpen
+          style={[styles.scrollViewContent, styles.scrollView]}>
+          <ScreenWrapper
+            scrollViewContentStyle={styles.scrollViewContent}
+            scrollViewStyle={styles.scrollView}
+            trackScroll={trackScroll}
+            {...wrapperProps}>
+            <ScreenInnerWrapper style={styles.content}>
+              {children}
+            </ScreenInnerWrapper>
+          </ScreenWrapper>
+        </HideFromAccessibilityWhenBottomSheetIsOpen>
         {(!!stickyFooter || !!bottomSheet) && (
           <>
             <Gutter height="sm" />
@@ -71,7 +76,7 @@ export const ScreenBase = ({
             {bottomSheet}
           </>
         )}
-      </View>
+      </HideFromAccessibilityWhenOverlayIsOpen>
     </DisableScrollProvider>
   )
 }

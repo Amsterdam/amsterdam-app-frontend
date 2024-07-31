@@ -5,6 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/BarCode'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
@@ -12,6 +13,7 @@ import {PassOwner} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {Duration} from '@/types/duration'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
@@ -69,11 +71,12 @@ type Props = {
 }
 
 export const CityPass = ({index, itemCount, passOwner}: Props) => {
-  const {achternaam, initialen} = passOwner
+  const {achternaam, voornaam} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
   const passNumber = activePass?.pasnummer_volledig ?? '0'
   const {width: windowWidth} = useWindowDimensions()
   const passWidth = getPassWidth(windowWidth)
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
   const styles = useThemable(theme => createStyles(theme, passWidth))
 
@@ -81,8 +84,9 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
     <View style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
-          accessibilityLabel={`De stadspas van ${initialen} ${achternaam} kan nu gescand worden. Stadspas ${stringGroupInto(passNumber, 4)}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessibilityLabel={`De stadspas van ${voornaam} ${achternaam} kan nu gescand worden. Stadspas ${stringGroupInto(passNumber, 4)}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
           accessible
+          ref={setAccessibilityFocus}
           style={styles.pass}>
           <HideFromAccessibility>
             <Column
@@ -101,7 +105,7 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
                   <Phrase
                     emphasis="strong"
                     testID="CityPassCityPassName">
-                    {initialen} {achternaam}
+                    {voornaam} {achternaam}
                   </Phrase>
                   <Column halign="center">
                     <BarCode

@@ -2,6 +2,7 @@ import React from 'react'
 import {StyleSheet, useWindowDimensions, View} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
@@ -77,7 +78,7 @@ export const CityPassesSwiper = () => {
         vertical={false}
         width={windowWidth}
       />
-      <View style={styles.paginationContainer}>
+      <HideFromAccessibility style={styles.paginationContainer}>
         <Basic
           activeDotStyle={styles.paginationItemActive}
           containerStyle={styles.pagination}
@@ -86,7 +87,7 @@ export const CityPassesSwiper = () => {
           onPress={onPressPagination}
           progress={progress}
         />
-      </View>
+      </HideFromAccessibility>
     </View>
   )
 }

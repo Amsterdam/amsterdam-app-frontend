@@ -11,6 +11,7 @@ import {bottomSheetSlice} from '@/store/slices/bottomSheet'
 import {environmentSlice} from '@/store/slices/environment'
 import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {modulesSlice} from '@/store/slices/modules'
+import {overlaySlice} from '@/store/slices/overlay'
 import {permissionsSlice} from '@/store/slices/permissions'
 import {updateAppSlice} from '@/store/slices/updateApp'
 import {ReduxConfig} from '@/store/types/reduxConfig'
@@ -23,6 +24,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
+  {key: ReduxKey.overlay, slice: overlaySlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
   {key: ReduxKey.theme, slice: themeSlice},
