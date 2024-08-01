@@ -1,5 +1,5 @@
 import {useCallback, useRef, useState} from 'react'
-import SwiperFlatList from 'react-native-swiper-flatlist'
+import type SwiperFlatList from 'react-native-swiper-flatlist'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {IconButton} from '@/components/ui/buttons/IconButton'
