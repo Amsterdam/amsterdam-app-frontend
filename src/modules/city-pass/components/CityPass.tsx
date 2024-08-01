@@ -1,11 +1,16 @@
-import {StyleSheet, useWindowDimensions, View} from 'react-native'
+import {
+  type ScrollView as ScrollViewType,
+  StyleSheet,
+  useWindowDimensions,
+  View,
+} from 'react-native'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/BarCode'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
@@ -13,7 +18,6 @@ import {PassOwner} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {Duration} from '@/types/duration'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
@@ -66,27 +70,36 @@ const cityPass = {
 
 type Props = {
   index: number
+  isCurrentIndex?: boolean
   itemCount: number
   passOwner: PassOwner
 }
 
-export const CityPass = ({index, itemCount, passOwner}: Props) => {
+export const CityPass = ({
+  index,
+  isCurrentIndex,
+  itemCount,
+  passOwner,
+}: Props) => {
   const {achternaam, voornaam} = passOwner
   const activePass = passOwner.passen.find(pass => pass.actief)
   const passNumber = activePass?.pasnummer_volledig ?? '0'
   const {width: windowWidth} = useWindowDimensions()
   const passWidth = getPassWidth(windowWidth)
-  const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
-
+  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<ScrollViewType>({
+    isActive: isCurrentIndex,
+  })
   const styles = useThemable(theme => createStyles(theme, passWidth))
 
   return (
-    <View style={styles.container}>
+    <HideFromAccessibility
+      hide={!isCurrentIndex}
+      style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
           accessibilityLabel={`De stadspas van ${voornaam} ${achternaam} kan nu gescand worden. Stadspas ${stringGroupInto(passNumber, 4)}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
           accessible
-          ref={setAccessibilityFocus}
+          ref={accessibilityAutoFocusRef}
           style={styles.pass}>
           <HideFromAccessibility>
             <Column
@@ -134,7 +147,7 @@ export const CityPass = ({index, itemCount, passOwner}: Props) => {
           </HideFromAccessibility>
         </ScrollView>
       </View>
-    </View>
+    </HideFromAccessibility>
   )
 }
 

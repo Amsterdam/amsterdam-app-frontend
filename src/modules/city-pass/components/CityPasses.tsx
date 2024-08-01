@@ -41,7 +41,7 @@ export const CityPasses: ModuleClientConfig['PreRenderComponent'] = () => {
   }, [])
 
   useBlockScreenshots({
-    enabled: isCityPassesVisible,
+    enabled: false,
     onScreenshot,
   })
 
