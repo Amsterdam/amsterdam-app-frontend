@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import {useRef, useState} from 'react'
 import {StyleSheet, useWindowDimensions, View} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
@@ -24,7 +24,7 @@ export const CityPassesSwiper = () => {
   const styles = useThemable(createStyles)
   const {passOwnersWithActivePass} = usePassOwners()
   const {width: windowWidth} = useWindowDimensions()
-  const ref = React.useRef<ICarouselInstance>(null)
+  const ref = useRef<ICarouselInstance>(null)
   const [currentIndex, setCurrentIndex] = useState<number>()
 
   const progress = useSharedValue<number>(0)
