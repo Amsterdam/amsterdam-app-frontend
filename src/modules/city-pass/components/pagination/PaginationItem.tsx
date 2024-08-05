@@ -6,12 +6,13 @@
 import React from 'react'
 import {StyleSheet, View} from 'react-native'
 import Animated, {
-  Extrapolate,
+  Extrapolation,
   interpolate,
+  SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
 import type {PropsWithChildren} from 'react'
-import type {ViewStyle} from 'react-native'
+import type {ViewProps, ViewStyle} from 'react-native'
 
 export type DotStyle = Omit<ViewStyle, 'width' | 'height'> & {
   height?: number
@@ -21,13 +22,14 @@ export type DotStyle = Omit<ViewStyle, 'width' | 'height'> & {
 export const PaginationItem: React.FC<
   PropsWithChildren<{
     activeDotStyle?: DotStyle
-    animValue: Animated.SharedValue<number>
+    animValue: SharedValue<number>
     count: number
     dotStyle?: DotStyle
     horizontal?: boolean
     index: number
     size?: number
-  }>
+  }> &
+    ViewProps
 > = props => {
   const {
     animValue,
@@ -38,6 +40,7 @@ export const PaginationItem: React.FC<
     size,
     horizontal,
     children,
+    ...viewProps
   } = props
 
   const defaultDotSize = 10
@@ -67,7 +70,7 @@ export const PaginationItem: React.FC<
             animValue?.value,
             inputRange,
             outputRange,
-            Extrapolate.CLAMP,
+            Extrapolation.CLAMP,
           ),
         },
       ],
@@ -75,7 +78,9 @@ export const PaginationItem: React.FC<
   }, [animValue, index, count, horizontal])
 
   return (
-    <View style={[{width, height}, styles.dot, dotStyle]}>
+    <View
+      {...viewProps}
+      style={[{width, height}, styles.dot, dotStyle]}>
       <Animated.View style={[styles.activeDot, animStyle, activeDotStyle]}>
         {children}
       </Animated.View>

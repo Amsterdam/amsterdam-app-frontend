@@ -1,8 +1,7 @@
-import React from 'react'
+import {useRef, useState} from 'react'
 import {StyleSheet, useWindowDimensions, View} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
-import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
@@ -25,10 +24,10 @@ export const CityPassesSwiper = () => {
   const styles = useThemable(createStyles)
   const {passOwnersWithActivePass} = usePassOwners()
   const {width: windowWidth} = useWindowDimensions()
+  const ref = useRef<ICarouselInstance>(null)
+  const [currentIndex, setCurrentIndex] = useState<number>()
 
   const progress = useSharedValue<number>(0)
-
-  const ref = React.useRef<ICarouselInstance>(null)
 
   const onPressPagination = (index: number) => {
     ref.current?.scrollTo({
@@ -60,6 +59,7 @@ export const CityPassesSwiper = () => {
         }}
         // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
         onProgressChange={(_, absoluteProgress) => {
+          setCurrentIndex(Math.round(absoluteProgress))
           progress.value = absoluteProgress
         }}
         pagingEnabled
@@ -67,6 +67,7 @@ export const CityPassesSwiper = () => {
         renderItem={({item, index}: CarouselItem) => (
           <CityPass
             index={index}
+            isCurrentIndex={currentIndex === index}
             itemCount={passOwnersWithActivePass.length}
             passOwner={item}
           />
@@ -78,16 +79,17 @@ export const CityPassesSwiper = () => {
         vertical={false}
         width={windowWidth}
       />
-      <HideFromAccessibility style={styles.paginationContainer}>
+      <View style={styles.paginationContainer}>
         <Basic
           activeDotStyle={styles.paginationItemActive}
           containerStyle={styles.pagination}
+          currentIndex={currentIndex}
           data={passOwnersWithActivePass}
           dotStyle={styles.paginationItem}
           onPress={onPressPagination}
           progress={progress}
         />
-      </HideFromAccessibility>
+      </View>
     </View>
   )
 }

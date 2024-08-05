@@ -15,6 +15,7 @@ import {PaginationItem} from '@/modules/city-pass/components/pagination/Paginati
 export interface BasicProps<T extends object = object> {
   activeDotStyle?: DotStyle
   containerStyle?: StyleProp<ViewStyle>
+  currentIndex?: number
   data: Array<T>
   dotStyle?: DotStyle
   horizontal?: boolean
@@ -27,6 +28,7 @@ export interface BasicProps<T extends object = object> {
 export const Basic = <T extends object>(props: BasicProps<T>) => {
   const {
     activeDotStyle,
+    currentIndex,
     dotStyle,
     progress,
     horizontal = true,
@@ -53,6 +55,11 @@ export const Basic = <T extends object>(props: BasicProps<T>) => {
           key={index}
           onPress={() => onPress?.(index)}>
           <PaginationItem
+            accessibilityLabel={
+              currentIndex === index
+                ? `Huidige slide, ${index + 1}`
+                : `Ga naar slide ${index + 1}`
+            }
             activeDotStyle={activeDotStyle}
             animValue={progress}
             count={data.length}
