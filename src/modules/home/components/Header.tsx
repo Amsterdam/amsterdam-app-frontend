@@ -1,7 +1,8 @@
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import {useMemo} from 'react'
-import {StyleSheet, View, ViewStyle} from 'react-native'
+import {StyleSheet, ViewStyle} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {HideFromAccessibilityWhenInBackground} from '@/components/features/accessibility/HideFromAccessibilityWhenInBackground'
 import {Box} from '@/components/ui/containers/Box'
 import {HeaderContent} from '@/modules/home/components/HeaderContent'
 import {HeaderContentForHome} from '@/modules/home/components/HeaderContentForHome'
@@ -25,11 +26,11 @@ export const Header = ({backgroundColor, ...rest}: Props) => {
   )
 
   return (
-    <View style={styles.header}>
+    <HideFromAccessibilityWhenInBackground style={styles.header}>
       <Box>
         {isHome ? <HeaderContentForHome /> : <HeaderContent {...rest} />}
       </Box>
-    </View>
+    </HideFromAccessibilityWhenInBackground>
   )
 }
 
