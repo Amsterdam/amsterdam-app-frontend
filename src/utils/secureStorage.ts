@@ -38,3 +38,13 @@ export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
         reject(err)
       })
   })
+
+export const removeAllSecureItems = () =>
+  new Promise((resolve, reject) => {
+    RNSecureStorage.clear()
+      .then(res => resolve(res))
+      .catch((err: Error) => {
+        appInsights.trackException({})
+        reject(err)
+      })
+  })
