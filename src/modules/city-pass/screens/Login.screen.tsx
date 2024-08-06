@@ -46,11 +46,13 @@ export const LoginScreen = () => {
     })
   }, [dispatch, setAlert])
 
+  const url = useUrlForEnv(cityPassExternalLinks)
+
   const loginMijnAmsterdam = useCallback(() => {
     if (accessToken) {
-      openWebUrl(useUrlForEnv(cityPassExternalLinks) + accessToken)
+      openWebUrl(url + accessToken)
     }
-  }, [accessToken, openWebUrl])
+  }, [accessToken, openWebUrl, url])
 
   const {data: redirectUrls} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()

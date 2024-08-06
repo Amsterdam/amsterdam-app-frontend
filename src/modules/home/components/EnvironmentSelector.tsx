@@ -9,13 +9,14 @@ import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {setHasAutoFollowedProjects} from '@/modules/construction-work-editor/slice'
-import {isDevApp} from '@/processes/development'
+import {devError, devLog, isDevApp} from '@/processes/development'
 import {baseApi} from '@/services/baseApi'
 import {
   selectEnvironment,
   setCustomEnvironment,
   setEnvironment,
 } from '@/store/slices/environment'
+import {removeAllSecureItems} from '@/utils/secureStorage'
 
 type CustomApiTextInputProps = {
   label: string
@@ -62,6 +63,7 @@ export const EnvironmentSelector = () => {
                 dispatch(setEnvironment(env))
                 dispatch(setHasAutoFollowedProjects(false))
                 dispatch(baseApi.util.resetApiState())
+                removeAllSecureItems().then(devLog).catch(devError)
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
               variant={environment === env ? 'secondary' : 'primary'}
