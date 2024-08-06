@@ -1,5 +1,6 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -47,12 +48,14 @@ export const TopTaskButton = ({
       insetVertical="sm">
       <Row gutter="md">
         <View style={styles.height}>
-          <Icon
-            color="link"
-            name={iconName}
-            size="xl"
-            testID={`${testID}Icon`}
-          />
+          <HideFromAccessibility>
+            <Icon
+              color="link"
+              name={iconName}
+              size="xl"
+              testID={`${testID}Icon`}
+            />
+          </HideFromAccessibility>
         </View>
         <Column
           align="center"
