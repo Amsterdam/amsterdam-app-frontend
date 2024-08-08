@@ -1,8 +1,8 @@
-import {Transaction} from '@/modules/city-pass/types'
+import {TransactionOld} from '@/modules/city-pass/types'
 
 const omschrijving = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
-export const transactions: Transaction[] = [
+export const transactions: TransactionOld[] = [
   {
     id: 1,
     aanbieder: {

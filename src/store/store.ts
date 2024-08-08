@@ -13,6 +13,7 @@ import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {modulesSlice} from '@/store/slices/modules'
 import {overlaySlice} from '@/store/slices/overlay'
 import {permissionsSlice} from '@/store/slices/permissions'
+import {secureStorageSlice} from '@/store/slices/secureStorage'
 import {updateAppSlice} from '@/store/slices/updateApp'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -27,6 +28,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.overlay, slice: overlaySlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
+  {key: ReduxKey.secureStorage, slice: secureStorageSlice},
   {key: ReduxKey.theme, slice: themeSlice},
   {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: -1},
 ]
