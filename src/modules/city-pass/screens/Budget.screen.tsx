@@ -8,13 +8,16 @@ import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPa
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
 import {budgetTransactions} from '@/modules/city-pass/mocks/budgetTransactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {formatDate} from '@/utils/datetime/formatDate'
-import {formatNumber} from '@/utils/formatNumber'
 
 export const BudgetScreen = () => {
   const {
     params: {
-      budget: {budget_balance, budget_assigned, expiry_date, omschrijving},
+      budget: {
+        budgetBalanceFormatted,
+        budgetAssignedFormatted,
+        dateEndFormatted,
+        title,
+      },
     },
   } = useRoute<CityPassRouteName.budget>()
 
@@ -28,15 +31,15 @@ export const BudgetScreen = () => {
           halign="center">
           <Title
             testID="CityPassBalanceTitleLabel"
-            text={omschrijving}
+            text={title}
           />
           <Title
             testID="CityPassBalanceTitleValue"
-            text={formatNumber(budget_balance, true)}
+            text={budgetBalanceFormatted}
           />
           <Column halign="center">
-            <Paragraph>{`Was in het begin ${formatNumber(budget_assigned, true)}.`}</Paragraph>
-            <Paragraph>{`Geldig tot en met ${formatDate(expiry_date)}.`}</Paragraph>
+            <Paragraph>{`Was in het begin ${budgetAssignedFormatted}.`}</Paragraph>
+            <Paragraph>{`Geldig tot en met ${dateEndFormatted}.`}</Paragraph>
           </Column>
           <TransactionHistory
             transactions={budgetTransactions}

@@ -2,12 +2,12 @@ import {useRef, useState} from 'react'
 import {StyleSheet, useWindowDimensions, View} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
+import type {CityPassPass} from '@/modules/city-pass/types'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
-import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
-import {PassOwnerOld} from '@/modules/city-pass/types'
+import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
@@ -17,12 +17,12 @@ const PAGINATION_HEIGHT = 50
 
 type CarouselItem = {
   index: number
-  item: PassOwnerOld
+  item: CityPassPass
 }
 
 export const CityPassesSwiper = () => {
   const styles = useThemable(createStyles)
-  const {passOwnersWithActivePass} = usePassOwners()
+  const cityPasses = useGetSecureCityPasses()
   const {width: windowWidth} = useWindowDimensions()
   const ref = useRef<ICarouselInstance>(null)
   const [currentIndex, setCurrentIndex] = useState<number>()
@@ -45,7 +45,7 @@ export const CityPassesSwiper = () => {
   return (
     <View style={styles.container}>
       <Carousel
-        data={passOwnersWithActivePass}
+        data={cityPasses}
         loop={false}
         mode="parallax"
         modeConfig={{
@@ -66,10 +66,10 @@ export const CityPassesSwiper = () => {
         ref={ref}
         renderItem={({item, index}: CarouselItem) => (
           <CityPass
+            cityPass={item}
             index={index}
             isCurrentIndex={currentIndex === index}
-            itemCount={passOwnersWithActivePass.length}
-            passOwner={item}
+            itemCount={cityPasses.length}
           />
         )}
         snapEnabled
@@ -84,7 +84,7 @@ export const CityPassesSwiper = () => {
           activeDotStyle={styles.paginationItemActive}
           containerStyle={styles.pagination}
           currentIndex={currentIndex}
-          data={passOwnersWithActivePass}
+          data={cityPasses}
           dotStyle={styles.paginationItem}
           onPress={onPressPagination}
           progress={progress}

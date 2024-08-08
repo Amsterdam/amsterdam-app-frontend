@@ -14,76 +14,27 @@ import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityA
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/BarCode'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
-import {PassOwnerOld} from '@/modules/city-pass/types'
+import {CityPassPass} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {formatDate} from '@/utils/datetime/formatDate'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
 
-const cityPass = {
-  actief: true,
-  balance_update_time: '2020-04-02T12:45:41.000Z',
-  budgetten: [
-    {
-      code: 'AMSTEG_10-14',
-      naam: 'Kindtegoed 10-14',
-      omschrijving: 'Kindtegoed',
-      expiry_date: '2021-08-31T21:59:59.000Z',
-      budget_assigned: 150,
-      budget_balance: 0,
-    },
-    {
-      code: 'AMSTEG_06-30',
-      naam: 'Kindtegoed 30-06',
-      omschrijving: 'Kindtegoed',
-      expiry_date: '2021-08-31T21:59:59.000Z',
-      budget_assigned: 75,
-      budget_balance: 0,
-    },
-  ],
-  budgetten_actief: true,
-  categorie: 'Amsterdamse Digitale Stadspas',
-  categorie_code: 'A',
-  expiry_date: '2020-08-31T23:59:59.000Z',
-  id: 999999,
-  originele_pas: {
-    categorie: 'Amsterdamse Digitale Stadspas',
-    categorie_code: 'A',
-    id: 888888,
-    pasnummer: 8888888888888,
-    pasnummer_volledig: '8888888888888888888',
-    passoort: {
-      id: 11,
-      naam: 'Digitale Stadspas',
-    },
-  },
-  pasnummer: 6666666666666,
-  pasnummer_volledig: '6666666666666666666',
-  passoort: {
-    id: 11,
-    naam: 'Digitale Stadspas',
-  },
-}
-
 type Props = {
+  cityPass: CityPassPass
   index: number
   isCurrentIndex?: boolean
   itemCount: number
-  passOwner: PassOwnerOld
 }
 
 export const CityPass = ({
   index,
   isCurrentIndex,
   itemCount,
-  passOwner,
+  cityPass: {firstname, infix, lastname, passNumberComplete, dateEndFormatted},
 }: Props) => {
-  const {achternaam, voornaam} = passOwner
-  const activePass = passOwner.passen.find(pass => pass.actief)
-  const passNumber = activePass?.pasnummer_volledig ?? '0'
   const {width: windowWidth} = useWindowDimensions()
   const passWidth = getPassWidth(windowWidth)
   const accessibilityAutoFocusRef = useAccessibilityAutoFocus<ScrollViewType>({
@@ -97,7 +48,7 @@ export const CityPass = ({
       style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
-          accessibilityLabel={`De stadspas van ${voornaam} ${achternaam} kan nu gescand worden. Stadspas ${stringGroupInto(passNumber, 4)}. Geldig tot en met ${formatDate(cityPass.expiry_date)}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessibilityLabel={`De stadspas van ${firstname} ${infix ? infix : ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
           accessible
           ref={accessibilityAutoFocusRef}
           style={styles.pass}>
@@ -118,28 +69,28 @@ export const CityPass = ({
                   <Phrase
                     emphasis="strong"
                     testID="CityPassCityPassName">
-                    {voornaam} {achternaam}
+                    {firstname} {lastname}
                   </Phrase>
                   <Column halign="center">
                     <BarCode
                       format="CODE128"
-                      value={passNumber}
+                      value={passNumberComplete}
                       width={passWidth}
                     />
                     <View style={styles.passNumber}>
                       <Phrase
                         emphasis="strong"
                         testID="CityPassCityPassPassNumber">
-                        {stringGroupInto(passNumber, 4)}
+                        {stringGroupInto(passNumberComplete, 4)}
                       </Phrase>
                     </View>
                   </Column>
                   <BarCode
                     format="QR"
-                    value={passNumber}
+                    value={passNumberComplete}
                   />
                   <Paragraph textAlign="center">
-                    Geldig tot en met {formatDate(cityPass.expiry_date)}
+                    Geldig tot en met {dateEndFormatted}
                   </Paragraph>
                 </Column>
               </View>
