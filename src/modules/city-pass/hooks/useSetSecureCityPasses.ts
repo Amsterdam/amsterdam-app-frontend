@@ -14,6 +14,7 @@ const transformResponse = (data: CityPassResponse) =>
     const newItem = {
       d: item.dateEndFormatted,
       f: item.owner.firstname,
+      ...(item.owner.infix && {i: item.owner.infix}),
       l: item.owner.lastname,
       p: item.passNumberComplete,
     }

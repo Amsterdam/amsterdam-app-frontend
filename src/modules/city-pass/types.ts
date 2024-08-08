@@ -128,6 +128,7 @@ export type CityPassResponse = CityPass[]
 export type SecureCityPass = {
   d: CityPass['dateEndFormatted']
   f: CityPassOwner['firstname']
+  i?: CityPassOwner['infix']
   l: CityPassOwner['lastname']
   p: CityPass['passNumberComplete']
 }
