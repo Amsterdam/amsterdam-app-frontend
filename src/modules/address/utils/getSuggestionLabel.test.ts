@@ -1,9 +1,9 @@
+import {PdokAddress} from '@/modules/address/types'
 import {
   getSuggestionLabel,
   getSuggestionLabelForNumber,
   getSuggestionLabelForStreetOrAddress,
-} from './getSuggestionLabel'
-import {PdokAddress} from '@/modules/address/types'
+} from '@/modules/address/utils/getSuggestionLabel'
 
 describe('getSuggestionLabelForStreet', () => {
   it('should return straatnaam when type is "weg" and woonplaatsnaam is "Amsterdam"', () => {

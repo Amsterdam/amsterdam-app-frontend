@@ -1,4 +1,7 @@
-import {abbreviationsPronounce, wordCleanup} from './abbreviationsPronounce'
+import {
+  abbreviationsPronounce,
+  wordCleanup,
+} from '@/utils/accessibility/abbreviationsPronounce'
 
 describe('wordCleanup', () => {
   test('complex word', () => {

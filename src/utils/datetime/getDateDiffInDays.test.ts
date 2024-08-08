@@ -1,5 +1,5 @@
 import dayjs from 'dayjs'
-import {getDateDiffInDays} from './getDateDiffInDays' // Replace with the actual path to your module
+import {getDateDiffInDays} from '@/utils/datetime/getDateDiffInDays' // Replace with the actual path to your module
 
 describe('getDateDiffInDays', () => {
   it('should return 0 for the same date', () => {

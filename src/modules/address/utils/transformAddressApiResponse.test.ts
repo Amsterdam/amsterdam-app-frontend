@@ -1,11 +1,11 @@
+import {Address, AddressCity, PdokAddress} from '@/modules/address/types'
 import {
   getAddition,
   getAddressLine1,
   getAddressLine2,
   getCoordinates,
   transformAddressApiResponse,
-} from './transformAddressApiResponse'
-import {Address, AddressCity, PdokAddress} from '@/modules/address/types'
+} from '@/modules/address/utils/transformAddressApiResponse'
 
 describe('getAddition', () => {
   test('should return the correct addition when only bag_huisletter is provided', () => {

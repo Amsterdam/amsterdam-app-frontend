@@ -1,4 +1,4 @@
-import {getSquareMapArea} from './getSquareMapArea'
+import {getSquareMapArea} from '@/modules/waste-guide/utils/getSquareMapArea'
 
 describe('getSquareMapArea', () => {
   it('should return a string representation of two coordinates by offsetting a coordinate with an amount of degrees', () => {

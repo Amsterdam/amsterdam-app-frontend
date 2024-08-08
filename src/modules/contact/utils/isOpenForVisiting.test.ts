@@ -1,5 +1,9 @@
-import {isOpenForVisiting} from './isOpenForVisiting'
-import {day, exceptionDates, visitingHours} from './visitingHours.mock'
+import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
+import {
+  day,
+  exceptionDates,
+  visitingHours,
+} from '@/modules/contact/utils/visitingHours.mock'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 describe('isOpenForVisiting', () => {

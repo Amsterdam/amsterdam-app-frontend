@@ -1,5 +1,5 @@
-import {isAmsterdamNlUrl, addAppParamsToUrl} from './addAppParamsToUrl'
 import {ModuleSlug} from '@/modules/slugs'
+import {isAmsterdamNlUrl, addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
 
 describe('isAmsterdamNlUrl', () => {
   it('should return true for amsterdam.nl URLs', () => {

@@ -24,7 +24,7 @@ export const Pagination = ({
   )
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       {Array.from({length: size}).map((_, index) => {
         const testId = `${e2eID}OnboardingPagination${index}`
 

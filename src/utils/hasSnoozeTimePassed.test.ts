@@ -2,7 +2,7 @@ import {
   hasSnoozeTimeInHoursPassed,
   hasSnoozeTimeInMillisecondsPassed,
   hasSnoozeTimeInSecondsPassed,
-} from './hasSnoozeTimePassed'
+} from '@/utils/hasSnoozeTimePassed'
 
 jest.useFakeTimers()
 

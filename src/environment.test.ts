@@ -1,6 +1,6 @@
-import {getApi, Environment, GlobalApiSlug} from './environment'
-import {ModuleSlug} from './modules/slugs'
-import {customDefaultUrls} from './store/slices/environment'
+import {getApi, Environment, GlobalApiSlug} from '@/environment'
+import {ModuleSlug} from '@/modules/slugs'
+import {customDefaultUrls} from '@/store/slices/environment'
 
 describe('getApi', () => {
   test('returns correct api url for development environment', () => {

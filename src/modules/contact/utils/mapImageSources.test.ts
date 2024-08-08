@@ -1,5 +1,5 @@
-import {mapImageSources} from './mapImageSources'
 import {ImageSources} from '@/modules/contact/types'
+import {mapImageSources} from '@/modules/contact/utils/mapImageSources'
 
 describe('mapImageSources', () => {
   test('handle undefined', () => {

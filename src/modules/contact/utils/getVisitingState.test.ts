@@ -1,5 +1,9 @@
-import {getVisitingState} from './getVisitingState'
-import {day, exceptionDates, visitingHours} from './visitingHours.mock'
+import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
+import {
+  day,
+  exceptionDates,
+  visitingHours,
+} from '@/modules/contact/utils/visitingHours.mock'
 import {Preposition} from '@/types/datetime'
 import {dayjs} from '@/utils/datetime/dayjs'
 

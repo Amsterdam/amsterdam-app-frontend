@@ -4,7 +4,7 @@ import {
   getPropertyFromMaybeObject,
   isEmptyObject,
   isErrorObject,
-} from './object'
+} from '@/utils/object'
 
 describe('isEmptyObject', () => {
   test('true for empty object', () => {

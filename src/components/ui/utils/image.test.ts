@@ -1,4 +1,7 @@
-import {getUriForWidth, sortSourcesByWidthAscending} from './image'
+import {
+  getUriForWidth,
+  sortSourcesByWidthAscending,
+} from '@/components/ui/utils/image'
 
 describe('sortSourcesByWidthAscending', () => {
   const item0 = {uri: 'uri0', width: 0}

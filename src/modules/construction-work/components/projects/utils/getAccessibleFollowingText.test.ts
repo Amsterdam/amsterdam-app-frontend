@@ -1,4 +1,4 @@
-import {getAccessibleFollowingText} from './getAccessibleFollowingText'
+import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
 
 describe('getAccessibleFollowingText', () => {
   it('handles a followed project with zero recent articles', () => {

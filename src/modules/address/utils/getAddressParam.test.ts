@@ -1,5 +1,5 @@
-import {getAddressParam} from './getAddressParam'
 import {AddressCity} from '@/modules/address/types'
+import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 
 describe('getAddressParam', () => {
   test('should return an undefined address and no coordinates when address is not provided', () => {

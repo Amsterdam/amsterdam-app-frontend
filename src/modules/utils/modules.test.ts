@@ -1,5 +1,5 @@
-import {mergeModulesConfig, postProcessModules} from './modules'
 import {ModuleClientConfig, ModuleServerConfig} from '@/modules/types'
+import {mergeModulesConfig, postProcessModules} from '@/modules/utils/modules'
 
 describe('mergeModulesConfig', () => {
   const clientConfig = [
