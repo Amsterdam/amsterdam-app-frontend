@@ -72,7 +72,7 @@ If the app on your Android device cannot connect to the debugger, run `adb rever
 
 ## iOS emails with "ITMS-91053: Missing API declaration"
 
-Apple offers a number of APIs, i.e. features of the operation system that can be used/accessed by the app. Usage of some of these features has to be declared in a "privacy manifest" (*PrivacyInfo.xcprivacy* file). Packages should declare a manifest themselves. In other words: we should not have to do this, unless we write custom native code using these APIs.
+Apple offers a number of APIs, i.e. features of the operation system that can be used/accessed by the app. Usage of some of these features has to be declared in a "privacy manifest" (_PrivacyInfo.xcprivacy_ file). Packages should declare a manifest themselves. In other words: we should not have to do this, unless we write custom native code using these APIs.
 
 If we get emails with this ITMS-91053 error, we can run a scan script to find the culprit:
 

@@ -4,14 +4,14 @@ parameters:
 
 steps:
   - task: CopyFiles@2
-    displayName: "Android: copy APKs"
+    displayName: 'Android: copy APKs'
     inputs:
-      contents: "android/app/build/outputs/**/**.apk"
+      contents: 'android/app/build/outputs/**/**.apk'
       targetFolder: $(Build.ArtifactStagingDirectory)
     condition: ${{ parameters.condition }}
   - task: CopyFiles@2
-    displayName: "Android: copy AABs"
+    displayName: 'Android: copy AABs'
     inputs:
-      contents: "android/app/build/outputs/**/**.aab"
+      contents: 'android/app/build/outputs/**/**.aab'
       targetFolder: $(Build.ArtifactStagingDirectory)
     condition: ${{ parameters.condition }}

@@ -67,7 +67,7 @@ A short overview of the app build process in the aapp_app_mobile pipeline. The p
 
 #### Notes/gotchas
 
-- *Specifying an exact version is not recommended on Microsoft-Hosted agents*: aapp_app_mobile builds will show this warning due to the pinned Ruby version. We can safely ignore these warnings: the version is pinned intentionally to match our local development environment. This will prevent potential version mismatch warnings/errors with the version in the lock file.
+- _Specifying an exact version is not recommended on Microsoft-Hosted agents_: aapp_app_mobile builds will show this warning due to the pinned Ruby version. We can safely ignore these warnings: the version is pinned intentionally to match our local development environment. This will prevent potential version mismatch warnings/errors with the version in the lock file.
 
 ### Releases
 

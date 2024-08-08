@@ -26,4 +26,3 @@ steps:
       # Push
       git push github HEAD:refs/heads/main --follow-tags
     displayName: 'Push to GitHub'
-

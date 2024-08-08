@@ -29,7 +29,7 @@ Components in the app’s header use `Header` instead of a module slug, because 
 
 ### 2. Parent component name
 
-The name of one or more components in the hierarchy between the module and the component. These are generally feature or container components like an overview, a card or a named section of the screen. Try to use the exact component names here to prevent confusion. 
+The name of one or more components in the hierarchy between the module and the component. These are generally feature or container components like an overview, a card or a named section of the screen. Try to use the exact component names here to prevent confusion.
 
 Examples: `ArticleOverview`, `ContactOptions`, `AboutTheApp`.
 
@@ -38,6 +38,7 @@ Examples: `ArticleOverview`, `ContactOptions`, `AboutTheApp`.
 This identifies the specific instance of a component type, usually by rephrasing its label or text. One situation in which we use this is to distinguish a couple of related buttons.
 
 Examples:
+
 - A button to edit an address: `…EditAddressButton`
 - The title of a city office: `…CityOfficeTitle`
 

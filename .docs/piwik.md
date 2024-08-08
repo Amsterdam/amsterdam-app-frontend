@@ -10,6 +10,7 @@
 ## Piwik configuration
 
 To confige Piwik, you need to set two env vars: a URL and an ID.
+
 - `PIWIK_PRO_URL` and `PIWIK_PRO_ID` for production
 - `PIWIK_PRO_URL_ACCEPT` and `PIWIK_PRO_ID_ACCEPT` for anything else
 
@@ -49,7 +50,7 @@ export const HomeButton = ({moduleName, onPress}: Props) => {
     trackCustomEvent(
       // add a unique, specific name
       name: `Navigate to ${moduleName}`,
-      PiwikAction.buttonPress, 
+      PiwikAction.buttonPress,
       // optionally add predefined custom dimensions
       {
         [PiwikDimensions.hasAddress]: !!address.toString(),
@@ -69,6 +70,7 @@ export const HomeButton = ({moduleName, onPress}: Props) => {
 We usually log using a custom event: `trackCustomEvent` (see https://github.com/PiwikPRO/react-native-piwik-pro-sdk#tracking-custom-events).
 
 There are some special logging options:
+
 - `trackScreen`: screen views; this is integrated in the navigation (see below)
 - `trackApplicationInstall`: is triggered the first launch of the app only
 - `trackOutlink`: any linking to web or other apps via a URL
@@ -93,12 +95,13 @@ What are dimensions? You can use them to add additional data to a log event.
 > Dimensions are attributes of a log that describe specific characteristics.
 
 There are broadly 2 types of information that you may want to log:
+
 1. general information about the user, their preferences, profile or settings
 2. something has happened (push notification received) or the user has done something (tapped a button)
 
-For the 1st case (general information) we use a custom *session* dimension. This means that if the value changes during a session, the value will be updated. We log a bunch of session dimensions when the app comes to the foreground, but they can be added to other events too.
+For the 1st case (general information) we use a custom _session_ dimension. This means that if the value changes during a session, the value will be updated. We log a bunch of session dimensions when the app comes to the foreground, but they can be added to other events too.
 
-For the 2nd case we use custom dimensions (as opposed to custom *session* dimensions) to pass additional data.
+For the 2nd case we use custom dimensions (as opposed to custom _session_ dimensions) to pass additional data.
 
 See `src/types/piwik.ts` for the definitions of the custom dimensions and the custom session dimensions. Dimensions 1-17 match the default dimensions used in the organisation (see [Aansluitgids](https://hoofdstad.sharepoint.com/:p:/r/sites/AmsterdamApp/_layouts/15/Doc.aspx?sourcedoc=%7B558373BD-BDBF-4268-BA07-DBB004B64AC8%7D&file=Technisch%20-%20Aansluitgids%20DAP%20-%20Generiek%20Meetplan.pptx)).
 

@@ -49,13 +49,14 @@ See the folder `.storybook`, which contains:
 - `main.ts` - The main config file.
 - `preview.css` - Fonts and shared styling for stories.
 - `preview.tsx` - Shared config for the stories, including:
-  - *decorators*: wrappers for the story components, in this case to make the navigation and redux state available;
-  - *actions*: handle user input events;
-  - *backgrounds*: define the available background colors;
-  - *controls*: configure controls, e.g. map the name of a prop to a contol type;
-  - *viewport*: define available viewport sizes and the default.
+  - _decorators_: wrappers for the story components, in this case to make the navigation and redux state available;
+  - _actions_: handle user input events;
+  - _backgrounds_: define the available background colors;
+  - _controls_: configure controls, e.g. map the name of a prop to a contol type;
+  - _viewport_: define available viewport sizes and the default.
 
 <a id="mocks"></a>
+
 ### Mocks
 
 These mocked packages are referenced in the alias config in `main.ts`:

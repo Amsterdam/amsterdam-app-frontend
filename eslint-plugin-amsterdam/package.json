@@ -1,6 +1,6 @@
 {
-    "main": "index.js",
-    "peerDependencies": {
-        "eslint-module-utils": "*"
-    }
+  "main": "index.js",
+  "peerDependencies": {
+    "eslint-module-utils": "*"
+  }
 }

@@ -1,4 +1,4 @@
-trigger: 
+trigger:
   - main
 
 pr: none
@@ -10,7 +10,7 @@ resources:
       name: aapp_app_ios-certificates
 
 jobs:
-  - job: "Build_Android"
+  - job: 'Build_Android'
     timeoutInMinutes: 90
     pool:
       vmImage: macOS-14
@@ -26,7 +26,7 @@ jobs:
       - template: ./templates/app-build.yml
         parameters:
           platform: 'android'
-  - job: "Build_iOS"
+  - job: 'Build_iOS'
     timeoutInMinutes: 90
     pool:
       vmImage: macOS-14

@@ -6,14 +6,14 @@ The scenario: we create a Redux slice for a feature with a state object and we p
 type State = { darkMode: boolean }
 ```
 
-We implement our feature based on this state and release it as version *1.0.0*. Then we start work on version *1.1.0* and we realise that we need to change the format of the state for that slice. The dark mode setting may become a three-way choice, which would require a change in the Redux state, like so:
+We implement our feature based on this state and release it as version _1.0.0_. Then we start work on version _1.1.0_ and we realise that we need to change the format of the state for that slice. The dark mode setting may become a three-way choice, which would require a change in the Redux state, like so:
 
 ```javascript
 type DarkModeOption = 'dark' | 'light' | 'system'
 type State = { darkMode: DarkModeOption }
 ```
 
-Now when a user updates from version *1.0.0* to *1.1.0*, the persisted state might be `{ darkMode: true }`. This cannot be used to rehydrate the new state, since the code expects `darkMode` to be in a different format and their selection is lost.
+Now when a user updates from version _1.0.0_ to _1.1.0_, the persisted state might be `{ darkMode: true }`. This cannot be used to rehydrate the new state, since the code expects `darkMode` to be in a different format and their selection is lost.
 
 But worst case, a rehydration with unexpected data may result the app to crash!
 
@@ -32,13 +32,13 @@ type MyState0 = {
 
 export const migrationManifest: MigrationManifest = {
   // added in #.#.#
-  0: state => 
+  0: state =>
     const oldState = state as unknown as MyStateNegative1
     const newState = transformFromOriginalTo0(oldState) // some transformation
     return newState as PersistedState
   },
   // added in #.#.#
-  1: state => 
+  1: state =>
     const oldState = state as unknown as MyState0
     const newState = transformFrom0To1(oldState) // some transformation
     return newState as PersistedState

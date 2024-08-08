@@ -10,7 +10,6 @@ npm install react-native-block-screenshot
 
 ## Usage
 
-
 ```js
 import { multiply } from 'react-native-block-screenshot';
 
@@ -18,7 +17,6 @@ import { multiply } from 'react-native-block-screenshot';
 
 const result = await multiply(3, 7);
 ```
-
 
 ## Contributing
 

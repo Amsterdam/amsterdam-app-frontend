@@ -1,6 +1,6 @@
 steps:
   - checkout: self
-    path: "./s/"
+    path: './s/'
     fetchDepth: 1
   - checkout: aapp_app_ios-certificates
 
@@ -16,16 +16,16 @@ steps:
 
   - template: ./install-ruby.yml
   - script: gem install bundler:2.4.16
-    displayName: "Install bundler"
+    displayName: 'Install bundler'
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'
       bundle install
-    displayName: "Install Fastlane"
+    displayName: 'Install Fastlane'
 
   - script: |
       bundle exec fastlane syncAll
-    displayName: "Sync all iOS certificates"
-    workingDirectory: "ios"
+    displayName: 'Sync all iOS certificates'
+    workingDirectory: 'ios'
     env:
       MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
       MATCH_PASSWORD: $(MATCH_PASSWORD)
