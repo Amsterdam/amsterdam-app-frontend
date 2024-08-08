@@ -9,11 +9,11 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import BalanceSvg from '@/modules/city-pass/assets/balance.svg'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {Budget} from '@/modules/city-pass/types'
+import {BudgetOld} from '@/modules/city-pass/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
-  budget: Budget
+  budget: BudgetOld
 }
 
 export const BudgetBalanceButton = ({budget}: Props) => {

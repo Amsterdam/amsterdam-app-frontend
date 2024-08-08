@@ -1,4 +1,4 @@
-import {Budget, PassOwner} from '@/modules/city-pass/types'
+import {BudgetOld, PassOwnerOld} from '@/modules/city-pass/types'
 
 export enum CityPassRouteName {
   budget = 'Budget',
@@ -9,10 +9,10 @@ export enum CityPassRouteName {
 }
 
 export type CityPassStackParams = {
-  [CityPassRouteName.cityPassDetails]: {passOwner: PassOwner}
+  [CityPassRouteName.cityPassDetails]: {passOwner: PassOwnerOld}
   [CityPassRouteName.cityPassLogout]: undefined
   [CityPassRouteName.dashboard]: {loginResult?: string}
-  [CityPassRouteName.budget]: {budget: Budget}
+  [CityPassRouteName.budget]: {budget: BudgetOld}
   [CityPassRouteName.securityCode]: undefined
 }
 

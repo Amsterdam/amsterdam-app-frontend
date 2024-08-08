@@ -17,7 +17,7 @@ import {TransactionHistory} from '@/modules/city-pass/components/TransactionHist
 import {cityPass} from '@/modules/city-pass/mocks/cityPass'
 import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {CityPass} from '@/modules/city-pass/types'
+import {CityPassOld} from '@/modules/city-pass/types'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
@@ -28,7 +28,7 @@ export const CityPassDetailsScreen = () => {
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
   const {navigate} = useNavigation()
-  const activePass = passen.find(pass => pass.actief) ?? ({} as CityPass) // There is always an active pass
+  const activePass = passen.find(pass => pass.actief) ?? ({} as CityPassOld) // There is always an active pass
   const {expiry_date, pasnummer_volledig} = activePass
   const budgets = cityPass.find(
     pass => pass.pasnummer_volledig === activePass?.pasnummer_volledig,

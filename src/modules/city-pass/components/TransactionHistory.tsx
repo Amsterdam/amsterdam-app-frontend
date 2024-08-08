@@ -7,16 +7,16 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {Transaction} from '@/modules/city-pass/types'
+import {TransactionOld} from '@/modules/city-pass/types'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatNumber} from '@/utils/formatNumber'
 
 type TransactionsByDate = {
-  data: Transaction[]
+  data: TransactionOld[]
   date: string
 }
 
-const getTransactionsByDate = (transactions: Transaction[]) =>
+const getTransactionsByDate = (transactions: TransactionOld[]) =>
   transactions.reduce((result: TransactionsByDate[], transaction) => {
     const date = formatDate(transaction.transactiedatum)
     const today = formatDate(new Date().toISOString())
@@ -45,7 +45,7 @@ const NoTransactions = () => (
 )
 
 type TransactionItemProps = {
-  transaction: Transaction
+  transaction: TransactionOld
   type: Props['type']
 }
 
@@ -76,7 +76,7 @@ const TransactionItem = ({
 )
 
 type Props = {
-  transactions: Transaction[]
+  transactions: TransactionOld[]
   type: 'budget' | 'savings'
 }
 

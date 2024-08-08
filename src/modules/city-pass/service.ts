@@ -1,7 +1,7 @@
 import {
-  CityPass,
   CityPassTokensResponse,
   CityPassEndpointName,
+  CityPassResponse,
 } from '@/modules/city-pass/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -19,13 +19,16 @@ export const cityPassApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.none,
     }),
-    [CityPassEndpointName.getCityPasses]: builder.query<CityPass[], void>({
-      query: () => ({
+    [CityPassEndpointName.getCityPasses]: builder.query<
+      CityPassResponse,
+      string
+    >({
+      query: accessToken => ({
+        headers: {'Access-Token': accessToken},
         slug: ModuleSlug['city-pass'],
-        url: '/city-passes',
+        url: '/data/passes',
       }),
       keepUnusedDataFor: CacheLifetime.none,
-      transformResponse: (response: {result: CityPass[]}) => response.result,
     }),
   }),
   overrideExisting: true,
