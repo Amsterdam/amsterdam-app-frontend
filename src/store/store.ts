@@ -22,15 +22,15 @@ import {themeSlice} from '@/themes/slice'
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
-  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
+  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
-  {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
+  {key: ReduxKey.modules, slice: modulesSlice, persistVersion: 0},
   {key: ReduxKey.overlay, slice: overlaySlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
-  {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
+  {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: 0},
   {key: ReduxKey.secureStorage, slice: secureStorageSlice},
   {key: ReduxKey.theme, slice: themeSlice},
-  {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: -1},
+  {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: 0},
 ]
 
 const reducers = getReducers([

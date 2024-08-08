@@ -17,6 +17,7 @@ export const cityPassModule: ModuleClientConfig = {
     {
       key: ReduxKey.cityPass,
       slice: cityPassSlice,
+      persistVersion: 0,
       persistWhitelist: ['isCityPassOwnerRegistered'],
     },
   ],
