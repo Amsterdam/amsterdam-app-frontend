@@ -53,7 +53,7 @@ export const LogoutScreen = ({navigation}: Props) => {
         <Gutter height="sm" />
         <Paragraph>
           Als je meerdere passen hebt, worden die allemaal uitgelogd. Je kunt je
-          Stadspas(sen) altijd weer toevoegen door in te loggen.
+          Stadspas altijd weer toevoegen door in te loggen.
         </Paragraph>
         <Gutter height="xl" />
         <Button

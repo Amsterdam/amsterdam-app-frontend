@@ -57,15 +57,23 @@ export const useSetCityPassOwnerIsRegistered = () => {
   return useCallback(
     (value: boolean) => {
       dispatch(setIsCityPassOwnerRegistered(value))
-      value &&
-        setAlert({
-          variant: AlertVariant.positive,
-          text: 'Je Stadspas gegevens zijn opgehaald.',
-          title: 'Gelukt!',
-          hasIcon: true,
-          hasCloseIcon: true,
-          testID: 'CityPassLoggedInAlertPositive',
-        })
+      value
+        ? setAlert({
+            variant: AlertVariant.positive,
+            text: 'Je Stadspas gegevens zijn opgehaald.',
+            title: 'Gelukt!',
+            hasIcon: true,
+            hasCloseIcon: true,
+            testID: 'CityPassLoggedInAlertPositive',
+          })
+        : setAlert({
+            variant: AlertVariant.negative,
+            text: 'Er is iets misgegaan bij het ophalen van je Stadspas gegevens.',
+            title: 'Mislukt!',
+            hasIcon: true,
+            hasCloseIcon: true,
+            testID: 'CityPassLoggedInAlertNegative',
+          })
     },
     [dispatch, setAlert],
   )
