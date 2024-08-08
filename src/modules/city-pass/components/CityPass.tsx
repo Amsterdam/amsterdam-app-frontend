@@ -14,7 +14,7 @@ import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityA
 import Logo from '@/modules/city-pass/assets/logo.svg'
 import {BarCode} from '@/modules/city-pass/components/BarCode'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
-import {PassOwner} from '@/modules/city-pass/types'
+import {PassOwnerOld} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -72,7 +72,7 @@ type Props = {
   index: number
   isCurrentIndex?: boolean
   itemCount: number
-  passOwner: PassOwner
+  passOwner: PassOwnerOld
 }
 
 export const CityPass = ({

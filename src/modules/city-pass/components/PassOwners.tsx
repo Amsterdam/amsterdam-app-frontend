@@ -1,16 +1,23 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
+import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {RedirectKey} from '@/modules/redirects/types'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   logout: () => void
@@ -20,6 +27,24 @@ export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
   const {passOwnersWithActivePass} = usePassOwners()
   const openRedirect = useOpenRedirect()
+  const {item: secureAccessToken} = useGetSecureItem(
+    SecureItemKey.cityPassAccessToken,
+  )
+  const {data, isLoading, isError} = useGetCityPassesQuery(
+    secureAccessToken ? secureAccessToken : skipToken,
+  )
+
+  useSetSecureCityPasses(data)
+
+  if (isLoading) {
+    return <PleaseWait testID="CityPassDashboardPleaseWait" />
+  }
+
+  if (isError) {
+    return (
+      <SomethingWentWrong text="Er ging iets mis met het ophalen van de Stadspas informatie." />
+    )
+  }
 
   return (
     <Box

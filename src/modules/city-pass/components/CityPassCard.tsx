@@ -8,14 +8,14 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {cityPass} from '@/modules/city-pass/mocks/cityPass'
-import {PassOwner} from '@/modules/city-pass/types'
+import {PassOwnerOld} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
-  passOwner: PassOwner
+  passOwner: PassOwnerOld
 } & Omit<PressableProps, 'children' | 'variant'>
 
 export const CityPassCard = ({

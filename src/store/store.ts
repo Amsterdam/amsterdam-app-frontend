@@ -13,6 +13,7 @@ import {internetConnectionSlice} from '@/store/slices/internetConnection'
 import {modulesSlice} from '@/store/slices/modules'
 import {overlaySlice} from '@/store/slices/overlay'
 import {permissionsSlice} from '@/store/slices/permissions'
+import {secureStorageSlice} from '@/store/slices/secureStorage'
 import {updateAppSlice} from '@/store/slices/updateApp'
 import {ReduxConfig} from '@/store/types/reduxConfig'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -21,14 +22,15 @@ import {themeSlice} from '@/themes/slice'
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
-  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: -1},
+  {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
-  {key: ReduxKey.modules, slice: modulesSlice, persistVersion: -1},
+  {key: ReduxKey.modules, slice: modulesSlice, persistVersion: 0},
   {key: ReduxKey.overlay, slice: overlaySlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
-  {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: -1},
+  {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: 0},
+  {key: ReduxKey.secureStorage, slice: secureStorageSlice, persistVersion: 0},
   {key: ReduxKey.theme, slice: themeSlice},
-  {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: -1},
+  {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: 0},
 ]
 
 const reducers = getReducers([

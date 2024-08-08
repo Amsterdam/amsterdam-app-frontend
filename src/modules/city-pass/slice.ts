@@ -1,15 +1,25 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useCallback} from 'react'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAlert} from '@/store/slices/alert'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type CityPassState = {
-  cityPass: string | undefined
+  /**
+   * Whether the user is been logged in and registered in the city-pass backend.
+   */
+  isCityPassOwnerRegistered: boolean
+  /**
+   * Whether the city-passes overlay UI is visible.
+   */
   isCityPassesVisible: boolean
 }
 
 const initialState: CityPassState = {
-  cityPass: undefined,
   isCityPassesVisible: false,
+  isCityPassOwnerRegistered: false,
 }
 
 export const cityPassSlice = createSlice({
@@ -19,23 +29,52 @@ export const cityPassSlice = createSlice({
     hideCityPasses: state => {
       state.isCityPassesVisible = false
     },
-    saveCityPass: (state, {payload}: PayloadAction<string>) => {
-      state.cityPass = payload
+    setIsCityPassOwnerRegistered: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isCityPassOwnerRegistered = payload
     },
     showCityPasses: state => {
       state.isCityPassesVisible = true
     },
-    resetCityPass: state => {
-      state.cityPass = undefined
-    },
   },
 })
 
-export const {hideCityPasses, saveCityPass, resetCityPass, showCityPasses} =
+export const {hideCityPasses, setIsCityPassOwnerRegistered, showCityPasses} =
   cityPassSlice.actions
-
-export const selectCityPass = (state: RootState) =>
-  state[ReduxKey.cityPass].cityPass
 
 export const selectIsCityPassesVisible = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassesVisible
+
+export const selectIsCityPassOwnerRegistered = (state: RootState) =>
+  state[ReduxKey.cityPass].isCityPassOwnerRegistered
+
+export const useSetCityPassOwnerIsRegistered = () => {
+  const dispatch = useDispatch()
+  const {setAlert} = useAlert()
+
+  return useCallback(
+    (value: boolean) => {
+      dispatch(setIsCityPassOwnerRegistered(value))
+      value
+        ? setAlert({
+            variant: AlertVariant.positive,
+            text: 'Je Stadspas gegevens zijn opgehaald.',
+            title: 'Gelukt!',
+            hasIcon: true,
+            hasCloseIcon: true,
+            testID: 'CityPassLoggedInAlertPositive',
+          })
+        : setAlert({
+            variant: AlertVariant.negative,
+            text: 'Er is iets misgegaan bij het ophalen van je Stadspas gegevens.',
+            title: 'Mislukt!',
+            hasIcon: true,
+            hasCloseIcon: true,
+            testID: 'CityPassLoggedInAlertNegative',
+          })
+    },
+    [dispatch, setAlert],
+  )
+}

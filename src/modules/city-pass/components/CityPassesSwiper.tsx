@@ -7,7 +7,7 @@ import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
 import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
-import {PassOwner} from '@/modules/city-pass/types'
+import {PassOwnerOld} from '@/modules/city-pass/types'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
@@ -17,7 +17,7 @@ const PAGINATION_HEIGHT = 50
 
 type CarouselItem = {
   index: number
-  item: PassOwner
+  item: PassOwnerOld
 }
 
 export const CityPassesSwiper = () => {

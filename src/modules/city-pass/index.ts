@@ -16,8 +16,9 @@ export const cityPassModule: ModuleClientConfig = {
   reduxConfigs: [
     {
       key: ReduxKey.cityPass,
-      persistVersion: 0,
       slice: cityPassSlice,
+      persistVersion: 0,
+      persistWhitelist: ['isCityPassOwnerRegistered'],
     },
   ],
   slug: ModuleSlug['city-pass'],

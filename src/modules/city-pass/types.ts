@@ -11,71 +11,71 @@ export type CityPassTokensResponse = {
   refresh_token: string
 }
 
-export type CityPassBase = {
+export type CityPassBaseOld = {
   actief: boolean
-  budgetten: BudgetBase[]
+  budgetten: BudgetBaseOld[]
   categorie: string
   categorie_code: string
   expiry_date: string
   id: number
   pasnummer: number
   pasnummer_volledig: string
-  passoort: PassType
+  passoort: PassTypeOld
 }
-export type CityPass = CityPassBase & {
+export type CityPassOld = CityPassBaseOld & {
   balance_update_time: Date
   budgetten_actief: boolean
   eigenaar: string
-  originele_pas: OriginalPass
+  originele_pas: OriginalPassOld
 }
 
-export type BudgetBase = {code: string; naam: string}
+export type BudgetBaseOld = {code: string; naam: string}
 
-export type Budget = BudgetBase & {
+export type BudgetOld = BudgetBaseOld & {
   budget_assigned: number
   budget_balance: number
   expiry_date: string
   omschrijving: string
 }
 
-export type OriginalPass = {
+export type OriginalPassOld = {
   categorie: string
   categorie_code: string
   id: number
   pasnummer: number
   pasnummer_volledig: string
-  passoort: PassType
+  passoort: PassTypeOld
 }
 
-export type PassType = {
+export type PassTypeOld = {
   id: number
   naam: string
 }
 
-export type PassOwner = {
+export type PassOwnerOld = {
   achternaam: string
   initialen: string
-  passen: CityPassBase[]
+  passen: CityPassBaseOld[]
   voornaam: string
 }
 
-export type Transaction = {
-  aanbieder?: TransActionSupplier
+export type TransactionOld = {
+  aanbieder?: TransActionSupplierOld
   bedrag: number
-  budget?: TransactionBudget
+  budget?: TransactionBudgetOld
   id: number
   omschrijving?: string
   transactiedatum: string
 }
 
-type TransactionBudget = {
-  aanbieder: TransActionSupplier
+type TransactionBudgetOld = {
+  aanbieder: TransActionSupplierOld
   code: string
   id: number
   naam: string
 }
 
-type TransActionSupplier = {
+type TransActionSupplierOld = {
   id: number
   naam: string
 }
@@ -91,4 +91,44 @@ export type AboutBlock = {
 export enum LoginResult {
   failed = 'mislukt',
   success = 'gelukt',
+}
+
+export type CityPassOwner = {
+  firstname: string
+  infix: string
+  initials: string
+  lastname: string
+}
+
+export type CityPassBudget = {
+  budgetAssigned: number
+  budgetAssignedFormatted: string
+  budgetBalance: number
+  budgetBalanceFormatted: string
+  code: string
+  dateEnd: string
+  dateEndFormatted: string
+  description: string
+  title: string
+}
+
+export type CityPass = {
+  balanceFormatted: string
+  budgets: CityPassBudget[]
+  dateEnd: string
+  dateEndFormatted: string
+  id: string
+  owner: CityPassOwner
+  passNumber: number
+  passNumberComplete: string
+}
+
+export type CityPassResponse = CityPass[]
+
+export type SecureCityPass = {
+  d: CityPass['dateEndFormatted']
+  f: CityPassOwner['firstname']
+  i?: CityPassOwner['infix']
+  l: CityPassOwner['lastname']
+  p: CityPass['passNumberComplete']
 }
