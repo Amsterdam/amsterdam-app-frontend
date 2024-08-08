@@ -3,8 +3,6 @@ const path = require('path')
 const moduleVisitor = require('eslint-module-utils/moduleVisitor').default
 const pkgUp = require('eslint-module-utils/pkgUp').default
 
-// const isProperty = property => property.type === 'Property'
-
 const messages = {
   noRelativeFileImport: 'No relative file import',
 }
