@@ -31,10 +31,10 @@ Then add the profiles to the Xcode project:
 - Go to project AmsterdamApp and select target AmsterdamApp
 - Go to tab Signing & Capabilities
 - Set the 4 provisioning profiles:
-    - Debug: `match Development nl.amsterdam.app`
-    - DevDebug: `match Development nl.amsterdam.app.dev`
-    - Release: `match AppStore nl.amsterdam.app`
-    - DevRelease: `match AppStore nl.amsterdam.app.dev`
+  - Debug: `match Development nl.amsterdam.app`
+  - DevDebug: `match Development nl.amsterdam.app.dev`
+  - Release: `match AppStore nl.amsterdam.app`
+  - DevRelease: `match AppStore nl.amsterdam.app.dev`
 
 This pipeline requires the MATCH_PASSWORD env var to be set (stored in KeePass).
 

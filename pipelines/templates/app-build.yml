@@ -1,18 +1,18 @@
 parameters:
-- name: platform
-  type: string
-  default: "ios"
+  - name: platform
+    type: string
+    default: 'ios'
 
 steps:
   - checkout: self
-    path: "./s/"
+    path: './s/'
     fetchDepth: 0
   - checkout: aapp_app_ios-certificates
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml
   - script: gem install bundler:2.4.16
-    displayName: "Install bundler"
+    displayName: 'Install bundler'
   - task: JavaToolInstaller@0
     displayName: 'Install Java SDK'
     inputs:
@@ -31,23 +31,23 @@ steps:
 
   # Download and move secure files
   - template: ./copy-android-files.yml
-    parameters: 
+    parameters:
       condition: eq('${{ parameters.platform }}', 'android')
   - template: ./copy-ios-files.yml
-    parameters: 
+    parameters:
       condition: eq('${{ parameters.platform }}', 'ios')
 
   # Install gems and run Fastlane
   - script: |
       bundle config set --local without 'iosAppBuildDependencies'
     condition: eq('${{ parameters.platform }}', 'android')
-    displayName: "Set Bundler to ignore iosAppBuildDependencies"
+    displayName: 'Set Bundler to ignore iosAppBuildDependencies'
   - script: |
       bundle install
-    displayName: "Bundle install Ruby gems"
+    displayName: 'Bundle install Ruby gems'
   - script: |
       bundle exec fastlane buildApps
-    displayName: "Build ${{ parameters.platform }}"
+    displayName: 'Build ${{ parameters.platform }}'
     workingDirectory: ${{ parameters.platform }}
     env:
       VERSION: $(VERSION)
@@ -56,8 +56,8 @@ steps:
       PIWIK_PRO_ID: $(PIWIK_PRO_ID)
       PIWIK_PRO_URL_ACCEPT: $(PIWIK_PRO_URL_ACCEPT)
       PIWIK_PRO_ID_ACCEPT: $(PIWIK_PRO_ID_ACCEPT)
-      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: "180"
-      FASTLANE_XCODE_LIST_TIMEOUT: "180"
+      FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: '180'
+      FASTLANE_XCODE_LIST_TIMEOUT: '180'
       MATCH_GIT_BEARER_AUTHORIZATION: $(System.AccessToken)
       MATCH_PASSWORD: $(MATCH_PASSWORD)
       API_KEY: $(API_KEY)
@@ -71,10 +71,10 @@ steps:
     parameters:
       platform: ${{ parameters.platform }}
   - template: ./copy-android-artifacts.yml
-    parameters: 
+    parameters:
       condition: eq('${{ parameters.platform }}', 'android')
   - template: ./copy-ios-artifacts.yml
-    parameters: 
+    parameters:
       condition: eq('${{ parameters.platform }}', 'ios')
   - task: PublishBuildArtifacts@1
     displayName: 'Publish artifacts'

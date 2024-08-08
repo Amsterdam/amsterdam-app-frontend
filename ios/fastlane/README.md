@@ -1,5 +1,4 @@
-fastlane documentation
-----
+## fastlane documentation
 
 # Installation
 
@@ -61,15 +60,11 @@ Build prod and dev version of the app
 [bundle exec] fastlane ios distributeInternal
 ```
 
-
-
 ### ios distributeStakeholders
 
 ```sh
 [bundle exec] fastlane ios distributeStakeholders
 ```
-
-
 
 ### ios distributeProduction
 
@@ -77,9 +72,7 @@ Build prod and dev version of the app
 [bundle exec] fastlane ios distributeProduction
 ```
 
-
-
-----
+---
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
 

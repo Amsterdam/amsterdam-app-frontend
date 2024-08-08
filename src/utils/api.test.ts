@@ -1,4 +1,4 @@
-import {isApiAuthorizationError, generateRequestUrl} from './api'
+import {isApiAuthorizationError, generateRequestUrl} from '@/utils/api'
 
 describe('isApiAuthorizationError', () => {
   it('returns true for errors with status 401', () => {

@@ -4,17 +4,17 @@ parameters:
 
 steps:
   - task: CopyFiles@2
-    displayName: "Copy gemfile"
+    displayName: 'Copy gemfile'
     inputs:
-      contents: "Gemfile"
+      contents: 'Gemfile'
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: CopyFiles@2
-    displayName: "Copy .ruby-version"
+    displayName: 'Copy .ruby-version'
     inputs:
-      contents: ".ruby-version"
+      contents: '.ruby-version'
       targetFolder: $(Build.ArtifactStagingDirectory)
   - task: CopyFiles@2
-    displayName: "Copy fastlane config"
+    displayName: 'Copy fastlane config'
     inputs:
-      contents: "${{ parameters.platform }}/fastlane/**"
+      contents: '${{ parameters.platform }}/fastlane/**'
       targetFolder: $(Build.ArtifactStagingDirectory)

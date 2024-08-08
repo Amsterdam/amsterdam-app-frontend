@@ -165,7 +165,7 @@ module.exports = {
         ignoreCase: true,
       },
     ],
-    'prettier/prettier': 'warn',
+    'prettier/prettier': 'off',
     'react/jsx-no-explicit-spread': 'off',
     'amsterdam/jsx-no-explicit-spread': 'error',
     'padding-line-between-statements': [

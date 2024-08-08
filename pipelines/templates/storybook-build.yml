@@ -8,7 +8,7 @@ steps:
   - script: npm run storybook:build
     displayName: Build storybook
   - template: ./save-version-info.yml
-    parameters: 
+    parameters:
       isStorybook: true
   - publish: $(System.DefaultWorkingDirectory)/storybook-static
     artifact: storybook-build

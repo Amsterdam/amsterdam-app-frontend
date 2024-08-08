@@ -2,20 +2,12 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "@/storybook/*": [
-        ".storybook/*"
-      ],
-      "@/*": [
-        "src/*"
-      ]
+      "@/storybook/*": [".storybook/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
-    "types": [
-      "jest",
-      "node",
-      "react-native"
-    ]
+    "types": ["jest", "node", "react-native"]
   },
   "exclude": [
     "node_modules",

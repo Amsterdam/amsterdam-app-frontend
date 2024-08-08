@@ -1,5 +1,5 @@
 jobs:
-  - job: "Tests"
+  - job: 'Tests'
     timeoutInMinutes: 30
     pool:
       vmImage: macos-14

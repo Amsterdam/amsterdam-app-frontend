@@ -1,0 +1,13 @@
+react-native-block-screenshot/lib
+node_modules
+**/node_modules
+**/.git
+storybook-static
+ios/build
+ios/Pods
+.jest
+coverage
+android/.gradle
+android/.idea
+android/build
+android/app/build

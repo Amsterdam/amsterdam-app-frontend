@@ -1,16 +1,16 @@
-trigger: 
+trigger:
   - main
 
 pr: none
 
 jobs:
-  - job: "Build_Storybook"
+  - job: 'Build_Storybook'
     timeoutInMinutes: 30
     pool:
       vmImage: macOS-14
     steps:
       - template: ./templates/storybook-build.yml
-  - job: "Push_to_github"
+  - job: 'Push_to_github'
     timeoutInMinutes: 30
     pool:
       vmImage: macOS-14

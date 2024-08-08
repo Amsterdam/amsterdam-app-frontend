@@ -1,4 +1,4 @@
-import {capitalizeString} from './capitalizeString'
+import {capitalizeString} from '@/utils/capitalizeString'
 
 describe('capitalizeString', () => {
   test('capitalizes the first character of a string', () => {

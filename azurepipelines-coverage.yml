@@ -1,6 +1,6 @@
 # https://learn.microsoft.com/en-us/azure/devops/pipelines/test/codecoverage-for-pullrequests?view=azure-devops#configuring-coverage-settings
 coverage:
   status:
-    comments: on    # default off
+    comments: on # default off
     diff:
-      target: 15%   # default 70%
+      target: 15% # default 70%

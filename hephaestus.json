@@ -1,64 +1,60 @@
 {
-    "type": "React Native",
-    "commands": [
+  "type": "React Native",
+  "commands": [
+    {
+      "signature": "make:component",
+      "label": "Make Functional Component with storybook and a render test",
+      "description": "Creates a component.",
+      "question": "Name your component",
+      "commands": ["make:fc", "make:renderTest", "make:storybook"]
+    },
+    {
+      "signature": "make:fc",
+      "label": "Make Functional Component",
+      "description": "Creates a model for the specified resource.",
+      "arguments": [
         {
-            "signature": "make:component",
-            "label": "Make Functional Component with storybook and a render test",
-            "description": "Creates a component.",
-            "question": "Name your component",
-            "commands": [
-                "make:fc",
-                "make:renderTest",
-                "make:storybook"
-            ]
-        },
-        {
-            "signature": "make:fc",
-            "label": "Make Functional Component",
-            "description": "Creates a model for the specified resource.",
-            "arguments": [
-                {
-                    "key": "props",
-                    "type": "array",
-                    "question": "Give desired item props eg. label"
-                }
-            ],
-            "stubs": [
-                {
-                    "source": "./stubs/components/fc.tsx.stub",
-                    "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.tsx",
-                    "open": true
-                }
-            ]
-        },
-        {
-            "signature": "make:renderTest",
-            "label": "Make Component Render Test",
-            "description": "Creates a model for the specified resource.",
-            "arguments": [
-                {
-                    "key": "props",
-                    "type": "array",
-                    "question": "Give desired item props eg. label"
-                }
-            ],
-            "stubs": [
-                {
-                    "source": "./stubs/components/fc.test.tsx.stub",
-                    "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.test.tsx"
-                }
-            ]
-        },
-        {
-            "signature": "make:storybook",
-            "label": "Make storybook Component",
-            "description": "Creates a model for the specified resource.",
-            "stubs": [
-                {
-                    "source": "./stubs/components/fc.stories.tsx.stub",
-                    "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.stories.tsx"
-                }
-            ]
+          "key": "props",
+          "type": "array",
+          "question": "Give desired item props eg. label"
         }
-    ]
+      ],
+      "stubs": [
+        {
+          "source": "./stubs/components/fc.tsx.stub",
+          "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.tsx",
+          "open": true
+        }
+      ]
+    },
+    {
+      "signature": "make:renderTest",
+      "label": "Make Component Render Test",
+      "description": "Creates a model for the specified resource.",
+      "arguments": [
+        {
+          "key": "props",
+          "type": "array",
+          "question": "Give desired item props eg. label"
+        }
+      ],
+      "stubs": [
+        {
+          "source": "./stubs/components/fc.test.tsx.stub",
+          "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.test.tsx"
+        }
+      ]
+    },
+    {
+      "signature": "make:storybook",
+      "label": "Make storybook Component",
+      "description": "Creates a model for the specified resource.",
+      "stubs": [
+        {
+          "source": "./stubs/components/fc.stories.tsx.stub",
+          "result": "./src/DummyForwardslashNamespace/DummyStudlyNameSingular.stories.tsx"
+        }
+      ]
+    }
+  ]
 }

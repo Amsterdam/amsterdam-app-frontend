@@ -7,7 +7,7 @@ schedules:
     displayName: Monday certificates sync
     branches:
       include:
-      - main
+        - main
 
 resources:
   repositories:
@@ -16,7 +16,7 @@ resources:
       name: aapp_app_ios-certificates
 
 jobs:
-  - job: "Sync_iOS_certificates"
+  - job: 'Sync_iOS_certificates'
     timeoutInMinutes: 20
     pool:
       vmImage: macOS-14
