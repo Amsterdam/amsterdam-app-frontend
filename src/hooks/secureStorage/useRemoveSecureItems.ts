@@ -7,15 +7,10 @@ export const useRemoveSecureItems = () => {
 
   return useCallback(
     (keys: SecureItemKey[]) =>
-      new Promise((resolve, reject) => {
-        removeSecureItems(keys)
-          .then(unresolvedKeys => {
-            keys.forEach(key => {
-              deleteItem(key)
-            })
-            resolve(unresolvedKeys)
-          })
-          .catch(reject)
+      removeSecureItems(keys).then(() => {
+        keys.forEach(key => {
+          deleteItem(key)
+        })
       }),
     [deleteItem],
   )

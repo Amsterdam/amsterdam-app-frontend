@@ -10,15 +10,8 @@ export const useSetSecureItem = () => {
 
   return useCallback(
     (key: SecureItemKey, value: string) =>
-      new Promise((resolve, reject) => {
-        setSecureItem(key, value)
-          .then(() => {
-            setItem(key)
-            resolve(key)
-          })
-          .catch((err: Error) => {
-            reject(err)
-          })
+      setSecureItem(key, value).then(() => {
+        setItem(key)
       }),
     [setItem],
   )
