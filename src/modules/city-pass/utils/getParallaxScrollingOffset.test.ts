@@ -1,4 +1,4 @@
-import {getParallaxScrollingOffset} from './getParallaxScrollingOffset'
+import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 
 describe('getParallaxScrollingOffset', () => {
   it('should return (windowWidth - cardWidth) if nextCardVisibleFractionOfAvailableSpace is 1', () => {
