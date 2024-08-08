@@ -1,6 +1,6 @@
-import {getUnreadArticlesLength} from './getUnreadArticlesLength'
 import {ReadArticle} from '@/modules/construction-work/slice'
 import {ArticleStub} from '@/modules/construction-work/types/api'
+import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
 
 const mockReadArticles: ReadArticle[] = [
   {id: 'article1', publicationDate: '2023-01-01'},

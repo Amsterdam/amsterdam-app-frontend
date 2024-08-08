@@ -1,5 +1,5 @@
-import {getCustomDimensions} from './getCustomDimensions'
 import {PiwikDimension, PiwikSessionDimension} from '@/processes/piwik/types'
+import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
 import {VERSION_NUMBER} from '@/utils/version'
 
 describe('postProcessDimensions', () => {

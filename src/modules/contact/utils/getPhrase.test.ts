@@ -1,4 +1,8 @@
-import {getQueuedPhrase, getWaitingTimePhrase, replaceZero} from './getPhrase'
+import {
+  getQueuedPhrase,
+  getWaitingTimePhrase,
+  replaceZero,
+} from '@/modules/contact/utils/getPhrase'
 
 describe('replaceZero', () => {
   test('0', () => {

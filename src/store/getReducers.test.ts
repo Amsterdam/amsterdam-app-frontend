@@ -1,5 +1,5 @@
-import {getReduxConfigs} from './getReducers'
 import {ModuleClientConfig} from '@/modules/types'
+import {getReduxConfigs} from '@/store/getReducers'
 
 describe('getReduxConfigs', () => {
   test('should reduce an array of module configs to an array of Redux configs', () => {

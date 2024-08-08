@@ -2,7 +2,7 @@ import {
   ProjectSegmentTitle,
   getProjectSegmentOptions,
   hasContentToShow,
-} from './useProjectSegmentOptions'
+} from '@/modules/construction-work/hooks/useProjectSegmentOptions'
 import {Project, ProjectSection} from '@/modules/construction-work/types/api'
 import {ProjectSegment} from '@/modules/construction-work/types/project'
 

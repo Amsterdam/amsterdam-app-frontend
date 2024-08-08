@@ -1,6 +1,5 @@
-import {addressIsInAmsterdamMunicipality} from './addressIsInAmsterdamMunicipality'
-
 import {AddressCity, PdokAddress} from '@/modules/address/types'
+import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 
 describe('addressIsInAmsterdamMunicipality', () => {
   it('should return true when woonplaatsnaam is Amsterdam', () => {

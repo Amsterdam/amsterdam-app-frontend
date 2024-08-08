@@ -1,4 +1,4 @@
-import {formatNumber} from './formatNumber'
+import {formatNumber} from '@/utils/formatNumber'
 
 describe('formatNumber', () => {
   it('should also show seconds if desired', () => {

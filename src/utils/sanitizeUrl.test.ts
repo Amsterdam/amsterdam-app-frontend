@@ -2,7 +2,7 @@ import {
   sanitizeUrl,
   getSanitizedQueryString,
   getSanitizedHashString,
-} from './sanitizeUrl'
+} from '@/utils/sanitizeUrl'
 
 describe('getSanitizedQueryString', () => {
   test('should return an empty string when given an empty query string', () => {

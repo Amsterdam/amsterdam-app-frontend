@@ -1,4 +1,4 @@
-import {formatPhoneNumber} from './formatPhoneNumber'
+import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
 describe('formatPhoneNumber', () => {
   it('formats a mobile phone number', () => {

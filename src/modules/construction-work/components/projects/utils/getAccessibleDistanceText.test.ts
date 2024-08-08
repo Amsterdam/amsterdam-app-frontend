@@ -1,4 +1,4 @@
-import {getAccessibleDistanceText} from './getAccessibleDistanceText'
+import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
 
 describe('getAccessibleDistanceText', () => {
   it('handles normal value', () => {

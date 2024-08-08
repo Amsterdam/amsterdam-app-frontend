@@ -5,7 +5,7 @@ import {it} from '@jest/globals'
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer'
-import {AppSwitcher} from './AppSwitcher'
+import {AppSwitcher} from '@/app/init/AppSwitcher'
 import {StoreProvider} from '@/providers/store.provider'
 
 it('AppSwitcher renders correctly', () => {

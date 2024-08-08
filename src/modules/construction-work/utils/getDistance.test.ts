@@ -1,4 +1,4 @@
-import {getDistance} from './getDistance'
+import {getDistance} from '@/modules/construction-work/utils/getDistance'
 
 describe('getDistance', () => {
   it('should return an empty object when either meter is not provided', () => {

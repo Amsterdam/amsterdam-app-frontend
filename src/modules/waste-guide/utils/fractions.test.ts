@@ -1,13 +1,13 @@
 import {
+  FractionCode,
+  WasteGuideResponseFraction,
+} from '@/modules/waste-guide/types'
+import {
   collectionByAppointmentApplies,
   getFractions,
   getFractionsForCollectionByAppointment,
   sortFractions,
-} from './fractions'
-import {
-  FractionCode,
-  WasteGuideResponseFraction,
-} from '@/modules/waste-guide/types'
+} from '@/modules/waste-guide/utils/fractions'
 
 describe('sortFractions', () => {
   test('should correctly sort fractions based on fractionOrder array', () => {

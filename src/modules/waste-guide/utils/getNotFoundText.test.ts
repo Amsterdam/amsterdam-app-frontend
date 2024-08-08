@@ -1,5 +1,5 @@
-import {getNotFoundText} from './getNotFoundText'
 import {Address} from '@/modules/address/types'
+import {getNotFoundText} from '@/modules/waste-guide/utils/getNotFoundText'
 
 describe('getNotFoundText', () => {
   it('should return a sensible not found text when address and locationType are not provided (should not happen)', () => {

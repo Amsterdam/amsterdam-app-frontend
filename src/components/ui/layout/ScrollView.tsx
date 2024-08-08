@@ -22,7 +22,7 @@ export const ScrollView = forwardRef<RNScrollView, ScrollViewProps>(
         keyboardShouldPersistTaps={grow ? 'handled' : undefined}
         ref={ref}
         scrollIndicatorInsets={{right: Number.MIN_VALUE}}
-        style={[withBottomInset && {paddingBottom: insets.bottom}]}
+        style={!!withBottomInset && {paddingBottom: insets.bottom}}
         {...scrollViewProps}>
         {children}
       </RNScrollView>

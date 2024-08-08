@@ -1,5 +1,5 @@
-import {getBulkyWasteAppointmentUrl} from './getBulkyWasteAppointmentUrl'
 import {Address} from '@/modules/address/types'
+import {getBulkyWasteAppointmentUrl} from '@/modules/waste-guide/utils/getBulkyWasteAppointmentUrl'
 
 describe('getBulkyWasteAppointmentUrl', () => {
   it('should be just the bulky waste url if no address', () => {

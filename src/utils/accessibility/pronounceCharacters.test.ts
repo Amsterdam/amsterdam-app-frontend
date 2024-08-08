@@ -1,4 +1,4 @@
-import {pronounceCharacters} from './pronounceCharacters'
+import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
 
 describe('accessibleNumber', () => {
   it('should return the number with spaces', () => {

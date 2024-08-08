@@ -1,4 +1,4 @@
-import {createPathFromNotification} from './linking'
+import {createPathFromNotification} from '@/app/navigation/linking'
 import {PushNotification} from '@/types/notification'
 
 describe('createRoute', () => {

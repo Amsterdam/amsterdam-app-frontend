@@ -1,4 +1,4 @@
-import {promoteInlineLinks} from './promoteInlineLinks'
+import {promoteInlineLinks} from '@/components/ui/utils/promoteInlineLinks'
 
 describe('promoteInlineLinks', () => {
   it('should wrap anchor tags in divs and preserve other content', () => {

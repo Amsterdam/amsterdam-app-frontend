@@ -1,4 +1,4 @@
-import {formatDate} from './formatDate'
+import {formatDate} from '@/utils/datetime/formatDate'
 
 test('Test datum', () =>
   expect(formatDate('December 17, 1995 03:24:00')).toBe('17 december 1995'))

@@ -1,4 +1,4 @@
-import {stringGroupInto} from './stringGroupInto'
+import {stringGroupInto} from '@/utils/stringGroupInto'
 
 describe('stringGroupInto', () => {
   it('should group a string into n characters', () => {

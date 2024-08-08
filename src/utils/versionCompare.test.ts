@@ -1,4 +1,4 @@
-import {CompareResults, versionCompare} from './versionCompare'
+import {CompareResults, versionCompare} from '@/utils/versionCompare'
 
 describe('versionCompare', () => {
   test('versionCompare', () => {

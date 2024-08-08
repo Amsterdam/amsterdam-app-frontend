@@ -1,6 +1,6 @@
-import {createCustomDimensionsFromRouteParams} from './createCustomDimensionsFromRouteParams'
-import {getCustomDimensions} from './getCustomDimensions'
 import {CustomDimensions, PiwikDimension} from '@/processes/piwik/types'
+import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/createCustomDimensionsFromRouteParams'
+import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
 
 describe('createCustomDimensionsFromRouteParams', () => {
   it('should return default dimension when there is no id', () => {

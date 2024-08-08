@@ -1,4 +1,4 @@
-import {addressPronounce} from './addressPronounce'
+import {addressPronounce} from '@/utils/accessibility/addressPronounce'
 
 describe('Address pronounce', () => {
   it(`empty string`, () => expect(addressPronounce('')).toBe(''))

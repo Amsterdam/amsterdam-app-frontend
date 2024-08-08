@@ -1,5 +1,5 @@
 import {PersistedState} from 'redux-persist'
-import {migrations} from './migrations'
+import {migrations} from '@/modules/address/migrations'
 import {AddressCity} from '@/modules/address/types'
 
 describe('transform function for old address', () => {

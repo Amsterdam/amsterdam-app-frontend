@@ -42,6 +42,7 @@ module.exports = {
       'error',
       {skip: ['Phrase', 'Paragraph', 'InlineLink']},
     ],
+    'react-native/no-single-element-style-arrays': 'warn',
     'import/no-default-export': 'error',
     'import/order': [
       'warn',
@@ -201,6 +202,7 @@ module.exports = {
         'plugin:typescript-sort-keys/recommended',
       ],
       rules: {
+        'amsterdam/no-relative-file-import': 'warn',
         'jsx-expressions/strict-logical-expressions': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
@@ -225,6 +227,7 @@ module.exports = {
         'import/no-default-export': 'off',
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
+        'amsterdam/no-relative-file-import': 'off',
       },
     },
   ],

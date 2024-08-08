@@ -1,4 +1,4 @@
-import {formatEnumeration} from './formatEnumeration'
+import {formatEnumeration} from '@/utils/formatEnumeration'
 
 describe('formatEnumeration', () => {
   it('3 items', () => {

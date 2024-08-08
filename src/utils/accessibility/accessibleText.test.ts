@@ -1,4 +1,4 @@
-import {accessibleText} from './accessibleText'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 test(`empty string`, () => expect(accessibleText('')).toBe(''))
 

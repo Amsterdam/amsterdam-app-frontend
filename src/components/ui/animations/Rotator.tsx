@@ -33,18 +33,16 @@ export const Rotator = ({children}: Props) => {
       <Animated.View
         accessibilityLabel="Bezig …"
         accessible
-        style={[
-          {
-            transform: [
-              {
-                rotate: rotationRef.current.interpolate({
-                  inputRange: [0, 360],
-                  outputRange: ['0deg', '360deg'],
-                }),
-              },
-            ],
-          },
-        ]}>
+        style={{
+          transform: [
+            {
+              rotate: rotationRef.current.interpolate({
+                inputRange: [0, 360],
+                outputRange: ['0deg', '360deg'],
+              }),
+            },
+          ],
+        }}>
         {children}
       </Animated.View>
     </Row>
