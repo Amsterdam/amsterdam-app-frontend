@@ -28,7 +28,7 @@ export const generateRequestUrl = <ParamsType extends GenericParamsType>({
   const queryParams = arrayParams.concat(scalarParams).join('&')
 
   if (queryParams.length === 0) {
-    return path
+    return path ?? ''
   }
 
   return [path, queryParams].join('?')

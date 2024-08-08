@@ -77,4 +77,12 @@ describe('generateRequestUrl', () => {
 
     expect(result).toEqual('/test-path')
   })
+
+  it('should generate empty string if path is undefined and no params are provided', () => {
+    const result = generateRequestUrl({
+      params: {},
+    })
+
+    expect(result).toEqual('')
+  })
 })
