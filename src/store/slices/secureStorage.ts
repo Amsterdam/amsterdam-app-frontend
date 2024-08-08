@@ -11,7 +11,7 @@ export const secureStorageSlice = createSlice({
   name: ReduxKey.secureStorage,
   initialState: {} as SecureStorageState,
   reducers: {
-    setSecureItemUpatedTimestamp: (
+    setSecureItemUpdatedTimestamp: (
       state,
       {payload}: PayloadAction<SecureItemKey>,
     ) => {
@@ -28,7 +28,7 @@ export const secureStorageSlice = createSlice({
   },
 })
 
-export const {deleteSecureItemUpdatedTimestamp, setSecureItemUpatedTimestamp} =
+export const {deleteSecureItemUpdatedTimestamp, setSecureItemUpdatedTimestamp} =
   secureStorageSlice.actions
 
 export const selectSecureItemUpdatedTimestamp =
@@ -43,7 +43,7 @@ export const useSetSecureItemUpdatedTimestamp = () => {
     [dispatch],
   )
   const setItem = useCallback(
-    (key: SecureItemKey) => dispatch(setSecureItemUpatedTimestamp(key)),
+    (key: SecureItemKey) => dispatch(setSecureItemUpdatedTimestamp(key)),
     [dispatch],
   )
 
