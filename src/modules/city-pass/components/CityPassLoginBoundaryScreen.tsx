@@ -1,24 +1,17 @@
 import {FC} from 'react'
 import {Screen, ScreenProps} from '@/components/features/screen/Screen'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {LoginScreen} from '@/modules/city-pass/screens/Login.screen'
-import {SecureItemKey} from '@/utils/secureStorage'
+import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 
 export const CityPassLoginBoundaryScreen: FC<ScreenProps> = ({
   children,
   testID,
   ...props
 }) => {
-  const {item: secureCityPasses, isLoading} = useGetSecureItem(
-    SecureItemKey.cityPasses,
-  )
+  const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
 
-  if (isLoading) {
-    return <PleaseWait testID="CityPassLoginBoundaryScreenIsWaiting" />
-  }
-
-  if (!secureCityPasses) {
+  if (!isCityPassOwnerRegistered) {
     return <LoginScreen />
   }
 

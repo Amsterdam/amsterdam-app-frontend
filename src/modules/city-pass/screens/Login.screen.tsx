@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/core'
 import {useCallback, useEffect, useState} from 'react'
 import DigiD from '@/assets/icons/digid.svg'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
@@ -5,7 +6,6 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
@@ -18,7 +18,6 @@ import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
 import {cityPassExternalLinks} from '@/modules/city-pass/external-links'
 import {useGetAccessToken} from '@/modules/city-pass/hooks/useGetAccessToken'
-import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 
 export const LoginScreen = () => {
   const [startLogin, setStartLogin] = useState(false)
@@ -26,22 +25,20 @@ export const LoginScreen = () => {
   const loginUrl = useUrlForEnv(cityPassExternalLinks)
 
   const {secureAccessToken} = useGetAccessToken(startLogin) ?? {}
-  const {isLoading: isSettingSecureCityPasses} =
-    useSetSecureCityPasses(secureAccessToken)
+
+  useFocusEffect(() => {
+    setStartLogin(false)
+  })
 
   useEffect(() => {
-    if (secureAccessToken) {
+    if (secureAccessToken && startLogin) {
       openWebUrl(loginUrl + secureAccessToken) // Re-enters the app with a deeplink when finished
     }
-  }, [openWebUrl, secureAccessToken, loginUrl])
+  }, [openWebUrl, secureAccessToken, loginUrl, startLogin])
 
   const login = useCallback(() => {
     setStartLogin(true)
   }, [])
-
-  if (isSettingSecureCityPasses) {
-    return <PleaseWait testID="CityPassLoginScreenPleaseWait" />
-  }
 
   return (
     <Screen

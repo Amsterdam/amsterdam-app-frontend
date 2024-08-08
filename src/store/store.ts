@@ -28,7 +28,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.overlay, slice: overlaySlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: 0},
-  {key: ReduxKey.secureStorage, slice: secureStorageSlice},
+  {key: ReduxKey.secureStorage, slice: secureStorageSlice, persistVersion: 0},
   {key: ReduxKey.theme, slice: themeSlice},
   {key: ReduxKey.updateApp, slice: updateAppSlice, persistVersion: 0},
 ]

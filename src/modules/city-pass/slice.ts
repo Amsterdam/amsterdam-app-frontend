@@ -1,6 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAlert} from '@/store/slices/alert'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
@@ -50,9 +52,21 @@ export const selectIsCityPassOwnerRegistered = (state: RootState) =>
 
 export const useSetCityPassOwnerIsRegistered = () => {
   const dispatch = useDispatch()
+  const {setAlert} = useAlert()
 
   return useCallback(
-    (value: boolean) => dispatch(setIsCityPassOwnerRegistered(value)),
-    [dispatch],
+    (value: boolean) => {
+      dispatch(setIsCityPassOwnerRegistered(value))
+      value &&
+        setAlert({
+          variant: AlertVariant.positive,
+          text: 'Je Stadspas gegevens zijn opgehaald.',
+          title: 'Gelukt!',
+          hasIcon: true,
+          hasCloseIcon: true,
+          testID: 'CityPassLoggedInAlertPositive',
+        })
+    },
+    [dispatch, setAlert],
   )
 }
