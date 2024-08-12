@@ -1,4 +1,3 @@
-import debounce from 'lodash.debounce'
 import {useCallback, useEffect, useState} from 'react'
 import {SearchField} from '@/components/ui/forms/SearchField'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -10,6 +9,7 @@ import {
   selectConstructionWorkSearchText,
   setSearchText,
 } from '@/modules/construction-work/slice'
+import {debounce} from '@/utils/debounce'
 
 export const ProjectsTextSearchField = () => {
   const dispatch = useDispatch()

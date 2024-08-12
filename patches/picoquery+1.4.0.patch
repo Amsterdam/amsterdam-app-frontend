@@ -1,0 +1,15 @@
+diff --git a/node_modules/picoquery/lib/object-util.js b/node_modules/picoquery/lib/object-util.js
+index 8ccb95c..0d5b9ab 100644
+--- a/node_modules/picoquery/lib/object-util.js
++++ b/node_modules/picoquery/lib/object-util.js
+@@ -43,6 +43,10 @@ function stringifyObject(obj, options, depth = 0, parentKey, isProbableArray) {
+     let valueIsProbableArray = false;
+     for (const key in obj) {
+         const value = obj[key];
++        // should be solved by https://github.com/43081j/picoquery/pull/51
++        if (value === undefined) {
++            continue;
++        }
+         let path;
+         if (parentKey) {
+             path = parentKey;

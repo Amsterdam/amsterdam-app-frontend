@@ -1,4 +1,4 @@
-import {stringify} from 'qs'
+import {stringify} from 'picoquery'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const isAmsterdamNlUrl = (url: string) =>

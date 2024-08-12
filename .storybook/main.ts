@@ -2,7 +2,7 @@ import path from 'path'
 import {isPreservingSymlinks} from '@storybook/core-common'
 import {StorybookConfig} from '@storybook/react-vite'
 import react from '@vitejs/plugin-react'
-import merge from 'lodash/merge'
+import {mergeConfig} from 'vite'
 import svgr from 'vite-plugin-svgr'
 
 const aliases = Object.entries(
@@ -47,7 +47,7 @@ const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   viteFinal: viteConfig =>
-    merge(viteConfig, {
+    mergeConfig(viteConfig, {
       base: './',
       define: {
         __DEV__: false,
