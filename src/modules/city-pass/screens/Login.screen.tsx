@@ -26,9 +26,11 @@ export const LoginScreen = () => {
 
   const {secureAccessToken} = useGetAccessToken(startLogin) ?? {}
 
-  useFocusEffect(() => {
-    setStartLogin(false)
-  })
+  useFocusEffect(
+    useCallback(() => {
+      setStartLogin(false)
+    }, []),
+  )
 
   useEffect(() => {
     if (secureAccessToken && startLogin) {
