@@ -35,5 +35,6 @@
     "source.addMissingImports": "explicit",
     "source.addMissingImports.ts": "explicit",
     "source.fixAll.eslint": "always"
-  }
+  },
+  "editor.formatOnSave": true
 }
