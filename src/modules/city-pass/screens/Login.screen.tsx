@@ -13,6 +13,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useAppState} from '@/hooks/useAppState'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
@@ -25,12 +26,14 @@ export const LoginScreen = () => {
   const loginUrl = useUrlForEnv(cityPassExternalLinks)
 
   const {secureAccessToken} = useGetAccessToken(startLogin) ?? {}
+  const onFocus = useCallback(() => {
+    setStartLogin(false)
+  }, [])
 
-  useFocusEffect(
-    useCallback(() => {
-      setStartLogin(false)
-    }, []),
-  )
+  useFocusEffect(onFocus)
+  useAppState({
+    onForeground: onFocus,
+  })
 
   useEffect(() => {
     if (secureAccessToken && startLogin) {
@@ -49,7 +52,7 @@ export const LoginScreen = () => {
       <FigureWithFacadesBackground testID="CityPassStartImage">
         <CityPassImage />
       </FigureWithFacadesBackground>
-      <Box>
+      <Box testID="RikDigiDIconPressable">
         <Title text="Zet uw Stadspas in de app" />
         <Gutter height="sm" />
         <Paragraph>
