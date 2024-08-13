@@ -8,6 +8,8 @@ steps:
     path: './s/'
     fetchDepth: 0
   - checkout: aapp_app_ios-certificates
+    path: './t/'
+    fetchDepth: 0
   # Set up environment
   - template: ./install-node.yml
   - template: ./install-ruby.yml
