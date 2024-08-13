@@ -1,4 +1,4 @@
-import {parse, stringify} from 'qs'
+import {parse, stringify} from 'picoquery'
 
 /**
  * Takes a query string and replaces all values with `___`. E.g. `foo=bar&quux=1` becomes `?foo=___&quux=___`

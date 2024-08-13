@@ -1,4 +1,4 @@
-/* eslint-disable import/no-default-export */
+/* eslint-disable import-x/no-default-export */
 declare module '*.svg' {
   import {FC} from 'react'
   import {SvgProps} from '@/types/svg'

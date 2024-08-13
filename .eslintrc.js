@@ -1,7 +1,7 @@
 module.exports = {
   root: true,
   plugins: [
-    'import',
+    'import-x',
     'jsx-expressions',
     'prefer-arrow-functions',
     'typescript-sort-keys',
@@ -9,6 +9,7 @@ module.exports = {
     'sonarjs',
     'amsterdam',
     'react-refresh',
+    'depend',
   ],
   extends: [
     '@react-native',
@@ -30,170 +31,177 @@ module.exports = {
     'coverage',
     'react-native-block-screenshot',
   ],
-  rules: {
-    'react-hooks/exhaustive-deps': [
-      'error',
-      {
-        additionalHooks: '(useAsync)',
-      },
-    ],
-    'react-refresh/only-export-components': 'warn',
-    'react-native/no-raw-text': [
-      'error',
-      {skip: ['Phrase', 'Paragraph', 'InlineLink']},
-    ],
-    'react-native/no-single-element-style-arrays': 'warn',
-    'import/no-default-export': 'error',
-    'import/order': [
-      'warn',
-      {
-        groups: [
-          'builtin',
-          'external',
-          'internal',
-          'parent',
-          'sibling',
-          'index',
-          'type',
-        ],
-        alphabetize: {
-          order: 'asc',
-        },
-      },
-    ],
-    'import/prefer-default-export': 'off',
-    'no-shadow': 'off',
-    '@typescript-eslint/no-shadow': ['error'],
-    'no-void': ['error', {allowAsStatement: true}],
-    semi: ['error', 'never'],
-    'no-restricted-imports': [
-      'error',
-      {
-        patterns: [
-          {
-            group: ['.*'],
-            message:
-              "Please use a clean path like: '@/components/something' instead of '../components/something'.",
-          },
-        ],
-        paths: [
-          {
-            name: '@/providers/piwik.provider',
-            importNames: ['PiwikContext'],
-            message:
-              'Do not use PiwikContext directly. The logging methods are exposed via the usePiwik hook.',
-          },
-          {
-            name: '@gorhom/bottom-sheet',
-            importNames: ['BottomSheet'],
-            message:
-              'Import BottomSheet from @/components/ui/containers/BottomSheet.',
-          },
-          {
-            name: '@react-navigation/stack',
-            importNames: ['createStackNavigator'],
-            message:
-              'Import createStackNavigator from @/utils/navigation/createStackNavigator.',
-          },
-          {
-            name: '@react-native-community/netinfo',
-            message: 'Get the internet state from the internet redux slice.',
-          },
-          {
-            name: 'dayjs',
-            importNames: ['default'],
-            message:
-              'Import dayjs from @/utils/datetime to prevent timezone issues.',
-          },
-          {
-            name: 'react-native-device-info',
-            importNames: ['getUniqueId', 'getUniqueIdSync'],
-            message:
-              'Do not use getUniqueId, this is considered personal (privacy sensitive) information.',
-          },
-          {
-            name: 'react-native-super-grid',
-            importNames: ['SimpleGrid'],
-            message:
-              'Import SimpleGrid from @/components/ui/containers/SimpleGrid.',
-          },
-          {
-            name: 'react-redux',
-            importNames: ['useDispatch', 'useSelector'],
-            message: 'Import useDispatch and useSelector from @/hooks/redux.',
-          },
-          {
-            name: '@react-navigation/core',
-            importNames: [
-              'NavigationProp',
-              'RouteProp',
-              'useNavigation',
-              'useRoute',
-            ],
-            message:
-              'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
-          },
-          {
-            name: '@react-navigation/native',
-            importNames: [
-              'NavigationProp',
-              'RouteProp',
-              'useNavigation',
-              'useRoute',
-            ],
-            message:
-              'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
-          },
-          {
-            name: 'react-native',
-            importNames: ['Pressable', 'PressableProps'],
-            message:
-              'Import Pressable and PressableProps from @/components/ui/buttons/Pressable.',
-          },
-        ],
-      },
-    ],
-    'prefer-arrow-functions/prefer-arrow-functions': [
-      'error',
-      {
-        returnStyle: 'implicit',
-      },
-    ],
-    'react/jsx-sort-props': [
-      'error',
-      {
-        ignoreCase: true,
-      },
-    ],
-    'prettier/prettier': 'off',
-    'react/jsx-no-explicit-spread': 'off',
-    'amsterdam/jsx-no-explicit-spread': 'error',
-    'padding-line-between-statements': [
-      'warn',
-      {
-        blankLine: 'always',
-        prev: '*',
-        next: ['block', 'block-like', 'return'],
-      },
-      {
-        blankLine: 'always',
-        prev: ['block', 'block-like'],
-        next: '*',
-      },
-      {
-        blankLine: 'always',
-        prev: ['const', 'let', 'var'],
-        next: '*',
-      },
-      {
-        blankLine: 'any',
-        prev: ['const', 'let', 'var'],
-        next: ['const', 'let', 'var'],
-      },
-    ],
-    'no-console': 'warn',
-  },
+
   overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      rules: {
+        'depend/ban-dependencies': 'warn',
+        'react-hooks/exhaustive-deps': [
+          'error',
+          {
+            additionalHooks: '(useAsync)',
+          },
+        ],
+        'react-refresh/only-export-components': 'warn',
+        'react-native/no-raw-text': [
+          'error',
+          {skip: ['Phrase', 'Paragraph', 'InlineLink']},
+        ],
+        'react-native/no-single-element-style-arrays': 'warn',
+        'import-x/no-default-export': 'error',
+        'import-x/order': [
+          'warn',
+          {
+            groups: [
+              'builtin',
+              'external',
+              'internal',
+              'parent',
+              'sibling',
+              'index',
+              'type',
+            ],
+            alphabetize: {
+              order: 'asc',
+            },
+          },
+        ],
+        'import-x/prefer-default-export': 'off',
+        'no-shadow': 'off',
+        '@typescript-eslint/no-shadow': ['error'],
+        'no-void': ['error', {allowAsStatement: true}],
+        semi: ['error', 'never'],
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['.*'],
+                message:
+                  "Please use a clean path like: '@/components/something' instead of '../components/something'.",
+              },
+            ],
+            paths: [
+              {
+                name: '@/providers/piwik.provider',
+                importNames: ['PiwikContext'],
+                message:
+                  'Do not use PiwikContext directly. The logging methods are exposed via the usePiwik hook.',
+              },
+              {
+                name: '@gorhom/bottom-sheet',
+                importNames: ['BottomSheet'],
+                message:
+                  'Import BottomSheet from @/components/ui/containers/BottomSheet.',
+              },
+              {
+                name: '@react-navigation/stack',
+                importNames: ['createStackNavigator'],
+                message:
+                  'Import createStackNavigator from @/utils/navigation/createStackNavigator.',
+              },
+              {
+                name: '@react-native-community/netinfo',
+                message:
+                  'Get the internet state from the internet redux slice.',
+              },
+              {
+                name: 'dayjs',
+                importNames: ['default'],
+                message:
+                  'Import dayjs from @/utils/datetime to prevent timezone issues.',
+              },
+              {
+                name: 'react-native-device-info',
+                importNames: ['getUniqueId', 'getUniqueIdSync'],
+                message:
+                  'Do not use getUniqueId, this is considered personal (privacy sensitive) information.',
+              },
+              {
+                name: 'react-native-super-grid',
+                importNames: ['SimpleGrid'],
+                message:
+                  'Import SimpleGrid from @/components/ui/containers/SimpleGrid.',
+              },
+              {
+                name: 'react-redux',
+                importNames: ['useDispatch', 'useSelector'],
+                message:
+                  'Import useDispatch and useSelector from @/hooks/redux.',
+              },
+              {
+                name: '@react-navigation/core',
+                importNames: [
+                  'NavigationProp',
+                  'RouteProp',
+                  'useNavigation',
+                  'useRoute',
+                ],
+                message:
+                  'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
+              },
+              {
+                name: '@react-navigation/native',
+                importNames: [
+                  'NavigationProp',
+                  'RouteProp',
+                  'useNavigation',
+                  'useRoute',
+                ],
+                message:
+                  'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
+              },
+              {
+                name: 'react-native',
+                importNames: ['Pressable', 'PressableProps'],
+                message:
+                  'Import Pressable and PressableProps from @/components/ui/buttons/Pressable.',
+              },
+            ],
+          },
+        ],
+        'prefer-arrow-functions/prefer-arrow-functions': [
+          'error',
+          {
+            returnStyle: 'implicit',
+          },
+        ],
+        'react/jsx-sort-props': [
+          'error',
+          {
+            ignoreCase: true,
+          },
+        ],
+        'prettier/prettier': 'off',
+        'react/jsx-no-explicit-spread': 'off',
+        'amsterdam/jsx-no-explicit-spread': 'error',
+        'padding-line-between-statements': [
+          'warn',
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: ['block', 'block-like', 'return'],
+          },
+          {
+            blankLine: 'always',
+            prev: ['block', 'block-like'],
+            next: '*',
+          },
+          {
+            blankLine: 'always',
+            prev: ['const', 'let', 'var'],
+            next: '*',
+          },
+          {
+            blankLine: 'any',
+            prev: ['const', 'let', 'var'],
+            next: ['const', 'let', 'var'],
+          },
+        ],
+        'no-console': 'warn',
+      },
+    },
     {
       files: ['*.ts', '*.tsx'],
       extends: [
@@ -224,10 +232,24 @@ module.exports = {
     {
       files: ['.storybook/**/*', '*.stories.tsx'],
       rules: {
-        'import/no-default-export': 'off',
+        'import-x/no-default-export': 'off',
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
         'amsterdam/no-relative-file-import': 'off',
+      },
+    },
+    {
+      files: ['*.json'],
+      parser: 'jsonc-eslint-parser',
+      extends: ['plugin:jsonc/recommended-with-jsonc'],
+      rules: {},
+    },
+    {
+      files: ['package.json'],
+      parser: 'jsonc-eslint-parser',
+      plugins: ['depend'],
+      rules: {
+        'depend/ban-dependencies': 'warn',
       },
     },
   ],
