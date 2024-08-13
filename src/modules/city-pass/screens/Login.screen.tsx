@@ -1,4 +1,3 @@
-import {useFocusEffect} from '@react-navigation/core'
 import {useCallback, useEffect, useState} from 'react'
 import DigiD from '@/assets/icons/digid.svg'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
@@ -13,7 +12,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useAppState} from '@/hooks/useAppState'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
@@ -26,14 +25,10 @@ export const LoginScreen = () => {
   const loginUrl = useUrlForEnv(cityPassExternalLinks)
 
   const {secureAccessToken} = useGetAccessToken(startLogin) ?? {}
-  const onFocus = useCallback(() => {
+
+  useFocusAndForegroundEffect(() => {
     setStartLogin(false)
   }, [])
-
-  useFocusEffect(onFocus)
-  useAppState({
-    onForeground: onFocus,
-  })
 
   useEffect(() => {
     if (secureAccessToken && startLogin) {
