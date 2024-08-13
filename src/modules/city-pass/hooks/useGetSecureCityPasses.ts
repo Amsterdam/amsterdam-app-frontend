@@ -7,7 +7,7 @@ const transformResponse = (cityPasses: SecureCityPass[]) =>
   cityPasses.map(cityPass => ({
     dateEndFormatted: cityPass.d,
     firstname: cityPass.f,
-    ...(cityPass.i && {infix: cityPass.i}),
+    infix: cityPass.i,
     lastname: cityPass.l,
     passNumberComplete: cityPass.p,
   }))
