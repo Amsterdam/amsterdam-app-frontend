@@ -25,7 +25,7 @@ export const CityPassDetailsScreen = () => {
         budgets,
         dateEndFormatted,
         passNumberComplete,
-        owner: {firstname, lastname},
+        owner: {firstname, infix, lastname},
       },
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
@@ -40,12 +40,13 @@ export const CityPassDetailsScreen = () => {
               <Title
                 testID="CityPassCityPassDetailsTitle"
                 text={firstname}
+                textAlign="center"
               />
               <Phrase
                 emphasis="strong"
                 testID="CityPassCityPassDetailsSubtitle"
                 textAlign="center">
-                {lastname}
+                {`${infix ? infix + ' ' : ''}${lastname}`}
               </Phrase>
             </SingleSelectable>
           </Column>

@@ -69,7 +69,7 @@ export const CityPass = ({
                   <Phrase
                     emphasis="strong"
                     testID="CityPassCityPassName">
-                    {firstname} {lastname}
+                    {firstname} {infix} {lastname}
                   </Phrase>
                   <Column halign="center">
                     <BarCode
