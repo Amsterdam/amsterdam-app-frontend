@@ -52,7 +52,7 @@ export const LoginScreen = () => {
       <FigureWithFacadesBackground testID="CityPassStartImage">
         <CityPassImage />
       </FigureWithFacadesBackground>
-      <Box testID="RikDigiDIconPressable">
+      <Box>
         <Title text="Zet uw Stadspas in de app" />
         <Gutter height="sm" />
         <Paragraph>
