@@ -12,7 +12,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
-import {usePassOwners} from '@/modules/city-pass/hooks/usePassOwners'
 import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
@@ -25,22 +24,23 @@ type Props = {
 
 export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
-  const {passOwnersWithActivePass} = usePassOwners()
   const openRedirect = useOpenRedirect()
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
-  const {data, isLoading, isError} = useGetCityPassesQuery(
-    secureAccessToken ? secureAccessToken : skipToken,
-  )
+  const {
+    data: cityPasses,
+    isLoading,
+    isError,
+  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
 
-  useSetSecureCityPasses(data)
+  useSetSecureCityPasses(cityPasses)
 
   if (isLoading) {
     return <PleaseWait testID="CityPassDashboardPleaseWait" />
   }
 
-  if (isError) {
+  if (isError || !cityPasses) {
     return (
       <SomethingWentWrong text="Er ging iets mis met het ophalen van de Stadspas informatie." />
     )
@@ -51,22 +51,22 @@ export const PassOwners = ({logout}: Props) => {
       insetBottom="xl"
       insetHorizontal="md"
       insetTop="md">
-      {passOwnersWithActivePass.length ? (
+      {cityPasses.length ? (
         <Column gutter="md">
-          <ShowCityPassButton passCount={passOwnersWithActivePass.length} />
+          <ShowCityPassButton passCount={cityPasses.length} />
           <Gutter height="sm" />
-          {passOwnersWithActivePass.map(passOwner => {
-            const {id} = passOwner
+          {cityPasses.map(cityPass => {
+            const {id} = cityPass
 
             return (
               <CityPassCard
+                cityPass={cityPass}
                 key={id}
                 onPress={() =>
                   navigate(CityPassRouteName.cityPassDetails, {
-                    passOwner,
+                    cityPass,
                   })
                 }
-                passOwner={passOwner}
                 testID={`CityPassOwnerButton-${id}`}
               />
             )

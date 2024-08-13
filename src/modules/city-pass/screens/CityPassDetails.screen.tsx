@@ -14,25 +14,22 @@ import {BudgetBalanceButton} from '@/modules/city-pass/components/BudgetBalanceB
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
-import {cityPass} from '@/modules/city-pass/mocks/cityPass'
 import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {CityPassOld} from '@/modules/city-pass/types'
-import {formatDate} from '@/utils/datetime/formatDate'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 export const CityPassDetailsScreen = () => {
   const {
     params: {
-      passOwner: {achternaam, passen, voornaam},
+      cityPass: {
+        budgets,
+        dateEndFormatted,
+        passNumberComplete,
+        owner: {firstname, infix, lastname},
+      },
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
   const {navigate} = useNavigation()
-  const activePass = passen.find(pass => pass.actief) ?? ({} as CityPassOld) // There is always an active pass
-  const {expiry_date, pasnummer_volledig} = activePass
-  const budgets = cityPass.find(
-    pass => pass.pasnummer_volledig === activePass?.pasnummer_volledig,
-  )?.budgetten
 
   return (
     <CityPassLoginBoundaryScreen testID="CityPassCityPassScreen">
@@ -42,12 +39,14 @@ export const CityPassDetailsScreen = () => {
             <SingleSelectable testID="CityPassCityPassDetailsName">
               <Title
                 testID="CityPassCityPassDetailsTitle"
-                text={voornaam}
+                text={firstname}
+                textAlign="center"
               />
               <Phrase
                 emphasis="strong"
-                testID="CityPassCityPassDetailsSubtitle">
-                {achternaam}
+                testID="CityPassCityPassDetailsSubtitle"
+                textAlign="center">
+                {`${infix ? infix + ' ' : ''}${lastname}`}
               </Phrase>
             </SingleSelectable>
           </Column>
@@ -62,11 +61,11 @@ export const CityPassDetailsScreen = () => {
                 </Phrase>
               </HideFromAccessibility>
               <Phrase
-                accessibilityLabel={`Pasnummer ${stringGroupInto(pasnummer_volledig, 4)}`}
+                accessibilityLabel={`Pasnummer ${stringGroupInto(passNumberComplete, 4)}`}
                 emphasis="strong"
                 selectable
                 testID="CityPassCityPassDetailsPassNumberValue">
-                {stringGroupInto(pasnummer_volledig, 4)}
+                {stringGroupInto(passNumberComplete, 4)}
               </Phrase>
             </Row>
             <Row
@@ -98,7 +97,7 @@ export const CityPassDetailsScreen = () => {
                 <Phrase
                   emphasis="strong"
                   testID="CityPassCityPassDetailsExpiryDateValue">
-                  {expiry_date ? formatDate(expiry_date) : ''}
+                  {dateEndFormatted}
                 </Phrase>
               </Row>
             </SingleSelectable>

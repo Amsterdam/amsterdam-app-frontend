@@ -7,35 +7,28 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {cityPass} from '@/modules/city-pass/mocks/cityPass'
-import {PassOwnerOld} from '@/modules/city-pass/types'
+import {CityPass} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
-  passOwner: PassOwnerOld
+  cityPass: CityPass
 } & Omit<PressableProps, 'children' | 'variant'>
 
 export const CityPassCard = ({
   onPress,
-  passOwner,
+  cityPass: {
+    budgets,
+    balanceFormatted,
+    owner: {firstname},
+  },
   testID,
   accessibilityRole = 'button',
   ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
-  const activePass = passOwner.passen.find(({actief}) => actief === true)
-  const {voornaam} = passOwner
-  const budgets = cityPass.find(pass => pass.id === activePass?.id)?.budgetten
-  const budgetsBalance = budgets?.reduce(
-    (acc, budget) => acc + budget.budget_balance,
-    0,
-  )
-  const budgetsBalanceSentence = budgetsBalance
-    ? `Totaal saldo ${formatNumber(budgetsBalance, true)}`
-    : ''
+  const budgetsBalanceSentence = `Totaal saldo ${balanceFormatted}`
 
   return (
     <Pressable
@@ -72,9 +65,9 @@ export const CityPassCard = ({
             color="link"
             level="h3"
             testID={`${testID}Name`}
-            text={voornaam}
+            text={firstname}
           />
-          {!!budgetsBalance && (
+          {!!budgets.length && (
             <Paragraph
               testID={`${testID}Text`}
               variant="small">

@@ -9,16 +9,15 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import BalanceSvg from '@/modules/city-pass/assets/balance.svg'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {BudgetOld} from '@/modules/city-pass/types'
-import {formatNumber} from '@/utils/formatNumber'
+import {CityPassBudget} from '@/modules/city-pass/types'
 
 type Props = {
-  budget: BudgetOld
+  budget: CityPassBudget
 }
 
 export const BudgetBalanceButton = ({budget}: Props) => {
   const {navigate} = useNavigation()
-  const {omschrijving, budget_balance} = budget
+  const {budgetBalanceFormatted, title} = budget
 
   return (
     <Pressable
@@ -36,12 +35,12 @@ export const BudgetBalanceButton = ({budget}: Props) => {
                   color="inverse"
                   emphasis="strong"
                   testID="CityPassBalanceButtonBalanceLabel">
-                  {omschrijving}
+                  {title}
                 </Phrase>
                 <Title
                   color="inverse"
                   testID="CityPassBalanceButtonBalanceValue"
-                  text={formatNumber(budget_balance, true)}
+                  text={budgetBalanceFormatted}
                 />
               </Column>
             </Row>
