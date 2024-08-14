@@ -1,8 +1,8 @@
 import {EnvUrlMap, Environment} from '@/environment'
 
 const reportProblemUrl = {
-  prod: 'https://app.meldingen.amsterdam.nl',
-  acc: 'https://acc.app.meldingen.amsterdam.nl',
+  prod: 'https://app.meldingen.amsterdam.nl/incident/beschrijf',
+  acc: 'https://acc.app.meldingen.amsterdam.nl/incident/beschrijf',
 }
 
 export const reportProblemExternalLinks: EnvUrlMap = {

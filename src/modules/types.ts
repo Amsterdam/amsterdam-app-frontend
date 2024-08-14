@@ -1,9 +1,10 @@
-import {StackNavigationOptions} from '@react-navigation/stack'
-import {ComponentType} from 'react'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
-import {ModuleSlug} from '@/modules/slugs'
-import {CustomDimensionKeys} from '@/processes/piwik/types'
-import {ReduxConfig} from '@/store/types/reduxConfig'
+import {type StackNavigationOptions} from '@react-navigation/stack'
+import {type ComponentType} from 'react'
+import {type RouteProp} from '@/app/navigation/types'
+import {type SvgIconName} from '@/components/ui/media/svgIcons'
+import {type ModuleSlug} from '@/modules/slugs'
+import {type CustomDimensionKeys} from '@/processes/piwik/types'
+import {type ReduxConfig} from '@/store/types/reduxConfig'
 
 /**
  * The config properties that are shared between core and non-core modules.
@@ -26,7 +27,12 @@ type BaseModuleConfig = {
    * The module’s screen options.
    * @see https://reactnavigation.org/docs/stack-navigator/#options
    */
-  screenOptions?: StackNavigationOptions
+  screenOptions?:
+    | StackNavigationOptions
+    | ((props: {
+        navigation: unknown
+        route: RouteProp<ModuleSlug>
+      }) => StackNavigationOptions)
   /**
    * A unique human-readable identifier for the module.
    */

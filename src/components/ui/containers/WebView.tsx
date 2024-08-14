@@ -1,3 +1,4 @@
+import {forwardRef} from 'react'
 import {Platform, StyleSheet} from 'react-native'
 import {
   WebView as WebViewRN,
@@ -36,46 +37,54 @@ const webViewInjection = (fontScale: number, injectedJavaScript?: string) => {
   })()`
 }
 
-export const WebView = ({
-  grow,
-  sliceFromTop,
-  url,
-  urlParams,
-  injectedJavaScript,
-  testID,
-  ...webViewProps
-}: Props) => {
-  const {isPortrait, fontScale} = useDeviceContext()
+export type WebViewRef = WebViewRN
 
-  const params = new URLSearchParams(urlParams)
-  const urlWithParams =
-    urlParams && Object.keys(urlParams).length
-      ? url + '?' + params.toString()
-      : url
+export const WebView = forwardRef<WebViewRN, Props>(
+  (
+    {
+      grow,
+      sliceFromTop,
+      url,
+      urlParams,
+      injectedJavaScript,
+      testID,
+      ...webViewProps
+    }: Props,
+    ref,
+  ) => {
+    const {isPortrait, fontScale} = useDeviceContext()
 
-  return (
-    <WebViewRN
-      containerStyle={!!grow && styles.grow}
-      renderLoading={() => (
-        <Column grow={1}>
-          <PleaseWait testID={testID} />
-        </Column>
-      )}
-      source={{uri: urlWithParams}}
-      startInLoadingState
-      style={
-        !!sliceFromTop && {
-          marginTop: isPortrait
-            ? -sliceFromTop.portrait
-            : -sliceFromTop.landscape,
+    const params = new URLSearchParams(urlParams)
+    const urlWithParams =
+      urlParams && Object.keys(urlParams).length
+        ? url + '?' + params.toString()
+        : url
+
+    return (
+      <WebViewRN
+        containerStyle={!!grow && styles.grow}
+        ref={ref}
+        renderLoading={() => (
+          <Column grow={1}>
+            <PleaseWait testID={testID} />
+          </Column>
+        )}
+        source={{uri: urlWithParams}}
+        startInLoadingState
+        style={
+          !!sliceFromTop && {
+            marginTop: isPortrait
+              ? -sliceFromTop.portrait
+              : -sliceFromTop.landscape,
+          }
         }
-      }
-      textZoom={fontScale * 100}
-      {...webViewProps}
-      injectedJavaScript={webViewInjection(fontScale, injectedJavaScript)}
-    />
-  )
-}
+        textZoom={fontScale * 100}
+        {...webViewProps}
+        injectedJavaScript={webViewInjection(fontScale, injectedJavaScript)}
+      />
+    )
+  },
+)
 
 const styles = StyleSheet.create({
   grow: {
