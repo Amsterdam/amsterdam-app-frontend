@@ -104,6 +104,7 @@ export const lightColorTokens = {
   },
   text: {
     cityPass: baseColor.custom.purple1,
+    confirm: baseColor.support.valid,
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
     link: baseColor.primary.blue,

@@ -11,12 +11,12 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {BudgetBalanceButton} from '@/modules/city-pass/components/BudgetBalanceButton'
+import {CityPassDetailsPassNumber} from '@/modules/city-pass/components/CityPassDetailsPassNumber'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
 import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {stringGroupInto} from '@/utils/stringGroupInto'
 
 export const CityPassDetailsScreen = () => {
   const {
@@ -24,8 +24,8 @@ export const CityPassDetailsScreen = () => {
       cityPass: {
         budgets,
         dateEndFormatted,
-        passNumberComplete,
         owner: {firstname, infix, lastname},
+        passNumberComplete,
       },
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
@@ -52,22 +52,9 @@ export const CityPassDetailsScreen = () => {
           </Column>
           <ShowCityPassButton passCount={1} />
           <Column gutter="md">
-            <Row
-              align="between"
-              gutter="md">
-              <HideFromAccessibility>
-                <Phrase testID="CityPassCityPassDetailsPassNumberLabel">
-                  Pasnummer
-                </Phrase>
-              </HideFromAccessibility>
-              <Phrase
-                accessibilityLabel={`Pasnummer ${stringGroupInto(passNumberComplete, 4)}`}
-                emphasis="strong"
-                selectable
-                testID="CityPassCityPassDetailsPassNumberValue">
-                {stringGroupInto(passNumberComplete, 4)}
-              </Phrase>
-            </Row>
+            <CityPassDetailsPassNumber
+              passNumberComplete={passNumberComplete}
+            />
             <Row
               align="between"
               gutter="md"
