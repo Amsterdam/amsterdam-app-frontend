@@ -105,14 +105,12 @@ def getVersionFromPackagejson() {
 }
 
 def getBuildNumber() {
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        workingDir projectDir
-        executable 'git'
-        args 'rev-list', '--count', 'HEAD'
-        standardOutput = stdout
+   def buildNumber = System.getenv("BUILD_NUMBER")
+    if (buildNumber != null) {
+        return Integer.parseInt(buildNumber)
+    } else {
+        return 1
     }
-    return stdout.toString().trim().toInteger()
 }
 
 android {
@@ -126,7 +124,7 @@ android {
         applicationId "nl.amsterdam.app"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode getBuildNumber()
+        versionCode getBuildNumber()        
         versionName getVersionFromPackagejson()
     }
 
