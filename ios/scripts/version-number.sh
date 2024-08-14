@@ -1,8 +1,9 @@
 #!/bin/bash
-git=$(sh /etc/profile; which git)
-number_of_commits=$("$git" rev-list --count HEAD)
-build_number=$(($number_of_commits))
-git_release_version=$("$git" describe --tags --always --abbrev=0)
+if [ -n "$BUILD_NUMBER" ]; then
+    build_number=$BUILD_NUMBER
+else
+    build_number=1
+fi
 
 app_version=$(cat $PROJECT_DIR/../package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
 
