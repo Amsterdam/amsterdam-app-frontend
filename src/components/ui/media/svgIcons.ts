@@ -27,6 +27,7 @@ export type SvgIconName =
   | 'close'
   | 'collaborate'
   | 'construction-work'
+  | 'copy'
   | 'document-text'
   | 'edit'
   | 'email'
@@ -120,6 +121,10 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   },
   'construction-work': {
     path: 'm31.2 26.7-2.3-2.4-1.6 1.5-3.2-3.2-4-12.8c-.2-.7-.5-1.3-1.1-1.8l-3.8-3.7-.4-.4L13 2.1l-.3-.3L7 7.9l2.4 2.4 2.2 2.2-2.7 3.9L0 31.7h4l7-12.1 4.2 4.4v7.7h3.5v-9.1L15 18.8l1.2-1.7L26 27l-1.6 1.4 2.2 2.5c.6.6 1.4.9 2.2 1 .8.1 1.7-.2 2.3-.9.6-.6 1-1.3 1-2.2 0-.7-.3-1.5-.9-2.1zM10.6 9.1l2.2-2.3 1.7 1.7-1.8 2.5-2.1-1.9zm7.7 4.8 1.3 4-2.4-2.4 1.1-1.6z M17.5,4a3.2,3.2 0 1,0 6.4,0a3.2,3.2 0 1,0 -6.4,0',
+  },
+  copy: {
+    path: 'M14 2H6V4H12V12H14V2ZM4 0V4H3.5H0V18H12V14H16V0H4ZM3.5 6H2V16H10V6H4.5H3.5Z',
+    viewBox: '0 0 16 18',
   },
   'document-text': {
     path: 'm17.6 5 5.4 5.4V27H9V5h8.6m1.3-3H6v28h20V9.1L18.9 2zM11 16h10v-2H11v2zm0 4h10v-2H11v2zm0 4h10v-2H11v2z',

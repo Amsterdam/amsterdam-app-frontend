@@ -52,6 +52,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.11",
     "expo": "^51.0.0",
+    "expo-clipboard": "^6.0.3",
     "expo-local-authentication": "~14.0.1",
     "expo-screen-orientation": "^7.0.5",
     "jwt-decode": "^4.0.0",
