@@ -9,7 +9,10 @@ module.exports = {
         moduleName: '@env',
         path: '.env',
         allowlist: [
-          'API_KEY',
+          'API_KEY_DEV',
+          'API_KEY_TEST',
+          'API_KEY_ACC',
+          'API_KEY_PROD',
           'BUILD_NUMBER',
           'PIWIK_PRO_ID',
           'PIWIK_PRO_ID_ACCEPT',

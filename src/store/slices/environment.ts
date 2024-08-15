@@ -1,15 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {Environment, getApi, ApiSlug, editableApiSlug} from '@/environment'
+import {Environment, getApi, ApiSlug, customDefaultUrls} from '@/environment'
 import {isDevApp} from '@/processes/development'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
-
-export const customDefaultUrls = {
-  [editableApiSlug.constructionWork]:
-    'http://localhost:8000/construction-work/api/v1',
-  [editableApiSlug.contact]: 'http://localhost:8000/contact/api/v1',
-  [editableApiSlug.modules]: 'http://localhost:9000/modules/api/v1',
-}
 
 export type EnvironmentState = {
   custom: typeof customDefaultUrls

@@ -1,4 +1,7 @@
-export const API_KEY = ''
+export const API_KEY_DEV = ''
+export const API_KEY_TEST = ''
+export const API_KEY_ACC = ''
+export const API_KEY_PROD = ''
 export const VERSION = '0.0.0'
 export const BUILD_NUMBER = '0'
 export const PIWIK_PRO_URL = ''

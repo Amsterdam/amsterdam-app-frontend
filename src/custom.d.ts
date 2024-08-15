@@ -22,7 +22,10 @@ declare module '*.png' {
 }
 
 declare module '@env' {
-  export const API_KEY: string | undefined
+  export const API_KEY_DEV: string | undefined
+  export const API_KEY_TEST: string | undefined
+  export const API_KEY_ACC: string | undefined
+  export const API_KEY_PROD: string | undefined
   export const BUILD_NUMBER: string | undefined
   export const PIWIK_PRO_ID: string | undefined
   export const PIWIK_PRO_ID_ACCEPT: string | undefined

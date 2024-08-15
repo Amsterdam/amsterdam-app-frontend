@@ -1,6 +1,6 @@
 /* eslint-disable typescript-sort-keys/string-enum */
+import {API_KEY_ACC, API_KEY_DEV, API_KEY_PROD, API_KEY_TEST} from '@env'
 import {ModuleSlug} from '@/modules/slugs'
-import {customDefaultUrls} from '@/store/slices/environment'
 
 export enum Environment {
   development = 'Development',
@@ -46,7 +46,7 @@ export const getApi = (
   slug: ApiSlug,
   apiVersionPath = '/api/v1',
 ) => {
-  if (environment === Environment.custom && slug in custom) {
+  if (environment === Environment.custom && slug in (custom ?? {})) {
     return custom[slug as keyof typeof customDefaultUrls]
   }
 
@@ -54,4 +54,19 @@ export const getApi = (
   const interPunction = environment === Environment.production ? '' : '.'
 
   return `https://${env}${interPunction}app.amsterdam.nl/${slug}${apiVersionPath}`
+}
+
+export const customDefaultUrls = {
+  [editableApiSlug.constructionWork]:
+    'http://localhost:8000/construction-work/api/v1',
+  [editableApiSlug.contact]: 'http://localhost:8000/contact/api/v1',
+  [editableApiSlug.modules]: 'http://localhost:9000/modules/api/v1',
+}
+
+export const apiKeyForEnvironment: EnvUrlMap = {
+  [Environment.development]: API_KEY_DEV ?? '',
+  [Environment.test]: API_KEY_TEST ?? '',
+  [Environment.acceptance]: API_KEY_ACC ?? '',
+  [Environment.production]: API_KEY_PROD ?? '',
+  [Environment.custom]: API_KEY_DEV ?? '',
 }

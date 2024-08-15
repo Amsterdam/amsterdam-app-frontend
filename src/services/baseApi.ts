@@ -1,4 +1,3 @@
-import {API_KEY} from '@env'
 import {
   BaseQueryFn,
   createApi,
@@ -7,11 +6,11 @@ import {
   FetchBaseQueryError,
   retry,
 } from '@reduxjs/toolkit/query/react'
-import {ApiSlug} from '@/environment'
+import {apiKeyForEnvironment, ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {devError, devInfo} from '@/processes/development'
 import {PrepareHeaders, AfterBaseQueryFn} from '@/services/types'
-import {selectApi} from '@/store/slices/environment'
+import {selectApi, selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
 import {DeviceRegistrationEndpointName} from '@/types/device'
@@ -29,14 +28,20 @@ const deviceIdRequestingEndpoints: string[] = [
   DeviceRegistrationEndpointName.unregisterDevice,
 ]
 
-const prepareHeaders: PrepareHeaders = (headers, {endpoint}) => {
+const prepareHeaders: PrepareHeaders = (headers, {endpoint, getState}) => {
   deviceIdRequestingEndpoints.includes(endpoint) &&
     headers.set('deviceid', SHA256EncryptedDeviceId)
 
-  if (API_KEY) {
-    headers.set('X-API-KEY', API_KEY)
+  const state = getState() as RootState
+
+  const {environment} = selectEnvironment(state)
+
+  const apiKey = apiKeyForEnvironment[environment]
+
+  if (apiKey) {
+    headers.set('X-API-KEY', apiKey)
   } else {
-    devError('No API key in .env.')
+    devError(`No API key in .env for environment ${environment}.`)
   }
 
   headers.set('releaseVersion', VERSION_NUMBER)

@@ -13,14 +13,17 @@ Azure DevOps Pipelines has a library where our secrets are stored. This consists
 ### Variables
 
 - `KEYSTORE_PASSWORD`: used in the pipelines: password to decrypt the Android upload key; used by Fastlane
-- `API_KEY`: authorize api requests; used in the app as env var
+- `API_KEY_DEV`: authorize api requests for development environment; used in the app as env var
+- `API_KEY_TEST`: authorize api requests for test environment; used in the app as env var
+- `API_KEY_ACC`: authorize api requests for acceptance environment; used in the app as env var
+- `API_KEY_PROD`: authorize api requests for production environment; used in the app as env var
 - `PIWIK_PRO_URL`, `PIWIK_PRO_URL_ACCEPT`: Piwik Pro API URL for production or accept
 - `PIWIK_PRO_ID`, `PIWIK_PRO_ID_ACCEPT`: Piwik Pro site ID for production or accept
 - `MATCH_GIT_BEARER_AUTHORIZATION`: token used by Fastlane Match to access the aapp_app_ios-certificates repo
 - `MATCH_PASSWORD`: a password used to encrypt and decrypt the certificates in the aapp_app_ios-certificates repo
 - `APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_DEV`: application insights instrumentation key for development
 - `APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST`: application insights instrumentation key for test
-- `APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC`: application insights instrumentation key for acceptation
+- `APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC`: application insights instrumentation key for acceptance
 - `APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD`: application insights instrumentation key for production
 
 ### Secure files
