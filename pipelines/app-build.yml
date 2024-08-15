@@ -9,6 +9,8 @@ resources:
       type: git
       name: aapp_app_ios-certificates
 
+name: $(Date:yyMMdd)$(Rev:rr)
+
 jobs:
   - job: 'Build_Android'
     timeoutInMinutes: 90
