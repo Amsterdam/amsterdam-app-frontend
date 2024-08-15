@@ -36,7 +36,13 @@ apps = [
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
     :apk_path => "/apk/dev/release/app-dev-release.apk", 
-    :aab_path => "/bundle/devRelease/app-dev-release.aab"
+    :aab_path => "/bundle/devRelease/app-dev-release.aab",
+    :env => {
+      API_KEY_ONTW => ENV["FILTER_API_KEY_ONTW"],
+      API_KEY_TEST => ENV["FILTER_API_KEY_TEST"],
+      API_KEY_ACC => ENV["FILTER_API_KEY_ACC"],
+      API_KEY_PROD => ENV["FILTER_API_KEY_PROD"],
+    },
   },
   {
     :name => "amsterdam",
@@ -47,7 +53,13 @@ apps = [
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
     :apk_path => "/apk/prod/release/app-prod-release.apk", 
-    :aab_path => "/bundle/prodRelease/app-prod-release.aab"
+    :aab_path => "/bundle/prodRelease/app-prod-release.aab",
+    :env => {
+      API_KEY_ONTW => "",
+      API_KEY_TEST => "",
+      API_KEY_ACC => "",
+      API_KEY_PROD => ENV["FILTER_API_KEY_PROD"],
+    },
   },
 ]
 
@@ -85,6 +97,12 @@ end
 
 platform :android do
 
+  lane :setEnvironmentForApp do |app|
+    app.env.each do |key, value|
+      ENV[key] = value
+    end
+  end
+
   desc "Build dev and prod version of the app"
   lane :buildApps do
     keystore_path = "#{File.expand_path(File.dirname(__FILE__))}/../certs/upload.keystore"
@@ -96,6 +114,7 @@ platform :android do
       system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk/aab
 
       apps.each do |app|
+        setEnvironmentForApp(app)
         gradle(
           task: app[:task],
           build_type: app[:build_type],
