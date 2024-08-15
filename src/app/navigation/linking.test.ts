@@ -31,7 +31,7 @@ describe('createRoute', () => {
         data: mockNotification.data,
         body: mockNotification.body,
       }),
-    ).toBe('amsterdam://news/123//%20-%20Body')
+    ).toBe('amsterdam://news/123//%20-%20Body/true')
   })
 
   it('should return route with linkSourceid param and title param, if body is missing', () => {
@@ -40,12 +40,12 @@ describe('createRoute', () => {
         data: mockNotification.data,
         title: mockNotification.title,
       }),
-    ).toBe('amsterdam://news/123/Title/Title%20-%20')
+    ).toBe('amsterdam://news/123/Title/Title%20-%20/true')
   })
 
   it('should return route with all params', () => {
     expect(createPathFromNotification(mockNotification)).toBe(
-      `amsterdam://news/123/Title/Title%20-%20Body`,
+      'amsterdam://news/123/Title/Title%20-%20Body/true',
     )
   })
 
@@ -56,7 +56,7 @@ describe('createRoute', () => {
         body: mockNotification.body,
         title: '',
       }),
-    ).toBe('amsterdam://news/123//%20-%20Body')
+    ).toBe('amsterdam://news/123//%20-%20Body/true')
   })
 
   it('should return route with linkSourceid param and title param, if body is an empty string', () => {
@@ -66,7 +66,7 @@ describe('createRoute', () => {
         title: mockNotification.title,
         body: '',
       }),
-    ).toBe(`amsterdam://news/123/Title/Title%20-%20`)
+    ).toBe('amsterdam://news/123/Title/Title%20-%20/true')
   })
 
   it('should url encode title and body', () => {
@@ -76,6 +76,8 @@ describe('createRoute', () => {
         title: 'Test title',
         body: 'Test/body',
       }),
-    ).toBe(`amsterdam://news/123/Test%20title/Test%20title%20-%20Test%2Fbody`)
+    ).toBe(
+      'amsterdam://news/123/Test%20title/Test%20title%20-%20Test%2Fbody/true',
+    )
   })
 })

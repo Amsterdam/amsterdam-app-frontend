@@ -17,9 +17,9 @@ export const constructionWorkModule: ModuleClientConfig = {
   BadgeValue,
   linking: {
     [ConstructionWorkRouteName.projectNews]:
-      'news/:id/:screenHeaderTitle/:screenTitle',
+      'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.projectWarning]:
-      'warning/:id/:screenHeaderTitle/:screenTitle',
+      'warning/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
   },
   logDimension: PiwikSessionDimension.constructionWorkModule,
   name: 'ConstructionWorkModule',

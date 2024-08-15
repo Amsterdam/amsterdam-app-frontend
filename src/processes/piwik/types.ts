@@ -69,6 +69,8 @@ export enum PiwikDimension {
   pushTitle = 44,
   /** The content of a push-notification */
   pushContent = 45,
+  /** Whether app is entered with push-notification deeplink */
+  isPushNotificationDeeplink = 47,
 }
 
 /**
@@ -106,7 +108,7 @@ export enum PiwikSessionDimension {
   reportProblemModule = 40,
   constructionWorkModule = 41,
   constructionWorkEditorModule = 42,
-  cityPassModule = 46, // Not yet added
+  cityPassModule = 46,
 }
 
 export type CustomDimensionKeys = PiwikDimension | PiwikSessionDimension

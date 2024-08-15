@@ -45,7 +45,7 @@ export const createPathFromNotification = ({
 
   const analyticsTitle = encodeURIComponent(`${title} - ${body}`)
 
-  return `${notificationType.routeWithPrefix}/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}`
+  return `${notificationType.routeWithPrefix}/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}/true`
 }
 
 export const linking: LinkingOptions<RootStackParams> = {
