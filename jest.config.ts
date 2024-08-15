@@ -50,7 +50,10 @@ const config: Config = {
     'node_modules/(?!(jest-)?react-native|@react-native|@notifee)',
   ],
   globals: {
-    API_KEY: '',
+    API_KEY_DEV: '',
+    API_KEY_TEST: '',
+    API_KEY_ACC: '',
+    API_KEY_PROD: '',
     VERSION: '0.0.0',
     BUILD_NUMBER: 0,
     PIWIK_PRO_URL: '',
