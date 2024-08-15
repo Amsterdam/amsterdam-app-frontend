@@ -4,12 +4,9 @@ import {
   ReportProblemRouteName,
   ReportProblemStackParams,
 } from '@/modules/report-problem/routes'
+import {screenOptions} from '@/modules/report-problem/screenOptions'
 import {ReportProblemScreen} from '@/modules/report-problem/screens/ReportProblem.screen'
 import {ReportProblemWebViewScreen} from '@/modules/report-problem/screens/ReportProblemWebView.screen'
-
-const options = {
-  headerTitle: 'Melding doen',
-}
 
 export const screenConfig: StackNavigationRoutes<
   ReportProblemStackParams,
@@ -18,12 +15,16 @@ export const screenConfig: StackNavigationRoutes<
   [ReportProblemRouteName.reportProblem]: {
     component: ReportProblemScreen,
     name: ReportProblemRouteName.reportProblem,
-    options,
+    options: screenOptions,
   },
   [ReportProblemRouteName.reportProblemWebView]: {
     component: ReportProblemWebViewScreen,
     name: ReportProblemRouteName.reportProblemWebView,
-    options,
+    options: {
+      ...screenOptions,
+      header: () => null,
+      gestureEnabled: false,
+    },
   },
 }
 

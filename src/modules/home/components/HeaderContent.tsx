@@ -11,8 +11,10 @@ import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityA
 
 type Props = Pick<
   StackHeaderProps & {options: HeaderContentOptions},
-  'back' | 'navigation' | 'options' | 'route'
->
+  'navigation' | 'options' | 'route'
+> & {
+  back?: {onPress?: () => void} & Partial<StackHeaderProps['back']>
+}
 
 const chevronSize = 'ml'
 
@@ -47,7 +49,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
                 testID="HeaderBackIcon"
               />
             }
-            onPress={navigation.goBack}
+            onPress={back?.onPress ? back.onPress : navigation.goBack}
             testID="HeaderBackButton"
           />
         )}
