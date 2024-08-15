@@ -20,6 +20,9 @@ const getDimensions = (
     return inputObj
   }
 
+  /**
+   * Convert the keys to the AppInsights format.
+   */
   return (Object.keys(inputObj) as unknown as CustomDimensionKeys[]).reduce<
     Record<string, string>
   >((acc, key) => {

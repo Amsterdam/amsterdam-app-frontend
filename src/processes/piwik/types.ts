@@ -69,6 +69,8 @@ export enum PiwikDimension {
   pushTitle = 44,
   /** The content of a push-notification */
   pushContent = 45,
+  /** Whether app is entered with push-notification deeplink */
+  isPushNotificationDeeplink = 47,
 }
 
 /**

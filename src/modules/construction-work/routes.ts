@@ -21,6 +21,7 @@ export type ConstructionWorkStackParams = {
     body: ProjectSegment
   }
   [ConstructionWorkRouteName.projectNews]: VariableContentParams & {
+    isPushNotificationDeeplink?: string
     projectId?: number
   }
   [ConstructionWorkRouteName.projectWarning]: VariableContentParams & {

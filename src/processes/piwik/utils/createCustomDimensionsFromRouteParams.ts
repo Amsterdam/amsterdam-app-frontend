@@ -9,8 +9,19 @@ export const createCustomDimensionsFromRouteParams = (
 } => {
   const result: CustomDimensions = {}
 
-  if (typeof params?.id === 'string' || typeof params?.id === 'number') {
-    result[PiwikDimension.contentId] = params.id.toString()
+  if (params) {
+    Object.keys(params).forEach(key => {
+      if (typeof params[key] !== 'string' && typeof params[key] !== 'number') {
+        return
+      }
+
+      const transformedKey = key === 'id' ? 'contentId' : key
+
+      if (Object.values(PiwikDimension).includes(transformedKey)) {
+        result[PiwikDimension[transformedKey as keyof typeof PiwikDimension]] =
+          params[key].toString()
+      }
+    })
   }
 
   return {

@@ -59,4 +59,31 @@ describe('createCustomDimensionsFromRouteParams', () => {
 
     expect(result.piwik).toEqual(customDimensions)
   })
+
+  it('should add isPushNotificationDeeplink to custom dimensions, if params.isPushNotificationDeeplink is present and has a value', () => {
+    const routeParams: Record<string, unknown> = {
+      isPushNotificationDeeplink: 'true',
+    }
+    const customDimensions: CustomDimensions | undefined = getCustomDimensions({
+      [PiwikDimension.isPushNotificationDeeplink]: 'true',
+    })
+
+    const result = createCustomDimensionsFromRouteParams(routeParams)
+
+    expect(result.piwik).toEqual(customDimensions)
+  })
+  it('should add isPushNotificationDeeplink and id when both present', () => {
+    const routeParams: Record<string, unknown> = {
+      id: 123,
+      isPushNotificationDeeplink: 'true',
+    }
+    const customDimensions: CustomDimensions | undefined = getCustomDimensions({
+      [PiwikDimension.contentId]: '123',
+      [PiwikDimension.isPushNotificationDeeplink]: 'true',
+    })
+
+    const result = createCustomDimensionsFromRouteParams(routeParams)
+
+    expect(result.piwik).toEqual(customDimensions)
+  })
 })
