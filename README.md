@@ -28,6 +28,12 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Other options are available: to build a production version of the app or to run on tablet simulator/emulator
     - Make sure to add @Pixel_C_API_30 to your devices in Android Studio's AVD Manager (Android tablet emulator)
 
+### Scripts
+
+Here is an overview of the commands that we offer with package.json:
+
+- [Script commands](./.docs/scripts.md)
+
 ### Secret files
 
 To build the app locally, you need these files. Because they contain credentials or API keys, they are not part of the repo, but stored securely.
