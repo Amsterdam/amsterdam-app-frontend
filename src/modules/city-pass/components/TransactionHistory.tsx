@@ -7,20 +7,22 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {TransactionOld} from '@/modules/city-pass/types'
+import {BudgetTransaction} from '@/modules/city-pass/types'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatNumber} from '@/utils/formatNumber'
 
 type TransactionsByDate = {
-  data: TransactionOld[]
+  data: BudgetTransaction[]
   date: string
 }
 
-const getTransactionsByDate = (transactions: TransactionOld[]) =>
+const getTransactionsByDate = (transactions: BudgetTransaction[]) =>
   transactions.reduce((result: TransactionsByDate[], transaction) => {
-    const date = formatDate(transaction.transactiedatum)
     const today = formatDate(new Date().toISOString())
-    const dateOrToday = date === today ? 'Vandaag' : date
+    const dateOrToday =
+      transaction.datePublishedFormatted === today
+        ? 'Vandaag'
+        : transaction.datePublishedFormatted
     const section = result.find(s => s.date === dateOrToday)
 
     if (section) {
@@ -45,12 +47,12 @@ const NoTransactions = () => (
 )
 
 type TransactionItemProps = {
-  transaction: TransactionOld
+  transaction: BudgetTransaction
   type: Props['type']
 }
 
 const TransactionItem = ({
-  transaction: {aanbieder, bedrag, budget, omschrijving},
+  transaction: {title, amountFormatted, description},
   type,
 }: TransactionItemProps) => (
   <Column>
@@ -58,25 +60,23 @@ const TransactionItem = ({
       <Phrase
         emphasis="strong"
         testID="">
-        {budget?.aanbieder?.naam ?? aanbieder?.naam}
+        {title}
       </Phrase>
       <Phrase
         accessibilityLabel={
-          type === 'savings'
-            ? `${formatNumber(bedrag, true)} bespaard.`
-            : formatNumber(bedrag, true)
+          type === 'savings' ? `${amountFormatted} bespaard.` : amountFormatted
         }
         emphasis="strong"
         testID="">
-        {formatNumber(bedrag, true)}
+        {amountFormatted}
       </Phrase>
     </Row>
-    {!!omschrijving && <Paragraph>{omschrijving}</Paragraph>}
+    {!!description && <Paragraph>{description}</Paragraph>}
   </Column>
 )
 
 type Props = {
-  transactions: TransactionOld[]
+  transactions: BudgetTransaction[]
   type: 'budget' | 'savings'
 }
 
@@ -92,7 +92,8 @@ export const TransactionHistory = ({transactions, type}: Props) => {
         <>
           <Title text="Mijn acties" />
           <Paragraph>
-            {`In in totaal heb je ${formatNumber(103.95, true)} bespaard. Deze informatie kan 1 dag achterlopen.`}
+            {`In in totaal heb je ${formatNumber(103.95, true)} bespaard. Deze informatie kan 1 dag achterlopen.`}{' '}
+            {/* TODO: Replace hardcoded value once API is ready. */}
           </Paragraph>
         </>
       ) : (
@@ -153,9 +154,6 @@ export const TransactionHistory = ({transactions, type}: Props) => {
       ) : (
         <NoTransactions />
       )}
-      <Paragraph textAlign="center">
-        Dit waren jouw acties vanaf 1 augustus 2023{' '}
-      </Paragraph>
     </Column>
   )
 }

@@ -9,19 +9,23 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import BalanceSvg from '@/modules/city-pass/assets/balance.svg'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {CityPassBudget} from '@/modules/city-pass/types'
+import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 
 type Props = {
   budget: CityPassBudget
+  firstname: CityPass['owner']['firstname']
+  passNumber: CityPass['passNumber']
 }
 
-export const BudgetBalanceButton = ({budget}: Props) => {
+export const BudgetBalanceButton = ({budget, firstname, passNumber}: Props) => {
   const {navigate} = useNavigation()
   const {budgetBalanceFormatted, title} = budget
 
   return (
     <Pressable
-      onPress={() => navigate(CityPassRouteName.budget, {budget})}
+      onPress={() =>
+        navigate(CityPassRouteName.budget, {budget, firstname, passNumber})
+      }
       testID="CityPassBalanceButton">
       <Border color="cityPass">
         <Column>

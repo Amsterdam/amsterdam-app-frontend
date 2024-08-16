@@ -5,6 +5,7 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -17,14 +18,17 @@ import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassBut
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
 import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
 
 export const CityPassDetailsScreen = () => {
   const {
     params: {
       cityPass: {
         budgets,
+        dateEnd,
         dateEndFormatted,
         owner: {firstname, infix, lastname},
+        passNumber,
         passNumberComplete,
       },
     },
@@ -92,14 +96,21 @@ export const CityPassDetailsScreen = () => {
           {budgets?.map(budget => (
             <BudgetBalanceButton
               budget={budget}
+              firstname={firstname}
               key={budget.code}
+              passNumber={passNumber}
             />
           ))}
           <Box insetTop="md">
-            <TransactionHistory
-              transactions={transactions}
-              type="savings"
-            />
+            <Column gutter="md">
+              <TransactionHistory
+                transactions={transactions}
+                type="savings"
+              />
+              <Paragraph textAlign="center">
+                Dit waren jouw acties vanaf {getPreviousYear(dateEnd)}
+              </Paragraph>
+            </Column>
           </Box>
         </Column>
       </Box>
