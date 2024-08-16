@@ -14,7 +14,7 @@ import {
   PushNotificationType,
 } from '@/types/notification'
 
-const appPrefix = 'amsterdam://'
+export const appPrefix = 'amsterdam://'
 
 export const pushNotificationTypes: Record<
   PushNotificationType,
