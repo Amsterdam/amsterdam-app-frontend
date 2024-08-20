@@ -85,7 +85,6 @@ export const SecurityCodeScreen = ({route}: Props) => {
         inset="md"
         testID="CityPassSecurityCodeAlertNegative310583"
         text="Deze pas bevat geen beveiligingscode."
-        title="Sorry …"
       />
     )
   }
