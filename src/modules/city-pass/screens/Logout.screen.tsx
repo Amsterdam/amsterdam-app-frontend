@@ -21,7 +21,7 @@ export const LogoutScreen = ({navigation}: Props) => {
       .then(() => {
         setAlert({
           variant: AlertVariant.positive,
-          text: 'Je Stadspas staat niet meer in de app. Je kunt je Stadspas altijd weer toevoegen door in te loggen.',
+          text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
           title: 'Uitgelogd',
           hasIcon: true,
           hasCloseIcon: true,

@@ -68,8 +68,8 @@ export const useSetCityPassOwnerIsRegistered = () => {
           })
         : setAlert({
             variant: AlertVariant.negative,
-            text: 'Er is iets misgegaan bij het ophalen van je Stadspas gegevens.',
-            title: 'Mislukt!',
+            text: 'Er ging iets fout bij het ophalen van de Stadspas gegevens. Probeer het later nog eens..',
+            title: 'Inloggen mislukt',
             hasIcon: true,
             hasCloseIcon: true,
             testID: 'CityPassLoggedInAlertNegative',
