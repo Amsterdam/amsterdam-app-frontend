@@ -63,6 +63,10 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
         canGoBack.current = newCanGoBack
       }
 
+      navigation.setOptions({
+        gestureEnabled: !canGoBack.current,
+      })
+
       if (url.includes('/incident/bedankt')) {
         setHasFinishedAtLeastOnce(true)
         trackCustomEvent(
@@ -71,41 +75,19 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
         )
       }
     },
-    [reportProblemUrl, trackCustomEvent],
+    [navigation, reportProblemUrl, trackCustomEvent],
   )
 
   const webViewRef = useRef<WebViewRef>(null)
   const onHandleBackPress = useCallback(() => {
-    if (webViewRef.current) {
-      if (canGoBack.current) {
-        webViewRef.current.goBack()
-      } else {
-        Alert.alert(
-          'Terug',
-          'Als u deze pagina verlaat, dan verliest u alle ingevulde gegevens.',
-          [
-            {
-              text: 'Annuleer',
-              onPress: () => null,
-              style: 'cancel',
-            },
-            {
-              text: 'Verlaat en wis antwoorden',
-              onPress: () => navigation.goBack(),
-              style: 'destructive',
-            },
-          ],
-          {
-            cancelable: true,
-          },
-        )
-      }
+    if (webViewRef.current && canGoBack.current) {
+      webViewRef.current.goBack()
 
       return true
     }
 
     return false
-  }, [navigation])
+  }, [])
 
   const onHeaderBackPress = useCallback(() => {
     if (!onHandleBackPress()) {
@@ -122,6 +104,32 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
       }
     }
   }, [onHandleBackPress])
+
+  useEffect(
+    () =>
+      navigation.addListener('beforeRemove', e => {
+        // Prevent default behavior of leaving the screen
+        e.preventDefault()
+
+        // Prompt the user before leaving the screen
+        Alert.alert(
+          'Weet u zeker dat u het formulier wilt verlaten?',
+          'Als u deze pagina verlaat, dan worden uw ingevulde antwoorden verwijderd.',
+          [
+            {text: 'Annuleren', style: 'cancel', onPress: () => null},
+            {
+              text: 'Verlaat en verwijder antwoorden',
+              style: 'destructive',
+              // If the user confirmed, then we dispatch the action we blocked earlier
+              // This will continue the action that had triggered the removal of the screen
+              onPress: () => navigation.dispatch(e.data.action),
+            },
+          ],
+          {cancelable: true},
+        )
+      }),
+    [navigation],
+  )
 
   return (
     <Screen
