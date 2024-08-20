@@ -98,7 +98,7 @@ end
 platform :android do
 
   lane :setEnvironmentForApp do |app|
-    app.env.each do |key, value|
+    app[:env].each do |key, value|
       ENV[key] = value
     end
   end
