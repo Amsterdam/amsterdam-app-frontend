@@ -1,8 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {Alert, AccessibilityInfo} from 'react-native'
+import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -13,30 +17,39 @@ import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-export const SecurityCodeScreen = () => {
-  useSetScreenTitle('Ryan')
+type Props = NavigationProps<CityPassRouteName.securityCode>
+
+export const SecurityCodeScreen = ({route}: Props) => {
+  const {id} = route.params || {}
+
   const {authenticated, authenticate} = useBiometrics({
+    autoTrigger: false,
     promptMessage: 'Ontgrendel de beveiligingscode van je stadspas',
     cancelButtonText: 'Terug',
     fallbackPromptMessage: 'Ontgrendel de beveiligingscode',
   })
+
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
 
   const {
     data: cityPasses,
-    isLoading,
+    isFetching,
     isError,
-  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+  } = useGetCityPassesQuery(
+    secureAccessToken && id ? secureAccessToken : skipToken,
+  )
 
-  if (isLoading || isError || !cityPasses) {
-    return null
-  }
+  const cityPass = cityPasses?.find(cp => cp.id === id)
+  const securityCode = cityPass?.securityCode
+
+  useSetScreenTitle(cityPass?.owner.firstname)
 
   const onScreenshot = useCallback(() => {
     const screenshotMessage = 'Dit scherm staat geen schermafdrukken toe'
@@ -52,9 +65,32 @@ export const SecurityCodeScreen = () => {
     onScreenshot,
   })
 
-  const securityCode = 1234
+  useEffect(() => {
+    if (securityCode) {
+      void authenticate()
+    }
+  }, [securityCode, authenticate])
 
-  return (
+  if (isFetching) {
+    return <PleaseWait testID="CityPassSecurityCodePleaseWait" />
+  }
+
+  if (isError) {
+    return <SomethingWentWrong />
+  }
+
+  if (cityPasses && !securityCode) {
+    return (
+      <AlertNegative
+        inset="md"
+        testID="CityPassSecurityCodeAlertNegative310583"
+        text="Deze pas bevat geen beveiligingscode."
+        title="Sorry …"
+      />
+    )
+  }
+
+  return securityCode ? (
     <CityPassLoginBoundaryScreen testID="CityPassSecurityCodeScreen">
       <Center grow>
         <Box>
@@ -90,5 +126,5 @@ export const SecurityCodeScreen = () => {
         </Box>
       </Center>
     </CityPassLoginBoundaryScreen>
-  )
+  ) : null
 }

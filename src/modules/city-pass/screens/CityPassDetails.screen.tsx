@@ -27,6 +27,7 @@ export const CityPassDetailsScreen = () => {
         budgets,
         dateEnd,
         dateEndFormatted,
+        id,
         owner: {firstname, infix, lastname},
         passNumber,
         passNumberComplete,
@@ -74,7 +75,7 @@ export const CityPassDetailsScreen = () => {
                   accessibilityLabel="Toon beveiligingscode"
                   label="Toon"
                   onPress={() => {
-                    navigate(CityPassRouteName.securityCode)
+                    navigate(CityPassRouteName.securityCode, {id})
                   }}
                   testID="CityPassCityPassDetailsSecurityCodeButton"
                   variant="secondary"

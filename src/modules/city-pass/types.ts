@@ -55,7 +55,7 @@ export type CityPass = {
   owner: CityPassOwner
   passNumber: number
   passNumberComplete: string
-  securityCode?: string
+  securityCode: string | null
 }
 
 export type CityPassPass = Pick<
