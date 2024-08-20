@@ -80,7 +80,7 @@ const dynamicBaseQuery: BaseQueryFn<
         baseUrl,
         prepareHeaders: (headers, api) =>
           prepareHeaders(argsPrepareHeaders(headers, api), api),
-        timeout: TimeOutDuration.medium,
+        timeout: TimeOutDuration.long,
       })(args, baseQueryApi, extraOptions)
 
       const {error, meta} = result
