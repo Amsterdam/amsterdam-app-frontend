@@ -17,6 +17,8 @@ import {
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
 
+const ReportProblemEndUrlPath = '/incident/bedankt'
+
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
 const injectedJavaScript = `
@@ -44,10 +46,13 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
 
   useBlurEffect(onBlur)
 
+  const closeButtonUsed = useRef(false)
+
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
         trackCustomEvent('ReportProblemCloseButton', PiwikAction.buttonPress)
+        closeButtonUsed.current = true
         navigation.getParent()?.goBack()
       }
     },
@@ -57,23 +62,23 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   const canGoBack = useRef<boolean>(false)
   const onNavigationStateChange = useCallback(
     ({url, canGoBack: newCanGoBack}: WebViewNavigation) => {
-      if (url === reportProblemUrl) {
+      if (url === reportProblemUrl || url.includes(ReportProblemEndUrlPath)) {
         canGoBack.current = false
       } else {
         canGoBack.current = newCanGoBack
       }
 
-      navigation.setOptions({
-        gestureEnabled: !canGoBack.current,
-      })
-
-      if (url.includes('/incident/bedankt')) {
+      if (url.includes(ReportProblemEndUrlPath)) {
         setHasFinishedAtLeastOnce(true)
         trackCustomEvent(
           'ReportProblemFinishedReport',
           PiwikAction.finishedReport,
         )
       }
+
+      navigation.setOptions({
+        gestureEnabled: !canGoBack.current,
+      })
     },
     [navigation, reportProblemUrl, trackCustomEvent],
   )
@@ -108,25 +113,27 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        // Prevent default behavior of leaving the screen
-        e.preventDefault()
+        if (!closeButtonUsed.current) {
+          // Prevent default behavior of leaving the screen
+          e.preventDefault()
 
-        // Prompt the user before leaving the screen
-        Alert.alert(
-          'Weet u zeker dat u het formulier wilt verlaten?',
-          'Als u deze pagina verlaat, dan worden uw ingevulde antwoorden verwijderd.',
-          [
-            {text: 'Annuleren', style: 'cancel', onPress: () => null},
-            {
-              text: 'Verlaat en verwijder antwoorden',
-              style: 'destructive',
-              // If the user confirmed, then we dispatch the action we blocked earlier
-              // This will continue the action that had triggered the removal of the screen
-              onPress: () => navigation.dispatch(e.data.action),
-            },
-          ],
-          {cancelable: true},
-        )
+          // Prompt the user before leaving the screen
+          Alert.alert(
+            'Weet u zeker dat u het formulier wilt verlaten?',
+            'Als u deze pagina verlaat, dan worden uw ingevulde antwoorden verwijderd.',
+            [
+              {text: 'Annuleren', style: 'cancel', onPress: () => null},
+              {
+                text: 'Verlaat en verwijder antwoorden',
+                style: 'destructive',
+                // If the user confirmed, then we dispatch the action we blocked earlier
+                // This will continue the action that had triggered the removal of the screen
+                onPress: () => navigation.dispatch(e.data.action),
+              },
+            ],
+            {cancelable: true},
+          )
+        }
       }),
     [navigation],
   )
