@@ -38,10 +38,10 @@ apps = [
     :apk_path => "/apk/dev/release/app-dev-release.apk", 
     :aab_path => "/bundle/devRelease/app-dev-release.aab",
     :env => {
-      API_KEY_DEV => ENV["FILTER_API_KEY_DEV"],
-      API_KEY_TEST => ENV["FILTER_API_KEY_TEST"],
-      API_KEY_ACC => ENV["FILTER_API_KEY_ACC"],
-      API_KEY_PROD => ENV["FILTER_API_KEY_PROD"],
+      "API_KEY_DEV" => ENV["FILTER_API_KEY_DEV"],
+      "API_KEY_TEST" => ENV["FILTER_API_KEY_TEST"],
+      "API_KEY_ACC" => ENV["FILTER_API_KEY_ACC"],
+      "API_KEY_PROD" => ENV["FILTER_API_KEY_PROD"],
     },
   },
   {
@@ -55,10 +55,10 @@ apps = [
     :apk_path => "/apk/prod/release/app-prod-release.apk", 
     :aab_path => "/bundle/prodRelease/app-prod-release.aab",
     :env => {
-      API_KEY_DEV => "",
-      API_KEY_TEST => "",
-      API_KEY_ACC => "",
-      API_KEY_PROD => ENV["FILTER_API_KEY_PROD"],
+      "API_KEY_DEV" => "",
+      "API_KEY_TEST" => "",
+      "API_KEY_ACC" => "",
+      "API_KEY_PROD" => ENV["FILTER_API_KEY_PROD"],
     },
   },
 ]
