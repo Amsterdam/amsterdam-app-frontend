@@ -30,6 +30,7 @@ export const CityPassDetailsScreen = () => {
         owner: {firstname, infix, lastname},
         passNumber,
         passNumberComplete,
+        securityCode,
       },
     },
   } = useRoute<CityPassRouteName.cityPassDetails>()
@@ -59,25 +60,27 @@ export const CityPassDetailsScreen = () => {
             <CityPassDetailsPassNumber
               passNumberComplete={passNumberComplete}
             />
-            <Row
-              align="between"
-              gutter="md"
-              valign="center">
-              <HideFromAccessibility>
-                <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
-                  Beveiligingscode
-                </Phrase>
-              </HideFromAccessibility>
-              <Button
-                accessibilityLabel="Toon beveiligingscode"
-                label="Toon"
-                onPress={() => {
-                  navigate(CityPassRouteName.securityCode)
-                }}
-                testID="CityPassCityPassDetailsSecurityCodeButton"
-                variant="secondary"
-              />
-            </Row>
+            {!!securityCode && (
+              <Row
+                align="between"
+                gutter="md"
+                valign="center">
+                <HideFromAccessibility>
+                  <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
+                    Beveiligingscode
+                  </Phrase>
+                </HideFromAccessibility>
+                <Button
+                  accessibilityLabel="Toon beveiligingscode"
+                  label="Toon"
+                  onPress={() => {
+                    navigate(CityPassRouteName.securityCode)
+                  }}
+                  testID="CityPassCityPassDetailsSecurityCodeButton"
+                  variant="secondary"
+                />
+              </Row>
+            )}
             <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
               <Row
                 align="between"

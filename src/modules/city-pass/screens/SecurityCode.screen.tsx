@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback} from 'react'
 import {Alert, AccessibilityInfo} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,10 +9,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
+import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 export const SecurityCodeScreen = () => {
   useSetScreenTitle('Ryan')
@@ -20,6 +24,19 @@ export const SecurityCodeScreen = () => {
     cancelButtonText: 'Terug',
     fallbackPromptMessage: 'Ontgrendel de beveiligingscode',
   })
+  const {item: secureAccessToken} = useGetSecureItem(
+    SecureItemKey.cityPassAccessToken,
+  )
+
+  const {
+    data: cityPasses,
+    isLoading,
+    isError,
+  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+
+  if (isLoading || isError || !cityPasses) {
+    return null
+  }
 
   const onScreenshot = useCallback(() => {
     const screenshotMessage = 'Dit scherm staat geen schermafdrukken toe'
