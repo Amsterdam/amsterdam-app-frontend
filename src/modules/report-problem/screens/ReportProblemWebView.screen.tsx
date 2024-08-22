@@ -46,13 +46,13 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
 
   useBlurEffect(onBlur)
 
-  const closeButtonUsed = useRef(false)
+  const isEndUrl = useRef(false)
 
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (event.nativeEvent.data === signalsCloseMessage) {
         trackCustomEvent('ReportProblemCloseButton', PiwikAction.buttonPress)
-        closeButtonUsed.current = true
+        isEndUrl.current = true
         navigation.getParent()?.goBack()
       }
     },
@@ -69,11 +69,14 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
       }
 
       if (url.includes(ReportProblemEndUrlPath)) {
+        isEndUrl.current = true
         setHasFinishedAtLeastOnce(true)
         trackCustomEvent(
           'ReportProblemFinishedReport',
           PiwikAction.finishedReport,
         )
+      } else {
+        isEndUrl.current = false
       }
 
       navigation.setOptions({
@@ -113,7 +116,7 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
   useEffect(
     () =>
       navigation.addListener('beforeRemove', e => {
-        if (!closeButtonUsed.current) {
+        if (!isEndUrl.current) {
           // Prevent default behavior of leaving the screen
           e.preventDefault()
 
