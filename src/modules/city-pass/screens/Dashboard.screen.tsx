@@ -14,11 +14,15 @@ import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useSetCityPassOwnerIsRegistered} from '@/modules/city-pass/slice'
 import {LoginResult} from '@/modules/city-pass/types'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
+import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
 
 export const DashboardScreen = ({navigation, route}: Props) => {
   const setCityPassRegistered = useSetCityPassOwnerIsRegistered()
+  const trackException = useTrackException()
 
   const {loginResult} = route.params || {}
   const logout = useCallback(() => {
@@ -29,8 +33,16 @@ export const DashboardScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (loginResult === LoginResult.success) {
       setCityPassRegistered(true)
+    } else {
+      setCityPassRegistered(false)
+      loginResult &&
+        trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
+          error:
+            getValueFromUrlParam(loginResult, 'errorMessage') ??
+            'Verzenden van administratienummer naar de Amsterdam app niet gelukt.',
+        })
     }
-  })
+  }, [loginResult, setCityPassRegistered, trackException])
 
   return (
     <CityPassLoginBoundaryScreen

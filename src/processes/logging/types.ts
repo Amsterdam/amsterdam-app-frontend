@@ -7,6 +7,7 @@ export enum EventLogKey {
 }
 export enum ExceptionLogKey {
   coordinates = 'Failed to get coordinates to determine location',
+  deepLink = 'Deep link returns failed state',
   getRedirectsUrl = 'Get redirects url with key',
   hideSplashScreen = 'Hide splash screen failed',
   isScreenReaderEnabled = 'Screenreader enabled check failed',

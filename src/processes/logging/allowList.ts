@@ -2,6 +2,7 @@ import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const allowList = {
   [ExceptionLogKey.coordinates]: ['error'],
+  [ExceptionLogKey.deepLink]: ['error'],
   [ExceptionLogKey.getRedirectsUrl]: ['redirectsKey'],
   [ExceptionLogKey.nodeNotFound]: [],
   [ExceptionLogKey.notSupportedStoredUrl]: [],
