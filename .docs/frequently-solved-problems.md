@@ -21,6 +21,8 @@ When faced with an unclear error during the native build, some options are:
 - Remove `package-lock.json` and `/node_modules`
 - Run `npm i`
 
+You can also run the `clean` script command to do this for you.
+
 ### iOS specific
 
 Occasionally a build fails because of outdated data in the build folder. When building with XCode, there is an option to clear the build folder: CMND+SHIFT+K. Alternatively, you can usually find the path to the build folder in the build/error logs and manually delete the folder.
@@ -40,6 +42,8 @@ Occasionally, something will be cached outside of the build folder. To make sure
 - Look in the build log what folder in DerivedData is used for the build, e.g. `/Users/you/Library/Developer/Xcode/DerivedData/AmsterdamApp-abcdefghijklmnopqrstuvwxyzab/`
 - Go to the folder `~/Library/Developer/Xcode/DerivedData`
 - Then delete the relevant `AmsterdamApp-...` folder
+
+You can also run the `clean` script command to clean the iOS project.
 
 #### Archive failed
 
