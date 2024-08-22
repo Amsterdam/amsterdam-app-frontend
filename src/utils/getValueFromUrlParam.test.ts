@@ -2,7 +2,7 @@ import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
 
 describe('getValueFromUrlParam', () => {
   let url =
-    'amsterdam://stadspas?errorMessage=Verzenden%20van%20administratienummer%20naar%20de%20Amsterdam%20app%20niet%20gelukt&errorCode=004'
+    'stadspas?errorMessage=Verzenden%20van%20administratienummer%20naar%20de%20Amsterdam%20app%20niet%20gelukt&errorCode=004'
 
   it('should return the value of the key from the URL', () => {
     const key = 'errorMessage'

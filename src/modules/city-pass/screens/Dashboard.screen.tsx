@@ -1,5 +1,4 @@
 import {useCallback, useEffect} from 'react'
-import {appPrefix} from '@/app/navigation/linking'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
@@ -39,7 +38,7 @@ export const DashboardScreen = ({navigation, route}: Props) => {
       loginResult &&
         trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
           error:
-            getValueFromUrlParam(appPrefix + loginResult, 'errorMessage') ??
+            getValueFromUrlParam(loginResult, 'errorMessage') ??
             'Verzenden van administratienummer naar de Amsterdam app niet gelukt.',
         })
     }

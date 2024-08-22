@@ -1,9 +1,11 @@
+import {parse} from 'picoquery'
+
 export const getValueFromUrlParam = (url: string, key: string) => {
   if (!url || !key) {
     return null
   }
 
-  const urlNew = new URL(decodeURI(url))
+  const params = url.substring(url.indexOf('?') + 1)
 
-  return urlNew.searchParams.get(key)
+  return parse(params)[key] ?? null
 }
