@@ -30,6 +30,7 @@ module.exports = {
     'storybook-static',
     'coverage',
     'react-native-block-screenshot',
+    '.git',
   ],
 
   overrides: [
@@ -65,6 +66,15 @@ module.exports = {
             alphabetize: {
               order: 'asc',
             },
+          },
+        ],
+        '@typescript-eslint/no-magic-numbers': [
+          'off',
+          {
+            ignoreArrayIndexes: true,
+            ignore: [0, 1, -1],
+            ignoreEnums: true,
+            ignoreTypeIndexes: true,
           },
         ],
         'import-x/prefer-default-export': 'off',
@@ -226,6 +236,7 @@ module.exports = {
         'no-restricted-imports': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
         'sonarjs/no-duplicate-string': 'off',
+        '@typescript-eslint/no-magic-numbers': 'off',
       },
     },
     // Storybook config folder and stories
