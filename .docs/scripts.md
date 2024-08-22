@@ -21,7 +21,7 @@ Here’s a brief description of each command in the scripts list of package.json
 15. **`lint:fix`:** Runs ESLint to automatically fix linting issues in JavaScript, TypeScript, and JSON files.
 16. **`postinstall`:** Applies patches to dependencies after installation using `patch-package`.
 17. **`prepare`:** Prepares the environment for `husky` by setting up Git hooks.
-18. **`redux:devtools`:** Starts Redux DevTools on port 8000 and opens it in the browser.
+18. **`redux:devtools`:** Starts Redux DevTools on port 8000 and opens it with Electron.
 19. **`start`:** Starts the React Native development server.
 20. **`start:reset:cache`:** Starts the React Native development server and resets the Metro bundler cache.
 21. **`storybook`:** Starts the Storybook development server on port 7007 for UI component testing.
@@ -47,7 +47,7 @@ Here’s a brief description of each command in the scripts list of package.json
 
 - If an npm package includes native iOS code (e.g., camera or location access), it will be linked through CocoaPods as a pod. This allows the native iOS code from the npm package to be properly integrated and compiled within the iOS project.
 
-- `Podfile` and `Podfile.lock` are the files where versions of gems are defined and locked. Typically, you might use bundle exec to run commands that involve gems (e.g., bundle exec pod install).
+- `Podfile` and `Podfile.lock` are the files where versions of gems are defined and locked.
 
 **Metro Bundler**
 

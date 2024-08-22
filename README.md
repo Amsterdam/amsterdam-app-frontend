@@ -66,7 +66,7 @@ These are links from outside the app that will open the app and trigger somethin
 
 - Construction work editors after log in with Azure Entra ID: `construction-work-editor/:accessToken?`
 - Redirect from a push notification about construction work news: `news/:id`
-- Redirect from a push notification about construction work warning: `news/:id`
+- Redirect from a push notification about construction work warning: `warning/:id`
 - Redirect from Mijn Amsterdam after the login flow within the city pass module: `amsterdam://stadspas/[result]`
 
 ## Keep your code secure
