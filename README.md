@@ -104,3 +104,7 @@ More documentation can be found in the `.docs` folder:
 - [Cache durations](./.docs/cache-durations.md)
 - [Troubleshooting](./.docs/frequently-solved-problems.md)
 - [Test automation](./.docs/test-automation.md)
+
+Modules:
+
+- [City-Pass](./.docs/modules/city-pass.md)
