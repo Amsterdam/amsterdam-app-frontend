@@ -17,9 +17,9 @@ To acquire a session token we make use of an endpoint that returns one, together
 
 Together with the session token and hashed registration number, our backend is able to request the data at Mijn Amsterdam, which fetches the data from its source: Gpass.
 
-- [Session token](../assets/refresh-token.png)
-- [DigiD Login](../assets/digid-login.png)
-- [City-Pass data](../assets/pass-data.png)
+- [Login with DigID](../assets/digid-login.png)
+- [Retrieve City-Pass data](../assets/pass-data.png)
+- [Refresh session tokens](../assets/refresh-token.png)
 
 ## Processed data
 
@@ -37,11 +37,11 @@ To have access to the passes even while being offline, relevant data is been sto
 ```
 [
     {
-        firstname: string
-        infix: string
-        lastname: string
-        dateEndFormatted: string // the date until which the pass is valid
-        passNumberComplete: string // the complete pass number
+        f: string // the first name of the pass holder
+        i: string // the infix of the pass holder if applicable
+        l: string // the last name of the pass holder
+        d: string // the date until which the pass is valid
+        p: string // the complete pass number
     }
 ]
 ```
