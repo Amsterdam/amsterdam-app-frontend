@@ -2,10 +2,11 @@ import {
   CityPassTokensResponse,
   CityPassEndpointName,
   CityPassResponse,
+  BudgetTransaction,
+  BudgetTransactionsParams,
 } from '@/modules/city-pass/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
-import {CacheLifetime} from '@/types/api'
 
 export const cityPassApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -17,7 +18,6 @@ export const cityPassApi = baseApi.injectEndpoints({
         slug: ModuleSlug['city-pass'],
         url: '/session/init',
       }),
-      keepUnusedDataFor: CacheLifetime.none,
     }),
     [CityPassEndpointName.getCityPasses]: builder.query<
       CityPassResponse,
@@ -28,10 +28,24 @@ export const cityPassApi = baseApi.injectEndpoints({
         slug: ModuleSlug['city-pass'],
         url: '/data/passes',
       }),
-      keepUnusedDataFor: CacheLifetime.none,
+    }),
+    [CityPassEndpointName.getBudgetTransactions]: builder.query<
+      BudgetTransaction[],
+      BudgetTransactionsParams
+    >({
+      query: ({accessToken, passNumber, budgetCode}) => ({
+        headers: {'Access-Token': accessToken},
+        params: {passNumber, budgetCode},
+        slug: ModuleSlug['city-pass'],
+        url: '/data/budget-transactions',
+      }),
     }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetAccessTokenQuery, useGetCityPassesQuery} = cityPassApi
+export const {
+  useGetAccessTokenQuery,
+  useGetBudgetTransactionsQuery,
+  useGetCityPassesQuery,
+} = cityPassApi

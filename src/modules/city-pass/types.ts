@@ -3,33 +3,8 @@ import {RedirectKey} from '@/modules/redirects/types'
 
 export enum CityPassEndpointName {
   getAccessToken = 'getAccessToken',
+  getBudgetTransactions = 'getBudgetTransactions',
   getCityPasses = 'getCityPasses',
-}
-
-export type CityPassTokensResponse = {
-  access_token: string
-  refresh_token: string
-}
-
-export type TransactionOld = {
-  aanbieder?: TransActionSupplierOld
-  bedrag: number
-  budget?: TransactionBudgetOld
-  id: number
-  omschrijving?: string
-  transactiedatum: string
-}
-
-type TransactionBudgetOld = {
-  aanbieder: TransActionSupplierOld
-  code: string
-  id: number
-  naam: string
-}
-
-type TransActionSupplierOld = {
-  id: number
-  naam: string
 }
 
 export type AboutBlock = {
@@ -40,16 +15,16 @@ export type AboutBlock = {
   title: string
 }
 
-export enum LoginResult {
-  failed = 'mislukt',
-  success = 'gelukt',
-}
-
-export type CityPassOwner = {
-  firstname: string
-  infix?: string
-  initials: string
-  lastname: string
+export type BudgetTransaction = {
+  amount: number
+  amountFormatted: string
+  budget: string
+  budgetCode: string
+  datePublished: string
+  datePublishedFormatted: string
+  description?: string
+  id: string
+  title: string
 }
 
 export type CityPassBudget = {
@@ -64,6 +39,13 @@ export type CityPassBudget = {
   title: string
 }
 
+export type CityPassOwner = {
+  firstname: string
+  infix?: string
+  initials: string
+  lastname: string
+}
+
 export type CityPass = {
   balanceFormatted: string
   budgets: CityPassBudget[]
@@ -74,8 +56,6 @@ export type CityPass = {
   passNumber: number
   passNumberComplete: string
 }
-
-export type CityPassResponse = CityPass[]
 
 export type CityPassPass = Pick<
   CityPass,
@@ -89,4 +69,24 @@ export type SecureCityPass = {
   i?: CityPassPass['infix']
   l: CityPassPass['lastname']
   p: CityPassPass['passNumberComplete']
+}
+
+// api
+export type CityPassTokensResponse = {
+  access_token: string
+  refresh_token: string
+}
+
+export type CityPassResponse = CityPass[]
+
+export type BudgetTransactionsParams = {
+  accessToken: CityPassTokensResponse['access_token']
+  budgetCode: CityPassBudget['code']
+  passNumber: CityPass['passNumber']
+}
+
+// deeplink
+export enum LoginResult {
+  failed = 'mislukt',
+  success = 'gelukt',
 }
