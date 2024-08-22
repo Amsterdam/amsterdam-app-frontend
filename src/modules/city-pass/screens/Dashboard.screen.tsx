@@ -33,7 +33,7 @@ export const DashboardScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (loginResult === LoginResult.success) {
       setCityPassRegistered(true)
-    } else {
+    } else if (loginResult === LoginResult.failed) {
       setCityPassRegistered(false)
       loginResult &&
         trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
@@ -41,6 +41,8 @@ export const DashboardScreen = ({navigation, route}: Props) => {
             getValueFromUrlParam(loginResult, 'errorMessage') ??
             'Verzenden van administratienummer naar de Amsterdam app niet gelukt.',
         })
+    } else {
+      // do nothing
     }
   }, [loginResult, setCityPassRegistered, trackException])
 
