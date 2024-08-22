@@ -28,6 +28,7 @@ export const PassOwners = ({logout}: Props) => {
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
+
   const {
     data: cityPasses,
     isLoading,

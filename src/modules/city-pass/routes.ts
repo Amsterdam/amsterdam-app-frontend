@@ -17,7 +17,7 @@ export type CityPassStackParams = {
     firstname: CityPass['owner']['firstname']
     passNumber: CityPass['passNumber']
   }
-  [CityPassRouteName.securityCode]: undefined
+  [CityPassRouteName.securityCode]: {id: CityPass['id']}
 }
 
 export enum CityPassModalName {}
