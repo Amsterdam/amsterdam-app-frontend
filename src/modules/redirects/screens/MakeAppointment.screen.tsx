@@ -40,7 +40,7 @@ export const MakeAppointmentScreen = () => {
             {isLoading ? (
               <PleaseWait testID="RedirectsMakeAppointmentPleaseWait" />
             ) : isError ? (
-              <SomethingWentWrong />
+              <SomethingWentWrong testID="RedirectsMakeAppointmentSomethingWentWrong" />
             ) : (
               appointmentSubjects.map(
                 ({requiresPhoneCall, links, text, title}) => (

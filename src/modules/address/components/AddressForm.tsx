@@ -34,13 +34,17 @@ export const AddressForm = () => {
 
   const navigation = useNavigation<AddressModalName>()
 
-  const {currentData: bagList, isFetching: isFetchingBagList} =
-    useGetAddressSuggestionsQuery(
-      {address, city, street: isStreetSelected ? street : undefined},
-      {
-        skip: address?.length < addressLengthThreshold,
-      },
-    )
+  const {
+    currentData: bagList,
+    isFetching: isFetchingBagList,
+    isError,
+    refetch,
+  } = useGetAddressSuggestionsQuery(
+    {address, city, street: isStreetSelected ? street : undefined},
+    {
+      skip: address?.length < addressLengthThreshold,
+    },
+  )
 
   const changeStreet = useCallback((text: string) => {
     setIsStreetSelected(false)
@@ -95,8 +99,10 @@ export const AddressForm = () => {
           bagList={bagList?.response.docs ?? []}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
+          isError={isError}
           isLoading={isFetchingBagList}
           isStreetSelected={isStreetSelected}
+          refetch={refetch}
           selectResult={selectResult}
           street={street}
         />
@@ -105,9 +111,11 @@ export const AddressForm = () => {
           bagList={bagList?.response.docs ?? []}
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={changeNumber}
+          isError={isError}
           isLoading={isFetchingBagList}
           keyboardType="numbers-and-punctuation"
           number={number}
+          refetch={refetch}
           selectResult={selectResult}
           street={street}
         />

@@ -6,5 +6,5 @@ export default {
 } as Meta<typeof SomethingWentWrong>
 
 export const Default: StoryFn<typeof SomethingWentWrong> = () => (
-  <SomethingWentWrong />
+  <SomethingWentWrong testID="" />
 )

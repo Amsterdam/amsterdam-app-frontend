@@ -43,7 +43,10 @@ export const PassOwners = ({logout}: Props) => {
 
   if (isError || !cityPasses) {
     return (
-      <SomethingWentWrong text="Er ging iets mis met het ophalen van de Stadspas informatie." />
+      <SomethingWentWrong
+        testID="CityPassDashboardSomethingWentWrong"
+        text="Er ging iets mis met het ophalen van de Stadspas informatie."
+      />
     )
   }
 

@@ -52,7 +52,10 @@ export const BudgetScreen = () => {
 
   if (isError || !budgetTransactions) {
     return (
-      <SomethingWentWrong text="Er ging iets mis met het ophalen van de budget informatie." />
+      <SomethingWentWrong
+        testID="CityPassBudgetSomethingWentWrong"
+        text="Er ging iets mis met het ophalen van de budget informatie."
+      />
     )
   }
 

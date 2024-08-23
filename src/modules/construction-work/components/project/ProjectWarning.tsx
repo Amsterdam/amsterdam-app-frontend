@@ -43,7 +43,9 @@ export const ProjectWarning = ({id, projectId}: Props) => {
   }
 
   if (!warningData || warningIsError) {
-    return <SomethingWentWrong />
+    return (
+      <SomethingWentWrong testID="ConstructionWorkWarningSomethingWentWrong" />
+    )
   }
 
   const {body, images, publication_date, title} = warningData

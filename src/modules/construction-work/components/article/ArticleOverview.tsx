@@ -2,9 +2,8 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type VariableContentParams} from '@/app/navigation/types'
-import {Pressable} from '@/components/ui/buttons/Pressable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -139,14 +138,13 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
             </View>
           ))
         ) : (
-          <Pressable
-            onPress={refetch}
-            testID="ConstructionWorkProjectArticlesRefetchButton">
-            <AlertNegative
-              testID="ConstructionWorkProjectArticlesError"
-              text="De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer."
-            />
-          </Pressable>
+          <SomethingWentWrong
+            inset="no"
+            retryFn={refetch}
+            testID="ConstructionWorkProjectArticlesSomethingWentWrong"
+            text="De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer."
+            title=""
+          />
         )}
       </Column>
     </View>

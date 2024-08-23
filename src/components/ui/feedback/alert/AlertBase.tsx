@@ -79,7 +79,7 @@ export const AlertBase = ({
                     testID={`${testID}Icon`}
                   />
                 )}
-                <Column>
+                <Column shrink={1}>
                   {!!title && (
                     <Title
                       level="h4"

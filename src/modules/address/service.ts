@@ -50,7 +50,7 @@ const defaultPdokFreeApiParams: PdokFreeApiParams = {
 
 const defaultFq: PdokFreeApiParams['fq'] = ['bron:BAG']
 
-const path = '/free'
+const path = '/frees'
 const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({

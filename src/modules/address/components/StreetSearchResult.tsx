@@ -1,18 +1,23 @@
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Icon} from '@/components/ui/media/Icon'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {PdokAddress} from '@/modules/address/types'
 
 type StreetSearchResultProps = {
   bagList: PdokAddress[]
+  isError: boolean
   isLoading: boolean
+  refetch: () => void
   selectResult: (item: PdokAddress) => void
 }
 
 export const StreetSearchResult = ({
   bagList,
+  isError,
   isLoading,
+  refetch,
   selectResult,
 }: StreetSearchResultProps) => {
   if (isLoading) {
@@ -23,6 +28,20 @@ export const StreetSearchResult = ({
           name="spinner"
           size="lg"
           testID="AddressStreetSearchResultLoadingIcon"
+        />
+      </Box>
+    )
+  }
+
+  if (isError) {
+    return (
+      <Box insetVertical="md">
+        <SomethingWentWrong
+          inset="no"
+          retryFn={refetch}
+          testID="AddressStreetSearchResultSomethingWentWrong"
+          text="Door een technische storing kunnen er geen adressen worden gevonden. Probeer het later nog eens."
+          title=""
         />
       </Box>
     )

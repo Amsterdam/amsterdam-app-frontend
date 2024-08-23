@@ -43,7 +43,7 @@ export const FeedbackScreen = () => {
             {isLoading ? (
               <PleaseWait testID="AboutFeedbackPleaseWait" />
             ) : isError ? (
-              <SomethingWentWrong />
+              <SomethingWentWrong testID="AboutFeedbackSomethingWentWrong" />
             ) : (
               <Button
                 label="Laat het ons weten"
