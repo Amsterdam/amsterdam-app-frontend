@@ -44,11 +44,11 @@ export const AlertBase = ({
   hasIcon = false,
   text,
   title,
-  variant = AlertVariant.information,
+  variant = AlertVariant.warning,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const variantConfig = useThemable(createVariantConfig)
-  const iconName = variantConfig[variant ?? AlertVariant.information].iconName
+  const iconName = variantConfig[variant ?? AlertVariant.warning].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
   const hasContent = !!text || !!title || !!children
@@ -113,8 +113,8 @@ export const AlertBase = ({
 
 const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
   [AlertVariant.information]: {
-    backgroundColor: color.box.background.alert,
-    borderColor: color.box.background.alert,
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.information,
     borderWidth: 2,
     iconName: 'info',
   },
@@ -122,13 +122,19 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     backgroundColor: color.box.background.white,
     borderColor: color.severity.negative,
     borderWidth: 2,
-    iconName: 'alert',
+    iconName: 'error',
   },
   [AlertVariant.positive]: {
     backgroundColor: color.box.background.white,
     borderColor: color.severity.positive,
     borderWidth: 2,
     iconName: 'checkmark',
+  },
+  [AlertVariant.warning]: {
+    backgroundColor: color.box.background.white,
+    borderColor: color.severity.warning,
+    borderWidth: 2,
+    iconName: 'alert',
   },
 })
 

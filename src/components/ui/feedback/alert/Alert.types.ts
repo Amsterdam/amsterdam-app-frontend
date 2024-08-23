@@ -6,6 +6,7 @@ export enum AlertVariant {
   information = 'information',
   negative = 'negative',
   positive = 'positive',
+  warning = 'warning',
 }
 
 export type AlertProps = {

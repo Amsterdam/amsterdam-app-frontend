@@ -1,5 +1,5 @@
 import {Attention} from '@/components/ui/feedback/Attention'
-import {AlertInformation} from '@/components/ui/feedback/alert/AlertInformation'
+import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
@@ -84,12 +84,12 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Row>
       {showTimeBoundNotification(fraction) && (
-        <AlertInformation testID={testID + 'TimeboundNotification'}>
+        <AlertWarning testID={testID + 'TimeboundNotification'}>
           <FractionContent
             content={afvalwijzerAfvalkalenderMelding}
             testID={`${testID}Content`}
           />
-        </AlertInformation>
+        </AlertWarning>
       )}
       <Column gutter="md">
         <Column gutter="sm">
