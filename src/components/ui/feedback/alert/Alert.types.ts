@@ -1,3 +1,4 @@
+import {ReactNode} from 'react'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
@@ -8,9 +9,10 @@ export enum AlertVariant {
 }
 
 export type AlertProps = {
+  children?: ReactNode
   hasCloseIcon?: boolean
   hasIcon?: boolean
-  text: string
+  text?: string
   title?: string
   variant?: AlertVariant
 } & TestProps

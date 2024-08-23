@@ -37,6 +37,7 @@ const Wrapper = ({children, inset}: WrapperProps) => {
 }
 
 export const AlertBase = ({
+  children,
   hasCloseIcon = false,
   inset,
   testID,
@@ -50,7 +51,7 @@ export const AlertBase = ({
   const iconName = variantConfig[variant ?? AlertVariant.information].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
-  const hasContent = !!text || !!title
+  const hasContent = !!text || !!title || !!children
 
   if (!hasContent) {
     return null
@@ -66,40 +67,44 @@ export const AlertBase = ({
           ref={setAccessibilityFocus}
           style={styles?.view}
           testID={testID}>
-          <Row align="between">
-            <SingleSelectable
-              accessibilityLabel={accessibleText(title, text)}
-              accessibilityLanguage="nl-NL"
-              accessibilityRole="alert">
-              <Row gutter="md">
-                {!!hasIcon && (
-                  <Icon
-                    name={iconName}
-                    size="lg"
-                    testID={`${testID}Icon`}
-                  />
-                )}
-                <Column shrink={1}>
-                  {!!title && (
-                    <Title
-                      level="h4"
-                      text={title}
+          {children ? (
+            children
+          ) : (
+            <Row align="between">
+              <SingleSelectable
+                accessibilityLabel={accessibleText(title, text)}
+                accessibilityLanguage="nl-NL"
+                accessibilityRole="alert">
+                <Row gutter="md">
+                  {!!hasIcon && (
+                    <Icon
+                      name={iconName}
+                      size="lg"
+                      testID={`${testID}Icon`}
                     />
                   )}
-                  <Paragraph>{text}</Paragraph>
-                </Column>
-              </Row>
-            </SingleSelectable>
-            {!!hasCloseIcon && (
-              <View>
-                <Icon
-                  name="close"
-                  size="lg"
-                  testID={`${testID}CloseIcon`}
-                />
-              </View>
-            )}
-          </Row>
+                  <Column shrink={1}>
+                    {!!title && (
+                      <Title
+                        level="h4"
+                        text={title}
+                      />
+                    )}
+                    <Paragraph>{text}</Paragraph>
+                  </Column>
+                </Row>
+              </SingleSelectable>
+              {!!hasCloseIcon && (
+                <View>
+                  <Icon
+                    name="close"
+                    size="lg"
+                    testID={`${testID}CloseIcon`}
+                  />
+                </View>
+              )}
+            </Row>
+          )}
         </View>
       </View>
     </Wrapper>
