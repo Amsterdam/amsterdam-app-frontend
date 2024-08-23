@@ -104,8 +104,6 @@ export const useRegisterNavigationContainerForLogging = () => {
                   'useRegisterNavigationContainerForLogging',
                 )
               })
-          } else {
-            devError('piwik not initialized')
           }
 
           appInsights.trackPageView({
