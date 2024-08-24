@@ -44,11 +44,11 @@ export const AlertBase = ({
   hasIcon = false,
   text,
   title,
-  variant = AlertVariant.warning,
+  variant = AlertVariant.information,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const variantConfig = useThemable(createVariantConfig)
-  const iconName = variantConfig[variant ?? AlertVariant.warning].iconName
+  const iconName = variantConfig[variant].iconName
   const styles = useThemable(createStyles(variant, variantConfig))
 
   const hasContent = !!text || !!title || !!children
