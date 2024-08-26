@@ -19,6 +19,8 @@ import {useThemable} from '@/themes/useThemable'
 import {Duration} from '@/types/duration'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
+const TEXT_ALIGN_CORRECTION = 3
+
 export type AlertBaseProps = {
   inset?: keyof SpacingTokens
 } & AlertProps
@@ -77,11 +79,13 @@ export const AlertBase = ({
                 accessibilityRole="alert">
                 <Row gutter="md">
                   {!!hasIcon && (
-                    <Icon
-                      name={iconName}
-                      size="lg"
-                      testID={`${testID}Icon`}
-                    />
+                    <View style={styles?.iconWrapper}>
+                      <Icon
+                        name={iconName}
+                        size="lg"
+                        testID={`${testID}Icon`}
+                      />
+                    </View>
                   )}
                   <Column shrink={1}>
                     {!!title && (
@@ -128,7 +132,7 @@ const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
     backgroundColor: color.box.background.white,
     borderColor: color.severity.positive,
     borderWidth: 2,
-    iconName: 'checkmark',
+    iconName: 'circle-check-mark',
   },
   [AlertVariant.warning]: {
     backgroundColor: color.box.background.white,
@@ -148,6 +152,9 @@ const createStyles =
     const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
 
     return StyleSheet.create({
+      iconWrapper: {
+        top: TEXT_ALIGN_CORRECTION,
+      },
       view: {
         backgroundColor,
         borderWidth,
