@@ -11,8 +11,10 @@ type Props = {
   bagList: PdokAddress[]
   changeStreet: (text: string) => void
   inputStreetRef: Ref<TextInput>
+  isError: boolean
   isLoading: boolean
   isStreetSelected: boolean
+  refetch: () => void
   selectResult: (item: PdokAddress) => void
   street: string
 }
@@ -21,8 +23,10 @@ export const StreetInput = ({
   bagList,
   changeStreet,
   inputStreetRef,
+  isError,
   isLoading,
   isStreetSelected,
+  refetch,
   selectResult,
   street,
 }: Props) => {
@@ -52,7 +56,9 @@ export const StreetInput = ({
           {!isBelowCharacterThreshold && (
             <StreetSearchResult
               bagList={bagList}
+              isError={isError}
               isLoading={isLoading}
+              refetch={refetch}
               selectResult={selectResult}
             />
           )}

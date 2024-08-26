@@ -28,7 +28,9 @@ export const WasteGuideForAmsterdam = ({wasteGuide}: Props) => {
   }
 
   if (!address) {
-    return <SomethingWentWrong />
+    return (
+      <SomethingWentWrong testID="WasteGuideWasteGuideForAmsterdamSomethingWentWrong" />
+    )
   }
 
   return (

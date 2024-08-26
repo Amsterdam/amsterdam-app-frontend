@@ -73,14 +73,16 @@ export const SecurityCode = ({id}: Props) => {
   }
 
   if (isError) {
-    return <SomethingWentWrong />
+    return (
+      <SomethingWentWrong testID="CityPassSecurityCodeSomethingWentWrong" />
+    )
   }
 
   if (cityPasses && !securityCode) {
     return (
       <AlertNegative
         inset="md"
-        testID="CityPassSecurityCodeAlertNegative310583"
+        testID="CityPassSecurityCodeAlertNegative"
         text="Deze pas bevat geen beveiligingscode."
       />
     )

@@ -11,7 +11,9 @@ export const WasteGuideForWeesp = () => {
   const openWebUrl = useOpenWebUrl()
 
   if (!address) {
-    return <SomethingWentWrong />
+    return (
+      <SomethingWentWrong testID="WasteGuideWasteGuideForWeespSomethingWentWrong" />
+    )
   }
 
   const {postcode, number, addition = ''} = address

@@ -49,7 +49,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   {isLoading ? (
                     <PleaseWait testID="RedirectsMakeAppointmentWeespPleaseWait" />
                   ) : isError ? (
-                    <SomethingWentWrong />
+                    <SomethingWentWrong testID="RedirectsMakeAppointmentWeespSomethingWentWrong" />
                   ) : (
                     <Button
                       accessibilityRole="link"

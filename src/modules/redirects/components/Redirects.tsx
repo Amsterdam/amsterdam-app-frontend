@@ -26,7 +26,7 @@ export const Redirects = () => {
       {isLoading ? (
         <PleaseWait testID="RedirectsPleaseWait" />
       ) : isError ? (
-        <SomethingWentWrong />
+        <SomethingWentWrong testID="RedirectsSomethingWentWrong" />
       ) : (
         redirects.map(({iconName, routeName, testID, text, title, urlKey}) => (
           <TopTaskButton

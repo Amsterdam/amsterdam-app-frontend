@@ -19,7 +19,7 @@ import {mapImageSources} from '@/modules/contact/utils/mapImageSources'
 export const CityOffice = () => {
   const openWebUrl = useOpenWebUrl()
   const selectedCityOfficeId = useSelector(selectCityOffice)
-  const {data: cityOffices, isLoading} = useGetCityOfficesQuery()
+  const {data: cityOffices, isLoading, refetch} = useGetCityOfficesQuery()
 
   if (isLoading) {
     return <PleaseWait testID="ContactCityOfficesLoadingSpinner" />
@@ -29,7 +29,14 @@ export const CityOffice = () => {
   const cityOffice = cityOffices?.find(c => c.identifier === cityOfficeId)
 
   if (!cityOffice) {
-    return <SomethingWentWrong />
+    return (
+      <SomethingWentWrong
+        retryFn={refetch}
+        testID="ContactCityOfficeSomethingWentWrong"
+        text="Door een technische storing is het Stadsloket niet te zien. Probeer het later nog eens."
+        title=""
+      />
+    )
   }
 
   const {

@@ -3,9 +3,8 @@ import simplur from 'simplur'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
-import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
-import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -81,15 +80,14 @@ export const ProjectFollow = ({
       gutter="md"
       zIndex={zTokens.productTourTooltipWrapperParent}>
       {isFollowError || isUnfollowError ? (
-        <Pressable
-          onPress={() => onPressFollowButton(isProjectFollowed)}
-          testID="ConstructionWorkProjectArticlesRefetchButton">
-          <AlertNegative
-            hasIcon
-            testID="ConstructionWorkProjectArticlesError"
-            text={`Het ${isUnfollowError ? 'ont' : ''}volgen is niet gelukt, probeer het later nog eens.`}
-          />
-        </Pressable>
+        <SomethingWentWrong
+          hasIcon
+          inset="no"
+          retryFn={() => onPressFollowButton(isProjectFollowed)}
+          testID="ConstructionWorkProjectArticlesSomethingWentWrong"
+          text={`Het ${isUnfollowError ? 'ont' : ''}volgen is niet gelukt, probeer het later nog eens.`}
+          title=""
+        />
       ) : null}
       <Row
         gutter="md"

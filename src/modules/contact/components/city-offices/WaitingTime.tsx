@@ -1,5 +1,6 @@
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -27,12 +28,19 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
 
   useRefetchInterval(refetch, refetchInterval)
 
-  if (isError) {
-    return null
+  if (isLoading) {
+    return <PleaseWait testID="ContactCityOfficeWaitingTimesLoadingSpinner" />
   }
 
-  if (isLoading || !waitingTimes) {
-    return <PleaseWait testID="ContactCityOfficeWaitingTimesLoadingSpinner" />
+  if (isError || !waitingTimes) {
+    return (
+      <SomethingWentWrong
+        inset="no"
+        testID="ContactCityOfficeWaitingTimesSomethingWentWrong"
+        text="Door een technische storing kunt u de wachttijden van dit moment niet zien. Probeer het later nog eens."
+        title=""
+      />
+    )
   }
 
   const waitingTimesForCityOffice = waitingTimes.find(

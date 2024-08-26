@@ -41,10 +41,11 @@ type Props = {
   bagList: PdokAddress[]
   changeIsStreetSelected: (choice: boolean) => void
   changeNumber: (text: string) => void
+  isError: boolean
   isLoading: boolean
-
   keyboardType: KeyboardTypeOptions | undefined
   number: string
+  refetch: () => void
   selectResult: (item: PdokAddress) => void
   street: string
 }
@@ -53,9 +54,11 @@ export const NumberInput = ({
   bagList,
   changeNumber,
   changeIsStreetSelected,
+  isError,
   isLoading,
   keyboardType,
   number,
+  refetch,
   selectResult,
   street,
 }: Props) => {
@@ -111,8 +114,10 @@ export const NumberInput = ({
           </Column>
           <NumberSearchResult
             bagList={bagList}
+            isError={isError}
             isLoading={isLoading}
             number={number}
+            refetch={refetch}
             selectResult={selectResult}
           />
         </KeyboardAwareScrollView>
