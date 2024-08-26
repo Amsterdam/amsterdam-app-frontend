@@ -10,7 +10,7 @@ import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-type PressableVariant = 'primary' | 'tertiary' | 'negative' | 'transparent'
+type PressableVariant = 'primary' | 'tertiary' | 'transparent'
 
 export type PressableProps = {
   children: ReactNode
@@ -64,13 +64,13 @@ const createStyles =
       button: {
         backgroundColor:
           variant !== 'transparent'
-            ? color.pressable[variant].default
+            ? color.pressable[variant].default.background
             : undefined,
       },
       pressed: {
         backgroundColor:
           variant !== 'transparent'
-            ? color.pressable[variant].highlight
+            ? color.pressable[variant].pressed.background
             : undefined,
       },
     })

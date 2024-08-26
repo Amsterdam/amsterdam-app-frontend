@@ -23,6 +23,8 @@ export type ButtonProps = {
   variant?: ButtonVariant
 } & Omit<PressableBaseProps, 'style' | 'children'>
 
+const defaultVariant = 'primary'
+
 export const Button = ({
   ellipsizeMode,
   iconName,
@@ -31,7 +33,7 @@ export const Button = ({
   numberOfLines,
   small,
   testID,
-  variant = 'primary',
+  variant = defaultVariant,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
@@ -91,54 +93,21 @@ export const Button = ({
 const getBorderColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'],
-) => {
-  if (variant === 'primary') {
-    return 'transparent'
-  }
-
-  if (variant === 'secondary') {
-    return isPressed
-      ? color.pressable.primary.highlight
-      : color.pressable.primary.default
-  }
-
-  if (variant === 'tertiary') {
-    return isPressed ? color.pressable.pressed.background : 'transparent'
-  }
-
-  return 'transparent'
-}
+  variant: ButtonProps['variant'] = defaultVariant,
+) => color.pressable[variant][isPressed ? 'pressed' : 'default'].border
 
 const getLabelColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'],
-) => {
-  if (variant === 'primary') {
-    return color.text.inverse
-  }
-
-  return isPressed
-    ? color.pressable.primary.highlight
-    : color.pressable.primary.default
-}
+  variant: ButtonProps['variant'] = defaultVariant,
+) => color.pressable[variant][isPressed ? 'pressed' : 'default'].label
 
 const getBackgroundColor = (
   color: Theme['color'],
   isPressed: boolean,
-  variant: ButtonProps['variant'],
-) => {
-  if (variant === 'primary') {
-    return isPressed
-      ? color.pressable.primary.highlight
-      : color.pressable.primary.default
-  }
+  variant: ButtonProps['variant'] = defaultVariant,
+) => color.pressable[variant][isPressed ? 'pressed' : 'default'].background
 
-  return color.box.background.white
-}
-
-// TODO Improve color tokens
 const createStyles =
   ({small, variant}: Partial<ButtonProps>, isPressed: boolean) =>
   ({border, color, text, size}: Theme) => {

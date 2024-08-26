@@ -2,41 +2,63 @@ import {baseColor} from '@/themes/tokens/base-color'
 
 export type ColorTokens = typeof lightColorTokens
 
-// TODO OMG Improve background tokens
+/**
+ * The light color theme, the keys of the object should not contain any color name at all
+ */
 export const lightColorTokens = {
+  /**
+   * @deprecated no generic background property
+   */
   background: {
-    appSwitcher: baseColor.primary.red,
     cutout: baseColor.primary.white,
-    emphasis: baseColor.primary.blue,
     inactive: baseColor.neutral.grey4,
     inverse: baseColor.neutral.grey5,
-    pagination: baseColor.primary.blue,
-    skeleton: baseColor.neutral.grey3,
-    warning: baseColor.primary.red,
+    alert: baseColor.secondary.yellow,
+    /**
+     * @deprecated
+     */
+    white: baseColor.primary.white,
   },
+  swipeToDelete: {
+    background: baseColor.support.invalid,
+  },
+  noInternet: {
+    background: baseColor.primary.red,
+  },
+  box: {
+    distinct: baseColor.primary.white,
+    cityPass: baseColor.custom.purple1,
+  },
+  timeline: {
+    future: baseColor.neutral.grey4,
+    past: baseColor.primary.blue,
+  },
+  appSwitcher: {
+    background: baseColor.primary.red,
+  },
+  /**
+   * @deprecated no generic border property
+   */
   border: {
     default: baseColor.neutral.grey2,
     onGrey: baseColor.neutral.grey3,
-    invalid: baseColor.support.invalid,
     primary: baseColor.primary.blue,
     cityPass: baseColor.custom.purple1,
+    positive: baseColor.support.valid,
+    negative: baseColor.support.invalid,
   },
-  box: {
-    background: {
-      alert: baseColor.secondary.yellow,
-      black: baseColor.primary.black,
-      emphasis: baseColor.primary.blue,
-      grey: baseColor.neutral.grey1,
-      invalid: baseColor.support.invalid,
-      white: baseColor.primary.white,
-      cityPass: baseColor.custom.purple1,
+  pagination: {
+    background: baseColor.primary.blue,
+    container: {
+      background: baseColor.transparent.grey50,
+    },
+    item: {
+      active: baseColor.primary.white,
+      inactive: baseColor.transparent.white30,
     },
   },
   cityPass: {
     overlay: baseColor.transparent.black90,
-    swiperPagination: baseColor.transparent.grey50,
-    swiperPaginationItemActive: baseColor.primary.white,
-    swiperPaginationItemInactive: baseColor.transparent.white30,
     passHeader: baseColor.neutral.grey1,
   },
   control: {
@@ -51,40 +73,85 @@ export const lightColorTokens = {
     focus: {
       border: baseColor.primary.black,
     },
-    switch: {
-      thumb: {
-        background: {
-          disabled: baseColor.neutral.grey3,
-          enabled: baseColor.primary.white,
-        },
-      },
-      track: {
-        background: {
-          off: baseColor.neutral.grey4,
-          on: baseColor.primary.blue,
-        },
-      },
-    },
     warning: {
       border: baseColor.support.invalid,
     },
   },
+  checkbox: {
+    underlay: baseColor.primary.white,
+  },
+  switch: {
+    thumb: {
+      disabled: {
+        background: baseColor.neutral.grey3,
+      },
+      enabled: {
+        background: baseColor.primary.white,
+      },
+    },
+    track: {
+      off: {
+        background: baseColor.neutral.grey4,
+      },
+      on: {
+        background: baseColor.primary.blue,
+      },
+    },
+  },
+  badge: {
+    background: baseColor.primary.red,
+  },
   pressable: {
     primary: {
-      default: baseColor.primary.blue,
-      highlight: baseColor.functional.darkblue,
+      default: {
+        background: baseColor.primary.blue,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.white,
+      },
+      pressed: {
+        background: baseColor.functional.darkblue,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.white,
+      },
     },
     secondary: {
-      background: baseColor.primary.red,
+      default: {
+        background: baseColor.primary.white,
+        border: baseColor.primary.blue,
+        label: baseColor.primary.blue,
+      },
+      pressed: {
+        background: baseColor.primary.white,
+        border: baseColor.functional.darkblue,
+        label: baseColor.functional.darkblue,
+      },
     },
     tertiary: {
-      default: baseColor.primary.white,
-      highlight: baseColor.custom.grey1,
+      default: {
+        background: baseColor.primary.white,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.blue,
+      },
+      pressed: {
+        background: baseColor.custom.grey1,
+        border: baseColor.primary.blue,
+        label: baseColor.functional.darkblue,
+      },
     },
-    negative: {
-      default: baseColor.primary.red,
-      highlight: baseColor.primary.red,
+    transparent: {
+      default: {
+        background: baseColor.transparent.full,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.blue,
+      },
+      pressed: {
+        background: baseColor.primary.white,
+        border: baseColor.custom.grey1,
+        label: baseColor.functional.darkblue,
+      },
     },
+  },
+  card: {
     pressed: {
       background: baseColor.custom.grey1,
     },
@@ -95,11 +162,23 @@ export const lightColorTokens = {
       settings: baseColor.custom.grey1,
     },
   },
-  severity: {
-    information: baseColor.primary.blue,
-    positive: baseColor.support.valid,
-    negative: baseColor.support.invalid,
-    warning: baseColor.secondary.orange,
+  alert: {
+    information: {
+      border: baseColor.primary.blue,
+      background: baseColor.primary.white,
+    },
+    negative: {
+      border: baseColor.support.invalid,
+      background: baseColor.primary.white,
+    },
+    positive: {
+      border: baseColor.support.valid,
+      background: baseColor.primary.white,
+    },
+    warning: {
+      border: baseColor.secondary.orange,
+      background: baseColor.primary.white,
+    },
   },
   shadow: {
     default: baseColor.primary.black,
@@ -114,7 +193,8 @@ export const lightColorTokens = {
     tertiary: baseColor.neutral.grey3,
     warning: baseColor.support.invalid,
   },
-  utility: {
-    skeletonHighlight: baseColor.transparent.white30,
+  skeleton: {
+    background: baseColor.neutral.grey3,
+    highlight: baseColor.transparent.white30,
   },
 }

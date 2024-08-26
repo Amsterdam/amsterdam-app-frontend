@@ -117,26 +117,26 @@ export const AlertBase = ({
 
 const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
   [AlertVariant.information]: {
-    backgroundColor: color.box.background.white,
-    borderColor: color.severity.information,
+    backgroundColor: color.alert.information.background,
+    borderColor: color.alert.information.border,
     borderWidth: 2,
     iconName: 'info',
   },
   [AlertVariant.negative]: {
-    backgroundColor: color.box.background.white,
-    borderColor: color.severity.negative,
+    backgroundColor: color.alert.negative.background,
+    borderColor: color.alert.negative.border,
     borderWidth: 2,
     iconName: 'error',
   },
   [AlertVariant.positive]: {
-    backgroundColor: color.box.background.white,
-    borderColor: color.severity.positive,
+    backgroundColor: color.alert.positive.background,
+    borderColor: color.alert.positive.border,
     borderWidth: 2,
     iconName: 'circle-check-mark',
   },
   [AlertVariant.warning]: {
-    backgroundColor: color.box.background.white,
-    borderColor: color.severity.warning,
+    backgroundColor: color.alert.warning.background,
+    borderColor: color.alert.warning.border,
     borderWidth: 2,
     iconName: 'alert',
   },

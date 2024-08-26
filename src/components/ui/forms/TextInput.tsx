@@ -123,7 +123,7 @@ const createStyles =
         flexDirection: 'row',
         paddingHorizontal,
         paddingVertical,
-        backgroundColor: color.box.background.white,
+        backgroundColor: color.background.white,
         borderStyle: 'solid',
         borderColor: warning
           ? color.control.warning.border

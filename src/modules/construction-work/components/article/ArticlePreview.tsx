@@ -164,7 +164,7 @@ const createStyles =
         backgroundColor: color.text.default,
       },
       update: {
-        backgroundColor: color.box.background.alert,
+        backgroundColor: color.background.alert,
         paddingHorizontal: size.spacing.sm,
         paddingVertical: size.spacing.xs,
       },

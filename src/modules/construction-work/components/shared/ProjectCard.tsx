@@ -100,6 +100,6 @@ const createStyles =
         flexGrow: 1,
       },
       pressed: {
-        backgroundColor: color.pressable.pressed.background,
+        backgroundColor: color.card.pressed.background,
       },
     })

@@ -8,6 +8,7 @@ import {textTokens} from '@/themes/tokens/text'
 /**
  * Error component with restart app button
  * Can be used outside a redux context
+ * @warn Theming should be hardcoded in this file and not use the Themable not direct and not indirect through other components
  */
 export const ErrorWithRestart = () => (
   <SafeAreaView style={styles.screen}>
@@ -46,7 +47,7 @@ const styles = StyleSheet.create({
     marginBottom: sizeTokens.spacing.md,
   },
   button: {
-    backgroundColor: lightColorTokens.pressable.primary.default,
+    backgroundColor: lightColorTokens.pressable.primary.default.background,
     paddingHorizontal: sizeTokens.spacing.md,
     paddingVertical: sizeTokens.spacing.sm,
   },

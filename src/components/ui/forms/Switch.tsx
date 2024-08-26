@@ -64,16 +64,14 @@ export const Switch = ({
           <SwitchRN
             accessibilityElementsHidden
             importantForAccessibility="no-hide-descendants"
-            ios_backgroundColor={color.control.switch.track.background.off}
+            ios_backgroundColor={color.switch.track.off.background}
             onChange={onPress}
             thumbColor={
-              color.control.switch.thumb.background[
-                disabled ? 'disabled' : 'enabled'
-              ]
+              color.switch.thumb[disabled ? 'disabled' : 'enabled'].background
             }
             trackColor={{
-              false: color.control.switch.track.background.off,
-              true: color.control.switch.track.background.on,
+              false: color.switch.track.off.background,
+              true: color.switch.track.on.background,
             }}
             value={value}
             {...switchProps}

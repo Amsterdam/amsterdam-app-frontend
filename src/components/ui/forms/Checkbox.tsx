@@ -96,5 +96,5 @@ const createStyles = ({color}: Theme) =>
   })
 
 const createTouchableProps = ({color}: Theme): TouchableHighlightProps => ({
-  underlayColor: color.box.background.white,
+  underlayColor: color.checkbox.underlay,
 })

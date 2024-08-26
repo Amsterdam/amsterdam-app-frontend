@@ -110,7 +110,7 @@ const createStyles = ({color, size}: Theme) =>
       right: 0,
     },
     inner: {
-      backgroundColor: color.background.warning,
+      backgroundColor: color.noInternet.background,
       elevation: 2,
       shadowColor: color.shadow.default,
       shadowOffset: {
