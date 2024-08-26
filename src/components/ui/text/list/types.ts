@@ -1,5 +1,5 @@
 export enum ListMarkerGlyph {
-  checkmark = '\u221a',
+  'check-mark' = '\u221a',
   square = '\u2022',
 }
 

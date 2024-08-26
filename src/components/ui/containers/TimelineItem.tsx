@@ -44,7 +44,7 @@ export const TimelineItem = ({
           {item.progress === 'Afgelopen' && (
             <Icon
               color="inverse"
-              name="checkmark"
+              name="check-mark"
               size="sm"
               testID={`${testID}Icon`}
             />

@@ -44,7 +44,7 @@ export const ProjectTraits = memo(
               </Trait>
             ) : (
               <Trait
-                iconName="checkmark"
+                iconName="check-mark"
                 label="Volgend"
                 testID="ConstructionWorkProjectFollowingTrait"
               />
