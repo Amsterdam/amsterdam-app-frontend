@@ -21,13 +21,13 @@ export const TransactionItem = ({
     <Row align="between">
       <Phrase
         emphasis="strong"
-        testID="">
+        testID="CityPassTransactionTitle">
         {title}
       </Phrase>
       <Phrase
         accessibilityLabel={accessibilityLabel}
         emphasis="strong"
-        testID="">
+        testID="CityPassTransactionItemAmount">
         {amountFormatted}
       </Phrase>
     </Row>
