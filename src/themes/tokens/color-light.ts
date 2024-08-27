@@ -99,7 +99,7 @@ export const lightColorTokens = {
     information: baseColor.primary.blue,
     positive: baseColor.support.valid,
     negative: baseColor.support.invalid,
-    warning: baseColor.support.warning,
+    warning: baseColor.secondary.orange,
   },
   shadow: {
     default: baseColor.primary.black,

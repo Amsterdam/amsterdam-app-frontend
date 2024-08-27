@@ -20,7 +20,6 @@ export const baseColor = {
     focus: '#fec813',
     invalid: '#ec0000',
     valid: '#00a03c',
-    warning: '#FF9100',
   },
   secondary: {
     darkgreen: '#00a03c',
