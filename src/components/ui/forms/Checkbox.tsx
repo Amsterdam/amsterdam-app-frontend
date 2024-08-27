@@ -70,7 +70,7 @@ export const Checkbox = ({
           {!!value && (
             <Icon
               color="inverse"
-              name="checkmark"
+              name="check-mark"
               testID={`${testID}Icon`}
             />
           )}

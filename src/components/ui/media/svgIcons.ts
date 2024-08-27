@@ -8,12 +8,13 @@ type SvgIconConfig = {
 export type SvgIconName =
   | 'alarm'
   | 'alert'
+  | 'circle-check-mark'
   | 'announcement'
   | 'api'
   | 'car'
   | 'card'
   | 'chatting'
-  | 'checkmark'
+  | 'check-mark'
   | 'chevron-down'
   | 'chevron-left'
   | 'chevron-right'
@@ -32,6 +33,7 @@ export type SvgIconName =
   | 'edit'
   | 'email'
   | 'enlarge'
+  | 'error'
   | 'external-link'
   | 'eye'
   | 'facade'
@@ -65,6 +67,10 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   alert: {
     path: 'm15.9 2.3-16 28.6h32l-16-28.6zm0 8.4 9 16.1h-18l9-16.1zm-1 5.9h2v5.1h-2v-5.1zm2 8.1v-2h-2v2h2z',
   },
+  'circle-check-mark': {
+    path: 'm7.07 9.88 2.64 2.89 5.91-6.08 1.43 1.4-7.38 7.6-4.07-4.46 1.47-1.35ZM0 11C0 4.92 4.92 0 11 0s11 4.92 11 11-4.92 11-11 11S0 17.08 0 11Zm2 0c0 4.96 4.04 9 9 9s9-4.04 9-9-4.04-9-9-9-9 4.04-9 9Z',
+    viewBox: '0 0 22 22',
+  },
   announcement: {
     path: 'M23 0v11.6c1.8.6 3 2.3 3 4.2s-1.2 3.6-3 4.2v11.6L12.6 26l-5.2 5.2-2.8-2.8 4.3-4.3-1.5-.8H0v-15h7.4L23 0zM4 12.3v7h4v-7H4zM19 25l-9-4.8v-8.7l9-4.8V25zM29.4 8.1l-3.1 3.1 1.4 1.4 3.1-3.1-1.4-1.4zm-1.7 11-1.4 1.4 3.1 2.9 1.4-1.4-3.1-2.9zm.3-4.3h4v2h-4v-2z',
   },
@@ -80,7 +86,7 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   chatting: {
     path: 'M23.4 7h-15V5.5h15V7zm-4 1.5h-11V10h11V8.5zm10-7v13h-9v5l-5-5h-13v-13h27zm-2 2h-23v9h23v-9zm-2.5 24h-3.7c-2.1 0-3.6.9-3.6 3.6v.9h11v-.9c0-2.7-1.6-3.6-3.7-3.6zm.9-3.7c.2-1.1-.3-2.2-1.2-2.9-.9-.6-2.2-.6-3.1 0s-1.4 1.8-1.2 2.9c.3 1.3 1.4 2.3 2.8 2.3s2.4-1 2.7-2.3zm-14.9 3.7H7.2c-2.1 0-3.6.9-3.6 3.6v.9h11v-.9c0-2.7-1.6-3.6-3.7-3.6zm.9-3.7c.2-1.1-.3-2.2-1.2-2.9s-2.2-.6-3.1 0-1.4 1.8-1.2 2.9c0 .7.3 1.4.8 1.9s1.2.8 2 .8c1.5 0 2.7-1.2 2.7-2.7z',
   },
-  checkmark: {
+  'check-mark': {
     path: 'M12.1 27-.1 14.2l2.9-2.8 9.3 9.8L29 4l2.9 2.8L12.1 27z',
   },
   'chevron-down': {
@@ -137,6 +143,10 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   },
   enlarge: {
     path: 'M17.9 14V0h-4v14h-14v4h14v14h4V18h14v-4h-14z',
+  },
+  error: {
+    path: 'M16.1399 6.91003L17.5099 8.36003L13.5099 12.14L17.5099 15.91L16.1399 17.36L12.0599 13.51L7.97986 17.36L6.60986 15.91L10.5999 12.14L6.60986 8.36003L7.97986 6.91003L12.0599 10.76L16.1399 6.91003ZM1 12C1 5.92 5.92 1 12 1C18.08 1 23 5.92 23 12C23 18.08 18.08 23 12 23C5.92 23 1 18.08 1 12ZM21 12C21 7.04 16.96 3 12 3C7.04 3 3 7.04 3 12C3 16.96 7.04 21 12 21C16.96 21 21 16.96 21 12Z',
+    viewBox: '0 0 24 24',
   },
   'external-link': {
     path: 'M19.006 0H32.01v12.992h-4.002V6.826L14.434 20.417l-2.83-2.818L25.187 3.998h-6.182V0zm7.002 13.991L26.018 32H.01V6.016h17.975l-3.98 3.978.02.02H4.01v17.988h18.006l-.01-10.013 4-3.998z',

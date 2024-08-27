@@ -96,8 +96,10 @@ export const lightColorTokens = {
     },
   },
   severity: {
+    information: baseColor.primary.blue,
     positive: baseColor.support.valid,
     negative: baseColor.support.invalid,
+    warning: baseColor.secondary.orange,
   },
   shadow: {
     default: baseColor.primary.black,

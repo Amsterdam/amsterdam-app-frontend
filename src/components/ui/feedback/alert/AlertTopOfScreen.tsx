@@ -30,6 +30,8 @@ export const AlertTopOfScreen = () => {
       variant="transparent">
       <AlertBase
         {...alert}
+        hasCloseIcon
+        hasIcon
         inset="md"
       />
     </Pressable>

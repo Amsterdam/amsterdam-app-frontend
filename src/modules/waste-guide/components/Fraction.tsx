@@ -1,4 +1,5 @@
 import {Attention} from '@/components/ui/feedback/Attention'
+import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {InlineLink} from '@/components/ui/text/InlineLink'
@@ -8,7 +9,6 @@ import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
-import {TimeboundNotification} from '@/modules/waste-guide/components/TimeboundNotification'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
@@ -84,12 +84,12 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Row>
       {showTimeBoundNotification(fraction) && (
-        <TimeboundNotification>
+        <AlertWarning testID={testID + 'TimeboundNotification'}>
           <FractionContent
             content={afvalwijzerAfvalkalenderMelding}
             testID={`${testID}Content`}
           />
-        </TimeboundNotification>
+        </AlertWarning>
       )}
       <Column gutter="md">
         <Column gutter="sm">
