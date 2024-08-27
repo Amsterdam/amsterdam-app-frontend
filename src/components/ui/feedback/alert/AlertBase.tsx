@@ -1,15 +1,13 @@
-import {Fragment, ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import type {
-  AlertProps,
-  AlertVariantConfig,
-} from '@/components/ui/feedback/alert/Alert.types'
+import type {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
@@ -35,7 +33,7 @@ const Wrapper = ({children, inset}: WrapperProps) => {
     return <Box inset={inset}>{children}</Box>
   }
 
-  return <Fragment>{children}</Fragment>
+  return <>{children}</>
 }
 
 export const AlertBase = ({
@@ -49,9 +47,8 @@ export const AlertBase = ({
   variant = AlertVariant.information,
 }: AlertBaseProps) => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
-  const variantConfig = useThemable(createVariantConfig)
-  const iconName = variantConfig[variant].iconName
-  const styles = useThemable(createStyles(variant, variantConfig))
+  const iconName = alertVariantIcon[variant]
+  const styles = useThemable(createStyles(variant))
 
   const hasContent = !!text || !!title || !!children
 
@@ -115,50 +112,28 @@ export const AlertBase = ({
   )
 }
 
-const createVariantConfig = ({color}: Theme): AlertVariantConfig => ({
-  [AlertVariant.information]: {
-    backgroundColor: color.alert.information.background,
-    borderColor: color.alert.information.border,
-    borderWidth: 2,
-    iconName: 'info',
-  },
-  [AlertVariant.negative]: {
-    backgroundColor: color.alert.negative.background,
-    borderColor: color.alert.negative.border,
-    borderWidth: 2,
-    iconName: 'error',
-  },
-  [AlertVariant.positive]: {
-    backgroundColor: color.alert.positive.background,
-    borderColor: color.alert.positive.border,
-    borderWidth: 2,
-    iconName: 'circle-check-mark',
-  },
-  [AlertVariant.warning]: {
-    backgroundColor: color.alert.warning.background,
-    borderColor: color.alert.warning.border,
-    borderWidth: 2,
-    iconName: 'alert',
-  },
-})
+const alertVariantIcon: Record<AlertVariant, SvgIconName> = {
+  [AlertVariant.information]: 'info',
+  [AlertVariant.negative]: 'error',
+  [AlertVariant.positive]: 'circle-check-mark',
+  [AlertVariant.warning]: 'alert',
+}
 
 const createStyles =
-  (variant: AlertVariant, variantConfig: AlertVariantConfig) =>
-  ({size}: Theme) => {
+  (variant: AlertVariant) =>
+  ({color, size}: Theme) => {
     if (!variant) {
       return
     }
-
-    const {backgroundColor, borderColor, borderWidth} = variantConfig[variant]
 
     return StyleSheet.create({
       iconWrapper: {
         top: TEXT_ALIGN_CORRECTION,
       },
       view: {
-        backgroundColor,
-        borderWidth,
-        borderColor,
+        backgroundColor: color.alert[variant].background,
+        borderWidth: 2,
+        borderColor: color.alert[variant].border,
         paddingHorizontal: size.spacing.lg,
         paddingVertical: size.spacing.md,
       },
