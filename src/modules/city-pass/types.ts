@@ -5,6 +5,7 @@ export enum CityPassEndpointName {
   getAccessToken = 'getAccessToken',
   getBudgetTransactions = 'getBudgetTransactions',
   getCityPasses = 'getCityPasses',
+  getDiscountTransactions = 'getDiscountTransactions',
   logout = 'logout',
 }
 
@@ -16,17 +17,33 @@ export type AboutBlock = {
   title: string
 }
 
-export type BudgetTransaction = {
+export enum TransactionType {
+  budget = 'budget',
+  discount = 'discount',
+}
+
+type TransactionBase = {
+  datePublished: string
+  datePublishedFormatted: string
+  id: string
+  title: string
+}
+
+export type BudgetTransaction = TransactionBase & {
   amount: number
   amountFormatted: string
   budget: string
   budgetCode: string
-  datePublished: string
-  datePublishedFormatted: string
-  description?: string
-  id: string
-  title: string
 }
+
+export type DiscountTransaction = TransactionBase & {
+  description: string
+  discountAmount: number
+  discountAmountFormatted: string
+  discountTitle: string
+}
+
+export type Transactions = BudgetTransaction[] | DiscountTransaction[]
 
 export type CityPassBudget = {
   budgetAssigned: number
@@ -81,10 +98,19 @@ export type CityPassTokensResponse = {
 
 export type CityPassResponse = CityPass[]
 
-export type BudgetTransactionsParams = {
+export type TransactionsParams = {
   accessToken: CityPassTokensResponse['access_token']
-  budgetCode: CityPassBudget['code']
   passNumber: CityPass['passNumber']
+}
+
+export type BudgetTransactionsParams = TransactionsParams & {
+  budgetCode: CityPassBudget['code']
+}
+
+export type DiscountTransactionsResponse = {
+  discountAmountTotal: number
+  discountAmountTotalFormatted: string
+  transactions: DiscountTransaction[]
 }
 
 // deeplink

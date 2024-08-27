@@ -4,6 +4,8 @@ import {
   CityPassResponse,
   BudgetTransaction,
   BudgetTransactionsParams,
+  DiscountTransactionsResponse,
+  TransactionsParams,
 } from '@/modules/city-pass/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -41,6 +43,17 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: '/data/budget-transactions',
       }),
     }),
+    [CityPassEndpointName.getDiscountTransactions]: builder.query<
+      DiscountTransactionsResponse,
+      TransactionsParams
+    >({
+      query: ({accessToken, passNumber}) => ({
+        headers: {'Access-Token': accessToken},
+        params: {passNumber},
+        slug: ModuleSlug['city-pass'],
+        url: '/data/aanbieding-transactions',
+      }),
+    }),
     [CityPassEndpointName.logout]: builder.mutation<void, string>({
       query: accessToken => ({
         headers: {'Access-Token': accessToken},
@@ -56,6 +69,7 @@ export const cityPassApi = baseApi.injectEndpoints({
 export const {
   useGetAccessTokenMutation,
   useGetBudgetTransactionsQuery,
+  useGetDiscountTransactionsQuery,
   useGetCityPassesQuery,
   useLogoutMutation,
 } = cityPassApi
