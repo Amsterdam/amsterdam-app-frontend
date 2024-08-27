@@ -32,7 +32,7 @@ export const LoginScreen = () => {
 
   useEffect(() => {
     if (secureAccessToken && startLogin) {
-      openWebUrl(loginUrl + secureAccessToken) // Re-enters the app with a deeplink when finished
+      openWebUrl(`${loginUrl}${secureAccessToken}`) // Re-enters the app with a deeplink when finished
     }
   }, [openWebUrl, secureAccessToken, loginUrl, startLogin])
 

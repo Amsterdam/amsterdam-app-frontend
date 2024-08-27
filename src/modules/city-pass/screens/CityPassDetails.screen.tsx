@@ -97,7 +97,6 @@ export const CityPassDetailsScreen = () => {
           {budgets?.map(budget => (
             <BudgetBalanceButton
               budget={budget}
-              firstname={firstname}
               key={budget.code}
               passNumber={passNumber}
             />

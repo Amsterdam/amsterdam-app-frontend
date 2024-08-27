@@ -6,6 +6,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
+import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetDiscountTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
@@ -36,7 +37,8 @@ export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
       <SomethingWentWrong
         retryFn={refetch}
         testID="CityPassDiscountTransactionsSomethingWentWrong"
-        text="Helaas kunnen de Stadspas gegevens niet geladen worden. Probeer het later nog eens."
+        text={SOMETHING_WENT_WRONG_TEXT}
+        title=""
       />
     )
   }

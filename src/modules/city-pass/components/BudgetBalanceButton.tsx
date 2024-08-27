@@ -13,18 +13,20 @@ import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 
 type Props = {
   budget: CityPassBudget
-  firstname: CityPass['owner']['firstname']
   passNumber: CityPass['passNumber']
 }
 
-export const BudgetBalanceButton = ({budget, firstname, passNumber}: Props) => {
+export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
   const {navigate} = useNavigation()
   const {budgetBalanceFormatted, title} = budget
 
   return (
     <Pressable
       onPress={() =>
-        navigate(CityPassRouteName.budget, {budget, firstname, passNumber})
+        navigate(CityPassRouteName.budget, {
+          budgetCode: budget.code,
+          passNumber,
+        })
       }
       testID="CityPassBalanceButton">
       <Border color="cityPass">
@@ -34,7 +36,7 @@ export const BudgetBalanceButton = ({budget, firstname, passNumber}: Props) => {
               gutter="md"
               valign="center">
               <BalanceSvg />
-              <Column>
+              <Column shrink={1}>
                 <Phrase
                   color="inverse"
                   emphasis="strong"
