@@ -38,7 +38,7 @@ export const getTransactionsByDate = (transactions: TransactionByDate[]) => {
   }, [] as TransactionsByDate[])
 }
 
-export const transactionsIsBudget = (
+const transactionsIsBudget = (
   _transactions: Transactions,
   type: TransactionType,
 ): _transactions is BudgetTransaction[] => type === TransactionType.budget

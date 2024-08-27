@@ -12,13 +12,13 @@ import {
   mapTransactions,
 } from '@/modules/city-pass/utils/transactionUtils'
 
-const NoTransactions = () => (
+const NoTransactions = ({text}: {text: string}) => (
   <Border bottom>
     <Box insetBottom="md">
       <Phrase
         color="secondary"
         testID="CityPassTransactionHistoryNoTransactions">
-        Geen acties
+        {text}{' '}
       </Phrase>
     </Box>
   </Border>
@@ -52,7 +52,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
               <Phrase
                 emphasis="strong"
                 testID="CityPassTransactionHistoryTableHeaderValue">
-                {type === 'discount' ? 'Besparing' : 'Bedrag'}
+                {type === TransactionType.discount ? 'Besparing' : 'Bedrag'}
               </Phrase>
             </Row>
           </SingleSelectable>
@@ -83,7 +83,13 @@ export const TransactionHistory = ({transactions, type}: Props) => {
           </Border>
         ))
       ) : (
-        <NoTransactions />
+        <NoTransactions
+          text={
+            type === TransactionType.discount
+              ? 'Geen acties'
+              : 'Geen betalingen'
+          }
+        />
       )}
     </Column>
   )

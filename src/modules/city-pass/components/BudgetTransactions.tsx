@@ -44,7 +44,7 @@ export const BudgetTransactions = ({
     return (
       <SomethingWentWrong
         testID="CityPassBudgetSomethingWentWrong"
-        text="Er ging iets mis met het ophalen van de budget informatie."
+        text="Helaas kunnen de Stadspas gegevens niet geladen worden. Probeer het later nog eens."
       />
     )
   }
