@@ -43,7 +43,6 @@ export const NumberSearchResult = ({
     return (
       <Box insetVertical="lg">
         <SomethingWentWrong
-          inset="no"
           retryFn={refetch}
           testID="AddressNumberSearchResultSomethingWentWrong"
           text="Door een technische storing kunnen er geen adressen worden gevonden. Probeer het later nog eens."

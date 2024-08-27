@@ -35,7 +35,6 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   if (isError || !waitingTimes) {
     return (
       <SomethingWentWrong
-        inset="no"
         testID="ContactCityOfficeWaitingTimesSomethingWentWrong"
         text="Door een technische storing kunt u de wachttijden van dit moment niet zien. Probeer het later nog eens."
         title=""

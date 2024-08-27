@@ -139,7 +139,6 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
           ))
         ) : (
           <SomethingWentWrong
-            inset="no"
             retryFn={refetch}
             testID="ConstructionWorkProjectArticlesSomethingWentWrong"
             text="De nieuwsberichten zijn nu niet te zien. Probeer het later nog een keer."
