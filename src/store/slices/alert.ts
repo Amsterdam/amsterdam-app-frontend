@@ -27,7 +27,7 @@ export const alertSlice = createSlice({
   },
 })
 
-const {resetAlert: resetAlertAction, setAlert: setAlertAction} =
+export const {resetAlert: resetAlertAction, setAlert: setAlertAction} =
   alertSlice.actions
 
 export const selectAlert = (state: RootState) => state[ReduxKey.alert]

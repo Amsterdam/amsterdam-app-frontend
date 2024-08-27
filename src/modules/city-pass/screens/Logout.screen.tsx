@@ -47,7 +47,9 @@ export const LogoutScreen = ({navigation}: Props) => {
   }, [navigation])
 
   return (
-    <CityPassLoginBoundaryScreen testID="CityPassLogoutScreen">
+    <CityPassLoginBoundaryScreen
+      hasStickyAlert
+      testID="CityPassLogoutScreen">
       <Box>
         <Title text="Weet je zeker dat je wilt uitloggen?" />
         <Gutter height="sm" />

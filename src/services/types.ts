@@ -13,10 +13,19 @@ export type PrepareHeaders = (
   >,
 ) => Headers
 
-export type AfterBaseQueryFn<T = unknown> = (
+export type AfterBaseQuerySuccessFn<T = unknown> = (
   result: QueryReturnValue<T, FetchBaseQueryError, FetchBaseQueryMeta>,
   api: Pick<
     BaseQueryApi,
     'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
   >,
-) => void
+) => void | Promise<void>
+
+export type AfterBaseQueryErrorFn<T = unknown> = (
+  result: QueryReturnValue<T, FetchBaseQueryError, FetchBaseQueryMeta>,
+  api: Pick<
+    BaseQueryApi,
+    'endpoint' | 'getState' | 'type' | 'extra' | 'forced' | 'dispatch'
+  >,
+  failRetry: (e?: unknown) => void,
+) => void | Promise<void>
