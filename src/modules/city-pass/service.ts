@@ -40,6 +40,14 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: '/data/budget-transactions',
       }),
     }),
+    [CityPassEndpointName.logout]: builder.mutation<void, string>({
+      query: accessToken => ({
+        headers: {'Access-Token': accessToken},
+        method: 'POST',
+        slug: ModuleSlug['city-pass'],
+        url: '/session/logout',
+      }),
+    }),
   }),
   overrideExisting: true,
 })
@@ -48,4 +56,5 @@ export const {
   useGetAccessTokenQuery,
   useGetBudgetTransactionsQuery,
   useGetCityPassesQuery,
+  useLogoutMutation,
 } = cityPassApi
