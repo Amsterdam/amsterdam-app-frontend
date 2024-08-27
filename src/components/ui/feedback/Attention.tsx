@@ -31,6 +31,6 @@ const createStyles = ({color, size}: Theme) =>
       paddingLeft: size.spacing.md - borderWidth,
     },
     warning: {
-      borderLeftColor: color.border.invalid,
+      borderLeftColor: color.border.negative,
     },
   })

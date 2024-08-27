@@ -25,7 +25,7 @@ export const AppSwitcher = () => {
 const createStyles = ({z, color}: Theme) =>
   StyleSheet.create({
     container: {
-      backgroundColor: color.background.appSwitcher,
+      backgroundColor: color.appSwitcher.background,
       zIndex: z.appSwitcher,
       padding: '30%',
     },

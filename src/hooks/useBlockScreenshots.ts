@@ -19,7 +19,7 @@ export const useBlockScreenshots = ({
   useEffect(() => {
     if (enabled) {
       void enableBlockScreenshot({
-        backgroundColor: color.background.appSwitcher,
+        backgroundColor: color.appSwitcher.background,
         scale: 0.33,
         source: require('@/assets/images/logoWhite.png') as ImageSourcePropType,
       })

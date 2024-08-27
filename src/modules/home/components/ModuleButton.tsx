@@ -174,6 +174,6 @@ export const ModuleButton = ({
 const createStyles = ({color}: Theme) =>
   StyleSheet.create({
     swipeToDeleteContainer: {
-      backgroundColor: color.box.background.invalid,
+      backgroundColor: color.swipeToDelete.background,
     },
   })

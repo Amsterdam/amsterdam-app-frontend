@@ -103,9 +103,9 @@ const createStyles =
     StyleSheet.create({
       box: {
         backgroundColor: distinct
-          ? color.box.background.white
+          ? color.box.distinct
           : variant === 'city-pass'
-            ? color.box.background.cityPass
+            ? color.box.cityPass
             : undefined,
         borderColor: borderColor ? color.border[borderColor] : undefined,
         borderStyle,

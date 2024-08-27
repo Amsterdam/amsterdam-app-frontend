@@ -92,7 +92,7 @@ const createStyles =
         paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
         paddingEnd: size.spacing.xs,
         borderRadius: scaledDiameter / 2,
-        backgroundColor: color.pressable.secondary.background,
+        backgroundColor: color.badge.background,
       },
       text: {
         fontFamily: text.fontFamily.bold,

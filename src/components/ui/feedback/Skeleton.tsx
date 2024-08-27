@@ -38,8 +38,8 @@ export const Skeleton = ({aspectRatio}: Props) => {
 }
 
 const getColors = ({color}: Theme) => [
-  color.background.skeleton,
-  color.utility.skeletonHighlight,
+  color.skeleton.background,
+  color.skeleton.highlight,
 ]
 
 const createStyles =
@@ -52,7 +52,7 @@ const createStyles =
     return StyleSheet.create({
       noAnimation: {
         aspectRatio: aspectRatioValue,
-        backgroundColor: color.background.skeleton,
+        backgroundColor: color.skeleton.background,
         flex: 1,
       },
       wrapper: {

@@ -105,7 +105,7 @@ const createStyles = ({color, size}: Theme) =>
     },
     pagination: {
       borderRadius: 25,
-      backgroundColor: color.cityPass.swiperPagination,
+      backgroundColor: color.pagination.container.background,
       alignItems: 'center',
       paddingHorizontal: size.spacing.sm,
       paddingVertical: 12,
@@ -114,11 +114,11 @@ const createStyles = ({color, size}: Theme) =>
       width: size.spacing.sm,
       height: size.spacing.sm,
       marginHorizontal: size.spacing.xs,
-      backgroundColor: color.cityPass.swiperPaginationItemInactive,
+      backgroundColor: color.pagination.item.inactive,
       borderRadius: size.spacing.sm,
     },
     paginationItemActive: {
-      backgroundColor: color.cityPass.swiperPaginationItemActive,
+      backgroundColor: color.pagination.item.active,
     },
     paginationItemInactive: {},
   })

@@ -33,7 +33,7 @@ const DeleteButton = ({
     inset="md"
     onPress={onPress}
     testID={testID}
-    variant="negative"
+    variant="transparent"
     {...props}>
     <Column
       align="center"

@@ -1,3 +1,6 @@
+/**
+ * The base colors that can be used in the themes. The names should not convey there purposes.
+ */
 export const baseColor = {
   primary: {
     black: '#000000',
@@ -38,5 +41,6 @@ export const baseColor = {
     white30: '#ffffff4c',
     black90: '#000000e6',
     grey50: '#46464680',
+    full: 'transparent',
   },
 } as const

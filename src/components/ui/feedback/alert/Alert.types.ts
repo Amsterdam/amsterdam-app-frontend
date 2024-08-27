@@ -1,5 +1,4 @@
 import {ReactNode} from 'react'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
 export enum AlertVariant {
@@ -17,12 +16,3 @@ export type AlertProps = {
   title?: string
   variant?: AlertVariant
 } & TestProps
-
-export type AlertVariantConfig = {
-  [v in AlertVariant]: {
-    backgroundColor: string
-    borderColor: string
-    borderWidth: number
-    iconName: SvgIconName
-  }
-}

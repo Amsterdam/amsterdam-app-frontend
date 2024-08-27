@@ -38,9 +38,7 @@ export const timelineStyles = (
       justifyContent: 'center',
       alignItems: 'center',
       top: size.spacing.md,
-      backgroundColor: isUpcoming
-        ? color.background.inactive
-        : color.background.emphasis,
+      backgroundColor: isUpcoming ? color.timeline.future : color.timeline.past,
       borderRadius: tokens.indicator.size / 2,
     },
     line: {
@@ -52,8 +50,8 @@ export const timelineStyles = (
       height: lastItem && !isExpanded ? 0 : '100%',
       backgroundColor:
         isUpcoming || isBeforeUpcoming
-          ? color.background.inactive
-          : color.background.emphasis,
+          ? color.timeline.future
+          : color.timeline.past,
     },
   })
 }
