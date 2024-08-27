@@ -82,7 +82,6 @@ export const ProjectFollow = ({
       {isFollowError || isUnfollowError ? (
         <SomethingWentWrong
           hasIcon
-          inset="no"
           retryFn={() => onPressFollowButton(isProjectFollowed)}
           testID="ConstructionWorkProjectArticlesSomethingWentWrong"
           text={`Het ${isUnfollowError ? 'ont' : ''}volgen is niet gelukt, probeer het later nog eens.`}

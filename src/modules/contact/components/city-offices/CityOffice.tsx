@@ -31,6 +31,7 @@ export const CityOffice = () => {
   if (!cityOffice) {
     return (
       <SomethingWentWrong
+        inset="md"
         retryFn={refetch}
         testID="ContactCityOfficeSomethingWentWrong"
         text="Door een technische storing is het Stadsloket niet te zien. Probeer het later nog eens."
