@@ -114,7 +114,7 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
       borderRadius: PASS_BORDER_RADIUS,
     },
     pass: {
-      backgroundColor: color.background.cutout,
+      backgroundColor: color.cityPass.passBackground,
       width: passWidth,
       maxHeight: CITY_PASS_HEIGHT,
       borderRadius: PASS_BORDER_RADIUS,
@@ -125,7 +125,7 @@ const createStyles = ({color, size}: Theme, passWidth: number) =>
       borderTopRightRadius: PASS_BORDER_RADIUS,
     },
     passInner: {
-      backgroundColor: color.background.cutout,
+      backgroundColor: color.cityPass.passInner,
       borderRadius: PASS_BORDER_RADIUS,
       paddingTop: size.spacing.md,
       paddingBottom: size.spacing.md,

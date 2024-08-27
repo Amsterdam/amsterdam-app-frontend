@@ -41,7 +41,7 @@ export const Triangle = ({direction}: Props) => {
 }
 
 const createIconProps = ({color}: Theme) => ({
-  fill: color.background.inverse,
+  fill: color.tooltip.background,
 })
 
 const styles = StyleSheet.create({

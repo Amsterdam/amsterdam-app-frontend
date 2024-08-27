@@ -165,7 +165,7 @@ const createStyles = ({color, size, z}: Theme) =>
       marginBottom: size.spacing.lg,
     },
     year: {
-      backgroundColor: color.background.cutout,
+      backgroundColor: color.articleOverview.year.background,
       left: -yearInset,
       position: 'relative',
       zIndex: z.articleOverviewYear,
