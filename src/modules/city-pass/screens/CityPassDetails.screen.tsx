@@ -5,7 +5,6 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -14,11 +13,9 @@ import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {BudgetBalanceButton} from '@/modules/city-pass/components/BudgetBalanceButton'
 import {CityPassDetailsPassNumber} from '@/modules/city-pass/components/CityPassDetailsPassNumber'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {DiscountTransactions} from '@/modules/city-pass/components/DiscountTransactions'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
-import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
-import {transactions} from '@/modules/city-pass/mocks/transactions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
 
 export const CityPassDetailsScreen = () => {
   const {
@@ -106,15 +103,10 @@ export const CityPassDetailsScreen = () => {
             />
           ))}
           <Box insetTop="md">
-            <Column gutter="md">
-              <TransactionHistory
-                transactions={transactions}
-                type="savings"
-              />
-              <Paragraph textAlign="center">
-                Dit waren jouw acties vanaf {getPreviousYear(dateEnd)}
-              </Paragraph>
-            </Column>
+            <DiscountTransactions
+              dateEnd={dateEnd}
+              passNumber={passNumber}
+            />
           </Box>
         </Column>
       </Box>

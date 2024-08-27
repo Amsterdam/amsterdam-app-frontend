@@ -1,19 +1,12 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {BudgetTransactions} from '@/modules/city-pass/components/BudgetTransactions'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
-import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {useGetBudgetTransactionsQuery} from '@/modules/city-pass/service'
-import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 export const BudgetScreen = () => {
   const {
@@ -30,34 +23,8 @@ export const BudgetScreen = () => {
       passNumber,
     },
   } = useRoute<CityPassRouteName.budget>()
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
-
-  const {
-    data: budgetTransactions,
-    isLoading,
-    isError,
-  } = useGetBudgetTransactionsQuery(
-    secureAccessToken
-      ? {accessToken: secureAccessToken, passNumber, budgetCode: code}
-      : skipToken,
-  )
 
   useSetScreenTitle(firstname)
-
-  if (isLoading) {
-    return <PleaseWait testID="CityPassBudgetPleaseWait" />
-  }
-
-  if (isError || !budgetTransactions) {
-    return (
-      <SomethingWentWrong
-        testID="CityPassBudgetSomethingWentWrong"
-        text="Er ging iets mis met het ophalen van de budget informatie."
-      />
-    )
-  }
 
   return (
     <CityPassLoginBoundaryScreen testID="CityPassBalanceScreen">
@@ -80,13 +47,11 @@ export const BudgetScreen = () => {
               <Paragraph>{`Geldig tot en met ${dateEndFormatted}.`}</Paragraph>
             </Column>
           </Column>
-          <TransactionHistory
-            transactions={budgetTransactions}
-            type="budget"
+          <BudgetTransactions
+            budgetCode={code}
+            dateEnd={dateEnd}
+            passNumber={passNumber}
           />
-          <Paragraph textAlign="center">
-            Dit zijn alle betalingen vanaf {getPreviousYear(dateEnd)}
-          </Paragraph>
         </Column>
       </Box>
     </CityPassLoginBoundaryScreen>
