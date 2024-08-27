@@ -10,11 +10,12 @@ import {baseApi} from '@/services/baseApi'
 
 export const cityPassApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [CityPassEndpointName.getAccessToken]: builder.query<
+    [CityPassEndpointName.getAccessToken]: builder.mutation<
       CityPassTokensResponse,
       void
     >({
       query: () => ({
+        method: 'POST',
         slug: ModuleSlug['city-pass'],
         url: '/session/init',
       }),
@@ -45,7 +46,7 @@ export const cityPassApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useGetAccessTokenQuery,
+  useGetAccessTokenMutation,
   useGetBudgetTransactionsQuery,
   useGetCityPassesQuery,
 } = cityPassApi
