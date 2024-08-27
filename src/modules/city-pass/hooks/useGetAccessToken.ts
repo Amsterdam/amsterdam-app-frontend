@@ -4,12 +4,19 @@ import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {useGetAccessTokenMutation} from '@/modules/city-pass/service'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-export const useGetAccessToken = () => {
-  const {item: secureAccessToken, isLoading: isGettingSecureAccessToken} =
-    useGetSecureItem(SecureItemKey.cityPassAccessToken)
+export const useGetAccessToken = (getToken = true) => {
+  const {item: secureAccessToken, isLoading} = useGetSecureItem(
+    SecureItemKey.cityPassAccessToken,
+  )
   const setSecureItem = useSetSecureItem()
 
-  const [getAccessToken, {data, isLoading}] = useGetAccessTokenMutation()
+  const [getAccessToken, {data}] = useGetAccessTokenMutation()
+
+  useEffect(() => {
+    if (!isLoading && !secureAccessToken && getToken) {
+      void getAccessToken()
+    }
+  }, [getAccessToken, getToken, isLoading, secureAccessToken])
 
   useEffect(() => {
     if (data) {
@@ -20,10 +27,5 @@ export const useGetAccessToken = () => {
     }
   }, [data, setSecureItem])
 
-  return {
-    getAccessToken,
-    isGettingSecureAccessToken,
-    isLoading,
-    secureAccessToken,
-  }
+  return secureAccessToken
 }

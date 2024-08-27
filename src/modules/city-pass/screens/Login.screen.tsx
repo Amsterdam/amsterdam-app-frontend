@@ -24,13 +24,10 @@ export const LoginScreen = () => {
   const openWebUrl = useOpenWebUrl()
   const loginUrl = useUrlForEnv(cityPassExternalLinks)
 
-  const {getAccessToken, isGettingSecureAccessToken, secureAccessToken} =
-    useGetAccessToken()
+  const secureAccessToken = useGetAccessToken(startLogin)
 
   useFocusAndForegroundEffect(() => {
-    if (!secureAccessToken && !isGettingSecureAccessToken) {
-      void getAccessToken()
-    }
+    setStartLogin(false)
   }, [])
 
   useEffect(() => {
