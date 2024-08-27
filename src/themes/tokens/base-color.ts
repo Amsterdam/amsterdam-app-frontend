@@ -8,34 +8,29 @@ export const baseColor = {
     red: '#ec0000',
     white: '#ffffff',
   },
-  functional: {
-    darkblue: '#00387a',
-  },
   neutral: {
-    grey1: '#f5f5f5',
-    grey2: '#e6e6e6',
-    grey3: '#b4b4b4',
-    grey4: '#767676',
-    grey5: '#323232',
-    grey6: '#9C9C9C',
-  },
-  support: {
-    focus: '#fec813',
-    invalid: '#ec0000',
-    valid: '#00a03c',
+    grey1: '#E8E8E8',
+    grey2: '#BEBEBE',
+    grey3: '#767676',
+    grey4: '#323232',
   },
   secondary: {
     darkgreen: '#00a03c',
-    blue: '#009dec',
     lightgreen: '#bed200',
     orange: '#ff9100',
     magenta: '#e50082',
     purple: '#a00078',
     yellow: '#ffe600',
+    /**
+     * Design system name: Interaction/Hover
+     */
+    darkblue: '#102E62',
   },
   custom: {
-    grey1: '#f3f5f7',
-    purple1: '#A00078',
+    /**
+     * @deprecated alleen te gebruiken als achtergrond bij de instellingen
+     */
+    grey0: '#f3f5f7',
   },
   transparent: {
     white30: '#ffffff4c',

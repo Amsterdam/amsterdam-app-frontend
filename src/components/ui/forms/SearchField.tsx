@@ -184,7 +184,7 @@ const createStyles =
           size.spacing.sm +
           (hasFocus ? borderWidth(false) - borderWidth(true) : 0),
         paddingHorizontal: size.spacing.md,
-        backgroundColor: color.background.white,
+        backgroundColor: color.textInput.container.background,
         borderStyle: 'solid',
         borderBottomColor: hasFocus
           ? color.control.focus.border

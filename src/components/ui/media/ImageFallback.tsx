@@ -1,6 +1,5 @@
 import {useMemo} from 'react'
-import {StyleSheet} from 'react-native'
-import {View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import ImageFallbackSvg from '@/assets/images/image-fallback.svg'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
@@ -27,14 +26,14 @@ export const ImageFallback = ({aspectRatio = 'wide'}: Props) => {
 
 const createStyles =
   (aspectRatio: ImageAspectRatio) =>
-  ({color, media}: Theme) =>
+  ({color, media, border}: Theme) =>
     StyleSheet.create({
       fallback: {
         alignItems: 'center',
         aspectRatio: media.aspectRatio[aspectRatio],
-        backgroundColor: color.background.cutout,
-        borderWidth: 1,
-        borderColor: color.border.primary,
+        backgroundColor: color.imageFallback.background,
+        borderWidth: border.width.sm,
+        borderColor: color.imageFallback.border,
         flex: 1,
         justifyContent: 'center',
       },

@@ -254,7 +254,7 @@ export const AmsterdamHuisjesBackground = ({width, index = 0}: Props) => (
       />
       <Line
         fill="none"
-        stroke="#E6E6E6"
+        stroke="#E8E8E8"
         strokeMiterlimit="10"
         strokeWidth="4"
         x1="0"

@@ -53,7 +53,7 @@ const createStyles = ({color, size}: Theme) => {
       position: 'absolute',
       bottom: size.spacing.sm,
       right: size.spacing.sm,
-      backgroundColor: color.background.cutout,
+      backgroundColor: color.pressable.secondary.default.background,
       borderRadius: (IconSize[iconSize] + buttonContainerPadding * 2) / 2,
       padding: buttonContainerPadding,
     },

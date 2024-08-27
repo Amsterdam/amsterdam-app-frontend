@@ -7,6 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Tag} from '@/components/ui/text/Tag'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -78,11 +79,7 @@ export const ArticlePreview = ({
               gutter="sm"
               valign="center">
               <View style={styles.horizontalLine} />
-              {!!isNewAndUnreadArticle && (
-                <View style={styles.update}>
-                  <Paragraph>Nieuw</Paragraph>
-                </View>
-              )}
+              {!!isNewAndUnreadArticle && <Tag label="Nieuw" />}
               <Paragraph testID={`${testID}Date`}>
                 {formatDateToDisplay(article.publication_date)}
               </Paragraph>
@@ -162,11 +159,6 @@ const createStyles =
         zIndex: z.articlePreviewLine,
         width: LINE_WIDTH,
         backgroundColor: color.text.default,
-      },
-      update: {
-        backgroundColor: color.background.alert,
-        paddingHorizontal: size.spacing.sm,
-        paddingVertical: size.spacing.xs,
       },
     })
   }

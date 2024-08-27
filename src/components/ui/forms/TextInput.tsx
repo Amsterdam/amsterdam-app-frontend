@@ -123,7 +123,7 @@ const createStyles =
         flexDirection: 'row',
         paddingHorizontal,
         paddingVertical,
-        backgroundColor: color.background.white,
+        backgroundColor: color.textInput.container.background,
         borderStyle: 'solid',
         borderColor: warning
           ? color.control.warning.border

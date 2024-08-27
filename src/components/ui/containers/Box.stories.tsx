@@ -19,7 +19,7 @@ export default {
         },
         {
           name: 'Settings screen',
-          value: baseColor.neutral.grey1,
+          value: baseColor.custom.grey0,
         },
       ],
     },
