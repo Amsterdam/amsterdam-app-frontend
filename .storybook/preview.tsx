@@ -29,8 +29,8 @@ const preview: Preview = {
     backgrounds: {
       values: [
         {
-          name: 'neutral-grey1',
-          value: baseColor.neutral.grey1,
+          name: 'custom-grey0',
+          value: baseColor.custom.grey0,
         },
         {
           name: 'primary-blue',

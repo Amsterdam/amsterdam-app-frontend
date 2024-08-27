@@ -6,7 +6,7 @@ import './preview.css'
 addons.setConfig({
   theme: create({
     appBg: '#ffffff',
-    appBorderColor: '#e6e6e6',
+    appBorderColor: '#E8E8E8',
     appBorderRadius: 0,
     base: 'light',
     brandImage: './amsterdam.svg',

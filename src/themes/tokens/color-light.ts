@@ -11,8 +11,8 @@ export const lightColorTokens = {
    */
   background: {
     cutout: baseColor.primary.white,
-    inactive: baseColor.neutral.grey4,
-    inverse: baseColor.neutral.grey5,
+    inactive: baseColor.neutral.grey3,
+    inverse: baseColor.neutral.grey4,
     alert: baseColor.secondary.yellow,
     /**
      * @deprecated
@@ -30,7 +30,7 @@ export const lightColorTokens = {
     cityPass: baseColor.custom.purple1,
   },
   timeline: {
-    future: baseColor.neutral.grey4,
+    future: baseColor.neutral.grey3,
     past: baseColor.primary.blue,
   },
   appSwitcher: {
@@ -40,8 +40,8 @@ export const lightColorTokens = {
    * @deprecated no generic border property
    */
   border: {
-    default: baseColor.neutral.grey2,
-    onGrey: baseColor.neutral.grey3,
+    default: baseColor.neutral.grey1,
+    onGrey: baseColor.neutral.grey2,
     primary: baseColor.primary.blue,
     cityPass: baseColor.custom.purple1,
     positive: baseColor.support.valid,
@@ -64,7 +64,7 @@ export const lightColorTokens = {
   control: {
     default: {
       background: baseColor.primary.white,
-      border: baseColor.neutral.grey4,
+      border: baseColor.neutral.grey3,
     },
     checked: {
       background: baseColor.primary.blue,
@@ -83,7 +83,7 @@ export const lightColorTokens = {
   switch: {
     thumb: {
       disabled: {
-        background: baseColor.neutral.grey3,
+        background: baseColor.neutral.grey2,
       },
       enabled: {
         background: baseColor.primary.white,
@@ -91,7 +91,7 @@ export const lightColorTokens = {
     },
     track: {
       off: {
-        background: baseColor.neutral.grey4,
+        background: baseColor.neutral.grey3,
       },
       on: {
         background: baseColor.primary.blue,
@@ -133,7 +133,7 @@ export const lightColorTokens = {
         label: baseColor.primary.blue,
       },
       pressed: {
-        background: baseColor.custom.grey1,
+        background: baseColor.neutral.grey1,
         border: baseColor.primary.blue,
         label: baseColor.functional.darkblue,
       },
@@ -146,20 +146,20 @@ export const lightColorTokens = {
       },
       pressed: {
         background: baseColor.primary.white,
-        border: baseColor.custom.grey1,
+        border: baseColor.neutral.grey1,
         label: baseColor.functional.darkblue,
       },
     },
   },
   card: {
     pressed: {
-      background: baseColor.custom.grey1,
+      background: baseColor.neutral.grey1,
     },
   },
   screen: {
     background: {
       default: baseColor.primary.white,
-      settings: baseColor.custom.grey1,
+      settings: baseColor.custom.grey0,
     },
   },
   alert: {
@@ -189,12 +189,12 @@ export const lightColorTokens = {
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
     link: baseColor.primary.blue,
-    secondary: baseColor.neutral.grey4,
-    tertiary: baseColor.neutral.grey3,
+    secondary: baseColor.neutral.grey3,
+    tertiary: baseColor.neutral.grey2,
     warning: baseColor.support.invalid,
   },
   skeleton: {
-    background: baseColor.neutral.grey3,
+    background: baseColor.neutral.grey2,
     highlight: baseColor.transparent.white30,
   },
 }
