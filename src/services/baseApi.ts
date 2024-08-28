@@ -9,7 +9,11 @@ import {
 import {apiKeyForEnvironment, ApiSlug} from '@/environment'
 import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {devError, devInfo} from '@/processes/development'
-import {PrepareHeaders, AfterBaseQueryFn} from '@/services/types'
+import {
+  PrepareHeaders,
+  AfterBaseQueryErrorFn,
+  AfterBaseQuerySuccessFn,
+} from '@/services/types'
 import {selectApi, selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
@@ -52,9 +56,9 @@ const prepareHeaders: PrepareHeaders = (headers, {endpoint, getState}) => {
 const dynamicBaseQuery: BaseQueryFn<
   FetchArgs & {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    afterError?: AfterBaseQueryFn<any>
+    afterError?: AfterBaseQueryErrorFn<any>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    afterSuccess?: AfterBaseQueryFn<any>
+    afterSuccess?: AfterBaseQuerySuccessFn<any>
     prepareHeaders?: PrepareHeaders
     slug: ApiSlug
   },
@@ -106,9 +110,9 @@ const dynamicBaseQuery: BaseQueryFn<
       }
 
       if (error) {
-        afterError?.(result, baseQueryApi)
+        await afterError?.(result, baseQueryApi, retry.fail)
       } else {
-        afterSuccess?.(result, baseQueryApi)
+        await afterSuccess?.(result, baseQueryApi)
       }
 
       return result

@@ -10,7 +10,7 @@ import {
 } from '@/modules/construction-work-editor/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
-import {AfterBaseQueryFn, PrepareHeaders} from '@/services/types'
+import {AfterBaseQueryErrorFn, PrepareHeaders} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
@@ -30,7 +30,7 @@ const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
 /**
  * Removes a token that causes the backend to return a 403 forbidden error
  */
-const afterError: AfterBaseQueryFn = ({error}, {dispatch}) => {
+const afterError: AfterBaseQueryErrorFn = ({error}, {dispatch}) => {
   if (error?.status === 403) {
     dispatch(removeConstructionWorkEditorToken())
   }

@@ -7,6 +7,7 @@ export enum CityPassEndpointName {
   getCityPasses = 'getCityPasses',
   getDiscountTransactions = 'getDiscountTransactions',
   logout = 'logout',
+  refreshToken = 'refreshToken',
 }
 
 export type AboutBlock = {
