@@ -2,7 +2,6 @@ module.exports = {
   root: true,
   plugins: [
     'import-x',
-    'jsx-expressions',
     'prefer-arrow-functions',
     'typescript-sort-keys',
     'jest',
@@ -221,7 +220,7 @@ module.exports = {
       ],
       rules: {
         'amsterdam/no-relative-file-import': 'warn',
-        'jsx-expressions/strict-logical-expressions': 'error',
+        'amsterdam/jsx-strict-logical-expression': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
       },

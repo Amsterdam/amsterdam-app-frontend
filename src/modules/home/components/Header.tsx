@@ -23,7 +23,7 @@ type Props = BackgroundColorProp &
 
 export const Header = ({backgroundColor, ...rest}: Props) => {
   const {route} = rest
-  const isHome = route.name === HomeRouteName.home
+  const isHome = (route.name as HomeRouteName) === HomeRouteName.home
 
   const {top = 0, left = 0, right = 0} = useSafeAreaInsets()
   const styles = useMemo(

@@ -1,5 +1,6 @@
 import {useMemo} from 'react'
 import {ModuleSlug} from '@/modules/slugs'
+import {ModuleStatus} from '@/modules/types'
 import {useGetReleaseQuery} from '@/services/modules.service'
 
 export const useIsModuleActive = (moduleSlug: ModuleSlug) => {
@@ -10,6 +11,6 @@ export const useIsModuleActive = (moduleSlug: ModuleSlug) => {
       module => module.moduleSlug === moduleSlug,
     )
 
-    return currentModule?.status === 1
+    return currentModule?.status === ModuleStatus.active
   }, [moduleSlug, release?.modules])
 }

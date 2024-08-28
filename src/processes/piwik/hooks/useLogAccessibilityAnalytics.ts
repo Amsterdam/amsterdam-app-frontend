@@ -64,6 +64,6 @@ export const useLogAccessibilityAnalytics = () => {
       ),
     )
 
-    return () => subscriptions.forEach(({remove}) => remove())
+    return () => subscriptions.forEach(subscription => subscription.remove())
   }, [trackCustomEvent])
 }

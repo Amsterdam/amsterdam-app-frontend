@@ -57,8 +57,7 @@ export const WasteFractionIcon = ({
     return <View style={{height: scaledSize, width: scaledSize}} />
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-  const {color, hasLightBackground, path} = fractionIconConfig[fractionCode]!
+  const {color, hasLightBackground, path} = fractionIconConfig[fractionCode]
 
   return (
     <Svg

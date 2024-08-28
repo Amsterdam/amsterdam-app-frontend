@@ -69,7 +69,8 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
         const {index, routes} = navigation.getState()
 
         if (
-          routes[index].name === ConstructionWorkRouteName.constructionWork &&
+          (routes[index].name as ConstructionWorkRouteName) ===
+            ConstructionWorkRouteName.constructionWork &&
           articles
         ) {
           markMultipleAsRead(articles)

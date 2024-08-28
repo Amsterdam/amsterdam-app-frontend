@@ -85,7 +85,10 @@ export const linking: LinkingOptions<RootStackParams> = {
       const {routes} = state
       const homeRouteName = ModuleSlug.home
 
-      if (routes?.length === 1 && routes[0].name !== homeRouteName) {
+      if (
+        routes?.length === 1 &&
+        (routes[0].name as ModuleSlug) !== homeRouteName
+      ) {
         state.routes.unshift({name: homeRouteName})
       }
     }
