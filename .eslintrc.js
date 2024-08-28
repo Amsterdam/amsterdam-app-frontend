@@ -37,6 +37,7 @@ module.exports = {
       files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
       rules: {
         'depend/ban-dependencies': 'warn',
+        '@typescript-eslint/no-empty-function': 'warn',
         'react-hooks/exhaustive-deps': [
           'error',
           {
@@ -223,6 +224,7 @@ module.exports = {
         'amsterdam/jsx-strict-logical-expression': 'error',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-misused-promises': 'off',
+        '@typescript-eslint/restrict-template-expressions': 'warn',
       },
       parserOptions: {
         project: ['./tsconfig.json'],

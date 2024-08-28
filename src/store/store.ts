@@ -54,7 +54,7 @@ export const store = configureStore({
       return enhancers.concat(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         devToolsEnhancer({
-          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions, @typescript-eslint/no-unsafe-call
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
           hostname: 'localhost',
           port: 8000,
