@@ -15,6 +15,7 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
+import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {CityPass} from '@/modules/city-pass/types'
 import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
@@ -74,7 +75,11 @@ export const SecurityCode = ({id}: Props) => {
 
   if (isError) {
     return (
-      <SomethingWentWrong testID="CityPassSecurityCodeSomethingWentWrong" />
+      <SomethingWentWrong
+        testID="CityPassSecurityCodeSomethingWentWrong"
+        text={SOMETHING_WENT_WRONG_TEXT}
+        title=""
+      />
     )
   }
 

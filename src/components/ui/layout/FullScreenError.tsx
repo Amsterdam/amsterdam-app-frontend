@@ -25,7 +25,7 @@ import {getErrorCode} from '@/utils/getErrorCode'
 
 const MIN_IMAGE_HEIGHT = 350
 
-type ErrorType = FetchBaseQueryError | SerializedError | undefined
+export type ErrorType = FetchBaseQueryError | SerializedError | undefined
 
 type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
@@ -201,10 +201,10 @@ const createStyles =
       imageVisibility: {
         opacity: isImageVisible ? 1 : 0,
         padding: isPortrait ? size.spacing.lg : size.spacing.no,
-        flex: 1,
       },
       screen: {
         flex: 1,
+        flexGrow: 1,
         paddingBottom: bottomInset,
       },
     })

@@ -13,8 +13,7 @@ export type CityPassStackParams = {
   [CityPassRouteName.cityPassLogout]: undefined
   [CityPassRouteName.dashboard]: {loginResult?: string}
   [CityPassRouteName.budget]: {
-    budget: CityPassBudget
-    firstname: CityPass['owner']['firstname']
+    budgetCode: CityPassBudget['code']
     passNumber: CityPass['passNumber']
   }
   [CityPassRouteName.securityCode]: {id: CityPass['id']}

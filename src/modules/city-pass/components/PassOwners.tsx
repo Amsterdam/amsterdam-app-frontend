@@ -12,6 +12,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
+import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
@@ -46,7 +47,8 @@ export const PassOwners = ({logout}: Props) => {
       <SomethingWentWrong
         inset="md"
         testID="CityPassDashboardSomethingWentWrong"
-        text="Er ging iets mis met het ophalen van de Stadspas informatie."
+        text={SOMETHING_WENT_WRONG_TEXT}
+        title=""
       />
     )
   }
