@@ -39,7 +39,7 @@ export const DashboardScreen = ({navigation, route}: Props) => {
       dispatch(setIsCityPassOwnerRegistered(true))
       setAlert({
         variant: AlertVariant.positive,
-        text: 'Je Stadspas gegevens zijn opgehaald.',
+        text: 'Je Stadspas staat nu ook in de app.',
         title: 'Gelukt!',
         hasIcon: true,
         hasCloseIcon: true,
@@ -49,7 +49,7 @@ export const DashboardScreen = ({navigation, route}: Props) => {
       dispatch(setIsCityPassOwnerRegistered(false))
       setAlert({
         variant: AlertVariant.negative,
-        text: 'Er ging iets fout bij het ophalen van de Stadspas gegevens. Probeer het later nog eens..',
+        text: 'Er ging iets fout bij het ophalen van de Stadspas gegevens. Probeer het later nog eens.',
         title: 'Inloggen mislukt',
         hasIcon: true,
         hasCloseIcon: true,
