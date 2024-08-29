@@ -21,13 +21,14 @@ type CarouselItem = {
 }
 
 export const CityPassesSwiper = () => {
+  const initialPage = 0
   const styles = useThemable(createStyles)
   const cityPasses = useGetSecureCityPasses()
   const {width: windowWidth} = useWindowDimensions()
   const ref = useRef<ICarouselInstance>(null)
-  const [currentIndex, setCurrentIndex] = useState<number>()
+  const [currentIndex, setCurrentIndex] = useState<number>(initialPage)
 
-  const progress = useSharedValue<number>(0)
+  const progress = useSharedValue<number>(initialPage)
 
   const onPressPagination = (index: number) => {
     ref.current?.scrollTo({
