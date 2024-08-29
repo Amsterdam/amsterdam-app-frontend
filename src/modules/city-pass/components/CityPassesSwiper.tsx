@@ -121,5 +121,4 @@ const createStyles = ({color, size}: Theme) =>
     paginationItemActive: {
       backgroundColor: color.pagination.item.active,
     },
-    paginationItemInactive: {},
   })
