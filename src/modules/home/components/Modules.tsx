@@ -1,38 +1,21 @@
 import {pascalCase} from 'pascal-case'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {useModules} from '@/hooks/useModules'
 import {ModuleButton} from '@/modules/home/components/ModuleButton'
-import {ModulesWarning} from '@/modules/home/components/ModulesWarning'
-import {ModuleStatus} from '@/modules/types'
+import {ModuleStatus, type Module} from '@/modules/types'
 
-export const Modules = () => {
-  const {enabledModules, modulesError, modulesLoading, refetchModules} =
-    useModules()
+type Props = {
+  modules: Module[]
+}
 
-  if (modulesLoading) {
-    return (
-      <PleaseWait
-        grow
-        testID="HomeModulesLoadingSpinner"
-      />
-    )
-  }
-
-  if (modulesError || !enabledModules) {
-    return (
-      <ModulesWarning
-        onRetry={refetchModules}
-        text="Er is iets misgegaan bij het ophalen van de modules."
-      />
-    )
-  }
+export const Modules = ({modules}: Props) => {
+  const {enabledModules} = useModules()
 
   const availableModules = enabledModules?.filter(m => !m.hiddenInMenu)
 
-  if (!availableModules.length) {
+  if (!modules.length) {
     return (
       <Box>
         <EmptyMessage

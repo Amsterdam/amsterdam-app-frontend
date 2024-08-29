@@ -10,7 +10,8 @@ import {Modules} from '@/modules/home/components/Modules'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const HomeScreen = () => {
-  const {modulesError, modulesLoading, refetchModules} = useModules()
+  const {enabledModules, modulesError, modulesLoading, refetchModules} =
+    useModules()
   const {isPortrait} = useDeviceContext()
 
   const isInternetReachable = useSelector(selectIsInternetReachable)
@@ -19,7 +20,7 @@ export const HomeScreen = () => {
     return <PleaseWait testID="HomeLoadingSpinner" />
   }
 
-  if (modulesError) {
+  if (modulesError || !enabledModules) {
     if (isInternetReachable === false) {
       return <NoInternetErrorFullScreen />
     }
@@ -48,7 +49,7 @@ export const HomeScreen = () => {
 
   return (
     <Screen testID="HomeScreen">
-      <Modules />
+      <Modules modules={enabledModules} />
     </Screen>
   )
 }

@@ -1,4 +1,4 @@
-import {Attention} from '@/components/ui/feedback/Attention'
+import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -140,12 +140,12 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
-        <Attention>
+        <AlertBase testID={testID + 'Remark'}>
           <FractionContent
             content={afvalwijzerAfvalkalenderOpmerking}
             testID={`${testID}RemarksContent`}
           />
-        </Attention>
+        </AlertBase>
       )}
     </Column>
   )
