@@ -35,7 +35,7 @@ export const CityPassDetailsPassNumber = ({passNumberComplete}: Props) => {
       testID="CityPassDetailScreenCopyButton">
       <Row
         align="between"
-        gutter="md"
+        gutter="sm"
         valign="center"
         vgutter="sm"
         wrap>
@@ -59,7 +59,7 @@ export const CityPassDetailsPassNumber = ({passNumberComplete}: Props) => {
           <Icon
             color={isPassNumberCopied ? 'confirm' : 'link'}
             name="copy"
-            size="lg"
+            size="md"
             testID="CityPassDetailScreenCopyButtonIcon"
           />
         </Row>

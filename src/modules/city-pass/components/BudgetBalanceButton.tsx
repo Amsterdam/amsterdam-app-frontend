@@ -66,7 +66,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
               <Icon
                 color="cityPass"
                 name="chevron-right"
-                size="lg"
+                size="ml"
                 testID="CityPassBalanceButtonNavigationIcon"
               />
             </Row>
