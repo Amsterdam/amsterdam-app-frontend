@@ -4,10 +4,11 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {showCityPasses} from '@/modules/city-pass/slice'
 
 type Props = {
+  index?: number
   passCount: number
 }
 
-export const ShowCityPassButton = ({passCount}: Props) => {
+export const ShowCityPassButton = ({index, passCount}: Props) => {
   const dispatch = useDispatch()
 
   return (
@@ -15,7 +16,7 @@ export const ShowCityPassButton = ({passCount}: Props) => {
       iconName="city-pass-pass"
       label={simplur`Laat mijn [pas|passen] zien${[passCount]}`}
       onPress={() => {
-        dispatch(showCityPasses())
+        dispatch(showCityPasses(index))
       }}
       testID="CityPassLogoutButton"
     />

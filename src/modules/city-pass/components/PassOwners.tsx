@@ -71,7 +71,7 @@ export const PassOwners = ({logout}: Props) => {
                 key={id}
                 onPress={() =>
                   navigate(CityPassRouteName.cityPassDetails, {
-                    cityPass,
+                    passNumber: cityPass.passNumber,
                   })
                 }
                 testID={`CityPassOwnerButton-${id}`}

@@ -3,11 +3,13 @@ import {StyleSheet, useWindowDimensions, View} from 'react-native'
 import {useSharedValue} from 'react-native-reanimated'
 import Carousel, {ICarouselInstance} from 'react-native-reanimated-carousel'
 import type {CityPassPass} from '@/modules/city-pass/types'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {CityPass} from '@/modules/city-pass/components/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
 import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
+import {selectStartIndex} from '@/modules/city-pass/slice'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
@@ -27,6 +29,7 @@ export const CityPassesSwiper = () => {
   const {width: windowWidth} = useWindowDimensions()
   const ref = useRef<ICarouselInstance>(null)
   const [currentIndex, setCurrentIndex] = useState<number>(initialPage)
+  const startIndex = useSelector(selectStartIndex)
 
   const progress = useSharedValue<number>(initialPage)
 
@@ -47,6 +50,7 @@ export const CityPassesSwiper = () => {
     <View style={styles.container}>
       <Carousel
         data={cityPasses}
+        defaultIndex={startIndex}
         loop={false}
         mode="parallax"
         modeConfig={{
