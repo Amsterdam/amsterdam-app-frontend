@@ -91,7 +91,7 @@ export const CityPassCard = ({
 const createStyles = ({color, border}: Theme) =>
   StyleSheet.create({
     card: {
-      borderColor: color.border.onGrey,
+      borderColor: color.cityPass.card.border,
       borderWidth: border.width.sm,
       borderStyle: 'solid',
     },

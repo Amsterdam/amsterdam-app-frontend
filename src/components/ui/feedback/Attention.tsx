@@ -26,11 +26,11 @@ const borderWidth = 2
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({
     attention: {
-      borderLeftColor: color.border.primary,
+      borderLeftColor: color.attention.default.border,
       borderLeftWidth: borderWidth,
       paddingLeft: size.spacing.md - borderWidth,
     },
     warning: {
-      borderLeftColor: color.border.negative,
+      borderLeftColor: color.attention.warning.border,
     },
   })

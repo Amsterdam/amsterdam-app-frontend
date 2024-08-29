@@ -29,10 +29,15 @@ export const lightColorTokens = {
   border: {
     default: baseColor.neutral.grey1,
     onGrey: baseColor.neutral.grey2,
-    primary: baseColor.primary.blue,
     cityPass: baseColor.secondary.purple,
-    positive: baseColor.secondary.darkgreen,
-    negative: baseColor.primary.red,
+  },
+  attention: {
+    default: {
+      border: baseColor.primary.blue,
+    },
+    warning: {
+      border: baseColor.primary.red,
+    },
   },
   pagination: {
     background: baseColor.primary.blue,
@@ -49,6 +54,9 @@ export const lightColorTokens = {
     passHeader: baseColor.neutral.grey1,
     passInner: baseColor.primary.white,
     passBackground: baseColor.primary.white,
+    card: {
+      border: baseColor.neutral.grey2,
+    },
   },
   control: {
     default: {
