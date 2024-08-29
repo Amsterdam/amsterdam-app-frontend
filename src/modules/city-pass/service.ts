@@ -6,16 +6,14 @@ import {
   BudgetTransactionsParams,
   DiscountTransactionsResponse,
   TransactionsParams,
+  CityPassApiError,
+  CityPassError401Codes,
 } from '@/modules/city-pass/types'
 import {logout} from '@/modules/city-pass/utils/logout'
 import {refreshTokens} from '@/modules/city-pass/utils/refreshTokens'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {AfterBaseQueryErrorFn} from '@/services/types'
-
-type ApiError = {
-  detail: string
-}
 
 /**
  * Removes a token that causes the backend to return a 403 forbidden error
@@ -25,11 +23,10 @@ const afterError: AfterBaseQueryErrorFn = async (
   {dispatch},
   failRetry,
 ) => {
-  if (error?.status === 403) {
-    const {detail} = error.data as ApiError
+  if (error?.status === 401) {
+    const {code} = error.data as CityPassApiError
 
-    // TODO change this conditional to check for an enum and not match text
-    if (detail === 'Access token has expired') {
+    if (code === CityPassError401Codes.tokenExpired) {
       return refreshTokens(dispatch, failRetry)
     } else {
       await logout(dispatch)

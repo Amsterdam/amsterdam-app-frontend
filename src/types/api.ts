@@ -67,3 +67,8 @@ export enum TimeOutDuration {
   medium = 15000,
   long = 30000,
 }
+
+export type ApiError<CodesEnum = unknown> = {
+  code: CodesEnum
+  detail: string
+}
