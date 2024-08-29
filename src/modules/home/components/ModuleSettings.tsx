@@ -1,15 +1,22 @@
 import {pascalCase} from 'pascal-case'
 import {getVersion} from 'react-native-device-info'
+import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Box} from '@/components/ui/containers/Box'
+import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useModules} from '@/hooks/useModules'
 import {ModuleSetting} from '@/modules/home/components/ModuleSetting'
-import {ModulesWarning} from '@/modules/home/components/ModulesWarning'
+import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const ModuleSettings = () => {
-  const {toggleableModules, modulesLoading} = useModules()
+  const {modulesError, toggleableModules, modulesLoading, refetchModules} =
+    useModules()
+  const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (modulesLoading) {
     return (
@@ -20,11 +27,35 @@ export const ModuleSettings = () => {
     )
   }
 
-  if (!toggleableModules || toggleableModules.length === 0) {
+  if (modulesError || !toggleableModules) {
+    if (isInternetReachable === false) {
+      return <NoInternetErrorFullScreen />
+    }
+
     return (
-      <ModulesWarning
-        text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
+      <FullScreenError
+        buttonAccessibilityLabel="Laad de modules opnieuw"
+        buttonLabel="Laad opnieuw"
+        error={modulesError}
+        Image={ModulesFigure}
+        onPress={refetchModules}
+        testProps={{
+          testID: 'ModuleSettingsErrorScreen',
+        }}
+        text="Probeer het later opnieuw."
+        title="Helaas kunnen de modules niet geladen worden"
       />
+    )
+  }
+
+  if (!toggleableModules.length) {
+    return (
+      <Box>
+        <EmptyMessage
+          testID="ModuleSettingsEmptyList"
+          text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
+        />
+      </Box>
     )
   }
 
