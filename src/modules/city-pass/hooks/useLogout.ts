@@ -1,21 +1,22 @@
 import {useCallback} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
 import {useLogoutMutation} from '@/modules/city-pass/service'
-import {useSetCityPassOwnerIsRegistered} from '@/modules/city-pass/slice'
+import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useLogout = () => {
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
-  const setCityPassRegistered = useSetCityPassOwnerIsRegistered()
+  const dispatch = useDispatch()
   const removeSecureItems = useRemoveSecureItems()
   const [logout] = useLogoutMutation()
 
   return useCallback(
     () =>
-      new Promise<void>((_resolve, reject) => {
+      new Promise<void>((resolve, reject) => {
         if (!secureAccessToken) {
           reject()
 
@@ -24,17 +25,18 @@ export const useLogout = () => {
 
         logout(secureAccessToken)
           .unwrap()
-          .then(() => {
-            setCityPassRegistered(false)
+          .then(async () => {
+            dispatch(setIsCityPassOwnerRegistered(false))
 
-            return removeSecureItems([
+            await removeSecureItems([
               SecureItemKey.cityPassAccessToken,
               SecureItemKey.cityPassRefreshToken,
               SecureItemKey.cityPasses,
             ])
+            resolve()
           })
           .catch(() => reject())
       }),
-    [logout, removeSecureItems, secureAccessToken, setCityPassRegistered],
+    [logout, removeSecureItems, secureAccessToken, dispatch],
   )
 }

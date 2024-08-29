@@ -3,25 +3,29 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
 import {Box} from '@/components/ui/containers/Box'
+import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {useSetCityPassOwnerIsRegistered} from '@/modules/city-pass/slice'
+import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {LoginResult} from '@/modules/city-pass/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
+import {useAlert} from '@/store/slices/alert'
 import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
 
 export const DashboardScreen = ({navigation, route}: Props) => {
-  const setCityPassRegistered = useSetCityPassOwnerIsRegistered()
+  const dispatch = useDispatch()
+  const {setAlert} = useAlert()
   const trackException = useTrackException()
 
   const {loginResult} = route.params || {}
@@ -32,19 +36,35 @@ export const DashboardScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     if (loginResult === LoginResult.success) {
-      setCityPassRegistered(true)
+      dispatch(setIsCityPassOwnerRegistered(true))
+      setAlert({
+        variant: AlertVariant.positive,
+        text: 'Je Stadspas staat nu ook in de app.',
+        title: 'Gelukt!',
+        hasIcon: true,
+        hasCloseIcon: true,
+        testID: 'CityPassLoggedInAlertPositive',
+      })
     } else if (loginResult === LoginResult.failed) {
-      setCityPassRegistered(false)
-      loginResult &&
-        trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
-          error:
-            getValueFromUrlParam(loginResult, 'errorMessage') ??
-            'Verzenden van administratienummer naar de Amsterdam app niet gelukt.',
-        })
+      dispatch(setIsCityPassOwnerRegistered(false))
+      setAlert({
+        variant: AlertVariant.negative,
+        text: 'Er ging iets fout bij het ophalen van de Stadspas gegevens. Probeer het later nog eens.',
+        title: 'Inloggen mislukt',
+        hasIcon: true,
+        hasCloseIcon: true,
+        testID: 'CityPassLoggedInAlertNegative',
+      })
+      trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
+        error:
+          getValueFromUrlParam(loginResult, 'errorMessage') ??
+          'Stadspas login niet gelukt.',
+      })
     } else {
       // do nothing
     }
-  }, [loginResult, setCityPassRegistered, trackException])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginResult])
 
   return (
     <CityPassLoginBoundaryScreen
