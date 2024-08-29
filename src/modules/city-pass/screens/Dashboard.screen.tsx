@@ -63,7 +63,8 @@ export const DashboardScreen = ({navigation, route}: Props) => {
     } else {
       // do nothing
     }
-  }, [loginResult, dispatch, trackException, setAlert])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginResult])
 
   return (
     <CityPassLoginBoundaryScreen
