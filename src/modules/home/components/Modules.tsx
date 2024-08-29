@@ -2,7 +2,6 @@ import {pascalCase} from 'pascal-case'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Column} from '@/components/ui/layout/Column'
-import {useModules} from '@/hooks/useModules'
 import {ModuleButton} from '@/modules/home/components/ModuleButton'
 import {ModuleStatus, type Module} from '@/modules/types'
 
@@ -11,9 +10,7 @@ type Props = {
 }
 
 export const Modules = ({modules}: Props) => {
-  const {enabledModules} = useModules()
-
-  const availableModules = enabledModules?.filter(m => !m.hiddenInMenu)
+  const availableModules = modules?.filter(m => !m.hiddenInMenu)
 
   if (!modules.length) {
     return (
