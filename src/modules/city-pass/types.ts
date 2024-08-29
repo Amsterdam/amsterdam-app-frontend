@@ -1,5 +1,6 @@
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {RedirectKey} from '@/modules/redirects/types'
+import {ApiError} from '@/types/api'
 
 export enum CityPassEndpointName {
   getAccessToken = 'getAccessToken',
@@ -119,3 +120,12 @@ export enum LoginResult {
   failed = 'mislukt',
   success = 'gelukt',
 }
+
+export enum CityPassError401Codes {
+  apiKeyInvalid = 'API_KEY_INVALID',
+  tokenExpired = 'TOKEN_EXPIRED',
+  tokenInvalid = 'TOKEN_INVALID',
+  tokenNotReady = 'TOKEN_NOT_READY',
+}
+
+export type CityPassApiError = ApiError<CityPassError401Codes>
