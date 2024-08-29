@@ -32,18 +32,18 @@ export type TextTokens = {
   lineHeight: ParagraphTokens & TitleTokensPerLevel
 }
 
-enum FontSize {
-  body = 18,
-  h1 = 32,
-  h2 = 28,
-  h3 = 24,
-  h4 = 22,
-  h5 = 18,
-  h6 = 16,
-  intro = 22,
-  quote = 24,
-  small = 16,
-}
+const FontSize = {
+  body: 18,
+  h1: 32,
+  h2: 28,
+  h3: 24,
+  h4: 22,
+  h5: 18,
+  h6: 16,
+  intro: 22,
+  quote: 24,
+  small: 16,
+} as const
 
 export const textTokens: TextTokens = {
   fontSize: {

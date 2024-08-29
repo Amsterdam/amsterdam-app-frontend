@@ -1,4 +1,4 @@
-import {PdokAddress} from '@/modules/address/types'
+import {AddressCity, PdokAddress} from '@/modules/address/types'
 import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
 
 export const getSuggestionLabelForStreetOrAddress = (
@@ -7,7 +7,7 @@ export const getSuggestionLabelForStreetOrAddress = (
   const {straatnaam, type, woonplaatsnaam} = pdokAddress
 
   if (type === 'weg') {
-    if (woonplaatsnaam === 'Amsterdam') {
+    if (woonplaatsnaam === AddressCity.Amsterdam) {
       return straatnaam
     } else {
       return `${straatnaam}, ${woonplaatsnaam}`
@@ -16,7 +16,7 @@ export const getSuggestionLabelForStreetOrAddress = (
 
   const streetAndHouseNumber = getAddressLine1(pdokAddress)
 
-  if (woonplaatsnaam === 'Amsterdam') {
+  if (woonplaatsnaam === AddressCity.Amsterdam) {
     return streetAndHouseNumber
   } else {
     return `${streetAndHouseNumber}, ${woonplaatsnaam}`

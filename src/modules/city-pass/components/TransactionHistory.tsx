@@ -40,7 +40,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
       <Border bottom>
         <Box insetBottom="sm">
           <SingleSelectable
-            accessibilityLabel={`Hieronder volgt een overzicht van jouw ${type === 'discount' ? 'acties en het bedrag dat je bespaard hebt.' : 'betalingen en het bedrag dat je hebt uitgegeven.'}`}
+            accessibilityLabel={`Hieronder volgt een overzicht van jouw ${type === TransactionType.discount ? 'acties en het bedrag dat je bespaard hebt.' : 'betalingen en het bedrag dat je hebt uitgegeven.'}`}
             accessibilityRole="header"
             testID="CityPassTransactionHistoryTableHeader">
             <Row align="between">

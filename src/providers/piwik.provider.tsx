@@ -30,7 +30,7 @@ export const PiwikProvider = ({children}: Props) => {
           setPiwikInstance(PiwikProSdk)
         })
         .catch((error: Error) => {
-          if (error.message === PiwikError.alreadyInitialized) {
+          if ((error.message as PiwikError) === PiwikError.alreadyInitialized) {
             setPiwikInstance(PiwikProSdk)
 
             return
@@ -38,7 +38,7 @@ export const PiwikProvider = ({children}: Props) => {
 
           setPiwikInstance(null)
 
-          if (error.message === PiwikError.missingEnvVars) {
+          if ((error.message as PiwikError) === PiwikError.missingEnvVars) {
             return
           }
 

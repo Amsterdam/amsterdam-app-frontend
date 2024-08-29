@@ -21,7 +21,7 @@ import {useThemable} from '@/themes/useThemable'
 type OnError = (error?: NativeSyntheticEvent<ImageErrorEventData>) => void
 
 // resize modes that are supported by both FastImage and Image
-type ImageResizeMode = 'cover' | 'contain' | 'cover' | 'stretch'
+type ImageResizeMode = 'cover' | 'contain' | 'stretch'
 
 // Props supported by both Image and FastImage
 type SupportedImageRNProps = Omit<

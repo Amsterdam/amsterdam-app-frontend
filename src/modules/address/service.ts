@@ -54,8 +54,8 @@ const path = '/free'
 const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({
-  endpoints: ({query}) => ({
-    getLocation: query<
+  endpoints: builder => ({
+    getLocation: builder.query<
       AddressResponse | undefined,
       AddressForCoordinatesQueryParams
     >({
@@ -74,7 +74,7 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
-    getAddressSuggestions: query<
+    getAddressSuggestions: builder.query<
       AddressResponse | undefined,
       AddressSuggestionQueryParams
     >({
