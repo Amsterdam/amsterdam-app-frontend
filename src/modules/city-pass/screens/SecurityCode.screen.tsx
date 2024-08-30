@@ -1,6 +1,6 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
-import {SecurityCode} from '@/modules/city-pass/components/SecurityCode'
+import {SecurityCode} from '@/modules/city-pass/components/details/SecurityCode'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 type Props = NavigationProps<CityPassRouteName.securityCode>

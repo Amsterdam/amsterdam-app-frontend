@@ -5,7 +5,7 @@ import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {TransactionItem} from '@/modules/city-pass/components/TransactionItem'
+import {TransactionItem} from '@/modules/city-pass/components/transactions/TransactionItem'
 import {Transactions, TransactionType} from '@/modules/city-pass/types'
 import {
   getTransactionsByDate,
