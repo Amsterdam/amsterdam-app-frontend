@@ -60,7 +60,7 @@ export const PassOwners = ({logout}: Props) => {
       insetTop="md">
       {cityPasses.length ? (
         <Column gutter="md">
-          <ShowCityPassButton passCount={cityPasses.length} />
+          <ShowCityPassButton />
           <Gutter height="sm" />
           {cityPasses.map(cityPass => {
             const {id} = cityPass

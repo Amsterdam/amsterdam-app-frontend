@@ -1,8 +1,8 @@
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
-import {CityPassDetails} from '@/modules/city-pass/components/CityPassDetails'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {CityPassDetails} from '@/modules/city-pass/components/details/CityPassDetails'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 export const CityPassDetailsScreen = () => {
