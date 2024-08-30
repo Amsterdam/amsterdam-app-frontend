@@ -1,88 +1,15 @@
-import {ElementRef, ReactNode, forwardRef} from 'react'
-import {
-  AccessibilityProps,
-  LayoutRectangle,
-  StyleSheet,
-  View,
-} from 'react-native'
-import {Fader} from '@/components/ui/animations/Fader'
+import {forwardRef} from 'react'
+import {View} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Triangle} from '@/components/ui/feedback/Triangle'
 import {TooltipContent} from '@/components/ui/feedback/tooltip/TooltipContent'
+import {TooltipWrapper} from '@/components/ui/feedback/tooltip/TooltipWrapper'
+import {TooltipProps} from '@/components/ui/feedback/tooltip/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Placement, TestProps} from '@/components/ui/types'
+import {Placement} from '@/components/ui/types'
 import {mapPlacementToDirection} from '@/components/ui/utils/mapPlacementToDirection'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {Theme} from '@/themes/themes'
-import {SpacingTokens} from '@/themes/tokens/size'
-import {useThemable} from '@/themes/useThemable'
-
-type WrapperProps = {
-  children: ReactNode
-  /**
-   * Extra space to set between target and tooltip
-   */
-  extraSpace?: keyof SpacingTokens
-  /**
-   * Determines whether the tooltip fades in and out. Default is 300 ms.
-   */
-  fadeIn?: boolean
-  /**
-   * Duration of the fade-in animation in milliseconds, only works when fade = true
-   */
-  fadeInDuration?: number
-
-  placement: Placement
-  productTourTipTargetLayout?: LayoutRectangle
-  startFadeIn?: boolean
-}
-
-type TooltipProps = {
-  onPress: () => void
-  text: string | string[]
-} & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
-  Omit<WrapperProps, 'children'> &
-  TestProps
-
-const Wrapper = forwardRef<View, WrapperProps>(
-  (
-    {
-      extraSpace,
-      placement,
-      productTourTipTargetLayout,
-      fadeIn,
-      fadeInDuration,
-      startFadeIn,
-      ...props
-    },
-    ref,
-  ) => {
-    const styles = useThemable(
-      createStyles({
-        extraSpace,
-        placement,
-        productTourTipTargetLayout,
-      }),
-    )
-
-    return fadeIn ? (
-      <Fader
-        {...props}
-        duration={fadeInDuration}
-        ref={ref}
-        shouldAnimate={startFadeIn}
-        style={styles.tooltip}
-      />
-    ) : (
-      <View
-        {...props}
-        ref={ref}
-        style={styles.tooltip}
-      />
-    )
-  },
-)
 
 export const Tooltip = forwardRef<View | null, TooltipProps>(
   (
@@ -107,7 +34,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
     const Pointer = <Triangle direction={direction} />
 
     return (
-      <Wrapper
+      <TooltipWrapper
         extraSpace={extraSpace}
         fadeIn={fadeIn}
         fadeInDuration={fadeInDuration}
@@ -135,57 +62,7 @@ export const Tooltip = forwardRef<View | null, TooltipProps>(
             {placement === Placement.before && Pointer}
           </Row>
         </PressableBase>
-      </Wrapper>
+      </TooltipWrapper>
     )
   },
 )
-
-const createStyles =
-  ({
-    extraSpace,
-    placement,
-    productTourTipTargetLayout,
-  }: Pick<
-    TooltipProps,
-    'extraSpace' | 'placement' | 'productTourTipTargetLayout'
-  > & {
-    tooltipHeight?: number
-  }) =>
-  ({size, z}: Theme) => {
-    const getPosition = (): {
-      bottom?: number
-      left?: number
-      position?: 'absolute' | 'relative'
-      right?: number
-      top?: number
-    } => {
-      if (!productTourTipTargetLayout) {
-        return {position: 'relative'} // Default position, when no productTourTipTargetLayout is set
-      }
-
-      const verticalPosition =
-        productTourTipTargetLayout.height +
-        (extraSpace ? size.spacing[extraSpace] : 0)
-
-      return {
-        left: 0,
-        right: 0,
-        position: 'absolute',
-        ...(placement === Placement.above
-          ? {bottom: verticalPosition}
-          : {top: verticalPosition}),
-      }
-    }
-
-    return StyleSheet.create({
-      tooltip: {
-        flex: 1,
-        alignItems: 'center',
-        paddingHorizontal: size.spacing.lg,
-        ...getPosition(),
-        zIndex: z.tooltip, // Set zIndex higher in component tree as well when not working as expected on iOS
-      },
-    })
-  }
-
-export type Tooltip = ElementRef<typeof Tooltip>
