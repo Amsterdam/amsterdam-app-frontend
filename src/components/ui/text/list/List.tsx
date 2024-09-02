@@ -26,11 +26,17 @@ const getItems = (items: Item[]) => {
 }
 
 type Props = {
+  accessibilityLanguage?: string
   items: Item[]
 } & Partial<ListMarkerProp> &
   TestProps
 
-export const List = ({items, marker = 'square', testID}: Props) => {
+export const List = ({
+  items,
+  marker = 'square',
+  testID,
+  accessibilityLanguage,
+}: Props) => {
   const {textItems, accessibilityLabelItems} = useMemo(
     () => getItems(items),
     [items],
@@ -39,6 +45,7 @@ export const List = ({items, marker = 'square', testID}: Props) => {
   return (
     <SingleSelectable
       accessibilityLabel={accessibleText(...accessibilityLabelItems)}
+      accessibilityLanguage={accessibilityLanguage}
       testID={testID}>
       <Column gutter="md">
         {textItems.map((text, index) => (

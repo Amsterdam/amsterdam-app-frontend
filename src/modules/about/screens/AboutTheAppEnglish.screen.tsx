@@ -29,19 +29,24 @@ export const AboutTheAppEnglishScreen = () => {
           <Box>
             <Column gutter="lg">
               <Title
+                accessibilityLanguage="en-US"
                 testID="AboutAboutTheAppEnglishTitle"
                 text="One app for all Amsterdam residents"
               />
               <Paragraph
+                accessibilityLanguage="en-US"
                 testID="AboutAboutTheAppEnglishIntroParagraph"
                 variant="intro">
                 With the Amsterdam app, you can have information at your
                 fingertips and get in touch with the City.
               </Paragraph>
-              <Paragraph testID="AboutAboutTheAppEnglishSummaryParagraph">
+              <Paragraph
+                accessibilityLanguage="en-US"
+                testID="AboutAboutTheAppEnglishSummaryParagraph">
                 With the app you can:
               </Paragraph>
               <List
+                accessibilityLanguage="en-US"
                 items={[
                   'View the rules about waste in your neighbourhood',
                   'Follow and receive notifications about works in your area',
@@ -52,17 +57,21 @@ export const AboutTheAppEnglishScreen = () => {
               />
               <Column>
                 <Title
+                  accessibilityLanguage="en-US"
                   level="h2"
                   testID="AboutAboutTheAppEnglishLaterMoreTitle"
                   text="More features are coming soon"
                 />
-                <Paragraph testID="AboutAboutTheAppEnglishFutureFeaturesParagraph">
+                <Paragraph
+                  accessibilityLanguage="en-US"
+                  testID="AboutAboutTheAppEnglishFutureFeaturesParagraph">
                   The Amsterdam app is a work in progress. Your opinion is
                   important to improve the app. Please let us know.
                 </Paragraph>
               </Column>
               {!isLoading && !isError && (
                 <Button
+                  accessibilityLanguage="en-US"
                   label="Your opinion"
                   onPress={() => {
                     if (redirectUrls?.feedbackForm) {
