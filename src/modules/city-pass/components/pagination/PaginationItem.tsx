@@ -55,13 +55,8 @@ export const PaginationItem: React.FC<
 
   const animStyle = useAnimatedStyle(() => {
     const animatedSize = horizontal ? height : width
-    let inputRange = [index - 1, index, index + 1]
-    let outputRange = [-animatedSize, 0, animatedSize]
-
-    if (index === 0 && animValue?.value > count - 1) {
-      inputRange = [count - 1, count, count + 1]
-      outputRange = [-animatedSize, 0, animatedSize]
-    }
+    const inputRange = [index - 1, index, index + 1]
+    const outputRange = [-animatedSize, 0, animatedSize]
 
     return {
       transform: [
