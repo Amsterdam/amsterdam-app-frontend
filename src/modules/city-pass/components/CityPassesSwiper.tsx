@@ -61,7 +61,7 @@ export const CityPassesSwiper = () => {
         // onProgressChange={progress} // to be used with react-native-reanimated-carousel v4
         onProgressChange={(_, absoluteProgress) => {
           setCurrentIndex(Math.round(absoluteProgress))
-          progress.value = absoluteProgress
+          progress.value = absoluteProgress < 0 ? 0 : absoluteProgress
         }}
         pagingEnabled
         ref={ref}
