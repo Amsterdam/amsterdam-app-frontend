@@ -62,6 +62,7 @@ export const FeedbackScreen = () => {
                     )
                   }
                 }}
+                role="link"
                 testID="AboutFeedbackLink"
               />
             )}

@@ -1,132 +1,93 @@
-import {ImageURISource} from 'react-native'
+import {Alert} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
-import {Track} from '@/components/ui/layout/Track'
-import {Icon} from '@/components/ui/media/Icon'
-import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {List} from '@/components/ui/text/list/List'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
-export const AboutTheAppEnglishScreen = () => (
-  <Screen
-    testID="AboutAboutTheAppEnglishScreen"
-    withLeftInset={false}
-    withRightInset={false}>
-    <Column gutter="lg">
-      <Image
-        source={
-          require('@/modules/about/assets/images/traffic-cycling.1280.50.jpg') as ImageURISource
-        }
-        testID="AboutAboutTheAppEnglishTrafficCyclingImage"
-      />
-      <HorizontalSafeArea>
-        <Box>
-          <Column gutter="lg">
-            <Column gutter="sm">
+export const AboutTheAppEnglishScreen = () => {
+  const openWebUrl = useOpenWebUrl()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
+  const trackException = useTrackException()
+
+  return (
+    <Screen
+      testID="AboutAboutTheAppEnglishScreen"
+      withLeftInset={false}
+      withRightInset={false}>
+      <Column gutter="lg">
+        <HorizontalSafeArea>
+          <Box>
+            <Column gutter="lg">
               <Title
-                accessibilityLanguage="en-US"
                 testID="AboutAboutTheAppEnglishTitle"
-                text="One app for all citizens of Amsterdam and Weesp"
+                text="One app for all Amsterdam residents"
               />
               <Paragraph
-                accessibilityLanguage="en-US"
                 testID="AboutAboutTheAppEnglishIntroParagraph"
                 variant="intro">
-                The Amsterdam App gives you useful information to immediately
-                take care of matters with the municipality. For example:
+                With the Amsterdam app, you can have information at your
+                fingertips and get in touch with the City.
               </Paragraph>
-            </Column>
-            <Track gutter="lg">
-              <Column gutter="sm">
-                <Icon
-                  name="trash-bin"
-                  size="xl"
-                  testID="AboutAboutTheAppEnglishWasteInformationIcon"
-                />
-                <Title
-                  accessibilityLanguage="en-US"
-                  level="h5"
-                  testID="AboutAboutTheAppEnglishWasteInformationTitle"
-                  text="Information about waste"
-                />
-                <Paragraph
-                  accessibilityLanguage="en-US"
-                  testID="AboutAboutTheAppEnglishWasteInformationParagraph">
-                  Fill in your address and you will immediately see what you can
-                  do with your waste.
-                </Paragraph>
-              </Column>
-              <Column gutter="sm">
-                <Icon
-                  name="construction-work"
-                  size="xl"
-                  testID="AboutAboutTheAppEnglishRoadWorkIcon"
-                />
-                <Title
-                  accessibilityLanguage="en-US"
-                  level="h5"
-                  testID="AboutAboutTheAppEnglishRoadWorkTitle"
-                  text="Work on the road"
-                />
-                <Paragraph
-                  accessibilityLanguage="en-US"
-                  testID="AboutAboutTheAppEnglishRoadWorkParagraph">
-                  Here you can find information about projects and roadworks in
-                  your neighbourhood.
-                </Paragraph>
-              </Column>
-              <Column gutter="sm">
-                <Icon
-                  name="alert"
-                  size="xl"
-                  testID="AboutAboutTheAppEnglishReportProblemIcon"
-                />
-                <Title
-                  accessibilityLanguage="en-US"
-                  level="h5"
-                  testID="AboutAboutTheAppEnglishReportProblemTitle"
-                  text="Report something"
-                />
-                <Paragraph
-                  accessibilityLanguage="en-US"
-                  testID="AboutAboutTheAppEnglishReportProblemParagraph">
-                  Report something that is broken or causes a nuisance, or
-                  report a full waste container.
-                </Paragraph>
-              </Column>
-            </Track>
-          </Column>
-        </Box>
-      </HorizontalSafeArea>
-      <Image
-        source={
-          require('@/modules/about/assets/images/people-in-park.1280.50.jpg') as ImageURISource
-        }
-        testID="AboutAboutTheAppEnglishPeopleInParkImage"
-      />
-      <HorizontalSafeArea>
-        <Box>
-          <Track gutter="lg">
-            <Column gutter="sm">
-              <Title
-                accessibilityLanguage="en-US"
-                level="h2"
-                testID="AboutAboutTheAppEnglishFutureFeaturesTitle"
-                text="More later"
+              <Paragraph testID="AboutAboutTheAppEnglishSummaryParagraph">
+                With the app you can:
+              </Paragraph>
+              <List
+                items={[
+                  'View the rules about waste in your neighbourhood',
+                  'Follow and receive notifications about works in your area',
+                  'Report a full waste container, litter on the street, or something that is broken',
+                  'Use your Stadspas and view your balance',
+                ]}
+                testID="AboutTheAppEnglishFeaturesList"
               />
-              <Paragraph
-                accessibilityLanguage="en-US"
-                testID="AboutAboutTheAppEnglishFutureFeaturesParagraph">
-                This version of the Amsterdam App has subjects that are useful
-                to everybody. This is a start. In the future there will be more
-                subjects and languages. This way we will keep improving the app.
-              </Paragraph>
+              <Column>
+                <Title
+                  level="h2"
+                  testID="AboutAboutTheAppEnglishLaterMoreTitle"
+                  text="More features are coming soon"
+                />
+                <Paragraph testID="AboutAboutTheAppEnglishFutureFeaturesParagraph">
+                  The Amsterdam app is a work in progress. Your opinion is
+                  important to improve the app. Please let us know.
+                </Paragraph>
+              </Column>
+              {!isLoading && !isError && (
+                <Button
+                  label="Your opinion"
+                  onPress={() => {
+                    if (redirectUrls?.feedbackForm) {
+                      openWebUrl(redirectUrls.feedbackForm)
+                    } else {
+                      Alert.alert(
+                        'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
+                      )
+
+                      trackException(
+                        ExceptionLogKey.getRedirectsUrl,
+                        'FeedbackScreen.ts',
+                        {redirectsKey: 'feedback'},
+                      )
+                    }
+                  }}
+                  role="link"
+                  testID="AboutAboutTheAppEnglishFeedbackLink"
+                  variant="secondary"
+                />
+              )}
             </Column>
-          </Track>
-        </Box>
-      </HorizontalSafeArea>
-    </Column>
-  </Screen>
-)
+          </Box>
+        </HorizontalSafeArea>
+      </Column>
+    </Screen>
+  )
+}
