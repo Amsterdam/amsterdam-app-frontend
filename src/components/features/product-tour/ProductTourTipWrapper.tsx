@@ -51,7 +51,7 @@ export const ProductTourTipWrapper = ({
   useBlurEffect(handleHasSeenTip)
 
   return (
-    <>
+    <View>
       {!hasSeenTip && !isScreenReaderEnabled && (
         <Tooltip
           accessibilityLabel={text}
@@ -72,6 +72,6 @@ export const ProductTourTipWrapper = ({
         ref={tipTargetRef}>
         {children}
       </View>
-    </>
+    </View>
   )
 }

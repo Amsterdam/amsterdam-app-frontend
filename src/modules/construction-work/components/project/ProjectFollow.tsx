@@ -92,6 +92,7 @@ export const ProjectFollow = ({
         gutter="md"
         valign="center">
         <ProductTourTipWrapper
+          extraSpace="md"
           placement={Placement.below}
           testID="ConstructionWorkProjectFollowButtonTooltip"
           text={ONBOARDING_TIP}
