@@ -6,6 +6,7 @@ export type Layout = {
 }
 
 export enum Tip {
+  cityPassSecurityCode = 'cityPassSecurityCode',
   cityPassShowPassesButton = 'cityPassShowPassesButton',
   constructionWorkProjectFollowButton = 'constructionWorkProjectFollowButton',
 }

@@ -1,3 +1,4 @@
+import {Tip} from '@/components/features/product-tour/types'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
@@ -11,7 +12,9 @@ export const CityPassDetailsScreen = () => {
   } = useRoute<CityPassRouteName.cityPassDetails>()
 
   return (
-    <CityPassLoginBoundaryScreen testID="CityPassCityPassScreen">
+    <CityPassLoginBoundaryScreen
+      testID="CityPassCityPassScreen"
+      trackScroll={[Tip.cityPassSecurityCode]}>
       <CityPassDetails passNumber={passNumber} />
       <FigureWithFacadesBackground testID="CityPassStartImage">
         <SportsImage />
