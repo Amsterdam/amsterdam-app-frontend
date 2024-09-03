@@ -34,7 +34,14 @@ export const CityPassDetails = ({passNumber}: Props) => {
   )
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDashboardPleaseWait" />
+    return (
+      <Box grow>
+        <Column gutter="md">
+          <PleaseWait testID="CityPassDashboardPleaseWait" />
+          <ShowCityPassButton index={cityPassIndex} />
+        </Column>
+      </Box>
+    )
   }
 
   return (

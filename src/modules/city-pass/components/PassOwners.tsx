@@ -39,7 +39,17 @@ export const PassOwners = ({logout}: Props) => {
   useSetSecureCityPasses(cityPasses)
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDashboardPleaseWait" />
+    return (
+      <Box
+        insetBottom="xl"
+        insetHorizontal="md"
+        insetTop="md">
+        <Column gutter="md">
+          <PleaseWait testID="CityPassDashboardPleaseWait" />
+          <ShowCityPassButton />
+        </Column>
+      </Box>
+    )
   }
 
   if (isError || !cityPasses) {
