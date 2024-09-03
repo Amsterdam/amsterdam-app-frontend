@@ -40,7 +40,7 @@ export const RequestCityPass = () => {
         accessibilityRole="link"
         label="Stadspas aanvragen"
         onPress={requestCityPass}
-        testID="CityPassLoginButton"
+        testID="CityPassRequestCityPassButton"
         variant="secondary"
       />
     </>
