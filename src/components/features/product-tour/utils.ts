@@ -3,8 +3,8 @@ import {Layout} from '@/components/features/product-tour/types'
 
 export const measureElement = (element: View) =>
   new Promise<Layout>(resolve => {
-    element.measureInWindow((_x, y, _width, height) => {
-      resolve({height, y})
+    element.measureInWindow((x, y, width, height) => {
+      resolve({x, height, width, y})
     })
   })
 

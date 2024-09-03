@@ -18,7 +18,8 @@ export type WrapperProps = {
    * Duration of the fade-in animation in milliseconds, only works when fade = true
    */
   fadeInDuration?: number
-
+  isPositioned: boolean
+  leftPosition: number
   placement: Placement
   productTourTipTargetLayout?: LayoutRectangle
   startFadeIn?: boolean
@@ -28,7 +29,12 @@ export type TooltipProps = {
   onPress: () => void
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
-  Omit<WrapperProps, 'children'> &
+  Omit<WrapperProps, 'children' | 'leftPosition' | 'isPositioned'> &
   TestProps
 
 export type Tooltip = ElementRef<typeof Tooltip>
+
+export enum PointerDimension {
+  height = 16,
+  width = 32,
+}

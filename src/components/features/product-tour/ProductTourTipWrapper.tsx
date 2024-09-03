@@ -1,10 +1,11 @@
-import {ReactNode, useCallback, useContext, useState} from 'react'
-import {LayoutRectangle, View} from 'react-native'
+import {ReactNode, useCallback, useContext, useRef} from 'react'
+import {View} from 'react-native'
 import {
   selectSeenTips,
   addSeenTip,
 } from '@/components/features/product-tour/slice'
 import {Tip} from '@/components/features/product-tour/types'
+import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
 import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
@@ -37,8 +38,9 @@ export const ProductTourTipWrapper = ({
   const scrollContext = useContext(ScrollContext)
   const hasNoScrollViewParent = scrollContext === null
   const {setElementRef, isElementVisible} = scrollContext ?? {}
-  const [productTourTipTargetLayout, setTipComponentLayout] =
-    useState<LayoutRectangle>()
+  const tipTargetRef = useRef<View | null>(null)
+  const {layout: productTourTipTargetLayout, measureTarget} =
+    useMeasureTarget(tipTargetRef)
 
   const handleHasSeenTip = useCallback(() => {
     if ((hasNoScrollViewParent || isElementVisible) && !hasSeenTip) {
@@ -66,7 +68,8 @@ export const ProductTourTipWrapper = ({
       )}
       <View
         collapsable={false}
-        onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
+        onLayout={measureTarget}
+        ref={tipTargetRef}>
         {children}
       </View>
     </>

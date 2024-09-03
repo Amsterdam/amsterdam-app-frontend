@@ -1,5 +1,5 @@
 import {forwardRef} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {StyleSheet, useWindowDimensions, View, ViewProps} from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
 import {
   TooltipProps,
@@ -9,10 +9,12 @@ import {Placement} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const TooltipWrapper = forwardRef<View, WrapperProps>(
+export const TooltipWrapper = forwardRef<View, WrapperProps & ViewProps>(
   (
     {
       extraSpace,
+      isPositioned,
+      leftPosition,
       placement,
       productTourTipTargetLayout,
       fadeIn,
@@ -22,11 +24,15 @@ export const TooltipWrapper = forwardRef<View, WrapperProps>(
     },
     ref,
   ) => {
+    const {width: windowWidth} = useWindowDimensions()
     const styles = useThemable(
       createStyles({
         extraSpace,
+        isPositioned,
+        leftPosition,
         placement,
         productTourTipTargetLayout,
+        windowWidth,
       }),
     )
 
@@ -36,13 +42,13 @@ export const TooltipWrapper = forwardRef<View, WrapperProps>(
         duration={fadeInDuration}
         ref={ref}
         shouldAnimate={startFadeIn}
-        style={styles.tooltip}
+        style={styles.tooltipWrapper}
       />
     ) : (
       <View
         {...props}
         ref={ref}
-        style={styles.tooltip}
+        style={styles.tooltipWrapper}
       />
     )
   },
@@ -51,14 +57,15 @@ export const TooltipWrapper = forwardRef<View, WrapperProps>(
 const createStyles =
   ({
     extraSpace,
+    isPositioned,
+    leftPosition,
     placement,
     productTourTipTargetLayout,
+    windowWidth,
   }: Pick<
     TooltipProps,
     'extraSpace' | 'placement' | 'productTourTipTargetLayout'
-  > & {
-    tooltipHeight?: number
-  }) =>
+  > & {isPositioned: boolean; leftPosition: number; windowWidth: number}) =>
   ({size, z}: Theme) => {
     const getPosition = (): {
       bottom?: number
@@ -76,7 +83,7 @@ const createStyles =
         (extraSpace ? size.spacing[extraSpace] : 0)
 
       return {
-        left: 0,
+        left: -leftPosition,
         right: 0,
         position: 'absolute',
         ...(placement === Placement.above
@@ -86,10 +93,12 @@ const createStyles =
     }
 
     return StyleSheet.create({
-      tooltip: {
-        flex: 1,
-        alignItems: 'center',
-        paddingHorizontal: size.spacing.lg,
+      tooltipWrapper: {
+        display: isPositioned ? 'flex' : 'none',
+        width: productTourTipTargetLayout ? windowWidth : undefined,
+        paddingHorizontal: productTourTipTargetLayout
+          ? size.spacing.xl
+          : undefined,
         ...getPosition(),
         zIndex: z.tooltip, // Set zIndex higher in component tree as well when not working as expected on iOS
       },
