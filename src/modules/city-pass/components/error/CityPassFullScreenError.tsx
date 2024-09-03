@@ -4,7 +4,7 @@ import {
   FullScreenError,
 } from '@/components/ui/layout/FullScreenError'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {FullScreenErrorFigure} from '@/modules/city-pass/components/FullScreenErrorFigure'
+import {FullScreenErrorFigure} from '@/modules/city-pass/components/error/FullScreenErrorFigure'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 type Props = {

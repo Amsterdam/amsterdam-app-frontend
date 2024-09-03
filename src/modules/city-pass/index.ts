@@ -1,5 +1,5 @@
-import {CityPasses} from '@/modules/city-pass/components/CityPasses'
 import {HeaderComponent} from '@/modules/city-pass/components/HeaderComponent'
+import {CityPasses} from '@/modules/city-pass/components/card-display/CityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'

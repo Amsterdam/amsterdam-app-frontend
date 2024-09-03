@@ -11,11 +11,16 @@ export type CityPassState = {
    * Whether the city-passes overlay UI is visible.
    */
   isCityPassesVisible: boolean
+  /**
+   * The index of the city-passes to start displaying
+   */
+  startIndex: number
 }
 
 const initialState: CityPassState = {
   isCityPassesVisible: false,
   isCityPassOwnerRegistered: false,
+  startIndex: 0,
 }
 
 export const cityPassSlice = createSlice({
@@ -31,8 +36,9 @@ export const cityPassSlice = createSlice({
     ) => {
       state.isCityPassOwnerRegistered = payload
     },
-    showCityPasses: state => {
+    showCityPasses: (state, {payload}: PayloadAction<number | undefined>) => {
       state.isCityPassesVisible = true
+      state.startIndex = payload ?? 0
     },
   },
 })
@@ -45,3 +51,6 @@ export const selectIsCityPassesVisible = (state: RootState) =>
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassOwnerRegistered
+
+export const selectStartIndex = (state: RootState) =>
+  state[ReduxKey.cityPass].startIndex

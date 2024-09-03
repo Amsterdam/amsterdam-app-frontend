@@ -2,12 +2,13 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
-import {BudgetTransactions} from '@/modules/city-pass/components/BudgetTransactions'
-import {CityPassFullScreenError} from '@/modules/city-pass/components/CityPassFullScreenError'
+import {CityPassFullScreenError} from '@/modules/city-pass/components/error/CityPassFullScreenError'
+import {BudgetTransactions} from '@/modules/city-pass/components/transactions/BudgetTransactions'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
 import {SecureItemKey} from '@/utils/secureStorage'
@@ -61,31 +62,33 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
   const {budgetBalanceFormatted, budgetAssignedFormatted, title} = budget ?? {}
 
   return (
-    <Box>
-      <Column gutter="lg">
-        <Column
-          gutter="md"
-          halign="center">
-          <Title
-            testID="CityPassBalanceTitleLabel"
-            text={title}
-            textAlign="center"
-          />
-          <Title
-            testID="CityPassBalanceTitleValue"
-            text={budgetBalanceFormatted}
-          />
-          <Column halign="center">
-            <Paragraph>{`Was in het begin ${budgetAssignedFormatted}.`}</Paragraph>
-            <Paragraph>{`Geldig tot en met ${dateEndFormatted}.`}</Paragraph>
+    <ScrollView>
+      <Box>
+        <Column gutter="lg">
+          <Column
+            gutter="md"
+            halign="center">
+            <Title
+              testID="CityPassBalanceTitleLabel"
+              text={title}
+              textAlign="center"
+            />
+            <Title
+              testID="CityPassBalanceTitleValue"
+              text={budgetBalanceFormatted}
+            />
+            <Column halign="center">
+              <Paragraph>{`Was in het begin ${budgetAssignedFormatted}.`}</Paragraph>
+              <Paragraph>{`Geldig tot en met ${dateEndFormatted}.`}</Paragraph>
+            </Column>
           </Column>
+          <BudgetTransactions
+            budgetCode={budgetCode}
+            dateEnd={dateEnd}
+            passNumber={passNumber}
+          />
         </Column>
-        <BudgetTransactions
-          budgetCode={budgetCode}
-          dateEnd={dateEnd}
-          passNumber={passNumber}
-        />
-      </Column>
-    </Box>
+      </Box>
+    </ScrollView>
   )
 }

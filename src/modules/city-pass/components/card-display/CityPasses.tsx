@@ -6,7 +6,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {useBrightScreen} from '@/hooks/useBrightScreen'
-import {CityPassesSwiper} from '@/modules/city-pass/components/CityPassesSwiper'
+import {CityPassesSwiper} from '@/modules/city-pass/components/card-display/CityPassesSwiper'
 import {DEFAULT_PASS_WIDTH} from '@/modules/city-pass/constants'
 import {
   hideCityPasses,

@@ -10,8 +10,8 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
-import {CityPassCard} from '@/modules/city-pass/components/CityPassCard'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
+import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPassCard'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
@@ -39,7 +39,17 @@ export const PassOwners = ({logout}: Props) => {
   useSetSecureCityPasses(cityPasses)
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDashboardPleaseWait" />
+    return (
+      <Box
+        insetBottom="xl"
+        insetHorizontal="md"
+        insetTop="md">
+        <Column gutter="md">
+          <PleaseWait testID="CityPassDashboardPleaseWait" />
+          <ShowCityPassButton />
+        </Column>
+      </Box>
+    )
   }
 
   if (isError || !cityPasses) {
@@ -60,7 +70,7 @@ export const PassOwners = ({logout}: Props) => {
       insetTop="md">
       {cityPasses.length ? (
         <Column gutter="md">
-          <ShowCityPassButton passCount={cityPasses.length} />
+          <ShowCityPassButton />
           <Gutter height="sm" />
           {cityPasses.map(cityPass => {
             const {id} = cityPass
@@ -71,7 +81,7 @@ export const PassOwners = ({logout}: Props) => {
                 key={id}
                 onPress={() =>
                   navigate(CityPassRouteName.cityPassDetails, {
-                    cityPass,
+                    passNumber: cityPass.passNumber,
                   })
                 }
                 testID={`CityPassOwnerButton-${id}`}

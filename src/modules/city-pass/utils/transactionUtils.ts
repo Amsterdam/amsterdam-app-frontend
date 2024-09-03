@@ -1,4 +1,4 @@
-import {TransactionItemProps} from '@/modules/city-pass/components/TransactionItem'
+import {TransactionItemProps} from '@/modules/city-pass/components/transactions/TransactionItem'
 import {
   Transactions,
   TransactionType,

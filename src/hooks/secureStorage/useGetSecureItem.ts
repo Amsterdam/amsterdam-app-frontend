@@ -19,7 +19,10 @@ export const useGetSecureItem = (key: SecureItemKey) => {
         setItem(secureItem)
         setLoading(false)
       })
-      .catch(() => setLoading(false))
+      .catch(() => {
+        setItem(null)
+        setLoading(false)
+      })
   }, [key, secureItemUpdatedTimestamp])
 
   return {item, isLoading}

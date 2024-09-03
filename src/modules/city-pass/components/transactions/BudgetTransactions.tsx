@@ -5,58 +5,65 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
-import {TransactionHistory} from '@/modules/city-pass/components/TransactionHistory'
+import {TransactionHistory} from '@/modules/city-pass/components/transactions/TransactionHistory'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
-import {useGetDiscountTransactionsQuery} from '@/modules/city-pass/service'
+import {useGetBudgetTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
+  budgetCode: string
   dateEnd: CityPass['dateEnd']
   passNumber: CityPass['passNumber']
 }
 
-export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
+export const BudgetTransactions = ({
+  budgetCode,
+  dateEnd,
+  passNumber,
+}: Props) => {
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
 
-  const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery(
+  const {
+    data: budgetTransactions,
+    isLoading,
+    isError,
+  } = useGetBudgetTransactionsQuery(
     secureAccessToken
-      ? {accessToken: secureAccessToken, passNumber}
+      ? {accessToken: secureAccessToken, passNumber, budgetCode}
       : skipToken,
   )
 
   if (isLoading) {
-    return <PleaseWait testID="CityPassDiscountTransactionsPleaseWait" />
+    return <PleaseWait testID="CityPassBudgetPleaseWait" />
   }
 
-  if (isError || !data) {
+  if (isError || !budgetTransactions) {
     return (
       <SomethingWentWrong
-        retryFn={refetch}
-        testID="CityPassDiscountTransactionsSomethingWentWrong"
+        testID="CityPassBudgetSomethingWentWrong"
         text={SOMETHING_WENT_WRONG_TEXT}
         title=""
       />
     )
   }
 
-  const {discountAmountTotalFormatted, transactions} = data
-
   return (
     <Column gutter="md">
-      <Title text="Mijn acties" />
+      <Title text="Betalingen" />
       <Paragraph>
-        {`In in totaal heb je ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
+        Deze informatie kan 1 dag achterlopen. Het saldo dat je nog over hebt
+        klopt altijd.
       </Paragraph>
       <TransactionHistory
-        transactions={transactions}
-        type={TransactionType.discount}
+        transactions={budgetTransactions}
+        type={TransactionType.budget}
       />
       <Paragraph textAlign="center">
-        Dit waren jouw acties vanaf {getPreviousYear(dateEnd)}
+        Dit zijn alle betalingen vanaf {getPreviousYear(dateEnd)}
       </Paragraph>
     </Column>
   )
