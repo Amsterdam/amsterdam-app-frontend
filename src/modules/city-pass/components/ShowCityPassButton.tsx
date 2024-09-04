@@ -19,7 +19,7 @@ export const ShowCityPassButton = ({index}: Props) => {
       onPress={() => {
         dispatch(showCityPasses(index))
       }}
-      testID="CityPassLogoutButton"
+      testID="CityPassShowPassesButton"
     />
   ) : null
 }
