@@ -18,7 +18,7 @@ type Props = {
 
 export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
   const {navigate} = useNavigation()
-  const {budgetBalanceFormatted, title} = budget
+  const {budgetBalanceFormatted, title, code} = budget
 
   return (
     <Pressable
@@ -28,7 +28,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
           passNumber,
         })
       }
-      testID="CityPassBalanceButton">
+      testID={`CityPassBudgetBalance${code}Button`}>
       <Border color="cityPass">
         <Column>
           <Box variant="city-pass">
