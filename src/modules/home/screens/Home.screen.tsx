@@ -1,7 +1,7 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Screen} from '@/components/features/screen/Screen'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -37,9 +37,7 @@ export const HomeScreen = () => {
           error={modulesError}
           Image={ModulesFigure}
           onPress={refetchModules}
-          testProps={{
-            testID: 'HomeErrorScreen',
-          }}
+          testID="HomeErrorScreen"
           text="Probeer het later opnieuw."
           title="Helaas kunnen de modules niet geladen worden"
         />

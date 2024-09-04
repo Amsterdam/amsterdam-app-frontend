@@ -1,8 +1,8 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
@@ -72,7 +72,6 @@ export const ProjectNews = ({id, projectId}: Props) => {
 
     return (
       <FullScreenError
-        backgroundVisible={false}
         buttonLabel="Ga terug"
         error={articleError}
         Image={ConstructionWorkDetailFigure}
@@ -82,10 +81,9 @@ export const ProjectNews = ({id, projectId}: Props) => {
             screenHeaderTitle: projectTitle,
           })
         }
-        testProps={{
-          testID: 'ProjectDetailErrorScreen',
-        }}
+        testID="ProjectDetailErrorScreen"
         title="Helaas is het nieuwsartikel niet gevonden"
+        withFacadesBackground={false}
       />
     )
   }

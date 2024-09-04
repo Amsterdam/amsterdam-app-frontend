@@ -2,7 +2,7 @@ import {useFocusEffect} from '@react-navigation/core'
 import {useCallback, useEffect} from 'react'
 import {Platform, Linking} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {NoInternetFigure} from '@/components/ui/media/errors/NoInternetFigure'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -40,9 +40,7 @@ export const NoInternetErrorFullScreen = () => {
             void Linking.sendIntent('android.settings.SETTINGS')
           }
         }}
-        testProps={{
-          testID: 'HomeErrorScreen',
-        }}
+        testID="HomeErrorScreen"
         text="Controleer de internetverbinding in uw instellingen."
         title="Geen internetverbinding"
       />
