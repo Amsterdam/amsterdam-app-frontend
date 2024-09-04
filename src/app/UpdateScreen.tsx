@@ -37,7 +37,7 @@ export const UpdateScreen = ({children}: Props) => {
     isSupported,
   )
 
-  if (isSupported !== false) {
+  if (isSupported === false) {
     return (
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.updateScreen}
