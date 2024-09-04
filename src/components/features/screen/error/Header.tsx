@@ -16,8 +16,11 @@ export const Header = ({
   <Box
     distinct={!isPortrait}
     grow={!isPortrait}
-    inset="md">
+    insetHorizontal="md"
+    insetVertical="lg">
     <Column
+      align="center"
+      grow={1}
       gutter="md"
       halign="center">
       {!!TopComponent && TopComponent}

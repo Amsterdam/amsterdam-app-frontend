@@ -37,7 +37,7 @@ export const UpdateScreen = ({children}: Props) => {
     isSupported,
   )
 
-  if (isSupported === false) {
+  if (isSupported !== false) {
     return (
       <ScreenOutsideNavigation
         name={ScreenOutsideNavigationName.updateScreen}
@@ -54,6 +54,7 @@ export const UpdateScreen = ({children}: Props) => {
           testID="UpdateScreenOpenStoreButton"
           text="Om de app te kunnen gebruiken moet u eerst updaten."
           title="De versie van de app is verouderd en werkt niet meer."
+          withTopInset
         />
       </ScreenOutsideNavigation>
     )

@@ -2,6 +2,7 @@ import {SerializedError} from '@reduxjs/toolkit'
 import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {ComponentType, ReactNode} from 'react'
 import {SvgProps} from 'react-native-svg'
+import {ScreenProps} from '@/components/features/screen/Screen'
 
 export type ErrorType = FetchBaseQueryError | SerializedError | undefined
 
@@ -12,12 +13,10 @@ export type FullScreenErrorProps = {
   buttonLabel: string
   error?: ErrorType
   onPress: () => void
-  testID: string
   text?: string
   title: string
-  withBottomInset?: boolean
   withFacadesBackground?: boolean
-}
+} & Omit<ScreenProps, 'children'>
 
 export type SharedProps = {
   TopComponent: FullScreenErrorProps['TopComponent']

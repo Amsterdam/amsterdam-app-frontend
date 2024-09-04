@@ -17,7 +17,7 @@ export const FullScreenError = ({
   title,
   TopComponent,
   withFacadesBackground = true,
-  withBottomInset,
+  ...screenProps
 }: FullScreenErrorProps) => {
   const {isPortrait} = useDeviceContext()
 
@@ -35,22 +35,18 @@ export const FullScreenError = ({
       }
       stickyHeader={
         !!isPortrait && (
-          <Box
-            insetHorizontal="md"
-            insetVertical="lg">
-            <Header
-              error={error}
-              isPortrait={isPortrait}
-              testID={testID}
-              text={text}
-              title={title}
-              TopComponent={TopComponent}
-            />
-          </Box>
+          <Header
+            error={error}
+            isPortrait={isPortrait}
+            testID={testID}
+            text={text}
+            title={title}
+            TopComponent={TopComponent}
+          />
         )
       }
       testID={testID}
-      withBottomInset={withBottomInset}>
+      {...screenProps}>
       <Content
         error={error}
         Image={Image}
