@@ -1,6 +1,6 @@
 import {type ReactNode, useEffect} from 'react'
 import {ScreenOutsideNavigation} from '@/components/features/screen/ScreenOutsideNavigation'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {UpdateFigure} from '@/components/ui/media/errors/UpdateFigure'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useHideSplashScreen} from '@/hooks/useHideSplashScreen'
@@ -51,11 +51,10 @@ export const UpdateScreen = ({children}: Props) => {
           buttonLabel="Update de app"
           Image={UpdateFigure}
           onPress={openStore}
-          testProps={{
-            testID: 'UpdateScreenOpenStoreButton',
-          }}
+          testID="UpdateScreenOpenStoreButton"
           text="Om de app te kunnen gebruiken moet u eerst updaten."
           title="De versie van de app is verouderd en werkt niet meer."
+          withTopInset
         />
       </ScreenOutsideNavigation>
     )

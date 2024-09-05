@@ -1,10 +1,10 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
@@ -52,17 +52,16 @@ export const Project = ({id}: Props) => {
 
     return (
       <FullScreenError
-        backgroundVisible={false}
         buttonLabel="Ga terug"
         error={projectError}
         Image={ConstructionWorkDetailFigure}
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.constructionWork)
         }
-        testProps={{
-          testID: 'ProjectDetailErrorScreen',
-        }}
+        testID="ProjectDetailErrorScreen"
+        text="Ga terug naar het overzicht"
         title="Geen project gevonden"
+        withFacadesBackground={false}
       />
     )
   }

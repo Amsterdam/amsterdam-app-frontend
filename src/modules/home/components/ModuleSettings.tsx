@@ -1,11 +1,11 @@
 import {pascalCase} from 'pascal-case'
 import {getVersion} from 'react-native-device-info'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -39,9 +39,7 @@ export const ModuleSettings = () => {
         error={modulesError}
         Image={ModulesFigure}
         onPress={refetchModules}
-        testProps={{
-          testID: 'ModuleSettingsErrorScreen',
-        }}
+        testID="ModuleSettingsErrorScreen"
         text="Probeer het later opnieuw."
         title="Helaas kunnen de modules niet geladen worden"
       />

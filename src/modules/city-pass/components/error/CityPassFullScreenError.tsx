@@ -1,8 +1,6 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
-import {
-  ErrorType,
-  FullScreenError,
-} from '@/components/ui/layout/FullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
+import {ErrorType} from '@/components/features/screen/error/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {FullScreenErrorFigure} from '@/modules/city-pass/components/error/FullScreenErrorFigure'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
@@ -25,9 +23,7 @@ export const CityPassFullScreenError = ({error, retryFn}: Props) => {
       error={error}
       Image={FullScreenErrorFigure}
       onPress={retryFn}
-      testProps={{
-        testID: 'CityPassBudgetErrorScreen',
-      }}
+      testID="CityPassBudgetErrorScreen"
       title="Helaas kunnen de Stadspas gegevens niet geladen worden"
     />
   )

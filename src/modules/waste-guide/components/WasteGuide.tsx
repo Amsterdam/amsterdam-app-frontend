@@ -1,10 +1,10 @@
 import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
+import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {FullScreenError} from '@/components/ui/layout/FullScreenError'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {Title} from '@/components/ui/text/Title'
@@ -86,13 +86,11 @@ export const WasteGuide = () => {
         error={error}
         Image={WasteGuideFigure}
         onPress={() => navigation.goBack()}
-        testProps={{
-          testID: 'WasteGuideErrorScreen',
-        }}
+        testID="WasteGuideErrorScreen"
         text="Probeer het later nog een keer."
-        title="Helaas is de afvalwijzer nu niet beschikbaar">
-        <ShareLocationTopTaskButton testID="WasteGuide" />
-      </FullScreenError>
+        title="Helaas is de afvalwijzer nu niet beschikbaar"
+        TopComponent={<ShareLocationTopTaskButton testID="WasteGuide" />}
+      />
     )
   }
 
