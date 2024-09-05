@@ -1,7 +1,11 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import {StyleSheet, View} from 'react-native'
-import {HeaderContentOptions} from '@/app/navigation/types'
+import {
+  HeaderContentOptions,
+  NavigationProp,
+  RootStackParams,
+} from '@/app/navigation/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -11,9 +15,12 @@ import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityA
 
 type Props = Pick<
   StackHeaderProps & {options: HeaderContentOptions},
-  'navigation' | 'options' | 'route'
+  'options' | 'route'
 > & {
   back?: {onPress?: () => void} & Partial<StackHeaderProps['back']>
+  navigation:
+    | StackHeaderProps['navigation']
+    | NavigationProp<keyof RootStackParams>
 }
 
 const chevronSize = 'ml'

@@ -2,7 +2,11 @@ import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types
 import {useMemo} from 'react'
 import {StyleSheet, ViewStyle} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {HeaderContentOptions} from '@/app/navigation/types'
+import {
+  HeaderContentOptions,
+  NavigationProp,
+  RootStackParams,
+} from '@/app/navigation/types'
 import {HideFromAccessibilityWhenInBackground} from '@/components/features/accessibility/HideFromAccessibilityWhenInBackground'
 import {Box} from '@/components/ui/containers/Box'
 import {HeaderContent} from '@/modules/home/components/HeaderContent'
@@ -13,15 +17,18 @@ type BackgroundColorProp = {
   backgroundColor?: ViewStyle['backgroundColor']
 }
 
-type Props = BackgroundColorProp &
+export type HeaderProps = BackgroundColorProp &
   Pick<
     StackHeaderProps & {options: HeaderContentOptions},
-    'navigation' | 'options' | 'route'
+    'options' | 'route'
   > & {
     back?: {onPress?: () => void} & Partial<StackHeaderProps['back']>
+    navigation:
+      | StackHeaderProps['navigation']
+      | NavigationProp<keyof RootStackParams>
   }
 
-export const Header = ({backgroundColor, ...rest}: Props) => {
+export const Header = ({backgroundColor, ...rest}: HeaderProps) => {
   const {route} = rest
   const isHome = (route.name as HomeRouteName) === HomeRouteName.home
 

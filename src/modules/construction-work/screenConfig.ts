@@ -20,6 +20,7 @@ export const screenConfig: StackNavigationRoutes<
     name: ConstructionWorkRouteName.constructionWork,
     options: {
       headerTitle: 'Werkzaamheden',
+      header: () => null,
     },
   },
   [ConstructionWorkRouteName.search]: {

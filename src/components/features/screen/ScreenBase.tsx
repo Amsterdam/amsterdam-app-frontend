@@ -8,12 +8,16 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useRoute} from '@/hooks/navigation/useRoute'
+import {Header} from '@/modules/home/components/Header'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 export const ScreenBase = ({
   bottomSheet,
   children,
   hasStickyAlert,
+  defaultHeader,
   stickyFooter,
   stickyHeader,
   withBottomInset = true,
@@ -27,7 +31,7 @@ export const ScreenBase = ({
   const insets = useSafeAreaInsets()
 
   const hasStickyFooter = !!stickyFooter
-  const hasStickyHeader = !!stickyHeader
+  const hasStickyHeader = !!stickyHeader || !!defaultHeader
 
   const styles = useMemo(
     () =>
@@ -49,12 +53,22 @@ export const ScreenBase = ({
       withTopInset,
     ],
   )
+  const navigation = useNavigation()
+  const route = useRoute()
 
   return (
     <DisableScrollProvider>
       <HideFromAccessibilityWhenOverlayIsOpen
         style={styles.screen}
         testID={testID}>
+        {!!defaultHeader && (
+          <Header
+            back={{}}
+            navigation={navigation}
+            options={{headerTitle: defaultHeader.headerTitle}}
+            route={route}
+          />
+        )}
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
         <HideFromAccessibilityWhenBottomSheetIsOpen

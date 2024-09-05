@@ -11,6 +11,10 @@ export const ContactScreen = () => (
         <SelectCityOffice />
       </BottomSheet>
     }
+    defaultHeader={{
+      headerTitle: 'Contact',
+      back: {},
+    }}
     testID="ContactScreen">
     <ContactOptions />
     <CityOffice />
