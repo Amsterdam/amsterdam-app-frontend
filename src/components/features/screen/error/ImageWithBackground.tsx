@@ -7,7 +7,7 @@ import {FullScreenErrorProps} from '@/components/features/screen/error/types'
 import {Box} from '@/components/ui/containers/Box'
 import {HideOnSmallSize} from '@/components/ui/layout/HideOnSmallSize'
 
-const MIN_IMAGE_HEIGHT = 100
+const MIN_IMAGE_HEIGHT = 200
 
 type ImageWithBackgroundProps = {
   Image: ComponentType<SvgProps>

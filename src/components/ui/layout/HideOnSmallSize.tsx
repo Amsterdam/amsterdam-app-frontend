@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useMemo, useState} from 'react'
 import {LayoutRectangle, StyleSheet, View, ViewProps} from 'react-native'
 
 type Props = ViewProps & {
@@ -12,17 +12,17 @@ export const HideOnSmallSize = ({
   minWidth,
   ...viewProps
 }: Props) => {
-  const [isVisible, setIsVisible] = useState<boolean>(true)
   const [layout, setLayout] = useState<LayoutRectangle>()
-  const styles = createStyles(isVisible)
-
-  useEffect(() => {
+  const isVisible = useMemo(() => {
     if (layout) {
-      setIsVisible(
-        layout.height >= (minHeight ?? 0) && layout.width >= (minWidth ?? 0),
+      return (
+        layout.height >= (minHeight ?? 0) && layout.width >= (minWidth ?? 0)
       )
     }
+
+    return true
   }, [layout, minHeight, minWidth])
+  const styles = createStyles(isVisible)
 
   return (
     <View
