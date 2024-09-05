@@ -1,6 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {HeaderLogo} from '@/modules/home/components/HeaderLogo'
-import {HeaderNavigation} from '@/modules/home/components/HeaderNavigation'
+import {HeaderForHome} from '@/modules/home/components/HeaderForHome'
 import {
   HomeModalName,
   HomeModalParams,
@@ -27,8 +26,7 @@ export const screenConfig: StackNavigationRoutes<
     component: HomeScreen,
     name: HomeRouteName.home,
     options: {
-      headerLeft: () => <HeaderLogo />,
-      headerRight: () => <HeaderNavigation />,
+      header: () => <HeaderForHome />,
       headerTitle: '',
     },
   },

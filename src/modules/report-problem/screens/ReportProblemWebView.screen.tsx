@@ -1,5 +1,3 @@
-import {ParamListBase} from '@react-navigation/core'
-import {StackNavigationProp} from '@react-navigation/stack'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform, BackHandler, Alert} from 'react-native'
 import {WebViewMessageEvent, WebViewNavigation} from 'react-native-webview'
@@ -8,7 +6,6 @@ import {Screen} from '@/components/features/screen/Screen'
 import {WebView, type WebViewRef} from '@/components/ui/containers/WebView'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
-import {Header} from '@/modules/home/components/Header'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {screenOptions} from '@/modules/report-problem/screenOptions'
@@ -28,7 +25,7 @@ const injectedJavaScript = `
 
 const signalsCloseMessage = 'signals/close'
 
-export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
+export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   const reportProblemUrl = useUrlForEnv(reportProblemExternalLinks)
 
   const [hasFinishedAtLeastOnce, setHasFinishedAtLeastOnce] = useState(false)
@@ -143,21 +140,11 @@ export const ReportProblemWebViewScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen
+      defaultHeader={{
+        back: {onPress: onHeaderBackPress},
+        ...screenOptions,
+      }}
       scroll={false}
-      stickyHeader={
-        <Header
-          back={{onPress: onHeaderBackPress}}
-          navigation={
-            navigation as unknown as StackNavigationProp<
-              ParamListBase,
-              string,
-              undefined
-            >
-          }
-          options={screenOptions}
-          route={route}
-        />
-      }
       testID="ReportProblemWebViewScreen">
       <WebView
         allowsBackForwardNavigationGestures
