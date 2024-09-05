@@ -1,6 +1,6 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {Content} from '@/components/features/screen/error/Content'
-import {Header} from '@/components/features/screen/error/Header'
+import {FullScreenErrorContent} from '@/components/features/screen/error/Content'
+import {FullScreenErrorHeader} from '@/components/features/screen/error/Header'
 import {FullScreenErrorProps} from '@/components/features/screen/error/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -35,7 +35,7 @@ export const FullScreenError = ({
       }
       stickyHeader={
         !!isPortrait && (
-          <Header
+          <FullScreenErrorHeader
             error={error}
             isPortrait={isPortrait}
             testID={testID}
@@ -47,7 +47,7 @@ export const FullScreenError = ({
       }
       testID={testID}
       {...screenProps}>
-      <Content
+      <FullScreenErrorContent
         error={error}
         Image={Image}
         isPortrait={isPortrait}

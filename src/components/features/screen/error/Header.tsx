@@ -5,7 +5,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {getErrorCode} from '@/utils/getErrorCode'
 
-export const Header = ({
+export const FullScreenErrorHeader = ({
   error,
   isPortrait,
   testID,

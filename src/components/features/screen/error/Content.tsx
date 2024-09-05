@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {Header} from '@/components/features/screen/error/Header'
+import {FullScreenErrorHeader} from '@/components/features/screen/error/Header'
 import {ImageWithBackground} from '@/components/features/screen/error/ImageWithBackground'
 import {createStyles} from '@/components/features/screen/error/styles'
 import {
@@ -15,7 +15,7 @@ export type ContentProps = SharedProps & {
   withFacadesBackground: FullScreenErrorProps['withFacadesBackground']
 }
 
-export const Content = ({
+export const FullScreenErrorContent = ({
   error,
   text,
   Image,
@@ -49,7 +49,7 @@ export const Content = ({
   ) : (
     <Row flex={1}>
       <Column flex={1}>
-        <Header
+        <FullScreenErrorHeader
           error={error}
           isPortrait={isPortrait}
           testID={testID}
