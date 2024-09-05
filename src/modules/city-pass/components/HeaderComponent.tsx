@@ -8,8 +8,6 @@ import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {showCityPasses} from '@/modules/city-pass/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-const ONBOARDING_TIP = 'Druk op de knop om je Stadspas te laten zien'
-
 export const HeaderComponent = () => {
   const dispatch = useDispatch()
   const {item: secureCityPasses, isLoading} = useGetSecureItem(
@@ -25,7 +23,6 @@ export const HeaderComponent = () => {
       extraSpace="md"
       placement={Placement.below}
       testID="ConstructionWorkProjectFollowButtonTooltip"
-      text={ONBOARDING_TIP}
       tipSlug={Tip.cityPassShowPassesButton}>
       <IconButton
         accessibilityLabel="Toon Stadspas"

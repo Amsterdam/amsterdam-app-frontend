@@ -4,7 +4,7 @@ import {
   selectSeenTips,
   addSeenTip,
 } from '@/components/features/product-tour/slice'
-import {Tip} from '@/components/features/product-tour/types'
+import {Tip, TipText} from '@/components/features/product-tour/types'
 import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
 import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
@@ -19,7 +19,6 @@ type Props = {
   children: ReactNode
   extraSpace?: keyof SpacingTokens
   placement: Placement
-  text: string
   tipSlug: Tip
 } & TestProps
 
@@ -27,7 +26,6 @@ export const ProductTourTipWrapper = ({
   children,
   extraSpace,
   tipSlug,
-  text,
   placement,
   testID,
 }: Props) => {
@@ -54,7 +52,7 @@ export const ProductTourTipWrapper = ({
     <View>
       {!hasSeenTip && !isScreenReaderEnabled && (
         <Tooltip
-          accessibilityLabel={text}
+          accessibilityLabel={TipText[tipSlug]}
           extraSpace={extraSpace}
           fadeIn
           onPress={handleHasSeenTip}
@@ -63,7 +61,7 @@ export const ProductTourTipWrapper = ({
           ref={setElementRef}
           startFadeIn={isElementVisible ?? hasNoScrollViewParent}
           testID={testID}
-          text={text}
+          text={TipText[tipSlug]}
         />
       )}
       <View

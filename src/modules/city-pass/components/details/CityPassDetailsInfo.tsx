@@ -13,9 +13,6 @@ import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {CityPass} from '@/modules/city-pass/types'
 import {zTokens} from '@/themes/tokens/z'
 
-const ONBOARDING_TIP =
-  'Je hebt de beveiligingscode nodig om betalingen te doen met hoge bedragen'
-
 type Props = {
   cityPass: CityPass
 }
@@ -34,7 +31,6 @@ export const CityPassDetailsInfo = ({cityPass}: Props) => {
           extraSpace="md"
           placement={Placement.below}
           testID="CityPassDetailsSecurityCodeTooltip"
-          text={ONBOARDING_TIP}
           tipSlug={Tip.cityPassSecurityCode}>
           <Row
             align="between"
