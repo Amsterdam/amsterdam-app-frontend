@@ -1,14 +1,12 @@
 import {useMemo} from 'react'
 import {FullScreenErrorHeader} from '@/components/features/screen/error/Header'
 import {ImageWithBackground} from '@/components/features/screen/error/ImageWithBackground'
-import {createStyles} from '@/components/features/screen/error/styles'
 import {
   SharedProps,
   FullScreenErrorProps,
 } from '@/components/features/screen/error/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {useThemable} from '@/themes/useThemable'
 
 export type ContentProps = SharedProps & {
   Image: FullScreenErrorProps['Image']
@@ -25,23 +23,16 @@ export const FullScreenErrorContent = ({
   TopComponent,
   withFacadesBackground,
 }: ContentProps) => {
-  const styles = useThemable(
-    createStyles({
-      isPortrait,
-    }),
-  )
-
   const ImageComponent = useMemo(
     () => (
       <ImageWithBackground
         Image={Image}
         isPortrait={isPortrait}
-        styles={styles}
         testID={testID}
         withFacadesBackground={withFacadesBackground}
       />
     ),
-    [Image, isPortrait, styles, testID, withFacadesBackground],
+    [Image, isPortrait, testID, withFacadesBackground],
   )
 
   return isPortrait ? (
