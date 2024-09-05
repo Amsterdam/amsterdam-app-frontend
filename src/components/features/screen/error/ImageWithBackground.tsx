@@ -1,11 +1,11 @@
 import {ComponentType} from 'react'
-import {View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {SvgProps} from 'react-native-svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
-import {createStyles} from '@/components/features/screen/error/styles'
 import {FullScreenErrorProps} from '@/components/features/screen/error/types'
 import {Box} from '@/components/ui/containers/Box'
 import {HideOnSmallSize} from '@/components/ui/layout/HideOnSmallSize'
+import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 const MIN_IMAGE_HEIGHT = 200
@@ -66,3 +66,27 @@ export const ImageWithBackground = ({
     </>
   )
 }
+
+const createStyles =
+  ({isPortrait}: {isPortrait: boolean}) =>
+  ({media}: Theme) =>
+    StyleSheet.create({
+      figureBackground: {
+        position: 'absolute',
+        bottom: '20%',
+        width: '100%',
+        alignContent: 'flex-start',
+        overflow: 'hidden',
+      },
+      figureForeground: {
+        position: 'absolute',
+        bottom: isPortrait ? 0 : undefined,
+        height: '100%',
+        width: '100%',
+      },
+      facade: {
+        aspectRatio: media.illustrationAspectRatio.facades,
+        height: media.figureHeight.lg * (3 / 4),
+        alignSelf: 'center',
+      },
+    })
