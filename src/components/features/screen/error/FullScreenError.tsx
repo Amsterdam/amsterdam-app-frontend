@@ -38,7 +38,7 @@ export const FullScreenError = ({
           <FullScreenErrorHeader
             error={error}
             isPortrait={isPortrait}
-            testID={testID}
+            testID={testID + 'Header'}
             text={text}
             title={title}
             TopComponent={TopComponent}
@@ -51,7 +51,7 @@ export const FullScreenError = ({
         error={error}
         Image={Image}
         isPortrait={isPortrait}
-        testID={testID}
+        testID={testID + 'Content'}
         text={text}
         title={title}
         TopComponent={TopComponent}
