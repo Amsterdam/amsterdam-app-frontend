@@ -1,42 +1,48 @@
+import {useMemo} from 'react'
 import {StyleSheet} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
-import {Center} from '@/components/ui/layout/Center'
+import {PointerDimension} from '@/components/ui/feedback/tooltip/types'
 import {Direction} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   direction: Direction
+  height?: number
+  width?: number
 }
 
-const path: Record<Direction, string> = {
-  [Direction.up]: 'M 16 0 L 32 16 L 0 16 L 16 0',
-  [Direction.down]: 'M 16 16 L 0 0 L 32 0 L 16 16',
-  [Direction.left]: 'M 0 16 L 16 0 L 16 32 L 0 16',
-  [Direction.right]: 'M 16 16 L 0 0 L 0 32 L 16 16',
-}
-
-export const Triangle = ({direction}: Props) => {
+export const Triangle = ({
+  direction,
+  height = PointerDimension.height,
+  width = PointerDimension.width,
+}: Props) => {
   const iconProps = useThemable(createIconProps)
-  const [width, height, viewBox] = [Direction.up, Direction.down].includes(
-    direction,
+  const viewBox = [Direction.up, Direction.down].includes(direction)
+    ? `0 0 ${width} ${height}`
+    : `0 0 ${height} ${width}`
+
+  const path: Record<Direction, string> = useMemo(
+    () => ({
+      [Direction.up]: `M ${width / 2} 0 L ${width} ${height} L 0 ${height} L ${width / 2} 0`,
+      [Direction.down]: `M ${width / 2} ${height} L 0 0 L ${width} 0 L ${width / 2} ${height}`,
+      [Direction.left]: `M 0 ${width / 2} L ${height} 0 L ${height} ${width} L 0 ${width / 2}`,
+      [Direction.right]: `M ${height} ${width / 2} L 0 0 L 0 ${width} L ${height} ${width / 2}`,
+    }),
+    [height, width],
   )
-    ? [32, 16, '0 0 32 16']
-    : [16, 32, '0 0 16 32']
 
   return (
-    <Center>
-      <Svg
-        height={height}
-        style={styles.svg}
-        viewBox={viewBox}
-        width={width}>
-        <Path
-          d={path[direction]}
-          {...iconProps}
-        />
-      </Svg>
-    </Center>
+    <Svg
+      height={height}
+      style={styles.svg}
+      viewBox={viewBox}
+      width={width}>
+      <Path
+        d={path[direction]}
+        {...iconProps}
+      />
+    </Svg>
   )
 }
 

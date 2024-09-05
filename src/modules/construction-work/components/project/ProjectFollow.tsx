@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import simplur from 'simplur'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
-import {Tip} from '@/components/features/product-tour/types'
+import {Tip, TipText} from '@/components/features/product-tour/types'
 import {FollowButton} from '@/components/ui/buttons/FollowButton'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -19,9 +19,6 @@ import {PiwikDimension} from '@/processes/piwik/types'
 import {zTokens} from '@/themes/tokens/z'
 import {Permissions} from '@/types/permissions'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
-
-const ONBOARDING_TIP =
-  'Volg een project en blijf op de hoogte van onze werkzaamheden'
 
 type Props = {
   followers: number
@@ -95,10 +92,9 @@ export const ProjectFollow = ({
           extraSpace="md"
           placement={Placement.below}
           testID="ConstructionWorkProjectFollowButtonTooltip"
-          text={ONBOARDING_TIP}
           tipSlug={Tip.constructionWorkProjectFollowButton}>
           <FollowButton
-            accessibilityHint={ONBOARDING_TIP}
+            accessibilityHint={TipText.constructionWorkProjectFollowButton}
             accessibilityLabel={
               isProjectFollowed ? 'Ontvolg dit project' : 'Volg dit project'
             }

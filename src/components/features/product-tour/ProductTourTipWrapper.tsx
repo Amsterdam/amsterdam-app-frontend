@@ -1,10 +1,11 @@
-import {ReactNode, useCallback, useContext, useState} from 'react'
-import {LayoutRectangle, View} from 'react-native'
+import {ReactNode, useCallback, useContext, useRef} from 'react'
+import {View} from 'react-native'
 import {
   selectSeenTips,
   addSeenTip,
 } from '@/components/features/product-tour/slice'
-import {Tip} from '@/components/features/product-tour/types'
+import {Tip, TipText} from '@/components/features/product-tour/types'
+import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
 import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
@@ -18,7 +19,6 @@ type Props = {
   children: ReactNode
   extraSpace?: keyof SpacingTokens
   placement: Placement
-  text: string
   tipSlug: Tip
 } & TestProps
 
@@ -26,7 +26,6 @@ export const ProductTourTipWrapper = ({
   children,
   extraSpace,
   tipSlug,
-  text,
   placement,
   testID,
 }: Props) => {
@@ -37,8 +36,9 @@ export const ProductTourTipWrapper = ({
   const scrollContext = useContext(ScrollContext)
   const hasNoScrollViewParent = scrollContext === null
   const {setElementRef, isElementVisible} = scrollContext ?? {}
-  const [productTourTipTargetLayout, setTipComponentLayout] =
-    useState<LayoutRectangle>()
+  const tipTargetRef = useRef<View | null>(null)
+  const {layout: productTourTipTargetLayout, measureTarget} =
+    useMeasureTarget(tipTargetRef)
 
   const handleHasSeenTip = useCallback(() => {
     if ((hasNoScrollViewParent || isElementVisible) && !hasSeenTip) {
@@ -49,10 +49,10 @@ export const ProductTourTipWrapper = ({
   useBlurEffect(handleHasSeenTip)
 
   return (
-    <>
+    <View>
       {!hasSeenTip && !isScreenReaderEnabled && (
         <Tooltip
-          accessibilityLabel={text}
+          accessibilityLabel={TipText[tipSlug]}
           extraSpace={extraSpace}
           fadeIn
           onPress={handleHasSeenTip}
@@ -61,14 +61,15 @@ export const ProductTourTipWrapper = ({
           ref={setElementRef}
           startFadeIn={isElementVisible ?? hasNoScrollViewParent}
           testID={testID}
-          text={text}
+          text={TipText[tipSlug]}
         />
       )}
       <View
         collapsable={false}
-        onLayout={e => setTipComponentLayout(e.nativeEvent.layout)}>
+        onLayout={measureTarget}
+        ref={tipTargetRef}>
         {children}
       </View>
-    </>
+    </View>
   )
 }
