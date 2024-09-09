@@ -65,7 +65,7 @@ export const Icon = ({
         <Svg
           fillRule="evenodd"
           height={scaledSize}
-          viewBox={icon.viewBox ? icon.viewBox : DEFAULT_VIEW_BOX}
+          viewBox={'viewBox' in icon ? icon.viewBox : DEFAULT_VIEW_BOX}
           width={scaledSize}>
           <Path
             d={icon.path}

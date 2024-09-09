@@ -5,61 +5,7 @@ type SvgIconConfig = {
   viewBox?: string
 }
 
-export type SvgIconName =
-  | 'alarm'
-  | 'alert'
-  | 'circle-check-mark'
-  | 'announcement'
-  | 'api'
-  | 'car'
-  | 'card'
-  | 'chatting'
-  | 'check-mark'
-  | 'chevron-down'
-  | 'chevron-left'
-  | 'chevron-right'
-  | 'chevron-up'
-  | 'child'
-  | 'circle'
-  | 'city-office'
-  | 'city-pass'
-  | 'city-pass-pass'
-  | 'clock'
-  | 'close'
-  | 'collaborate'
-  | 'construction-work'
-  | 'copy'
-  | 'document-text'
-  | 'edit'
-  | 'email'
-  | 'enlarge'
-  | 'error'
-  | 'external-link'
-  | 'eye'
-  | 'facade'
-  | 'housing'
-  | 'park-sign'
-  | 'info'
-  | 'list'
-  | 'location'
-  | 'login'
-  | 'organic-waste-container'
-  | 'person'
-  | 'person-desk'
-  | 'phone'
-  | 'pointer'
-  | 'question-mark-solid'
-  | 'question-mark-circle'
-  | 'search'
-  | 'settings'
-  | 'spinner'
-  | 'trash-bin'
-  | 'two-persons'
-  | 'vote'
-  | 'whatsapp'
-  | 'wifi-disconnect'
-
-export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
+export const SvgIconsConfig = {
   alarm: {
     path: 'M22.5 52.5H0L0 45H1.875C6.01714 45 9.375 41.6421 9.375 37.5V18.75C9.375 10.4657 16.0907 3.75 24.375 3.75H26.25C26.25 1.67893 27.9289 0 30 0C32.0711 0 33.75 1.67893 33.75 3.75H35.625C43.9093 3.75 50.625 10.4657 50.625 18.75V37.5C50.625 41.6421 53.9829 45 58.125 45H60V52.5H37.5C37.5 56.6421 34.1421 60 30 60C25.8579 60 22.5 56.6421 22.5 52.5ZM26.25 52.5C26.25 54.5711 27.9289 56.25 30 56.25C32.0711 56.25 33.75 54.5711 33.75 52.5H26.25ZM16.875 18.75V37.5C16.875 40.2322 16.1445 42.7937 14.8683 45H45.1317C43.8555 42.7937 43.125 40.2322 43.125 37.5V18.75C43.125 14.6079 39.7671 11.25 35.625 11.25H24.375C20.2329 11.25 16.875 14.6079 16.875 18.75Z',
     viewBox: '0 0 60 60',
@@ -220,4 +166,6 @@ export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   'wifi-disconnect': {
     path: 'M6.5 7.41421L23.5 24.4142L24.9142 23L22.4426 20.5284L23.7 19.3144C22.2375 17.6153 20.2337 16.5013 18.0541 16.1399L14.5768 12.6626C15.2092 12.5673 15.8518 12.5185 16.5 12.5185C20.2155 12.5185 23.7506 14.1206 26.2 16.9144L29 14.1144C25.8 10.5939 21.2575 8.59512 16.5 8.6144C14.7252 8.60721 12.9803 8.88087 11.3238 9.40962L7.91421 6L6.5 7.41421ZM10.3501 14.0788L7.47339 11.2021C6.20136 12.0038 5.031 12.9801 4 14.1144L6.8 16.9144C7.81762 15.7537 9.02263 14.7987 10.3501 14.0788ZM16.318 20.0467L12.9654 16.694C11.5669 17.2546 10.3055 18.1462 9.3 19.3144L12.2 22.1144C13.2057 20.8534 14.712 20.0998 16.318 20.0467ZM16.5 22.9144C15.607 22.9033 14.7882 23.4101 14.4 24.2144L16.5 26.2144L18.6 24.2144C18.2118 23.4101 17.393 22.9033 16.5 22.9144Z',
   },
-} as const
+} satisfies Record<string, SvgIconConfig>
+
+export type SvgIconName = keyof typeof SvgIconsConfig
