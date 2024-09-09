@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {useNavigateToHomeIfModuleInactive} from '@/hooks/useNavigateToHomeIfModuleInactive'
+import {alerts} from '@/modules/construction-work-editor/alerts'
 import {AuthorizedProjects} from '@/modules/construction-work-editor/components/AuthorizedProjects'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
@@ -19,12 +19,7 @@ export const AuthorizedProjectsScreen = ({navigation, route}: Props) => {
 
   useEffect(() => {
     if (route.params?.showSuccessfullySentMessageAlert) {
-      setAlert({
-        title: 'Gelukt',
-        text: 'Uw bericht is geplaatst.',
-        testID: 'ConstructionWorkEditorSendMessageSuccessAlert',
-        variant: AlertVariant.positive,
-      })
+      setAlert(alerts.postMessageSuccess)
       navigation.setParams({showSuccessfullySentMessageAlert: false})
     }
   }, [navigation, route.params?.showSuccessfullySentMessageAlert, setAlert])

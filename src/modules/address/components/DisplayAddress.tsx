@@ -2,12 +2,12 @@ import {ReactNode} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {alerts} from '@/modules/address/alerts'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, selectAddress} from '@/modules/address/slice'
 import {useAlert} from '@/store/slices/alert'
@@ -56,12 +56,7 @@ export const DisplayAddress = () => {
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
-    setAlert({
-      title: 'Gelukt',
-      text: 'Het adres is verwijderd uit uw profiel.',
-      testID: 'AddressDeletedAlert',
-      variant: AlertVariant.positive,
-    })
+    setAlert(alerts.deleteAddressSuccess)
   }
 
   return (

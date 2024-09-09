@@ -2,10 +2,10 @@ import {useCallback} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {alerts} from '@/modules/city-pass/alerts'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {useLogout} from '@/modules/city-pass/hooks/useLogout'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
@@ -19,26 +19,11 @@ export const LogoutScreen = ({navigation}: Props) => {
   const onLogout = useCallback(() => {
     logout()
       .then(() => {
-        setAlert({
-          variant: AlertVariant.positive,
-          text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
-          title: 'Uitgelogd',
-          hasIcon: true,
-          hasCloseIcon: true,
-          testID: 'CityPassLoggedOutAlert',
-        })
         // navigate back, so the user does not open the logout screen directly when he logs in again
         navigation.goBack()
       })
       .catch(() => {
-        setAlert({
-          variant: AlertVariant.negative,
-          text: 'Er is iets misgegaan. Probeer het opnieuw.',
-          title: 'Uitloggen mislukt',
-          hasIcon: true,
-          hasCloseIcon: true,
-          testID: 'CityPassLogoutFailedAlert',
-        })
+        setAlert(alerts.logoutFailed)
       })
   }, [logout, navigation, setAlert])
 

@@ -16,3 +16,8 @@ export type AlertProps = {
   title?: string
   variant?: AlertVariant
 } & TestProps
+
+export type AlertsRecord = Record<
+  `${string}${'Warning' | 'Success' | 'Failed' | 'Info'}`,
+  AlertProps
+>

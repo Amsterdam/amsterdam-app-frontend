@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {TextInput} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {alerts} from '@/modules/address/alerts'
 import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
 import {config} from '@/modules/address/config'
@@ -69,12 +69,7 @@ export const AddressForm = () => {
         dispatch(addAddress(transformAddressApiResponse(item)))
 
         if (previousRoute?.name === ModuleSlug.user) {
-          setAlert({
-            title: 'Gelukt',
-            text: 'Het adres is toegevoegd aan uw profiel.',
-            testID: 'AddressAddedAlert',
-            variant: AlertVariant.positive,
-          })
+          setAlert(alerts.addAddressSuccess)
         }
 
         navigation.goBack()
