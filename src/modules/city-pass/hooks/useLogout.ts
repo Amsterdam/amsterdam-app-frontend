@@ -16,12 +16,12 @@ export const useLogout = () => {
     () =>
       new Promise<void>((resolve, reject) => {
         if (!secureAccessToken) {
-          logout(false, dispatch).then(resolve, reject)
+          logout('logoutSuccess', dispatch).then(resolve, reject)
         } else {
           logoutMutation(secureAccessToken)
             .unwrap()
             .then(() => {
-              logout(false, dispatch).then(resolve, reject)
+              logout('logoutSuccess', dispatch).then(resolve, reject)
             })
             .catch(reject)
         }

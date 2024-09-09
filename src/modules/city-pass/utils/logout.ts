@@ -1,5 +1,5 @@
 import {ThunkDispatch} from '@reduxjs/toolkit'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {alerts} from '@/modules/city-pass/alerts'
 import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {setAlertAction} from '@/store/slices/alert'
 import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
@@ -9,7 +9,7 @@ export const logout = async (
   /**
    * show alert after logout
    */
-  alert: boolean,
+  alert: keyof typeof alerts | false,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
 ) => {
@@ -23,19 +23,6 @@ export const logout = async (
   dispatch(setIsCityPassOwnerRegistered(false))
 
   if (alert) {
-    setTimeout(
-      () =>
-        dispatch(
-          setAlertAction({
-            variant: AlertVariant.warning,
-            text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
-            title: 'Uitgelogd',
-            hasIcon: true,
-            hasCloseIcon: true,
-            testID: 'CityPassLoggedOutAlert',
-          }),
-        ),
-      100,
-    )
+    setTimeout(() => dispatch(setAlertAction(alerts[alert])), 100)
   }
 }

@@ -1,7 +1,6 @@
 import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {Checkbox} from '@/components/ui/forms/Checkbox'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -16,6 +15,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useToggle} from '@/hooks/useToggle'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
+import {alerts} from '@/modules/construction-work-editor/alerts'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
 import {
   clearDraft,
@@ -86,12 +86,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         showSuccessfullySentMessageAlert: true,
       })
     } catch (error: unknown) {
-      setAlert({
-        title: 'Niet gelukt',
-        text: 'Het bericht opslaan is niet gelukt. Probeer het nog eens.',
-        testID: 'ConstructionWorkEditorSaveMessageErrorAlert',
-        variant: AlertVariant.negative,
-      })
+      setAlert(alerts.saveMessageFailed)
     }
   }
 
