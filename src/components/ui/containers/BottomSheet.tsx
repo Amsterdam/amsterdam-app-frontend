@@ -9,6 +9,7 @@ import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 const Backdrop = (props: BottomSheetBackdropProps) => (
@@ -27,7 +28,14 @@ type Props = Partial<
 > & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
 
 const useBottomSheetHandler = () => {
-  const {close, isOpen, open} = useBottomSheet()
+  const {name: routeName} = useRoute()
+  const {
+    close,
+    isOpen,
+    open,
+    addIsPresentAtRouteName,
+    removeIsPresentAtRouteName,
+  } = useBottomSheet()
   const ref = useRef<BottomSheetOriginal>(null)
 
   useBlurEffect(close)
@@ -35,6 +43,14 @@ const useBottomSheetHandler = () => {
   useEffect(() => {
     isOpen ? ref.current?.expand() : ref.current?.close()
   }, [isOpen])
+
+  useEffect(() => {
+    addIsPresentAtRouteName(routeName)
+
+    return () => {
+      removeIsPresentAtRouteName(routeName)
+    }
+  }, [addIsPresentAtRouteName, routeName, removeIsPresentAtRouteName])
 
   const onChange = useCallback(
     (snapPointIndex: number) => {

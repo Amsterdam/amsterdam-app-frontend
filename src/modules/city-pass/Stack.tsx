@@ -1,18 +1,17 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
-import {screenOptions} from '@/app/navigation/screenOptions'
+import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {screenConfig} from '@/modules/city-pass/screenConfig'
-import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator()
 
 export const CityPassStack = () => {
-  const theme = useTheme()
+  const screenOptions = useScreenOptions()
 
   return (
     <Stack.Navigator
       initialRouteName={CityPassRouteName.dashboard}
-      screenOptions={screenOptions(theme)}>
+      screenOptions={screenOptions}>
       <Stack.Group>
         {Object.entries(screenConfig).map(([key, route]) => (
           <Stack.Screen

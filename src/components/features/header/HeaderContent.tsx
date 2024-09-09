@@ -1,7 +1,7 @@
 import {getHeaderTitle} from '@react-navigation/elements'
-import {StackHeaderProps} from '@react-navigation/stack/lib/typescript/src/types'
 import {StyleSheet, View} from 'react-native'
-import {HeaderContentOptions} from '@/app/navigation/types'
+import {navigationRef} from '@/app/navigation/navigationRef'
+import {HeaderProps} from '@/components/features/header/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -9,18 +9,24 @@ import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 
-type Props = Pick<
-  StackHeaderProps & {options: HeaderContentOptions},
-  'navigation' | 'options' | 'route'
-> & {
-  back?: {onPress?: () => void} & Partial<StackHeaderProps['back']>
-}
-
 const chevronSize = 'ml'
 
-export const HeaderContent = ({back, navigation, options}: Props) => {
-  const title = getHeaderTitle(options, '')
+export const HeaderContent = ({
+  back,
+  navigation,
+  options = {},
+}: HeaderProps) => {
+  const title = getHeaderTitle(
+    options,
+    getHeaderTitle(navigationRef.current?.getCurrentOptions() ?? {}, ''),
+  )
   const {accessibilityLanguage, preventInitialFocus} = options
+
+  const onBackPress =
+    back?.onPress ??
+    (navigationRef.current?.getCurrentOptions() as HeaderProps)?.back
+      ?.onPress ??
+    navigation.goBack
 
   /*
    * TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
@@ -49,7 +55,7 @@ export const HeaderContent = ({back, navigation, options}: Props) => {
                 testID="HeaderBackIcon"
               />
             }
-            onPress={back?.onPress ? back.onPress : navigation.goBack}
+            onPress={onBackPress}
             testID="HeaderBackButton"
           />
         )}
