@@ -40,7 +40,7 @@ const useBottomSheetHandler = () => {
 
   useBlurEffect(close)
 
-  useEffect((): undefined => {
+  useEffect(() => {
     isOpen ? ref.current?.expand() : ref.current?.close()
   }, [isOpen])
 
