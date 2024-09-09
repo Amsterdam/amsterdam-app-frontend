@@ -4,17 +4,14 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Placement} from '@/components/ui/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {showCityPasses} from '@/modules/city-pass/slice'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 export const HeaderComponent = () => {
   const dispatch = useDispatch()
-  const {item: secureCityPasses, isLoading} = useGetSecureItem(
-    SecureItemKey.cityPasses,
-  )
+  const secureCityPasses = useGetSecureCityPasses()
 
-  if (!secureCityPasses || isLoading) {
+  if (!secureCityPasses?.length) {
     return null
   }
 
