@@ -6,6 +6,10 @@ import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
 import {removeSecureItems, SecureItemKey} from '@/utils/secureStorage'
 
 export const logout = async (
+  /**
+   * show alert after logout
+   */
+  alert: boolean,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
 ) => {
@@ -17,18 +21,21 @@ export const logout = async (
   dispatch(deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassAccessToken))
   dispatch(deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken))
   dispatch(setIsCityPassOwnerRegistered(false))
-  setTimeout(
-    () =>
-      dispatch(
-        setAlertAction({
-          variant: AlertVariant.warning,
-          text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
-          title: 'Uitgelogd',
-          hasIcon: true,
-          hasCloseIcon: true,
-          testID: 'CityPassLoggedOutAlert',
-        }),
-      ),
-    100,
-  )
+
+  if (alert) {
+    setTimeout(
+      () =>
+        dispatch(
+          setAlertAction({
+            variant: AlertVariant.warning,
+            text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
+            title: 'Uitgelogd',
+            hasIcon: true,
+            hasCloseIcon: true,
+            testID: 'CityPassLoggedOutAlert',
+          }),
+        ),
+      100,
+    )
+  }
 }
