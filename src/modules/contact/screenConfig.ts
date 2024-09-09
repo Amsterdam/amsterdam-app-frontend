@@ -15,7 +15,6 @@ export const screenConfig: StackNavigationRoutes<
     name: ContactRouteName.contact,
     options: {
       headerTitle: 'Contact',
-      header: () => null,
     },
   },
 }

@@ -1,5 +1,6 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StyleSheet, View} from 'react-native'
+import {navigationRef} from '@/app/navigation/navigationRef'
 import {HeaderProps} from '@/components/features/header/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,9 +11,22 @@ import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityA
 
 const chevronSize = 'ml'
 
-export const HeaderContent = ({back, navigation, options}: HeaderProps) => {
-  const title = getHeaderTitle(options, '')
+export const HeaderContent = ({
+  back,
+  navigation,
+  options = {},
+}: HeaderProps) => {
+  const title = getHeaderTitle(
+    options,
+    getHeaderTitle(navigationRef.current?.getCurrentOptions() ?? {}, ''),
+  )
   const {accessibilityLanguage, preventInitialFocus} = options
+
+  const onBackPress =
+    back?.onPress ??
+    (navigationRef.current?.getCurrentOptions() as HeaderProps)?.back
+      ?.onPress ??
+    navigation.goBack
 
   /*
    * TODO: delete once issue https://github.com/react-navigation/react-navigation/issues/7056 is fixed
@@ -41,7 +55,7 @@ export const HeaderContent = ({back, navigation, options}: HeaderProps) => {
                 testID="HeaderBackIcon"
               />
             }
-            onPress={back?.onPress ? back.onPress : navigation.goBack}
+            onPress={onBackPress}
             testID="HeaderBackButton"
           />
         )}

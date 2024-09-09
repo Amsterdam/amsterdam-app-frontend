@@ -22,7 +22,6 @@ export const screenConfig: StackNavigationRoutes<
     name: ReportProblemRouteName.reportProblemWebView,
     options: {
       ...screenOptions,
-      header: () => null,
       gestureEnabled: false,
     },
   },

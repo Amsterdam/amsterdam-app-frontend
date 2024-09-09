@@ -12,10 +12,6 @@ export const ConstructionWorkScreen = () => (
         }
       />
     }
-    defaultHeader={{
-      back: {},
-      headerTitle: 'Werkzaamheden',
-    }}
     scroll={false}
     testID="ConstructionWorkScreen"
     withBottomInset={false}

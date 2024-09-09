@@ -22,10 +22,6 @@ export const WasteGuideScreen = () => {
           }
         />
       }
-      defaultHeader={{
-        back: {},
-        headerTitle: 'Afvalwijzer',
-      }}
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>

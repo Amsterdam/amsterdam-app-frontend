@@ -1,13 +1,12 @@
 import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
-import {screenOptions} from '@/app/navigation/screenOptions'
 import {RootStackParams} from '@/app/navigation/types'
+import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {clientModules, coreModules} from '@/modules/modules'
 import {useHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
-import {useTheme} from '@/themes/useTheme'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -44,8 +43,10 @@ const modalStacks = Object.entries(modals).map(([key, route]) => (
 ))
 
 export const RootStackNavigator = () => {
-  const theme = useTheme()
   const hasSeenOnboarding = useHasSeenOnboarding()
+  const screenOptions = useScreenOptions({
+    isBelowStatusBar: Platform.OS === 'android',
+  })
 
   return (
     <Stack.Navigator
@@ -59,9 +60,7 @@ export const RootStackNavigator = () => {
       <Stack.Group
         screenOptions={{
           presentation: 'modal',
-          ...screenOptions(theme, {
-            isBelowStatusBar: Platform.OS === 'android',
-          }),
+          ...screenOptions,
         }}>
         {modalStacks}
       </Stack.Group>

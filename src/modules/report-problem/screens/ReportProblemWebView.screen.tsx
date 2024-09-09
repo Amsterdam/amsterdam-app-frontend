@@ -8,7 +8,6 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
-import {screenOptions} from '@/modules/report-problem/screenOptions'
 import {
   PiwikAction,
   useTrackEvents,
@@ -101,6 +100,10 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   }, [navigation, onHandleBackPress])
 
   useEffect(() => {
+    navigation.setOptions({back: {onPress: onHeaderBackPress}})
+  }, [navigation, onHeaderBackPress])
+
+  useEffect(() => {
     if (Platform.OS === 'android') {
       BackHandler.addEventListener('hardwareBackPress', onHandleBackPress)
 
@@ -140,10 +143,6 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
 
   return (
     <Screen
-      defaultHeader={{
-        back: {onPress: onHeaderBackPress},
-        ...screenOptions,
-      }}
       scroll={false}
       testID="ReportProblemWebViewScreen">
       <WebView

@@ -11,13 +11,14 @@ import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
+import {selectIsBottomSheetPresentRouteNames} from '@/store/slices/bottomSheet'
 
 export const ScreenBase = ({
   bottomSheet,
   children,
   hasStickyAlert,
-  defaultHeader,
   stickyFooter,
   stickyHeader,
   withBottomInset = true,
@@ -28,10 +29,17 @@ export const ScreenBase = ({
   trackScroll,
   ...wrapperProps
 }: ScreenProps) => {
+  const {name: routeName} = useRoute()
+  const isBottomSheetPresentRouteNames = useSelector(
+    selectIsBottomSheetPresentRouteNames,
+  )
+  const isBottomSheetPresent =
+    isBottomSheetPresentRouteNames.includes(routeName)
+
   const insets = useSafeAreaInsets()
 
   const hasStickyFooter = !!stickyFooter
-  const hasStickyHeader = !!stickyHeader || !!defaultHeader
+  const hasStickyHeader = !!stickyHeader || !!isBottomSheetPresent
 
   const styles = useMemo(
     () =>
@@ -61,11 +69,10 @@ export const ScreenBase = ({
       <HideFromAccessibilityWhenOverlayIsOpen
         style={styles.screen}
         testID={testID}>
-        {!!defaultHeader && (
+        {!!isBottomSheetPresent && (
           <Header
             back={{}}
             navigation={navigation}
-            options={{headerTitle: defaultHeader.headerTitle}}
             route={route}
           />
         )}
