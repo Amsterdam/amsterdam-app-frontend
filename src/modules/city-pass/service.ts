@@ -29,7 +29,7 @@ const afterError: AfterBaseQueryErrorFn = async (
     if (code === CityPassError401Codes.tokenExpired) {
       return refreshTokens(dispatch, failRetry)
     } else {
-      await logout(dispatch)
+      await logout(true, dispatch)
       failRetry('no access')
     }
   }

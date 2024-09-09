@@ -1,6 +1,7 @@
+import {type PathConfigMap} from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType} from 'react'
-import {type RouteProp} from '@/app/navigation/types'
+import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {type SvgIconName} from '@/components/ui/media/svgIcons'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
@@ -75,7 +76,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links
    */
-  linking?: Record<string, string>
+  linking?: PathConfigMap<RootStackParams>
   /**
    * Determines whether the module requires authorization to be accessed.
    */
