@@ -18,24 +18,28 @@ export const useLogout = () => {
     () =>
       new Promise<void>((resolve, reject) => {
         if (!secureAccessToken) {
-          reject()
+          dispatch(setIsCityPassOwnerRegistered(false))
 
-          return
+          removeSecureItems([
+            SecureItemKey.cityPassAccessToken,
+            SecureItemKey.cityPassRefreshToken,
+            SecureItemKey.cityPasses,
+          ]).then(resolve, reject)
+        } else {
+          logout(secureAccessToken)
+            .unwrap()
+            .then(async () => {
+              dispatch(setIsCityPassOwnerRegistered(false))
+
+              await removeSecureItems([
+                SecureItemKey.cityPassAccessToken,
+                SecureItemKey.cityPassRefreshToken,
+                SecureItemKey.cityPasses,
+              ])
+              resolve()
+            })
+            .catch(reject)
         }
-
-        logout(secureAccessToken)
-          .unwrap()
-          .then(async () => {
-            dispatch(setIsCityPassOwnerRegistered(false))
-
-            await removeSecureItems([
-              SecureItemKey.cityPassAccessToken,
-              SecureItemKey.cityPassRefreshToken,
-              SecureItemKey.cityPasses,
-            ])
-            resolve()
-          })
-          .catch(() => reject())
       }),
     [logout, removeSecureItems, secureAccessToken, dispatch],
   )
