@@ -11,7 +11,11 @@ export enum CityPassRouteName {
 export type CityPassStackParams = {
   [CityPassRouteName.cityPassDetails]: {passNumber: CityPass['passNumber']}
   [CityPassRouteName.cityPassLogout]: undefined
-  [CityPassRouteName.dashboard]: {loginResult?: string}
+  [CityPassRouteName.dashboard]: {
+    accessToken?: string
+    loginResult?: string
+    refreshToken?: string
+  }
   [CityPassRouteName.budget]: {
     budgetCode: CityPassBudget['code']
     passNumber: CityPass['passNumber']

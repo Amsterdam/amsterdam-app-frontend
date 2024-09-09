@@ -9,6 +9,7 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
@@ -20,6 +21,7 @@ import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
 import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
 
@@ -28,11 +30,16 @@ export const DashboardScreen = ({navigation, route}: Props) => {
   const {setAlert} = useAlert()
   const trackException = useTrackException()
 
-  const {loginResult} = route.params || {}
+  const {
+    loginResult,
+    accessToken: deeplinkAccessToken,
+    refreshToken: deeplinkRefreshToken,
+  } = route.params || {}
   const logout = useCallback(() => {
     navigation.navigate(CityPassRouteName.cityPassLogout)
   }, [navigation])
   const openRedirect = useOpenRedirect()
+  const setSecureItem = useSetSecureItem()
 
   useEffect(() => {
     if (loginResult === LoginResult.success) {
@@ -45,6 +52,17 @@ export const DashboardScreen = ({navigation, route}: Props) => {
         hasCloseIcon: true,
         testID: 'CityPassLoggedInAlertPositive',
       })
+
+      if (deeplinkAccessToken && deeplinkRefreshToken) {
+        void setSecureItem(
+          SecureItemKey.cityPassAccessToken,
+          deeplinkAccessToken,
+        )
+        void setSecureItem(
+          SecureItemKey.cityPassRefreshToken,
+          deeplinkRefreshToken,
+        )
+      }
     } else if (loginResult === LoginResult.failed) {
       dispatch(setIsCityPassOwnerRegistered(false))
       setAlert({

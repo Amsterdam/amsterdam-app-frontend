@@ -8,7 +8,10 @@ import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const cityPassModule: ModuleClientConfig = {
-  linking: {[CityPassRouteName.dashboard]: 'stadspas/:loginResult'},
+  linking: {
+    [CityPassRouteName.dashboard]:
+      'stadspas/:loginResult/:accessToken?/:refreshToken?',
+  },
   logDimension: PiwikSessionDimension.cityPassModule,
   name: 'CityPassModule',
   HeaderComponent,
