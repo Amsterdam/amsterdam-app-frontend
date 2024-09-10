@@ -7,6 +7,7 @@ import {
 import {formatDate} from '@/utils/datetime/formatDate'
 
 export type TransactionByDate = TransactionItemProps & {
+  datePublished: string
   datePublishedFormatted: string
 }
 
@@ -21,17 +22,18 @@ export const getTransactionsByDate = (transactions: TransactionByDate[]) => {
   }
 
   return transactions.reduce((result: TransactionsByDate[], transaction) => {
+    const {datePublishedFormatted, datePublished} = transaction
     const today = formatDate(new Date().toISOString())
     const dateOrToday =
-      transaction.datePublishedFormatted === today
-        ? 'Vandaag'
-        : transaction.datePublishedFormatted
+      datePublishedFormatted === today ? 'Vandaag' : datePublishedFormatted
     const section = result.find(s => s.date === dateOrToday)
 
     if (section) {
       section.data.push(transaction)
     } else {
-      result.push({date: dateOrToday, data: [transaction]})
+      datePublished > result[result.length - 1]?.data[0].datePublished
+        ? result.unshift({date: dateOrToday, data: [transaction]})
+        : result.push({date: dateOrToday, data: [transaction]})
     }
 
     return result
@@ -52,6 +54,7 @@ export const mapTransactions = (
       id: transaction.id,
       accessibilityLabel: transaction.amountFormatted,
       amountFormatted: transaction.amountFormatted,
+      datePublished: transaction.datePublished,
       datePublishedFormatted: transaction.datePublishedFormatted,
       title: transaction.title,
     }))
@@ -60,6 +63,7 @@ export const mapTransactions = (
       id: transaction.id,
       accessibilityLabel: `${transaction.discountAmountFormatted} bespaard.`,
       amountFormatted: transaction.discountAmountFormatted,
+      datePublished: transaction.datePublished,
       datePublishedFormatted: transaction.datePublishedFormatted,
       description: transaction.description,
       title: transaction.discountTitle,
