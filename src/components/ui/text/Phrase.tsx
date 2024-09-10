@@ -15,6 +15,13 @@ export type PhraseProps = {
    * Allows the phrase to convey more emphasis.
    */
   emphasis?: keyof typeof Emphasis
+  /**
+   * Defines how to shrink the phrase in case the parent container is smaller than the phrase.
+   */
+  flexShrink?: number
+  /**
+   * Label used for logging to Piwik and AppInsights.
+   */
   'logging-label'?: string
   /**
    * Defines the alignment of the text. Maps with the textAlign style prop options.
@@ -40,6 +47,7 @@ export const Phrase = ({
   children,
   color = 'default',
   emphasis = 'default',
+  flexShrink = 1,
   underline = false,
   variant = 'body',
   testID,
@@ -48,8 +56,16 @@ export const Phrase = ({
   ...textProps
 }: PhraseProps) => {
   const createdStyles = useMemo(
-    () => createStyles({color, emphasis, underline, variant, textAlign}),
-    [color, emphasis, underline, variant, textAlign],
+    () =>
+      createStyles({
+        color,
+        emphasis,
+        flexShrink,
+        underline,
+        variant,
+        textAlign,
+      }),
+    [color, emphasis, flexShrink, underline, variant, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -69,19 +85,25 @@ const createStyles =
   ({
     color: textColor,
     emphasis,
+    flexShrink,
     underline,
     variant,
     textAlign,
   }: Required<
     Pick<
       PhraseProps,
-      'color' | 'emphasis' | 'underline' | 'variant' | 'textAlign'
+      | 'color'
+      | 'emphasis'
+      | 'flexShrink'
+      | 'underline'
+      | 'variant'
+      | 'textAlign'
     >
   >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
-        flexShrink: 1,
+        flexShrink,
         color: color.text[textColor],
         fontFamily:
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],

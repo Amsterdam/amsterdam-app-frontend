@@ -18,7 +18,9 @@ export const TransactionItem = ({
   title,
 }: TransactionItemProps) => (
   <Column>
-    <Row align="between">
+    <Row
+      align="between"
+      gutter="md">
       <Phrase
         emphasis="strong"
         testID="CityPassTransactionTitle">
@@ -27,6 +29,7 @@ export const TransactionItem = ({
       <Phrase
         accessibilityLabel={accessibilityLabel}
         emphasis="strong"
+        flexShrink={0}
         testID="CityPassTransactionItemAmount">
         {amountFormatted}
       </Phrase>
