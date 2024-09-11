@@ -13,5 +13,10 @@ export const ScreenOutsideNavigation = ({
 }: ScreenOutsideNavigationProps) => {
   useTrackScreenOutsideNavigation(name)
 
-  return <ScreenBase {...screenProps} />
+  return (
+    <ScreenBase
+      {...screenProps}
+      isOutsideNavigation
+    />
+  )
 }

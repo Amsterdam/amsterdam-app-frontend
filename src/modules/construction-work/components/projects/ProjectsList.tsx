@@ -8,10 +8,10 @@ import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {SerializedError} from '@reduxjs/toolkit'
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
-import {FullScreenError} from '@/components/features/screen/error/FullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -201,7 +201,6 @@ export const ProjectsList = ({
         onPress={() => navigation.goBack()}
         testID="ConstructionWorkError"
         title="Er zijn geen werkzaamheden beschikbaar"
-        withBottomInset
       />
     )
   }

@@ -1,5 +1,5 @@
-import {SharedProps} from '@/components/features/screen/error/types'
 import {Box} from '@/components/ui/containers/Box'
+import {SharedProps} from '@/components/ui/feedback/error/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -21,8 +21,7 @@ export const FullScreenErrorHeader = ({
     <Column
       align="center"
       grow={1}
-      gutter="md"
-      halign="center">
+      gutter="md">
       {!!TopComponent && TopComponent}
       <Title
         level="h3"

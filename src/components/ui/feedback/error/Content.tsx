@@ -1,10 +1,10 @@
 import {useMemo} from 'react'
-import {FullScreenErrorHeader} from '@/components/features/screen/error/Header'
-import {ImageWithBackground} from '@/components/features/screen/error/ImageWithBackground'
+import {FullScreenErrorHeader} from '@/components/ui/feedback/error/Header'
+import {ImageWithBackground} from '@/components/ui/feedback/error/ImageWithBackground'
 import {
   SharedProps,
   FullScreenErrorProps,
-} from '@/components/features/screen/error/types'
+} from '@/components/ui/feedback/error/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 

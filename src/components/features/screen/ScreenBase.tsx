@@ -3,22 +3,19 @@ import {StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HideFromAccessibilityWhenBottomSheetIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenBottomSheetIsOpen'
 import {HideFromAccessibilityWhenOverlayIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenOverlayIsOpen'
-import {Header} from '@/components/features/header/Header'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
+import {ScreenHeader} from '@/components/features/screen/ScreenHeader'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useRoute} from '@/hooks/navigation/useRoute'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
-import {selectIsBottomSheetPresentRouteNames} from '@/store/slices/bottomSheet'
 
 export const ScreenBase = ({
   bottomSheet,
   children,
   hasStickyAlert,
+  isOutsideNavigation = false,
   stickyFooter,
   stickyHeader,
   withBottomInset = true,
@@ -29,17 +26,10 @@ export const ScreenBase = ({
   trackScroll,
   ...wrapperProps
 }: ScreenProps) => {
-  const {name: routeName} = useRoute()
-  const isBottomSheetPresentRouteNames = useSelector(
-    selectIsBottomSheetPresentRouteNames,
-  )
-  const isBottomSheetPresent =
-    isBottomSheetPresentRouteNames.includes(routeName)
-
   const insets = useSafeAreaInsets()
 
   const hasStickyFooter = !!stickyFooter
-  const hasStickyHeader = !!stickyHeader || !!isBottomSheetPresent
+  const hasStickyHeader = !!stickyHeader
 
   const styles = useMemo(
     () =>
@@ -61,21 +51,13 @@ export const ScreenBase = ({
       withTopInset,
     ],
   )
-  const navigation = useNavigation()
-  const route = useRoute()
 
   return (
     <DisableScrollProvider>
       <HideFromAccessibilityWhenOverlayIsOpen
         style={styles.screen}
         testID={testID}>
-        {!!isBottomSheetPresent && (
-          <Header
-            back={{}}
-            navigation={navigation}
-            route={route}
-          />
-        )}
+        {!isOutsideNavigation && <ScreenHeader />}
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
         <HideFromAccessibilityWhenBottomSheetIsOpen
