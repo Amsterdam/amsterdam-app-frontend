@@ -14,6 +14,7 @@ export type ScreenProps = {
   bottomSheet?: ReactNode
   children: ReactNode
   hasStickyAlert?: boolean
+  isOutsideNavigation?: boolean
   keyboardAware?: boolean
   scroll?: boolean
   stickyFooter?: ReactNode
