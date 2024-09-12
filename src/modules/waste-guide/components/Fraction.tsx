@@ -80,6 +80,7 @@ export const Fraction = ({fraction, testID}: Props) => {
         <Title
           accessibilityLabel={accessibleText(afvalwijzerFractieNaam)}
           level="h4"
+          testID={`${testID}Title`}
           text={afvalwijzerFractieNaam}
         />
       </Row>
