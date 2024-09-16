@@ -37,7 +37,6 @@
         kTSKPublicKeyHashes: @[
           @"phZEpdzfo4JocyH23+aQrL0QBSuoWBeJ/PfR5c5n2kE=", // test.app.amsterdam.nl
           @"lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=", // DigiCert G2 TLS EU RSA4096 SHA384 2022 CA1 
-          @"tYkfFN27P1GUjH5ME128BCg302dL2iwOYhz5wwFJb50=", // QuoVadis Global SSL ICA G2
           @"i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=", // DigiCert Global Root G2
         ],
         kTSKEnforcePinning: @YES,
@@ -48,7 +47,6 @@
         kTSKPublicKeyHashes: @[
           @"6fXqTLHGGwijHIfl1WGZUElGgmdQ4dZqVug9l6caJm4=", // acc.app.amsterdam.nl
           @"lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=", // DigiCert G2 TLS EU RSA4096 SHA384 2022 CA1 
-          @"tYkfFN27P1GUjH5ME128BCg302dL2iwOYhz5wwFJb50=", // QuoVadis Global SSL ICA G2
           @"i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=", // DigiCert Global Root G2
         ],
         kTSKEnforcePinning: @YES,
@@ -59,7 +57,6 @@
         kTSKPublicKeyHashes: @[
           @"aWo/H7b6jYpKas1mQinYbeyZptbXpKOKROf2FOQEV3s=", // app.amsterdam.nl
           @"lXt3ip5lkns+fBxV/S9MSfUx0UUdhBEmhXz5PkrAWGg=", // DigiCert G2 TLS EU RSA4096 SHA384 2022 CA1 
-          @"tYkfFN27P1GUjH5ME128BCg302dL2iwOYhz5wwFJb50=", // QuoVadis Global SSL ICA G2
           @"i7WTqTvh0OioIruIfFR4kMPnBqrS2rdiVPl/s2uC/CY=", // DigiCert Global Root G2
         ],
         kTSKEnforcePinning: @YES,
