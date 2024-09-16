@@ -30,3 +30,8 @@ These are the steps to adjust the allowed certificates:
 3. Calculate the base64 sha256 hash of the public key in the certificate via this command:
 
 `openssl x509 -in ./app.amsterdam.nl.pem -pubkey | openssl pkey -pubin -outform der | openssl dgst -sha256 -binary | openssl enc -base64`
+
+### Test the new certificate
+
+- On Android, just add a random character to the fallback certificate hashes
+- On iOS, replace the fallback hashes by the hash of another environment (eg. acc.app.amsterdam.nl when testing test.app.amsterdam.nl)
