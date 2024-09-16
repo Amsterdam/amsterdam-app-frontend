@@ -57,7 +57,7 @@ export const ScreenBase = ({
       <HideFromAccessibilityWhenOverlayIsOpen
         style={styles.screen}
         testID={testID}>
-        {!isOutsideNavigation && <ScreenHeader />}
+        {!isOutsideNavigation && !!bottomSheet && <ScreenHeader />}
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
         <HideFromAccessibilityWhenBottomSheetIsOpen
