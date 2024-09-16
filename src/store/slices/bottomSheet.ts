@@ -65,12 +65,10 @@ export const useBottomSheet = () => {
       () => ({
         close: () => dispatch(closeBottomSheet()),
         open: () => dispatch(openBottomSheet()),
-        addIsPresentAtRouteName: (routeName: string) => {
-          dispatch(addIsPresentAtRouteName(routeName))
-        },
-        removeIsPresentAtRouteName: (routeName: string) => {
-          dispatch(removeIsPresentAtRouteName(routeName))
-        },
+        addIsPresentAtRouteName: (routeName: string) =>
+          dispatch(addIsPresentAtRouteName(routeName)),
+        removeIsPresentAtRouteName: (routeName: string) =>
+          dispatch(removeIsPresentAtRouteName(routeName)),
         toggle: () => dispatch(toggleBottomSheet()),
       }),
       [dispatch],
