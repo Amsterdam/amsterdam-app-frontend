@@ -8,6 +8,7 @@ import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
 import {PreRenderComponents} from '@/app/init/PreRenderComponents'
 import {NoInternet} from '@/components/features/NoInternet'
 import {useModules} from '@/hooks/useModules'
+import {Chat} from '@/modules/chat/components/Chat'
 
 type Props = {children: ReactNode}
 
@@ -17,6 +18,7 @@ export const Init = ({children}: Props) => {
   return (
     <>
       <AppInsights />
+      <Chat />
       <CheckPermissions />
       <DisplayNotificationOnForeground />
       <LogGeneralAnalytics />

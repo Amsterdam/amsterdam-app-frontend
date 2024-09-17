@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {Platform} from 'react-native'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
+import {chatSlice} from '@/modules/chat/slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
 import {baseApi} from '@/services/baseApi'
@@ -22,6 +23,7 @@ import {themeSlice} from '@/themes/slice'
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
+  {key: ReduxKey.chat, slice: chatSlice},
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: 0},
@@ -54,6 +56,7 @@ export const store = configureStore({
       return enhancers.concat(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         devToolsEnhancer({
+          /* eslint-disable @typescript-eslint/restrict-template-expressions */
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
           hostname: 'localhost',

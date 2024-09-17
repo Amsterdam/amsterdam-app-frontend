@@ -9,6 +9,7 @@ import {
   AddressStackParams,
 } from '@/modules/address/routes'
 import {addressModals} from '@/modules/address/screenConfig'
+import {ChatStack} from '@/modules/chat/Stack'
 import {CityPassStack} from '@/modules/city-pass/Stack'
 import {
   CityPassModalParams,
@@ -116,6 +117,7 @@ export type ModuleStackParams = AboutStackParams &
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
   [ModuleSlug.address]: AddressStack,
+  [ModuleSlug.chat]: ChatStack,
   [ModuleSlug['city-pass']]: CityPassStack,
   [ModuleSlug['construction-work']]: ConstructionWorkStack,
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
