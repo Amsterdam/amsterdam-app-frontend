@@ -5,6 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {ChatOption} from '@/modules/contact/components/contact-options/ChatOption'
 import {contactOptions} from '@/modules/contact/data/contact'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -36,6 +37,15 @@ export const ContactOptions = () => {
                 <SomethingWentWrong
                   key={props.key}
                   testID="ContactContactOptionsSomethingWentWrong"
+                />
+              )
+            }
+
+            if (props.key === 'chat') {
+              return (
+                <ChatOption
+                  {...props}
+                  iconName={iconName}
                 />
               )
             }

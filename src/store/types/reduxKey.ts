@@ -2,6 +2,7 @@ export enum ReduxKey {
   address = 'address',
   alert = 'alert',
   bottomSheet = 'bottomSheet',
+  chat = 'chat',
   cityPass = 'cityPass',
   constructionWork = 'constructionWork',
   constructionWorkEditor = 'constructionWorkEditor',

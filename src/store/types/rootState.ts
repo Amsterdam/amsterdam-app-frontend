@@ -1,5 +1,6 @@
 import {ProductTourState} from '@/components/features/product-tour/slice'
 import {AddressState} from '@/modules/address/types'
+import {ChatState} from '@/modules/chat/slice'
 import {CityPassState} from '@/modules/city-pass/slice'
 import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
@@ -25,6 +26,7 @@ export type RootState = {
   [ReduxKey.address]: AddressState
   [ReduxKey.alert]: AlertState
   [ReduxKey.bottomSheet]: BottomSheetState
+  [ReduxKey.chat]: ChatState
   [ReduxKey.cityPass]: CityPassState
   [ReduxKey.constructionWork]: ConstructionWorkState
   [ReduxKey.constructionWorkEditor]: ConstructionWorkEditorState

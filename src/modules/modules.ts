@@ -1,5 +1,6 @@
 import {aboutModule} from '@/modules/about'
 import {addressModule} from '@/modules/address'
+import {chatModule} from '@/modules/chat'
 import {cityPassModule} from '@/modules/city-pass'
 import {constructionWorkModule} from '@/modules/construction-work'
 import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
@@ -21,6 +22,7 @@ export const coreModules = [
 
 export const clientModules = [
   aboutModule,
+  chatModule,
   cityPassModule,
   constructionWorkEditorModule,
   constructionWorkModule,

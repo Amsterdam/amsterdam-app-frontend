@@ -5,7 +5,7 @@ import {type TestProps} from '@/components/ui/types'
 import {RedirectKey} from '@/modules/redirects/types'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
-type ContactOption = {
+export type ContactOption = {
   iconName: SvgIconName
   key: Key
   redirectsKey?: RedirectKey
@@ -25,7 +25,7 @@ export const contactOptions: ContactOption[] = [
     key: 'email',
     redirectsKey: RedirectKey.contactForm,
     testID: 'ContactContactFormButton',
-    text: 'Reactie binnen 5 werkdagen',
+    text: 'Reactie binnen 5 werkdagen.',
     title: 'Contactformulier',
   },
   {
@@ -34,8 +34,16 @@ export const contactOptions: ContactOption[] = [
     key: 'phone',
     url: 'tel:14020',
     testID: 'ContactPhoneButton',
-    text: 'Gemiddeld 5 minuten wachten',
+    text: 'Gemiddeld 5 minuten wachten.',
     title: 'Bel 14 020',
+  },
+  {
+    accessibilityLabel: 'Chat met een bot of een medewerker.',
+    iconName: 'chat',
+    key: 'chat',
+    testID: 'ContactChatButton',
+    text: 'Direct antwoord van onze digitale assistent of medewerker.',
+    title: 'Chat',
   },
   {
     accessibilityLabel:
@@ -44,7 +52,7 @@ export const contactOptions: ContactOption[] = [
     key: 'whatsapp',
     url: 'https://wa.me/31644440655',
     testID: 'ContactWhatsAppButton',
-    text: 'Reactie binnen 4 uur',
+    text: 'Reactie binnen 4 uur.',
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
   {
