@@ -6,10 +6,8 @@ import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ChatOption = ({iconName, ...props}: ContactOption) => {
-  const {enabledModules} = useModules()
-  const chatModule = enabledModules?.find(
-    module => module.slug === ModuleSlug.chat,
-  )
+  const {enabledModulesBySlug} = useModules()
+  const chatModule = enabledModulesBySlug?.includes(ModuleSlug.chat)
   const {open} = useChat()
 
   return chatModule ? (
@@ -19,7 +17,6 @@ export const ChatOption = ({iconName, ...props}: ContactOption) => {
         props.accessibilityLabel ?? props.title,
         props.text,
       )}
-      accessibilityRole="link"
       iconName={iconName}
       onPress={open}
     />

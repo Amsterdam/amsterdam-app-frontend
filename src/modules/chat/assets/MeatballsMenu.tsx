@@ -1,6 +1,6 @@
 import {Svg, Circle, SvgProps} from 'react-native-svg'
 
-export const MenuButton = ({
+export const MeatballsMenu = ({
   color,
   width = 28,
   height = 28,

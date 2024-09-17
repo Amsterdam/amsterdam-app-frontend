@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
-import {MenuButton} from '@/modules/chat/assets/MenuButton'
+import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {useChat} from '@/modules/chat/slice'
 import {devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
@@ -36,7 +36,7 @@ export const Chat = ({...viewProps}: Props) => {
                 valign="center">
                 <IconButton
                   icon={
-                    <MenuButton
+                    <MeatballsMenu
                       color={color.pressable.secondary.default.label}
                     />
                   }

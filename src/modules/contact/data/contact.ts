@@ -25,7 +25,7 @@ export const contactOptions: ContactOption[] = [
     key: 'email',
     redirectsKey: RedirectKey.contactForm,
     testID: 'ContactContactFormButton',
-    text: 'Reactie binnen 5 werkdagen',
+    text: 'Reactie binnen 5 werkdagen.',
     title: 'Contactformulier',
   },
   {
