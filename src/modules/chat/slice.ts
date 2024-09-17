@@ -39,6 +39,7 @@ export const chatSlice = createSlice({
     openChat: state => ({
       ...state,
       isOpen: true,
+      visibility: ChatVisibility.maximized,
     }),
     toggleChatIsOpen: state => ({
       ...state,
