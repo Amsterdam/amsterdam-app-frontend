@@ -14,7 +14,9 @@ export const setSecureItem = (key: SecureItemKey, value: string) =>
     })
       .then(res => resolve(res))
       .catch((err: Error) => {
-        appInsights.trackException({})
+        appInsights.trackException({
+          exception: err,
+        })
         reject(err)
       })
   })
@@ -24,7 +26,9 @@ export const getSecureItem = (key: SecureItemKey): Promise<string | null> =>
     RNSecureStorage.getItem(key)
       .then(res => resolve(res))
       .catch((err: Error) => {
-        appInsights.trackException({})
+        appInsights.trackException({
+          exception: err,
+        })
         reject(err)
       })
   })
@@ -34,7 +38,9 @@ export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
     RNSecureStorage.exist(key)
       .then(res => resolve(!!res))
       .catch((err: Error) => {
-        appInsights.trackException({})
+        appInsights.trackException({
+          exception: err,
+        })
         reject(err)
       })
   })
@@ -44,7 +50,9 @@ export const removeSecureItems = (keys: SecureItemKey[]) =>
     RNSecureStorage.multiRemove(keys)
       .then(res => resolve(res))
       .catch((err: Error) => {
-        appInsights.trackException({})
+        appInsights.trackException({
+          exception: err,
+        })
         reject(err)
       })
   })
@@ -54,7 +62,9 @@ export const removeAllSecureItems = () =>
     RNSecureStorage.clear()
       .then(res => resolve(res))
       .catch((err: Error) => {
-        appInsights.trackException({})
+        appInsights.trackException({
+          exception: err,
+        })
         reject(err)
       })
   })
