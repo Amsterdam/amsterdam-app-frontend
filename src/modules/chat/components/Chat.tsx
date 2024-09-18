@@ -56,6 +56,5 @@ const createStyles = ({z, color}: Theme) =>
     },
     messageContainer: {
       flexGrow: 1,
-      backgroundColor: 'blue',
     },
   })
