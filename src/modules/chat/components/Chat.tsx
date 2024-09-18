@@ -20,7 +20,8 @@ export const Chat = ({...viewProps}: Props) => {
       {...viewProps}
       entering={SlideInDown}
       exiting={SlideOutDown}
-      style={[viewProps.style, StyleSheet.absoluteFill, styles.container]}>
+      style={[viewProps.style, StyleSheet.absoluteFill, styles.container]}
+      testID="ChatFullscreenWindow">
       <KeyboardAwareScrollView
         contentContainerStyle={styles.contentContainer}
         style={styles.scrollView}>
@@ -29,7 +30,10 @@ export const Chat = ({...viewProps}: Props) => {
             grow={1}
             gutter="md">
             <ChatHeader />
-            <View style={styles.messageContainer} />
+            <View
+              style={styles.messageContainer}
+              testID="ChatHistory"
+            />
             <ChatInput />
           </Column>
         </Box>

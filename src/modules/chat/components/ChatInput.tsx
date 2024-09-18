@@ -14,24 +14,27 @@ export const ChatInput = () => {
   }, [])
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      testID="ChatTextInputContainer">
       <TextInput
         autoFocus
         multiline
         onChangeText={onChangeText}
         placeholder="Type uw bericht"
         style={styles.textInput}
+        testID="ChatTextInput"
       />
       {input.length > 0 && (
         <View style={styles.buttonWrapper}>
           <View style={styles.spacePlaceholder} />
           <Pressable
             style={styles.button}
-            testID="">
+            testID="ChatTextInputSendButton">
             <Icon
               color="inverse"
               name="chevron-right"
-              testID=""
+              testID="ChatTextInputSendButtonIcon"
             />
           </Pressable>
         </View>

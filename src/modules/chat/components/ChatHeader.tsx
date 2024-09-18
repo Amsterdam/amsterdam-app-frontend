@@ -13,7 +13,9 @@ export const ChatHeader = () => {
   const {color} = useTheme()
 
   return (
-    <Box insetVertical="md">
+    <Box
+      insetVertical="md"
+      testID="ChatHeader">
       <Row
         align="between"
         valign="center">
@@ -22,7 +24,7 @@ export const ChatHeader = () => {
             <MeatballsMenu color={color.pressable.secondary.default.label} />
           }
           onPress={() => devLog('ChatMenuButton')}
-          testID="ChatMenuButton"
+          testID="ChatHeaderMeatballsMenuButton"
         />
         <ScreenTitle text="Chat" />
         <IconButton
@@ -31,11 +33,11 @@ export const ChatHeader = () => {
               color="link"
               name="chevron-down"
               size="lg"
-              testID="ChatToggleVisibilityButtonIcon"
+              testID="ChatHeaderToggleVisibilityButtonIcon"
             />
           }
           onPress={toggleIsOpen}
-          testID="ChatToggleVisibilityButton"
+          testID="ChatHeaderToggleVisibilityButton"
         />
       </Row>
     </Box>
