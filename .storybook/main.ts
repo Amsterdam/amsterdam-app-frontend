@@ -95,6 +95,12 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/safe-area-context'),
           },
           {
+            find: 'react-native-keyboard-aware-scroll-view',
+            replacement: require.resolve(
+              './mocks/react-native-keyboard-aware-scroll-view',
+            ),
+          },
+          {
             find: 'react-native-svg',
             replacement: 'react-native-svg-web',
           },
