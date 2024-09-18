@@ -14,7 +14,9 @@ export const ChatHeader = () => {
 
   return (
     <Box
-      insetVertical="md"
+      insetBottom="md"
+      insetHorizontal="md"
+      insetTop="xl"
       testID="ChatHeader">
       <Row
         align="between"

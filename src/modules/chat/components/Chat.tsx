@@ -22,6 +22,7 @@ export const Chat = ({...viewProps}: Props) => {
       exiting={SlideOutDown}
       style={[viewProps.style, StyleSheet.absoluteFill, styles.container]}
       testID="ChatFullscreenWindow">
+      <ChatHeader />
       <KeyboardAwareScrollView
         contentContainerStyle={styles.contentContainer}
         style={styles.scrollView}>
@@ -29,7 +30,6 @@ export const Chat = ({...viewProps}: Props) => {
           <Column
             grow={1}
             gutter="md">
-            <ChatHeader />
             <View
               style={styles.messageContainer}
               testID="ChatHistory"
@@ -56,5 +56,6 @@ const createStyles = ({z, color}: Theme) =>
     },
     messageContainer: {
       flexGrow: 1,
+      backgroundColor: 'blue',
     },
   })
