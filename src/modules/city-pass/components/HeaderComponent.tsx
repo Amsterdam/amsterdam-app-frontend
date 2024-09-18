@@ -19,7 +19,7 @@ export const HeaderComponent = () => {
     <ProductTourTipWrapper
       extraSpace="md"
       placement={Placement.below}
-      testID="ConstructionWorkProjectFollowButtonTooltip"
+      testID="HeaderShowCityPassesTooltip"
       tipSlug={Tip.cityPassShowPassesButton}>
       <IconButton
         accessibilityLabel="Toon Stadspas"
