@@ -21,7 +21,7 @@ export const ChatHeader = () => {
         valign="center">
         <IconButton
           icon={
-            <MeatballsMenu color={color.pressable.secondary.default.label} />
+            <MeatballsMenu color={color.pressable.secondary.default.icon} />
           }
           onPress={() => devLog('ChatMenuButton')}
           testID="ChatHeaderMeatballsMenuButton"

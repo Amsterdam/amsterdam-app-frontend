@@ -6,30 +6,31 @@ export type ColorTokens = typeof lightColorTokens
  * The light color theme, the keys of the object should not contain any color name at all
  */
 export const lightColorTokens = {
-  swipeToDelete: {
-    background: baseColor.primary.red,
-  },
-  noInternet: {
-    background: baseColor.primary.red,
-  },
-  box: {
-    distinct: baseColor.primary.white,
-    cityPass: baseColor.secondary.purple,
-  },
-  timeline: {
-    future: baseColor.neutral.grey3,
-    past: baseColor.primary.blue,
+  alert: {
+    information: {
+      border: baseColor.primary.blue,
+      background: baseColor.primary.white,
+    },
+    negative: {
+      border: baseColor.primary.red,
+      background: baseColor.primary.white,
+    },
+    positive: {
+      border: baseColor.secondary.darkgreen,
+      background: baseColor.primary.white,
+    },
+    warning: {
+      border: baseColor.secondary.orange,
+      background: baseColor.primary.white,
+    },
   },
   appSwitcher: {
     background: baseColor.primary.red,
   },
-  /**
-   * @deprecated no generic border property
-   */
-  border: {
-    default: baseColor.neutral.grey1,
-    onGrey: baseColor.neutral.grey2,
-    cityPass: baseColor.secondary.purple,
+  articleOverview: {
+    year: {
+      background: baseColor.primary.white,
+    },
   },
   attention: {
     default: {
@@ -39,15 +40,32 @@ export const lightColorTokens = {
       border: baseColor.primary.red,
     },
   },
-  pagination: {
-    background: baseColor.primary.blue,
-    container: {
-      background: baseColor.transparent.grey50,
+  badge: {
+    background: baseColor.primary.red,
+  },
+  barcode: {
+    background: baseColor.primary.white,
+    foreground: baseColor.primary.black,
+  },
+  /**
+   * @deprecated no generic border property
+   */
+  border: {
+    default: baseColor.neutral.grey1,
+    onGrey: baseColor.neutral.grey2,
+    cityPass: baseColor.secondary.purple,
+  },
+  box: {
+    distinct: baseColor.primary.white,
+    cityPass: baseColor.secondary.purple,
+  },
+  card: {
+    pressed: {
+      background: baseColor.neutral.grey1,
     },
-    item: {
-      active: baseColor.primary.white,
-      inactive: baseColor.transparent.white30,
-    },
+  },
+  checkbox: {
+    underlay: baseColor.primary.white,
   },
   cityPass: {
     overlay: baseColor.transparent.black90,
@@ -74,34 +92,22 @@ export const lightColorTokens = {
       border: baseColor.primary.red,
     },
   },
-  textInput: {
-    container: {
-      background: baseColor.primary.white,
-    },
+  imageFallback: {
+    background: baseColor.primary.white,
+    border: baseColor.primary.blue,
   },
-  checkbox: {
-    underlay: baseColor.primary.white,
-  },
-  switch: {
-    thumb: {
-      disabled: {
-        background: baseColor.neutral.grey2,
-      },
-      enabled: {
-        background: baseColor.primary.white,
-      },
-    },
-    track: {
-      off: {
-        background: baseColor.neutral.grey3,
-      },
-      on: {
-        background: baseColor.primary.blue,
-      },
-    },
-  },
-  badge: {
+  noInternet: {
     background: baseColor.primary.red,
+  },
+  pagination: {
+    background: baseColor.primary.blue,
+    container: {
+      background: baseColor.transparent.grey50,
+    },
+    item: {
+      active: baseColor.primary.white,
+      inactive: baseColor.transparent.white30,
+    },
   },
   pressable: {
     primary: {
@@ -120,6 +126,7 @@ export const lightColorTokens = {
       default: {
         background: baseColor.primary.white,
         border: baseColor.primary.blue,
+        icon: baseColor.primary.blue,
         label: baseColor.primary.blue,
       },
       pressed: {
@@ -153,37 +160,42 @@ export const lightColorTokens = {
       },
     },
   },
-  card: {
-    pressed: {
-      background: baseColor.neutral.grey1,
-    },
-  },
   screen: {
     background: {
       default: baseColor.primary.white,
       settings: baseColor.custom.grey0,
     },
   },
-  alert: {
-    information: {
-      border: baseColor.primary.blue,
-      background: baseColor.primary.white,
-    },
-    negative: {
-      border: baseColor.primary.red,
-      background: baseColor.primary.white,
-    },
-    positive: {
-      border: baseColor.secondary.darkgreen,
-      background: baseColor.primary.white,
-    },
-    warning: {
-      border: baseColor.secondary.orange,
-      background: baseColor.primary.white,
-    },
-  },
   shadow: {
     default: baseColor.primary.black,
+  },
+  skeleton: {
+    background: baseColor.neutral.grey2,
+    highlight: baseColor.transparent.white30,
+  },
+  swipeToDelete: {
+    background: baseColor.primary.red,
+  },
+  switch: {
+    thumb: {
+      disabled: {
+        background: baseColor.neutral.grey2,
+      },
+      enabled: {
+        background: baseColor.primary.white,
+      },
+    },
+    track: {
+      off: {
+        background: baseColor.neutral.grey3,
+      },
+      on: {
+        background: baseColor.primary.blue,
+      },
+    },
+  },
+  tag: {
+    background: baseColor.secondary.yellow,
   },
   text: {
     cityPass: baseColor.secondary.purple,
@@ -195,27 +207,16 @@ export const lightColorTokens = {
     tertiary: baseColor.neutral.grey2,
     warning: baseColor.primary.red,
   },
-  skeleton: {
-    background: baseColor.neutral.grey2,
-    highlight: baseColor.transparent.white30,
+  textInput: {
+    container: {
+      background: baseColor.primary.white,
+    },
   },
-  tag: {
-    background: baseColor.secondary.yellow,
+  timeline: {
+    future: baseColor.neutral.grey3,
+    past: baseColor.primary.blue,
   },
   tooltip: {
     background: baseColor.neutral.grey4,
-  },
-  barcode: {
-    background: baseColor.primary.white,
-    foreground: baseColor.primary.black,
-  },
-  imageFallback: {
-    background: baseColor.primary.white,
-    border: baseColor.primary.blue,
-  },
-  articleOverview: {
-    year: {
-      background: baseColor.primary.white,
-    },
   },
 }
