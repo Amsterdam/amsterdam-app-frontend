@@ -8,6 +8,7 @@ import {useAppInsights} from '@/providers/appinsights.provider'
 import {selectEnvironment} from '@/store/slices/environment'
 import {selectPermissions} from '@/store/slices/permissions'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
+import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export const useAddTelemetryInitializer = () => {
   const appInsights = useAppInsights()
@@ -22,6 +23,7 @@ export const useAddTelemetryInitializer = () => {
           envelope.data = {}
         }
 
+        envelope.data.appVersion = VERSION_NUMBER_WITH_BUILD
         envelope.data.deviceId = SHA256EncryptedDeviceId
         envelope.data.isEmulator = isEmulator
         envelope.data.os = Platform.OS
