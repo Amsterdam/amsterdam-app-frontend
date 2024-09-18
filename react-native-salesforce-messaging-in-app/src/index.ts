@@ -18,7 +18,7 @@ const isTurboModuleEnabled = global.__turboModuleProxy != null
 
 const SalesforceMessagingInAppModule = isTurboModuleEnabled
   ? (
-      require('@/NativeSalesforceMessagingInApp') as {
+      require('./NativeSalesforceMessagingInApp') as {
         default: Spec
       }
     ).default
