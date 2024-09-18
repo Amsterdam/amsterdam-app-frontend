@@ -21,6 +21,7 @@
     ".storybook/**/*.tsx",
     "__tests__/",
     "eslint-plugin-amsterdam",
+    "react-native-salesforce-messaging-in-app",
     "*.ts"
   ],
   "extends": "@react-native/typescript-config/tsconfig.json"

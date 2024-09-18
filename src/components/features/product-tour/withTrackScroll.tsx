@@ -10,7 +10,7 @@ import {
 import {ScrollView, View} from 'react-native'
 import {
   KeyboardAwareScrollView,
-  KeyboardAwareScrollViewProps,
+  type KeyboardAwareScrollViewProps,
 } from 'react-native-keyboard-aware-scroll-view'
 import {
   computeIsElementVisible,

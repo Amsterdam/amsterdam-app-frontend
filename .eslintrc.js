@@ -251,6 +251,18 @@ module.exports = {
       },
     },
     {
+      files: [
+        'react-native-salesforce-messaging-in-app/**/*.ts',
+        'react-native-salesforce-messaging-in-app/**/*.tsx',
+      ],
+      rules: {
+        'import-x/no-default-export': 'off',
+        'amsterdam/no-relative-file-import': 'off',
+        'no-restricted-imports': 'off',
+        'react-refresh/only-export-components': 'off',
+      },
+    },
+    {
       files: ['*.json'],
       parser: 'jsonc-eslint-parser',
       extends: ['plugin:jsonc/recommended-with-jsonc'],
