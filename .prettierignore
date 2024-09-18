@@ -1,4 +1,5 @@
 react-native-block-screenshot/lib
+react-native-salesforce-messaging-in-app/lib
 node_modules
 **/node_modules
 **/.git
