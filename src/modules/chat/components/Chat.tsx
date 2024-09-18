@@ -1,6 +1,7 @@
 import {StyleSheet, View, ViewProps} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import Animated, {SlideInDown, SlideOutDown} from 'react-native-reanimated'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ChatHeader} from '@/modules/chat/components/ChatHeader'
@@ -13,7 +14,8 @@ type Props = ViewProps
 
 export const Chat = ({...viewProps}: Props) => {
   const {isOpen} = useChat()
-  const styles = useThemable(createStyles)
+  const insets = useSafeAreaInsets()
+  const styles = useThemable(theme => createStyles(theme, insets))
 
   return isOpen ? (
     <Animated.View
@@ -25,6 +27,7 @@ export const Chat = ({...viewProps}: Props) => {
       <ChatHeader />
       <KeyboardAwareScrollView
         contentContainerStyle={styles.contentContainer}
+        extraScrollHeight={insets.top}
         style={styles.scrollView}>
         <Box grow>
           <Column
@@ -42,10 +45,12 @@ export const Chat = ({...viewProps}: Props) => {
   ) : null
 }
 
-const createStyles = ({z, color}: Theme) =>
+const createStyles = ({z, color}: Theme, insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
       backgroundColor: color.screen.background.default,
+      paddingTop: insets.top,
+      paddingBottom: insets.bottom,
       zIndex: z.overlay,
     },
     contentContainer: {

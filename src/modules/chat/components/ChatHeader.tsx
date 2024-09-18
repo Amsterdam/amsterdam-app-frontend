@@ -13,11 +13,7 @@ export const ChatHeader = () => {
   const {color} = useTheme()
 
   return (
-    <Box
-      insetBottom="md"
-      insetHorizontal="md"
-      insetTop="xl"
-      testID="ChatHeader">
+    <Box testID="ChatHeader">
       <Row
         align="between"
         valign="center">
