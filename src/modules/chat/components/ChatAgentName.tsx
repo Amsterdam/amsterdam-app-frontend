@@ -23,7 +23,7 @@ export const ChatAgentName = ({agent, isLastOfType}: Props) => {
         <Phrase
           color="secondary"
           testID={`ChatHistoryGroupName${agent}`}
-          variant="extra-small">
+          variant="extraSmall">
           {agent === ChatMessageAgent.bot ? BOT_NAME : EMPLOYEE_NAME}
         </Phrase>
       </View>
@@ -31,12 +31,10 @@ export const ChatAgentName = ({agent, isLastOfType}: Props) => {
   ) : null
 }
 
-const createStyles = ({size}: Theme) => {
-  const avatarDimension = 40
-
-  return StyleSheet.create({
+const AVATAR_DIMENSION = 40
+const createStyles = ({size}: Theme) =>
+  StyleSheet.create({
     container: {
-      paddingLeft: avatarDimension + size.spacing.sm,
+      paddingLeft: AVATAR_DIMENSION + size.spacing.sm,
     },
   })
-}
