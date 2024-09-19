@@ -64,6 +64,30 @@ export const lightColorTokens = {
       background: baseColor.neutral.grey1,
     },
   },
+  chat: {
+    avatar: {
+      foreground: baseColor.primary.black,
+      background: baseColor.primary.white,
+      border: baseColor.neutral.grey2,
+    },
+    loading: {
+      dark: baseColor.primary.black,
+      medium: baseColor.neutral.grey3,
+      light: baseColor.neutral.grey2,
+    },
+    message: {
+      background: {
+        bot: baseColor.neutral.grey1,
+        employee: baseColor.neutral.grey1,
+        user: baseColor.neutral.grey4,
+      },
+      text: {
+        bot: baseColor.primary.black,
+        employee: baseColor.primary.black,
+        user: baseColor.primary.white,
+      },
+    },
+  },
   checkbox: {
     underlay: baseColor.primary.white,
   },
@@ -96,6 +120,7 @@ export const lightColorTokens = {
     background: baseColor.primary.white,
     border: baseColor.primary.blue,
   },
+  logo: baseColor.primary.red,
   noInternet: {
     background: baseColor.primary.red,
   },

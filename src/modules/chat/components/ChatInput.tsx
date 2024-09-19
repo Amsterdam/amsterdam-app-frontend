@@ -2,16 +2,29 @@ import {useCallback, useState} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Pressable, StyleSheet, TextInput, View} from 'react-native'
 import {Icon} from '@/components/ui/media/Icon'
+import {ChatMessageAgent, ChatMessageBase} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const ChatInput = () => {
+type Props = {
+  onSubmit: (message: ChatMessageBase) => void
+}
+
+export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
   }, [])
+
+  const handleSubmit = useCallback(
+    (message: ChatMessageBase) => {
+      onSubmit(message)
+      setInput('')
+    },
+    [onSubmit],
+  )
 
   return (
     <View
@@ -24,11 +37,18 @@ export const ChatInput = () => {
         placeholder="Type uw bericht"
         style={styles.textInput}
         testID="ChatTextInput"
+        value={input}
       />
       {input.length > 0 && (
         <View style={styles.buttonWrapper}>
           <View style={styles.spacePlaceholder} />
           <Pressable
+            onPress={() =>
+              handleSubmit({
+                agent: ChatMessageAgent.user,
+                text: input,
+              })
+            }
             style={styles.button}
             testID="ChatTextInputSendButton">
             <Icon
