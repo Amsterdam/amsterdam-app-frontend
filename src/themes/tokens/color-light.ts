@@ -66,6 +66,7 @@ export const lightColorTokens = {
   },
   chat: {
     avatar: {
+      foreground: baseColor.primary.black,
       background: baseColor.primary.white,
       border: baseColor.neutral.grey2,
     },
