@@ -3,22 +3,22 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
 
+const LOGOUT_ALERT = {
+  text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
+  title: 'Uitgelogd',
+  hasIcon: true,
+  hasCloseIcon: true,
+  testID: 'CityPassLoggedOutAlert',
+}
+
 export const alerts = {
   logoutWarning: {
     variant: AlertVariant.warning,
-    text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
-    title: 'Uitgelogd',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'CityPassLoggedOutAlert',
+    ...LOGOUT_ALERT,
   },
   logoutSuccess: {
     variant: AlertVariant.positive,
-    text: 'Je Stadspas gegevens zijn niet meer zichtbaar in de app. Je kunt je Stadspas gegevens altijd weer zien door in te loggen.',
-    title: 'Uitgelogd',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'CityPassLoggedOutAlert',
+    ...LOGOUT_ALERT,
   },
   logoutFailed: {
     variant: AlertVariant.negative,
@@ -35,14 +35,6 @@ export const alerts = {
     hasIcon: true,
     hasCloseIcon: true,
     testID: 'CityPassLoggedInAlertNegative',
-  },
-  loginSuccess: {
-    variant: AlertVariant.positive,
-    text: 'Je Stadspas staat nu ook in de app.',
-    title: 'Gelukt!',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'CityPassLoggedInAlertPositive',
   },
 } as const satisfies AlertsRecord
 
