@@ -1,7 +1,7 @@
 import path from 'path'
-import {isPreservingSymlinks} from '@storybook/core-common'
 import {StorybookConfig} from '@storybook/react-vite'
 import react from '@vitejs/plugin-react'
+import {isPreservingSymlinks} from 'storybook/internal/common'
 import {mergeConfig} from 'vite'
 import svgr from 'vite-plugin-svgr'
 
