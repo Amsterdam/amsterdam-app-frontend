@@ -1,4 +1,3 @@
-import {multiply} from 'react-native-salesforce-messaging-in-app'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -9,7 +8,6 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {Modules} from '@/modules/home/components/Modules'
-import {devLog} from '@/processes/development'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const HomeScreen = () => {
@@ -19,7 +17,6 @@ export const HomeScreen = () => {
 
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
-  void multiply(2, 4).then(res => devLog('multiply', res))
 
   if (modulesLoading) {
     return <PleaseWait testID="HomeLoadingSpinner" />

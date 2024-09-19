@@ -7,5 +7,11 @@ import com.facebook.react.bridge.Promise
 abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactApplicationContext) :
   ReactContextBaseJavaModule(context) {
 
-  abstract fun multiply(a: Double, b: Double, promise: Promise)
+  abstract fun createCoreClient(
+    url: String,
+    organizationId: String,
+    developerName: String, 
+    promise: Promise)
+  abstract fun retrieveRemoteConfiguration(promise: Promise)
+  abstract fun createConversationClient(clientID: String?, promise: Promise)
 }

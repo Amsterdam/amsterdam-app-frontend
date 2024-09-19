@@ -1,11 +1,6 @@
 import {NativeModules, Platform} from 'react-native'
 import type {Spec} from './NativeSalesforceMessagingInApp'
-import type {
-  NativeCoreClient,
-  CoreConfig,
-  CoreClient,
-  NativeSalesforceMessagingInApp,
-} from './types'
+import type {CoreConfig, NativeSalesforceMessagingInApp} from './types'
 
 const LINKING_ERROR =
   "The package 'react-native-salesforce-messaging-in-app' doesn't seem to be linked. Make sure: \n\n" +
@@ -35,28 +30,29 @@ const SalesforceMessagingInApp =
     },
   )
 
-export const multiply = (a: number, b: number): Promise<number> =>
-  SalesforceMessagingInApp.multiply(a, b)
+// const createConversationClient = (
+//   client: NativeCoreClient,
+//   sessionID: string,
+// ) => {
+//   const conversationClient = client.createConversationClient(sessionID)
 
-const createConversationClient = (
-  client: NativeCoreClient,
-  sessionID: string,
-) => {
-  const conversationClient = client.createConversationClient(sessionID)
+//   return {
+//     sendMessage: (text: string) => conversationClient.sendMessage(text),
+//   }
+// }
 
-  return {
-    sendMessage: (text: string) => conversationClient.sendMessage(text),
-  }
-}
+export const createCoreClient = ({
+  developerName,
+  organizationId,
+  url,
+}: CoreConfig) =>
+  SalesforceMessagingInApp.createCoreClient(url, organizationId, developerName)
 
-export const createCoreClient = (config: CoreConfig): CoreClient => {
-  const client = SalesforceMessagingInApp.createCoreClient(config)
+export const createConversationClient = (sessionID?: string) =>
+  SalesforceMessagingInApp.createConversationClient(sessionID ?? null)
 
-  return {
-    start: () => client.start(),
-    createConversationClient: (sessionID: string) => {
-      createConversationClient(client, sessionID)
-    },
-    retrieveRemoteConfiguration: () => client.retrieveRemoteConfiguration(),
-  }
-}
+export const sendMessage = (text: string) =>
+  SalesforceMessagingInApp.sendMessage(text)
+
+export const retrieveRemoteConfiguration = () =>
+  SalesforceMessagingInApp.retrieveRemoteConfiguration()

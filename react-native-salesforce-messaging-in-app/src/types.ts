@@ -1,10 +1,3 @@
-export type NativeCoreClient = {
-  createConversationClient: (sessionID: string) => {
-    sendMessage: (text: string) => void
-  }
-  retrieveRemoteConfiguration: () => RemoteConfiguration
-  start: () => void
-}
 
 export type RemoteConfiguration = {
   data?: {
@@ -27,13 +20,14 @@ export type CoreConfig = {
   url: string
 }
 
-export type CoreClient = {
-  createConversationClient: (sessionID: string) => void
-  retrieveRemoteConfiguration: () => RemoteConfiguration
-  start: () => void
-}
 
 export type NativeSalesforceMessagingInApp = {
-  createCoreClient: (config: CoreConfig) => NativeCoreClient
-  multiply: (a: number, b: number) => Promise<number>
+  createConversationClient: (sessionID: string | null) => Promise<string>
+  createCoreClient: (
+    url: string,
+    organizationId: string,
+    developerName: string,
+  ) => Promise<void>
+  retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
+  sendMessage: (text: string) => Promise<void>
 }
