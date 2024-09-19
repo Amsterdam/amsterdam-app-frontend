@@ -3,13 +3,11 @@ export type ParagraphVariants =
   | 'intro'
   | 'quote'
   | 'small'
-  | 'extra-small'
-
-const extraSmall = 'extra-small'
+  | 'extraSmall'
 
 type ParagraphTokens = {
   body: number
-  [extraSmall]: number
+  extraSmall: number
   intro: number
   quote: number
   small: number
@@ -51,7 +49,7 @@ const FontSize = {
   intro: 22,
   quote: 24,
   small: 16,
-  [extraSmall]: 13,
+  extraSmall: 13,
 } as const
 
 export const textTokens: TextTokens = {
@@ -66,7 +64,7 @@ export const textTokens: TextTokens = {
     intro: FontSize.intro,
     quote: FontSize.quote,
     small: FontSize.small,
-    [extraSmall]: FontSize[extraSmall],
+    extraSmall: FontSize.extraSmall,
   },
   fontFamily: {
     bold: FontFamily.bold,
@@ -83,6 +81,6 @@ export const textTokens: TextTokens = {
     intro: 1.6 * FontSize.intro,
     quote: 1.3 * FontSize.quote,
     small: 1.5 * FontSize.small,
-    [extraSmall]: 1.5 * FontSize[extraSmall],
+    extraSmall: 1.5 * FontSize.extraSmall,
   },
 } as const
