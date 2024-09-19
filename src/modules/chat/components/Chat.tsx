@@ -1,11 +1,14 @@
-import {StyleSheet, View, ViewProps} from 'react-native'
+import {StyleSheet, ViewProps} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import Animated, {SlideInDown, SlideOutDown} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ChatHeader} from '@/modules/chat/components/ChatHeader'
+import {ChatHistory} from '@/modules/chat/components/ChatHistory'
 import {ChatInput} from '@/modules/chat/components/ChatInput'
+import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
+import {DevelopmentButtons} from '@/modules/chat/components/DevelopmentButtons'
 import {useChat} from '@/modules/chat/slice'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -13,9 +16,9 @@ import {useThemable} from '@/themes/useThemable'
 type Props = ViewProps
 
 export const Chat = ({...viewProps}: Props) => {
-  const {isOpen} = useChat()
   const insets = useSafeAreaInsets()
   const styles = useThemable(theme => createStyles(theme, insets))
+  const {addMessage, clearMessages, isOpen, messages} = useChat()
 
   return isOpen ? (
     <Animated.View
@@ -33,11 +36,13 @@ export const Chat = ({...viewProps}: Props) => {
           <Column
             grow={1}
             gutter="md">
-            <View
-              style={styles.messageContainer}
-              testID="ChatHistory"
+            <ChatStartTime firstMessage={messages[0]} />
+            <ChatHistory history={messages} />
+            <ChatInput onSubmit={addMessage} />
+            <DevelopmentButtons
+              addMessage={addMessage}
+              clearMessages={clearMessages}
             />
-            <ChatInput />
           </Column>
         </Box>
       </KeyboardAwareScrollView>
