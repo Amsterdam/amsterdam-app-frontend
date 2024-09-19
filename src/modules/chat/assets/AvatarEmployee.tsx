@@ -13,7 +13,7 @@ export const AvatarEmployee = () => {
       <Circle
         cx="20"
         cy="20"
-        fill="white"
+        fill={color.chat.avatar.background}
         r="19.5"
         stroke={color.chat.avatar.border}
       />
