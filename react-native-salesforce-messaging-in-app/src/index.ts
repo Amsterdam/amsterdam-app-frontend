@@ -51,8 +51,8 @@ export const createCoreClient = ({
 export const createConversationClient = (sessionID?: string) =>
   SalesforceMessagingInApp.createConversationClient(sessionID ?? null)
 
-export const sendMessage = (text: string) =>
-  SalesforceMessagingInApp.sendMessage(text)
+export const sendMessage = (message: string) =>
+  SalesforceMessagingInApp.sendMessage(message)
 
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()

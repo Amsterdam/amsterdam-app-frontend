@@ -1,4 +1,3 @@
-
 export type RemoteConfiguration = {
   data?: {
     forms?: unknown[]
@@ -20,7 +19,6 @@ export type CoreConfig = {
   url: string
 }
 
-
 export type NativeSalesforceMessagingInApp = {
   createConversationClient: (sessionID: string | null) => Promise<string>
   createCoreClient: (
@@ -29,5 +27,5 @@ export type NativeSalesforceMessagingInApp = {
     developerName: string,
   ) => Promise<void>
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
-  sendMessage: (text: string) => Promise<void>
+  sendMessage: (message: string) => Promise<void>
 }

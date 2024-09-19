@@ -8,6 +8,7 @@ import com.salesforce.android.smi.core.Configuration
 import com.salesforce.android.smi.core.CoreClient
 import com.salesforce.android.smi.core.CoreConfiguration
 import com.salesforce.android.smi.core.ConversationClient
+import com.salesforce.android.smi.network.data.domain.conversationEntry.ConversationEntry
 import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteConfiguration
 import com.salesforce.android.smi.common.api.Result
 
@@ -39,14 +40,14 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     promise: Promise
   ) {
     try {
-      this.config = CoreConfiguration(URL(url), organizationId, developerName)
-      if (this.config == null){
+      config = CoreConfiguration(URL(url), organizationId, developerName)
+      if (config == null){
         promise.reject("Error", "Invalid configuration.")
         return
       }
-      this.coreClient = CoreClient.Factory.create(reactApplicationContext, config!!)
-      if (this.coreClient != null){
-        this.coreClient?.start(this.scope)
+      coreClient = CoreClient.Factory.create(reactApplicationContext, config!!)
+      if (coreClient != null){
+        coreClient?.start(scope)
         promise.resolve(true)
       } else {
         promise.reject("Error", "Failed to create CoreClient.")
@@ -62,17 +63,17 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     promise: Promise
   ) {
     try {
-      if (this.coreClient == null) {
+      if (coreClient == null) {
         promise.reject("Error", "CoreClient not created.")
         return
       }
       scope.launch {
         try {
             // Since retrieveRemoteConfiguration is a suspend function, we can call it here
-            val remoteConfig: Result<RemoteConfiguration> = this@SalesforceMessagingInAppModule.coreClient?.retrieveRemoteConfiguration()
+            val remoteConfig: Result<RemoteConfiguration> = coreClient?.retrieveRemoteConfiguration()
                 ?: throw IllegalStateException("Failed to retrieve remote configuration")
-
-            promise.resolve(remoteConfig)
+            //remoteConfig.data
+            promise.resolve(remoteConfig.toString())
         } catch (e: Exception) {
             promise.reject("Error", e.message, e)
         }
@@ -89,17 +90,43 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     promise: Promise
   ) {
     try{
-      if (this.coreClient == null) {
+      if (coreClient == null) {
         promise.reject("Error", "CoreClient not created.")
         return
       }
       val uuid = if (clientID != null) UUID.fromString(clientID) else UUID.randomUUID()
-      this.conversationClient = this.coreClient?.conversationClient(uuid)
+      conversationClient = coreClient?.conversationClient(uuid)
       promise.resolve(uuid.toString())
 
     } catch (e: Exception) {
       // Catch any exception and reject the promise
       promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
+  }
+
+  @ReactMethod
+  override fun sendMessage(
+    message: String,
+    promise: Promise
+  ) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+      scope.launch {
+        try {
+            // Since retrieveRemoteConfiguration is a suspend function, we can call it here
+            val result: Result<ConversationEntry> = conversationClient?.sendMessage(message)
+                ?: throw IllegalStateException("Failed to send message")
+            promise.resolve(result.toString())
+        } catch (e: Exception) {
+            promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+        // Catch any exception and reject the promise
+        promise.reject("Error", "An error occurred: ${e.message}", e)
     }
   }
 
