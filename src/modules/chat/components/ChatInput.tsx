@@ -18,6 +18,14 @@ export const ChatInput = ({onSubmit}: Props) => {
     setInput(text)
   }, [])
 
+  const handleSubmit = useCallback(
+    (message: ChatMessageBase) => {
+      onSubmit(message)
+      setInput('')
+    },
+    [onSubmit],
+  )
+
   return (
     <View
       style={styles.container}
@@ -29,13 +37,14 @@ export const ChatInput = ({onSubmit}: Props) => {
         placeholder="Type uw bericht"
         style={styles.textInput}
         testID="ChatTextInput"
+        value={input}
       />
       {input.length > 0 && (
         <View style={styles.buttonWrapper}>
           <View style={styles.spacePlaceholder} />
           <Pressable
             onPress={() =>
-              onSubmit({
+              handleSubmit({
                 agent: ChatMessageAgent.user,
                 text: input,
               })
