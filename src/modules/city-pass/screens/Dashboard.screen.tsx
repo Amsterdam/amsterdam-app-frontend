@@ -44,7 +44,6 @@ export const DashboardScreen = ({navigation, route}: Props) => {
   useEffect(() => {
     if (loginResult === LoginResult.success) {
       dispatch(setIsCityPassOwnerRegistered(true))
-      setAlert(alerts.loginSuccess)
 
       if (deeplinkAccessToken && deeplinkRefreshToken) {
         void setSecureItem(
