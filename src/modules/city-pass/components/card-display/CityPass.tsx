@@ -7,6 +7,7 @@ import {
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Delay} from '@/components/ui/layout/Delay'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -72,11 +73,13 @@ export const CityPass = ({
                     {firstname} {infix} {lastname}
                   </Phrase>
                   <Column halign="center">
-                    <BarCode
-                      format="CODE128"
-                      value={passNumberComplete}
-                      width={passWidth}
-                    />
+                    <Delay>
+                      <BarCode
+                        format="CODE128"
+                        value={passNumberComplete}
+                        width={passWidth}
+                      />
+                    </Delay>
                     <View style={styles.passNumber}>
                       <Phrase
                         emphasis="strong"
@@ -85,10 +88,12 @@ export const CityPass = ({
                       </Phrase>
                     </View>
                   </Column>
-                  <BarCode
-                    format="QR"
-                    value={passNumberComplete}
-                  />
+                  <Delay>
+                    <BarCode
+                      format="QR"
+                      value={passNumberComplete}
+                    />
+                  </Delay>
                   <Paragraph textAlign="center">
                     Geldig tot en met {dateEndFormatted}
                   </Paragraph>
