@@ -1,5 +1,5 @@
 import {Fragment, useRef} from 'react'
-import {ScrollView, StyleProp, ViewStyle} from 'react-native'
+import {ScrollView, StyleSheet} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentName} from '@/modules/chat/components/ChatAgentName'
@@ -9,14 +9,11 @@ import {type ChatMessage as ChatMessageType} from '@/modules/chat/types'
 
 type Props = {
   history: ChatMessageType[]
-  styles: {
-    contentContainer: StyleProp<ViewStyle>
-    scrollView: StyleProp<ViewStyle>
-  }
 }
 
-export const ChatHistory = ({history, styles}: Props) => {
+export const ChatHistory = ({history}: Props) => {
   const scrollRef = useRef<ScrollView>(null)
+  const styles = createStyles()
 
   return (
     <ScrollView
@@ -46,3 +43,13 @@ export const ChatHistory = ({history, styles}: Props) => {
     </ScrollView>
   )
 }
+
+const createStyles = () =>
+  StyleSheet.create({
+    contentContainer: {
+      flexGrow: 1,
+    },
+    scrollView: {
+      flex: 1,
+    },
+  })

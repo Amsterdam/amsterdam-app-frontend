@@ -29,10 +29,7 @@ export const Chat = ({...viewProps}: Props) => {
         <Column
           grow={1}
           gutter="md">
-          <ChatHistory
-            history={messages}
-            styles={styles}
-          />
+          <ChatHistory history={messages} />
           <ChatInput
             clearMessages={clearMessages}
             onSubmit={addMessage}
@@ -50,12 +47,6 @@ const createStyles = ({z, color}: Theme, insets: EdgeInsets) =>
       paddingTop: insets.top,
       paddingBottom: insets.bottom,
       zIndex: z.overlay,
-    },
-    contentContainer: {
-      flexGrow: 1,
-    },
-    scrollView: {
-      flex: 1,
     },
     messageContainer: {
       flexGrow: 1,
