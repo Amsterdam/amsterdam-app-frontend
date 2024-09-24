@@ -1,16 +1,27 @@
 import {useCallback, useState} from 'react'
-// eslint-disable-next-line no-restricted-imports
-import {Pressable, StyleSheet, TextInput, View} from 'react-native'
+
+import {
+  KeyboardAvoidingView,
+  Platform,
+  // eslint-disable-next-line no-restricted-imports
+  Pressable,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native'
+import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
+import {DevelopmentButtons} from '@/modules/chat/components/DevelopmentButtons'
 import {ChatMessageAgent, ChatMessageBase} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  clearMessages: () => void
   onSubmit: (message: ChatMessageBase) => void
 }
 
-export const ChatInput = ({onSubmit}: Props) => {
+export const ChatInput = ({clearMessages, onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
 
@@ -27,39 +38,47 @@ export const ChatInput = ({onSubmit}: Props) => {
   )
 
   return (
-    <View
-      style={styles.container}
-      testID="ChatTextInputContainer">
-      <TextInput
-        autoFocus
-        multiline
-        onChangeText={onChangeText}
-        placeholder="Type uw bericht"
-        style={styles.textInput}
-        testID="ChatTextInput"
-        value={input}
-      />
-      {input.length > 0 && (
-        <View style={styles.buttonWrapper}>
-          <View style={styles.spacePlaceholder} />
-          <Pressable
-            onPress={() =>
-              handleSubmit({
-                agent: ChatMessageAgent.user,
-                text: input,
-              })
-            }
-            style={styles.button}
-            testID="ChatTextInputSendButton">
-            <Icon
-              color="inverse"
-              name="chevron-right"
-              testID="ChatTextInputSendButtonIcon"
-            />
-          </Pressable>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Column gutter="sm">
+        <View
+          style={styles.container}
+          testID="ChatTextInputContainer">
+          <TextInput
+            multiline
+            onChangeText={onChangeText}
+            placeholder="Schrijf uw bericht"
+            style={styles.textInput}
+            testID="ChatTextInput"
+            value={input}
+          />
+          {input.length > 0 && (
+            <View style={styles.buttonWrapper}>
+              <View style={styles.spacePlaceholder} />
+              <Pressable
+                onPress={() =>
+                  handleSubmit({
+                    agent: ChatMessageAgent.user,
+                    text: input,
+                  })
+                }
+                style={styles.button}
+                testID="ChatTextInputSendButton">
+                <Icon
+                  color="inverse"
+                  name="chevron-right"
+                  testID="ChatTextInputSendButtonIcon"
+                />
+              </Pressable>
+            </View>
+          )}
         </View>
-      )}
-    </View>
+        <DevelopmentButtons
+          addMessage={onSubmit}
+          clearMessages={clearMessages}
+        />
+      </Column>
+    </KeyboardAvoidingView>
   )
 }
 
