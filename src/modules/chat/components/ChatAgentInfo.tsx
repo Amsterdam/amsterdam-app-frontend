@@ -14,7 +14,7 @@ type Props = {
   message: ChatMessage
 }
 
-const getChatAgentName = (agent: ChatMessageAgent, timestamp: number) => {
+const getChatAgentInfo = (agent: ChatMessageAgent, timestamp: number) => {
   const formattedTimestamp = dayjs(timestamp).format('HH:mm')
 
   if (agent === ChatMessageAgent.user) {
@@ -28,7 +28,7 @@ const getChatAgentName = (agent: ChatMessageAgent, timestamp: number) => {
   return `${EMPLOYEE_NAME} - ${formattedTimestamp}`
 }
 
-export const ChatAgentName = ({
+export const ChatAgentInfo = ({
   message: {agent, timestamp},
   isLastOfType,
 }: Props) => {
@@ -45,7 +45,7 @@ export const ChatAgentName = ({
             color="secondary"
             testID={`ChatHistoryGroupName${agent}`}
             variant="extraSmall">
-            {getChatAgentName(agent, timestamp)}
+            {getChatAgentInfo(agent, timestamp)}
           </Phrase>
         </View>
       </>
