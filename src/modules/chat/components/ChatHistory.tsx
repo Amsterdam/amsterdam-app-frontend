@@ -32,8 +32,8 @@ export const ChatHistory = ({history}: Props) => {
             <Fragment key={message.timestamp}>
               <ChatMessage message={message} />
               <ChatAgentName
-                agent={message.agent}
                 isLastOfType={isLastOfType}
+                message={message}
               />
               <Gutter height={isLastOfType ? 'md' : 'sm'} />
             </Fragment>

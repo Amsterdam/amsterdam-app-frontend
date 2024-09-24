@@ -51,7 +51,8 @@ const createStyles = ({color, size}: Theme, agent: ChatMessageAgent) => {
     textContainer: {
       flexShrink: 1,
       backgroundColor: color.chat.message.background[agent],
-      padding: size.spacing.md,
+      paddingHorizontal: size.spacing.md,
+      paddingVertical: size.spacing.sm,
       borderRadius: borderRadius,
       borderBottomRightRadius: isUser ? 0 : borderRadius,
       borderBottomLeftRadius: isUser ? borderRadius : 0,

@@ -1,19 +1,23 @@
 import {View, StyleSheet} from 'react-native'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ChatMessageAgent} from '@/modules/chat/types'
+import {ChatMessage, ChatMessageAgent} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const BOT_NAME = 'Chatbot Gemeente Amsterdam'
 const EMPLOYEE_NAME = 'Jasmijn' // Get from real data once implemented
 
 type Props = {
-  agent: ChatMessageAgent
   isLastOfType: boolean
+  message: ChatMessage
 }
 
-export const ChatAgentName = ({agent, isLastOfType}: Props) => {
+export const ChatAgentName = ({
+  message: {agent, timestamp},
+  isLastOfType,
+}: Props) => {
   const styles = useThemable(createStyles)
 
   return !!isLastOfType && agent !== ChatMessageAgent.user ? (
@@ -24,7 +28,7 @@ export const ChatAgentName = ({agent, isLastOfType}: Props) => {
           color="secondary"
           testID={`ChatHistoryGroupName${agent}`}
           variant="extraSmall">
-          {agent === ChatMessageAgent.bot ? BOT_NAME : EMPLOYEE_NAME}
+          {`${agent === ChatMessageAgent.bot ? BOT_NAME : EMPLOYEE_NAME} - ${dayjs(timestamp).format('HH:mm')}`}
         </Phrase>
       </View>
     </>
