@@ -237,7 +237,7 @@ export const ProjectsList = ({
 
 const styles = StyleSheet.create({
   gridView: {
-    marginTop: -UNINTENDED_SPACING_FROM_RN_SUPER_GRID,
+    paddingTop: -UNINTENDED_SPACING_FROM_RN_SUPER_GRID,
   },
   itemContainer: {
     justifyContent: 'flex-start',
