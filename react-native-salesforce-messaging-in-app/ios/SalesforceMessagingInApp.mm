@@ -54,6 +54,32 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
     }
 }
 
+
+RCT_EXPORT_METHOD(checkIfInBusinessHours:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    reject(@"not implemented");
+}
+
+RCT_EXPORT_METHOD(createConversationClient:(NSString *)sessionID
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    reject(@"not implemented");
+}
+
+RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    reject(@"not implemented");
+}
+RCT_EXPORT_METHOD(sendMessage:(NSString *)message
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    reject(@"not implemented");
+}
+
 // Don't compile this code when we build for the old architecture.
 #ifdef RCT_NEW_ARCH_ENABLED
 - (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:

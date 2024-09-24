@@ -1,4 +1,9 @@
-import {NativeModules, Platform} from 'react-native'
+import {
+  NativeModules,
+  Platform,
+  NativeEventEmitter,
+  EmitterSubscription,
+} from 'react-native'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 import type {CoreConfig, NativeSalesforceMessagingInApp} from './types'
 
@@ -30,16 +35,11 @@ const SalesforceMessagingInApp =
     },
   )
 
-// const createConversationClient = (
-//   client: NativeCoreClient,
-//   sessionID: string,
-// ) => {
-//   const conversationClient = client.createConversationClient(sessionID)
+const messagingEventEmitter = new NativeEventEmitter(
+  SalesforceMessagingInAppModule,
+)
 
-//   return {
-//     sendMessage: (text: string) => conversationClient.sendMessage(text),
-//   }
-// }
+let subscription: EmitterSubscription | null = null
 
 export const createCoreClient = ({
   developerName,
@@ -48,11 +48,36 @@ export const createCoreClient = ({
 }: CoreConfig) =>
   SalesforceMessagingInApp.createCoreClient(url, organizationId, developerName)
 
+// eslint-disable-next-line sonarjs/no-unused-collection
+let messages: unknown[] = []
+
 export const createConversationClient = (sessionID?: string) =>
-  SalesforceMessagingInApp.createConversationClient(sessionID ?? null)
+  SalesforceMessagingInApp.createConversationClient(sessionID ?? null).then(
+    newSessionID => {
+      if (subscription) {
+        subscription.remove()
+        subscription = null
+      }
+
+      messages = []
+      subscription = messagingEventEmitter.addListener(
+        'onNewMessage',
+        (event: {message: string}) => {
+          // console.log('New message received:', event.message)
+          messages.push(event.message)
+          // console.log(messages)
+        },
+      )
+
+      return newSessionID
+    },
+  )
 
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
 
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
+
+export const checkIfInBusinessHours = () =>
+  SalesforceMessagingInApp.checkIfInBusinessHours()
