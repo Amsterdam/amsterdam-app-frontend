@@ -45,10 +45,9 @@ export const ChatInput = ({clearMessages, onSubmit}: Props) => {
           style={styles.container}
           testID="ChatTextInputContainer">
           <TextInput
-            autoFocus
             multiline
             onChangeText={onChangeText}
-            placeholder="Type uw bericht"
+            placeholder="Schrijf uw bericht"
             style={styles.textInput}
             testID="ChatTextInput"
             value={input}
