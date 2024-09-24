@@ -179,6 +179,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             val result: Result<ConversationEntry> = conversationClient?.sendMessage(message)
                 ?: throw IllegalStateException("Failed to send message")
             if (result is Result.Success) {
+              val messageText = result.data.toString()
+              val params = Arguments.createMap()
+              params.putString("message", messageText)
+              // Emit the event with message data
+              sendEvent("onNewMessage", params)
               promise.resolve(result.toString())
             } else {
               promise.reject("Error", result.toString())

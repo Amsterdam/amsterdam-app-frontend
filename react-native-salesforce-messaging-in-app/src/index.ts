@@ -1,3 +1,4 @@
+import {useEffect, useState} from 'react'
 import {
   NativeModules,
   Platform,
@@ -48,30 +49,33 @@ export const createCoreClient = ({
 }: CoreConfig) =>
   SalesforceMessagingInApp.createCoreClient(url, organizationId, developerName)
 
-// eslint-disable-next-line sonarjs/no-unused-collection
 let messages: unknown[] = []
 
-export const createConversationClient = (sessionID?: string) =>
-  SalesforceMessagingInApp.createConversationClient(sessionID ?? null).then(
-    newSessionID => {
-      if (subscription) {
-        subscription.remove()
-        subscription = null
-      }
+export const createConversationClient = (sessionID?: string) => {
+  if (subscription) {
+    subscription.remove()
+    subscription = null
+  }
 
-      messages = []
-      subscription = messagingEventEmitter.addListener(
-        'onNewMessage',
-        (event: {message: string}) => {
-          // console.log('New message received:', event.message)
-          messages.push(event.message)
-          // console.log(messages)
-        },
-      )
+  messages = []
+  subscription = messagingEventEmitter.addListener(
+    'onNewMessage',
+    (event: {message: string}) => {
+      // console.log('New message received:', event.message)
+      messages.push(event.message)
+      // console.log(messages)
+    },
+  )
+
+  return SalesforceMessagingInApp.createConversationClient(sessionID ?? null)
+  /*.then(
+    newSessionID => {
+
 
       return newSessionID
     },
-  )
+  )*/
+}
 
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
@@ -81,3 +85,34 @@ export const retrieveRemoteConfiguration = () =>
 
 export const checkIfInBusinessHours = () =>
   SalesforceMessagingInApp.checkIfInBusinessHours()
+
+export const useChat = ({
+  developerName,
+  organizationId,
+  url,
+  sessionID,
+}: CoreConfig & {
+  sessionID?: string
+}) => {
+  const [ready, setReady] = useState(false)
+  const [newSessionID, setNewSessionID] = useState<string | undefined>(
+    sessionID,
+  )
+
+  useEffect(() => {
+    void createCoreClient({developerName, organizationId, url}).then(() => {
+      void createConversationClient(newSessionID).then(
+        (resultSessionID: string) => {
+          setNewSessionID(resultSessionID)
+        },
+      )
+      setReady(true)
+    })
+
+    return () => {
+      // subscription?.remove()
+    }
+  }, [developerName, newSessionID, organizationId, url])
+
+  return {ready, messages, sessionID: newSessionID}
+}
