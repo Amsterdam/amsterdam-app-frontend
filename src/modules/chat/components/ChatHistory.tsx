@@ -2,7 +2,7 @@ import {Fragment, useRef} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {ChatAgentName} from '@/modules/chat/components/ChatAgentName'
+import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 import {type ChatMessage as ChatMessageType} from '@/modules/chat/types'
@@ -31,7 +31,7 @@ export const ChatHistory = ({history}: Props) => {
           return (
             <Fragment key={message.timestamp}>
               <ChatMessage message={message} />
-              <ChatAgentName
+              <ChatAgentInfo
                 isLastOfType={isLastOfType}
                 message={message}
               />
