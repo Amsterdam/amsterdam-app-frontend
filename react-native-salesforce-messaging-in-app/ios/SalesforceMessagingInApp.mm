@@ -1,10 +1,13 @@
 #import "SalesforceMessagingInApp.h"
 #import <SMIClientCore/SMIClientCore.h>
 
-@implementation SalesforceMessagingInApp
-{
+@interface SalesforceMessagingInApp () <SMICoreDelegate> {
   bool hasListeners;
 }
+
+@end
+
+@implementation SalesforceMessagingInApp
 RCT_EXPORT_MODULE()
 
 SMICoreConfiguration *config;
@@ -18,6 +21,9 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                   reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
+        if (coreClient != nil) {
+            [coreClient stop];
+        }
         // Convert the string URL to an NSURL
         NSURL *serviceAPIURL = [NSURL URLWithString:url];
 
@@ -41,6 +47,7 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
 
         // Assuming successful creation of the core client, resolve the promise
         if (coreClient != nil) {
+            [coreClient start];
             resolve(@(YES));
         } else {
             NSError *error = [NSError errorWithDomain:@"CoreClient Creation Failed"
@@ -72,6 +79,9 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
                   reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
+        if (conversationClient != nil) {
+            [coreClient removeDelegate:self]; 
+        }
         NSUUID *uuid;
         
         // Check if the conversationId is nil or an empty string
@@ -93,7 +103,7 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
         }
         conversationClient = [coreClient conversationClientWithId:uuid];
         if (conversationClient != nil) {
-
+            [coreClient addDelegate:self];  // Set the delegate to self after creating the conversation client to receive events for the conversation client.
             resolve(conversationClient.identifier.UUIDString);
         } else {
             NSError *error = [NSError errorWithDomain:@"ConversationClient Creation Failed"
@@ -298,6 +308,270 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     }
 }
 
+// This is triggered when new entries (messages) are added to a conversation.
+- (void)core:(nonnull id<SMICoreClient>)core
+  conversation:(nonnull id<SMIConversation>)conversation
+didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
+        paged:(BOOL)paged
+{
+    if (hasListeners) {
+        // NSMutableArray *messageArray = [NSMutableArray array];
+        
+        for (id<SMIConversationEntry> entry in entries) {
+            // Extract relevant fields from each entry
+            NSString *entryId = entry.identifier;
+            NSString *messageText = entry.payload ? [entry.payload description] : @"";
+            NSString *senderDisplayName = entry.senderDisplayName;
+            NSString *messageType = entry.messageType;
+            NSDate *timestamp = entry.timestamp;
+            NSString *conversationId = entry.conversationId.UUIDString;
+            NSString *status = entry.status;
+            NSString *format = entry.format;
+
+            // Extract fields from payload, assuming `entry.payload` conforms to `SMIEntryPayload`
+            id<SMIEntryPayload> payload = entry.payload;
+            NSString *payloadId = payload.identifier ?: @"";
+            NSString *inReplyToEntryId = payload.inReplyToEntryId ?: @"";
+            NSString *text = @"";
+
+            // NSString *replyToEntryId = payload.replyTo ? payload.replyTo.identifier : @"";  // Handle replyTo entry
+            // Convert the extracted properties into a dictionary
+            NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
+            messageDict[@"messageId"] = entryId;
+            messageDict[@"messageText"] = messageText;
+            messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
+            messageDict[@"messageType"] = messageType ?: [NSNull null];
+            messageDict[@"timestamp"] = @([timestamp timeIntervalSince1970]);
+            messageDict[@"conversationId"] = conversationId;
+            messageDict[@"status"] = status;
+            messageDict[@"format"] = format;
+            messageDict[@"payloadId"] = payloadId;
+            messageDict[@"inReplyToEntryId"] = inReplyToEntryId;
+            if (format == SMIConversationFormatTypesAttachments) {
+                id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
+
+                NSMutableArray *attachmentsArray = [NSMutableArray array];
+                for (id<SMIFileAsset> attachment in attachmentsPayload.attachments) {
+                    NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
+                    attachmentDict[@"name"] = attachment.name;
+                    attachmentDict[@"identifier"] = attachment.identifier;
+                    attachmentDict[@"mimeType"] = attachment.mimeType;
+                    attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
+                    NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
+                    if (stringFromData) {
+                        attachmentDict[@"file"] = stringFromData;
+                    }
+                    
+                    [attachmentsArray addObject:attachmentDict];
+                }
+                messageDict[@"attachments"] = attachmentsArray;
+            }
+            if (format == SMIConversationFormatTypesCarousel) {
+                id<SMICarousel> carouselPayload = (id<SMICarousel>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMICarousel.html#/c:objc(pl)SMICarousel(py)items
+                NSMutableArray *itemArray = [NSMutableArray array];
+                for (id<SMITitleLinkItem> item in carouselPayload.items) {
+                    NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
+                    NSMutableArray *optionArray = [NSMutableArray array];
+                    for (id<SMIChoice> option in item.interactionItems) {
+                        NSMutableDictionary *optionDict = [NSMutableDictionary dictionary];
+                        optionDict[@"optionId"] = option.optionId;
+                        optionDict[@"title"] = option.title;
+                        optionDict[@"optionValue"] = option.optionValue;
+                        optionDict[@"parentEntryId"] = option.parentEntryId;
+                        
+                        [optionArray addObject:optionDict];
+                    }
+                    itemDict[@"interactionItems"] = optionArray;
+                    itemDict[@"itemType"] = item.titleItem.itemType;
+                    itemDict[@"subTitle"] = item.titleItem.subTitle;
+                    itemDict[@"secondarySubTitle"] = item.titleItem.secondarySubTitle;
+                    itemDict[@"tertiarySubTitle"] = item.titleItem.tertiarySubTitle;
+                    itemDict[@"referenceId"] = item.titleItem.referenceId;
+                    
+                    [itemArray addObject:itemDict];
+                }
+                messageDict[@"items"] = itemArray;
+            }
+            if (format == SMIConversationFormatTypesImageMessage) {
+                // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesInputs) {
+                // id<SMIFormInputs> textPayload = (id<SMIFormInputs>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIFormInputs.html
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIChoicesResponse.html
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesRichLink) {
+                // id<SMIRichLinkMessage> textPayload = (id<SMIRichLinkMessage>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRichLinkMessage.html
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesListPicker) {
+                id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
+                messageDict[@"text"] = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesSelections) {
+                // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesWebView) {
+                // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITemplatedURL.html
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesResult) {
+                // id<SMIRoutingWorkResult> textPayload = (id<SMIRoutingWorkResult>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingWorkResult.html
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingResult.html
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesUnspecified) {
+                // id<SMIUnknownEntry> textPayload = (id<SMIUnknownEntry>)payload;
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols.html#/c:objc(pl)SMIUnknownEntry
+                // text = textPayload.text ?: @"";
+            }
+            if (format == SMIConversationFormatTypesTextMessage) {
+                id<SMITextMessage> textPayload = (id<SMITextMessage>)payload;
+                messageDict[@"text"] = textPayload.text ?: @"";
+                NSLog(textPayload.text);
+            }
+            if (format == SMIConversationFormatTypesQuickReplies) {
+                id<SMIQuickReply> quickRepliesPayload = (id<SMIQuickReply>)payload;
+                messageDict[@"text"] = quickRepliesPayload.text ?: @"";
+                NSMutableArray *choiceArray = [NSMutableArray array];
+                for (id<SMIChoice> choice in quickRepliesPayload.choices) {
+                    NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
+                    choiceDict[@"optionId"] = choice.optionId;
+                    choiceDict[@"title"] = choice.title;
+                    choiceDict[@"optionValue"] = choice.optionValue;
+                    choiceDict[@"parentEntryId"] = choice.parentEntryId;
+                    
+                    [choiceArray addObject:choiceDict];
+                }
+                messageDict[@"choices"] = choiceArray;
+            }
+            //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITypingIndicator.html
+            //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIEntryAck.html
+
+            
+            
+            
+            // Add the message dictionary to the messageArray
+            // [messageArray addObject:messageDict];
+
+            NSDictionary *finalMessageDict = [messageDict copy];
+            [self sendEventWithName:@"onNewMessage" body:finalMessageDict];
+        }
+
+        // Emit the event to JavaScript
+    }
+}
+
+// Triggered when the status of entries is updated
+- (void)core:(nonnull id<SMICoreClient>)core
+  conversation:(nonnull id<SMIConversation>)conversation
+didUpdateEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
+{
+    if (hasListeners) {
+        NSMutableArray *updatedEntries = [NSMutableArray array];
+        
+        for (id<SMIConversationEntry> entry in entries) {
+            // Extract relevant fields from each entry
+            NSString *entryId = entry.identifier;
+            NSString *messageText = entry.payload ? [entry.payload description] : @"";
+            NSString *senderDisplayName = entry.senderDisplayName;
+            NSString *messageType = entry.messageType;
+            NSDate *timestamp = entry.timestamp;
+            NSString *conversationId = entry.conversationId.UUIDString;
+            NSString *status = entry.status;
+            
+            // Convert the extracted properties into a dictionary
+            NSDictionary *messageDict = @{
+                @"messageId": entryId,
+                @"messageText": messageText,
+                @"senderDisplayName": senderDisplayName ?: [NSNull null],
+                @"messageType": messageType ?: [NSNull null],
+                @"timestamp": @([timestamp timeIntervalSince1970]),
+                @"conversationId": conversationId,
+                @"status": status
+            };
+            
+            // Add the message dictionary to the messageArray
+            [updatedEntries addObject:messageDict];
+        }
+        [self sendEventWithName:@"onMessageUpdated" body:@{@"conversationId": conversation.identifier.UUIDString, @"entries": updatedEntries}];
+    }
+}
+
+// Triggered when network status changes
+- (void)core:(nonnull id<SMICoreClient>)core
+didChangeNetworkState:(nonnull SMINetworkConnectivityState)state
+{
+    if (hasListeners) {
+        [self sendEventWithName:@"onNetworkStatusChanged" body:state];
+    }
+}
+
+// Triggered when a typing event starts
+- (void)core:(nonnull id<SMICoreClient>)core
+didReceiveTypingStartedEvent:(nonnull id<SMIConversationEntry>)entry
+{
+    if (hasListeners) {
+        // Extract relevant fields from each entry
+        NSString *entryId = entry.identifier;
+        NSString *messageText = entry.payload ? [entry.payload description] : @"";
+        NSString *senderDisplayName = entry.senderDisplayName;
+        NSString *messageType = entry.messageType;
+        NSDate *timestamp = entry.timestamp;
+        NSString *conversationId = entry.conversationId.UUIDString;
+        NSString *status = entry.status;
+        
+        // Convert the extracted properties into a dictionary
+        NSDictionary *messageDict = @{
+            @"messageId": entryId,
+            @"messageText": messageText,
+            @"senderDisplayName": senderDisplayName ?: [NSNull null],
+            @"messageType": messageType ?: [NSNull null],
+            @"timestamp": @([timestamp timeIntervalSince1970]),
+            @"conversationId": conversationId,
+            @"status": status
+        };
+        [self sendEventWithName:@"onTypingStarted" body:messageDict];
+    }
+}
+
+// Triggered when a typing event stops
+- (void)core:(nonnull id<SMICoreClient>)core
+didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
+{
+    if (hasListeners) {
+        // Extract relevant fields from each entry
+        NSString *entryId = entry.identifier;
+        NSString *messageText = entry.payload ? [entry.payload description] : @"";
+        NSString *senderDisplayName = entry.senderDisplayName;
+        NSString *messageType = entry.messageType;
+        NSDate *timestamp = entry.timestamp;
+        NSString *conversationId = entry.conversationId.UUIDString;
+        NSString *status = entry.status;
+        
+        // Convert the extracted properties into a dictionary
+        NSDictionary *messageDict = @{
+            @"messageId": entryId,
+            @"messageText": messageText,
+            @"senderDisplayName": senderDisplayName ?: [NSNull null],
+            @"messageType": messageType ?: [NSNull null],
+            @"timestamp": @([timestamp timeIntervalSince1970]),
+            @"conversationId": conversationId,
+            @"status": status
+        };
+        [self sendEventWithName:@"onTypingStopped" body:messageDict];
+    }
+}
+
 // Will be called when this module's first listener is added.
 -(void)startObserving {
     hasListeners = YES;
@@ -310,9 +584,8 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     // Remove upstream listeners, stop unnecessary background tasks
 }
 
-// Override method to specify which events to support
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"onNewMessage"]; // List all events your module will emit
+    return @[@"onNewMessage", @"onMessageUpdated", @"onNetworkStatusChanged", @"onTypingStarted", @"onTypingStopped"];
 }
 
 // Don't compile this code when we build for the old architecture.
