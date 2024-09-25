@@ -318,35 +318,39 @@ didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
         // NSMutableArray *messageArray = [NSMutableArray array];
         
         for (id<SMIConversationEntry> entry in entries) {
-            // Extract relevant fields from each entry
-            NSString *entryId = entry.identifier;
-            NSString *messageText = entry.payload ? [entry.payload description] : @"";
-            NSString *senderDisplayName = entry.senderDisplayName;
-            NSString *messageType = entry.messageType;
-            NSDate *timestamp = entry.timestamp;
-            NSString *conversationId = entry.conversationId.UUIDString;
-            NSString *status = entry.status;
             NSString *format = entry.format;
 
             // Extract fields from payload, assuming `entry.payload` conforms to `SMIEntryPayload`
             id<SMIEntryPayload> payload = entry.payload;
-            NSString *payloadId = payload.identifier ?: @"";
-            NSString *inReplyToEntryId = payload.inReplyToEntryId ?: @"";
-            NSString *text = @"";
 
             // NSString *replyToEntryId = payload.replyTo ? payload.replyTo.identifier : @"";  // Handle replyTo entry
             // Convert the extracted properties into a dictionary
             NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
-            messageDict[@"messageId"] = entryId;
-            messageDict[@"messageText"] = messageText;
-            messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
-            messageDict[@"messageType"] = messageType ?: [NSNull null];
-            messageDict[@"timestamp"] = @([timestamp timeIntervalSince1970]);
-            messageDict[@"conversationId"] = conversationId;
-            messageDict[@"status"] = status;
+            messageDict[@"messageId"] = entry.identifier;
+            messageDict[@"payloadDescription"] = entry.payload ? [entry.payload description] : @"";
+            // messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
+            messageDict[@"senderSubject"] = entry.sender.subject;
+            messageDict[@"senderRole"] = entry.sender.role;
+            messageDict[@"senderLocal"] = @(entry.sender.local);
+            messageDict[@"senderDisplayName"] = entry.sender.displayName?: entry.senderDisplayName ?: [NSNull null];
+            NSMutableArray *senderOptionsArray = [NSMutableArray array];
+            for (id<SMIChoice> choice in entry.sender.clientMenu.options) {
+                NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
+                choiceDict[@"optionId"] = choice.optionId;
+                choiceDict[@"title"] = choice.title;
+                choiceDict[@"optionValue"] = choice.optionValue;
+                choiceDict[@"parentEntryId"] = choice.parentEntryId;
+                
+                [senderOptionsArray addObject:choiceDict];
+            }
+            messageDict[@"senderOptions"] = senderOptionsArray;
+            messageDict[@"messageType"] = entry.messageType ?: [NSNull null];
+            messageDict[@"timestamp"] = @([entry.timestamp timeIntervalSince1970]);
+            messageDict[@"conversationId"] = entry.conversationId.UUIDString;
+            messageDict[@"status"] = entry.status;
             messageDict[@"format"] = format;
-            messageDict[@"payloadId"] = payloadId;
-            messageDict[@"inReplyToEntryId"] = inReplyToEntryId;
+            messageDict[@"payloadId"] = payload.identifier ?: @"";
+            messageDict[@"inReplyToEntryId"] = payload.inReplyToEntryId ?: @"";
             if (format == SMIConversationFormatTypesAttachments) {
                 id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
                 //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
@@ -425,13 +429,16 @@ didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
             }
             if (format == SMIConversationFormatTypesResult) {
                 // id<SMIRoutingWorkResult> textPayload = (id<SMIRoutingWorkResult>)payload;
-                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingWorkResult.html
-                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingResult.html
                 // text = textPayload.text ?: @"";
             }
             if (format == SMIConversationFormatTypesUnspecified) {
                 // id<SMIUnknownEntry> textPayload = (id<SMIUnknownEntry>)payload;
                 //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols.html#/c:objc(pl)SMIUnknownEntry
+
+                // Deze zijn in ieder geval mogelijk bij unspecified
+                // SMIParticipantChangedPayload (gebruiker joined bijvoorbeeld, waarschijnlijk vergelijkbaar met deze props: https://salesforce-async-messaging.github.io/messaging-in-app-android/messaging-inapp-network/com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries/-participant-changed-entry/index.html)
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingWorkResult.html
+                //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingResult.html
                 // text = textPayload.text ?: @"";
             }
             if (format == SMIConversationFormatTypesTextMessage) {
@@ -453,6 +460,18 @@ didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
                     [choiceArray addObject:choiceDict];
                 }
                 messageDict[@"choices"] = choiceArray;
+                
+                NSMutableArray *selectedArray = [NSMutableArray array];
+                for (id<SMIChoice> choice in quickRepliesPayload.selected) {
+                    NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
+                    choiceDict[@"optionId"] = choice.optionId;
+                    choiceDict[@"title"] = choice.title;
+                    choiceDict[@"optionValue"] = choice.optionValue;
+                    choiceDict[@"parentEntryId"] = choice.parentEntryId;
+                    
+                    [selectedArray addObject:choiceDict];
+                }
+                messageDict[@"selected"] = selectedArray;
             }
             //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITypingIndicator.html
             //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIEntryAck.html
