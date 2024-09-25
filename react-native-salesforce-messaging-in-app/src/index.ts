@@ -51,7 +51,7 @@ export const createCoreClient = ({
 
 let messages: unknown[] = []
 
-export const createConversationClient = (sessionID?: string) => {
+export const createConversationClient = (conversationId?: string) => {
   if (subscription) {
     subscription.remove()
     subscription = null
@@ -67,12 +67,14 @@ export const createConversationClient = (sessionID?: string) => {
     },
   )
 
-  return SalesforceMessagingInApp.createConversationClient(sessionID ?? null)
+  return SalesforceMessagingInApp.createConversationClient(
+    conversationId ?? null,
+  )
   /*.then(
-    newSessionID => {
+    newConversationId => {
 
 
-      return newSessionID
+      return newConversationId
     },
   )*/
 }
@@ -90,20 +92,20 @@ export const useChat = ({
   developerName,
   organizationId,
   url,
-  sessionID,
+  conversationId,
 }: CoreConfig & {
-  sessionID?: string
+  conversationId?: string
 }) => {
   const [ready, setReady] = useState(false)
-  const [newSessionID, setNewSessionID] = useState<string | undefined>(
-    sessionID,
-  )
+  const [newConversationId, setNewConversationId] = useState<
+    string | undefined
+  >(conversationId)
 
   useEffect(() => {
     void createCoreClient({developerName, organizationId, url}).then(() => {
-      void createConversationClient(newSessionID).then(
-        (resultSessionID: string) => {
-          setNewSessionID(resultSessionID)
+      void createConversationClient(newConversationId).then(
+        (resultConversationId: string) => {
+          setNewConversationId(resultConversationId)
         },
       )
       setReady(true)
@@ -112,7 +114,7 @@ export const useChat = ({
     return () => {
       // subscription?.remove()
     }
-  }, [developerName, newSessionID, organizationId, url])
+  }, [developerName, newConversationId, organizationId, url])
 
-  return {ready, messages, sessionID: newSessionID}
+  return {ready, messages, conversationId: newConversationId}
 }

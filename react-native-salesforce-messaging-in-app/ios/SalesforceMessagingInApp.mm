@@ -8,8 +8,8 @@
 RCT_EXPORT_MODULE()
 
 SMICoreConfiguration *config;
-id<SMICoreClient> coreClientId;
-id<SMIConversationClient> conversationClientId;
+id<SMICoreClient> coreClient;
+id<SMIConversationClient> conversationClient;
 
 RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                   organizationId:(NSString *)organizationId
@@ -37,10 +37,10 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                                                         developerName:developerName];
 
         // Now create the core client using the CoreFactory's create method
-        coreClientId = [SMICoreFactory createWithConfig:config];
+        coreClient = [SMICoreFactory createWithConfig:config];
 
         // Assuming successful creation of the core client, resolve the promise
-        if (coreClientId != nil) {
+        if (coreClient != nil) {
             resolve(@(YES));
         } else {
             NSError *error = [NSError errorWithDomain:@"CoreClient Creation Failed"
@@ -67,14 +67,34 @@ RCT_EXPORT_METHOD(checkIfInBusinessHours:(RCTPromiseResolveBlock)resolve
     reject(@"not_implemented_exception", @"not implemented", error);
 }
 
-RCT_EXPORT_METHOD(createConversationClient:(NSString *)sessionID
+RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
+        NSUUID *uuid;
+        
+        // Check if the conversationId is nil or an empty string
+        if (conversationId == nil || [conversationId isEqualToString:@""]) {
+            // Generate a new UUID if conversationId is nil
+            uuid = [NSUUID UUID];
+        } else {
+            // Convert the input string to NSUUID
+            uuid = [[NSUUID alloc] initWithUUIDString:conversationId];
+            
+            // Check if the conversion was successful
+            if (uuid == nil) {
+                NSError *error = [NSError errorWithDomain:@"Invalid UUID"
+                                                    code:400
+                                                userInfo:@{NSLocalizedDescriptionKey: @"The provided conversation ID is not a valid UUID."}];
+                reject(@"invalid_uuid", @"Invalid UUID", error);
+                return;
+            }
+        }
+        conversationClient = [coreClient conversationClientWithId:uuid];
+        if (conversationClient != nil) {
 
-        if (conversationClientId != nil) {
-            resolve(@(YES));
+            resolve(conversationClient.identifier.UUIDString);
         } else {
             NSError *error = [NSError errorWithDomain:@"ConversationClient Creation Failed"
                                                 code:500
@@ -98,8 +118,8 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)sessionID
 RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    // Ensure that the coreClientId has been initialized
-    if (coreClientId == nil) {
+    // Ensure that the coreClient has been initialized
+    if (coreClient == nil) {
         NSError *error = [NSError errorWithDomain:@"CoreClient Not Initialized"
                                              code:500
                                          userInfo:@{NSLocalizedDescriptionKey: @"CoreClient is not initialized."}];
@@ -107,8 +127,8 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
         return;
     }
     
-    // Call retrieveRemoteConfigurationWithCompletion on coreClientId
-    [coreClientId retrieveRemoteConfigurationWithCompletion:^(id<SMIRemoteConfiguration> _Nullable remoteConfig, NSError * _Nullable error) {
+    // Call retrieveRemoteConfigurationWithCompletion on coreClient
+    [coreClient retrieveRemoteConfigurationWithCompletion:^(id<SMIRemoteConfiguration> _Nullable remoteConfig, NSError * _Nullable error) {
         if (error != nil) {
             // Handle the error by rejecting the promise
             reject(@"retrieve_remote_config_failed", @"Failed to retrieve remote configuration", error);
@@ -255,10 +275,27 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
-    NSError *error = [NSError errorWithDomain:@"checkIfInBusinessHours Exception"
+
+    @try {
+        // Ensure that the coreClient has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        [conversationClient sendMessage:message];
+        resolve(@(YES));
+
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendMessage Exception"
                                              code:500
-                                            userInfo:@{NSLocalizedDescriptionKey: @"not implemented"}];
-    reject(@"not_implemented_exception", @"not implemented", error);
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_message_exception", @"An exception occurred during sendMessage", error);
+    }
 }
 
 // Will be called when this module's first listener is added.

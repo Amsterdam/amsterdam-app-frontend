@@ -22,7 +22,7 @@ export type CoreConfig = {
 export type NativeSalesforceMessagingInApp = {
   addListener: (eventName: string) => void
   checkIfInBusinessHours: () => Promise<boolean>
-  createConversationClient: (sessionID: string | null) => Promise<string>
+  createConversationClient: (conversationId: string | null) => Promise<string>
   createCoreClient: (
     url: string,
     organizationId: string,
