@@ -17,7 +17,6 @@ export const HomeScreen = () => {
 
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
-
   if (modulesLoading) {
     return <PleaseWait testID="HomeLoadingSpinner" />
   }
