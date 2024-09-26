@@ -124,6 +124,7 @@ dependencies {
 
   // Add Salesforce messaging dependency
   implementation "com.salesforce.service:messaging-inapp-ui:1.6.2"
+  implementation 'androidx.paging:paging-common-android:3.3.2'
 }
 
 if (isNewArchitectureEnabled()) {

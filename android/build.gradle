@@ -31,10 +31,11 @@ allprojects {
             url "$rootDir/../node_modules/@notifee/react-native/android/libs"
         }
 
-        google()
-        mavenCentral()
         maven {
             url "https://s3.amazonaws.com/inapp.salesforce.com/public/android"
+            content {
+                includeGroupByRegex "com\\.salesforce.*"
+            }
         }
     }
     afterEvaluate {
