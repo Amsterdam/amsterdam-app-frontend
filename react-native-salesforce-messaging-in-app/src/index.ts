@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {
   NativeModules,
   Platform,
@@ -6,7 +6,11 @@ import {
   EmitterSubscription,
 } from 'react-native'
 import type {Spec} from './NativeSalesforceMessagingInApp'
-import type {CoreConfig, NativeSalesforceMessagingInApp} from './types'
+import type {
+  ConversationEntry,
+  CoreConfig,
+  NativeSalesforceMessagingInApp,
+} from './types'
 
 const LINKING_ERROR =
   "The package 'react-native-salesforce-messaging-in-app' doesn't seem to be linked. Make sure: \n\n" +
@@ -40,7 +44,7 @@ const messagingEventEmitter = new NativeEventEmitter(
   SalesforceMessagingInAppModule,
 )
 
-let subscription: EmitterSubscription | null = null
+// const subscription: EmitterSubscription | null = null
 
 export const createCoreClient = ({
   developerName,
@@ -49,35 +53,10 @@ export const createCoreClient = ({
 }: CoreConfig) =>
   SalesforceMessagingInApp.createCoreClient(url, organizationId, developerName)
 
-let messages: unknown[] = []
+// const messages: unknown[] = []
 
-export const createConversationClient = (conversationId?: string) => {
-  if (subscription) {
-    subscription.remove()
-    subscription = null
-  }
-
-  messages = []
-  subscription = messagingEventEmitter.addListener(
-    'onNewMessage',
-    (event: {message: string}) => {
-      // console.log('New message received:', event.message)
-      messages.push(event.message)
-      // console.log(messages)
-    },
-  )
-
-  return SalesforceMessagingInApp.createConversationClient(
-    conversationId ?? null,
-  )
-  /*.then(
-    newConversationId => {
-
-
-      return newConversationId
-    },
-  )*/
-}
+export const createConversationClient = (conversationId?: string) =>
+  SalesforceMessagingInApp.createConversationClient(conversationId ?? null)
 
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
@@ -88,7 +67,7 @@ export const retrieveRemoteConfiguration = () =>
 export const checkIfInBusinessHours = () =>
   SalesforceMessagingInApp.checkIfInBusinessHours()
 
-export const useChat = ({
+export const useCreateChat = ({
   developerName,
   organizationId,
   url,
@@ -100,21 +79,41 @@ export const useChat = ({
   const [newConversationId, setNewConversationId] = useState<
     string | undefined
   >(conversationId)
+  const subscription = useRef<EmitterSubscription | null>(null)
+  const [messages, setMessages] = useState<ConversationEntry[]>([])
 
   useEffect(() => {
-    void createCoreClient({developerName, organizationId, url}).then(() => {
-      void createConversationClient(newConversationId).then(
-        (resultConversationId: string) => {
-          setNewConversationId(resultConversationId)
-        },
-      )
-      setReady(true)
-    })
+    if (developerName && organizationId && url) {
+      void createCoreClient({developerName, organizationId, url}).then(() => {
+        if (subscription.current) {
+          subscription.current.remove()
+          subscription.current = null
+        }
+
+        setMessages([])
+        subscription.current = messagingEventEmitter.addListener(
+          'onNewMessage',
+          (message: ConversationEntry) => {
+            // console.log('New message received:', event)
+            setMessages(oldMessages => [...oldMessages, message])
+            // console.log(JSON.stringify(messages))
+          },
+        )
+        void createConversationClient(conversationId ?? newConversationId).then(
+          (resultConversationId: string) => {
+            setNewConversationId(resultConversationId)
+            setReady(true)
+          },
+        )
+      })
+    }
 
     return () => {
-      // subscription?.remove()
+      subscription.current?.remove()
+      subscription.current = null
     }
-  }, [developerName, newConversationId, organizationId, url])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [conversationId, developerName, organizationId, url])
 
   return {ready, messages, conversationId: newConversationId}
 }
