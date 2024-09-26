@@ -79,19 +79,25 @@ export const useCreateChat = ({
   const [newConversationId, setNewConversationId] = useState<
     string | undefined
   >(conversationId)
-  const subscription = useRef<EmitterSubscription | null>(null)
+  const onNewMessageSubscription = useRef<EmitterSubscription | null>(null)
+  const onUpdatedMessageSubscription = useRef<EmitterSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
 
   useEffect(() => {
     if (developerName && organizationId && url) {
       void createCoreClient({developerName, organizationId, url}).then(() => {
-        if (subscription.current) {
-          subscription.current.remove()
-          subscription.current = null
+        if (onNewMessageSubscription.current) {
+          onNewMessageSubscription.current.remove()
+          onNewMessageSubscription.current = null
+        }
+
+        if (onUpdatedMessageSubscription.current) {
+          onUpdatedMessageSubscription.current.remove()
+          onUpdatedMessageSubscription.current = null
         }
 
         setMessages([])
-        subscription.current = messagingEventEmitter.addListener(
+        onNewMessageSubscription.current = messagingEventEmitter.addListener(
           'onNewMessage',
           (message: ConversationEntry) => {
             // console.log('New message received:', event)
@@ -99,6 +105,19 @@ export const useCreateChat = ({
             // console.log(JSON.stringify(messages))
           },
         )
+        onUpdatedMessageSubscription.current =
+          messagingEventEmitter.addListener(
+            'onUpdatedMessage',
+            (message: ConversationEntry) => {
+              // console.log('Updated message received:', message)
+              setMessages(oldMessages =>
+                oldMessages.map(oldMessage =>
+                  oldMessage.entryId === message.entryId ? message : oldMessage,
+                ),
+              )
+              // console.log(JSON.stringify(messages))
+            },
+          )
         void createConversationClient(conversationId ?? newConversationId).then(
           (resultConversationId: string) => {
             setNewConversationId(resultConversationId)
@@ -109,8 +128,10 @@ export const useCreateChat = ({
     }
 
     return () => {
-      subscription.current?.remove()
-      subscription.current = null
+      onNewMessageSubscription.current?.remove()
+      onNewMessageSubscription.current = null
+      onUpdatedMessageSubscription.current?.remove()
+      onUpdatedMessageSubscription.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, developerName, organizationId, url])

@@ -502,7 +502,7 @@ didUpdateEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
     if (hasListeners) {
         for (id<SMIConversationEntry> entry in entries) {
             NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-            [self sendEventWithName:@"onMessageUpdated" body:finalMessageDict];
+            [self sendEventWithName:@"onUpdatedMessage" body:finalMessageDict];
         }
     }
 }
@@ -549,7 +549,7 @@ didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"onNewMessage", @"onMessageUpdated", @"onNetworkStatusChanged", @"onTypingStarted", @"onTypingStopped"];
+    return @[@"onNewMessage", @"onUpdatedMessage", @"onNetworkStatusChanged", @"onTypingStarted", @"onTypingStopped"];
 }
 
 // Don't compile this code when we build for the old architecture.
