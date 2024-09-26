@@ -322,7 +322,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     // NSString *replyToEntryId = payload.replyTo ? payload.replyTo.identifier : @"";  // Handle replyTo entry
     // Convert the extracted properties into a dictionary
     NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
-    messageDict[@"messageId"] = entry.identifier;
+    messageDict[@"entryId"] = entry.identifier;
     messageDict[@"payloadDescription"] = entry.payload ? [entry.payload description] : @"";
     // messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
     messageDict[@"senderSubject"] = entry.sender.subject;

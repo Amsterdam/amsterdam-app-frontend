@@ -56,12 +56,12 @@ export type ConversationEntry = {
    */
   choices?: Choice[]
   conversationId: string
+  entryId: string
   format: ConversationEntryFormat
   /**
    * the id of the ConversationEntry this is a reply to
    */
   inReplyToEntryId: string
-  messageId: string
   messageType: string
   /**
    * @deprecated as it is used to see if we handle the payload properly
