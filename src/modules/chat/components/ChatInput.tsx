@@ -1,27 +1,22 @@
 import {useCallback, useState} from 'react'
-
 import {
   KeyboardAvoidingView,
   Platform,
-  // eslint-disable-next-line no-restricted-imports
-  Pressable,
   StyleSheet,
   TextInput,
   View,
 } from 'react-native'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
-import {DevelopmentButtons} from '@/modules/chat/components/DevelopmentButtons'
-import {ChatMessageAgent, ChatMessageBase} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  clearMessages: () => void
-  onSubmit: (message: ChatMessageBase) => void
+  onSubmit: (message: string) => void
 }
 
-export const ChatInput = ({clearMessages, onSubmit}: Props) => {
+export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
 
@@ -30,7 +25,7 @@ export const ChatInput = ({clearMessages, onSubmit}: Props) => {
   }, [])
 
   const handleSubmit = useCallback(
-    (message: ChatMessageBase) => {
+    (message: string) => {
       onSubmit(message)
       setInput('')
     },
@@ -55,13 +50,8 @@ export const ChatInput = ({clearMessages, onSubmit}: Props) => {
           {input.length > 0 && (
             <View style={styles.buttonWrapper}>
               <View style={styles.spacePlaceholder} />
-              <Pressable
-                onPress={() =>
-                  handleSubmit({
-                    agent: ChatMessageAgent.user,
-                    text: input,
-                  })
-                }
+              <PressableBase
+                onPress={() => handleSubmit(input)}
                 style={styles.button}
                 testID="ChatTextInputSendButton">
                 <Icon
@@ -69,14 +59,10 @@ export const ChatInput = ({clearMessages, onSubmit}: Props) => {
                   name="chevron-right"
                   testID="ChatTextInputSendButtonIcon"
                 />
-              </Pressable>
+              </PressableBase>
             </View>
           )}
         </View>
-        <DevelopmentButtons
-          addMessage={onSubmit}
-          clearMessages={clearMessages}
-        />
       </Column>
     </KeyboardAvoidingView>
   )

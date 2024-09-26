@@ -1,24 +1,18 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {
-  ChatMessage,
-  ChatVisibility,
-  ChatMessageBase,
-} from '@/modules/chat/types'
+import {ChatVisibility} from '@/modules/chat/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type ChatState = {
   isOpen: boolean
-  messages: ChatMessage[]
   visibility: ChatVisibility
 }
 
 const initialState: ChatState = {
   isOpen: false,
-  messages: [],
   visibility: ChatVisibility.maximized,
 }
 
@@ -26,10 +20,6 @@ export const chatSlice = createSlice({
   name: ReduxKey.chat,
   initialState,
   reducers: {
-    addChatMessage: (state, {payload}: PayloadAction<ChatMessageBase>) => ({
-      ...state,
-      messages: [...state.messages, {...payload, timestamp: Date.now()}],
-    }),
     closeChat: state => ({
       ...state,
       isOpen: false,
@@ -66,8 +56,6 @@ export const chatSlice = createSlice({
 })
 
 const {
-  addChatMessage,
-  clearChatMessages,
   closeChat,
   openChat,
   maximizeChat,
@@ -79,22 +67,12 @@ const {
 const selectChatIsOpen = (state: RootState) => state[ReduxKey.chat].isOpen
 const selectChatVisibility = (state: RootState) =>
   state[ReduxKey.chat].visibility
-const selectChatMessages = (state: RootState) => state[ReduxKey.chat].messages
 
 export const useChat = () => {
   const isOpen = useSelector(selectChatIsOpen)
   const visibility = useSelector(selectChatVisibility)
-  const messages = useSelector(selectChatMessages)
   const dispatch = useDispatch()
 
-  const addMessage = useCallback(
-    (message: ChatMessageBase) => dispatch(addChatMessage(message)),
-    [dispatch],
-  )
-  const clearMessages = useCallback(
-    () => dispatch(clearChatMessages()),
-    [dispatch],
-  )
   const open = useCallback(() => dispatch(openChat()), [dispatch])
   const close = useCallback(() => dispatch(closeChat()), [dispatch])
   const maximize = useCallback(() => dispatch(maximizeChat()), [dispatch])
@@ -109,13 +87,10 @@ export const useChat = () => {
   )
 
   return {
-    addMessage,
-    clearMessages,
     close,
     isOpen,
     open,
     maximize,
-    messages,
     minimize,
     toggleIsOpen,
     toggleVisibility,

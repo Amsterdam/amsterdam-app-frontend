@@ -1,14 +1,14 @@
 import {Fragment, useRef} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
+import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
-import {type ChatMessage as ChatMessageType} from '@/modules/chat/types'
 
 type Props = {
-  history: ChatMessageType[]
+  history: ConversationEntry[]
 }
 
 export const ChatHistory = ({history}: Props) => {
@@ -26,7 +26,8 @@ export const ChatHistory = ({history}: Props) => {
         <ChatStartTime firstMessage={history[0]} />
         <Gutter height="md" />
         {history.map((message, index) => {
-          const isLastOfType = history[index + 1]?.agent !== message.agent
+          const isLastOfType =
+            history[index + 1]?.senderRole !== message.senderRole
 
           return (
             <Fragment key={message.timestamp}>

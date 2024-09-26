@@ -1,7 +1,10 @@
 import {View, StyleSheet} from 'react-native'
+import {
+  ConversationEntry,
+  ConversationEntrySenderRole,
+} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ChatMessage, ChatMessageAgent} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -11,17 +14,20 @@ const EMPLOYEE_NAME = 'Jasmijn' // Get from real data once implemented
 
 type Props = {
   isLastOfType: boolean
-  message: ChatMessage
+  message: ConversationEntry
 }
 
-const getChatAgentInfo = (agent: ChatMessageAgent, timestamp: number) => {
+const getChatAgentInfo = (
+  agent: ConversationEntrySenderRole,
+  timestamp: number,
+) => {
   const formattedTimestamp = dayjs(timestamp).format('HH:mm')
 
-  if (agent === ChatMessageAgent.user) {
+  if (agent === ConversationEntrySenderRole.user) {
     return formattedTimestamp
   }
 
-  if (agent === ChatMessageAgent.bot) {
+  if (agent === ConversationEntrySenderRole.chatbot) {
     return `${BOT_NAME} - ${formattedTimestamp}`
   }
 
@@ -29,11 +35,11 @@ const getChatAgentInfo = (agent: ChatMessageAgent, timestamp: number) => {
 }
 
 export const ChatAgentInfo = ({
-  message: {agent, timestamp},
+  message: {senderRole, timestamp},
   isLastOfType,
 }: Props) => {
   const styles = useThemable(theme =>
-    createStyles(theme, agent === ChatMessageAgent.user),
+    createStyles(theme, senderRole === ConversationEntrySenderRole.user),
   )
 
   return (
@@ -43,9 +49,9 @@ export const ChatAgentInfo = ({
         <View style={styles.container}>
           <Phrase
             color="secondary"
-            testID={`ChatHistoryGroupName${agent}`}
+            testID={`ChatHistoryGroupName${senderRole}`}
             variant="extraSmall">
-            {getChatAgentInfo(agent, timestamp)}
+            {getChatAgentInfo(senderRole, timestamp)}
           </Phrase>
         </View>
       </>

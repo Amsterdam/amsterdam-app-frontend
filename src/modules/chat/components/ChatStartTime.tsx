@@ -1,11 +1,11 @@
+import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ChatMessage} from '@/modules/chat/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
-  firstMessage: ChatMessage
+  firstMessage: ConversationEntry
 }
 
 export const ChatStartTime = ({firstMessage}: Props) => (
