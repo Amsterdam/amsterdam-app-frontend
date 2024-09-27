@@ -5,11 +5,10 @@ import {
   sendMessage,
   useCreateChat,
 } from 'react-native-salesforce-messaging-in-app'
-import {Box} from '@/components/ui/containers/Box'
-import {Column} from '@/components/ui/layout/Column'
 import {ChatHeader} from '@/modules/chat/components/ChatHeader'
 import {ChatHistory} from '@/modules/chat/components/ChatHistory'
 import {ChatInput} from '@/modules/chat/components/ChatInput'
+import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -20,11 +19,8 @@ export const Chat = ({...viewProps}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(theme => createStyles(theme, insets))
   const {isOpen} = useChat()
-  const {messages} = useCreateChat({
-    developerName: '',
-    organizationId: '',
-    url: '',
-  })
+  const coreConfig = useCoreConfig()
+  const {messages} = useCreateChat(coreConfig)
 
   return isOpen ? (
     <Animated.View
@@ -34,14 +30,8 @@ export const Chat = ({...viewProps}: Props) => {
       style={[viewProps.style, StyleSheet.absoluteFill, styles.container]}
       testID="ChatFullscreenWindow">
       <ChatHeader />
-      <Box grow>
-        <Column
-          grow={1}
-          gutter="md">
-          <ChatHistory history={messages} />
-          <ChatInput onSubmit={message => sendMessage(message)} />
-        </Column>
-      </Box>
+      <ChatHistory history={messages} />
+      <ChatInput onSubmit={sendMessage} />
     </Animated.View>
   ) : null
 }

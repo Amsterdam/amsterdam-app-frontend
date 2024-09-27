@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
+import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {Theme} from '@/themes/themes'
@@ -35,35 +36,39 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Column gutter="sm">
-        <View
-          style={styles.container}
-          testID="ChatTextInputContainer">
-          <TextInput
-            multiline
-            onChangeText={onChangeText}
-            placeholder="Schrijf uw bericht"
-            style={styles.textInput}
-            testID="ChatTextInput"
-            value={input}
-          />
-          {input.length > 0 && (
-            <View style={styles.buttonWrapper}>
-              <View style={styles.spacePlaceholder} />
-              <PressableBase
-                onPress={() => handleSubmit(input)}
-                style={styles.button}
-                testID="ChatTextInputSendButton">
-                <Icon
-                  color="inverse"
-                  name="chevron-right"
-                  testID="ChatTextInputSendButtonIcon"
-                />
-              </PressableBase>
-            </View>
-          )}
-        </View>
-      </Column>
+      <Box
+        insetBottom="md"
+        insetHorizontal="md">
+        <Column gutter="sm">
+          <View
+            style={styles.container}
+            testID="ChatTextInputContainer">
+            <TextInput
+              multiline
+              onChangeText={onChangeText}
+              placeholder="Schrijf uw bericht"
+              style={styles.textInput}
+              testID="ChatTextInput"
+              value={input}
+            />
+            {input.length > 0 && (
+              <View style={styles.buttonWrapper}>
+                <View style={styles.spacePlaceholder} />
+                <PressableBase
+                  onPress={() => handleSubmit(input)}
+                  style={styles.button}
+                  testID="ChatTextInputSendButton">
+                  <Icon
+                    color="inverse"
+                    name="chevron-right"
+                    testID="ChatTextInputSendButtonIcon"
+                  />
+                </PressableBase>
+              </View>
+            )}
+          </View>
+        </Column>
+      </Box>
     </KeyboardAvoidingView>
   )
 }
