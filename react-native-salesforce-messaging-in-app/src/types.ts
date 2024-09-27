@@ -46,6 +46,7 @@ export enum ConversationEntryStatus {
 
 export enum ConversationEntrySenderRole {
   chatbot = 'Chatbot',
+  employee = 'Employee', // unsure
   system = 'System',
   user = 'USER',
 }

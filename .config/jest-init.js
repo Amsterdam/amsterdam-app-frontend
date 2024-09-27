@@ -74,3 +74,4 @@ jest.mock('react-native-applifecycle/dist/AppLifecycle', () =>
 jest.mock('react-native-barcode-creator', () => ({
   getConstants: jest.fn(),
 }))
+jest.mock('react-native-salesforce-messaging-in-app', () => ({}))

@@ -1,20 +1,23 @@
 import {View, StyleSheet} from 'react-native'
+import {
+  ConversationEntry,
+  ConversationEntrySenderRole,
+} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {AvatarBot} from '@/modules/chat/assets/AvatarBot'
 import {AvatarEmployee} from '@/modules/chat/assets/AvatarEmployee'
 import {ChatMessageLoading} from '@/modules/chat/components/ChatMessageLoading'
-import {ChatMessageAgent, ChatMessageBase} from '@/modules/chat/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  message: ChatMessageBase
+  message: ConversationEntry
 }
 
 export const ChatMessage = ({message}: Props) => {
-  const styles = useThemable(theme => createStyles(theme, message.agent))
-  const isUser = message.agent === ChatMessageAgent.user
+  const styles = useThemable(theme => createStyles(theme, message.senderRole))
+  const isUser = message.senderRole === ConversationEntrySenderRole.user
   const isLoading = false
 
   return (
@@ -22,17 +25,23 @@ export const ChatMessage = ({message}: Props) => {
       align={isUser ? 'end' : 'start'}
       gutter="sm"
       valign="end">
-      {!isLoading && message.agent === ChatMessageAgent.bot && <AvatarBot />}
-      {!isLoading && message.agent === ChatMessageAgent.employee && (
-        <AvatarEmployee />
-      )}
+      {!isLoading &&
+        message.senderRole === ConversationEntrySenderRole.chatbot && (
+          <AvatarBot />
+        )}
+      {!isLoading &&
+        message.senderRole === ConversationEntrySenderRole.employee && (
+          <AvatarEmployee />
+        )}
       <View style={styles.textContainer}>
         {isLoading ? (
           <ChatMessageLoading />
         ) : (
           <Phrase
             color={
-              message.agent === ChatMessageAgent.user ? 'inverse' : undefined
+              message.senderRole === ConversationEntrySenderRole.user
+                ? 'inverse'
+                : undefined
             }
             testID="">
             {message.text}
@@ -43,8 +52,11 @@ export const ChatMessage = ({message}: Props) => {
   )
 }
 
-const createStyles = ({color, size}: Theme, agent: ChatMessageAgent) => {
-  const isUser = agent === ChatMessageAgent.user
+const createStyles = (
+  {color, size}: Theme,
+  agent: ConversationEntrySenderRole,
+) => {
+  const isUser = agent === ConversationEntrySenderRole.user
   const borderRadius = 12
 
   return StyleSheet.create({

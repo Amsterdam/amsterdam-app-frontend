@@ -1,6 +1,10 @@
 import {StyleSheet, ViewProps} from 'react-native'
 import Animated, {SlideInDown, SlideOutDown} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {
+  sendMessage,
+  useCreateChat,
+} from 'react-native-salesforce-messaging-in-app'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ChatHeader} from '@/modules/chat/components/ChatHeader'
@@ -15,7 +19,12 @@ type Props = ViewProps
 export const Chat = ({...viewProps}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(theme => createStyles(theme, insets))
-  const {addMessage, clearMessages, isOpen, messages} = useChat()
+  const {isOpen} = useChat()
+  const {messages} = useCreateChat({
+    developerName: '',
+    organizationId: '',
+    url: '',
+  })
 
   return isOpen ? (
     <Animated.View
@@ -30,10 +39,7 @@ export const Chat = ({...viewProps}: Props) => {
           grow={1}
           gutter="md">
           <ChatHistory history={messages} />
-          <ChatInput
-            clearMessages={clearMessages}
-            onSubmit={addMessage}
-          />
+          <ChatInput onSubmit={message => sendMessage(message)} />
         </Column>
       </Box>
     </Animated.View>

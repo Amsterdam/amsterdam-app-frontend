@@ -1,3 +1,4 @@
+import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
 import {baseColor} from '@/themes/tokens/base-color'
 
 export type ColorTokens = typeof lightColorTokens
@@ -77,9 +78,10 @@ export const lightColorTokens = {
     },
     message: {
       background: {
-        bot: baseColor.neutral.grey1,
-        employee: baseColor.neutral.grey1,
-        user: baseColor.neutral.grey4,
+        [ConversationEntrySenderRole.chatbot]: baseColor.neutral.grey1,
+        [ConversationEntrySenderRole.employee]: baseColor.neutral.grey1,
+        [ConversationEntrySenderRole.user]: baseColor.neutral.grey4,
+        [ConversationEntrySenderRole.system]: baseColor.neutral.grey1,
       },
       text: {
         bot: baseColor.primary.black,
