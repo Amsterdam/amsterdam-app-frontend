@@ -5,6 +5,6 @@ import {ModuleClientConfig} from '@/modules/types'
 export const chatModule: ModuleClientConfig = {
   hiddenInMenu: true,
   name: 'ChatModule',
-  PreRenderComponent: Chat,
+  PostRenderComponent: Chat,
   slug: ModuleSlug.chat,
 }

@@ -1,19 +1,18 @@
-import {Fragment, useRef} from 'react'
+import {Fragment, useContext, useRef} from 'react'
 import {ScrollView, StyleSheet} from 'react-native'
-import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
+import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {ChatContext} from '@/modules/chat/chat.provider'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 
-type Props = {
-  history: ConversationEntry[]
-}
-
-export const ChatHistory = ({history}: Props) => {
+export const ChatHistory = () => {
   const scrollRef = useRef<ScrollView>(null)
   const styles = createStyles()
+  const {messages} = useContext(ChatContext)
 
   return (
     <ScrollView
@@ -22,25 +21,31 @@ export const ChatHistory = ({history}: Props) => {
       onContentSizeChange={() => scrollRef?.current?.scrollToEnd()}
       ref={scrollRef}
       style={styles.scrollView}>
-      <Column>
-        <ChatStartTime firstMessage={history[0]} />
-        <Gutter height="md" />
-        {history.map((message, index) => {
-          const isLastOfType =
-            history[index + 1]?.senderRole !== message.senderRole
+      <Box
+        grow
+        insetHorizontal="md">
+        <Column>
+          <ChatStartTime firstMessage={messages[0]} />
+          <Gutter height="md" />
+          {messages.map((message, index) => {
+            if (message.senderRole !== ConversationEntrySenderRole.system) {
+              const isLastOfType =
+                messages[index + 1]?.senderRole !== message.senderRole
 
-          return (
-            <Fragment key={message.timestamp}>
-              <ChatMessage message={message} />
-              <ChatAgentInfo
-                isLastOfType={isLastOfType}
-                message={message}
-              />
-              <Gutter height={isLastOfType ? 'md' : 'sm'} />
-            </Fragment>
-          )
-        })}
-      </Column>
+              return (
+                <Fragment key={message.timestamp}>
+                  <ChatMessage message={message} />
+                  <ChatAgentInfo
+                    isLastOfType={isLastOfType}
+                    message={message}
+                  />
+                  <Gutter height={isLastOfType ? 'md' : 'sm'} />
+                </Fragment>
+              )
+            }
+          })}
+        </Column>
+      </Box>
     </ScrollView>
   )
 }

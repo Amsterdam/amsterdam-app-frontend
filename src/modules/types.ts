@@ -58,6 +58,10 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   HeaderComponent?: ComponentType
   /**
+   * Component to render after the module has been rendered.
+   */
+  PostRenderComponent?: ComponentType
+  /**
    * A component for preprocessing purposes at the app's root level.
    * If `renderBeforeServerModules` is true, the component will be rendered before the server modules are fetched.
    */
