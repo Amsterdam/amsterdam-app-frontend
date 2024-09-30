@@ -96,7 +96,7 @@ export const useCreateChat = ({
           onUpdatedMessageSubscription.current = null
         }
 
-        setMessages([])
+        // setMessages([])
         onNewMessageSubscription.current = messagingEventEmitter.addListener(
           'onNewMessage',
           (message: ConversationEntry) => {

@@ -5,6 +5,7 @@ import {DeviceRegistration} from '@/app/init/DeviceRegistration'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
 import {GetLocation} from '@/app/init/GetLocation'
 import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
+import {PostRenderComponents} from '@/app/init/PostRenderComponents'
 import {PreRenderComponents} from '@/app/init/PreRenderComponents'
 import {NoInternet} from '@/components/features/NoInternet'
 import {useModules} from '@/hooks/useModules'
@@ -25,6 +26,7 @@ export const Init = ({children}: Props) => {
 
       <PreRenderComponents enabledModules={enabledModules} />
       {children}
+      <PostRenderComponents enabledModules={enabledModules} />
       <NoInternet />
     </>
   )
