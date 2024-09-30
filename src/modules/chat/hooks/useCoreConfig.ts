@@ -10,15 +10,16 @@ export const useCoreConfig = () => {
   switch (environment) {
     case Environment.development:
     case Environment.custom:
+    case Environment.test:
       config.developerName = process.env.CHAT_DEVELOPER_NAME_DEV ?? ''
       config.organizationId = process.env.CHAT_ORGANIZATION_ID_DEV ?? ''
       config.url = process.env.CHAT_URL_DEV ?? ''
       break
-    case Environment.test:
-      config.developerName = process.env.CHAT_DEVELOPER_NAME_TEST ?? ''
-      config.organizationId = process.env.CHAT_ORGANIZATION_ID_TEST ?? ''
-      config.url = process.env.CHAT_URL_TEST ?? ''
-      break
+    // case Environment.test:
+    //   config.developerName = process.env.CHAT_DEVELOPER_NAME_TEST ?? ''
+    //   config.organizationId = process.env.CHAT_ORGANIZATION_ID_TEST ?? ''
+    //   config.url = process.env.CHAT_URL_TEST ?? ''
+    //   break
     case Environment.acceptance:
       config.developerName = process.env.CHAT_DEVELOPER_NAME_ACC ?? ''
       config.organizationId = process.env.CHAT_ORGANIZATION_ID_ACC ?? ''

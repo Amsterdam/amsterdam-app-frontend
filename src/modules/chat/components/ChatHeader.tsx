@@ -1,56 +1,88 @@
-import {StyleProp, ViewStyle} from 'react-native'
-import Animated, {AnimatedStyle} from 'react-native-reanimated'
+import {useContext} from 'react'
+import {Keyboard, StyleSheet, View} from 'react-native'
+import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
+import {ChatContext} from '@/modules/chat/chat.provider'
+import {CHAT_TRANSITION_DURATION} from '@/modules/chat/constants'
 import {useChat} from '@/modules/chat/slice'
 import {devLog} from '@/processes/development'
 import {useTheme} from '@/themes/useTheme'
 
-type Props = {
-  styles: {
-    expandIcon: StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>
-    menuIcon: StyleProp<AnimatedStyle<StyleProp<ViewStyle>>>
-  }
-}
-
-export const ChatHeader = ({styles: {expandIcon, menuIcon}}: Props) => {
+export const ChatHeader = () => {
   const {toggleVisibility} = useChat()
+  const {isMaximized} = useContext(ChatContext)
+
   const {color} = useTheme()
+  const insets = useSafeAreaInsets()
+  const styles = createStyles(insets)
+
+  const animatedStylesHeader = {
+    menuIcon: useAnimatedStyle(() => ({
+      opacity: withTiming(isMaximized ? 1 : 0, {
+        duration: CHAT_TRANSITION_DURATION,
+      }),
+    })),
+    expandIcon: useAnimatedStyle(() => ({
+      transform: [
+        {
+          rotate: withTiming(isMaximized ? '0deg' : '-180deg', {
+            duration: CHAT_TRANSITION_DURATION,
+          }),
+        },
+      ],
+    })),
+  }
+
+  const onPressToggleVisibility = () => {
+    toggleVisibility()
+    Keyboard.dismiss()
+  }
 
   return (
-    <Box testID="ChatHeader">
-      <Row
-        align="between"
-        valign="center">
-        <Animated.View style={menuIcon}>
-          <IconButton
-            icon={
-              <MeatballsMenu color={color.pressable.secondary.default.icon} />
-            }
-            onPress={() => devLog('ChatMenuButton')}
-            testID="ChatHeaderMeatballsMenuButton"
-          />
-        </Animated.View>
-        <ScreenTitle text="Chat" />
-        <Animated.View style={expandIcon}>
-          <IconButton
-            icon={
-              <Icon
-                color="link"
-                name="chevron-down"
-                size="lg"
-                testID="ChatHeaderToggleVisibilityButtonIcon"
-              />
-            }
-            onPress={toggleVisibility}
-            testID="ChatHeaderToggleVisibilityButton"
-          />
-        </Animated.View>
-      </Row>
-    </Box>
+    <View style={styles.container}>
+      <Box testID="ChatHeader">
+        <Row
+          align="between"
+          valign="center">
+          <Animated.View style={animatedStylesHeader.menuIcon}>
+            <IconButton
+              icon={
+                <MeatballsMenu color={color.pressable.secondary.default.icon} />
+              }
+              onPress={() => devLog('ChatMenuButton')}
+              testID="ChatHeaderMeatballsMenuButton"
+            />
+          </Animated.View>
+          <ScreenTitle text="Chat" />
+          <Animated.View style={animatedStylesHeader.expandIcon}>
+            <IconButton
+              icon={
+                <Icon
+                  color="link"
+                  name="chevron-down"
+                  size="lg"
+                  testID="ChatHeaderToggleVisibilityButtonIcon"
+                />
+              }
+              onPress={onPressToggleVisibility}
+              testID="ChatHeaderToggleVisibilityButton"
+            />
+          </Animated.View>
+        </Row>
+      </Box>
+    </View>
   )
 }
+
+const createStyles = (insets: EdgeInsets) =>
+  StyleSheet.create({
+    container: {
+      paddingTop: insets.top,
+    },
+  })

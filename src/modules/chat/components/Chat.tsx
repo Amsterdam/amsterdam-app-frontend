@@ -1,98 +1,43 @@
-import {
-  PixelRatio,
-  StyleSheet,
-  useWindowDimensions,
-  View,
-  ViewProps,
-} from 'react-native'
-import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
+import {StyleSheet, View} from 'react-native'
+import Animated, {SlideInDown, SlideOutDown} from 'react-native-reanimated'
+import {useSafeAreaInsets, EdgeInsets} from 'react-native-safe-area-context'
 import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
 import {ChatProvider} from '@/modules/chat/chat.provider'
+import {ChatAnimateHeight} from '@/modules/chat/components/ChatAnimateHeight'
+import {ChatAnimateInnerContent} from '@/modules/chat/components/ChatAnimateInnerContent'
 import {ChatHeader} from '@/modules/chat/components/ChatHeader'
 import {ChatHistory} from '@/modules/chat/components/ChatHistory'
 import {ChatInput} from '@/modules/chat/components/ChatInput'
 import {useChat} from '@/modules/chat/slice'
-import {ChatVisibility} from '@/modules/chat/types'
-import {useTheme} from '@/themes/useTheme'
 
-type Props = ViewProps
-
-export const Chat = (props: Props) => {
-  const {isOpen, visibility} = useChat()
+export const Chat = () => {
+  const {isOpen} = useChat()
   const insets = useSafeAreaInsets()
-  const theme = useTheme()
-  const {height} = useWindowDimensions()
-  const styles = createStyles()
-  const isMaximized = visibility === ChatVisibility.maximized
-  const fontScale = PixelRatio.getFontScale()
-  const backgroundColor = isMaximized
-    ? theme.color.screen.background.default
-    : theme.color.screen.background.settings
+  const styles = createStyles(insets)
 
-  const animatedStyles = useAnimatedStyle(() => ({
-    height: withTiming(isMaximized ? height : 100 * fontScale, {
-      duration: 300,
-    }),
-    backgroundColor: withTiming(backgroundColor, {duration: 300}),
-  }))
-
-  // const animatedStylesInner = useAnimatedStyle(() => ({
-  //   flexGrow: 1,
-  //   transform: [
-  //     {
-  //       translateY: withTiming(isMaximized ? 0 : -insets.top, {duration: 300}),
-  //     },
-  //   ],
-  // }))
-  const animatedStylesHeader = {
-    menuIcon: useAnimatedStyle(() => ({
-      opacity: withTiming(isMaximized ? 1 : 0, {
-        duration: 300,
-      }),
-    })),
-    expandIcon: useAnimatedStyle(() => ({
-      transform: [
-        {
-          rotate: withTiming(isMaximized ? '0deg' : '-180deg', {duration: 300}),
-        },
-      ],
-    })),
-  }
-
-  // const animatedStylesContent = useAnimatedStyle(() => ({
-  //   flex: 1,
-  //   opacity: withTiming(isMaximized ? 1 : 0, {duration: 100}),
-  // }))
-
-  if (!isOpen) {
-    return null
-  }
-
-  return (
+  return isOpen ? (
     <Animated.View
-      {...props}
-      style={[props.style, styles.container, animatedStyles]}
-      testID="ChatFullscreenWindow">
-      {/* <Animated.View style={animatedStylesInner}> */}
+      entering={SlideInDown}
+      exiting={SlideOutDown}>
       <ChatProvider>
-        <View style={{paddingTop: insets.top}}>
-          <ChatHeader styles={animatedStylesHeader} />
-        </View>
-        {/* <Animated.View style={animatedStylesContent}> */}
-        <ChatHistory />
-        <ChatInput onSubmit={sendMessage} />
-        {/* </Animated.View> */}
+        <ChatAnimateHeight>
+          <View style={styles.container}>
+            <ChatAnimateInnerContent>
+              <ChatHeader />
+              <ChatHistory />
+              <ChatInput onSubmit={sendMessage} />
+            </ChatAnimateInnerContent>
+          </View>
+        </ChatAnimateHeight>
       </ChatProvider>
-      {/* </Animated.View> */}
     </Animated.View>
-  )
+  ) : null
 }
 
-const createStyles = () =>
+const createStyles = (insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
-      //   paddingTop: insets.top,
-      //   paddingBottom: insets.bottom,
+      flexGrow: 1,
+      paddingBottom: insets.bottom,
     },
   })

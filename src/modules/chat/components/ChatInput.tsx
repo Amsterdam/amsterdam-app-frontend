@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useContext, useState} from 'react'
 import {
   KeyboardAvoidingView,
   Platform,
@@ -6,10 +6,13 @@ import {
   TextInput,
   View,
 } from 'react-native'
+import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
+import {ChatContext} from '@/modules/chat/chat.provider'
+import {CHAT_TRANSITION_DURATION_SHORT} from '@/modules/chat/constants'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -20,6 +23,7 @@ type Props = {
 export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
+  const {isMaximized} = useContext(ChatContext)
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
@@ -33,47 +37,55 @@ export const ChatInput = ({onSubmit}: Props) => {
     [onSubmit],
   )
 
+  const animatedStyles = useAnimatedStyle(() => ({
+    opacity: withTiming(isMaximized ? 1 : 0, {
+      duration: CHAT_TRANSITION_DURATION_SHORT,
+    }),
+  }))
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Box
-        insetBottom="md"
-        insetHorizontal="md">
-        <Column gutter="sm">
-          <View
-            style={styles.container}
-            testID="ChatTextInputContainer">
-            <TextInput
-              multiline
-              onChangeText={onChangeText}
-              placeholder="Schrijf uw bericht"
-              style={styles.textInput}
-              testID="ChatTextInput"
-              value={input}
-            />
-            {input.length > 0 && (
-              <View style={styles.buttonWrapper}>
-                <View style={styles.spacePlaceholder} />
-                <PressableBase
-                  onPress={() => handleSubmit(input)}
-                  style={styles.button}
-                  testID="ChatTextInputSendButton">
-                  <Icon
-                    color="inverse"
-                    name="chevron-right"
-                    testID="ChatTextInputSendButtonIcon"
-                  />
-                </PressableBase>
-              </View>
-            )}
-          </View>
-        </Column>
-      </Box>
+      <Animated.View style={animatedStyles}>
+        <Box
+          insetBottom="md"
+          insetHorizontal="md">
+          <Column gutter="sm">
+            <View
+              style={styles.container}
+              testID="ChatTextInputContainer">
+              <TextInput
+                multiline
+                onChangeText={onChangeText}
+                placeholder="Schrijf uw bericht"
+                style={styles.textInput}
+                testID="ChatTextInput"
+                value={input}
+              />
+              {input.length > 0 && (
+                <View style={styles.buttonWrapper}>
+                  <View style={styles.spacePlaceholder} />
+                  <PressableBase
+                    onPress={() => handleSubmit(input)}
+                    style={styles.button}
+                    testID="ChatTextInputSendButton">
+                    <Icon
+                      color="inverse"
+                      name="chevron-right"
+                      testID="ChatTextInputSendButtonIcon"
+                    />
+                  </PressableBase>
+                </View>
+              )}
+            </View>
+          </Column>
+        </Box>
+      </Animated.View>
     </KeyboardAvoidingView>
   )
 }
 
-const BUTTON_DIMENSION = 40
+const SEND_BUTTON_DIMENSION = 40
 
 const createStyles = ({border, color, text, size}: Theme) =>
   StyleSheet.create({
@@ -81,8 +93,8 @@ const createStyles = ({border, color, text, size}: Theme) =>
       backgroundColor: color.pressable.primary.default.background,
       alignItems: 'center',
       justifyContent: 'center',
-      height: BUTTON_DIMENSION,
-      width: BUTTON_DIMENSION,
+      height: SEND_BUTTON_DIMENSION,
+      width: SEND_BUTTON_DIMENSION,
     },
     buttonWrapper: {
       height: '100%',
