@@ -117,7 +117,7 @@ GEM
     faraday_middleware (1.2.1)
       faraday (~> 1.0)
     fastimage (2.3.1)
-    fastlane (2.223.1)
+    fastlane (2.222.0)
       CFPropertyList (>= 2.3, < 4.0.0)
       addressable (>= 2.8, < 3.0.0)
       artifactory (~> 3.0)
@@ -285,7 +285,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (>= 6.1.7.5, < 7.1.0)
   cocoapods (>= 1.13, < 1.15)
-  fastlane (= 2.223.1)
+  fastlane (= 2.222.0)
 
 RUBY VERSION
    ruby 3.1.4p223
