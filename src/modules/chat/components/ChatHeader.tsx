@@ -4,12 +4,13 @@ import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
-import {ChatContext} from '@/modules/chat/chat.provider'
-import {CHAT_TRANSITION_DURATION} from '@/modules/chat/constants'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {devLog} from '@/processes/development'
 import {useTheme} from '@/themes/useTheme'
@@ -22,22 +23,16 @@ export const ChatHeader = () => {
   const insets = useSafeAreaInsets()
   const styles = createStyles(insets)
 
-  const animatedStylesHeader = {
-    menuIcon: useAnimatedStyle(() => ({
-      opacity: withTiming(isMaximized ? 1 : 0, {
-        duration: CHAT_TRANSITION_DURATION,
-      }),
-    })),
-    expandIcon: useAnimatedStyle(() => ({
-      transform: [
-        {
-          rotate: withTiming(isMaximized ? '0deg' : '-180deg', {
-            duration: CHAT_TRANSITION_DURATION,
-          }),
-        },
-      ],
-    })),
-  }
+  const expandIconStyle = useAnimatedStyle(() => ({
+    transform: [
+      {
+        rotate: withTiming(isMaximized ? '0deg' : '-180deg'),
+      },
+    ],
+  }))
+  const menuIconStyle = useAnimatedStyle(() => ({
+    opacity: withTiming(isMaximized ? 1 : 0),
+  }))
 
   const onPressToggleVisibility = () => {
     toggleVisibility()
@@ -50,7 +45,7 @@ export const ChatHeader = () => {
         <Row
           align="between"
           valign="center">
-          <Animated.View style={animatedStylesHeader.menuIcon}>
+          <Animated.View style={menuIconStyle}>
             <IconButton
               icon={
                 <MeatballsMenu color={color.pressable.secondary.default.icon} />
@@ -59,8 +54,11 @@ export const ChatHeader = () => {
               testID="ChatHeaderMeatballsMenuButton"
             />
           </Animated.View>
-          <ScreenTitle text="Chat" />
-          <Animated.View style={animatedStylesHeader.expandIcon}>
+          <Column>
+            <ScreenTitle text="Chat" />
+            <Phrase testID="">Nieuw Bericht</Phrase>
+          </Column>
+          <Animated.View style={expandIconStyle}>
             <IconButton
               icon={
                 <Icon
