@@ -1,3 +1,5 @@
+import {useCallback} from 'react'
+import {useSharedValue} from 'react-native-reanimated'
 import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
 import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,8 +10,16 @@ type Props = {
   choices: ConversationEntry['choices']
 }
 
-export const Choices = ({choices}: Props) =>
-  choices ? (
+export const Choices = ({choices}: Props) => {
+  const isSent = useSharedValue(false)
+  const onPress = useCallback(
+    (title: string) => {
+      void sendMessage(title).then(() => (isSent.value = true))
+    },
+    [isSent],
+  )
+
+  return choices && !isSent.value ? (
     <>
       <Row
         align="end"
@@ -19,7 +29,7 @@ export const Choices = ({choices}: Props) =>
           <Button
             key={optionId}
             label={title}
-            onPress={() => sendMessage(title)}
+            onPress={() => onPress(title)}
             testID={`ChatHistoryChoices${title}`}
             variant="secondary"
           />
@@ -28,3 +38,4 @@ export const Choices = ({choices}: Props) =>
       <Gutter height="md" />
     </>
   ) : null
+}
