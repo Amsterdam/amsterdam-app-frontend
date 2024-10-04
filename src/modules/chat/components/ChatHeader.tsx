@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {Keyboard, StyleSheet, View} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -10,14 +9,12 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {devLog} from '@/processes/development'
 import {useTheme} from '@/themes/useTheme'
 
 export const ChatHeader = () => {
-  const {toggleVisibility} = useChat()
-  const {isMaximized} = useContext(ChatContext)
+  const {isMaximized, toggleVisibility} = useChat()
 
   const {color} = useTheme()
   const insets = useSafeAreaInsets()

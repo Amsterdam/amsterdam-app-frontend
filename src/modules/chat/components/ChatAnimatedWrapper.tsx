@@ -1,4 +1,4 @@
-import {ReactNode, useContext, useLayoutEffect} from 'react'
+import {ReactNode, useLayoutEffect} from 'react'
 import {useWindowDimensions, StyleSheet, PixelRatio} from 'react-native'
 import Animated, {
   SlideInDown,
@@ -7,7 +7,6 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -22,9 +21,8 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
   const theme = useTheme()
   const {height} = useWindowDimensions()
   const insets = useSafeAreaInsets()
-  const {isMaximized} = useContext(ChatContext)
   const fontScale = PixelRatio.getFontScale()
-  const {setMinimizedHeight} = useChat()
+  const {isMaximized, setMinimizedHeight} = useChat()
   const styles = createStyles(theme, insets)
   const backgroundColor = isMaximized
     ? theme.color.screen.background.default

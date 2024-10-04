@@ -81,6 +81,7 @@ const selectChatMinimizedHeight = (state: RootState) =>
 export const useChat = () => {
   const isOpen = useSelector(selectChatIsOpen)
   const visibility = useSelector(selectChatVisibility)
+  const isMaximized = visibility === ChatVisibility.maximized
   const minimizedHeight = useSelector(selectChatMinimizedHeight)
   const dispatch = useDispatch()
 
@@ -103,6 +104,7 @@ export const useChat = () => {
 
   return {
     close,
+    isMaximized,
     isOpen,
     open,
     maximize,

@@ -1,7 +1,7 @@
-import {ReactNode, useContext} from 'react'
+import {ReactNode} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChat} from '@/modules/chat/slice'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
@@ -9,7 +9,7 @@ type Props = {
 }
 
 export const ChatAnimatedContentWrapper = ({children}: Props) => {
-  const {isMaximized} = useContext(ChatContext)
+  const {isMaximized} = useChat()
   const {duration} = useTheme()
   const styles = createStyles()
 
