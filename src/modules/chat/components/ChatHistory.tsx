@@ -4,10 +4,10 @@ import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {ChatContext} from '@/modules/chat/chat.provider'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
 export const ChatHistory = () => {
   const scrollRef = useRef<ScrollView>(null)

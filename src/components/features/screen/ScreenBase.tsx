@@ -9,6 +9,7 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {MinimizedChatPlaceholder} from '@/modules/chat/components/MinimizedChatPlaceholder'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 
 export const ScreenBase = ({
@@ -79,6 +80,7 @@ export const ScreenBase = ({
             {bottomSheet}
           </>
         )}
+        <MinimizedChatPlaceholder />
       </HideFromAccessibilityWhenOverlayIsOpen>
     </DisableScrollProvider>
   )
