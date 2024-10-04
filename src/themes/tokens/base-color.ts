@@ -36,7 +36,7 @@ export const baseColor = {
     full: 'transparent',
     white30: '#ffffff4c',
     grey50: '#46464680',
-    black75: '#000000bf',
     black90: '#000000e6',
+    blue25: '#00469940',
   },
 } as const

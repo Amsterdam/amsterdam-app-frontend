@@ -9,8 +9,8 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {MinimizedChatPlaceholder} from '@/modules/chat/components/MinimizedChatPlaceholder'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
+import {useScreen} from '@/store/slices/screen'
 
 export const ScreenBase = ({
   bottomSheet,
@@ -28,6 +28,7 @@ export const ScreenBase = ({
   ...wrapperProps
 }: ScreenProps) => {
   const insets = useSafeAreaInsets()
+  const {spaceBottom} = useScreen()
 
   const hasStickyFooter = !!stickyFooter
   const hasStickyHeader = !!stickyHeader
@@ -35,6 +36,7 @@ export const ScreenBase = ({
   const styles = useMemo(
     () =>
       createStyles(insets, {
+        spaceBottom,
         hasStickyFooter,
         hasStickyHeader,
         withBottomInset,
@@ -43,6 +45,7 @@ export const ScreenBase = ({
         withTopInset,
       }),
     [
+      spaceBottom,
       insets,
       hasStickyFooter,
       hasStickyHeader,
@@ -80,7 +83,6 @@ export const ScreenBase = ({
             {bottomSheet}
           </>
         )}
-        <MinimizedChatPlaceholder />
       </HideFromAccessibilityWhenOverlayIsOpen>
     </DisableScrollProvider>
   )
@@ -95,9 +97,11 @@ const createStyles = (
     withLeftInset,
     withRightInset,
     withTopInset,
+    spaceBottom,
   }: {
     hasStickyFooter: boolean
     hasStickyHeader: boolean
+    spaceBottom: number
   } & WithInsetProps,
 ) =>
   StyleSheet.create({
@@ -112,6 +116,7 @@ const createStyles = (
     },
     scrollViewContent: {
       flexGrow: 1,
+      paddingBottom: spaceBottom,
     },
     screen: {
       flex: 1,
