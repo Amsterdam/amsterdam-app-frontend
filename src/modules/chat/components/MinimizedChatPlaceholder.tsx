@@ -19,7 +19,6 @@ const createStyles = (height: number) =>
   StyleSheet.create({
     container: {
       height,
-      backgroundColor: 'red',
       width: '100%',
     },
   })
