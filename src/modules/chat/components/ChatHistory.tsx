@@ -7,6 +7,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
+import {Choices} from '@/modules/chat/components/Choices'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
 export const ChatHistory = () => {
@@ -40,6 +41,7 @@ export const ChatHistory = () => {
                     message={message}
                   />
                   <Gutter height={isLastOfType ? 'md' : 'sm'} />
+                  <Choices choices={message.choices} />
                 </Fragment>
               )
             }
