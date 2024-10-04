@@ -15,6 +15,7 @@ export enum ReduxKey {
   overlay = 'overlay',
   permissions = 'permissions',
   productTour = 'productTour',
+  screen = 'screen',
   secureStorage = 'secureStorage',
   theme = 'theme',
   updateApp = 'updateApp',

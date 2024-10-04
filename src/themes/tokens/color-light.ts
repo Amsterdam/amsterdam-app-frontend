@@ -56,11 +56,6 @@ export const lightColorTokens = {
     onGrey: baseColor.neutral.grey2,
     cityPass: baseColor.secondary.purple,
   },
-  bottomSheet: {
-    backdrop: baseColor.transparent.grey50,
-    background: baseColor.primary.white,
-    handle: baseColor.transparent.black75,
-  },
   box: {
     distinct: baseColor.primary.white,
     cityPass: baseColor.secondary.purple,
@@ -81,6 +76,7 @@ export const lightColorTokens = {
       medium: baseColor.neutral.grey3,
       light: baseColor.neutral.grey2,
     },
+    border: baseColor.transparent.blue25,
     message: {
       background: {
         [ConversationEntrySenderRole.chatbot]: baseColor.neutral.grey1,

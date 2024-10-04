@@ -16,6 +16,7 @@ import {InternetConnectionState} from '@/store/slices/internetConnection'
 import {ModulesState} from '@/store/slices/modules'
 import {OverlayState} from '@/store/slices/overlay'
 import {PermissionsState} from '@/store/slices/permissions'
+import {ScreenState} from '@/store/slices/screen'
 import {SecureStorageState} from '@/store/slices/secureStorage'
 import {UpdateState} from '@/store/slices/updateApp'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -41,6 +42,7 @@ export type RootState = {
   [ReduxKey.productTour]: ProductTourState
   [ReduxKey.secureStorage]: SecureStorageState
   [ReduxKey.theme]: ThemeState
+  [ReduxKey.screen]: ScreenState
   [ReduxKey.updateApp]: UpdateState
   [ReduxKey.wasteGuide]: WasteGuideState
 }
