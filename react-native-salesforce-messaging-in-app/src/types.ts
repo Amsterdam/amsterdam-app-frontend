@@ -34,10 +34,18 @@ export type NativeSalesforceMessagingInApp = {
 }
 
 export enum ConversationEntryFormat {
+  attachments = 'Attachments', // unverified
+  carousel = 'Carousel', // unverified
+  imageMessage = 'ImageMessage', // unverified
+  inputs = 'Inputs', // unverified
+  listPicker = 'ListPicker', // unverified
   quickReplies = 'QuickReplies',
+  result = 'Result', // unverified
   richLink = 'RichLink',
+  selections = 'Selections', // unverified
   text = 'Text',
   unspecified = 'Unspecified',
+  webview = 'Webview', // unverified
 }
 
 export enum ConversationEntryStatus {
@@ -52,19 +60,10 @@ export enum ConversationEntrySenderRole {
   user = 'USER',
 }
 
-export type ConversationEntry = {
-  asset?: {
-    height: number
-    imageBase64: string
-    width: number
-  }
-  /**
-   * in case of format QuickReplies these are the quick reply options
-   */
-  choices?: Choice[]
+export type ConversationEntryBase = {
   conversationId: string
   entryId: string
-  format: ConversationEntryFormat
+  // format: ConversationEntryFormat
   /**
    * the id of the ConversationEntry this is a reply to
    */
@@ -76,10 +75,6 @@ export type ConversationEntry = {
   payloadDescription: string
   payloadId: string
   /**
-   * in case of format QuickReplies these are the selected quick reply options
-   */
-  selected?: Choice[]
-  /**
    * display name of the sender
    */
   senderDisplayName: string
@@ -87,17 +82,111 @@ export type ConversationEntry = {
    * Is the sender the local user
    */
   senderLocal: boolean
-  senderOptions: unknown[]
+  senderOptions: Choice[]
   /**
    * Sender role
    */
   senderRole: ConversationEntrySenderRole
   senderSubject: string
   status: ConversationEntryStatus
-  text?: string
+  /**
+   * deze zou hier nog weg moeten
+   */
+  text: string
   timestamp: number
   title?: string
   url?: string
+}
+
+export type ConversationEntry = ConversationEntryBase &
+  (
+    | ConversationEntryText
+    | ConversationEntryCarousel
+    | ConversationEntryRichLink
+    | ConversationEntryQuickReplies
+    | ConversationEntryAttachments
+    | ConversationEntryImageMessage
+    | ConversationEntryInputs
+    | ConversationEntryListPicker
+    | ConversationEntrySelections
+    | ConversationEntryWebview
+    | ConversationEntryResult
+    | ConversationEntryUnspecified
+  )
+
+export type Attachment = {
+  file?: string
+  identifier: string
+  mimeType: string
+  name: string
+  url: string
+}
+
+export type TitleLinkItem = {
+  interactionItems: Choice[]
+  itemType: string
+  referenceId: string
+  secondarySubTitle: string
+  subTitle: string
+  tertiarySubTitle: string
+}
+
+export type ConversationEntryText = {
+  format: ConversationEntryFormat.text
+  text: string
+}
+export type ConversationEntryImageMessage = {
+  format: ConversationEntryFormat.imageMessage
+}
+export type ConversationEntryUnspecified = {
+  format: ConversationEntryFormat.unspecified
+}
+export type ConversationEntryWebview = {
+  format: ConversationEntryFormat.webview
+}
+export type ConversationEntryResult = {
+  format: ConversationEntryFormat.result
+}
+export type ConversationEntryInputs = {
+  format: ConversationEntryFormat.inputs
+}
+export type ConversationEntryListPicker = {
+  format: ConversationEntryFormat.listPicker
+  text: string
+}
+export type ConversationEntrySelections = {
+  format: ConversationEntryFormat.selections
+}
+export type ConversationEntryCarousel = {
+  format: ConversationEntryFormat.carousel
+  items: TitleLinkItem[]
+}
+export type ConversationEntryAttachments = {
+  attachments: Attachment[]
+  format: ConversationEntryFormat.attachments
+}
+export type ConversationEntryQuickReplies = {
+  /**
+   * in case of format QuickReplies these are the quick reply options
+   */
+  choices: Choice[]
+  format: ConversationEntryFormat.quickReplies
+  /**
+   * in case of format QuickReplies these are the selected quick reply options
+   */
+  selected: Choice[]
+  text: string
+}
+
+export type ConversationEntryRichLink = {
+  asset?: {
+    height: number
+    imageBase64: string
+    width: number
+  }
+  format: ConversationEntryFormat.richLink
+  title: string
+  url: string
 }
 
 export interface Choice {

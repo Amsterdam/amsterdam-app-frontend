@@ -1,13 +1,13 @@
 import {useCallback} from 'react'
 import {useSharedValue} from 'react-native-reanimated'
 import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
-import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntryQuickReplies} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 
 type Props = {
-  choices: ConversationEntry['choices']
+  choices: ConversationEntryQuickReplies['choices']
 }
 
 export const Choices = ({choices}: Props) => {
