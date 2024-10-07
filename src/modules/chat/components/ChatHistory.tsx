@@ -1,5 +1,5 @@
-import {Fragment, useContext, useRef} from 'react'
-import {ScrollView, StyleSheet} from 'react-native'
+import {Fragment, useCallback, useContext, useRef} from 'react'
+import {Keyboard, ScrollView, StyleSheet} from 'react-native'
 import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -15,11 +15,18 @@ export const ChatHistory = () => {
   const styles = createStyles()
   const {messages} = useContext(ChatContext)
 
+  const dismissKeyboard = useCallback(() => {
+    if (Keyboard.isVisible()) {
+      Keyboard.dismiss()
+    }
+  }, [])
+
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
       onContentSizeChange={() => scrollRef?.current?.scrollToEnd()}
+      onScroll={dismissKeyboard}
       ref={scrollRef}
       style={styles.scrollView}>
       <Box
