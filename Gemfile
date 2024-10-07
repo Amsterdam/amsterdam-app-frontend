@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
-gem "fastlane", "2.224.0"
+gem "fastlane", "2.222.0"
 
 group :iosAppBuildDependencies do
   # Cocoapods 1.15 introduced a bug which break the build. We will remove the upper
