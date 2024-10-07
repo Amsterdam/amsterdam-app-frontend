@@ -71,12 +71,16 @@ export const lightColorTokens = {
       background: baseColor.primary.white,
       border: baseColor.neutral.grey2,
     },
+    background: {
+      maximized: baseColor.primary.white,
+      minimized: baseColor.custom.grey0,
+    },
+    border: baseColor.transparent.blue25,
     loading: {
       dark: baseColor.primary.black,
       medium: baseColor.neutral.grey3,
       light: baseColor.neutral.grey2,
     },
-    border: baseColor.transparent.blue25,
     message: {
       background: {
         [ConversationEntrySenderRole.chatbot]: baseColor.neutral.grey1,

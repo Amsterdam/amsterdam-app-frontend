@@ -26,11 +26,9 @@ export const baseColor = {
      */
     darkblue: '#102E62',
   },
+  // Colors which are not part of the design system
   custom: {
-    /**
-     * @deprecated alleen te gebruiken als achtergrond bij de instellingen
-     */
-    grey0: '#f3f5f7',
+    grey0: '#ebeff5',
   },
   transparent: {
     full: 'transparent',
