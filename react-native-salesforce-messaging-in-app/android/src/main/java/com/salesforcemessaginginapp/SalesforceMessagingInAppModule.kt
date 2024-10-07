@@ -29,6 +29,14 @@ import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import androidx.paging.PagingData
 import androidx.paging.map
+import com.facebook.react.bridge.WritableArray
+import com.salesforce.android.smi.core.events.CoreEvent
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries.ParticipantClientMenu
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.component.optionItem.OptionItem
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.ChoicesFormat
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.ChoicesResponseFormat
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormFormat
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 
 class SalesforceMessagingInAppModule internal constructor(context: ReactApplicationContext) :
   SalesforceMessagingInAppSpec(context) {
@@ -38,6 +46,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var conversationClient: ConversationClient? = null;
   private var supervisorJob = SupervisorJob();
   private var scope = CoroutineScope(Dispatchers.Main + this.supervisorJob);
+  // private var scope = CoroutineScope(Dispatchers.IO + this.supervisorJob)
 
   override fun getName(): String {
     return NAME
@@ -137,20 +146,90 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       val uuid = if (clientID != null) UUID.fromString(clientID) else UUID.randomUUID()
       conversationClient = coreClient?.conversationClient(uuid)
       scope.launch {
+        println("scope loaunched")
         try {
-            val conversationEntries = conversationClient?.conversationEntriesPaged()
+            /*val conversationEntries = conversationClient?.conversationEntriesPaged()
                 ?.filterIsInstance<Result.Success<PagingData<ConversationEntry>>>()
                 ?.map { it.data }
+            println("scope conversationEntries: " + conversationEntries?.toString())
+//            conversationEntries.
 
             conversationEntries?.collectLatest { pagingData ->
                 pagingData.map { entry ->
-                    val messageText = getText(entry)
+                    println("Debug: Processing ConversationEntry - ${entry.toString()}")
+                    val messageText = entry.toString()//getText(entry)
                     val params = Arguments.createMap()
                     params.putString("message", messageText)
                     // Emit the event with message data
                     sendEvent("onNewMessage", params)
+
                 }
-            }
+            }*/
+
+            conversationClient?.events
+                    ?.filterIsInstance<CoreEvent.ConversationEvent.Entry>()
+                    ?.map { it.conversationEntry }
+                    ?.collect { entry: ConversationEntry ->
+                        val params = convertEntryToMap(entry)
+                        /*val messageText = payload.toString()//getText(entry)
+                        val params = Arguments.createMap()
+                        params.putString("message", messageText)*/
+                        // Emit the event with message data
+                        sendEvent("onNewMessage", params)
+                        /*when (payload) {
+                            is EntryPayload.MessagePayload -> when (val content = payload.content) {
+                                is StaticContentFormat.TextFormat -> {
+//                                    sendEventToReactNative(payload.entryType.toString(), content.text)
+                                    sendEvent("onNewMessage", payload.entryType.toString())
+                                }
+                                is ChoicesFormat.DisplayableOptionsFormat -> {
+//                                    logEntry(payload.entryType, content.optionItems.toString())
+//                                    sendEventToReactNative(payload.entryType.toString(), content.optionItems.toString())
+                                    sendEvent("onNewMessage", payload.entryType.toString())
+                                }
+                                else -> {
+//                                    logEntry(payload.entryType, content.formatType.toString())
+//                                    sendEventToReactNative(payload.entryType.toString(), content.formatType.toString())
+                                    sendEvent("onNewMessage", payload.entryType.toString())
+                                }
+                            }
+                            else -> {
+//                                logEntry(payload.entryType)
+//                                sendEventToReactNative(payload.entryType.toString(), null)
+
+                                sendEvent("onNewMessage", payload.entryType.toString())
+                            }
+                        }*/
+                    }
+//                    ?.collect() // Collect the flow to trigger processing
+/*
+            conversationClient?.events
+                    ?.filterIsInstance<CoreEvent.ConversationEvent.Entry>()
+                    ?.map { it.conversationEntry.payload }
+                    .onEach {
+                        val messageText = it.toString()//getText(entry)
+                        val params = Arguments.createMap()
+                        params.putString("message", messageText)
+                        // Emit the event with message data
+                        sendEvent("onNewMessage", params)
+                        when (it) {
+                            is EntryPayload.MessagePayload -> when (val content = it.content) {
+                                is StaticContentFormat.TextFormat -> {
+//                                    logEntry(it.entryType, content.text)
+                                    val messageText = it.toString()//getText(entry)
+                                    val params = Arguments.createMap()
+                                    params.putString("message", messageText)
+                                    // Emit the event with message data
+                                    sendEvent("onNewMessage", params)
+                                }
+//                                is ChoicesFormat.DisplayableOptionsFormat ->
+//                                    logEntry(it.entryType, content.optionItems.toString())
+//                                else ->
+//                                    logEntry(it.entryType, content.formatType.toString())
+                            }
+//                            else -> logEntry(it.entryType)
+                        }
+                    }.collect()*/
         } catch (e: Exception) {
             promise.reject("Error", "Failed to listen for messages: ${e.message}", e)
         }
@@ -162,6 +241,110 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       promise.reject("Error", "An error occurred: ${e.message}", e)
     }
   }
+
+    private fun convertEntryToMap(entry: ConversationEntry): WritableMap {
+        val map = Arguments.createMap()
+        map.putString("entryId", entry.entryId)
+        map.putString("senderSubject", entry.sender.subject)
+        map.putString("senderRole", entry.sender.role)
+        map.putBoolean("senderLocal", entry.sender.isLocal)
+        map.putString("senderDisplayName", entry.sender.displayName)
+        map.putArray("senderOptions", convertOptionsToMapArray(entry.sender.clientMenu))
+        map.putString("messageType", entry.entryType.toString())
+        map.putInt("timestamp", entry.timestamp.toInt())
+        map.putString("conversationId", entry.conversationId.toString())
+        map.putString("status", entry.status.toString())
+        map.putString("format", entry.payload.entryType.toString())
+        map.putString("payloadId", entry.payload.id)
+        map.merge(convertPayloadToMap(entry.payload))
+
+        return map
+    }
+
+    private fun convertOptionsToMapArray(options: ParticipantClientMenu?): WritableArray {
+        val array = Arguments.createArray()
+        options?.optionItems?.forEach { option ->
+            val optionMap = Arguments.createMap()
+            optionMap.putString("optionId", option.optionId)
+            optionMap.putString("title", option.title)
+            optionMap.putString("optionValue", option.optionValue)
+            optionMap.putString("parentEntryId", option.parentMessageId)
+            array.pushMap(optionMap)
+        }
+        return array
+    }
+
+    // Utility function to convert an EntryPayload object to WritableMap
+    private fun convertPayloadToMap(payload: EntryPayload): WritableMap {
+        val map = Arguments.createMap()
+
+        // General properties of EntryPayload
+        map.putString("entryType", payload.entryType.toString())
+        // If the payload is of type MessagePayload, handle its specific properties
+        when (payload) {
+            is EntryPayload.MessagePayload -> {
+                val content = payload.content
+                map.putString("format", content.formatType.toString())
+                map.putString("inReplyToEntryId", payload.inReplyToMessageId)
+                map.putString("messageReason", payload.messageReason.toString())
+
+                when (content) {
+                    is StaticContentFormat.TextFormat -> {
+                        map.putString("text", content.text)
+                    }
+                    is StaticContentFormat.AttachmentsFormat -> TODO()
+                    is StaticContentFormat.RichLinkFormat -> TODO()
+                    is StaticContentFormat.WebViewFormat -> TODO()
+                    is ChoicesFormat.DisplayableOptionsFormat -> {
+                        val optionsArray = Arguments.createArray()
+                        content.optionItems.forEach { option ->
+                            when (option) {
+                                is OptionItem.TypedOptionItem.ParticipantClientMenuOptionItem -> {
+                                    val optionMap = Arguments.createMap()
+                                    optionMap.putString("title", option.title)
+                                    optionMap.putString("optionValue", option.optionValue)
+                                    optionMap.putString("optionId", option.optionId)
+                                    optionMap.putString("parentEntryId", option.parentMessageId)
+                                    optionsArray.pushMap(optionMap)
+                                }
+                                is OptionItem.TypedOptionItem.TitleOptionItem -> {
+                                    val optionMap = Arguments.createMap()
+                                    // deze title items bevatten nog meer properties
+                                    optionMap.putString("incomplete", "true")
+                                    optionMap.putString("title", option.titleItem.title)
+                                    optionMap.putString("itemType", option.titleItem.itemType.toString())
+                                    optionMap.putString("subTitle", option.titleItem.subTitle)
+                                    optionMap.putString("optionValue", option.optionValue.title)
+                                    optionMap.putString("optionId", option.optionId)
+                                    optionMap.putString("parentEntryId", option.parentMessageId)
+                                    optionsArray.pushMap(optionMap)
+                                }
+                            }
+                        }
+                        map.putArray("options", optionsArray)
+                    }
+                    is ChoicesFormat.CarouselFormat -> TODO()
+                    is ChoicesFormat.QuickRepliesFormat -> TODO()
+                    is ChoicesResponseFormat.ChoicesResponseSelectionsFormat -> TODO()
+                    is FormFormat.InputsFormat -> TODO()
+                    is FormResponseFormat.InputsFormResponseFormat -> TODO()
+                    is FormResponseFormat.ResultFormResponseFormat -> TODO()
+                }
+            }
+
+            is EntryPayload.AcknowledgeDeliveryPayload -> TODO()
+            is EntryPayload.AcknowledgeReadPayload -> TODO()
+            is EntryPayload.ParticipantChangedPayload -> TODO()
+            is EntryPayload.RoutingResultPayload -> TODO()
+            is EntryPayload.RoutingWorkResultPayload -> TODO()
+            is EntryPayload.TypingIndicatorPayload -> TODO()
+            is EntryPayload.TypingStartedIndicatorPayload -> TODO()
+            is EntryPayload.TypingStoppedIndicatorPayload -> TODO()
+            is EntryPayload.UnknownEntryPayload -> TODO()
+        }
+
+        return map
+    }
 
   @ReactMethod
   override fun sendMessage(
