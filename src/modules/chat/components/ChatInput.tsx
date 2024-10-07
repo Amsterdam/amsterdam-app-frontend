@@ -36,9 +36,7 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Box
-        insetBottom="md"
-        insetHorizontal="md">
+      <Box>
         <Column gutter="sm">
           <View
             style={styles.container}
