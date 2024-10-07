@@ -405,14 +405,44 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         // text = textPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesRichLink) {
-        // id<SMIRichLinkMessage> textPayload = (id<SMIRichLinkMessage>)payload;
+        id<SMIRichLinkMessage> textPayload = (id<SMIRichLinkMessage>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRichLinkMessage.html
         // text = textPayload.text ?: @"";
+        messageDict[@"title"] = textPayload.title;
+        messageDict[@"url"] = [textPayload.url absoluteString];
+
+        NSMutableDictionary *assetDict = [NSMutableDictionary dictionary];
+        assetDict[@"width"] = @(textPayload.asset.width);
+        assetDict[@"height"] = @(textPayload.asset.height);
+        // messageDict[@"asset"] = assetDict;
+        // Fetch the image asset (assuming fetchContentWithCompletion just returns an error if there's a problem)
+        [textPayload.asset fetchContentWithCompletion:^(NSError * _Nullable error) {
+            if (error) {
+                NSLog(@"Error fetching image: %@", error.localizedDescription);
+            } else {
+                // Access the image after fetching completes
+                UIImage *image = textPayload.asset.image;
+                if (image) {
+                    // You can either add the UIImage directly or convert it to base64 string representation
+                    NSData *imageData = UIImagePNGRepresentation(image);
+                    if (imageData) {
+                        NSString *base64String = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+                        assetDict[@"imageBase64"] = base64String;
+                    }
+                }
+            }
+            
+            // Add the asset dictionary to messageDict
+            messageDict[@"asset"] = assetDict;
+
+        }];
+
     }
     if (format == SMIConversationFormatTypesListPicker) {
         id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
         messageDict[@"text"] = textPayload.text ?: @"";
+        // choices toevoegen
     }
     if (format == SMIConversationFormatTypesSelections) {
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
@@ -435,12 +465,12 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         // SMIParticipantChangedPayload (gebruiker joined bijvoorbeeld, waarschijnlijk vergelijkbaar met deze props: https://salesforce-async-messaging.github.io/messaging-in-app-android/messaging-inapp-network/com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries/-participant-changed-entry/index.html)
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingWorkResult.html
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingResult.html
+        //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITypingIndicator.html
         // text = textPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesTextMessage) {
         id<SMITextMessage> textPayload = (id<SMITextMessage>)payload;
         messageDict[@"text"] = textPayload.text ?: @"";
-        NSLog(textPayload.text);
     }
     if (format == SMIConversationFormatTypesQuickReplies) {
         id<SMIQuickReply> quickRepliesPayload = (id<SMIQuickReply>)payload;
@@ -469,7 +499,6 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         }
         messageDict[@"selected"] = selectedArray;
     }
-    //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITypingIndicator.html
     //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIEntryAck.html
 
     
