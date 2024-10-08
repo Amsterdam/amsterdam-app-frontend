@@ -7,8 +7,8 @@ import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 
 type Props = {
   children: ReactNode
-  color?: PhraseProps['color']
   emphasis?: PhraseProps['emphasis']
+  inverse?: boolean
   onPress: () => void
   phraseVariant?: PhraseProps['variant']
 } & TestProps &
@@ -17,8 +17,8 @@ type Props = {
 
 export const InlineLink = ({
   children,
-  color = 'link',
   emphasis,
+  inverse,
   onPress,
   phraseVariant,
   logAction = PiwikAction.buttonPress,
@@ -33,7 +33,7 @@ export const InlineLink = ({
   return (
     <Phrase
       accessibilityRole="link"
-      color={color}
+      color={inverse ? 'inverse' : 'link'}
       emphasis={emphasis}
       onPress={onEvent}
       underline
