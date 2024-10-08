@@ -1,17 +1,58 @@
+import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
+import Animated, {
+  Easing,
+  SharedValue,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
-import {SizeTokens} from '@/themes/tokens/size'
 import {useTheme} from '@/themes/useTheme'
 
+const DOT_ACTIVE_SIZE = 10
+const DOT_INACTIVE_SIZE = 8
+const DOT_BORDER_RADIUS = 8
+
+type DotProps = {
+  index: number
+  sharedValue: SharedValue<number>
+}
+
+const Dot = ({index, sharedValue}: DotProps) => {
+  const {color} = useTheme()
+  const sheetStyles = createStyles()
+
+  const animatedStyles = useAnimatedStyle(() => {
+    const isActive = index === Math.floor(sharedValue.value)
+
+    return {
+      backgroundColor: isActive
+        ? color.chat.loading.active
+        : color.chat.loading.inactive,
+      height: withTiming(isActive ? DOT_ACTIVE_SIZE : DOT_INACTIVE_SIZE),
+      width: withTiming(isActive ? DOT_ACTIVE_SIZE : DOT_INACTIVE_SIZE),
+    }
+  }, [index, sharedValue])
+
+  return (
+    <View style={sheetStyles.loadingDot}>
+      <Animated.View style={[sheetStyles.loadingDotInner, animatedStyles]} />
+    </View>
+  )
+}
+
 export const ChatMessageLoading = () => {
-  const {color, size} = useTheme()
-  const styles = createStyles(size)
-  const colors = [
-    color.chat.loading.light,
-    color.chat.loading.medium,
-    color.chat.loading.dark,
-  ]
+  const sv = useSharedValue(0)
+
+  useEffect(() => {
+    sv.value = withRepeat(
+      withTiming(4, {duration: 1000, easing: Easing.bezier(0.5, 0.5, 0.5, 1)}),
+      -1,
+    )
+  }, [sv])
 
   return (
     <Box insetVertical="xs">
@@ -19,10 +60,11 @@ export const ChatMessageLoading = () => {
         align="center"
         gutter="xs"
         valign="center">
-        {colors.map((dotColor, index) => (
-          <View
+        {Array.from({length: 3}).map((_dot, index) => (
+          <Dot
+            index={index}
             key={index}
-            style={[styles.loadingDot, {backgroundColor: dotColor}]}
+            sharedValue={sv}
           />
         ))}
       </Row>
@@ -30,11 +72,16 @@ export const ChatMessageLoading = () => {
   )
 }
 
-const createStyles = (size: SizeTokens) =>
+const createStyles = () =>
   StyleSheet.create({
     loadingDot: {
-      width: size.spacing.sm,
-      height: size.spacing.sm,
-      borderRadius: size.spacing.sm,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: DOT_BORDER_RADIUS,
+      height: DOT_ACTIVE_SIZE,
+      width: DOT_ACTIVE_SIZE,
+    },
+    loadingDotInner: {
+      borderRadius: DOT_BORDER_RADIUS,
     },
   })

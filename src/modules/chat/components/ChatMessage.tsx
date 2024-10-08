@@ -54,7 +54,7 @@ const createStyles = (
   return StyleSheet.create({
     textContainer: {
       flexShrink: 1,
-      backgroundColor: color.chat.message.background[agent],
+      backgroundColor: color.chat.message[agent].background,
       paddingHorizontal: size.spacing.md,
       paddingVertical: size.spacing.sm,
       borderRadius: borderRadius,
