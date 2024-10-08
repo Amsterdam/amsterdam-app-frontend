@@ -45,6 +45,7 @@ export const ChatMessageContent = ({message}: Props) => {
               ? 'inverse'
               : undefined
           }
+          emphasis="strong"
           onPress={() => url && openUrl(url)}
           testID="ChatMessageRichLinkUrl">
           {title}
