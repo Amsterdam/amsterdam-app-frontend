@@ -32,8 +32,8 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)
   const backgroundColor = isMaximized
-    ? theme.color.screen.background.default
-    : theme.color.screen.background.settings
+    ? theme.color.chat.maximized.background
+    : theme.color.chat.minimized.background
   const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale + insets.bottom
 
   useEffect(() => {

@@ -4,9 +4,9 @@ import {
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {AvatarBot} from '@/modules/chat/assets/AvatarBot'
 import {AvatarEmployee} from '@/modules/chat/assets/AvatarEmployee'
+import {ChatMessageContent} from '@/modules/chat/components/ChatMessageContent'
 import {ChatMessageLoading} from '@/modules/chat/components/ChatMessageLoading'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -37,15 +37,7 @@ export const ChatMessage = ({message}: Props) => {
         {isLoading ? (
           <ChatMessageLoading />
         ) : (
-          <Phrase
-            color={
-              message.senderRole === ConversationEntrySenderRole.user
-                ? 'inverse'
-                : undefined
-            }
-            testID="">
-            {message.text}
-          </Phrase>
+          <ChatMessageContent message={message} />
         )}
       </View>
     </Row>
@@ -62,7 +54,7 @@ const createStyles = (
   return StyleSheet.create({
     textContainer: {
       flexShrink: 1,
-      backgroundColor: color.chat.message.background[agent],
+      backgroundColor: color.chat.message[agent].background,
       paddingHorizontal: size.spacing.md,
       paddingVertical: size.spacing.sm,
       borderRadius: borderRadius,

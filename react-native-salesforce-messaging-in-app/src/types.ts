@@ -35,6 +35,7 @@ export type NativeSalesforceMessagingInApp = {
 
 export enum ConversationEntryFormat {
   quickReplies = 'QuickReplies',
+  richLink = 'RichLink',
   text = 'Text',
   unspecified = 'Unspecified',
 }
@@ -52,6 +53,11 @@ export enum ConversationEntrySenderRole {
 }
 
 export type ConversationEntry = {
+  asset?: {
+    height: number
+    imageBase64: string
+    width: number
+  }
   /**
    * in case of format QuickReplies these are the quick reply options
    */
@@ -90,6 +96,8 @@ export type ConversationEntry = {
   status: ConversationEntryStatus
   text?: string
   timestamp: number
+  title?: string
+  url?: string
 }
 
 export interface Choice {

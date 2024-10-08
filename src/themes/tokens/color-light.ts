@@ -71,23 +71,29 @@ export const lightColorTokens = {
       background: baseColor.primary.white,
       border: baseColor.neutral.grey2,
     },
-    loading: {
-      dark: baseColor.primary.black,
-      medium: baseColor.neutral.grey3,
-      light: baseColor.neutral.grey2,
-    },
     border: baseColor.transparent.blue25,
+    loading: {
+      active: baseColor.neutral.grey4,
+      inactive: baseColor.neutral.grey2,
+    },
+    maximized: {
+      background: baseColor.primary.white,
+    },
+    minimized: {
+      background: baseColor.custom.grey0,
+    },
     message: {
-      background: {
-        [ConversationEntrySenderRole.chatbot]: baseColor.neutral.grey1,
-        [ConversationEntrySenderRole.employee]: baseColor.neutral.grey1,
-        [ConversationEntrySenderRole.user]: baseColor.neutral.grey4,
-        [ConversationEntrySenderRole.system]: baseColor.neutral.grey1,
+      [ConversationEntrySenderRole.chatbot]: {
+        background: baseColor.neutral.grey1,
       },
-      text: {
-        bot: baseColor.primary.black,
-        employee: baseColor.primary.black,
-        user: baseColor.primary.white,
+      [ConversationEntrySenderRole.employee]: {
+        background: baseColor.neutral.grey1,
+      },
+      [ConversationEntrySenderRole.user]: {
+        background: baseColor.neutral.grey4,
+      },
+      [ConversationEntrySenderRole.system]: {
+        background: baseColor.neutral.grey1,
       },
     },
   },
