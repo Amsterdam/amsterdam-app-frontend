@@ -18,7 +18,7 @@ type MessagePhraseProps = {
 const MessagePhrase = ({children, message, testID}: MessagePhraseProps) => (
   <Phrase
     color={
-      message.senderRole === ConversationEntrySenderRole.user
+      message.sender.role === ConversationEntrySenderRole.user
         ? 'inverse'
         : undefined
     }
@@ -41,7 +41,7 @@ export const ChatMessageContent = ({message}: Props) => {
       <>
         <InlineLink
           emphasis="strong"
-          inverse={message.senderRole === ConversationEntrySenderRole.user}
+          inverse={message.sender.role === ConversationEntrySenderRole.user}
           onPress={() => url && openUrl(url)}
           testID="ChatMessageRichLinkUrl">
           {title}

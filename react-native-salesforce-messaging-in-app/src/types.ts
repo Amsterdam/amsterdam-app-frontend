@@ -75,19 +75,13 @@ export type ConversationEntryBase = {
   payloadDescription: string
   payloadId: string
   /**
+   * sender of the ConversationEntry
+   */
+  sender: Participant
+  /**
    * display name of the sender
    */
   senderDisplayName: string
-  /**
-   * Is the sender the local user
-   */
-  senderLocal: boolean
-  senderOptions: Choice[]
-  /**
-   * Sender role
-   */
-  senderRole: ConversationEntrySenderRole
-  senderSubject: string
   status: ConversationEntryStatus
   /**
    * deze zou hier nog weg moeten
@@ -129,6 +123,23 @@ export type TitleLinkItem = {
   secondarySubTitle: string
   subTitle: string
   tertiarySubTitle: string
+}
+
+export type Participant = {
+  /**
+   * display name of the participant
+   */
+  displayName: string
+  /**
+   * Is the participant the local user
+   */
+  local: boolean
+  options: Choice[]
+  /**
+   * Participant role
+   */
+  role: ConversationEntrySenderRole
+  subject: string
 }
 
 export type ConversationEntryText = {

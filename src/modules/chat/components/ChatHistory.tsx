@@ -39,9 +39,9 @@ export const ChatHistory = () => {
           <ChatStartTime firstMessage={messages[0]} />
           <Gutter height="md" />
           {messages.map((message, index) => {
-            if (message.senderRole !== ConversationEntrySenderRole.system) {
+            if (message.sender.role !== ConversationEntrySenderRole.system) {
               const isLastOfType =
-                messages[index + 1]?.senderRole !== message.senderRole
+                messages[index + 1]?.sender.role !== message.sender.role
 
               return (
                 <Fragment key={message.timestamp}>
