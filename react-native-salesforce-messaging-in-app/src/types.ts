@@ -36,12 +36,16 @@ export type NativeSalesforceMessagingInApp = {
 export enum ConversationEntryFormat {
   attachments = 'Attachments',
   carousel = 'Carousel',
+  deliveryAcknowledgement = 'DeliveryAcknowledgement',
   imageMessage = 'Image',
   inputs = 'Inputs',
   listPicker = 'Buttons',
+  participantChanged = 'ParticipantChanged',
   quickReplies = 'QuickReplies',
   result = 'Result',
   richLink = 'RichLink',
+  routingResult = 'RoutingResult',
+  routingWorkResult = 'RoutingWorkResult',
   selections = 'Selections',
   text = 'Text',
   typingStartedIndicator = 'TypingStartedIndicator',
@@ -110,6 +114,10 @@ export type ConversationEntry = ConversationEntryBase &
     | ConversationEntryTypingStartedIndicator
     | ConversationEntryTypingStoppedIndicator
     | ConversationEntryUnspecified
+    | ConversationEntryRoutingResult
+    | ConversationEntryRoutingWorkResult
+    | ConversationEntryParticipantChanged
+    | ConversationEntryDeliveryAcknowledgement
   )
 
 export type Attachment = {
@@ -152,25 +160,31 @@ export type ConversationEntryText = {
 }
 export type ConversationEntryImageMessage = {
   format: ConversationEntryFormat.imageMessage
+  // TODO
 }
 export type ConversationEntryUnspecified = {
   format: ConversationEntryFormat.unspecified
 }
 export type ConversationEntryWebview = {
   format: ConversationEntryFormat.webview
+  // TODO
 }
 export type ConversationEntryResult = {
   format: ConversationEntryFormat.result
+  // TODO
 }
 export type ConversationEntryInputs = {
   format: ConversationEntryFormat.inputs
+  // TODO
 }
 export type ConversationEntryListPicker = {
   format: ConversationEntryFormat.listPicker
+  // TODO
   text: string
 }
 export type ConversationEntrySelections = {
   format: ConversationEntryFormat.selections
+  // TODO
 }
 export type ConversationEntryCarousel = {
   format: ConversationEntryFormat.carousel
@@ -212,8 +226,56 @@ export type ConversationEntryTypingStoppedIndicator = {
   format: ConversationEntryFormat.typingStoppedIndicator
   startedTimestamp: number
 }
+export type ConversationEntryRoutingResult = {
+  estimatedWaitTime: number
+  failureReason: string
+  failureType: ConversationEntryRoutingFailureType
+  format: ConversationEntryFormat.routingResult
+  isEWTAvailable: boolean
+  isEWTRequested: boolean
+  recordId: string
+  routingType: ConversationEntryRoutingType
+}
+export type ConversationEntryRoutingWorkResult = {
+  format: ConversationEntryFormat.routingWorkResult
+  workType: ConversationEntryRoutingWorkType
+}
+export type ConversationEntryDeliveryAcknowledgement = {
+  format: ConversationEntryFormat.deliveryAcknowledgement
+  // TODO
+}
+export type ConversationEntryParticipantChanged = {
+  format: ConversationEntryFormat.participantChanged
+  operations: Array<{
+    participant: Participant
+    type: ParticipantChangedOperationType
+  }>
+}
 
-export interface Choice {
+export enum ConversationEntryRoutingType {
+  initial = 'Initial',
+  transfer = 'Transfer',
+}
+
+export enum ConversationEntryRoutingFailureType {
+  cancelled = 'Cancelled',
+  none = 'None',
+  routingError = 'RoutingError',
+  submissionError = 'SubmissionError',
+  unknown = 'Unknown',
+}
+export enum ConversationEntryRoutingWorkType {
+  accepted = 'Accepted',
+  assinged = 'Assinged',
+  closed = 'Closed',
+}
+
+export enum ParticipantChangedOperationType {
+  add = 'add',
+  remove = 'remove',
+}
+
+export type Choice = {
   optionId: string
   optionValue: string
   parentEntryId: string

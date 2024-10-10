@@ -10,6 +10,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
+import {ChatSystemMessage} from '@/modules/chat/components/ChatSystemMessage'
 import {Choices} from '@/modules/chat/components/Choices'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
@@ -54,6 +55,12 @@ export const ChatHistory = () => {
                   {message.format === ConversationEntryFormat.quickReplies && (
                     <Choices choices={message.choices} />
                   )}
+                </Fragment>
+              )
+            } else {
+              return (
+                <Fragment key={message.entryId}>
+                  <ChatSystemMessage message={message} />
                 </Fragment>
               )
             }

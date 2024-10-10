@@ -2,6 +2,7 @@ import {createContext, ReactNode, useEffect, useMemo, useState} from 'react'
 import {useCreateChat} from 'react-native-salesforce-messaging-in-app/src'
 import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
+import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 
 type ChatContextType = {
   messages: ConversationEntry[]
@@ -34,7 +35,11 @@ export const ChatProvider = ({children}: Props) => {
   }, [conversationId, newConversationId])
 
   const value = useMemo(
-    () => ({messages: isTyping ? [...messages, isTyping] : messages}),
+    () => ({
+      messages: isTyping
+        ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
+        : filterOutDeliveryAcknowledgements(messages),
+    }),
     [messages, isTyping],
   )
 

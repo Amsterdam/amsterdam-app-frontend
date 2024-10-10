@@ -478,6 +478,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         // text = textPayload.text ?: @"";
         if (type == SMIConversationEntryTypesParticipantChanged) {
             id<SMIParticipantChanged> participantChangedPayload = (id<SMIParticipantChanged>)payload;
+            messageDict[@"format"] = @"ParticipantChanged";
             NSMutableArray *operationsArray = [NSMutableArray array];
             for (id<SMIParticipantChangedOperation> operation in participantChangedPayload.operations) {
                 NSMutableDictionary *operationDict = [NSMutableDictionary dictionary];
@@ -495,9 +496,19 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
             }
             messageDict[@"startedTimestamp"] = @([typingIndicatorPayload.timestamp timeIntervalSince1970]);
         } else if (type == SMIConversationEntryTypesRoutingWorkResult) {
-            id<SMIRoutingWorkResult> typingIndicatorPayload = (id<SMIRoutingWorkResult>)payload;
+            id<SMIRoutingWorkResult> routingWorkResultPayload = (id<SMIRoutingWorkResult>)payload;
+            messageDict[@"format"] = @"RoutingWorkResult";
+            messageDict[@"workType"] = routingWorkResultPayload.workType;
         } else if (type == SMIConversationEntryTypesRoutingResult) {
-            id<SMIRoutingResult> typingIndicatorPayload = (id<SMIRoutingResult>)payload;
+            id<SMIRoutingResult> routingResultPayload = (id<SMIRoutingResult>)payload;
+            messageDict[@"format"] = @"RoutingResult";
+            messageDict[@"routingType"] = routingResultPayload.routingType;
+            messageDict[@"failureType"] = routingResultPayload.failureType;
+            messageDict[@"failureReason"] = routingResultPayload.failureReason;
+            messageDict[@"recordId"] = routingResultPayload.recordId;
+            messageDict[@"estimatedWaitTime"] = @(routingResultPayload.estimatedWaitTime);
+            messageDict[@"isEWTAvailable"] = @(routingResultPayload.isEWTAvailable);
+            messageDict[@"isEWTRequested"] = @(routingResultPayload.isEWTRequested);
         }
     }
     if (format == SMIConversationFormatTypesTextMessage) {

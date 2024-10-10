@@ -45,6 +45,10 @@ export const ChatAgentInfo = ({
     createStyles(theme, role === ConversationEntrySenderRole.user),
   )
 
+  if (role === ConversationEntrySenderRole.system) {
+    return null
+  }
+
   return (
     !!isLastOfType && (
       <>
