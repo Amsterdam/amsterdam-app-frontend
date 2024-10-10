@@ -34,19 +34,20 @@ export type NativeSalesforceMessagingInApp = {
 }
 
 export enum ConversationEntryFormat {
-  attachments = 'Attachments', // unverified
-  carousel = 'Carousel', // unverified
-  imageMessage = 'ImageMessage', // unverified
-  inputs = 'Inputs', // unverified
-  listPicker = 'ListPicker', // unverified
+  attachments = 'Attachments',
+  carousel = 'Carousel',
+  imageMessage = 'Image',
+  inputs = 'Inputs',
+  listPicker = 'Buttons',
   quickReplies = 'QuickReplies',
-  result = 'Result', // unverified
+  result = 'Result',
   richLink = 'RichLink',
-  selections = 'Selections', // unverified
+  selections = 'Selections',
   text = 'Text',
   typingStartedIndicator = 'TypingStartedIndicator',
+  typingStoppedIndicator = 'TypingStoppedIndicator',
   unspecified = 'Unspecified',
-  webview = 'Webview', // unverified
+  webview = 'WebView',
 }
 
 export enum ConversationEntryStatus {
@@ -107,6 +108,7 @@ export type ConversationEntry = ConversationEntryBase &
     | ConversationEntryWebview
     | ConversationEntryResult
     | ConversationEntryTypingStartedIndicator
+    | ConversationEntryTypingStoppedIndicator
     | ConversationEntryUnspecified
   )
 
@@ -204,6 +206,10 @@ export type ConversationEntryRichLink = {
 
 export type ConversationEntryTypingStartedIndicator = {
   format: ConversationEntryFormat.typingStartedIndicator
+  startedTimestamp: number
+}
+export type ConversationEntryTypingStoppedIndicator = {
+  format: ConversationEntryFormat.typingStoppedIndicator
   startedTimestamp: number
 }
 
