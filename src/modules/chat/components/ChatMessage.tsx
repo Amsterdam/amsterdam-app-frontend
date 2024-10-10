@@ -1,6 +1,7 @@
 import {View, StyleSheet} from 'react-native'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
@@ -18,21 +19,20 @@ type Props = {
 export const ChatMessage = ({message}: Props) => {
   const styles = useThemable(theme => createStyles(theme, message.sender.role))
   const isUser = message.sender.role === ConversationEntrySenderRole.user
-  const isLoading = false
+  const isLoading =
+    message.format === ConversationEntryFormat.typingStartedIndicator
 
   return (
     <Row
       align={isUser ? 'end' : 'start'}
       gutter="sm"
       valign="end">
-      {!isLoading &&
-        message.sender.role === ConversationEntrySenderRole.chatbot && (
-          <AvatarBot />
-        )}
-      {!isLoading &&
-        message.sender.role === ConversationEntrySenderRole.employee && (
-          <AvatarEmployee />
-        )}
+      {message.sender.role === ConversationEntrySenderRole.chatbot && (
+        <AvatarBot />
+      )}
+      {message.sender.role === ConversationEntrySenderRole.employee && (
+        <AvatarEmployee />
+      )}
       <View style={styles.textContainer}>
         {isLoading ? (
           <ChatMessageLoading />

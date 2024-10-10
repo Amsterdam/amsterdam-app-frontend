@@ -488,6 +488,12 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
             messageDict[@"operations"] = operationsArray;
         } else if (type == SMIConversationEntryTypesTypingIndicator) {
             id<SMITypingIndicator> typingIndicatorPayload = (id<SMITypingIndicator>)payload;
+            if(typingIndicatorPayload.type == SMITypingIndicatorTypesStarted){
+                messageDict[@"format"] = @"TypingStartedIndicator";
+            } else {
+                messageDict[@"format"] = @"TypingStoppedIndicator";
+            }
+            messageDict[@"startedTimestamp"] = @([typingIndicatorPayload.timestamp timeIntervalSince1970]);
         } else if (type == SMIConversationEntryTypesRoutingWorkResult) {
             id<SMIRoutingWorkResult> typingIndicatorPayload = (id<SMIRoutingWorkResult>)payload;
         } else if (type == SMIConversationEntryTypesRoutingResult) {

@@ -354,10 +354,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       is EntryPayload.TypingIndicatorPayload -> {
         map.putInt("startedTimestamp", payload.startedTimestamp.toInt())
-        // TODO
       }
       is EntryPayload.TypingStartedIndicatorPayload -> {
-        // TODO
         map.putInt("startedTimestamp", payload.timestamp.toInt())
       }
       is EntryPayload.TypingStoppedIndicatorPayload -> {

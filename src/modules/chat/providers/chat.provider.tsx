@@ -20,7 +20,11 @@ type Props = {
 export const ChatProvider = ({children}: Props) => {
   const coreConfig = useCoreConfig()
   const [conversationId, setConversationId] = useState<string>()
-  const {messages, conversationId: newConversationId} = useCreateChat({
+  const {
+    messages,
+    isTyping,
+    conversationId: newConversationId,
+  } = useCreateChat({
     ...coreConfig,
     conversationId,
   })
@@ -29,7 +33,10 @@ export const ChatProvider = ({children}: Props) => {
     setConversationId(newConversationId ?? conversationId)
   }, [conversationId, newConversationId])
 
-  const value = useMemo(() => ({messages}), [messages])
+  const value = useMemo(
+    () => ({messages: isTyping ? [...messages, isTyping] : messages}),
+    [messages, isTyping],
+  )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
 }
