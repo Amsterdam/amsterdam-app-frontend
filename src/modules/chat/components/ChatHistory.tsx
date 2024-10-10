@@ -44,7 +44,7 @@ export const ChatHistory = () => {
                 messages[index + 1]?.sender.role !== message.sender.role
 
               return (
-                <Fragment key={message.timestamp}>
+                <Fragment key={message.entryId}>
                   <ChatMessage message={message} />
                   <ChatAgentInfo
                     isLastOfType={isLastOfType}
