@@ -44,6 +44,7 @@ export enum ConversationEntryFormat {
   richLink = 'RichLink',
   selections = 'Selections', // unverified
   text = 'Text',
+  typingStartedIndicator = 'TypingStartedIndicator',
   unspecified = 'Unspecified',
   webview = 'Webview', // unverified
 }
@@ -105,6 +106,7 @@ export type ConversationEntry = ConversationEntryBase &
     | ConversationEntrySelections
     | ConversationEntryWebview
     | ConversationEntryResult
+    | ConversationEntryTypingStartedIndicator
     | ConversationEntryUnspecified
   )
 
@@ -198,6 +200,11 @@ export type ConversationEntryRichLink = {
   format: ConversationEntryFormat.richLink
   title: string
   url: string
+}
+
+export type ConversationEntryTypingStartedIndicator = {
+  format: ConversationEntryFormat.typingStartedIndicator
+  startedTimestamp: number
 }
 
 export interface Choice {
