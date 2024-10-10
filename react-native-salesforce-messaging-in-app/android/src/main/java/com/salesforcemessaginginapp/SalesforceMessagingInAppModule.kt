@@ -1,5 +1,6 @@
 package com.salesforcemessaginginapp
 
+import android.util.Log
 import androidx.paging.map
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Promise
@@ -14,6 +15,7 @@ import com.salesforce.android.smi.core.ConversationClient
 import com.salesforce.android.smi.core.CoreClient
 import com.salesforce.android.smi.core.CoreConfiguration
 import com.salesforce.android.smi.core.data.domain.businessHours.BusinessHoursInfo
+import com.salesforce.android.smi.core.data.domain.conversationEntry.entryPayload.event.typing.TypingIndicatorStatus
 import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteConfiguration
 import com.salesforce.android.smi.core.events.CoreEvent
 import com.salesforce.android.smi.network.data.domain.conversationEntry.ConversationEntry
@@ -30,7 +32,9 @@ import java.net.URL
 import java.util.UUID
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
@@ -129,6 +133,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     }
   }
 
+  private var conversationJob: Job? = null
+
   @ReactMethod
   override fun createConversationClient(clientID: String?, promise: Promise) {
     try {
@@ -138,16 +144,41 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       val uuid = if (clientID != null) UUID.fromString(clientID) else UUID.randomUUID()
       conversationClient = coreClient?.conversationClient(uuid)
-      scope.launch {
+
+      conversationJob?.cancel()
+
+      conversationJob = scope.launch {
         try {
 
           conversationClient
                   ?.events
                   ?.filterIsInstance<CoreEvent.ConversationEvent.Entry>()
-                  ?.map { it.conversationEntry }
-                  ?.collect { entry: ConversationEntry ->
-                    val params = convertEntryToMap(entry)
+                  ?.collect { entry: CoreEvent.ConversationEvent.Entry ->
+                    val params = convertEntryToMap(entry.conversationEntry)
+
                     sendEvent("onNewMessage", params)
+                  }
+
+          conversationClient
+                  ?.events
+                  ?.filterIsInstance<CoreEvent.ConversationEvent.TypingIndicator>()
+                  ?.collect { entry: CoreEvent.ConversationEvent.TypingIndicator ->
+                    Log.d("TypingIndicator", "Received TypingIndicator event: ${entry.status}")
+                    val params = convertEntryToMap(entry.conversationEntry)
+                    if (entry.status === TypingIndicatorStatus.Started) {
+                      sendEvent("onTypingStarted", params)
+                    } else {
+                      sendEvent("onTypingStopped", params)
+                    }
+                  }
+
+          conversationClient
+                  ?.events
+                  ?.filterIsInstance<CoreEvent.Connection>()
+                  ?.collect { entry: CoreEvent.Connection ->
+                    val params = Arguments.createMap()
+                    params.putString("status", entry.event)
+                    sendEvent("onNetworkStatusChanged", params)
                   }
         } catch (e: Exception) {
           promise.reject("Error", "Failed to listen for messages: ${e.message}", e)
@@ -313,10 +344,12 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
         // TODO
       }
       is EntryPayload.TypingIndicatorPayload -> {
+        map.putInt("startedTimestamp", payload.startedTimestamp.toInt())
         // TODO
       }
       is EntryPayload.TypingStartedIndicatorPayload -> {
         // TODO
+        map.putInt("timestamp", payload.timestamp.toInt())
       }
       is EntryPayload.TypingStoppedIndicatorPayload -> {
         // TODO
