@@ -35,11 +35,14 @@ const getChatAgentInfo = (
 }
 
 export const ChatAgentInfo = ({
-  message: {senderRole, timestamp},
+  message: {
+    sender: {role},
+    timestamp,
+  },
   isLastOfType,
 }: Props) => {
   const styles = useThemable(theme =>
-    createStyles(theme, senderRole === ConversationEntrySenderRole.user),
+    createStyles(theme, role === ConversationEntrySenderRole.user),
   )
 
   return (
@@ -49,9 +52,9 @@ export const ChatAgentInfo = ({
         <View style={styles.container}>
           <Phrase
             color="secondary"
-            testID={`ChatHistoryGroupName${senderRole}`}
+            testID={`ChatHistoryGroupName${role}`}
             variant="extraSmall">
-            {getChatAgentInfo(senderRole, timestamp)}
+            {getChatAgentInfo(role, timestamp)}
           </Phrase>
         </View>
       </>

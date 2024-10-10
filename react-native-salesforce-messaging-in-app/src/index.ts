@@ -81,7 +81,16 @@ export const useCreateChat = ({
   >(conversationId)
   const onNewMessageSubscription = useRef<EmitterSubscription | null>(null)
   const onUpdatedMessageSubscription = useRef<EmitterSubscription | null>(null)
+  const onNetworkStatusChangedSubscription = useRef<EmitterSubscription | null>(
+    null,
+  )
+  const onTypingStartedSubscription = useRef<EmitterSubscription | null>(null)
+  const onTypingStoppedSubscription = useRef<EmitterSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
+  const [isTyping, setIsTyping] = useState<ConversationEntry | false>(false)
+  const [networkStatus, setNetworkStatus] = useState<ConversationEntry | null>(
+    null,
+  )
 
   useEffect(() => {
     if (developerName && organizationId && url) {
@@ -96,11 +105,25 @@ export const useCreateChat = ({
           onUpdatedMessageSubscription.current = null
         }
 
-        setMessages([])
+        if (onNetworkStatusChangedSubscription.current) {
+          onNetworkStatusChangedSubscription.current?.remove()
+          onNetworkStatusChangedSubscription.current = null
+        }
+
+        if (onTypingStartedSubscription.current) {
+          onTypingStartedSubscription.current?.remove()
+          onTypingStartedSubscription.current = null
+        }
+
+        if (onTypingStoppedSubscription.current) {
+          onTypingStoppedSubscription.current?.remove()
+          onTypingStoppedSubscription.current = null
+        }
+
         onNewMessageSubscription.current = messagingEventEmitter.addListener(
           'onNewMessage',
           (message: ConversationEntry) => {
-            // console.log('New message received:', event)
+            // console.log('New message received:', message)
             setMessages(oldMessages => [...oldMessages, message])
             // console.log(JSON.stringify(messages))
           },
@@ -118,6 +141,31 @@ export const useCreateChat = ({
               // console.log(JSON.stringify(messages))
             },
           )
+        onNetworkStatusChangedSubscription.current =
+          messagingEventEmitter.addListener(
+            'onNetworkStatusChanged',
+            (message: ConversationEntry) => {
+              // console.log('New message received:', event)
+              setNetworkStatus(message)
+              // console.log(JSON.stringify(messages))
+            },
+          )
+        onTypingStartedSubscription.current = messagingEventEmitter.addListener(
+          'onTypingStarted',
+          (message: ConversationEntry) => {
+            // console.log('Started typing:', message)
+
+            setIsTyping(message)
+          },
+        )
+        onTypingStoppedSubscription.current = messagingEventEmitter.addListener(
+          'onTypingStopped',
+          (_message: ConversationEntry) => {
+            // console.log('Typing stopped:', _message)
+            setIsTyping(false)
+          },
+        )
+
         void createConversationClient(conversationId ?? newConversationId).then(
           (resultConversationId: string) => {
             setNewConversationId(resultConversationId)
@@ -132,9 +180,21 @@ export const useCreateChat = ({
       onNewMessageSubscription.current = null
       onUpdatedMessageSubscription.current?.remove()
       onUpdatedMessageSubscription.current = null
+      onNetworkStatusChangedSubscription.current?.remove()
+      onNetworkStatusChangedSubscription.current = null
+      onTypingStartedSubscription.current?.remove()
+      onTypingStartedSubscription.current = null
+      onTypingStoppedSubscription.current?.remove()
+      onTypingStoppedSubscription.current = null
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, developerName, organizationId, url])
 
-  return {ready, messages, conversationId: newConversationId}
+  return {
+    conversationId: newConversationId,
+    isTyping,
+    messages,
+    networkStatus,
+    ready,
+  }
 }

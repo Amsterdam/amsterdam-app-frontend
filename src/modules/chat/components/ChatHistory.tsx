@@ -1,6 +1,9 @@
 import {Fragment, useCallback, useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
-import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
+import {
+  ConversationEntryFormat,
+  ConversationEntrySenderRole,
+} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -36,9 +39,9 @@ export const ChatHistory = () => {
           <ChatStartTime firstMessage={messages[0]} />
           <Gutter height="md" />
           {messages.map((message, index) => {
-            if (message.senderRole !== ConversationEntrySenderRole.system) {
+            if (message.sender.role !== ConversationEntrySenderRole.system) {
               const isLastOfType =
-                messages[index + 1]?.senderRole !== message.senderRole
+                messages[index + 1]?.sender.role !== message.sender.role
 
               return (
                 <Fragment key={message.timestamp}>
@@ -48,7 +51,9 @@ export const ChatHistory = () => {
                     message={message}
                   />
                   <Gutter height={isLastOfType ? 'md' : 'sm'} />
-                  <Choices choices={message.choices} />
+                  {message.format === ConversationEntryFormat.quickReplies && (
+                    <Choices choices={message.choices} />
+                  )}
                 </Fragment>
               )
             }

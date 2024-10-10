@@ -308,6 +308,36 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     }
 }
 
+- (NSDictionary *)parseChoiceToDictionary:(id<SMIChoice>)choice
+{
+    NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
+    choiceDict[@"optionId"] = choice.optionId;
+    choiceDict[@"title"] = choice.title;
+    choiceDict[@"optionValue"] = choice.optionValue;
+    choiceDict[@"parentEntryId"] = choice.parentEntryId;
+    return [choiceDict copy];
+}
+
+- (NSMutableArray *)parseChoiceArrayToDictionaryArray:(NSArray<id<SMIChoice>> *)choices
+{
+    NSMutableArray *choiceArray = [NSMutableArray array];
+    for (id<SMIChoice> choice in choices) {
+        [choiceArray addObject:[self parseChoiceToDictionary:choice]];
+    }
+    return choiceArray;
+}
+
+- (NSDictionary *)parseParticipantToDictionary:(id<SMIParticipant>)participant
+{
+    NSMutableDictionary *participantDict = [NSMutableDictionary dictionary];
+    participantDict[@"subject"] = participant.subject;
+    participantDict[@"role"] = participant.role;
+    participantDict[@"local"] = @(participant.local);
+    participantDict[@"displayName"] = participant.displayName ?: [NSNull null];
+    participantDict[@"options"] = [self parseChoiceArrayToDictionaryArray:participant.clientMenu.options];
+    return [participantDict copy];
+}
+
 // Helper function to parse entry into a dictionary
 - (NSDictionary *)parseEntryToDictionary:(id<SMIConversationEntry>)entry
 {
@@ -325,21 +355,8 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     messageDict[@"entryId"] = entry.identifier;
     messageDict[@"payloadDescription"] = entry.payload ? [entry.payload description] : @"";
     // messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
-    messageDict[@"senderSubject"] = entry.sender.subject;
-    messageDict[@"senderRole"] = entry.sender.role;
-    messageDict[@"senderLocal"] = @(entry.sender.local);
-    messageDict[@"senderDisplayName"] = entry.sender.displayName?: entry.senderDisplayName ?: [NSNull null];
-    NSMutableArray *senderOptionsArray = [NSMutableArray array];
-    for (id<SMIChoice> choice in entry.sender.clientMenu.options) {
-        NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
-        choiceDict[@"optionId"] = choice.optionId;
-        choiceDict[@"title"] = choice.title;
-        choiceDict[@"optionValue"] = choice.optionValue;
-        choiceDict[@"parentEntryId"] = choice.parentEntryId;
-        
-        [senderOptionsArray addObject:choiceDict];
-    }
-    messageDict[@"senderOptions"] = senderOptionsArray;
+    messageDict[@"sender"] = [self parseParticipantToDictionary:entry.sender];
+    messageDict[@"senderDisplayName"] = entry.senderDisplayName ?: [NSNull null];
     messageDict[@"messageType"] = entry.messageType ?: [NSNull null];
     messageDict[@"timestamp"] = @([entry.timestamp timeIntervalSince1970]);
     messageDict[@"conversationId"] = entry.conversationId.UUIDString;
@@ -347,6 +364,8 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     messageDict[@"format"] = format;
     messageDict[@"payloadId"] = payload.identifier ?: @"";
     messageDict[@"inReplyToEntryId"] = payload.inReplyToEntryId ?: @"";
+    NSString * type = entry.type;
+    messageDict[@"type"] = type;
     if (format == SMIConversationFormatTypesAttachments) {
         id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
@@ -373,17 +392,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         NSMutableArray *itemArray = [NSMutableArray array];
         for (id<SMITitleLinkItem> item in carouselPayload.items) {
             NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
-            NSMutableArray *optionArray = [NSMutableArray array];
-            for (id<SMIChoice> option in item.interactionItems) {
-                NSMutableDictionary *optionDict = [NSMutableDictionary dictionary];
-                optionDict[@"optionId"] = option.optionId;
-                optionDict[@"title"] = option.title;
-                optionDict[@"optionValue"] = option.optionValue;
-                optionDict[@"parentEntryId"] = option.parentEntryId;
-                
-                [optionArray addObject:optionDict];
-            }
-            itemDict[@"interactionItems"] = optionArray;
+            itemDict[@"interactionItems"] = [self parseChoiceArrayToDictionaryArray:item.interactionItems];
             itemDict[@"itemType"] = item.titleItem.itemType;
             itemDict[@"subTitle"] = item.titleItem.subTitle;
             itemDict[@"secondarySubTitle"] = item.titleItem.secondarySubTitle;
@@ -467,6 +476,23 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRoutingResult.html
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITypingIndicator.html
         // text = textPayload.text ?: @"";
+        if (type == SMIConversationEntryTypesParticipantChanged) {
+            id<SMIParticipantChanged> participantChangedPayload = (id<SMIParticipantChanged>)payload;
+            NSMutableArray *operationsArray = [NSMutableArray array];
+            for (id<SMIParticipantChangedOperation> operation in participantChangedPayload.operations) {
+                NSMutableDictionary *operationDict = [NSMutableDictionary dictionary];
+                operationDict[@"type"] = operation.type;
+                operationDict[@"participant"] = [self parseParticipantToDictionary:operation.participant];
+                [operationsArray addObject:operationDict];
+            }
+            messageDict[@"operations"] = operationsArray;
+        } else if (type == SMIConversationEntryTypesTypingIndicator) {
+            id<SMITypingIndicator> typingIndicatorPayload = (id<SMITypingIndicator>)payload;
+        } else if (type == SMIConversationEntryTypesRoutingWorkResult) {
+            id<SMIRoutingWorkResult> typingIndicatorPayload = (id<SMIRoutingWorkResult>)payload;
+        } else if (type == SMIConversationEntryTypesRoutingResult) {
+            id<SMIRoutingResult> typingIndicatorPayload = (id<SMIRoutingResult>)payload;
+        }
     }
     if (format == SMIConversationFormatTypesTextMessage) {
         id<SMITextMessage> textPayload = (id<SMITextMessage>)payload;
@@ -475,29 +501,8 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
     if (format == SMIConversationFormatTypesQuickReplies) {
         id<SMIQuickReply> quickRepliesPayload = (id<SMIQuickReply>)payload;
         messageDict[@"text"] = quickRepliesPayload.text ?: @"";
-        NSMutableArray *choiceArray = [NSMutableArray array];
-        for (id<SMIChoice> choice in quickRepliesPayload.choices) {
-            NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
-            choiceDict[@"optionId"] = choice.optionId;
-            choiceDict[@"title"] = choice.title;
-            choiceDict[@"optionValue"] = choice.optionValue;
-            choiceDict[@"parentEntryId"] = choice.parentEntryId;
-            
-            [choiceArray addObject:choiceDict];
-        }
-        messageDict[@"choices"] = choiceArray;
-        
-        NSMutableArray *selectedArray = [NSMutableArray array];
-        for (id<SMIChoice> choice in quickRepliesPayload.selected) {
-            NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
-            choiceDict[@"optionId"] = choice.optionId;
-            choiceDict[@"title"] = choice.title;
-            choiceDict[@"optionValue"] = choice.optionValue;
-            choiceDict[@"parentEntryId"] = choice.parentEntryId;
-            
-            [selectedArray addObject:choiceDict];
-        }
-        messageDict[@"selected"] = selectedArray;
+        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
     }
     //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIEntryAck.html
 

@@ -16,8 +16,8 @@ type Props = {
 }
 
 export const ChatMessage = ({message}: Props) => {
-  const styles = useThemable(theme => createStyles(theme, message.senderRole))
-  const isUser = message.senderRole === ConversationEntrySenderRole.user
+  const styles = useThemable(theme => createStyles(theme, message.sender.role))
+  const isUser = message.sender.role === ConversationEntrySenderRole.user
   const isLoading = false
 
   return (
@@ -26,11 +26,11 @@ export const ChatMessage = ({message}: Props) => {
       gutter="sm"
       valign="end">
       {!isLoading &&
-        message.senderRole === ConversationEntrySenderRole.chatbot && (
+        message.sender.role === ConversationEntrySenderRole.chatbot && (
           <AvatarBot />
         )}
       {!isLoading &&
-        message.senderRole === ConversationEntrySenderRole.employee && (
+        message.sender.role === ConversationEntrySenderRole.employee && (
           <AvatarEmployee />
         )}
       <View style={styles.textContainer}>
