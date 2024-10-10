@@ -28,6 +28,7 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
+import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import java.net.URL
 import java.util.UUID
 import kotlinx.coroutines.CoroutineScope
@@ -147,35 +148,45 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
       conversationJob = scope.launch {
         try {
-
           conversationClient
                   ?.events
-                  ?.filterIsInstance<CoreEvent.ConversationEvent.Entry>()
-                  ?.collect { entry: CoreEvent.ConversationEvent.Entry ->
-                    val params = convertEntryToMap(entry.conversationEntry)
+                  ?.collect { entry ->
+                    when (entry) {
+                      is CoreEvent.ConversationEvent.Entry -> {
+                        val params = convertEntryToMap(entry.conversationEntry)
+                        sendEvent("onNewMessage", params)
+                      }
 
-                    sendEvent("onNewMessage", params)
-                  }
-
-          conversationClient
-                  ?.events
-                  ?.filterIsInstance<CoreEvent.ConversationEvent.TypingIndicator>()
-                  ?.collect { entry: CoreEvent.ConversationEvent.TypingIndicator ->
-                    Log.d("TypingIndicator", "Received TypingIndicator event: ${entry.status}")
-                    val params = convertEntryToMap(entry.conversationEntry)
-                    if (entry.status === TypingIndicatorStatus.Started) {
-                      sendEvent("onTypingStarted", params)
-                    } else {
-                      sendEvent("onTypingStopped", params)
+                      is CoreEvent.ConversationEvent.TypingIndicator -> {
+                        val params = convertEntryToMap(entry.conversationEntry)
+                        if (entry.status === TypingIndicatorStatus.Started) {
+                          sendEvent("onTypingStarted", params)
+                        } else {
+                          sendEvent("onTypingStopped", params)
+                        }
+                      }
                     }
                   }
 
-          conversationClient
+          coreClient
                   ?.events
                   ?.filterIsInstance<CoreEvent.Connection>()
                   ?.collect { entry: CoreEvent.Connection ->
                     val params = Arguments.createMap()
-//                    params.putString("status", entry.event)
+                    when(entry.event){
+                      is ServerSentEvent.Connection.Closed -> {
+                        params.putString("status", "Closed")
+                      }
+                      is ServerSentEvent.Connection.Connecting -> {
+                        params.putString("status", "Connecting")
+                      }
+                      is ServerSentEvent.Connection.Open -> {
+                        params.putString("status", "Open")
+                      }
+                      is ServerSentEvent.Connection.Ping -> {
+                        params.putString("status", "Ping")
+                      }
+                    }
                     sendEvent("onNetworkStatusChanged", params)
                   }
         } catch (e: Exception) {
@@ -347,7 +358,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       is EntryPayload.TypingStartedIndicatorPayload -> {
         // TODO
-        map.putInt("timestamp", payload.timestamp.toInt())
+        map.putInt("startedTimestamp", payload.timestamp.toInt())
       }
       is EntryPayload.TypingStoppedIndicatorPayload -> {
         // TODO
