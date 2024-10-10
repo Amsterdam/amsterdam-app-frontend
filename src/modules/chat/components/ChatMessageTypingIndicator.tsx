@@ -44,7 +44,7 @@ const Dot = ({index, sharedValue}: DotProps) => {
   )
 }
 
-export const ChatMessageLoading = () => {
+export const ChatMessageTypingIndicator = () => {
   const sv = useSharedValue(0)
 
   useEffect(() => {

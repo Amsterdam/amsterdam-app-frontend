@@ -8,7 +8,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {AvatarBot} from '@/modules/chat/assets/AvatarBot'
 import {AvatarEmployee} from '@/modules/chat/assets/AvatarEmployee'
 import {ChatMessageContent} from '@/modules/chat/components/ChatMessageContent'
-import {ChatMessageLoading} from '@/modules/chat/components/ChatMessageLoading'
+import {ChatMessageTypingIndicator} from '@/modules/chat/components/ChatMessageTypingIndicator'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -35,7 +35,7 @@ export const ChatMessage = ({message}: Props) => {
       )}
       <View style={styles.textContainer}>
         {isLoading ? (
-          <ChatMessageLoading />
+          <ChatMessageTypingIndicator />
         ) : (
           <ChatMessageContent message={message} />
         )}
