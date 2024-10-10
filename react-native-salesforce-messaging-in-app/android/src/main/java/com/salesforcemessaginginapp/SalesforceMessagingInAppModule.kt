@@ -34,9 +34,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterIsInstance
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 
 class SalesforceMessagingInAppModule internal constructor(context: ReactApplicationContext) :
@@ -177,7 +175,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                   ?.filterIsInstance<CoreEvent.Connection>()
                   ?.collect { entry: CoreEvent.Connection ->
                     val params = Arguments.createMap()
-                    params.putString("status", entry.event)
+//                    params.putString("status", entry.event)
                     sendEvent("onNetworkStatusChanged", params)
                   }
         } catch (e: Exception) {
