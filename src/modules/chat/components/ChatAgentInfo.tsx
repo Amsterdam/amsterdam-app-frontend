@@ -10,7 +10,6 @@ import {useThemable} from '@/themes/useThemable'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 const BOT_NAME = 'Chatbot Gemeente Amsterdam'
-const EMPLOYEE_NAME = 'Jasmijn' // Get from real data once implemented
 
 type Props = {
   isLastOfType: boolean
@@ -18,6 +17,7 @@ type Props = {
 }
 
 const getChatAgentInfo = (
+  displayName: string,
   agent: ConversationEntrySenderRole,
   timestamp: number,
 ) => {
@@ -31,12 +31,12 @@ const getChatAgentInfo = (
     return `${BOT_NAME} - ${formattedTimestamp}`
   }
 
-  return `${EMPLOYEE_NAME} - ${formattedTimestamp}`
+  return `${displayName} - ${formattedTimestamp}`
 }
 
 export const ChatAgentInfo = ({
   message: {
-    sender: {role},
+    sender: {role, displayName},
     timestamp,
   },
   isLastOfType,
@@ -44,6 +44,10 @@ export const ChatAgentInfo = ({
   const styles = useThemable(theme =>
     createStyles(theme, role === ConversationEntrySenderRole.user),
   )
+
+  if (role === ConversationEntrySenderRole.system) {
+    return null
+  }
 
   return (
     !!isLastOfType && (
@@ -54,7 +58,7 @@ export const ChatAgentInfo = ({
             color="secondary"
             testID={`ChatHistoryGroupName${role}`}
             variant="extraSmall">
-            {getChatAgentInfo(role, timestamp)}
+            {getChatAgentInfo(displayName, role, timestamp)}
           </Phrase>
         </View>
       </>
