@@ -34,10 +34,7 @@ export const StreetInput = ({
   const isBelowCharacterThreshold = street.length < addressLengthThreshold
 
   return (
-    <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="handled"
-      onScrollBeginDrag={Keyboard.dismiss}
-      style={styles.flex}>
+    <>
       <SearchField
         accessibilityLabel="Zoek naar straatnaam of postcode"
         autoFocus={!isStreetSelected}
@@ -49,23 +46,28 @@ export const StreetInput = ({
         testID="AddressStreetInputSearchField"
         value={street}
       />
-      {isStreetSelected ? null : (
-        <>
-          {street.length === 0 && (
-            <StreetSearchResultForLocation selectResult={selectResult} />
-          )}
-          {!isBelowCharacterThreshold && (
-            <StreetSearchResult
-              bagList={bagList}
-              isError={isError}
-              isLoading={isLoading}
-              refetch={refetch}
-              selectResult={selectResult}
-            />
-          )}
-        </>
-      )}
-    </KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        onScrollBeginDrag={Keyboard.dismiss}
+        style={styles.flex}>
+        {isStreetSelected ? null : (
+          <>
+            {street.length === 0 && (
+              <StreetSearchResultForLocation selectResult={selectResult} />
+            )}
+            {!isBelowCharacterThreshold && (
+              <StreetSearchResult
+                bagList={bagList}
+                isError={isError}
+                isLoading={isLoading}
+                refetch={refetch}
+                selectResult={selectResult}
+              />
+            )}
+          </>
+        )}
+      </KeyboardAwareScrollView>
+    </>
   )
 }
 
