@@ -2,6 +2,7 @@ import {ReactNode, useEffect, useRef} from 'react'
 import {
   Animated,
   Dimensions,
+  Keyboard,
   KeyboardTypeOptions,
   StyleSheet,
   TextInput as TextInputRN,
@@ -86,6 +87,7 @@ export const NumberInput = ({
       <View style={styles.flex}>
         <KeyboardAwareScrollView
           keyboardShouldPersistTaps="handled"
+          onScrollBeginDrag={Keyboard.dismiss}
           style={styles.flex}>
           <Column gutter="sm">
             <Row align="start">

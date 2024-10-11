@@ -1,5 +1,5 @@
 import {Ref} from 'react'
-import {StyleSheet, TextInput} from 'react-native'
+import {Keyboard, StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms/SearchField'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
@@ -36,6 +36,7 @@ export const StreetInput = ({
   return (
     <KeyboardAwareScrollView
       keyboardShouldPersistTaps="handled"
+      onScrollBeginDrag={Keyboard.dismiss}
       style={styles.flex}>
       <SearchField
         accessibilityLabel="Zoek naar straatnaam of postcode"

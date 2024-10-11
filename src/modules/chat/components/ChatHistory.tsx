@@ -1,4 +1,4 @@
-import {Fragment, useCallback, useContext, useRef} from 'react'
+import {Fragment, useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
 import {
   ConversationEntryFormat,
@@ -19,18 +19,12 @@ export const ChatHistory = () => {
   const styles = createStyles()
   const {messages} = useContext(ChatContext)
 
-  const dismissKeyboard = useCallback(() => {
-    if (Keyboard.isVisible()) {
-      Keyboard.dismiss()
-    }
-  }, [])
-
   return (
     <ScrollView
       contentContainerStyle={styles.contentContainer}
       keyboardShouldPersistTaps="handled"
       onContentSizeChange={() => scrollRef?.current?.scrollToEnd()}
-      onScroll={dismissKeyboard}
+      onScrollBeginDrag={Keyboard.dismiss}
       ref={scrollRef}
       style={styles.scrollView}>
       <Box
