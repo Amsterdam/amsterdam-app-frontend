@@ -1,7 +1,10 @@
 import {useCallback} from 'react'
 import {useSharedValue} from 'react-native-reanimated'
-import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
-import {ConversationEntryQuickReplies} from 'react-native-salesforce-messaging-in-app/src/types'
+import {sendReply} from 'react-native-salesforce-messaging-in-app/src'
+import {
+  Choice,
+  ConversationEntryQuickReplies,
+} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
@@ -13,8 +16,8 @@ type Props = {
 export const Choices = ({choices}: Props) => {
   const isSent = useSharedValue(false)
   const onPress = useCallback(
-    (title: string) => {
-      void sendMessage(title).then(() => (isSent.value = true))
+    (choice: Choice) => {
+      void sendReply(choice).then(() => (isSent.value = true))
     },
     [isSent],
   )
@@ -25,11 +28,13 @@ export const Choices = ({choices}: Props) => {
         align="end"
         gutter="sm"
         wrap>
-        {choices.map(({optionId, title}) => (
+        {choices.map(({optionId, title, optionValue, parentEntryId}) => (
           <Button
             key={optionId}
             label={title}
-            onPress={() => onPress(title)}
+            onPress={() =>
+              onPress({optionId, title, optionValue, parentEntryId})
+            }
             testID={`ChatHistoryChoices${title}`}
             variant="secondary"
           />

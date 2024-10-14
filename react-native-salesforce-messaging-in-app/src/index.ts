@@ -13,6 +13,7 @@ import {
   type ConversationEntry,
   type CoreConfig,
   type NativeSalesforceMessagingInApp,
+  Choice,
 } from './types'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
@@ -64,6 +65,11 @@ export const createConversationClient = (conversationId?: string) =>
 
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
+
+export const sendReply = (choice: Choice) =>
+  SalesforceMessagingInApp.sendReply(choice)
+
+export const sendTypingEvent = () => SalesforceMessagingInApp.sendTypingEvent()
 
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
@@ -183,9 +189,8 @@ export const useCreateChat = ({
           messagingEventEmitter.addListener(
             'onNetworkStatusChanged',
             (message: ConversationEntry) => {
-              // console.log('New message received:', event)
+              // console.log('onNetworkStatusChanged:', message)
               setNetworkStatus(message)
-              // console.log(JSON.stringify(messages))
             },
           )
         onTypingStartedSubscription.current = messagingEventEmitter.addListener(

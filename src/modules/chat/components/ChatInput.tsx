@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {
   KeyboardAvoidingView,
   Platform,
@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
 } from 'react-native'
+import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -23,6 +24,7 @@ export const ChatInput = ({onSubmit}: Props) => {
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
+    void sendTypingEvent()
   }, [])
 
   const handleSubmit = useCallback(
@@ -32,6 +34,10 @@ export const ChatInput = ({onSubmit}: Props) => {
     },
     [onSubmit],
   )
+
+  useEffect(() => {
+    setTimeout(() => onSubmit('hoi'), 1500)
+  }, [onSubmit])
 
   return (
     <KeyboardAvoidingView

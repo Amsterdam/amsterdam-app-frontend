@@ -31,6 +31,8 @@ export type NativeSalesforceMessagingInApp = {
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendMessage: (message: string) => Promise<void>
+  sendReply: (choice: Choice) => Promise<void>
+  sendTypingEvent: () => Promise<void>
 }
 
 export enum ConversationEntryFormat {
@@ -184,7 +186,7 @@ export type ConversationEntryListPicker = {
 }
 export type ConversationEntrySelections = {
   format: ConversationEntryFormat.selections
-  // TODO
+  selections: Choice[]
 }
 export type ConversationEntryCarousel = {
   format: ConversationEntryFormat.carousel
