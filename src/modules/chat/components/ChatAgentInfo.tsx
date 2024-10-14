@@ -7,7 +7,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 const BOT_NAME = 'Chatbot Gemeente Amsterdam'
 
@@ -21,7 +21,7 @@ const getChatAgentInfo = (
   agent: ConversationEntrySenderRole,
   timestamp: number,
 ) => {
-  const formattedTimestamp = dayjs(timestamp).format('HH:mm')
+  const formattedTimestamp = dayjsFromUnix(timestamp).format('HH:mm')
 
   if (agent === ConversationEntrySenderRole.user) {
     return formattedTimestamp

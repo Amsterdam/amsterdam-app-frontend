@@ -265,7 +265,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     map.putMap("sender", convertParticipantToMap(entry.sender))
     map.putString("senderDisplayName", entry.senderDisplayName)
     map.putString("messageType", entry.entryType.toString())
-    map.putInt("timestamp", entry.timestamp.toInt())
+    map.putDouble("timestamp", (entry.timestamp).toDouble())
     map.putString("conversationId", entry.conversationId.toString())
     map.putString("status", entry.status.toString())
     map.putString("format", entry.payload.entryType.toString())
