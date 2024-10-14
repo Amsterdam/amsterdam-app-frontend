@@ -1,5 +1,5 @@
 import {Ref} from 'react'
-import {StyleSheet, TextInput} from 'react-native'
+import {Keyboard, StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {SearchField} from '@/components/ui/forms/SearchField'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
@@ -34,9 +34,7 @@ export const StreetInput = ({
   const isBelowCharacterThreshold = street.length < addressLengthThreshold
 
   return (
-    <KeyboardAwareScrollView
-      keyboardShouldPersistTaps="handled"
-      style={styles.flex}>
+    <>
       <SearchField
         accessibilityLabel="Zoek naar straatnaam of postcode"
         autoFocus={!isStreetSelected}
@@ -48,23 +46,28 @@ export const StreetInput = ({
         testID="AddressStreetInputSearchField"
         value={street}
       />
-      {isStreetSelected ? null : (
-        <>
-          {street.length === 0 && (
-            <StreetSearchResultForLocation selectResult={selectResult} />
-          )}
-          {!isBelowCharacterThreshold && (
-            <StreetSearchResult
-              bagList={bagList}
-              isError={isError}
-              isLoading={isLoading}
-              refetch={refetch}
-              selectResult={selectResult}
-            />
-          )}
-        </>
-      )}
-    </KeyboardAwareScrollView>
+      <KeyboardAwareScrollView
+        keyboardShouldPersistTaps="handled"
+        onScrollBeginDrag={Keyboard.dismiss}
+        style={styles.flex}>
+        {isStreetSelected ? null : (
+          <>
+            {street.length === 0 && (
+              <StreetSearchResultForLocation selectResult={selectResult} />
+            )}
+            {!isBelowCharacterThreshold && (
+              <StreetSearchResult
+                bagList={bagList}
+                isError={isError}
+                isLoading={isLoading}
+                refetch={refetch}
+                selectResult={selectResult}
+              />
+            )}
+          </>
+        )}
+      </KeyboardAwareScrollView>
+    </>
   )
 }
 
