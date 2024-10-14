@@ -22,3 +22,9 @@ export const dayjs = (date?: ConfigType) => {
 
   return dayjsFn(date1)
 }
+
+export const dayjsFromUnix = (timestamp: number) => {
+  const date1 = dayjsFn.unix(timestamp)
+
+  return dayjsFn(date1)
+}

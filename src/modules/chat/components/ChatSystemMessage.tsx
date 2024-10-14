@@ -8,7 +8,7 @@ import {
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {ChatInlineMessage} from '@/modules/chat/components/ChatInlineMessage'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
   message: ConversationEntry
@@ -32,7 +32,7 @@ const parseSystemMessage = (
     message.workType === ConversationEntryRoutingWorkType.closed
   ) {
     return {
-      text: `Chat gestopt om ${dayjs(message?.timestamp).format('HH:mm')}`,
+      text: `Chat gestopt om ${dayjsFromUnix(message?.timestamp ?? dayjs().unix()).format('HH:mm')}`,
       icon: 'chat',
     }
   }
