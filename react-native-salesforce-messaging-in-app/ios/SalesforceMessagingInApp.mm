@@ -466,6 +466,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
             NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
             itemDict[@"interactionItems"] = [self parseChoiceArrayToDictionaryArray:item.interactionItems];
             itemDict[@"itemType"] = item.titleItem.itemType;
+            itemDict[@"title"] = item.titleItem.title;
             itemDict[@"subTitle"] = item.titleItem.subTitle;
             itemDict[@"secondarySubTitle"] = item.titleItem.secondarySubTitle;
             itemDict[@"tertiarySubTitle"] = item.titleItem.tertiarySubTitle;

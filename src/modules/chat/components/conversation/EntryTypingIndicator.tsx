@@ -8,8 +8,10 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
+import {ConversationEntryTypingStartedIndicator} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
+import {MessageBubble} from '@/modules/chat/components/MessageBubble'
 import {useTheme} from '@/themes/useTheme'
 
 const DEFAULT_DOT_ACTIVE_SIZE = 10
@@ -49,11 +51,13 @@ const Dot = ({activeSize, inactiveSize, index, sharedValue}: DotProps) => {
 type Props = {
   dotActiveSize?: number
   dotInactiveSize?: number
+  message: ConversationEntryTypingStartedIndicator
 }
 
-export const ChatMessageTypingIndicator = ({
+export const EntryTypingIndicator = ({
   dotActiveSize = DEFAULT_DOT_ACTIVE_SIZE,
   dotInactiveSize = DEFAULT_DOT_INACTIVE_SIZE,
+  message,
 }: Props) => {
   const sv = useSharedValue(0)
 
@@ -65,21 +69,24 @@ export const ChatMessageTypingIndicator = ({
   }, [sv])
 
   return (
-    <Box insetVertical="xs">
-      <Row
-        align="center"
-        valign="center">
-        {Array.from({length: 3}).map((_dot, index) => (
-          <Dot
-            activeSize={dotActiveSize}
-            inactiveSize={dotInactiveSize}
-            index={index}
-            key={index}
-            sharedValue={sv}
-          />
-        ))}
-      </Row>
-    </Box>
+    <MessageBubble message={message}>
+      <Box insetVertical="xs">
+        <Row
+          align="center"
+          gutter="xs"
+          valign="center">
+          {Array.from({length: 3}).map((_dot, index) => (
+            <Dot
+              activeSize={dotActiveSize}
+              inactiveSize={dotInactiveSize}
+              index={index}
+              key={index}
+              sharedValue={sv}
+            />
+          ))}
+        </Row>
+      </Box>
+    </MessageBubble>
   )
 }
 

@@ -1,17 +1,12 @@
-import {Fragment, useContext, useRef} from 'react'
+import {useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
-import {
-  ConversationEntryFormat,
-  ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
-import {ChatMessage} from '@/modules/chat/components/ChatMessage'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 import {ChatSystemMessage} from '@/modules/chat/components/ChatSystemMessage'
-import {Choices} from '@/modules/chat/components/Choices'
+import {MessageContent} from '@/modules/chat/components/conversation/MessageContent'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
 export const ChatHistory = () => {
@@ -35,27 +30,22 @@ export const ChatHistory = () => {
           <Gutter height="md" />
           {messages.map((message, index) => {
             if (message.sender.role !== ConversationEntrySenderRole.system) {
-              const isLastOfType =
+              const isLastOfRole =
                 messages[index + 1]?.sender.role !== message.sender.role
 
               return (
-                <Fragment key={message.entryId}>
-                  <ChatMessage message={message} />
-                  <ChatAgentInfo
-                    isLastOfType={isLastOfType}
-                    message={message}
-                  />
-                  <Gutter height={isLastOfType ? 'md' : 'sm'} />
-                  {message.format === ConversationEntryFormat.quickReplies && (
-                    <Choices choices={message.choices} />
-                  )}
-                </Fragment>
+                <MessageContent
+                  isLastOfRole={isLastOfRole}
+                  key={message.entryId}
+                  message={message}
+                />
               )
             } else {
               return (
-                <Fragment key={message.entryId}>
-                  <ChatSystemMessage message={message} />
-                </Fragment>
+                <ChatSystemMessage
+                  key={message.entryId}
+                  message={message}
+                />
               )
             }
           })}

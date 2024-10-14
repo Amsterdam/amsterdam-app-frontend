@@ -10,10 +10,10 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 
 type Props = {
-  choices: ConversationEntryQuickReplies['choices']
+  message: ConversationEntryQuickReplies
 }
 
-export const Choices = ({choices}: Props) => {
+export const EntryChoices = ({message: {choices}}: Props) => {
   const isSent = useSharedValue(false)
   const onPress = useCallback(
     (choice: Choice) => {
