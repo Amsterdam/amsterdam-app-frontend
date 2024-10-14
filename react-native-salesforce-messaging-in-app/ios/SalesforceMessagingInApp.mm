@@ -524,7 +524,8 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
         id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
         messageDict[@"text"] = textPayload.text ?: @"";
-        // choices toevoegen
+        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
     }
     if (format == SMIConversationFormatTypesSelections) {
         id<SMIChoicesResponse> selectionsPayload = (id<SMIChoicesResponse>)payload;

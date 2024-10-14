@@ -57,8 +57,8 @@ const Options: Record<
     agentInfo: undefined,
   },
   [ConversationEntryFormat.listPicker]: {
-    Component: undefined,
-    LastComponent: undefined,
+    Component: EntryText,
+    LastComponent: EntryChoices,
     agentInfo: undefined,
   },
   [ConversationEntryFormat.participantChanged]: {
