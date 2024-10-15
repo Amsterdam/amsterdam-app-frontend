@@ -145,13 +145,3 @@ export const MessageContent = ({message, isLastOfRole}: Props) => {
     </>
   )
 }
-/*{
-    <ChatMessage message={message} />
-                  {message.format === ConversationEntryFormat.selections && (
-                    <Selections message={message} />
-                  )}
-
-                  {message.format === ConversationEntryFormat.quickReplies && (
-                    <Choices choices={message.choices} />
-                  )}
-}*/
