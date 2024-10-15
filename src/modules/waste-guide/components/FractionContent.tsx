@@ -1,3 +1,4 @@
+import {memo} from 'react'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
@@ -8,7 +9,7 @@ type Props = {
 
 const containsHtml = (content: string) => content.includes('<')
 
-export const FractionContent = ({content, testID}: Props) => {
+export const FractionContent = memo(({content, testID}: Props) => {
   if (!content) {
     return null
   }
@@ -23,4 +24,4 @@ export const FractionContent = ({content, testID}: Props) => {
   }
 
   return <Phrase testID={testID}>{content}</Phrase>
-}
+})

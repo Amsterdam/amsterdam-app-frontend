@@ -15,4 +15,23 @@ describe('formatEnumeration', () => {
   it('passed null', () => {
     expect(formatEnumeration(null)).toEqual(null)
   })
+  it('passed empty string', () => {
+    expect(formatEnumeration('')).toEqual(null)
+  })
+  it('passed empty array', () => {
+    expect(formatEnumeration([])).toEqual(null)
+  })
+  it('passed array with 3 items', () => {
+    expect(formatEnumeration(['Maandag', 'woensdag', 'vrijdag'])).toEqual(
+      'Maandag, woensdag en vrijdag',
+    )
+  })
+  it('passed array with 2 items', () => {
+    expect(formatEnumeration(['Maandag', 'vrijdag'])).toEqual(
+      'Maandag en vrijdag',
+    )
+  })
+  it('passed array with 1 item', () => {
+    expect(formatEnumeration(['Maandag'])).toEqual('Maandag')
+  })
 })

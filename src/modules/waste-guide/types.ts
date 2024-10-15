@@ -20,6 +20,7 @@ export type WasteGuideQueryArg = {
   bagNummeraanduidingId: string
 }
 
+// TODO: cleanup after 18th of November 2024
 export type WasteGuideResponseFraction = {
   afvalwijzerAfvalkalenderFrequentie: string | null
   afvalwijzerAfvalkalenderMelding: string | null
@@ -37,6 +38,8 @@ export type WasteGuideResponseFraction = {
   afvalwijzerButtontekst: string | null
   afvalwijzerFractieCode: FractionCode
   afvalwijzerFractieNaam: string
+  afvalwijzerFractieVolgorde?: number | null // defined from 18th of November 2024
+  afvalwijzerFractiecodeActief?: boolean // defined from 18th of November 2024
   afvalwijzerGeometrie: {
     coordinates: number[]
     type: string
@@ -45,8 +48,8 @@ export type WasteGuideResponseFraction = {
   afvalwijzerInstructie2: string | null
   afvalwijzerInzamelgebiedCode: string | null
   afvalwijzerInzamelgebiedNaam: string | null
-  afvalwijzerOphaaldagen: string | null
-  afvalwijzerOphaaldagen2: string | null
+  afvalwijzerOphaaldagen: string[] | string | null // will be string[] from 18th of november 2024
+  afvalwijzerOphaaldagen2: string[] | string | null // will be string[] from 18th of november 2024
   afvalwijzerPerXWeken: string | null
   afvalwijzerRoutenaam: string | null
   afvalwijzerRoutetypeNaam: string | null

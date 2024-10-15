@@ -15,9 +15,7 @@ export const FullScreenErrorHeader = ({
 }: SharedProps) => (
   <Box
     distinct={!isPortrait}
-    grow={!isPortrait}
-    insetHorizontal="md"
-    insetVertical="lg">
+    grow={!isPortrait}>
     <Column
       align="center"
       grow={1}
