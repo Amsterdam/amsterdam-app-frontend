@@ -49,21 +49,23 @@ export const ProductTourTipWrapper = ({
   useBlurEffect(handleHasSeenTip)
 
   return (
-    <View>
-      {!hasSeenTip && !isScreenReaderEnabled && (
-        <Tooltip
-          accessibilityLabel={TipText[tipSlug]}
-          extraSpace={extraSpace}
-          fadeIn
-          onPress={handleHasSeenTip}
-          placement={placement}
-          productTourTipTargetLayout={productTourTipTargetLayout}
-          ref={setElementRef}
-          startFadeIn={isElementVisible ?? hasNoScrollViewParent}
-          testID={testID}
-          text={TipText[tipSlug]}
-        />
-      )}
+    <View testID="ProductTourTipWrapper">
+      {!hasSeenTip &&
+        !isScreenReaderEnabled &&
+        !!productTourTipTargetLayout && (
+          <Tooltip
+            accessibilityLabel={TipText[tipSlug]}
+            extraSpace={extraSpace}
+            fadeIn
+            onPress={handleHasSeenTip}
+            placement={placement}
+            productTourTipTargetLayout={productTourTipTargetLayout}
+            ref={setElementRef}
+            startFadeIn={isElementVisible ?? hasNoScrollViewParent}
+            testID={testID}
+            text={TipText[tipSlug]}
+          />
+        )}
       <View
         collapsable={false}
         onLayout={measureTarget}
