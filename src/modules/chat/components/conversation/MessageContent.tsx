@@ -59,7 +59,7 @@ const Options: Record<
   [ConversationEntryFormat.listPicker]: {
     Component: EntryText,
     LastComponent: EntryChoices,
-    agentInfo: undefined,
+    agentInfo: true,
   },
   [ConversationEntryFormat.participantChanged]: {
     Component: undefined,
@@ -69,7 +69,7 @@ const Options: Record<
   [ConversationEntryFormat.quickReplies]: {
     Component: EntryText,
     LastComponent: EntryChoices,
-    agentInfo: undefined,
+    agentInfo: true,
   },
   [ConversationEntryFormat.result]: {
     Component: undefined,
@@ -78,8 +78,7 @@ const Options: Record<
   },
   [ConversationEntryFormat.richLink]: {
     Component: EntryRichLink,
-    LastComponent: undefined,
-    agentInfo: undefined,
+    agentInfo: true,
   },
   [ConversationEntryFormat.routingResult]: {
     Component: undefined,
@@ -93,7 +92,6 @@ const Options: Record<
   },
   [ConversationEntryFormat.typingStartedIndicator]: {
     Component: EntryTypingIndicator,
-    LastComponent: undefined,
     agentInfo: false,
   },
   [ConversationEntryFormat.typingStoppedIndicator]: {
