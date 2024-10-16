@@ -2,13 +2,18 @@
  * Format an enumeration string. For example, 'a, b, c' becomes 'a, b en c'.
  */
 export const formatEnumeration = (
-  enumeration: string | null,
+  enumeration: string[] | string | null,
 ): string | null => {
-  if (!enumeration) {
+  if (
+    !enumeration ||
+    (Array.isArray(enumeration) && enumeration.length === 0)
+  ) {
     return null
   }
 
-  const items = enumeration.split(',').map(item => item.trim())
+  const items = (
+    Array.isArray(enumeration) ? enumeration : enumeration.split(',')
+  ).map(item => item.trim())
 
   if (items.length > 1) {
     const lastItem = items.pop() ?? ''
@@ -16,5 +21,5 @@ export const formatEnumeration = (
     return `${items.join(', ')} en ${lastItem}`
   }
 
-  return enumeration
+  return items.join('')
 }

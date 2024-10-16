@@ -25,14 +25,17 @@ const customFractionTitles = {
   [FractionCode.Textiel]: 'Textiel',
 }
 
-// TODO: Remove when plastic is supported again
+// TODO: Remove filter of plastic and remove undefined from active check after 18th of november 2024
 const fractionIsSupported = ({
   afvalwijzerFractieCode,
+  afvalwijzerFractiecodeActief,
 }: WasteGuideResponseFraction) =>
-  afvalwijzerFractieCode !== FractionCode.Plastic
+  afvalwijzerFractieCode !== FractionCode.Plastic &&
+  afvalwijzerFractiecodeActief !== false // to temporarily allow for undefined as well
 
 /**
  * Sort fractions in the order set in `fractionOrder`.
+ * TODO: sort fractions based on afvalwijzerFractieVolgorde, when that property is filled with meaningful data
  */
 export const sortFractions = (
   a: WasteGuideResponseFraction,
