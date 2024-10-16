@@ -5,6 +5,9 @@ describe('formatEnumeration', () => {
     expect(formatEnumeration('Maandag, woensdag, vrijdag')).toEqual(
       'Maandag, woensdag en vrijdag',
     )
+    expect(formatEnumeration('maandag, woensdag, vrijdag')).toEqual(
+      'maandag, woensdag en vrijdag',
+    )
   })
   it('2 items', () => {
     expect(formatEnumeration('Maandag, vrijdag')).toEqual('Maandag en vrijdag')
@@ -24,6 +27,9 @@ describe('formatEnumeration', () => {
   it('passed array with 3 items', () => {
     expect(formatEnumeration(['Maandag', 'woensdag', 'vrijdag'])).toEqual(
       'Maandag, woensdag en vrijdag',
+    )
+    expect(formatEnumeration(['maandag', 'woensdag', 'vrijdag'])).toEqual(
+      'maandag, woensdag en vrijdag',
     )
   })
   it('passed array with 2 items', () => {
