@@ -83,6 +83,7 @@ export type NativeSalesforceMessagingInApp = {
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendMessage: (message: string) => Promise<void>
+  sendPDF: (filePath: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
 }

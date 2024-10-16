@@ -1,16 +1,24 @@
-import {useCallback, useEffect, useState} from 'react'
+import * as DocumentPicker from 'expo-document-picker'
+import {useCallback, useState} from 'react'
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
   TextInput,
   View,
 } from 'react-native'
-import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
+import {
+  sendTypingEvent,
+  sendPDF,
+} from 'react-native-salesforce-messaging-in-app/src'
+import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
-import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {useToggle} from '@/hooks/useToggle'
+import {devError} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -21,6 +29,7 @@ type Props = {
 export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
+  const {toggle, value} = useToggle(false)
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
@@ -35,15 +44,40 @@ export const ChatInput = ({onSubmit}: Props) => {
     [onSubmit],
   )
 
-  useEffect(() => {
-    setTimeout(() => onSubmit('hoi'), 1500)
-  }, [onSubmit])
+  const a = () =>
+    DocumentPicker.getDocumentAsync({
+      type: 'application/pdf',
+    }).then(result => {
+      if (result.assets?.[0].uri) {
+        sendPDF(result.assets?.[0].uri).catch(error => {
+          devError('failed to upload PDF', error)
+          // TODO: log error and notify user
+        })
+      }
+    })
 
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Box>
-        <Column gutter="sm">
+        <Row gutter="sm">
+          <IconButton
+            accessibilityLabel="Terug"
+            hitSlop={16}
+            icon={
+              <Icon
+                color="link"
+                name="chevron-left"
+                size="ml"
+                testID="HeaderBackIcon"
+              />
+            }
+            onPress={() => {
+              toggle()
+              Keyboard.dismiss()
+            }}
+            testID="HeaderBackButton"
+          />
           <View
             style={styles.container}
             testID="ChatTextInputContainer">
@@ -71,7 +105,25 @@ export const ChatInput = ({onSubmit}: Props) => {
               </View>
             )}
           </View>
-        </Column>
+        </Row>
+        {!!value && (
+          <Row gutter="sm">
+            <IconButton
+              accessibilityLabel="Terug"
+              hitSlop={16}
+              icon={
+                <Icon
+                  color="link"
+                  name="chevron-left"
+                  size="ml"
+                  testID="HeaderBackIcon"
+                />
+              }
+              onPress={a}
+              testID="HeaderBackButton"
+            />
+          </Row>
+        )}
       </Box>
     </KeyboardAvoidingView>
   )
@@ -101,6 +153,7 @@ const createStyles = ({border, color, text, size}: Theme) =>
       borderWidth: border.width.sm,
       padding: size.spacing.xs,
       columnGap: size.spacing.sm,
+      flex: 1,
     },
     textInput: {
       flex: 1,

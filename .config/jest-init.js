@@ -76,3 +76,5 @@ jest.mock('react-native-barcode-creator', () => ({
 }))
 jest.mock('react-native-block-screenshot', () => ({}))
 jest.mock('react-native-salesforce-messaging-in-app', () => ({}))
+jest.mock('expo-document-picker', () => ({}))
+jest.mock('expo-image-picker', () => ({}))

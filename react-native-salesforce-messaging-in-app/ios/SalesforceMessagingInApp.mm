@@ -1,5 +1,7 @@
 #import "SalesforceMessagingInApp.h"
+#import <PDFKit/PDFKit.h> // Required for working with PDFs
 #import <SMIClientCore/SMIClientCore.h>
+#import <React/RCTConvert.h>
 
 @interface SalesforceMessagingInApp () <SMICoreDelegate> {
   bool hasListeners;
@@ -372,6 +374,50 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
                                              code:500
                                          userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
         reject(@"send_message_exception", @"An exception occurred during sendMessage", error);
+    }
+}
+
+RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the conversation client has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_pdf_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+        // Remove the 'file://' prefix if present
+        NSString *pdfPath = [filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+
+        // Create a NSURL object from the cleaned-up file path
+        NSURL *pdfURL = [NSURL fileURLWithPath:pdfPath];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:pdfPath]) {
+            reject(@"file_not_found", @"PDF file not found at path", nil);
+            return;
+        }
+        PDFDocument *pdfDocument = [[PDFDocument alloc] initWithURL:pdfURL];
+
+        if (pdfDocument == nil) {
+            NSError *error = [NSError errorWithDomain:@"PDFDocument Error"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"Failed to load PDF document."}];
+            reject(@"send_pdf_exception", @"Failed to load PDF document", error);
+            return;
+        }
+
+        // Send the PDF using the conversation client
+        [conversationClient sendPDF:pdfDocument];
+
+        resolve(@(YES)); // Resolve the promise with success
+    } @catch (NSException *exception) {
+        NSError *error = [NSError errorWithDomain:@"sendPDF Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_pdf_exception", @"An exception occurred during sendPDF", error);
     }
 }
 

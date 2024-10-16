@@ -13,7 +13,7 @@ export type ChatState = {
 }
 
 const initialState: ChatState = {
-  isOpen: false,
+  isOpen: true,
   minimizedHeight: 0,
   visibility: ChatVisibility.maximized,
 }

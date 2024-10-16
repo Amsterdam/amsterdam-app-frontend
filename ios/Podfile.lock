@@ -11,6 +11,8 @@ PODS:
     - ExpoModulesCore
   - ExpoClipboard (6.0.3):
     - ExpoModulesCore
+  - ExpoDocumentPicker (12.0.2):
+    - ExpoModulesCore
   - ExpoFileSystem (17.0.1):
     - ExpoModulesCore
   - ExpoLocalAuthentication (14.0.1):
@@ -1569,6 +1571,7 @@ DEPENDENCIES:
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
   - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
+  - ExpoDocumentPicker (from `../node_modules/expo-document-picker/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -1699,6 +1702,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-asset/ios"
   ExpoClipboard:
     :path: "../node_modules/expo-clipboard/ios"
+  ExpoDocumentPicker:
+    :path: "../node_modules/expo-document-picker/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoLocalAuthentication:
@@ -1877,6 +1882,7 @@ SPEC CHECKSUMS:
   Expo: 8b7948e45627e848c2d7b6be7cf5851a505aef19
   ExpoAsset: 323700f291684f110fb55f0d4022a3362ea9f875
   ExpoClipboard: 23d203f5d4843699fbc45be1cc4fe1fbd811a6fa
+  ExpoDocumentPicker: a82eaccc62ecb62662d5a6ca7a8ef40b71daa521
   ExpoFileSystem: 80bfe850b1f9922c16905822ecbf97acd711dc51
   ExpoLocalAuthentication: 9e02a56a4cf9868f0052656a93d4c94101a42ed7
   ExpoModulesCore: 734c1802786b23c9598f4d15273753a779969368
@@ -1935,7 +1941,7 @@ SPEC CHECKSUMS:
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: b7daa1a8df36095a032dff095a1ea8963cb48371
-  react-native-salesforce-messaging-in-app: 073c012349c94e5a583c992a3a632894af70bad4
+  react-native-salesforce-messaging-in-app: 1b63bf33e9945ae8a14b4bcee24da10aabf23cc0
   react-native-webview: 596fb33d67a3cde5a74bf1f6b4c28d3543477fdd
   React-nativeconfig: fa5de9d8f4dbd5917358f8ad3ad1e08762f01dcb
   React-NativeModulesApple: 585d1b78e0597de364d259cb56007052d0bda5e5
