@@ -1,7 +1,9 @@
 import * as DocumentPicker from 'expo-document-picker'
+import * as ImagePicker from 'expo-image-picker'
+import {useCallback} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
-import {sendPDF} from 'react-native-salesforce-messaging-in-app/src'
+import {sendImage, sendPDF} from 'react-native-salesforce-messaging-in-app/src'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {ChatAttachmentButton} from '@/modules/chat/components/ChatAttachmentButton'
@@ -16,7 +18,48 @@ type Props = {
 export const ChatAttachment = ({onSelect}: Props) => {
   const styles = useThemable(createStyles)
 
-  const a = () => {
+  const addPhotoFromLibrary = useCallback(() => {
+    void ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false,
+      allowsEditing: false,
+      base64: true,
+    }).then(result => {
+      if (result.assets?.[0].uri) {
+        const file = result.assets?.[0]
+
+        sendImage(file.base64!, file.fileName ?? 'image.png').then(
+          onSelect,
+          error => {
+            devError('failed to upload Image', error)
+            // TODO: log error and notify user
+          },
+        )
+      }
+    })
+  }, [onSelect])
+
+  const addPhotoFromCamera = useCallback(() => {
+    void ImagePicker.launchCameraAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsMultipleSelection: false,
+      allowsEditing: false,
+      base64: true,
+    }).then(result => {
+      if (result.assets?.[0].uri) {
+        const file = result.assets?.[0]
+
+        sendImage(file.base64!, file.fileName ?? 'image.png').then(
+          onSelect,
+          error => {
+            devError('failed to upload Image', error)
+            // TODO: log error and notify user
+          },
+        )
+      }
+    })
+  }, [onSelect])
+  const addPDF = useCallback(() => {
     void DocumentPicker.getDocumentAsync({
       type: 'application/pdf',
     }).then(result => {
@@ -27,7 +70,7 @@ export const ChatAttachment = ({onSelect}: Props) => {
         })
       }
     })
-  }
+  }, [onSelect])
 
   return (
     <Animated.View
@@ -38,21 +81,21 @@ export const ChatAttachment = ({onSelect}: Props) => {
           align="evenly"
           gutter="sm">
           <ChatAttachmentButton
-            iconName="document-text"
+            iconName="picture"
             label="Foto"
-            onPress={a}
+            onPress={addPhotoFromLibrary}
             testID="pdf"
           />
           <ChatAttachmentButton
-            iconName="document-text"
+            iconName="camera"
             label="Camera"
-            onPress={a}
+            onPress={addPhotoFromCamera}
             testID="pdf"
           />
           <ChatAttachmentButton
-            iconName="document-text"
+            iconName="document"
             label="PDF"
-            onPress={a}
+            onPress={addPDF}
             testID="pdf"
           />
         </Row>

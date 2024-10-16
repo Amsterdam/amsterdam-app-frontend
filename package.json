@@ -170,7 +170,8 @@
     },
     "plugins": [
       "expo-local-authentication",
-      "expo-document-picker"
+      "expo-document-picker",
+      "expo-image-picker"
     ]
   },
   "volta": {

@@ -2,6 +2,7 @@
 #import <PDFKit/PDFKit.h> // Required for working with PDFs
 #import <SMIClientCore/SMIClientCore.h>
 #import <React/RCTConvert.h>
+#import <Foundation/Foundation.h>  // To handle NSData and Base64 decoding
 
 @interface SalesforceMessagingInApp () <SMICoreDelegate> {
   bool hasListeners;
@@ -418,6 +419,39 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
                                              code:500
                                          userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
         reject(@"send_pdf_exception", @"An exception occurred during sendPDF", error);
+    }
+}
+
+// Method to send the Base64-encoded image
+RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
+                  fileName:(NSString *)fileName
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Decode the Base64 string into NSData
+        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
+
+        // Ensure the image data is valid
+        if (imageData == nil) {
+            NSError *error = [NSError errorWithDomain:@"Invalid Base64"
+                                                 code:500
+                                             userInfo:@{NSLocalizedDescriptionKey: @"Failed to decode Base64 image data"}];
+            reject(@"send_image_exception", @"Failed to decode Base64 image data", error);
+            return;
+        }
+
+        // Call the sendImage:fileName: method from the conversationClient
+        [conversationClient sendImage:imageData fileName:fileName];
+
+        // Resolve the promise indicating success
+        resolve(@(YES));
+    } @catch (NSException *exception) {
+        // Handle any exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendImage Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_image_exception", @"An exception occurred during sendImage", error);
     }
 }
 
