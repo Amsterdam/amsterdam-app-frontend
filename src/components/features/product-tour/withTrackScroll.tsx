@@ -3,6 +3,8 @@ import {
   ForwardedRef,
   createContext,
   forwardRef,
+  useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -43,7 +45,7 @@ const withTrackScroll = (
     const [elementRef, setElementRef] = useState<View | null>(null)
     const [isElementVisible, setIsElementVisible] = useState<boolean>(false)
 
-    const getIsElementVisibible = async () => {
+    const getIsElementVisible = useCallback(async () => {
       if (!scrollViewRef?.current || !elementRef) {
         return false
       }
@@ -56,12 +58,12 @@ const withTrackScroll = (
       setIsElementVisible(
         computeIsElementVisible(scrollViewLayout, elementLayout),
       )
-    }
+    }, [scrollViewRef, elementRef])
 
     const scrollViewProps = {
       ...props,
-      onLayout: getIsElementVisibible,
-      onScroll: getIsElementVisibible,
+      onLayout: getIsElementVisible,
+      onScroll: getIsElementVisible,
       [refPropName]: scrollViewRef,
       scrollEventThrottle: 16,
     }
@@ -70,6 +72,10 @@ const withTrackScroll = (
       () => ({isElementVisible, setElementRef}),
       [isElementVisible, setElementRef],
     )
+
+    useEffect(() => {
+      void getIsElementVisible()
+    }, [getIsElementVisible])
 
     return (
       <ScrollViewComp {...scrollViewProps}>
