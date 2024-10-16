@@ -26,20 +26,23 @@ export const useMeasureTarget = (targetRef: TargetRef) => {
       ({x, y, width, height}) => {
         if (x === 0 && y === 0 && width === 0 && height === 0) {
           setTimeout(measureTarget, 300)
-        } else {
-          if (
-            oldLayout.current.height !== height ||
-            oldLayout.current.width !== width ||
-            oldLayout.current.x !== x ||
-            oldLayout.current.y !== y
-          ) {
-            setTimeout(measureTarget, 300)
-          } else {
-            setLayout({x, y, width, height})
-          }
 
-          oldLayout.current = {x, y, width, height}
+          return
         }
+
+        const layoutChanged =
+          oldLayout.current.height !== height ||
+          oldLayout.current.width !== width ||
+          oldLayout.current.x !== x ||
+          oldLayout.current.y !== y
+
+        if (layoutChanged) {
+          setTimeout(measureTarget, 300)
+        } else {
+          setLayout({x, y, width, height})
+        }
+
+        oldLayout.current = {x, y, width, height}
       },
       () => setTimeout(measureTarget, 200),
     )
