@@ -6,6 +6,12 @@ export const useToggle = (initialState = false) => {
   const toggle = useCallback(() => {
     setValue(oldValue => !oldValue)
   }, [])
+  const enable = useCallback(() => {
+    setValue(true)
+  }, [])
+  const disable = useCallback(() => {
+    setValue(false)
+  }, [])
 
-  return {value, toggle}
+  return {value, toggle, enable, disable}
 }

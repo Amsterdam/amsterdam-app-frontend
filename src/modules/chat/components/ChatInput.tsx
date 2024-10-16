@@ -1,5 +1,4 @@
-import * as DocumentPicker from 'expo-document-picker'
-import {useCallback, useState} from 'react'
+import {useCallback, useRef, useState} from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -8,17 +7,14 @@ import {
   TextInput,
   View,
 } from 'react-native'
-import {
-  sendTypingEvent,
-  sendPDF,
-} from 'react-native-salesforce-messaging-in-app/src'
+import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {useToggle} from '@/hooks/useToggle'
-import {devError} from '@/processes/development'
+import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -29,7 +25,12 @@ type Props = {
 export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
-  const {toggle, value} = useToggle(false)
+  const inputRef = useRef<TextInput | null>(null)
+  const {
+    toggle: toggleSelectAttachment,
+    value: selectAttachment,
+    disable: hideSelectAttachment,
+  } = useToggle(false)
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
@@ -44,18 +45,6 @@ export const ChatInput = ({onSubmit}: Props) => {
     [onSubmit],
   )
 
-  const a = () =>
-    DocumentPicker.getDocumentAsync({
-      type: 'application/pdf',
-    }).then(result => {
-      if (result.assets?.[0].uri) {
-        sendPDF(result.assets?.[0].uri).catch(error => {
-          devError('failed to upload PDF', error)
-          // TODO: log error and notify user
-        })
-      }
-    })
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
@@ -67,14 +56,19 @@ export const ChatInput = ({onSubmit}: Props) => {
             icon={
               <Icon
                 color="link"
-                name="chevron-left"
-                size="ml"
+                name={selectAttachment ? 'keyboard' : 'attachment'}
+                size="xl"
                 testID="HeaderBackIcon"
               />
             }
             onPress={() => {
-              toggle()
-              Keyboard.dismiss()
+              toggleSelectAttachment()
+
+              if (selectAttachment) {
+                inputRef.current?.focus()
+              } else {
+                Keyboard.dismiss()
+              }
             }}
             testID="HeaderBackButton"
           />
@@ -85,6 +79,7 @@ export const ChatInput = ({onSubmit}: Props) => {
               multiline
               onChangeText={onChangeText}
               placeholder="Schrijf uw bericht"
+              ref={inputRef}
               style={styles.textInput}
               testID="ChatTextInput"
               value={input}
@@ -106,25 +101,8 @@ export const ChatInput = ({onSubmit}: Props) => {
             )}
           </View>
         </Row>
-        {!!value && (
-          <Row gutter="sm">
-            <IconButton
-              accessibilityLabel="Terug"
-              hitSlop={16}
-              icon={
-                <Icon
-                  color="link"
-                  name="chevron-left"
-                  size="ml"
-                  testID="HeaderBackIcon"
-                />
-              }
-              onPress={a}
-              testID="HeaderBackButton"
-            />
-          </Row>
-        )}
       </Box>
+      {!!selectAttachment && <ChatAttachment onSelect={hideSelectAttachment} />}
     </KeyboardAvoidingView>
   )
 }
