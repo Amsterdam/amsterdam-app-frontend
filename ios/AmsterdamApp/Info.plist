@@ -4,6 +4,8 @@
 <dict>
 	<key>BUILD_VARIANT</key>
 	<string>$(BUILD_VARIANT)</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>13.0.0</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>nl</string>
 	<key>CFBundleDisplayName</key>
