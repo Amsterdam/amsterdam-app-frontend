@@ -1,81 +1,167 @@
 import * as DocumentPicker from 'expo-document-picker'
 import * as ImagePicker from 'expo-image-picker'
 import {useCallback} from 'react'
-import {StyleSheet} from 'react-native'
+import {Alert, Platform, StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
 import {sendImage, sendPDF} from 'react-native-salesforce-messaging-in-app/src'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
+import {usePermission} from '@/hooks/permissions/usePermission'
 import {ChatAttachmentButton} from '@/modules/chat/components/ChatAttachmentButton'
-import {devError} from '@/processes/development'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {Permissions} from '@/types/permissions'
 
 type Props = {
+  minHeight?: number
   onSelect: () => void
 }
 
-export const ChatAttachment = ({onSelect}: Props) => {
+const fileName = 'ChatAttachment.tsx'
+
+export const ChatAttachment = ({onSelect, minHeight}: Props) => {
   const styles = useThemable(createStyles)
 
-  const addPhotoFromLibrary = useCallback(() => {
+  const trackException = useTrackException()
+
+  const {
+    hasPermission: hasCameraPermission,
+    requestPermission: requestCameraPermission,
+  } = usePermission(Permissions.camera)
+  const {
+    hasPermission: hasPhotoPermission,
+    requestPermission: requestPhotoPermission,
+  } = usePermission(Permissions.photos)
+
+  const addPhotoFromLibrary = useCallback(async () => {
+    // Requires Permissions.MEDIA_LIBRARY on iOS 10 only. (source: https://docs.expo.dev/versions/latest/sdk/imagepicker/#imagepickerlaunchimagelibraryasyncoptions)
+    if (
+      !hasPhotoPermission &&
+      Platform.OS === 'ios' &&
+      Platform.Version.split('.')[0] === '10'
+    ) {
+      await requestPhotoPermission()
+    }
+
     void ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
-    }).then(result => {
-      if (result.assets?.[0].uri) {
-        const file = result.assets?.[0]
+    }).then(
+      result => {
+        if (result.assets?.[0].uri) {
+          const file = result.assets?.[0]
 
-        sendImage(file.base64!, file.fileName ?? 'image.png').then(
-          onSelect,
-          error => {
-            devError('failed to upload Image', error)
-            // TODO: log error and notify user
-          },
+          sendImage(file.base64!, file.fileName ?? 'image.png').then(
+            onSelect,
+            error => {
+              Alert.alert(
+                'Sorry, opsturen van de afbeelding is mislukt. Probeer het later nog eens.',
+              )
+
+              trackException(
+                ExceptionLogKey.chatSendImageFromLibrary,
+                fileName,
+                {
+                  error,
+                },
+              )
+            },
+          )
+        }
+      },
+      error => {
+        Alert.alert(
+          'Sorry, kiezen van een afbeelding is mislukt. Probeer het later nog eens.',
         )
-      }
-    })
-  }, [onSelect])
 
-  const addPhotoFromCamera = useCallback(() => {
+        trackException(ExceptionLogKey.chatPickImageFromLibrary, fileName, {
+          error,
+        })
+      },
+    )
+  }, [hasPhotoPermission, onSelect, requestPhotoPermission, trackException])
+
+  const addPhotoFromCamera = useCallback(async () => {
+    if (!hasCameraPermission) {
+      await requestCameraPermission()
+    }
+
     void ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
-    }).then(result => {
-      if (result.assets?.[0].uri) {
-        const file = result.assets?.[0]
+    }).then(
+      result => {
+        if (result.assets?.[0].uri) {
+          const file = result.assets?.[0]
 
-        sendImage(file.base64!, file.fileName ?? 'image.png').then(
-          onSelect,
-          error => {
-            devError('failed to upload Image', error)
-            // TODO: log error and notify user
-          },
+          sendImage(file.base64!, file.fileName ?? 'image.png').then(
+            onSelect,
+            error => {
+              Alert.alert(
+                'Sorry, opsturen van de afbeelding is mislukt. Probeer het later nog eens.',
+              )
+
+              trackException(
+                ExceptionLogKey.chatSendImageFromCamera,
+                fileName,
+                {
+                  error,
+                },
+              )
+            },
+          )
+        }
+      },
+      error => {
+        Alert.alert(
+          'Sorry, maken van een foto is mislukt. Probeer het later nog eens.',
         )
-      }
-    })
-  }, [onSelect])
+
+        trackException(ExceptionLogKey.chatTakeImageWithCamera, fileName, {
+          error,
+        })
+      },
+    )
+  }, [hasCameraPermission, requestCameraPermission, onSelect, trackException])
   const addPDF = useCallback(() => {
     void DocumentPicker.getDocumentAsync({
       type: 'application/pdf',
-    }).then(result => {
-      if (result.assets?.[0].uri) {
-        sendPDF(result.assets?.[0].uri).then(onSelect, error => {
-          devError('failed to upload PDF', error)
-          // TODO: log error and notify user
+    }).then(
+      result => {
+        if (result.assets?.[0].uri) {
+          sendPDF(result.assets?.[0].uri).then(onSelect, error => {
+            Alert.alert(
+              'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
+            )
+
+            trackException(ExceptionLogKey.chatSendPDF, fileName, {
+              error,
+            })
+          })
+        }
+      },
+      error => {
+        Alert.alert(
+          'Sorry, kiezen van een PDF document is mislukt. Probeer het later nog eens.',
+        )
+
+        trackException(ExceptionLogKey.chatPickPDF, fileName, {
+          error,
         })
-      }
-    })
-  }, [onSelect])
+      },
+    )
+  }, [onSelect, trackException])
 
   return (
     <Animated.View
       entering={SlideInDown}
-      style={styles.attachments}>
+      style={[styles.attachments, {minHeight}]}>
       <Box>
         <Row
           align="evenly"

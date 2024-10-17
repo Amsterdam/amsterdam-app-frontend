@@ -13,6 +13,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
 import {Theme} from '@/themes/themes'
@@ -44,6 +45,7 @@ export const ChatInput = ({onSubmit}: Props) => {
     },
     [onSubmit],
   )
+  const keyboardHeight = useKeyboardHeight()
 
   return (
     <KeyboardAvoidingView
@@ -78,6 +80,7 @@ export const ChatInput = ({onSubmit}: Props) => {
             <TextInput
               multiline
               onChangeText={onChangeText}
+              onFocus={hideSelectAttachment}
               placeholder="Schrijf uw bericht"
               ref={inputRef}
               style={styles.textInput}
@@ -102,7 +105,12 @@ export const ChatInput = ({onSubmit}: Props) => {
           </View>
         </Row>
       </Box>
-      {!!selectAttachment && <ChatAttachment onSelect={hideSelectAttachment} />}
+      {!!selectAttachment && (
+        <ChatAttachment
+          minHeight={keyboardHeight}
+          onSelect={hideSelectAttachment}
+        />
+      )}
     </KeyboardAvoidingView>
   )
 }

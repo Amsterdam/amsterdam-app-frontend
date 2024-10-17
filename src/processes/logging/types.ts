@@ -6,6 +6,12 @@ export enum EventLogKey {
   nativeStartup = 'Native startup',
 }
 export enum ExceptionLogKey {
+  chatPickImageFromLibrary = 'Chat pick image from library failed',
+  chatPickPDF = 'Chat pick PDF document failed',
+  chatSendImageFromCamera = 'Chat send image from camera failed',
+  chatSendImageFromLibrary = 'Chat send image from library failed',
+  chatSendPDF = 'Chat send PDF document failed',
+  chatTakeImageWithCamera = 'Chat take image with camera failed',
   coordinates = 'Failed to get coordinates to determine location',
   deepLink = 'Deep link returns failed state',
   getRedirectsUrl = 'Get redirects url with key',
