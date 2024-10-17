@@ -28,9 +28,9 @@ export const ChatInput = ({onSubmit}: Props) => {
   const [input, setInput] = useState('')
   const inputRef = useRef<TextInput | null>(null)
   const {
-    toggle: toggleSelectAttachment,
     value: selectAttachment,
     disable: hideSelectAttachment,
+    enable: showSelectAttachment,
   } = useToggle(false)
 
   const onChangeText = useCallback((text: string) => {
@@ -48,70 +48,72 @@ export const ChatInput = ({onSubmit}: Props) => {
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Box>
-        <Row gutter="sm">
-          <IconButton
-            accessibilityLabel="Terug"
-            hitSlop={16}
-            icon={
-              <Icon
-                color="link"
-                name={selectAttachment ? 'keyboard' : 'attachment'}
-                size="xl"
-                testID="HeaderBackIcon"
-              />
-            }
-            onPress={() => {
-              toggleSelectAttachment()
-
-              if (selectAttachment) {
-                inputRef.current?.focus()
-              } else {
-                Keyboard.dismiss()
+    <>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <Box>
+          <Row gutter="sm">
+            <IconButton
+              accessibilityLabel="Terug"
+              hitSlop={16}
+              icon={
+                <Icon
+                  color="link"
+                  name={selectAttachment ? 'keyboard' : 'attachment'}
+                  size="xl"
+                  testID="HeaderBackIcon"
+                />
               }
-            }}
-            testID="HeaderBackButton"
-          />
-          <View
-            style={styles.container}
-            testID="ChatTextInputContainer">
-            <TextInput
-              multiline
-              onChangeText={onChangeText}
-              onFocus={hideSelectAttachment}
-              placeholder="Schrijf uw bericht"
-              ref={inputRef}
-              style={styles.textInput}
-              testID="ChatTextInput"
-              value={input}
+              onPress={() => {
+                if (selectAttachment) {
+                  inputRef.current?.focus()
+                  hideSelectAttachment()
+                } else {
+                  Keyboard.dismiss()
+                  setTimeout(showSelectAttachment, 300)
+                }
+              }}
+              testID="HeaderBackButton"
             />
-            {input.length > 0 && (
-              <View style={styles.buttonWrapper}>
-                <View style={styles.spacePlaceholder} />
-                <PressableBase
-                  onPress={() => handleSubmit(input)}
-                  style={styles.button}
-                  testID="ChatTextInputSendButton">
-                  <Icon
-                    color="inverse"
-                    name="chevron-right"
-                    testID="ChatTextInputSendButtonIcon"
-                  />
-                </PressableBase>
-              </View>
-            )}
-          </View>
-        </Row>
-      </Box>
+            <View
+              style={styles.container}
+              testID="ChatTextInputContainer">
+              <TextInput
+                multiline
+                onChangeText={onChangeText}
+                onFocus={hideSelectAttachment}
+                placeholder="Schrijf uw bericht"
+                ref={inputRef}
+                style={styles.textInput}
+                testID="ChatTextInput"
+                value={input}
+              />
+              {input.length > 0 && (
+                <View style={styles.buttonWrapper}>
+                  <View style={styles.spacePlaceholder} />
+                  <PressableBase
+                    onPress={() => handleSubmit(input)}
+                    style={styles.button}
+                    testID="ChatTextInputSendButton">
+                    <Icon
+                      color="inverse"
+                      name="chevron-right"
+                      testID="ChatTextInputSendButtonIcon"
+                    />
+                  </PressableBase>
+                </View>
+              )}
+            </View>
+          </Row>
+        </Box>
+      </KeyboardAvoidingView>
       {!!selectAttachment && !keyboardVisible && (
         <ChatAttachment
           minHeight={keyboardHeight}
           onSelect={hideSelectAttachment}
         />
       )}
-    </KeyboardAvoidingView>
+    </>
   )
 }
 

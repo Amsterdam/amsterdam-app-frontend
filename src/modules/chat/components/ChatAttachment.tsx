@@ -148,7 +148,12 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
   return (
     <Animated.View
       entering={SlideInDown}
-      style={[styles.attachments, {minHeight: Math.round(minHeight ?? 0)}]}>
+      style={[
+        styles.attachments,
+        {
+          minHeight: Math.round(minHeight ?? 0),
+        },
+      ]}>
       <Box>
         <Row
           align="evenly"
