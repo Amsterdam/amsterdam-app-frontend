@@ -1,7 +1,7 @@
 import * as DocumentPicker from 'expo-document-picker'
 import * as ImagePicker from 'expo-image-picker'
 import {useCallback} from 'react'
-import {Alert, Platform, StyleSheet} from 'react-native'
+import {Alert, StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
 import {sendImage, sendPDF} from 'react-native-salesforce-messaging-in-app/src'
 import {Box} from '@/components/ui/containers/Box'
@@ -30,21 +30,8 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
     hasPermission: hasCameraPermission,
     requestPermission: requestCameraPermission,
   } = usePermission(Permissions.camera)
-  const {
-    hasPermission: hasPhotoPermission,
-    requestPermission: requestPhotoPermission,
-  } = usePermission(Permissions.photos)
 
-  const addPhotoFromLibrary = useCallback(async () => {
-    // Requires Permissions.MEDIA_LIBRARY on iOS 10 only. (source: https://docs.expo.dev/versions/latest/sdk/imagepicker/#imagepickerlaunchimagelibraryasyncoptions)
-    if (
-      !hasPhotoPermission &&
-      Platform.OS === 'ios' &&
-      Platform.Version.split('.')[0] === '10'
-    ) {
-      await requestPhotoPermission()
-    }
-
+  const addPhotoFromLibrary = useCallback(() => {
     void ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsMultipleSelection: false,
@@ -83,7 +70,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
         })
       },
     )
-  }, [hasPhotoPermission, onSelect, requestPhotoPermission, trackException])
+  }, [onSelect, trackException])
 
   const addPhotoFromCamera = useCallback(async () => {
     if (!hasCameraPermission) {
