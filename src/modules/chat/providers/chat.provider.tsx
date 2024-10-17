@@ -6,10 +6,12 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 
 type ChatContextType = {
   messages: ConversationEntry[]
+  ready: boolean
 }
 
 const initialValue: ChatContextType = {
   messages: [],
+  ready: false,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -25,6 +27,7 @@ export const ChatProvider = ({children}: Props) => {
     messages,
     isTyping,
     conversationId: newConversationId,
+    ready,
   } = useCreateChat({
     ...coreConfig,
     conversationId,
@@ -39,8 +42,9 @@ export const ChatProvider = ({children}: Props) => {
       messages: isTyping
         ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
         : filterOutDeliveryAcknowledgements(messages),
+      ready,
     }),
-    [messages, isTyping],
+    [isTyping, messages, ready],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
