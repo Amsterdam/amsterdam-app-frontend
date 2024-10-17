@@ -45,7 +45,7 @@ export const ChatInput = ({onSubmit}: Props) => {
     },
     [onSubmit],
   )
-  const keyboardHeight = useKeyboardHeight()
+  const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
   return (
     <KeyboardAvoidingView
@@ -105,7 +105,7 @@ export const ChatInput = ({onSubmit}: Props) => {
           </View>
         </Row>
       </Box>
-      {!!selectAttachment && (
+      {!!selectAttachment && !keyboardVisible && (
         <ChatAttachment
           minHeight={keyboardHeight}
           onSelect={hideSelectAttachment}

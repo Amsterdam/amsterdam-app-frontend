@@ -447,8 +447,6 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                           ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
-            val params = convertEntryToMap(result.data)
-            sendEvent("onNewMessage", params)
             promise.resolve(true)
           } else {
             promise.reject("Error", result.toString())
@@ -485,8 +483,6 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                   conversationClient?.sendImage(tempFile)
                           ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
-            //            val params = convertEntryToMap(result.data)
-            // Emit the event with message data
             promise.resolve(true)
           } else {
             promise.reject("Error", result.toString())
