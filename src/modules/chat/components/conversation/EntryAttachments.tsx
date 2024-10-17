@@ -21,7 +21,7 @@ const convertMimeTypeToText = (mimeType: string) => {
 export const EntryAttachments = ({message}: Props) => (
   <ChatInlineMessage
     icon="document-text"
-    testID="asd"
+    testID={`ChatMessageAttachment${message.attachments[0].mimeType}`}
     text={convertMimeTypeToText(message.attachments[0].mimeType)}
   />
 )
