@@ -1,7 +1,6 @@
 import {IApplicationInsights} from '@microsoft/applicationinsights-web'
 import type {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk'
 import {RootStackParams} from '@/app/navigation/types'
-import {devError} from '@/processes/development'
 import {Params} from '@/processes/logging/hooks/useTrackEvents'
 import {ExceptionLogKey, TrackException} from '@/processes/logging/types'
 import {PiwikCategory, Piwik, PiwikDimension} from '@/processes/piwik/types'
@@ -9,8 +8,6 @@ import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/cre
 import {getCustomDimensions} from '@/processes/piwik/utils/getCustomDimensions'
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {sanitizeUrl} from '@/utils/sanitizeUrl'
-
-const piwikDevError = () => devError('piwik not initialized')
 
 const FILENAME = 'useTrackEvents.ts'
 
@@ -30,23 +27,24 @@ export const getTrackEvents = (
     category = suggestedCategory,
     value = undefined,
   ) => {
-    piwikInstance
-      ? piwikInstance
-          .trackCustomEvent(category, action, {
-            path: routeName,
-            customDimensions: getCustomDimensions(dimensions),
+    if (piwikInstance) {
+      piwikInstance
+        .trackCustomEvent(category, action, {
+          path: routeName,
+          customDimensions: getCustomDimensions(dimensions),
+          value,
+        })
+        .catch(() => {
+          trackException(ExceptionLogKey.piwikTrackCustomEvent, FILENAME, {
+            category,
+            action,
+            name,
+            routeName,
             value,
           })
-          .catch(() => {
-            trackException(ExceptionLogKey.piwikTrackCustomEvent, FILENAME, {
-              category,
-              action,
-              name,
-              routeName,
-              value,
-            })
-          })
-      : piwikDevError()
+        })
+    }
+
     appInsights.trackEvent({
       name: action,
       properties: {
@@ -60,21 +58,22 @@ export const getTrackEvents = (
   trackOutlink: (rawUrl, options) => {
     const url = sanitizeUrl(rawUrl)
 
-    piwikInstance
-      ? piwikInstance
-          .trackOutlink(url, {
-            ...options,
-            customDimensions: getCustomDimensions({
-              ...options?.customDimensions,
-              [PiwikDimension.routeName]: routeName,
-            }),
+    if (piwikInstance) {
+      piwikInstance
+        .trackOutlink(url, {
+          ...options,
+          customDimensions: getCustomDimensions({
+            ...options?.customDimensions,
+            [PiwikDimension.routeName]: routeName,
+          }),
+        })
+        .catch(() => {
+          trackException(ExceptionLogKey.piwikTrackOutlink, FILENAME, {
+            url,
           })
-          .catch(() => {
-            trackException(ExceptionLogKey.piwikTrackOutlink, FILENAME, {
-              url,
-            })
-          })
-      : piwikDevError()
+        })
+    }
+
     appInsights.trackEvent({
       name: 'outlink',
       properties: {
@@ -97,20 +96,20 @@ export const getTrackEvents = (
       piwik: customDimensionsPiwik,
     } = createCustomDimensionsFromRouteParams(params)
 
-    piwikInstance
-      ? piwikInstance
-          .trackScreen(name, {
-            title: getTitleFromParams(params),
-            customDimensions: customDimensionsPiwik as {
-              [index: number]: string
-            },
+    if (piwikInstance) {
+      piwikInstance
+        .trackScreen(name, {
+          title: getTitleFromParams(params),
+          customDimensions: customDimensionsPiwik as {
+            [index: number]: string
+          },
+        })
+        .catch(() => {
+          trackException(ExceptionLogKey.piwikTrackScreen, FILENAME, {
+            path,
           })
-          .catch(() => {
-            trackException(ExceptionLogKey.piwikTrackScreen, FILENAME, {
-              path,
-            })
-          })
-      : piwikDevError()
+        })
+    }
 
     appInsights.trackPageView(
       {name},
@@ -121,16 +120,17 @@ export const getTrackEvents = (
     )
   },
   trackSearch: (keyword, options) => {
-    piwikInstance
-      ? piwikInstance
-          .trackSearch(keyword, {
-            ...options,
-            customDimensions: getCustomDimensions(options?.customDimensions),
-          })
-          .catch(() => {
-            trackException(ExceptionLogKey.piwikTrackSearch, FILENAME)
-          })
-      : piwikDevError()
+    if (piwikInstance) {
+      piwikInstance
+        .trackSearch(keyword, {
+          ...options,
+          customDimensions: getCustomDimensions(options?.customDimensions),
+        })
+        .catch(() => {
+          trackException(ExceptionLogKey.piwikTrackSearch, FILENAME)
+        })
+    }
+
     appInsights.trackEvent({
       name: 'search',
       properties: {
