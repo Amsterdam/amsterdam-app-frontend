@@ -1,16 +1,20 @@
-import {useEffect, useRef, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {
   NativeModules,
   Platform,
   NativeEventEmitter,
   EmitterSubscription,
 } from 'react-native'
-import type {Spec} from './NativeSalesforceMessagingInApp'
-import type {
-  ConversationEntry,
-  CoreConfig,
-  NativeSalesforceMessagingInApp,
+import {
+  ConversationEntryFormat,
+  ConversationEntrySenderRole,
+  Participant,
+  ParticipantChangedOperationType,
+  type ConversationEntry,
+  type CoreConfig,
+  type NativeSalesforceMessagingInApp,
 } from './types'
+import type {Spec} from './NativeSalesforceMessagingInApp'
 
 const LINKING_ERROR =
   "The package 'react-native-salesforce-messaging-in-app' doesn't seem to be linked. Make sure: \n\n" +
@@ -91,9 +95,20 @@ export const useCreateChat = ({
   const [networkStatus, setNetworkStatus] = useState<ConversationEntry | null>(
     null,
   )
+  const [participants, setParticipants] = useState<Participant[]>([])
+  const employeeInChat = useMemo(
+    () =>
+      participants.some(
+        participant =>
+          participant.role === ConversationEntrySenderRole.employee,
+      ),
+    [participants],
+  )
 
   useEffect(() => {
     if (developerName && organizationId && url) {
+      setParticipants([])
+      setMessages([])
       void createCoreClient({developerName, organizationId, url}).then(() => {
         if (onNewMessageSubscription.current) {
           onNewMessageSubscription.current.remove()
@@ -124,8 +139,31 @@ export const useCreateChat = ({
           'onNewMessage',
           (message: ConversationEntry) => {
             // console.log('New message received:', message)
+
             setMessages(oldMessages => [...oldMessages, message])
-            // console.log(JSON.stringify(messages))
+
+            if (message.format === ConversationEntryFormat.participantChanged) {
+              message.operations.forEach(({participant, type}) => {
+                if (type === ParticipantChangedOperationType.add) {
+                  setParticipants(currentParticipants => [
+                    ...currentParticipants,
+                    participant,
+                  ])
+                } else {
+                  setParticipants(currentParticipants =>
+                    currentParticipants.filter(
+                      currentParticipant =>
+                        !(
+                          currentParticipant.displayName ===
+                            participant.displayName &&
+                          currentParticipant.local === participant.local &&
+                          currentParticipant.role === participant.role
+                        ),
+                    ),
+                  )
+                }
+              })
+            }
           },
         )
         onUpdatedMessageSubscription.current =
@@ -133,12 +171,12 @@ export const useCreateChat = ({
             'onUpdatedMessage',
             (message: ConversationEntry) => {
               // console.log('Updated message received:', message)
+
               setMessages(oldMessages =>
                 oldMessages.map(oldMessage =>
                   oldMessage.entryId === message.entryId ? message : oldMessage,
                 ),
               )
-              // console.log(JSON.stringify(messages))
             },
           )
         onNetworkStatusChangedSubscription.current =
@@ -196,5 +234,7 @@ export const useCreateChat = ({
     messages,
     networkStatus,
     ready,
+    participants,
+    employeeInChat,
   }
 }
