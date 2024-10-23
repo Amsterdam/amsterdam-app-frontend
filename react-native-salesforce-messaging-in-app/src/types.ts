@@ -241,8 +241,10 @@ export type ConversationEntrySelections = ConversationEntryBase & {
   selections: Choice[]
 }
 export type ConversationEntryCarousel = ConversationEntryBase & {
+  attachments: Attachment[]
   format: ConversationEntryFormat.carousel
   items: TitleLinkItem[]
+  selected: Choice[]
 }
 export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]

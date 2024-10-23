@@ -475,6 +475,25 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     return choiceArray;
 }
 
+- (NSMutableArray *)parseAttachmentsArrayToDictionaryArray:(NSArray<id<SMIFileAsset>> *)attachments
+{
+    NSMutableArray *attachmentsArray = [NSMutableArray array];
+    for (id<SMIFileAsset> attachment in attachments) {
+        NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
+        attachmentDict[@"name"] = attachment.name;
+        attachmentDict[@"identifier"] = attachment.identifier;
+        attachmentDict[@"mimeType"] = attachment.mimeType;
+        attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
+        NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
+        if (stringFromData) {
+            attachmentDict[@"file"] = stringFromData;
+        }
+        
+        [attachmentsArray addObject:attachmentDict];
+    }
+    return attachmentsArray;
+}
+
 - (NSDictionary *)parseParticipantToDictionary:(id<SMIParticipant>)participant
 {
     NSMutableDictionary *participantDict = [NSMutableDictionary dictionary];
@@ -517,22 +536,7 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     if (format == SMIConversationFormatTypesAttachments) {
         id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
-
-        NSMutableArray *attachmentsArray = [NSMutableArray array];
-        for (id<SMIFileAsset> attachment in attachmentsPayload.attachments) {
-            NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
-            attachmentDict[@"name"] = attachment.name;
-            attachmentDict[@"identifier"] = attachment.identifier;
-            attachmentDict[@"mimeType"] = attachment.mimeType;
-            attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
-            NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
-            if (stringFromData) {
-                attachmentDict[@"file"] = stringFromData;
-            }
-            
-            [attachmentsArray addObject:attachmentDict];
-        }
-        messageDict[@"attachments"] = attachmentsArray;
+        messageDict[@"attachments"] = [self parseAttachmentsArrayToDictionaryArray:attachmentsPayload.attachments];
     }
     if (format == SMIConversationFormatTypesCarousel) {
         id<SMICarousel> carouselPayload = (id<SMICarousel>)payload;
@@ -551,6 +555,8 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
             [itemArray addObject:itemDict];
         }
         messageDict[@"items"] = itemArray;
+        messageDict[@"attachments"] = [self parseAttachmentsArrayToDictionaryArray:carouselPayload.attachments];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:carouselPayload.selected];
     }
     if (format == SMIConversationFormatTypesImageMessage) {
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
@@ -568,6 +574,7 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
         // text = textPayload.text ?: @"";
         messageDict[@"title"] = textPayload.title;
         messageDict[@"url"] = [textPayload.url absoluteString];
+        messageDict[@"messageReason"] = textPayload.messageReason;
 
         NSMutableDictionary *assetDict = [NSMutableDictionary dictionary];
         assetDict[@"width"] = @(textPayload.asset.width);
@@ -597,22 +604,25 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
 
     }
     if (format == SMIConversationFormatTypesListPicker) {
-        id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
+        id<SMIListPicker> listPickerPayload = (id<SMIListPicker>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
-        messageDict[@"text"] = textPayload.text ?: @"";
-        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
-        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
+        messageDict[@"text"] = listPickerPayload.text ?: @"";
+        messageDict[@"messageReason"] = listPickerPayload.messageReason;
+        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:listPickerPayload.choices];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:listPickerPayload.selected];
     }
     if (format == SMIConversationFormatTypesSelections) {
         id<SMIChoicesResponse> selectionsPayload = (id<SMIChoicesResponse>)payload;
         messageDict[@"selections"] = [self parseChoiceArrayToDictionaryArray:selectionsPayload.selections];
     }
     if (format == SMIConversationFormatTypesWebView) {
+        // Describes a webview formated message.
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITemplatedURL.html
         // text = textPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesResult) {
+        // Describes a Form Message Response Result format.
         // id<SMIRoutingWorkResult> textPayload = (id<SMIRoutingWorkResult>)payload;
         // text = textPayload.text ?: @"";
     }
@@ -664,10 +674,12 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     if (format == SMIConversationFormatTypesTextMessage) {
         id<SMITextMessage> textPayload = (id<SMITextMessage>)payload;
         messageDict[@"text"] = textPayload.text ?: @"";
+        messageDict[@"messageReason"] = textPayload.messageReason;
     }
     if (format == SMIConversationFormatTypesQuickReplies) {
         id<SMIQuickReply> quickRepliesPayload = (id<SMIQuickReply>)payload;
         messageDict[@"text"] = quickRepliesPayload.text ?: @"";
+        messageDict[@"messageReason"] = quickRepliesPayload.messageReason;
         messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
         messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
     }
