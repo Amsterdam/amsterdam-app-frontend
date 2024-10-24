@@ -1,7 +1,59 @@
+export enum PreChatFieldTypes {
+  checkbox = 'Checkbox',
+  choiceList = 'ChoiceList',
+  email = 'Email',
+  number = 'Number',
+  phone = 'Phone',
+  text = 'Text',
+  textArea = 'TextArea',
+}
+
+export type PreChatField = {
+  editable: boolean
+  identifier: string
+  isHidden: boolean
+  label: string
+  maxLength: number
+  name: string
+  order: number
+  required: boolean
+  type: PreChatFieldTypes
+  value: string
+}
+
+export type ChoiceListValue = {
+  isDefaultValue: boolean
+  label: string
+  order: number
+  valueId: string
+  valueName: string
+}
+
+export type ChoiceList = {
+  identifier: string
+  values: ChoiceListValue[]
+}
+
+export type ValueDependency = {
+  childId: string
+  parentId: string
+}
+
 export type RemoteConfiguration = {
-  data?: {
-    forms?: unknown[]
+  choiceListConfiguration: {
+    choiceLists: ChoiceList[]
+    valueDependencies: ValueDependency[]
   }
+  deploymentType: 'Mobile'
+  name: 'GemeenteAmsterdamMessaging_pp'
+  preChatConfiguration: [
+    {
+      formType: 'PreChat'
+      hiddenPreChatFields: PreChatField[]
+      preChatFields: PreChatField[]
+    },
+  ]
+  timestamp: number
 }
 
 export type CoreConfig = {

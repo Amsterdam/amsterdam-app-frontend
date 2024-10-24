@@ -152,11 +152,7 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
             // Add deploymentType
             [configData setObject:remoteConfig.deploymentType forKey:@"deploymentType"];
             
-            // Add timestamp (converted to string)
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZ"];
-            NSString *timestampString = [dateFormatter stringFromDate:remoteConfig.timestamp];
-            [configData setObject:timestampString forKey:@"timestamp"];
+            configData[@"timestamp"] = @([remoteConfig.timestamp timeIntervalSince1970]);
             
             // Add preChatConfiguration if available (assuming it's an array of objects you can convert)
             if (remoteConfig.preChatConfiguration != nil) {
