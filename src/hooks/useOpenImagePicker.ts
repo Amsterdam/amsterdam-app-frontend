@@ -15,7 +15,8 @@ const DEFAULT_OPTIONS: ImageCropPickerOptions = {
   cropperChooseText: 'Kiezen',
   cropping: true,
   height: 1080,
-  includeBase64: true,
+  // TODO check of dit echt kan
+  includeBase64: false,
   mediaType: 'photo',
   width: 1920,
 }

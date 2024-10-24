@@ -4,7 +4,6 @@ import {ApiImage} from '@/types/api'
 export enum ConstructionWorkEditorEndpointName {
   addProjectWarning = 'addProjectWarning',
   addProjectWarningImage = 'addProjectWarningImage',
-  getProjectManager = 'getProjectManager',
   getProjects = 'getProjects',
 }
 
@@ -19,10 +18,9 @@ export type ConstructionWorkEditorResponse =
   ConstructionWorkEditorResponseProject[]
 
 type ImageQueryArgs = {
-  image?: {
-    data: string
+  warning_image?: {
     description: string
-    main: boolean
+    id: number
   }
 }
 
@@ -44,3 +42,8 @@ export type AddProjectWarningQueryArgs = {
 export type DecodedJwtToken = {
   groups?: string[]
 } & JwtPayload
+
+export type AddProjectWarningImageQueryArgs = FormData
+export type AddProjectWarningImageResponse = {
+  warning_image_id: number
+}
