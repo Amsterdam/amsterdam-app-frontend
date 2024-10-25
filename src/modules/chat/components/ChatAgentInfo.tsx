@@ -36,7 +36,8 @@ const getChatAgentInfo = (
 
 export const ChatAgentInfo = ({
   message: {
-    sender: {role, displayName},
+    sender: {role},
+    senderDisplayName,
     timestamp,
   },
   isLastOfType,
@@ -58,7 +59,7 @@ export const ChatAgentInfo = ({
             color="secondary"
             testID={`ChatHistoryGroupName${role}`}
             variant="extraSmall">
-            {getChatAgentInfo(displayName, role, timestamp)}
+            {getChatAgentInfo(senderDisplayName, role, timestamp)}
           </Phrase>
         </View>
       </>
