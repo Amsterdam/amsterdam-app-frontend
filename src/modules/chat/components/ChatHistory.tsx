@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 import {ChatSystemMessage} from '@/modules/chat/components/ChatSystemMessage'
-import {MessageContent} from '@/modules/chat/components/conversation/MessageContent'
+import {Entry} from '@/modules/chat/components/conversation/Entry'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
 export const ChatHistory = () => {
@@ -34,7 +34,7 @@ export const ChatHistory = () => {
                 messages[index + 1]?.sender.role !== message.sender.role
 
               return (
-                <MessageContent
+                <Entry
                   isLastOfRole={isLastOfRole}
                   key={message.entryId}
                   message={message}
