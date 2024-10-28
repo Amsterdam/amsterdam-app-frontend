@@ -3,6 +3,8 @@ import {
   selectConstructionWorkEditorAccessToken,
 } from '@/modules/construction-work-editor/slice'
 import {
+  AddProjectWarningImageQueryArgs,
+  AddProjectWarningImageResponse,
   AddProjectWarningQueryArgs,
   ConstructionWorkEditorEndpointName,
   ConstructionWorkEditorResponse,
@@ -66,9 +68,33 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
       transformResponse: (response: {result: ProjectWarningResponse}) =>
         response.result,
     }),
+    [ConstructionWorkEditorEndpointName.addProjectWarningImage]:
+      builder.mutation<
+        AddProjectWarningImageResponse,
+        AddProjectWarningImageQueryArgs
+      >({
+        query: formData => ({
+          body: formData,
+          method: 'POST',
+          slug: MODULE_SLUG,
+          url: '/warning-image',
+          prepareHeaders: (...args) => {
+            const headers = prepareHeaders(...args)
+
+            headers.set('Content-Type', 'multipart/form-data')
+            headers.set('Accept', 'application/json')
+
+            return headers
+          },
+          afterError,
+        }),
+      }),
   }),
   overrideExisting: true,
 })
 
-export const {useAddProjectWarningMutation, useGetProjectsQuery} =
-  constructionWorkEditorApi
+export const {
+  useAddProjectWarningMutation,
+  useAddProjectWarningImageMutation,
+  useGetProjectsQuery,
+} = constructionWorkEditorApi

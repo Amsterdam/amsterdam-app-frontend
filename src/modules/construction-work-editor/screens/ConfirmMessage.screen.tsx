@@ -26,7 +26,10 @@ import {
   selectProject,
 } from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
-import {useAddProjectWarningMutation} from '@/modules/construction-work-editor/service'
+import {
+  useAddProjectWarningImageMutation,
+  useAddProjectWarningMutation,
+} from '@/modules/construction-work-editor/service'
 import {useAlert} from '@/store/slices/alert'
 import {escapeHtml} from '@/utils/escapeHtml'
 
@@ -53,6 +56,8 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
   const [addWarning, {isLoading: isLoadingAddProjectWarning}] =
     useAddProjectWarningMutation()
+  const [addWarningImage, {isLoading: isLoadingAddProjectWarningImage}] =
+    useAddProjectWarningImageMutation()
 
   useSetScreenTitle()
 
@@ -70,11 +75,26 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         send_push_notification: isPushNotificationChecked,
       }
 
-      if (mainImage?.data) {
-        arg.image = {
-          main: true,
-          description: mainImageDescription ?? 'Vervangende afbeelding',
-          data: mainImage.data,
+      if (mainImage) {
+        const formData = new FormData()
+
+        formData.append('image', {
+          name:
+            mainImage?.filename ??
+            mainImage?.path.split('/')[mainImage?.path.split('/').length - 1],
+          type: mainImage?.mime,
+          uri: mainImage?.path.startsWith('file://')
+            ? mainImage?.path
+            : `file://${mainImage?.path}`,
+        })
+        const description = mainImageDescription ?? 'Vervangende afbeelding'
+
+        formData.append('description', description)
+        const {warning_image_id} = await addWarningImage(formData).unwrap()
+
+        arg.warning_image = {
+          id: warning_image_id,
+          description,
         }
       }
 
@@ -111,7 +131,9 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
         <Box>
           <Column gutter="md">
             <Button
-              disabled={isLoadingAddProjectWarning}
+              disabled={
+                isLoadingAddProjectWarning || isLoadingAddProjectWarningImage
+              }
               label="Plaats bericht"
               onPress={onSubmit}
               testID="ConstructionWorkEditorCreateMessageSubmitButton"
