@@ -53,6 +53,8 @@
     "dayjs": "^1.11.11",
     "expo": "^51.0.0",
     "expo-clipboard": "^6.0.3",
+    "expo-document-picker": "^12.0.2",
+    "expo-image-picker": "^15.0.7",
     "expo-local-authentication": "~14.0.1",
     "expo-screen-orientation": "^7.0.5",
     "jwt-decode": "^4.0.0",
@@ -167,7 +169,9 @@
       ]
     },
     "plugins": [
-      "expo-local-authentication"
+      "expo-local-authentication",
+      "expo-document-picker",
+      "expo-image-picker"
     ]
   },
   "volta": {

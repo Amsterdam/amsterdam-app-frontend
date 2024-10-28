@@ -30,6 +30,12 @@ export const allowList = {
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [ExceptionLogKey.updatePermission]: ['error', 'permission', 'request'],
   [ExceptionLogKey.tokenInvalid]: ['message'],
+  [ExceptionLogKey.chatSendImageFromCamera]: ['error'],
+  [ExceptionLogKey.chatSendImageFromLibrary]: ['error'],
+  [ExceptionLogKey.chatSendPDF]: ['error'],
+  [ExceptionLogKey.chatTakeImageWithCamera]: ['error'],
+  [ExceptionLogKey.chatPickImageFromLibrary]: ['error'],
+  [ExceptionLogKey.chatPickPDF]: ['error'],
 } as const
 
 export type AllowListKeys<LogKey extends ExceptionLogKey> =

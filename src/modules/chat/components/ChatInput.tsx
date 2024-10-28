@@ -1,5 +1,6 @@
-import {useCallback, useEffect, useState} from 'react'
+import {useCallback, useContext, useRef, useState} from 'react'
 import {
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
@@ -7,10 +8,15 @@ import {
   View,
 } from 'react-native'
 import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
+import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
-import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
+import {useToggle} from '@/hooks/useToggle'
+import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -21,6 +27,12 @@ type Props = {
 export const ChatInput = ({onSubmit}: Props) => {
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
+  const inputRef = useRef<TextInput | null>(null)
+  const {
+    value: selectAttachment,
+    disable: hideSelectAttachment,
+    enable: showSelectAttachment,
+  } = useToggle(false)
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
@@ -34,46 +46,81 @@ export const ChatInput = ({onSubmit}: Props) => {
     },
     [onSubmit],
   )
+  const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
-  useEffect(() => {
-    setTimeout(() => onSubmit('hoi'), 1500)
-  }, [onSubmit])
+  const {employeeInChat} = useContext(ChatContext)
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Box>
-        <Column gutter="sm">
-          <View
-            style={styles.container}
-            testID="ChatTextInputContainer">
-            <TextInput
-              multiline
-              onChangeText={onChangeText}
-              placeholder="Schrijf uw bericht"
-              style={styles.textInput}
-              testID="ChatTextInput"
-              value={input}
-            />
-            {input.length > 0 && (
-              <View style={styles.buttonWrapper}>
-                <View style={styles.spacePlaceholder} />
-                <PressableBase
-                  onPress={() => handleSubmit(input)}
-                  style={styles.button}
-                  testID="ChatTextInputSendButton">
+    <>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        <Box>
+          <Row gutter="sm">
+            {!!employeeInChat && (
+              <IconButton
+                accessibilityLabel={
+                  selectAttachment ? 'Naar toetsenbord' : 'Naar bijlages'
+                }
+                hitSlop={16}
+                icon={
                   <Icon
-                    color="inverse"
-                    name="chevron-right"
-                    testID="ChatTextInputSendButtonIcon"
+                    color="link"
+                    name={selectAttachment ? 'keyboard' : 'attachment'}
+                    size="xl"
+                    testID="ChatAttachmentsIcon"
                   />
-                </PressableBase>
-              </View>
+                }
+                onPress={() => {
+                  if (selectAttachment) {
+                    inputRef.current?.focus()
+                    hideSelectAttachment()
+                  } else {
+                    Keyboard.dismiss()
+                    setTimeout(showSelectAttachment, 300)
+                  }
+                }}
+                testID="ChatAttachmentsButton"
+              />
             )}
-          </View>
-        </Column>
-      </Box>
-    </KeyboardAvoidingView>
+            <View
+              style={styles.container}
+              testID="ChatTextInputContainer">
+              <TextInput
+                multiline
+                onChangeText={onChangeText}
+                onFocus={hideSelectAttachment}
+                placeholder="Schrijf uw bericht"
+                ref={inputRef}
+                style={styles.textInput}
+                testID="ChatTextInput"
+                value={input}
+              />
+              {input.length > 0 && (
+                <View style={styles.buttonWrapper}>
+                  <View style={styles.spacePlaceholder} />
+                  <PressableBase
+                    onPress={() => handleSubmit(input)}
+                    style={styles.button}
+                    testID="ChatTextInputSendButton">
+                    <Icon
+                      color="inverse"
+                      name="chevron-right"
+                      testID="ChatTextInputSendButtonIcon"
+                    />
+                  </PressableBase>
+                </View>
+              )}
+            </View>
+          </Row>
+        </Box>
+      </KeyboardAvoidingView>
+      {!!selectAttachment && !keyboardVisible && (
+        <ChatAttachment
+          minHeight={keyboardHeight}
+          onSelect={hideSelectAttachment}
+        />
+      )}
+    </>
   )
 }
 
@@ -101,6 +148,7 @@ const createStyles = ({border, color, text, size}: Theme) =>
       borderWidth: border.width.sm,
       padding: size.spacing.xs,
       columnGap: size.spacing.sm,
+      flex: 1,
     },
     textInput: {
       flex: 1,

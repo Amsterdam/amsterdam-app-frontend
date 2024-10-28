@@ -71,6 +71,12 @@ export const sendReply = (choice: Choice) =>
 
 export const sendTypingEvent = () => SalesforceMessagingInApp.sendTypingEvent()
 
+export const sendPDF = (filePath: string) =>
+  SalesforceMessagingInApp.sendPDF(filePath)
+
+export const sendImage = (imageBase64: string, fileName: string) =>
+  SalesforceMessagingInApp.sendImage(imageBase64, fileName)
+
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
 

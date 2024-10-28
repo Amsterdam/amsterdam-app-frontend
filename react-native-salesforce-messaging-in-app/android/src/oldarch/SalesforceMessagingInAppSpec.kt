@@ -6,13 +6,13 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReadableMap
 
 abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactApplicationContext) :
-  ReactContextBaseJavaModule(context) {
+        ReactContextBaseJavaModule(context) {
 
   abstract fun createCoreClient(
-    url: String,
-    organizationId: String,
-    developerName: String,
-    promise: Promise,
+          url: String,
+          organizationId: String,
+          developerName: String,
+          promise: Promise,
   )
 
   abstract fun retrieveRemoteConfiguration(promise: Promise)
@@ -20,6 +20,8 @@ abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactA
   abstract fun sendMessage(message: String, promise: Promise)
   abstract fun sendReply(choice: ReadableMap, promise: Promise)
   abstract fun sendTypingEvent(promise: Promise)
+  abstract fun sendPDF(filePath: String, promise: Promise)
+  abstract fun sendImage(imageBase64: String, fileName: String, promise: Promise)
   abstract fun checkIfInBusinessHours(promise: Promise)
   abstract fun addListener(eventName: String)
   abstract fun removeListeners(count: Int)

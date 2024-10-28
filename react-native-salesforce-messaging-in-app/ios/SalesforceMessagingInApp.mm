@@ -1,5 +1,8 @@
 #import "SalesforceMessagingInApp.h"
+#import <PDFKit/PDFKit.h> // Required for working with PDFs
 #import <SMIClientCore/SMIClientCore.h>
+#import <React/RCTConvert.h>
+#import <Foundation/Foundation.h>  // To handle NSData and Base64 decoding
 
 @interface SalesforceMessagingInApp () <SMICoreDelegate> {
   bool hasListeners;
@@ -375,6 +378,83 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
     }
 }
 
+RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the conversation client has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_pdf_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+        // Remove the 'file://' prefix if present
+        NSString *pdfPath = [filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+
+        // Create a NSURL object from the cleaned-up file path
+        NSURL *pdfURL = [NSURL fileURLWithPath:pdfPath];
+        if (![[NSFileManager defaultManager] fileExistsAtPath:pdfPath]) {
+            reject(@"file_not_found", @"PDF file not found at path", nil);
+            return;
+        }
+        PDFDocument *pdfDocument = [[PDFDocument alloc] initWithURL:pdfURL];
+
+        if (pdfDocument == nil) {
+            NSError *error = [NSError errorWithDomain:@"PDFDocument Error"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"Failed to load PDF document."}];
+            reject(@"send_pdf_exception", @"Failed to load PDF document", error);
+            return;
+        }
+
+        // Send the PDF using the conversation client
+        [conversationClient sendPDF:pdfDocument];
+
+        resolve(@(YES)); // Resolve the promise with success
+    } @catch (NSException *exception) {
+        NSError *error = [NSError errorWithDomain:@"sendPDF Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_pdf_exception", @"An exception occurred during sendPDF", error);
+    }
+}
+
+// Method to send the Base64-encoded image
+RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
+                  fileName:(NSString *)fileName
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Decode the Base64 string into NSData
+        NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
+
+        // Ensure the image data is valid
+        if (imageData == nil) {
+            NSError *error = [NSError errorWithDomain:@"Invalid Base64"
+                                                 code:500
+                                             userInfo:@{NSLocalizedDescriptionKey: @"Failed to decode Base64 image data"}];
+            reject(@"send_image_exception", @"Failed to decode Base64 image data", error);
+            return;
+        }
+
+        // Call the sendImage:fileName: method from the conversationClient
+        [conversationClient sendImage:imageData fileName:fileName];
+
+        // Resolve the promise indicating success
+        resolve(@(YES));
+    } @catch (NSException *exception) {
+        // Handle any exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendImage Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_image_exception", @"An exception occurred during sendImage", error);
+    }
+}
+
 - (NSDictionary *)parseChoiceToDictionary:(id<SMIChoice>)choice
 {
     [receivedChoices addObject:choice];
@@ -393,6 +473,25 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
         [choiceArray addObject:[self parseChoiceToDictionary:choice]];
     }
     return choiceArray;
+}
+
+- (NSMutableArray *)parseAttachmentsArrayToDictionaryArray:(NSArray<id<SMIFileAsset>> *)attachments
+{
+    NSMutableArray *attachmentsArray = [NSMutableArray array];
+    for (id<SMIFileAsset> attachment in attachments) {
+        NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
+        attachmentDict[@"name"] = attachment.name;
+        attachmentDict[@"identifier"] = attachment.identifier;
+        attachmentDict[@"mimeType"] = attachment.mimeType;
+        attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
+        NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
+        if (stringFromData) {
+            attachmentDict[@"file"] = stringFromData;
+        }
+        
+        [attachmentsArray addObject:attachmentDict];
+    }
+    return attachmentsArray;
 }
 
 - (NSDictionary *)parseParticipantToDictionary:(id<SMIParticipant>)participant
@@ -437,22 +536,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
     if (format == SMIConversationFormatTypesAttachments) {
         id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
-
-        NSMutableArray *attachmentsArray = [NSMutableArray array];
-        for (id<SMIFileAsset> attachment in attachmentsPayload.attachments) {
-            NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
-            attachmentDict[@"name"] = attachment.name;
-            attachmentDict[@"identifier"] = attachment.identifier;
-            attachmentDict[@"mimeType"] = attachment.mimeType;
-            attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
-            NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
-            if (stringFromData) {
-                attachmentDict[@"file"] = stringFromData;
-            }
-            
-            [attachmentsArray addObject:attachmentDict];
-        }
-        messageDict[@"attachments"] = attachmentsArray;
+        messageDict[@"attachments"] = [self parseAttachmentsArrayToDictionaryArray:attachmentsPayload.attachments];
     }
     if (format == SMIConversationFormatTypesCarousel) {
         id<SMICarousel> carouselPayload = (id<SMICarousel>)payload;
@@ -471,6 +555,8 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
             [itemArray addObject:itemDict];
         }
         messageDict[@"items"] = itemArray;
+        messageDict[@"attachments"] = [self parseAttachmentsArrayToDictionaryArray:carouselPayload.attachments];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:carouselPayload.selected];
     }
     if (format == SMIConversationFormatTypesImageMessage) {
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
@@ -488,6 +574,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
         // text = textPayload.text ?: @"";
         messageDict[@"title"] = textPayload.title;
         messageDict[@"url"] = [textPayload.url absoluteString];
+        messageDict[@"messageReason"] = textPayload.messageReason;
 
         NSMutableDictionary *assetDict = [NSMutableDictionary dictionary];
         assetDict[@"width"] = @(textPayload.asset.width);
@@ -517,22 +604,25 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
 
     }
     if (format == SMIConversationFormatTypesListPicker) {
-        id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
+        id<SMIListPicker> listPickerPayload = (id<SMIListPicker>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
-        messageDict[@"text"] = textPayload.text ?: @"";
-        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
-        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
+        messageDict[@"text"] = listPickerPayload.text ?: @"";
+        messageDict[@"messageReason"] = listPickerPayload.messageReason;
+        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:listPickerPayload.choices];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:listPickerPayload.selected];
     }
     if (format == SMIConversationFormatTypesSelections) {
         id<SMIChoicesResponse> selectionsPayload = (id<SMIChoicesResponse>)payload;
         messageDict[@"selections"] = [self parseChoiceArrayToDictionaryArray:selectionsPayload.selections];
     }
     if (format == SMIConversationFormatTypesWebView) {
+        // Describes a webview formated message.
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMITemplatedURL.html
         // text = textPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesResult) {
+        // Describes a Form Message Response Result format.
         // id<SMIRoutingWorkResult> textPayload = (id<SMIRoutingWorkResult>)payload;
         // text = textPayload.text ?: @"";
     }
@@ -584,10 +674,12 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
     if (format == SMIConversationFormatTypesTextMessage) {
         id<SMITextMessage> textPayload = (id<SMITextMessage>)payload;
         messageDict[@"text"] = textPayload.text ?: @"";
+        messageDict[@"messageReason"] = textPayload.messageReason;
     }
     if (format == SMIConversationFormatTypesQuickReplies) {
         id<SMIQuickReply> quickRepliesPayload = (id<SMIQuickReply>)payload;
         messageDict[@"text"] = quickRepliesPayload.text ?: @"";
+        messageDict[@"messageReason"] = quickRepliesPayload.messageReason;
         messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
         messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
     }

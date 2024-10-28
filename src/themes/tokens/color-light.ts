@@ -96,6 +96,12 @@ export const lightColorTokens = {
         background: baseColor.neutral.grey1,
       },
     },
+    attachment: {
+      background: baseColor.custom.grey0,
+    },
+    attachmentButtonCircle: {
+      background: baseColor.primary.white,
+    },
   },
   checkbox: {
     underlay: baseColor.primary.white,

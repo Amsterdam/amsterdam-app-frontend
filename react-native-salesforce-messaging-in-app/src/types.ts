@@ -82,7 +82,9 @@ export type NativeSalesforceMessagingInApp = {
   ) => Promise<void>
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
+  sendImage: (imageBase64: string, fileName: string) => Promise<void>
   sendMessage: (message: string) => Promise<void>
+  sendPDF: (filePath: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
 }
@@ -239,8 +241,10 @@ export type ConversationEntrySelections = ConversationEntryBase & {
   selections: Choice[]
 }
 export type ConversationEntryCarousel = ConversationEntryBase & {
+  attachments: Attachment[]
   format: ConversationEntryFormat.carousel
   items: TitleLinkItem[]
+  selected: Choice[]
 }
 export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]
