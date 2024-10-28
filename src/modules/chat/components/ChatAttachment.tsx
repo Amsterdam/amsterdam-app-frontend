@@ -62,6 +62,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
       },
       error => {
         Alert.alert(
+          'Afbeelding kiezen is mislukt',
           'Sorry, kiezen van een afbeelding is mislukt. Probeer het later nog eens.',
         )
 
@@ -91,6 +92,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
             onSelect,
             error => {
               Alert.alert(
+                'Foto opsturen is niet gelukt',
                 'Sorry, opsturen van de afbeelding is mislukt. Probeer het later nog eens.',
               )
 
@@ -107,6 +109,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
       },
       error => {
         Alert.alert(
+          'Foto maken is niet gelukt',
           'Sorry, maken van een foto is mislukt. Probeer het later nog eens.',
         )
 
@@ -124,6 +127,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
         if (result.assets?.[0].uri) {
           sendPDF(result.assets?.[0].uri).then(onSelect, error => {
             Alert.alert(
+              'PDF opsturen is mislukt',
               'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
             )
 
@@ -135,6 +139,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
       },
       error => {
         Alert.alert(
+          'PDF kiezen is mislukt',
           'Sorry, kiezen van een PDF document is mislukt. Probeer het later nog eens.',
         )
 
