@@ -13,6 +13,7 @@ RCT_EXPORT_MODULE()
 SMICoreConfiguration *config;
 id<SMICoreClient> coreClient;
 id<SMIConversationClient> conversationClient;
+NSMutableArray<id<SMIChoice>> *receivedChoices;
 
 RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                   organizationId:(NSString *)organizationId
@@ -102,6 +103,7 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
             }
         }
         conversationClient = [coreClient conversationClientWithId:uuid];
+        receivedChoices = [NSMutableArray array];
         if (conversationClient != nil) {
             [coreClient addDelegate:self];  // Set the delegate to self after creating the conversation client to receive events for the conversation client.
             resolve(conversationClient.identifier.UUIDString);
@@ -281,6 +283,7 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
         }
     }];
 }
+
 RCT_EXPORT_METHOD(sendMessage:(NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -307,9 +310,78 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         reject(@"send_message_exception", @"An exception occurred during sendMessage", error);
     }
 }
+RCT_EXPORT_METHOD(sendReply:(NSDictionary *)replyDict
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the conversation client has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_reply_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        // Create a SMIChoice object from the provided reply dictionary
+        NSString *optionId = replyDict[@"optionId"];
+        id<SMIChoice> reply = nil;
+        for (id<SMIChoice> choice in receivedChoices) {
+            if ([choice.optionId isEqualToString:optionId]) { // Match by optionId
+                reply = choice;
+                break; // Exit loop once the correct choice is found
+            }
+        }
+
+        // If the choice was found, send the reply
+        if (reply) {
+            [conversationClient sendReply:reply];
+            resolve(@(YES));
+        } else {
+            NSError *error = [NSError errorWithDomain:@"send_reply_exception"
+                                                code:404
+                                            userInfo:@{NSLocalizedDescriptionKey: @"SMIChoice not found for the provided optionId."}];
+            reject(@"send_reply_not_found", @"SMIChoice not found", error);
+        }
+
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendReply Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_reply_exception", @"An exception occurred during sendReply", error);
+    }
+}
+
+RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the coreClient has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        [conversationClient sendTypingEvent];
+        resolve(@(YES));
+
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendMessage Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_message_exception", @"An exception occurred during sendMessage", error);
+    }
+}
 
 - (NSDictionary *)parseChoiceToDictionary:(id<SMIChoice>)choice
 {
+    [receivedChoices addObject:choice];
     NSMutableDictionary *choiceDict = [NSMutableDictionary dictionary];
     choiceDict[@"optionId"] = choice.optionId;
     choiceDict[@"title"] = choice.title;
@@ -394,6 +466,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
             NSMutableDictionary *itemDict = [NSMutableDictionary dictionary];
             itemDict[@"interactionItems"] = [self parseChoiceArrayToDictionaryArray:item.interactionItems];
             itemDict[@"itemType"] = item.titleItem.itemType;
+            itemDict[@"title"] = item.titleItem.title;
             itemDict[@"subTitle"] = item.titleItem.subTitle;
             itemDict[@"secondarySubTitle"] = item.titleItem.secondarySubTitle;
             itemDict[@"tertiarySubTitle"] = item.titleItem.tertiarySubTitle;
@@ -451,11 +524,12 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         id<SMIListPicker> textPayload = (id<SMIListPicker>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIListPicker.html
         messageDict[@"text"] = textPayload.text ?: @"";
-        // choices toevoegen
+        messageDict[@"choices"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.choices];
+        messageDict[@"selected"] = [self parseChoiceArrayToDictionaryArray:quickRepliesPayload.selected];
     }
     if (format == SMIConversationFormatTypesSelections) {
-        // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;
-        // text = textPayload.text ?: @"";
+        id<SMIChoicesResponse> selectionsPayload = (id<SMIChoicesResponse>)payload;
+        messageDict[@"selections"] = [self parseChoiceArrayToDictionaryArray:selectionsPayload.selections];
     }
     if (format == SMIConversationFormatTypesWebView) {
         // id<SMIAttachments> textPayload = (id<SMIAttachments>)payload;

@@ -31,6 +31,8 @@ export type NativeSalesforceMessagingInApp = {
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendMessage: (message: string) => Promise<void>
+  sendReply: (choice: Choice) => Promise<void>
+  sendTypingEvent: () => Promise<void>
 }
 
 export enum ConversationEntryFormat {
@@ -98,27 +100,25 @@ export type ConversationEntryBase = {
   url?: string
 }
 
-export type ConversationEntry = ConversationEntryBase &
-  (
-    | ConversationEntryText
-    | ConversationEntryCarousel
-    | ConversationEntryRichLink
-    | ConversationEntryQuickReplies
-    | ConversationEntryAttachments
-    | ConversationEntryImageMessage
-    | ConversationEntryInputs
-    | ConversationEntryListPicker
-    | ConversationEntrySelections
-    | ConversationEntryWebview
-    | ConversationEntryResult
-    | ConversationEntryTypingStartedIndicator
-    | ConversationEntryTypingStoppedIndicator
-    | ConversationEntryUnspecified
-    | ConversationEntryRoutingResult
-    | ConversationEntryRoutingWorkResult
-    | ConversationEntryParticipantChanged
-    | ConversationEntryDeliveryAcknowledgement
-  )
+export type ConversationEntry =
+  | ConversationEntryText
+  | ConversationEntryCarousel
+  | ConversationEntryRichLink
+  | ConversationEntryQuickReplies
+  | ConversationEntryAttachments
+  | ConversationEntryImageMessage
+  | ConversationEntryInputs
+  | ConversationEntryListPicker
+  | ConversationEntrySelections
+  | ConversationEntryWebview
+  | ConversationEntryResult
+  | ConversationEntryTypingStartedIndicator
+  | ConversationEntryTypingStoppedIndicator
+  | ConversationEntryUnspecified
+  | ConversationEntryRoutingResult
+  | ConversationEntryRoutingWorkResult
+  | ConversationEntryParticipantChanged
+  | ConversationEntryDeliveryAcknowledgement
 
 export type Attachment = {
   file?: string
@@ -154,47 +154,47 @@ export type Participant = {
   subject: string
 }
 
-export type ConversationEntryText = {
+export type ConversationEntryText = ConversationEntryBase & {
   format: ConversationEntryFormat.text
   text: string
 }
-export type ConversationEntryImageMessage = {
+export type ConversationEntryImageMessage = ConversationEntryBase & {
   format: ConversationEntryFormat.imageMessage
   // TODO
 }
-export type ConversationEntryUnspecified = {
+export type ConversationEntryUnspecified = ConversationEntryBase & {
   format: ConversationEntryFormat.unspecified
 }
-export type ConversationEntryWebview = {
+export type ConversationEntryWebview = ConversationEntryBase & {
   format: ConversationEntryFormat.webview
   // TODO
 }
-export type ConversationEntryResult = {
+export type ConversationEntryResult = ConversationEntryBase & {
   format: ConversationEntryFormat.result
   // TODO
 }
-export type ConversationEntryInputs = {
+export type ConversationEntryInputs = ConversationEntryBase & {
   format: ConversationEntryFormat.inputs
   // TODO
 }
-export type ConversationEntryListPicker = {
+export type ConversationEntryListPicker = ConversationEntryBase & {
   format: ConversationEntryFormat.listPicker
   // TODO
   text: string
 }
-export type ConversationEntrySelections = {
+export type ConversationEntrySelections = ConversationEntryBase & {
   format: ConversationEntryFormat.selections
-  // TODO
+  selections: Choice[]
 }
-export type ConversationEntryCarousel = {
+export type ConversationEntryCarousel = ConversationEntryBase & {
   format: ConversationEntryFormat.carousel
   items: TitleLinkItem[]
 }
-export type ConversationEntryAttachments = {
+export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]
   format: ConversationEntryFormat.attachments
 }
-export type ConversationEntryQuickReplies = {
+export type ConversationEntryQuickReplies = ConversationEntryBase & {
   /**
    * in case of format QuickReplies these are the quick reply options
    */
@@ -207,7 +207,7 @@ export type ConversationEntryQuickReplies = {
   text: string
 }
 
-export type ConversationEntryRichLink = {
+export type ConversationEntryRichLink = ConversationEntryBase & {
   asset?: {
     height: number
     imageBase64: string
@@ -218,15 +218,15 @@ export type ConversationEntryRichLink = {
   url: string
 }
 
-export type ConversationEntryTypingStartedIndicator = {
+export type ConversationEntryTypingStartedIndicator = ConversationEntryBase & {
   format: ConversationEntryFormat.typingStartedIndicator
   startedTimestamp: number
 }
-export type ConversationEntryTypingStoppedIndicator = {
+export type ConversationEntryTypingStoppedIndicator = ConversationEntryBase & {
   format: ConversationEntryFormat.typingStoppedIndicator
   startedTimestamp: number
 }
-export type ConversationEntryRoutingResult = {
+export type ConversationEntryRoutingResult = ConversationEntryBase & {
   estimatedWaitTime: number
   failureReason: string
   failureType: ConversationEntryRoutingFailureType
@@ -236,15 +236,15 @@ export type ConversationEntryRoutingResult = {
   recordId: string
   routingType: ConversationEntryRoutingType
 }
-export type ConversationEntryRoutingWorkResult = {
+export type ConversationEntryRoutingWorkResult = ConversationEntryBase & {
   format: ConversationEntryFormat.routingWorkResult
   workType: ConversationEntryRoutingWorkType
 }
-export type ConversationEntryDeliveryAcknowledgement = {
+export type ConversationEntryDeliveryAcknowledgement = ConversationEntryBase & {
   format: ConversationEntryFormat.deliveryAcknowledgement
   // TODO
 }
-export type ConversationEntryParticipantChanged = {
+export type ConversationEntryParticipantChanged = ConversationEntryBase & {
   format: ConversationEntryFormat.participantChanged
   operations: Array<{
     participant: Participant

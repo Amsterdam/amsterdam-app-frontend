@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import Animated, {
   Easing,
   SharedValue,
@@ -8,7 +8,6 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
-import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {useTheme} from '@/themes/useTheme'
 
@@ -51,7 +50,7 @@ type Props = {
   dotInactiveSize?: number
 }
 
-export const ChatMessageTypingIndicator = ({
+export const LoadingDots = ({
   dotActiveSize = DEFAULT_DOT_ACTIVE_SIZE,
   dotInactiveSize = DEFAULT_DOT_INACTIVE_SIZE,
 }: Props) => {
@@ -65,21 +64,20 @@ export const ChatMessageTypingIndicator = ({
   }, [sv])
 
   return (
-    <Box insetVertical="xs">
-      <Row
-        align="center"
-        valign="center">
-        {Array.from({length: 3}).map((_dot, index) => (
-          <Dot
-            activeSize={dotActiveSize}
-            inactiveSize={dotInactiveSize}
-            index={index}
-            key={index}
-            sharedValue={sv}
-          />
-        ))}
-      </Row>
-    </Box>
+    <Row
+      align="center"
+      gutter="xs"
+      valign="center">
+      {Array.from({length: 3}).map((_dot, index) => (
+        <Dot
+          activeSize={dotActiveSize}
+          inactiveSize={dotInactiveSize}
+          index={index}
+          key={index}
+          sharedValue={sv}
+        />
+      ))}
+    </Row>
   )
 }
 

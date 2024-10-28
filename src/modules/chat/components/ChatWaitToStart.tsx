@@ -2,7 +2,7 @@ import {ReactNode, useContext, useEffect, useState} from 'react'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ChatMessageTypingIndicator} from '@/modules/chat/components/ChatMessageTypingIndicator'
+import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {sleep} from '@/utils/sleep'
 
@@ -27,12 +27,12 @@ export const ChatWaitToStart = ({children}: Props) => {
       {shouldShowWaiting && !ready ? (
         <Center grow>
           <Column gutter="sm">
-            <ChatMessageTypingIndicator
+            <LoadingDots
               dotActiveSize={15}
               dotInactiveSize={12}
             />
             <Title
-              level={'h4'}
+              level="h4"
               testID="ChatWaitToStartTitle"
               text="De chat wordt geladen"
               textAlign="center"
