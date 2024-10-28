@@ -507,14 +507,9 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val result: Result<Unit> = conversationClient?.sendTypingEvent()
+          conversationClient?.sendTypingEvent()
             ?: throw IllegalStateException("Failed to send typing event")
-
-          if (result is Result.Success) {
-            promise.resolve("Success")
-          } else {
-            promise.reject("Error", result.toString())
-          }
+          promise.resolve("Success")
         } catch (e: Exception) {
           promise.reject("Error", e.message, e)
         }
