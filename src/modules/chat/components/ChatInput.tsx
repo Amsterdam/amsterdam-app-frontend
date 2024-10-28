@@ -1,4 +1,4 @@
-import {useCallback, useRef, useState} from 'react'
+import {useCallback, useContext, useRef, useState} from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -16,6 +16,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -47,34 +48,40 @@ export const ChatInput = ({onSubmit}: Props) => {
   )
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
+  const {employeeInChat} = useContext(ChatContext)
+
   return (
     <>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <Box>
           <Row gutter="sm">
-            <IconButton
-              accessibilityLabel="Terug"
-              hitSlop={16}
-              icon={
-                <Icon
-                  color="link"
-                  name={selectAttachment ? 'keyboard' : 'attachment'}
-                  size="xl"
-                  testID="HeaderBackIcon"
-                />
-              }
-              onPress={() => {
-                if (selectAttachment) {
-                  inputRef.current?.focus()
-                  hideSelectAttachment()
-                } else {
-                  Keyboard.dismiss()
-                  setTimeout(showSelectAttachment, 300)
+            {!!employeeInChat && (
+              <IconButton
+                accessibilityLabel={
+                  selectAttachment ? 'Naar toetsenbord' : 'Naar bijlages'
                 }
-              }}
-              testID="HeaderBackButton"
-            />
+                hitSlop={16}
+                icon={
+                  <Icon
+                    color="link"
+                    name={selectAttachment ? 'keyboard' : 'attachment'}
+                    size="xl"
+                    testID="ChatAttachmentsIcon"
+                  />
+                }
+                onPress={() => {
+                  if (selectAttachment) {
+                    inputRef.current?.focus()
+                    hideSelectAttachment()
+                  } else {
+                    Keyboard.dismiss()
+                    setTimeout(showSelectAttachment, 300)
+                  }
+                }}
+                testID="ChatAttachmentsButton"
+              />
+            )}
             <View
               style={styles.container}
               testID="ChatTextInputContainer">
