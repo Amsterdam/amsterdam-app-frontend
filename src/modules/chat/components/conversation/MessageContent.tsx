@@ -5,6 +5,7 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
+import {EntryAttachments} from '@/modules/chat/components/conversation/EntryAttachments'
 import {EntryChoices} from '@/modules/chat/components/conversation/EntryChoices'
 import {EntryRichLink} from '@/modules/chat/components/conversation/EntryRichLink'
 import {EntrySelections} from '@/modules/chat/components/conversation/EntrySelections'
@@ -32,9 +33,9 @@ const Options: Record<
   },
   [ConversationEntryFormat.text]: {Component: EntryText, agentInfo: true},
   [ConversationEntryFormat.attachments]: {
-    Component: undefined,
+    Component: EntryAttachments,
     LastComponent: undefined,
-    agentInfo: undefined,
+    agentInfo: false,
   },
   [ConversationEntryFormat.carousel]: {
     Component: undefined,
