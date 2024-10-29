@@ -19,8 +19,11 @@ import com.salesforce.android.smi.core.CoreClient
 import com.salesforce.android.smi.core.CoreConfiguration
 import com.salesforce.android.smi.core.data.domain.businessHours.BusinessHoursInfo
 import com.salesforce.android.smi.core.data.domain.conversationEntry.entryPayload.event.typing.TypingIndicatorStatus
+import com.salesforce.android.smi.core.data.domain.remoteConfiguration.DeploymentType
+import com.salesforce.android.smi.core.data.domain.remoteConfiguration.PreChatConfiguration
 import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteConfiguration
 import com.salesforce.android.smi.core.events.CoreEvent
+import com.salesforce.android.smi.network.data.domain.conversation.Conversation
 import com.salesforce.android.smi.network.data.domain.conversationEntry.ConversationEntry
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.EntryPayload
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries.ParticipantClientMenu
@@ -32,7 +35,14 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
+import com.salesforce.android.smi.network.data.domain.prechat.FormField
 import com.salesforce.android.smi.network.data.domain.prechat.PreChatField
+import com.salesforce.android.smi.network.data.domain.prechat.PreChatFieldType
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceList
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListConfiguration
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValue
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValueDependency
+import com.salesforce.android.smi.network.data.domain.prechat.termsAndConditions.TermsAndConditions
 import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import java.io.File
 import java.io.FileOutputStream
@@ -51,6 +61,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var config: Configuration? = null
   private var coreClient: CoreClient? = null
   private var conversationClient: ConversationClient? = null
+  private var remoteConfiguration: RemoteConfiguration? = null
   private var supervisorJob = SupervisorJob()
   private var scope = MainScope()
   // private var scope = CoroutineScope(Dispatchers.IO + this.supervisorJob)
@@ -112,11 +123,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val remoteConfig: Result<RemoteConfiguration> =
                   coreClient?.retrieveRemoteConfiguration()
                           ?: throw IllegalStateException("Failed to retrieve remote configuration")
           if (remoteConfig is Result.Success) {
+            remoteConfiguration= remoteConfig.data
             val remoteConfigMap = Arguments.createMap()
             remoteConfigMap.putString("name", remoteConfig.data.name)
             remoteConfigMap.putString("deploymentType", remoteConfig.data.deploymentType.toString())
@@ -183,6 +194,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                   }
                 )
               }
+            })
+            remoteConfigMap.putMap("termsAndConditions", Arguments.createMap().apply {
+              putString("label", remoteConfig.data.termsAndConditions?.label)
+              putBoolean("isEnabled", remoteConfig.data.termsAndConditions?.isTermsAndConditionsEnabled ?: false)
+              putBoolean("isRequired", remoteConfig.data.termsAndConditions?.isTermsAndConditionsRequired ?: false)
             })
             promise.resolve(remoteConfigMap)
           } else {
@@ -489,13 +505,59 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val result: Result<ConversationEntry> =
                   conversationClient?.sendMessage(message)
                           ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             //            val params = convertEntryToMap(result.data)
             // Emit the event with message data
+            promise.resolve(true)
+          } else {
+            promise.reject("Error", result.toString())
+          }
+        } catch (e: Exception) {
+          promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+      // Catch any exception and reject the promise
+      promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
+  }
+
+
+  @ReactMethod
+  override fun submitRemoteConfiguration(remoteConfig: ReadableMap, createConversationOnSubmit: Boolean, promise: Promise) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+
+      scope.launch {
+        try {
+          remoteConfiguration?.forms?.forEach { form ->
+            form.formFields.forEach { field ->
+              val fieldName = field.name
+              if (remoteConfig.hasKey(fieldName)) {
+                remoteConfig.getArray("preChatConfiguration")?.getMap(0)?.getArray("preChatFields")?.toArrayList()?.forEach { filledField ->
+                  filledField as ReadableMap
+                  filledField.getString("name")?.let { name ->
+                    if (name == fieldName) {
+                      filledField.getString("value")?.let { value ->
+                        field.userInput = value
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          val result: Result<Conversation> =
+            conversationClient?.submitRemoteConfiguration(remoteConfiguration!!, createConversationOnSubmit)
+              ?: throw IllegalStateException("Failed to send message")
+          if (result is Result.Success) {
             promise.resolve(true)
           } else {
             promise.reject("Error", result.toString())
@@ -559,7 +621,6 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       FileOutputStream(tempFile).use { fos -> fos.write(decodedBytes) }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val result: Result<ConversationEntry> =
                   conversationClient?.sendImage(tempFile)
                           ?: throw IllegalStateException("Failed to send message")

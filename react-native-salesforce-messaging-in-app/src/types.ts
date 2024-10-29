@@ -60,6 +60,11 @@ export type RemoteConfiguration = {
       preChatFields: PreChatField[]
     },
   ]
+  termsAndConditions: {
+    isEnabled: boolean
+    isRequired?: boolean
+    label?: string
+  }
   timestamp: number
 }
 
