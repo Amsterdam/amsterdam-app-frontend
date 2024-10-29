@@ -32,6 +32,7 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
+import com.salesforce.android.smi.network.data.domain.prechat.PreChatField
 import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import java.io.File
 import java.io.FileOutputStream
@@ -115,9 +116,75 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
           val remoteConfig: Result<RemoteConfiguration> =
                   coreClient?.retrieveRemoteConfiguration()
                           ?: throw IllegalStateException("Failed to retrieve remote configuration")
-          // remoteConfig.data
           if (remoteConfig is Result.Success) {
-            promise.resolve(remoteConfig.toString())
+            val remoteConfigMap = Arguments.createMap()
+            remoteConfigMap.putString("name", remoteConfig.data.name)
+            remoteConfigMap.putString("deploymentType", remoteConfig.data.deploymentType.toString())
+            remoteConfigMap.putDouble("timestamp", (remoteConfig.data.timestamp/1000).toDouble())
+            remoteConfigMap.putMap("choiceListConfiguration", Arguments.createMap().apply {
+              putArray(
+                "choiceLists",
+                Arguments.createArray().apply {
+                  remoteConfig.data.choiceListConfiguration?.choiceList?.forEach { choice ->
+                    val choiceMap = Arguments.createMap()
+                    choiceMap.putString("identifier", choice.choiceListId)
+                    choiceMap.putArray(
+                      "values",
+                      Arguments.createArray().apply {
+                        choice.choiceListValues.forEach { value ->
+                          val valueMap = Arguments.createMap()
+                          valueMap.putString("label", value.label)
+                          valueMap.putString("valueId", value.choiceListValueId)
+                          valueMap.putString("valueName", value.choiceListValueName)
+                          valueMap.putInt("order", value.order)
+                          valueMap.putBoolean("isDefaultValue", value.isDefaultValue)
+                          pushMap(valueMap)
+                        }
+                      }
+                    )
+                    pushMap(choiceMap)
+                  }
+                }
+              )
+
+              putArray(
+                "valueDependencies",
+                Arguments.createArray().apply {
+                  remoteConfig.data.choiceListConfiguration?.choiceListValueDependencies?.forEach { dependency ->
+                    val dependencyMap = Arguments.createMap()
+                    dependencyMap.putString("childId", dependency.childChoiceListValueId)
+                    dependencyMap.putString("parentId", dependency.parentChoiceListValueId)
+                    pushMap(dependencyMap)
+                  }
+                }
+              )
+            })
+            remoteConfigMap.putArray("preChatConfiguration", Arguments.createArray().apply {
+              remoteConfig.data.forms.forEach { form ->
+                pushMap(
+                  Arguments.createMap().apply {
+                    putString("formType", form.formType.toString())
+                    putArray(
+                      "hiddenPreChatFields",
+                      Arguments.createArray().apply {
+                        form.hiddenFormFields.forEach { field ->
+                          pushMap(convertPreChatFieldToMap(field))
+                        }
+                      }
+                    )
+                    putArray(
+                      "preChatFields",
+                      Arguments.createArray().apply {
+                        form.formFields.forEach { field ->
+                          pushMap(convertPreChatFieldToMap(field))
+                        }
+                      }
+                    )
+                  }
+                )
+              }
+            })
+            promise.resolve(remoteConfigMap)
           } else {
             promise.reject("Error", remoteConfig.toString())
           }
@@ -239,14 +306,28 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     return array
   }
 
+  private fun convertPreChatFieldToMap(field: PreChatField): WritableMap {
+    return Arguments.createMap().apply {
+      putBoolean("editable", field.isEditable)
+      putBoolean("isHidden", field.isHidden)
+      putString("label", field.labels.display)
+      putInt("maxLength", field.maxLength)
+      putString("name", field.name)
+      putInt("order", field.order)
+      putBoolean("required", field.required)
+      putString("type", field.type.toString())
+      putString("errorType", field.errorType.toString())
+      putString("value", field.userInput)
+    }
+  }
+
   private fun convertEntryToMap(entry: ConversationEntry): WritableMap {
     val map = Arguments.createMap()
-    entry.entryType
     map.putString("entryId", entry.entryId)
     map.putMap("sender", convertParticipantToMap(entry.sender))
     map.putString("senderDisplayName", entry.senderDisplayName)
     map.putString("messageType", entry.entryType.toString())
-    map.putInt("timestamp", entry.timestamp.toInt())
+    map.putDouble("timestamp", (entry.timestamp/1000).toDouble())
     map.putString("conversationId", entry.conversationId.toString())
     map.putString("status", entry.status.toString())
     map.putString("format", entry.payload.entryType.toString())
@@ -383,10 +464,10 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
         // TODO
       }
       is EntryPayload.TypingIndicatorPayload -> {
-        map.putInt("startedTimestamp", payload.startedTimestamp.toInt())
+        map.putDouble("startedTimestamp", (payload.startedTimestamp/1000).toDouble())
       }
       is EntryPayload.TypingStartedIndicatorPayload -> {
-        map.putInt("startedTimestamp", payload.timestamp.toInt())
+        map.putDouble("startedTimestamp", (payload.timestamp/1000).toDouble())
       }
       is EntryPayload.TypingStoppedIndicatorPayload -> {
         // TODO
@@ -474,7 +555,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
       // Create a temporary file to store the decoded image data
       val tempFile =
-              File.createTempFile(fileName ?: "image", ".jpg") // Adjust file extension if necessary
+              File.createTempFile(fileName, ".jpg") // Adjust file extension if necessary
       FileOutputStream(tempFile).use { fos -> fos.write(decodedBytes) }
       scope.launch {
         try {

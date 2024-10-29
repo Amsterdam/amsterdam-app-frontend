@@ -19,13 +19,13 @@ export type PreChatField = {
    */
   identifier: string | undefined
   isHidden: boolean
-  label: string
+  label?: string
   maxLength: number
   name: string
   order: number
   required: boolean
   type: PreChatFieldTypes
-  value: string
+  value?: string
 }
 
 export type ChoiceListValue = {
