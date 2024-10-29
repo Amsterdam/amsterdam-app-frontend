@@ -1,4 +1,5 @@
 import {FC} from 'react'
+import Animated, {SlideInDown} from 'react-native-reanimated'
 import {
   ConversationEntry,
   ConversationEntryFormat,
@@ -17,7 +18,7 @@ type Props = {
   message: ConversationEntry
 }
 
-const Options: Record<
+const options: Record<
   ConversationEntryFormat,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -112,16 +113,17 @@ const Options: Record<
   },
 }
 
-export const MessageContent = ({message, isLastOfRole}: Props) => {
-  const result = Options[message.format]
-  const {Component, agentInfo, LastComponent} = result
+export const Entry = ({message, isLastOfRole}: Props) => {
+  const result = options[message.format]
 
   if (!result) {
     return null
   }
 
+  const {Component, agentInfo, LastComponent} = result
+
   return (
-    <>
+    <Animated.View entering={SlideInDown}>
       {!!Component && (
         <Component
           isLastOfType={isLastOfRole}
@@ -141,6 +143,6 @@ export const MessageContent = ({message, isLastOfRole}: Props) => {
           message={message}
         />
       )}
-    </>
+    </Animated.View>
   )
 }
