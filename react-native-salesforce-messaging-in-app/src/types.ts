@@ -176,7 +176,7 @@ export type ConversationEntry =
 
 export type Attachment = {
   file?: string
-  identifier: string
+  id: string
   mimeType: string
   name: string
   url: string
@@ -185,10 +185,17 @@ export type Attachment = {
 export type TitleLinkItem = {
   interactionItems: Choice[]
   itemType: string
-  referenceId: string
-  secondarySubTitle: string
+  referenceId?: string
+  /**
+   * @deprecated iOS only
+   */
+  secondarySubTitle?: string
   subTitle: string
-  tertiarySubTitle: string
+  /**
+   * @deprecated iOS only
+   */
+  tertiarySubTitle?: string
+  title: string
 }
 
 export type Participant = {
@@ -232,39 +239,39 @@ export type ConversationEntryInputs = ConversationEntryBase & {
   // TODO
 }
 export type ConversationEntryListPicker = ConversationEntryBase & {
+  choices: Choice[]
   format: ConversationEntryFormat.listPicker
-  // TODO
+  selected: Choice[]
   text: string
 }
 export type ConversationEntrySelections = ConversationEntryBase & {
   format: ConversationEntryFormat.selections
   selections: Choice[]
 }
+
 export type ConversationEntryCarousel = ConversationEntryBase & {
   attachments: Attachment[]
   format: ConversationEntryFormat.carousel
   items: TitleLinkItem[]
   selected: Choice[]
 }
+
 export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]
   format: ConversationEntryFormat.attachments
 }
 export type ConversationEntryQuickReplies = ConversationEntryBase & {
-  /**
-   * in case of format QuickReplies these are the quick reply options
-   */
   choices: Choice[]
   format: ConversationEntryFormat.quickReplies
   /**
-   * in case of format QuickReplies these are the selected quick reply options
+   * @deprecated iOS only
    */
   selected: Choice[]
   text: string
 }
 
 export type ConversationEntryRichLink = ConversationEntryBase & {
-  asset?: {
+  asset: {
     height: number
     imageBase64: string
     width: number
@@ -288,6 +295,9 @@ export type ConversationEntryRoutingResult = ConversationEntryBase & {
   failureType: ConversationEntryRoutingFailureType
   format: ConversationEntryFormat.routingResult
   isEWTAvailable: boolean
+  /**
+   * @deprecated iOS only
+   */
   isEWTRequested: boolean
   recordId: string
   routingType: ConversationEntryRoutingType
