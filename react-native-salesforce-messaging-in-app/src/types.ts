@@ -10,7 +10,14 @@ export enum PreChatFieldTypes {
 
 export type PreChatField = {
   editable: boolean
-  identifier: string
+  /**
+   * @deprecated Android only
+   */
+  errorType: string
+  /**
+   * @deprecated iOS only
+   */
+  identifier: string | undefined
   isHidden: boolean
   label: string
   maxLength: number
@@ -87,6 +94,10 @@ export type NativeSalesforceMessagingInApp = {
   sendPDF: (filePath: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
+  submitRemoteConfiguration: (
+    remoteConfiguration: RemoteConfiguration,
+    createConversationOnSubmit: boolean,
+  ) => Promise<void>
 }
 
 export enum ConversationEntryFormat {
