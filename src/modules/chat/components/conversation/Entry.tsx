@@ -18,7 +18,7 @@ type Props = {
   message: ConversationEntry
 }
 
-const Options: Record<
+const options: Record<
   ConversationEntryFormat,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -114,12 +114,13 @@ const Options: Record<
 }
 
 export const Entry = ({message, isLastOfRole}: Props) => {
-  const result = Options[message.format]
-  const {Component, agentInfo, LastComponent} = result
+  const result = options[message.format]
 
   if (!result) {
     return null
   }
+
+  const {Component, agentInfo, LastComponent} = result
 
   return (
     <Animated.View entering={SlideInDown}>
