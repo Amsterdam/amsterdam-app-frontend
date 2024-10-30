@@ -81,6 +81,8 @@ export const sendImage = (imageBase64: string, fileName: string) =>
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
 
+export const generateUUID = () => SalesforceMessagingInApp.generateUUID()
+
 export const submitRemoteConfiguration = (
   remoteConfiguration: RemoteConfiguration,
   createConversationOnSubmit: boolean,
@@ -97,7 +99,7 @@ export const useCreateChat = ({
   developerName,
   organizationId,
   url,
-  conversationId,
+  conversationId = generateUUID(),
 }: CoreConfig & {
   conversationId?: string
 }) => {
@@ -134,6 +136,7 @@ export const useCreateChat = ({
     if (developerName && organizationId && url) {
       setParticipants([])
       setMessages([])
+      setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration)
 

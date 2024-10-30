@@ -284,6 +284,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     }
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  override fun generateUUID(): String {
+    return UUID.randomUUID().toString()
+  }
+
   private fun parseRole(role: String?): String? {
     return when (role) {
       "EndUser" -> "USER"

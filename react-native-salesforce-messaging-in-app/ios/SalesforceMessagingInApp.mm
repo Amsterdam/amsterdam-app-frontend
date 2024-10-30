@@ -546,6 +546,13 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     }
 }
 
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
+{
+    NSUUID *uuid;
+    uuid = [NSUUID UUID];
+    return [uuid UUIDString];
+}
+
 - (NSDictionary *)parseChoiceToDictionary:(id<SMIChoice>)choice
 {
     [receivedChoices addObject:choice];

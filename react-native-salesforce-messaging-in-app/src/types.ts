@@ -92,6 +92,7 @@ export type NativeSalesforceMessagingInApp = {
     organizationId: string,
     developerName: string,
   ) => Promise<void>
+  generateUUID: () => string
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendImage: (imageBase64: string, fileName: string) => Promise<void>

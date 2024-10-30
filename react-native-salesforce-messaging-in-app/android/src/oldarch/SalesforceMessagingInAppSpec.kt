@@ -14,7 +14,7 @@ abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactA
           developerName: String,
           promise: Promise,
   )
-
+  abstract fun generateUUID(): String
   abstract fun retrieveRemoteConfiguration(promise: Promise)
   abstract fun submitRemoteConfiguration(remoteConfiguration: ReadableMap, createConversationOnSubmit: Boolean, promise: Promise)
   abstract fun createConversationClient(clientID: String?, promise: Promise)
