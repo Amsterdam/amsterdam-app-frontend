@@ -19,8 +19,6 @@ import com.salesforce.android.smi.core.CoreClient
 import com.salesforce.android.smi.core.CoreConfiguration
 import com.salesforce.android.smi.core.data.domain.businessHours.BusinessHoursInfo
 import com.salesforce.android.smi.core.data.domain.conversationEntry.entryPayload.event.typing.TypingIndicatorStatus
-import com.salesforce.android.smi.core.data.domain.remoteConfiguration.DeploymentType
-import com.salesforce.android.smi.core.data.domain.remoteConfiguration.PreChatConfiguration
 import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteConfiguration
 import com.salesforce.android.smi.core.events.CoreEvent
 import com.salesforce.android.smi.network.data.domain.conversation.Conversation
@@ -36,18 +34,10 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
-import com.salesforce.android.smi.network.data.domain.prechat.FormField
 import com.salesforce.android.smi.network.data.domain.prechat.PreChatField
-import com.salesforce.android.smi.network.data.domain.prechat.PreChatFieldType
-import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceList
-import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListConfiguration
-import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValue
-import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValueDependency
-import com.salesforce.android.smi.network.data.domain.prechat.termsAndConditions.TermsAndConditions
 import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
 import java.io.File
@@ -63,9 +53,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var coreClient: CoreClient? = null
   private var conversationClient: ConversationClient? = null
   private var remoteConfiguration: RemoteConfiguration? = null
-  private var supervisorJob = SupervisorJob()
   private var scope = MainScope()
-  // private var scope = CoroutineScope(Dispatchers.IO + this.supervisorJob)
 
   override fun getName(): String {
     return NAME
@@ -128,11 +116,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             coreClient?.retrieveRemoteConfiguration()
               ?: throw IllegalStateException("Failed to retrieve remote configuration")
           if (remoteConfig is Result.Success) {
-            remoteConfiguration= remoteConfig.data
+            remoteConfiguration = remoteConfig.data
             val remoteConfigMap = Arguments.createMap()
             remoteConfigMap.putString("name", remoteConfig.data.name)
             remoteConfigMap.putString("deploymentType", remoteConfig.data.deploymentType.toString())
-            remoteConfigMap.putDouble("timestamp", (remoteConfig.data.timestamp/1000).toDouble())
+            remoteConfigMap.putDouble("timestamp", (remoteConfig.data.timestamp / 1000).toDouble())
             remoteConfigMap.putMap("choiceListConfiguration", Arguments.createMap().apply {
               putArray(
                 "choiceLists",
@@ -198,8 +186,14 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             })
             remoteConfigMap.putMap("termsAndConditions", Arguments.createMap().apply {
               putString("label", remoteConfig.data.termsAndConditions?.label)
-              putBoolean("isEnabled", remoteConfig.data.termsAndConditions?.isTermsAndConditionsEnabled ?: false)
-              putBoolean("isRequired", remoteConfig.data.termsAndConditions?.isTermsAndConditionsRequired ?: false)
+              putBoolean(
+                "isEnabled",
+                remoteConfig.data.termsAndConditions?.isTermsAndConditionsEnabled ?: false
+              )
+              putBoolean(
+                "isRequired",
+                remoteConfig.data.termsAndConditions?.isTermsAndConditionsRequired ?: false
+              )
             })
             promise.resolve(remoteConfigMap)
           } else {
@@ -353,7 +347,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     map.putMap("sender", convertParticipantToMap(entry.sender))
     map.putString("senderDisplayName", entry.senderDisplayName)
     map.putString("messageType", entry.entryType.toString())
-    map.putDouble("timestamp", (entry.timestamp/1000).toDouble())
+    map.putDouble("timestamp", (entry.timestamp / 1000).toDouble())
     map.putString("conversationId", entry.conversationId.toString())
     map.putString("status", entry.status.toString())
     map.putString("format", entry.payload.entryType.toString())
@@ -453,7 +447,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
           }
 
           is StaticContentFormat.WebViewFormat -> {
-            // TODO
+            // TODO once implemented for iOS
           }
 
           is ChoicesFormat.DisplayableOptionsFormat -> {
@@ -497,25 +491,25 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
           }
 
           is FormFormat.InputsFormat -> {
-            // TODO
+            // TODO once implemented for iOS
           }
 
           is FormResponseFormat.InputsFormResponseFormat -> {
-            // TODO
+            // TODO once implemented for iOS
           }
 
           is FormResponseFormat.ResultFormResponseFormat -> {
-            // TODO
+            // TODO once implemented for iOS
           }
         }
       }
 
       is EntryPayload.AcknowledgeDeliveryPayload -> {
-        // TODO
+        // TODO once implemented for iOS
       }
 
       is EntryPayload.AcknowledgeReadPayload -> {
-        // TODO
+        // TODO once implemented for iOS
       }
 
       is EntryPayload.ParticipantChangedPayload -> {
@@ -541,19 +535,19 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
 
       is EntryPayload.RoutingWorkResultPayload -> {
-        // TODO
+        map.putString("workType", payload.workType.toString())
       }
 
       is EntryPayload.TypingIndicatorPayload -> {
-        map.putDouble("startedTimestamp", (payload.startedTimestamp/1000).toDouble())
+        map.putDouble("startedTimestamp", (payload.startedTimestamp / 1000).toDouble())
       }
 
       is EntryPayload.TypingStartedIndicatorPayload -> {
-        map.putDouble("startedTimestamp", (payload.timestamp/1000).toDouble())
+        map.putDouble("startedTimestamp", (payload.timestamp / 1000).toDouble())
       }
 
       is EntryPayload.TypingStoppedIndicatorPayload -> {
-        // TODO
+        map.putDouble("startedTimestamp", (payload.timestamp / 1000).toDouble())
       }
 
       is EntryPayload.UnknownEntryPayload -> {
@@ -595,7 +589,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
 
   @ReactMethod
-  override fun submitRemoteConfiguration(remoteConfig: ReadableMap, createConversationOnSubmit: Boolean, promise: Promise) {
+  override fun submitRemoteConfiguration(
+    remoteConfiguration: ReadableMap,
+    createConversationOnSubmit: Boolean,
+    promise: Promise,
+  ) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
@@ -604,26 +602,31 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
       scope.launch {
         try {
-          remoteConfiguration?.forms?.forEach { form ->
+          this@SalesforceMessagingInAppModule.remoteConfiguration?.forms?.forEach { form ->
             form.formFields.forEach { field ->
               val fieldName = field.name
-              if (remoteConfig.hasKey(fieldName)) {
-                remoteConfig.getArray("preChatConfiguration")?.getMap(0)?.getArray("preChatFields")?.toArrayList()?.forEach { filledField ->
-                  filledField as ReadableMap
-                  filledField.getString("name")?.let { name ->
-                    if (name == fieldName) {
-                      filledField.getString("value")?.let { value ->
-                        field.userInput = value
+              if (remoteConfiguration.hasKey(fieldName)) {
+                remoteConfiguration.getArray("preChatConfiguration")?.getMap(0)
+                  ?.getArray("preChatFields")
+                  ?.toArrayList()?.forEach { filledField ->
+                    filledField as ReadableMap
+                    filledField.getString("name")?.let { name ->
+                      if (name == fieldName) {
+                        filledField.getString("value")?.let { value ->
+                          field.userInput = value
+                        }
                       }
                     }
                   }
-                }
               }
             }
           }
 
           val result: Result<Conversation> =
-            conversationClient?.submitRemoteConfiguration(remoteConfiguration!!, createConversationOnSubmit)
+            conversationClient?.submitRemoteConfiguration(
+              this@SalesforceMessagingInAppModule.remoteConfiguration!!,
+              createConversationOnSubmit
+            )
               ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             promise.resolve(true)
