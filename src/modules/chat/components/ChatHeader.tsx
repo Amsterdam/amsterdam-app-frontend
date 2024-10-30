@@ -60,10 +60,6 @@ export const ChatHeader = () => {
     Keyboard.dismiss()
   }
 
-  const toggleChatMenu = () => {
-    setChatMenuVisible(state => !state)
-  }
-
   return (
     <View
       onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
@@ -83,7 +79,7 @@ export const ChatHeader = () => {
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={toggleChatMenu}
+                onPress={() => setChatMenuVisible(visibility => !visibility)}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />
