@@ -19,8 +19,11 @@ import com.salesforce.android.smi.core.CoreClient
 import com.salesforce.android.smi.core.CoreConfiguration
 import com.salesforce.android.smi.core.data.domain.businessHours.BusinessHoursInfo
 import com.salesforce.android.smi.core.data.domain.conversationEntry.entryPayload.event.typing.TypingIndicatorStatus
+import com.salesforce.android.smi.core.data.domain.remoteConfiguration.DeploymentType
+import com.salesforce.android.smi.core.data.domain.remoteConfiguration.PreChatConfiguration
 import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteConfiguration
 import com.salesforce.android.smi.core.events.CoreEvent
+import com.salesforce.android.smi.network.data.domain.conversation.Conversation
 import com.salesforce.android.smi.network.data.domain.conversationEntry.ConversationEntry
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.EntryPayload
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries.ParticipantClientMenu
@@ -33,6 +36,14 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
+import com.salesforce.android.smi.network.data.domain.prechat.FormField
+import com.salesforce.android.smi.network.data.domain.prechat.PreChatField
+import com.salesforce.android.smi.network.data.domain.prechat.PreChatFieldType
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceList
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListConfiguration
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValue
+import com.salesforce.android.smi.network.data.domain.prechat.choicelist.ChoiceListValueDependency
+import com.salesforce.android.smi.network.data.domain.prechat.termsAndConditions.TermsAndConditions
 import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
@@ -51,6 +62,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var config: Configuration? = null
   private var coreClient: CoreClient? = null
   private var conversationClient: ConversationClient? = null
+  private var remoteConfiguration: RemoteConfiguration? = null
   private var supervisorJob = SupervisorJob()
   private var scope = MainScope()
   // private var scope = CoroutineScope(Dispatchers.IO + this.supervisorJob)
@@ -112,13 +124,84 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val remoteConfig: Result<RemoteConfiguration> =
             coreClient?.retrieveRemoteConfiguration()
               ?: throw IllegalStateException("Failed to retrieve remote configuration")
-          // remoteConfig.data
           if (remoteConfig is Result.Success) {
-            promise.resolve(remoteConfig.toString())
+            remoteConfiguration= remoteConfig.data
+            val remoteConfigMap = Arguments.createMap()
+            remoteConfigMap.putString("name", remoteConfig.data.name)
+            remoteConfigMap.putString("deploymentType", remoteConfig.data.deploymentType.toString())
+            remoteConfigMap.putDouble("timestamp", (remoteConfig.data.timestamp/1000).toDouble())
+            remoteConfigMap.putMap("choiceListConfiguration", Arguments.createMap().apply {
+              putArray(
+                "choiceLists",
+                Arguments.createArray().apply {
+                  remoteConfig.data.choiceListConfiguration?.choiceList?.forEach { choice ->
+                    val choiceMap = Arguments.createMap()
+                    choiceMap.putString("identifier", choice.choiceListId)
+                    choiceMap.putArray(
+                      "values",
+                      Arguments.createArray().apply {
+                        choice.choiceListValues.forEach { value ->
+                          val valueMap = Arguments.createMap()
+                          valueMap.putString("label", value.label)
+                          valueMap.putString("valueId", value.choiceListValueId)
+                          valueMap.putString("valueName", value.choiceListValueName)
+                          valueMap.putInt("order", value.order)
+                          valueMap.putBoolean("isDefaultValue", value.isDefaultValue)
+                          pushMap(valueMap)
+                        }
+                      }
+                    )
+                    pushMap(choiceMap)
+                  }
+                }
+              )
+
+              putArray(
+                "valueDependencies",
+                Arguments.createArray().apply {
+                  remoteConfig.data.choiceListConfiguration?.choiceListValueDependencies?.forEach { dependency ->
+                    val dependencyMap = Arguments.createMap()
+                    dependencyMap.putString("childId", dependency.childChoiceListValueId)
+                    dependencyMap.putString("parentId", dependency.parentChoiceListValueId)
+                    pushMap(dependencyMap)
+                  }
+                }
+              )
+            })
+            remoteConfigMap.putArray("preChatConfiguration", Arguments.createArray().apply {
+              remoteConfig.data.forms.forEach { form ->
+                pushMap(
+                  Arguments.createMap().apply {
+                    putString("formType", form.formType.toString())
+                    putArray(
+                      "hiddenPreChatFields",
+                      Arguments.createArray().apply {
+                        form.hiddenFormFields.forEach { field ->
+                          pushMap(convertPreChatFieldToMap(field))
+                        }
+                      }
+                    )
+                    putArray(
+                      "preChatFields",
+                      Arguments.createArray().apply {
+                        form.formFields.forEach { field ->
+                          pushMap(convertPreChatFieldToMap(field))
+                        }
+                      }
+                    )
+                  }
+                )
+              }
+            })
+            remoteConfigMap.putMap("termsAndConditions", Arguments.createMap().apply {
+              putString("label", remoteConfig.data.termsAndConditions?.label)
+              putBoolean("isEnabled", remoteConfig.data.termsAndConditions?.isTermsAndConditionsEnabled ?: false)
+              putBoolean("isRequired", remoteConfig.data.termsAndConditions?.isTermsAndConditionsRequired ?: false)
+            })
+            promise.resolve(remoteConfigMap)
           } else {
             promise.reject("Error", remoteConfig.toString())
           }
@@ -206,6 +289,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     }
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  override fun generateUUID(): String {
+    return UUID.randomUUID().toString()
+  }
+
   private fun parseRole(role: String?): String? {
     return when (role) {
       "EndUser" -> "USER"
@@ -244,13 +332,28 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     return array
   }
 
+  private fun convertPreChatFieldToMap(field: PreChatField): WritableMap {
+    return Arguments.createMap().apply {
+      putBoolean("editable", field.isEditable)
+      putBoolean("isHidden", field.isHidden)
+      putString("label", field.labels.display)
+      putInt("maxLength", field.maxLength)
+      putString("name", field.name)
+      putInt("order", field.order)
+      putBoolean("required", field.required)
+      putString("type", field.type.toString())
+      putString("errorType", field.errorType.toString())
+      putString("value", field.userInput)
+    }
+  }
+
   private fun convertEntryToMap(entry: ConversationEntry): WritableMap {
     val map = Arguments.createMap()
     map.putString("entryId", entry.entryId)
     map.putMap("sender", convertParticipantToMap(entry.sender))
     map.putString("senderDisplayName", entry.senderDisplayName)
     map.putString("messageType", entry.entryType.toString())
-    map.putInt("timestamp", entry.timestamp.toInt())
+    map.putDouble("timestamp", (entry.timestamp/1000).toDouble())
     map.putString("conversationId", entry.conversationId.toString())
     map.putString("status", entry.status.toString())
     map.putString("format", entry.payload.entryType.toString())
@@ -442,11 +545,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
 
       is EntryPayload.TypingIndicatorPayload -> {
-        map.putInt("startedTimestamp", payload.startedTimestamp.toInt())
+        map.putDouble("startedTimestamp", (payload.startedTimestamp/1000).toDouble())
       }
 
       is EntryPayload.TypingStartedIndicatorPayload -> {
-        map.putInt("startedTimestamp", payload.timestamp.toInt())
+        map.putDouble("startedTimestamp", (payload.timestamp/1000).toDouble())
       }
 
       is EntryPayload.TypingStoppedIndicatorPayload -> {
@@ -470,13 +573,59 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val result: Result<ConversationEntry> =
             conversationClient?.sendMessage(message)
               ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             //            val params = convertEntryToMap(result.data)
             // Emit the event with message data
+            promise.resolve(true)
+          } else {
+            promise.reject("Error", result.toString())
+          }
+        } catch (e: Exception) {
+          promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+      // Catch any exception and reject the promise
+      promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
+  }
+
+
+  @ReactMethod
+  override fun submitRemoteConfiguration(remoteConfig: ReadableMap, createConversationOnSubmit: Boolean, promise: Promise) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+
+      scope.launch {
+        try {
+          remoteConfiguration?.forms?.forEach { form ->
+            form.formFields.forEach { field ->
+              val fieldName = field.name
+              if (remoteConfig.hasKey(fieldName)) {
+                remoteConfig.getArray("preChatConfiguration")?.getMap(0)?.getArray("preChatFields")?.toArrayList()?.forEach { filledField ->
+                  filledField as ReadableMap
+                  filledField.getString("name")?.let { name ->
+                    if (name == fieldName) {
+                      filledField.getString("value")?.let { value ->
+                        field.userInput = value
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          val result: Result<Conversation> =
+            conversationClient?.submitRemoteConfiguration(remoteConfiguration!!, createConversationOnSubmit)
+              ?: throw IllegalStateException("Failed to send message")
+          if (result is Result.Success) {
             promise.resolve(true)
           } else {
             promise.reject("Error", result.toString())
@@ -540,7 +689,6 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       FileOutputStream(tempFile).use { fos -> fos.write(decodedBytes) }
       scope.launch {
         try {
-          // Since retrieveRemoteConfiguration is a suspend function, we can call it here
           val result: Result<ConversationEntry> =
             conversationClient?.sendImage(tempFile)
               ?: throw IllegalStateException("Failed to send message")

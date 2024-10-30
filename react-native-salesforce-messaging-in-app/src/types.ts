@@ -10,15 +10,22 @@ export enum PreChatFieldTypes {
 
 export type PreChatField = {
   editable: boolean
-  identifier: string
+  /**
+   * @deprecated Android only
+   */
+  errorType: string
+  /**
+   * @deprecated iOS only
+   */
+  identifier: string | undefined
   isHidden: boolean
-  label: string
+  label?: string
   maxLength: number
   name: string
   order: number
   required: boolean
   type: PreChatFieldTypes
-  value: string
+  value?: string
 }
 
 export type ChoiceListValue = {
@@ -53,6 +60,11 @@ export type RemoteConfiguration = {
       preChatFields: PreChatField[]
     },
   ]
+  termsAndConditions: {
+    isEnabled: boolean
+    isRequired?: boolean
+    label?: string
+  }
   timestamp: number
 }
 
@@ -80,6 +92,7 @@ export type NativeSalesforceMessagingInApp = {
     organizationId: string,
     developerName: string,
   ) => Promise<void>
+  generateUUID: () => string
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendImage: (imageBase64: string, fileName: string) => Promise<void>
@@ -87,6 +100,10 @@ export type NativeSalesforceMessagingInApp = {
   sendPDF: (filePath: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
+  submitRemoteConfiguration: (
+    remoteConfiguration: RemoteConfiguration,
+    createConversationOnSubmit: boolean,
+  ) => Promise<void>
 }
 
 export enum ConversationEntryFormat {

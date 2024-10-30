@@ -14,6 +14,7 @@ import {
   type CoreConfig,
   type NativeSalesforceMessagingInApp,
   Choice,
+  RemoteConfiguration,
 } from './types'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
@@ -80,6 +81,17 @@ export const sendImage = (imageBase64: string, fileName: string) =>
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
 
+export const generateUUID = () => SalesforceMessagingInApp.generateUUID()
+
+export const submitRemoteConfiguration = (
+  remoteConfiguration: RemoteConfiguration,
+  createConversationOnSubmit: boolean,
+) =>
+  SalesforceMessagingInApp.submitRemoteConfiguration(
+    remoteConfiguration,
+    createConversationOnSubmit,
+  )
+
 export const checkIfInBusinessHours = () =>
   SalesforceMessagingInApp.checkIfInBusinessHours()
 
@@ -87,7 +99,7 @@ export const useCreateChat = ({
   developerName,
   organizationId,
   url,
-  conversationId,
+  conversationId = generateUUID(),
 }: CoreConfig & {
   conversationId?: string
 }) => {
@@ -104,6 +116,9 @@ export const useCreateChat = ({
   const onTypingStoppedSubscription = useRef<EmitterSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
   const [isTyping, setIsTyping] = useState<ConversationEntry | false>(false)
+  const [remoteConfiguration, setRemoteConfiguration] = useState<
+    RemoteConfiguration | undefined
+  >()
   const [networkStatus, setNetworkStatus] = useState<ConversationEntry | null>(
     null,
   )
@@ -121,7 +136,10 @@ export const useCreateChat = ({
     if (developerName && organizationId && url) {
       setParticipants([])
       setMessages([])
+      setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
+        void retrieveRemoteConfiguration().then(setRemoteConfiguration)
+
         if (onNewMessageSubscription.current) {
           onNewMessageSubscription.current.remove()
           onNewMessageSubscription.current = null
@@ -247,5 +265,6 @@ export const useCreateChat = ({
     ready,
     participants,
     employeeInChat,
+    remoteConfiguration,
   }
 }

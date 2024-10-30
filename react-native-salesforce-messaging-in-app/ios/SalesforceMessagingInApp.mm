@@ -16,6 +16,7 @@ RCT_EXPORT_MODULE()
 SMICoreConfiguration *config;
 id<SMICoreClient> coreClient;
 id<SMIConversationClient> conversationClient;
+id<SMIRemoteConfiguration> remoteConfiguration;
 NSMutableArray<id<SMIChoice>> *receivedChoices;
 
 RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
@@ -148,6 +149,7 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
             // Handle the error by rejecting the promise
             reject(@"retrieve_remote_config_failed", @"Failed to retrieve remote configuration", error);
         } else if (remoteConfig != nil) {
+            remoteConfiguration = remoteConfig;
             // Manually construct a dictionary from the properties of remoteConfig
             NSMutableDictionary *configData = [NSMutableDictionary dictionary];
             
@@ -281,6 +283,93 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
             reject(@"unexpected_error", @"Unknown error", unexpectedError);
         }
     }];
+}
+
+
+RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationDict
+                  createConversationOnSubmit:(BOOL)createConversationOnSubmit
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the conversation client has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_reply_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        id<SMIRemoteConfiguration> remoteConfig = remoteConfiguration;
+
+        // Get the pre-chat fields from the remote config.
+        NSArray *preChatFields = remoteConfiguration.preChatConfiguration.firstObject.preChatFields;
+        NSArray *filledPreChatFields = remoteConfigurationDict[@"preChatConfiguration"][0][@"preChatFields"];
+        if (preChatFields != nil) {
+            // Set the pre-chat values.
+            for (id field in preChatFields) {
+                NSString *fieldName = [field valueForKey:@"name"];  // Get the name of the field.
+                
+                // Ensure that fieldName is a valid string.
+                if (![fieldName isKindOfClass:[NSString class]]) {
+                    continue; // Skip if fieldName isn't a valid string.
+                }
+                
+                // Find the corresponding field in filledPreChatFields with the same name.
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", fieldName];
+                id matchingField = [[filledPreChatFields filteredArrayUsingPredicate:predicate] firstObject];
+                
+                // If a matching field is found, set its value.
+                if (matchingField != nil) {
+                    NSString *fieldValue = matchingField[@"value"];
+                    
+                    // Ensure fieldValue is a valid string before setting.
+                    if ([fieldValue isKindOfClass:[NSString class]]) {
+                        // Use Key-Value Coding to set the value safely.
+                        [field setValue:fieldValue forKey:@"value"];
+                    }
+                }
+            }
+        }
+        // Get the pre-chat fields from the remote config.
+        NSArray *hiddenPreChatFields = remoteConfiguration.preChatConfiguration.firstObject.hiddenPreChatFields;
+        NSArray *filledHiddenPreChatFields = remoteConfigurationDict[@"preChatConfiguration"][0][@"hiddenPreChatFields"];
+        if (hiddenPreChatFields != nil) {
+            // Set the pre-chat values.
+            for (id field in hiddenPreChatFields) {
+                NSString *fieldName = [field valueForKey:@"name"];  // Get the name of the field.
+                
+                // Ensure that fieldName is a valid string.
+                if (![fieldName isKindOfClass:[NSString class]]) {
+                    continue; // Skip if fieldName isn't a valid string.
+                }
+                
+                // Find the corresponding field in filledHiddenPreChatFields with the same name.
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", fieldName];
+                id matchingField = [[filledHiddenPreChatFields filteredArrayUsingPredicate:predicate] firstObject];
+                
+                // If a matching field is found, set its value.
+                if (matchingField != nil) {
+                    NSString *fieldValue = matchingField[@"value"];
+                    
+                    // Ensure fieldValue is a valid string before setting.
+                    if ([fieldValue isKindOfClass:[NSString class]]) {
+                        // Use Key-Value Coding to set the value safely.
+                        [field setValue:fieldValue forKey:@"value"];
+                    }
+                }
+            }
+        }
+        [conversationClient submitRemoteConfiguration:remoteConfig createConversationOnSubmit:createConversationOnSubmit];
+        resolve(@(YES));
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"sendReply Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"send_reply_exception", @"An exception occurred during sendReply", error);
+    }
 }
 
 RCT_EXPORT_METHOD(sendMessage:(NSString *)message
@@ -453,6 +542,13 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
                                          userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
         reject(@"send_image_exception", @"An exception occurred during sendImage", error);
     }
+}
+
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
+{
+    NSUUID *uuid;
+    uuid = [NSUUID UUID];
+    return [uuid UUIDString];
 }
 
 - (NSDictionary *)parseChoiceToDictionary:(id<SMIChoice>)choice
