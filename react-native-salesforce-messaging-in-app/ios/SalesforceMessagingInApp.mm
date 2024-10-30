@@ -481,7 +481,7 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     for (id<SMIFileAsset> attachment in attachments) {
         NSMutableDictionary *attachmentDict = [NSMutableDictionary dictionary];
         attachmentDict[@"name"] = attachment.name;
-        attachmentDict[@"identifier"] = attachment.identifier;
+        attachmentDict[@"id"] = attachment.identifier;
         attachmentDict[@"mimeType"] = attachment.mimeType;
         attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
         NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
