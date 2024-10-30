@@ -360,11 +360,9 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
                     }
                 }
             }
-
-            // Update the remote config with the modified fields.
         }
         [conversationClient submitRemoteConfiguration:remoteConfig createConversationOnSubmit:createConversationOnSubmit];
-
+        resolve(@(YES));
     } @catch (NSException *exception) {
         // Handle exceptions by rejecting the promise
         NSError *error = [NSError errorWithDomain:@"sendReply Exception"
