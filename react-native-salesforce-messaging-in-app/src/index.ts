@@ -81,6 +81,9 @@ export const sendImage = (imageBase64: string, fileName: string) =>
 export const retrieveRemoteConfiguration = () =>
   SalesforceMessagingInApp.retrieveRemoteConfiguration()
 
+export const retrieveTranscript = () =>
+  SalesforceMessagingInApp.retrieveTranscript()
+
 export const generateUUID = () => SalesforceMessagingInApp.generateUUID()
 
 export const submitRemoteConfiguration = (
