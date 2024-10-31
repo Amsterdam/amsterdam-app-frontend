@@ -1,4 +1,4 @@
-import {ReactNode} from 'react'
+import {ReactNode, useState} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
@@ -9,8 +9,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
+import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {useChat} from '@/modules/chat/slice'
-import {devLog} from '@/processes/development'
 import {useTheme} from '@/themes/useTheme'
 
 type WrapperProps = {
@@ -37,6 +37,8 @@ const PressableWhenMinimized = ({
 
 export const ChatHeader = () => {
   const {isMaximized, toggleVisibility} = useChat()
+  const [isChatMenuVisible, setChatMenuVisible] = useState(false)
+  const [height, setHeight] = useState(0)
 
   const {color} = useTheme()
   const insets = useSafeAreaInsets()
@@ -59,7 +61,9 @@ export const ChatHeader = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
+      style={styles.container}>
       <Box testID="ChatHeader">
         <PressableWhenMinimized
           isMaximized={isMaximized}
@@ -75,7 +79,7 @@ export const ChatHeader = () => {
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={() => devLog('ChatMenuButton')}
+                onPress={() => setChatMenuVisible(visibility => !visibility)}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />
@@ -98,6 +102,7 @@ export const ChatHeader = () => {
           </Row>
         </PressableWhenMinimized>
       </Box>
+      {!!isChatMenuVisible && <ChatMenu headerHeight={height} />}
     </View>
   )
 }
@@ -106,6 +111,7 @@ const createStyles = (insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
       paddingTop: insets.top,
+      zIndex: 1,
     },
     pressableWhenMinimized: {
       flexGrow: 1,
