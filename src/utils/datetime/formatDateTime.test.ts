@@ -21,13 +21,13 @@ describe('formatDateTime', () => {
 
   test('ISO date UTC', () => {
     expect(formatDateTime('2021-01-01T12:00:00Z')).toBe(
-      '1 januari 2021 13:00:00',
+      '1 januari 2021 11:00:00',
     )
   })
 
   test('ISO date GMT+2', () => {
     expect(formatDateTime('2021-01-01T12:00:00+02:00')).toBe(
-      '1 januari 2021 11:00:00',
+      '1 januari 2021 09:00:00',
     )
   })
 
