@@ -12,6 +12,7 @@ import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 const BOT_NAME = 'Chatbot Gemeente Amsterdam'
 
 type Props = {
+  isLast: boolean
   isLastOfType: boolean
   message: ConversationEntry
 }

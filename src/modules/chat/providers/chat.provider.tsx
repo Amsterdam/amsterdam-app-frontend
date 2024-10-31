@@ -5,6 +5,10 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
+  ConversationEntryRoutingType,
+  ConversationEntrySenderRole,
+  ParticipantChangedOperationType,
   RemoteConfiguration,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
@@ -15,6 +19,7 @@ type ChatContextType = {
   messages: ConversationEntry[]
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
+  waitingForAgent: boolean
 }
 
 const initialValue: ChatContextType = {
@@ -22,6 +27,7 @@ const initialValue: ChatContextType = {
   ready: false,
   employeeInChat: false,
   remoteConfiguration: undefined,
+  waitingForAgent: false,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -75,6 +81,22 @@ export const ChatProvider = ({children}: Props) => {
       ready,
       employeeInChat,
       remoteConfiguration,
+      waitingForAgent:
+        messages.some(
+          message =>
+            message.format === ConversationEntryFormat.routingResult &&
+            message.routingType === ConversationEntryRoutingType.transfer,
+        ) &&
+        !messages.some(
+          message =>
+            message.format === ConversationEntryFormat.participantChanged &&
+            message.operations.some(
+              operation =>
+                operation.type === ParticipantChangedOperationType.add &&
+                operation.participant.role ===
+                  ConversationEntrySenderRole.employee,
+            ),
+        ),
     }),
     [employeeInChat, isTyping, messages, ready, remoteConfiguration],
   )

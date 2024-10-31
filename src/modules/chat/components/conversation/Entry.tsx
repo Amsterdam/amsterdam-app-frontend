@@ -8,12 +8,16 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {EntryAttachments} from '@/modules/chat/components/conversation/EntryAttachments'
 import {EntryChoices} from '@/modules/chat/components/conversation/EntryChoices'
+import {EntryParticipantChanged} from '@/modules/chat/components/conversation/EntryParticipantChanged'
 import {EntryRichLink} from '@/modules/chat/components/conversation/EntryRichLink'
+import {EntryRoutingResult} from '@/modules/chat/components/conversation/EntryRoutingResult'
+import {EntryRoutingWorkResult} from '@/modules/chat/components/conversation/EntryRoutingWorkResult'
 import {EntrySelections} from '@/modules/chat/components/conversation/EntrySelections'
 import {EntryText} from '@/modules/chat/components/conversation/EntryText'
 import {EntryTypingIndicator} from '@/modules/chat/components/conversation/EntryTypingIndicator'
 
 type Props = {
+  isLast: boolean
   isLastOfRole: boolean
   message: ConversationEntry
 }
@@ -22,9 +26,9 @@ const options: Record<
   ConversationEntryFormat,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Component?: FC<{isLastOfType: boolean; message: any}>
+    Component?: FC<{isLast: boolean; isLastOfType: boolean; message: any}>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    LastComponent?: FC<{isLastOfType: boolean; message: any}>
+    LastComponent?: FC<{isLast: boolean; isLastOfType: boolean; message: any}>
     agentInfo?: boolean
   }
 > = {
@@ -32,10 +36,12 @@ const options: Record<
     Component: EntrySelections,
     agentInfo: true,
   },
-  [ConversationEntryFormat.text]: {Component: EntryText, agentInfo: true},
+  [ConversationEntryFormat.text]: {
+    Component: EntryText,
+    agentInfo: true,
+  },
   [ConversationEntryFormat.attachments]: {
     Component: EntryAttachments,
-    LastComponent: undefined,
     agentInfo: false,
   },
   [ConversationEntryFormat.carousel]: {
@@ -64,9 +70,8 @@ const options: Record<
     agentInfo: true,
   },
   [ConversationEntryFormat.participantChanged]: {
-    Component: undefined,
-    LastComponent: undefined,
-    agentInfo: undefined,
+    Component: EntryParticipantChanged,
+    agentInfo: false,
   },
   [ConversationEntryFormat.quickReplies]: {
     Component: EntryText,
@@ -83,14 +88,12 @@ const options: Record<
     agentInfo: true,
   },
   [ConversationEntryFormat.routingResult]: {
-    Component: undefined,
-    LastComponent: undefined,
-    agentInfo: undefined,
+    Component: EntryRoutingResult,
+    agentInfo: false,
   },
   [ConversationEntryFormat.routingWorkResult]: {
-    Component: undefined,
-    LastComponent: undefined,
-    agentInfo: undefined,
+    Component: EntryRoutingWorkResult,
+    agentInfo: false,
   },
   [ConversationEntryFormat.typingStartedIndicator]: {
     Component: EntryTypingIndicator,
@@ -113,7 +116,7 @@ const options: Record<
   },
 }
 
-export const Entry = ({message, isLastOfRole}: Props) => {
+export const Entry = ({message, isLast, isLastOfRole}: Props) => {
   const result = options[message.format]
 
   if (!result) {
@@ -122,16 +125,22 @@ export const Entry = ({message, isLastOfRole}: Props) => {
 
   const {Component, agentInfo, LastComponent} = result
 
+  if (!Component && !LastComponent && !agentInfo) {
+    return null
+  }
+
   return (
     <Animated.View entering={SlideInDown}>
       {!!Component && (
         <Component
+          isLast={isLast}
           isLastOfType={isLastOfRole}
           message={message}
         />
       )}
       {!!agentInfo && (
         <ChatAgentInfo
+          isLast={isLast}
           isLastOfType={isLastOfRole}
           message={message}
         />
@@ -139,6 +148,7 @@ export const Entry = ({message, isLastOfRole}: Props) => {
       <Gutter height={isLastOfRole ? 'md' : 'sm'} />
       {!!LastComponent && (
         <LastComponent
+          isLast={isLast}
           isLastOfType={isLastOfRole}
           message={message}
         />

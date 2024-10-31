@@ -307,6 +307,9 @@ export type ConversationEntryTypingStoppedIndicator = ConversationEntryBase & {
   startedTimestamp: number
 }
 export type ConversationEntryRoutingResult = ConversationEntryBase & {
+  /**
+   * Estimated wait time in seconds.
+   */
   estimatedWaitTime: number
   failureReason: string
   failureType: ConversationEntryRoutingFailureType
