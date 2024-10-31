@@ -48,13 +48,21 @@ export const ChatMenu = ({headerHeight}: Props) => {
   )
 }
 
-const createStyles = ({color, z}: Theme, headerHeight: number) =>
+const createStyles = ({color, z, size}: Theme, headerHeight: number) =>
   StyleSheet.create({
     container: {
       position: 'absolute',
-      left: 0,
+      left: size.spacing.sm,
       top: headerHeight,
       backgroundColor: color.box.distinct,
       zIndex: z.tooltip,
+      elevation: 2,
+      shadowColor: color.shadow.default,
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowRadius: 4,
+      shadowOpacity: 0.3,
     },
   })
