@@ -11,6 +11,7 @@ import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
 import {useToggle} from '@/hooks/useToggle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {ChatMenu} from '@/modules/chat/components/ChatMenu'
+import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
 import {useTheme} from '@/themes/useTheme'
 
@@ -89,7 +90,12 @@ export const ChatHeader = () => {
                 testID="ChatHeaderMeatballsMenuButton"
               />
             </Animated.View>
-            <ScreenTitle text="Chat" />
+            <Row
+              gutter="xs"
+              valign="center">
+              <NewMessageIndicator />
+              <ScreenTitle text="Chat" />
+            </Row>
             <Animated.View style={expandIconStyle}>
               <IconButton
                 icon={

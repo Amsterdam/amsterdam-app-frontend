@@ -704,6 +704,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     // Convert the extracted properties into a dictionary
     NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
     messageDict[@"entryId"] = entry.identifier;
+    messageDict[@"entryType"] = entry.type;
     messageDict[@"payloadDescription"] = entry.payload ? [entry.payload description] : @"";
     // messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
     messageDict[@"sender"] = [self parseParticipantToDictionary:entry.sender];
