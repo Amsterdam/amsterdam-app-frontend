@@ -106,7 +106,6 @@ export const ChatProvider = ({children}: Props) => {
       isWaitingForAgent,
       messages,
       newMessagesCount,
-      isWaitingForAgent,
       ready,
       remoteConfiguration,
     ],
