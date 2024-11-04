@@ -39,7 +39,7 @@ export const EntryAttachments = ({message}: Props) => (
       <ChatInlineMessage
         icon={convertMimeTypeToIcon(attachment.mimeType)}
         testID={`ChatMessageAttachment${attachment.mimeType}`}
-        text={`U heeft een ${convertMimeTypeToText(attachment.mimeType)} gedeeld.${attachment.file ? '\n' + attachment.file : ''}`}
+        text={`${message.sender.local ? 'U' : message.senderDisplayName} heeft een ${convertMimeTypeToText(attachment.mimeType)} gedeeld.${attachment.name ? '\n' + attachment.name : ''}`}
       />
     ))}
   </Column>
