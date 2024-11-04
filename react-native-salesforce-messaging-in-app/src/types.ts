@@ -128,6 +128,9 @@ export enum ConversationEntryFormat {
   webview = 'WebView',
 }
 
+/**
+ * @deprecated unverified values, use ConversationEntryFormat
+ */
 export enum ConversationEntryType {
   deliveryAcknowledgement = 'DeliveryAcknowledgement',
   message = 'Message',

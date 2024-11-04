@@ -704,7 +704,6 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     // Convert the extracted properties into a dictionary
     NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
     messageDict[@"entryId"] = entry.identifier;
-    messageDict[@"entryType"] = entry.type;
     messageDict[@"payloadDescription"] = entry.payload ? [entry.payload description] : @"";
     // messageDict[@"senderDisplayName"] = senderDisplayName ?: [NSNull null];
     messageDict[@"sender"] = [self parseParticipantToDictionary:entry.sender];
@@ -717,7 +716,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     messageDict[@"payloadId"] = payload.identifier ?: @"";
     messageDict[@"inReplyToEntryId"] = payload.inReplyToEntryId ?: @"";
     NSString * type = entry.type;
-    messageDict[@"type"] = type;
+    messageDict[@"entryType"] = type;
     if (format == SMIConversationFormatTypesAttachments) {
         id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
