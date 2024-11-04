@@ -4,7 +4,6 @@ import {
   ConversationEntry,
   ConversationEntryFormat,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {EntryAttachments} from '@/modules/chat/components/conversation/EntryAttachments'
 import {EntryChoices} from '@/modules/chat/components/conversation/EntryChoices'
@@ -151,7 +150,6 @@ export const Entry = ({message, isLast, isLastOfRole}: Props) => {
           message={message}
         />
       )}
-      <Gutter height={isLastOfRole ? 'md' : 'sm'} />
       {!!LastComponent && (
         <LastComponent
           isLast={isLast}
