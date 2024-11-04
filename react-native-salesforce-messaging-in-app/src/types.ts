@@ -97,7 +97,7 @@ export type NativeSalesforceMessagingInApp = {
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   sendImage: (imageBase64: string, fileName: string) => Promise<void>
   sendMessage: (message: string) => Promise<void>
-  sendPDF: (filePath: string) => Promise<void>
+  sendPDF: (filePath: string, fileName: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
   submitRemoteConfiguration: (

@@ -21,7 +21,7 @@ abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactA
   abstract fun sendMessage(message: String, promise: Promise)
   abstract fun sendReply(choice: ReadableMap, promise: Promise)
   abstract fun sendTypingEvent(promise: Promise)
-  abstract fun sendPDF(filePath: String, promise: Promise)
+  abstract fun sendPDF(filePath: String, fileName: String, promise: Promise)
   abstract fun sendImage(imageBase64: String, fileName: String, promise: Promise)
   abstract fun checkIfInBusinessHours(promise: Promise)
   abstract fun addListener(eventName: String)

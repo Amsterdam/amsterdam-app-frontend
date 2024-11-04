@@ -644,7 +644,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   @ReactMethod
-  override fun sendPDF(filePath: String, promise: Promise) {
+  override fun sendPDF(filePath: String, fileName: String, promise: Promise) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
@@ -654,10 +654,22 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       // Convert the filePath to a File
       val pdfFile = File(URI.create(filePath))
 
+      if (!pdfFile.exists()) {
+        promise.reject("FileNotFound", "PDF file not found at the specified path.")
+        return
+      }
+
+      // Define the new file path in the app's cache directory
+      val cacheDir = reactApplicationContext.cacheDir
+      val newPdfFile = File(cacheDir, fileName)
+
+      // Copy the original file to the new location with the new name
+      pdfFile.copyTo(newPdfFile, overwrite = true)
+
       scope.launch {
         try {
           val result: Result<ConversationEntry> =
-            conversationClient?.sendPdf(pdfFile)
+            conversationClient?.sendPdf(newPdfFile)
               ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {

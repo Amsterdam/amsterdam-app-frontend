@@ -468,6 +468,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
 }
 
 RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
+                  fileName:(NSString *)fileName
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -483,12 +484,37 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
         // Remove the 'file://' prefix if present
         NSString *pdfPath = [filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
 
-        // Create a NSURL object from the cleaned-up file path
-        NSURL *pdfURL = [NSURL fileURLWithPath:pdfPath];
+        // Check if the original PDF file exists
         if (![[NSFileManager defaultManager] fileExistsAtPath:pdfPath]) {
             reject(@"file_not_found", @"PDF file not found at path", nil);
             return;
         }
+        
+        // Define the new file path in the app's documents directory
+        // NSString *newFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+        //                          stringByAppendingPathComponent:fileName];
+        // Extract the directory of the original file (DocumentPicker directory)
+        NSString *documentPickerDirectory = [pdfPath stringByDeletingLastPathComponent];
+        
+        // Define the new file path in the DocumentPicker directory
+        NSString *newFilePath = [documentPickerDirectory stringByAppendingPathComponent:fileName];
+
+        // Remove any existing file at the destination path
+        if ([[NSFileManager defaultManager] fileExistsAtPath:newFilePath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:newFilePath error:nil];
+        }
+
+        // Copy the PDF to the new location with the new name
+        NSError *copyError = nil;
+        [[NSFileManager defaultManager] copyItemAtPath:pdfPath toPath:newFilePath error:&copyError];
+        
+        if (copyError) {
+            reject(@"file_copy_error", @"Failed to copy PDF file with new name", copyError);
+            return;
+        }
+
+        // Create a NSURL object from the cleaned-up file path
+        NSURL *pdfURL = [NSURL fileURLWithPath:newFilePath];
         PDFDocument *pdfDocument = [[PDFDocument alloc] initWithURL:pdfURL];
 
         if (pdfDocument == nil) {
