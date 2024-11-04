@@ -4,12 +4,14 @@ import {
   ConversationEntryParticipantChanged,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {ChatInlineMessage} from '@/modules/chat/components/ChatInlineMessage'
+import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 
 type Props = {
+  isLastOfRole: boolean
   message: ConversationEntryParticipantChanged
 }
 
-export const EntryParticipantChanged = ({message}: Props) => {
+export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
   const joiningEmployees = message.operations.some(
     operation =>
       operation.type === ParticipantChangedOperationType.add &&
@@ -27,6 +29,7 @@ export const EntryParticipantChanged = ({message}: Props) => {
         testID={`ChatSystemMessage${message.format}`}
         text="U chat nu met een medewerker"
       />
+      <EntryGutter isLastOfRole={isLastOfRole} />
     </>
   )
 }

@@ -5,10 +5,6 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
-  ConversationEntryFormat,
-  ConversationEntryRoutingType,
-  ConversationEntrySenderRole,
-  ParticipantChangedOperationType,
   RemoteConfiguration,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
@@ -16,10 +12,10 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 
 type ChatContextType = {
   employeeInChat: boolean
+  isWaitingForAgent: boolean
   messages: ConversationEntry[]
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
-  waitingForAgent: boolean
 }
 
 const initialValue: ChatContextType = {
@@ -27,7 +23,7 @@ const initialValue: ChatContextType = {
   ready: false,
   employeeInChat: false,
   remoteConfiguration: undefined,
-  waitingForAgent: false,
+  isWaitingForAgent: false,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -46,6 +42,7 @@ export const ChatProvider = ({children}: Props) => {
     ready,
     employeeInChat,
     remoteConfiguration,
+    isWaitingForAgent,
   } = useCreateChat({
     ...coreConfig,
     conversationId,
@@ -81,24 +78,16 @@ export const ChatProvider = ({children}: Props) => {
       ready,
       employeeInChat,
       remoteConfiguration,
-      waitingForAgent:
-        messages.some(
-          message =>
-            message.format === ConversationEntryFormat.routingResult &&
-            message.routingType === ConversationEntryRoutingType.transfer,
-        ) &&
-        !messages.some(
-          message =>
-            message.format === ConversationEntryFormat.participantChanged &&
-            message.operations.some(
-              operation =>
-                operation.type === ParticipantChangedOperationType.add &&
-                operation.participant.role ===
-                  ConversationEntrySenderRole.employee,
-            ),
-        ),
+      isWaitingForAgent,
     }),
-    [employeeInChat, isTyping, messages, ready, remoteConfiguration],
+    [
+      employeeInChat,
+      isTyping,
+      isWaitingForAgent,
+      messages,
+      ready,
+      remoteConfiguration,
+    ],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>

@@ -8,6 +8,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {EntryAttachments} from '@/modules/chat/components/conversation/EntryAttachments'
 import {EntryChoices} from '@/modules/chat/components/conversation/EntryChoices'
+import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 import {EntryParticipantChanged} from '@/modules/chat/components/conversation/EntryParticipantChanged'
 import {EntryRichLink} from '@/modules/chat/components/conversation/EntryRichLink'
 import {EntryRoutingResult} from '@/modules/chat/components/conversation/EntryRoutingResult'
@@ -26,23 +27,26 @@ const options: Record<
   ConversationEntryFormat,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Component?: FC<{isLast: boolean; isLastOfType: boolean; message: any}>
+    Component?: FC<{isLast: boolean; isLastOfRole: boolean; message: any}>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    LastComponent?: FC<{isLast: boolean; isLastOfType: boolean; message: any}>
+    LastComponent?: FC<{isLast: boolean; isLastOfRole: boolean; message: any}>
     agentInfo?: boolean
   }
 > = {
   [ConversationEntryFormat.selections]: {
     Component: EntrySelections,
     agentInfo: true,
+    LastComponent: EntryGutter,
   },
   [ConversationEntryFormat.text]: {
     Component: EntryText,
     agentInfo: true,
+    LastComponent: EntryGutter,
   },
   [ConversationEntryFormat.attachments]: {
     Component: EntryAttachments,
     agentInfo: false,
+    LastComponent: EntryGutter,
   },
   [ConversationEntryFormat.carousel]: {
     Component: undefined,
@@ -86,6 +90,7 @@ const options: Record<
   [ConversationEntryFormat.richLink]: {
     Component: EntryRichLink,
     agentInfo: true,
+    LastComponent: EntryGutter,
   },
   [ConversationEntryFormat.routingResult]: {
     Component: EntryRoutingResult,
@@ -98,6 +103,7 @@ const options: Record<
   [ConversationEntryFormat.typingStartedIndicator]: {
     Component: EntryTypingIndicator,
     agentInfo: false,
+    LastComponent: EntryGutter,
   },
   [ConversationEntryFormat.typingStoppedIndicator]: {
     Component: undefined,
@@ -134,14 +140,14 @@ export const Entry = ({message, isLast, isLastOfRole}: Props) => {
       {!!Component && (
         <Component
           isLast={isLast}
-          isLastOfType={isLastOfRole}
+          isLastOfRole={isLastOfRole}
           message={message}
         />
       )}
       {!!agentInfo && (
         <ChatAgentInfo
           isLast={isLast}
-          isLastOfType={isLastOfRole}
+          isLastOfRole={isLastOfRole}
           message={message}
         />
       )}
@@ -149,7 +155,7 @@ export const Entry = ({message, isLast, isLastOfRole}: Props) => {
       {!!LastComponent && (
         <LastComponent
           isLast={isLast}
-          isLastOfType={isLastOfRole}
+          isLastOfRole={isLastOfRole}
           message={message}
         />
       )}

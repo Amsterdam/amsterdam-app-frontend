@@ -15,6 +15,7 @@ import {
   type NativeSalesforceMessagingInApp,
   Choice,
   RemoteConfiguration,
+  ConversationEntryRoutingType,
 } from './types'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
@@ -123,6 +124,7 @@ export const useCreateChat = ({
     null,
   )
   const [participants, setParticipants] = useState<Participant[]>([])
+  const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
   const employeeInChat = useMemo(
     () =>
       participants.some(
@@ -179,6 +181,12 @@ export const useCreateChat = ({
                     ...currentParticipants,
                     participant,
                   ])
+
+                  if (
+                    participant.role === ConversationEntrySenderRole.employee
+                  ) {
+                    setIsWaitingForAgent(false)
+                  }
                 } else {
                   setParticipants(currentParticipants =>
                     currentParticipants.filter(
@@ -193,6 +201,11 @@ export const useCreateChat = ({
                   )
                 }
               })
+            } else if (
+              message.format === ConversationEntryFormat.routingResult &&
+              message.routingType === ConversationEntryRoutingType.transfer
+            ) {
+              setIsWaitingForAgent(true)
             }
           },
         )
@@ -266,5 +279,6 @@ export const useCreateChat = ({
     participants,
     employeeInChat,
     remoteConfiguration,
+    isWaitingForAgent,
   }
 }
