@@ -1,5 +1,9 @@
-import * as DocumentPicker from 'expo-document-picker'
-import * as ImagePicker from 'expo-image-picker'
+import {getDocumentAsync} from 'expo-document-picker'
+import {
+  launchCameraAsync,
+  launchImageLibraryAsync,
+  MediaTypeOptions,
+} from 'expo-image-picker'
 import {useCallback} from 'react'
 import {Alert, StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
@@ -32,8 +36,8 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
   } = usePermission(Permissions.camera)
 
   const addPhotoFromLibrary = useCallback(() => {
-    void ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    void launchImageLibraryAsync({
+      mediaTypes: MediaTypeOptions.Images,
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
@@ -78,8 +82,8 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
       await requestCameraPermission()
     }
 
-    void ImagePicker.launchCameraAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+    void launchCameraAsync({
+      mediaTypes: MediaTypeOptions.Images,
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
@@ -120,7 +124,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
     )
   }, [hasCameraPermission, requestCameraPermission, onSelect, trackException])
   const addPDF = useCallback(() => {
-    void DocumentPicker.getDocumentAsync({
+    void getDocumentAsync({
       type: 'application/pdf',
     }).then(
       result => {

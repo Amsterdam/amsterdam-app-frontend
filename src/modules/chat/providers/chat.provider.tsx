@@ -12,6 +12,7 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 
 type ChatContextType = {
   employeeInChat: boolean
+  isWaitingForAgent: boolean
   messages: ConversationEntry[]
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
@@ -22,6 +23,7 @@ const initialValue: ChatContextType = {
   ready: false,
   employeeInChat: false,
   remoteConfiguration: undefined,
+  isWaitingForAgent: false,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -40,6 +42,7 @@ export const ChatProvider = ({children}: Props) => {
     ready,
     employeeInChat,
     remoteConfiguration,
+    isWaitingForAgent,
   } = useCreateChat({
     ...coreConfig,
     conversationId,
@@ -75,8 +78,16 @@ export const ChatProvider = ({children}: Props) => {
       ready,
       employeeInChat,
       remoteConfiguration,
+      isWaitingForAgent,
     }),
-    [employeeInChat, isTyping, messages, ready, remoteConfiguration],
+    [
+      employeeInChat,
+      isTyping,
+      isWaitingForAgent,
+      messages,
+      ready,
+      remoteConfiguration,
+    ],
   )
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>

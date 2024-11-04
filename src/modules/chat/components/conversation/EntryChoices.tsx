@@ -8,12 +8,14 @@ import {
 import {Button} from '@/components/ui/buttons/Button'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
+import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 
 type Props = {
+  isLastOfRole: boolean
   message: ConversationEntryQuickReplies
 }
 
-export const EntryChoices = ({message: {choices}}: Props) => {
+export const EntryChoices = ({message: {choices}, isLastOfRole}: Props) => {
   const isSent = useSharedValue(false)
   const onPress = useCallback(
     (choice: Choice) => {
@@ -24,6 +26,7 @@ export const EntryChoices = ({message: {choices}}: Props) => {
 
   return choices && !isSent.value ? (
     <>
+      <Gutter height="sm" />
       <Row
         align="end"
         gutter="sm"
@@ -40,7 +43,7 @@ export const EntryChoices = ({message: {choices}}: Props) => {
           />
         ))}
       </Row>
-      <Gutter height="md" />
+      <EntryGutter isLastOfRole={isLastOfRole} />
     </>
   ) : null
 }

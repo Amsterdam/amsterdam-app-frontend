@@ -12,7 +12,8 @@ import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 const BOT_NAME = 'Chatbot Gemeente Amsterdam'
 
 type Props = {
-  isLastOfType: boolean
+  isLast: boolean
+  isLastOfRole: boolean
   message: ConversationEntry
 }
 
@@ -40,7 +41,7 @@ export const ChatAgentInfo = ({
     senderDisplayName,
     timestamp,
   },
-  isLastOfType,
+  isLastOfRole,
 }: Props) => {
   const styles = useThemable(theme =>
     createStyles(theme, role === ConversationEntrySenderRole.user),
@@ -51,7 +52,7 @@ export const ChatAgentInfo = ({
   }
 
   return (
-    !!isLastOfType && (
+    !!isLastOfRole && (
       <>
         <Gutter height="xs" />
         <View style={styles.container}>

@@ -1,11 +1,9 @@
 import {useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
-import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
-import {ChatSystemMessage} from '@/modules/chat/components/ChatSystemMessage'
 import {Entry} from '@/modules/chat/components/conversation/Entry'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
@@ -27,27 +25,19 @@ export const ChatHistory = () => {
         insetHorizontal="md">
         <Column>
           <ChatStartTime firstMessage={messages[0]} />
-          <Gutter height="md" />
+          <Gutter />
           {messages.map((message, index) => {
-            if (message.sender.role !== ConversationEntrySenderRole.system) {
-              const isLastOfRole =
-                messages[index + 1]?.sender.role !== message.sender.role
+            const isLastOfRole =
+              messages[index + 1]?.sender.role !== message.sender.role
 
-              return (
-                <Entry
-                  isLastOfRole={isLastOfRole}
-                  key={message.entryId}
-                  message={message}
-                />
-              )
-            } else {
-              return (
-                <ChatSystemMessage
-                  key={message.entryId}
-                  message={message}
-                />
-              )
-            }
+            return (
+              <Entry
+                isLast={index === messages.length - 1}
+                isLastOfRole={isLastOfRole}
+                key={message.entryId}
+                message={message}
+              />
+            )
           })}
         </Column>
       </Box>

@@ -86,8 +86,7 @@ const createStyles = (activeDotSize: number, inactiveDotSize: number) =>
     loadingDot: {
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal:
-        inactiveDotSize / 4 - (activeDotSize - inactiveDotSize) / 2,
+      marginHorizontal: (inactiveDotSize * 3) / 4 - activeDotSize / 2,
       borderRadius: DOT_BORDER_RADIUS,
       height: activeDotSize,
       width: activeDotSize,
