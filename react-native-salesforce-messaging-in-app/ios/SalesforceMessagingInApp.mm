@@ -484,16 +484,26 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
         // Remove the 'file://' prefix if present
         NSString *pdfPath = [filePath stringByReplacingOccurrencesOfString:@"file://" withString:@""];
 
-// Check if the original PDF file exists
+        // Check if the original PDF file exists
         if (![[NSFileManager defaultManager] fileExistsAtPath:pdfPath]) {
             reject(@"file_not_found", @"PDF file not found at path", nil);
             return;
         }
         
         // Define the new file path in the app's documents directory
-        NSString *newFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
-                                 stringByAppendingPathComponent:fileName];
+        // NSString *newFilePath = [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject]
+        //                          stringByAppendingPathComponent:fileName];
+        // Extract the directory of the original file (DocumentPicker directory)
+        NSString *documentPickerDirectory = [pdfPath stringByDeletingLastPathComponent];
         
+        // Define the new file path in the DocumentPicker directory
+        NSString *newFilePath = [documentPickerDirectory stringByAppendingPathComponent:fileName];
+
+        // Remove any existing file at the destination path
+        if ([[NSFileManager defaultManager] fileExistsAtPath:newFilePath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:newFilePath error:nil];
+        }
+
         // Copy the PDF to the new location with the new name
         NSError *copyError = nil;
         [[NSFileManager defaultManager] copyItemAtPath:pdfPath toPath:newFilePath error:&copyError];
@@ -505,10 +515,6 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
 
         // Create a NSURL object from the cleaned-up file path
         NSURL *pdfURL = [NSURL fileURLWithPath:newFilePath];
-        if (![[NSFileManager defaultManager] fileExistsAtPath:pdfPath]) {
-            reject(@"file_not_found", @"PDF file not found at path", nil);
-            return;
-        }
         PDFDocument *pdfDocument = [[PDFDocument alloc] initWithURL:pdfURL];
 
         if (pdfDocument == nil) {

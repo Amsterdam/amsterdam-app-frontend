@@ -1,6 +1,7 @@
 import {ConversationEntryAttachments} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Column} from '@/components/ui/layout/Column'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {ChatInlineMessage} from '@/modules/chat/components/ChatInlineMessage'
 
 type Props = {
@@ -36,11 +37,21 @@ const convertMimeTypeToIcon = (mimeType: string): SvgIconName => {
 export const EntryAttachments = ({message}: Props) => (
   <Column gutter="md">
     {message.attachments.map(attachment => (
-      <ChatInlineMessage
-        icon={convertMimeTypeToIcon(attachment.mimeType)}
-        testID={`ChatMessageAttachment${attachment.mimeType}`}
-        text={`${message.sender.local ? 'U' : message.senderDisplayName} heeft een ${convertMimeTypeToText(attachment.mimeType)} gedeeld.${attachment.name ? '\n' + attachment.name : ''}`}
-      />
+      <Column>
+        <ChatInlineMessage
+          icon={convertMimeTypeToIcon(attachment.mimeType)}
+          testID={`ChatMessageAttachment${attachment.mimeType}`}
+          text={`${message.sender.local ? 'U' : message.senderDisplayName} heeft een ${convertMimeTypeToText(attachment.mimeType)} gedeeld.`}
+        />
+        {!!attachment.name && (
+          <Phrase
+            color="secondary"
+            testID={'ChatMessageAttachmentFileName'}
+            textAlign="center">
+            {attachment.name}
+          </Phrase>
+        )}
+      </Column>
     ))}
   </Column>
 )
