@@ -125,16 +125,19 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
     }).then(
       result => {
         if (result.assets?.[0].uri) {
-          sendPDF(result.assets?.[0].uri).then(onSelect, error => {
-            Alert.alert(
-              'PDF opsturen is mislukt',
-              'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
-            )
+          sendPDF(result.assets?.[0].uri, result.assets?.[0].name).then(
+            onSelect,
+            error => {
+              Alert.alert(
+                'PDF opsturen is mislukt',
+                'Sorry, opsturen van het PDF document is mislukt. Probeer het later nog eens.',
+              )
 
-            trackException(ExceptionLogKey.chatSendPDF, fileName, {
-              error,
-            })
-          })
+              trackException(ExceptionLogKey.chatSendPDF, fileName, {
+                error,
+              })
+            },
+          )
         }
       },
       error => {
