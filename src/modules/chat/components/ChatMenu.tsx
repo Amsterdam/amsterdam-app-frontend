@@ -1,22 +1,10 @@
-import {
-  StorageAccessFramework,
-  writeAsStringAsync,
-  EncodingType,
-  documentDirectory,
-} from 'expo-file-system'
-import {shareAsync} from 'expo-sharing'
-import {Alert, Platform, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
-import {retrieveTranscript} from 'react-native-salesforce-messaging-in-app/src'
-import {Pressable} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Phrase} from '@/components/ui/text/Phrase'
-import {devLog} from '@/processes/development'
+import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
+import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
-import {dayjs} from '@/utils/datetime/dayjs'
-import {formatDateTime} from '@/utils/datetime/formatDateTime'
 
 type Props = {
   close: () => void
@@ -33,79 +21,21 @@ export const ChatMenu = ({headerHeight, close}: Props) => {
       exiting={FadeOut.duration(theme.duration.transition.short)}
       style={sheetStyles.container}>
       <Column halign="start">
-        <Pressable
-          onPress={async () => {
-            try {
-              close()
-              const result = await retrieveTranscript()
-              const fileName = `Chatgeschiedenis ${formatDateTime(dayjs())}.pdf`
-              const mimeType = 'application/pdf'
-              let uri: string | undefined
-
-              if (Platform.OS === 'android') {
-                const permissions =
-                  await StorageAccessFramework.requestDirectoryPermissionsAsync()
-
-                if (permissions.granted) {
-                  uri = await StorageAccessFramework.createFileAsync(
-                    permissions.directoryUri,
-                    fileName,
-                    mimeType,
-                  ).then(
-                    async safUri => {
-                      await writeAsStringAsync(safUri, result, {
-                        encoding: EncodingType.Base64,
-                      })
-
-                      return safUri
-                    },
-                    () => undefined,
-                  )
-                }
-              }
-
-              if (!uri) {
-                uri = `${documentDirectory}${fileName}`
-                await writeAsStringAsync(uri, result, {
-                  encoding: EncodingType.Base64,
-                })
-                void shareAsync(uri, {
-                  mimeType,
-                  UTI: 'com.adobe.pdf',
-                })
-              }
-
-              devLog('saved to file', uri)
-            } catch (error) {
-              Alert.alert('Chat downloaden mislukt')
-            }
-          }}
-          testID="ChatMenuPressableDownloadChat">
-          <Box
-            insetHorizontal="md"
-            insetVertical="sm">
-            <Phrase
-              color="link"
-              testID="ChatMenuPressableDownloadChatPhrase">
-              Chat downloaden
-            </Phrase>
-          </Box>
-        </Pressable>
-        <Pressable
+        <ChatMenuItem
+          color="link"
+          label="Chat downloaden"
           onPress={() => {
             close()
+            void downloadChat()
           }}
-          testID="ChatMenuPressableStopChat">
-          <Box
-            insetHorizontal="md"
-            insetVertical="sm">
-            <Phrase
-              color="warning"
-              testID="ChatMenuPressableStopChatPhrase">
-              Chat stoppen
-            </Phrase>
-          </Box>
-        </Pressable>
+          testID="ChatMenuPressableDownloadChat"
+        />
+        <ChatMenuItem
+          color="warning"
+          label="Chat stoppen"
+          onPress={close}
+          testID="ChatMenuPressableStopChat"
+        />
       </Column>
     </Animated.View>
   )
