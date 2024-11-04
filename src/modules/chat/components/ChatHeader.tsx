@@ -8,6 +8,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
+import {useToggle} from '@/hooks/useToggle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {useChat} from '@/modules/chat/slice'
@@ -37,7 +38,11 @@ const PressableWhenMinimized = ({
 
 export const ChatHeader = () => {
   const {isMaximized, toggleVisibility} = useChat()
-  const [isChatMenuVisible, setChatMenuVisible] = useState(false)
+  const {
+    value: isChatMenuVisible,
+    toggle: toggleIsChatMenuVisible,
+    disable: hideChatMenu,
+  } = useToggle(false)
   const [height, setHeight] = useState(0)
 
   const {color} = useTheme()
@@ -79,7 +84,7 @@ export const ChatHeader = () => {
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={() => setChatMenuVisible(visibility => !visibility)}
+                onPress={toggleIsChatMenuVisible}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />
@@ -102,7 +107,12 @@ export const ChatHeader = () => {
           </Row>
         </PressableWhenMinimized>
       </Box>
-      {!!isChatMenuVisible && <ChatMenu headerHeight={height} />}
+      {!!isChatMenuVisible && (
+        <ChatMenu
+          close={hideChatMenu}
+          headerHeight={height}
+        />
+      )}
     </View>
   )
 }

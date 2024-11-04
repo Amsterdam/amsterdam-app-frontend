@@ -1,17 +1,17 @@
 import {StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
-import {Pressable} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
+import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
+  close: () => void
   headerHeight: number
 }
 
-export const ChatMenu = ({headerHeight}: Props) => {
+export const ChatMenu = ({headerHeight, close}: Props) => {
   const theme = useTheme()
   const sheetStyles = createStyles(theme, headerHeight)
 
@@ -21,28 +21,21 @@ export const ChatMenu = ({headerHeight}: Props) => {
       exiting={FadeOut.duration(theme.duration.transition.short)}
       style={sheetStyles.container}>
       <Column halign="start">
-        <Pressable testID="ChatMenuPressableDownloadChat">
-          <Box
-            insetHorizontal="md"
-            insetVertical="sm">
-            <Phrase
-              color="link"
-              testID="ChatMenuPressableDownloadChatPhrase">
-              Chat downloaden
-            </Phrase>
-          </Box>
-        </Pressable>
-        <Pressable testID="ChatMenuPressableStopChat">
-          <Box
-            insetHorizontal="md"
-            insetVertical="sm">
-            <Phrase
-              color="warning"
-              testID="ChatMenuPressableStopChatPhrase">
-              Chat stoppen
-            </Phrase>
-          </Box>
-        </Pressable>
+        <ChatMenuItem
+          color="link"
+          label="Chat downloaden"
+          onPress={() => {
+            close()
+            void downloadChat()
+          }}
+          testID="ChatMenuPressableDownloadChat"
+        />
+        <ChatMenuItem
+          color="warning"
+          label="Chat stoppen"
+          onPress={close}
+          testID="ChatMenuPressableStopChat"
+        />
       </Column>
     </Animated.View>
   )

@@ -40,6 +40,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.filterIsInstance
 import kotlinx.coroutines.launch
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URI
@@ -809,6 +810,39 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
         // Catch any exception and reject the promise
         promise.reject("Error", "An error occurred: ${e.message}", e)
       }
+    }
+  }
+
+  @ReactMethod
+  override fun retrieveTranscript(promise: Promise) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+      scope.launch {
+        try {
+          val result = conversationClient?.retrieveTranscript()
+          if (result is Result.Success) {
+            val inputStream = result.data
+            val byteArrayOutputStream = ByteArrayOutputStream()
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
+            while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+              byteArrayOutputStream.write(buffer, 0, bytesRead)
+            }
+            val byteArray = byteArrayOutputStream.toByteArray()
+            val base64String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            promise.resolve(base64String)
+          } else {
+            promise.reject("Error", result.toString())
+          }
+        } catch (e: Exception) {
+          promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+      promise.reject("Error", "An error occurred: ${e.message}", e)
     }
   }
 

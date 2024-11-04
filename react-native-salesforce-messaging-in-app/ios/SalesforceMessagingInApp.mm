@@ -544,6 +544,13 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
                   reject:(RCTPromiseRejectBlock)reject)
 {
     @try {
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_image_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
         // Decode the Base64 string into NSData
         NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
 
@@ -570,6 +577,61 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     }
 }
 
+// Method to send the Base64-encoded image
+RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"retrieve_transcript_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+        // Call retrieveTranscript on the conversationClient
+        [conversationClient retrieveTranscript:^(PDFDocument * _Nullable pdfDocument, NSError * _Nullable error) {
+            if (error != nil) {
+                // Handle error by rejecting the promise
+                reject(@"retrieve_transcript_error", @"Failed to retrieve transcript", error);
+                return;
+            }
+
+            if (pdfDocument != nil) {
+                // Convert PDFDocument to NSData
+                NSData *pdfData = [pdfDocument dataRepresentation];
+                
+                if (pdfData == nil) {
+                    // Handle error in case PDF data is nil
+                    NSError *dataError = [NSError errorWithDomain:@"retrieveTranscript"
+                                                             code:500
+                                                         userInfo:@{NSLocalizedDescriptionKey: @"Failed to retrieve PDF data"}];
+                    reject(@"retrieve_transcript_data_error", @"Failed to retrieve PDF data", dataError);
+                    return;
+                }
+
+                // Encode the PDF data to a Base64 string
+                NSString *base64PdfString = [pdfData base64EncodedStringWithOptions:0];
+
+                // Resolve the promise with the Base64-encoded PDF string
+                resolve(base64PdfString);
+            } else {
+                // Handle case where pdfDocument is nil, though no error was returned
+                NSError *noPdfError = [NSError errorWithDomain:@"retrieveTranscript"
+                                                         code:500
+                                                     userInfo:@{NSLocalizedDescriptionKey: @"No PDF document returned"}];
+                reject(@"retrieve_transcript_no_pdf", @"No PDF document returned", noPdfError);
+            }
+        }];
+    } @catch (NSException *exception) {
+        // Catch and handle any exceptions by rejecting the promise
+        NSError *exceptionError = [NSError errorWithDomain:@"retrieveTranscriptException"
+                                                     code:500
+                                                 userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"retrieve_transcript_exception", @"An exception occurred during retrieveTranscript", exceptionError);
+    }
+}
+ 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
 {
     NSUUID *uuid;

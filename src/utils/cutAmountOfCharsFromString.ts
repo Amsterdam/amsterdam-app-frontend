@@ -16,4 +16,6 @@ export const cutAmountOfCharsFromString = ({
   if (position === 'end') {
     return text.slice(0, -amount)
   }
+
+  return text
 }
