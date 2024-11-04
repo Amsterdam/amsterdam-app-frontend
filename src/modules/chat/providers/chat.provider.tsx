@@ -5,12 +5,12 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
-  ConversationEntryType,
   RemoteConfiguration,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
+import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 type ChatContextType = {
   employeeInChat: boolean
@@ -55,10 +55,7 @@ export const ChatProvider = ({children}: Props) => {
   })
 
   useEffect(() => {
-    if (
-      isMinimized &&
-      messages[messages.length - 1]?.entryType === ConversationEntryType.message
-    ) {
+    if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
       setNewMessagesCount(count => count + 1)
     }
   }, [isMinimized, messages])
