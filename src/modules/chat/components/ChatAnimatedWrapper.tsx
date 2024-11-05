@@ -33,14 +33,14 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
   const theme = useTheme()
   const {isOpen} = useBottomSheet()
 
-  const [maxHeight, setMaxHeight] = useState<number>(0)
+  const {isMaximized} = useChat()
+  const [maxHeight, setMaxHeight] = useState(0)
   const height = useSharedValue(0)
   const bounce = useSharedValue(0)
+  const maximized = useSharedValue(isMaximized ? 1 : 0)
   const insets = useSafeAreaInsets()
   const {fontScale} = useDeviceContext()
-  const {isMaximized} = useChat()
   const {newMessagesCount} = useContext(ChatContext)
-  const maximized = useSharedValue(0)
 
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)
