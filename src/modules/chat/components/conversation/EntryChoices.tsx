@@ -1,5 +1,4 @@
-import {useCallback} from 'react'
-import {useSharedValue} from 'react-native-reanimated'
+import {useCallback, useState} from 'react'
 import {sendReply} from 'react-native-salesforce-messaging-in-app/src'
 import {
   Choice,
@@ -16,15 +15,12 @@ type Props = {
 }
 
 export const EntryChoices = ({message: {choices}, isLastOfRole}: Props) => {
-  const isSent = useSharedValue(false)
-  const onPress = useCallback(
-    (choice: Choice) => {
-      void sendReply(choice).then(() => (isSent.value = true))
-    },
-    [isSent],
-  )
+  const [isSent, setIsSent] = useState(false)
+  const onPress = useCallback((choice: Choice) => {
+    void sendReply(choice).then(() => setIsSent(true))
+  }, [])
 
-  return choices && !isSent.value ? (
+  return choices && !isSent ? (
     <>
       <Gutter height="sm" />
       <Row
