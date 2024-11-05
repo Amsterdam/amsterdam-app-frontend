@@ -36,6 +36,7 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
       rules: {
+        'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
         '@typescript-eslint/no-empty-function': 'warn',
         'react-hooks/exhaustive-deps': [

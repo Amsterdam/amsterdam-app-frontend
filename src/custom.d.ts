@@ -36,4 +36,16 @@ declare module '@env' {
   export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_TEST: string | undefined
   export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_ACC: string | undefined
   export const APPLICATION_INSIGHTS_INSTRUMENTATION_KEY_PROD: string | undefined
+  export const CHAT_DEVELOPER_NAME_DEV: string | undefined
+  export const CHAT_ORGANIZATION_ID_DEV: string | undefined
+  export const CHAT_URL_DEV: string | undefined
+  export const CHAT_DEVELOPER_NAME_TEST: string | undefined
+  export const CHAT_ORGANIZATION_ID_TEST: string | undefined
+  export const CHAT_URL_TEST: string | undefined
+  export const CHAT_DEVELOPER_NAME_ACC: string | undefined
+  export const CHAT_ORGANIZATION_ID_ACC: string | undefined
+  export const CHAT_URL_ACC: string | undefined
+  export const CHAT_DEVELOPER_NAME_PROD: string | undefined
+  export const CHAT_ORGANIZATION_ID_PROD: string | undefined
+  export const CHAT_URL_PROD: string | undefined
 }
