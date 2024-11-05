@@ -53,6 +53,7 @@ const config: StorybookConfig = {
         __DEV__: false,
         // process.env is causing a conflict with immer (dependency of redux) and Vite requires us to fix it like so
         'process.env': {
+          // eslint-disable-next-line no-process-env
           NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         },
       },

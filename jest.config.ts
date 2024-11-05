@@ -1,5 +1,6 @@
 import {Config} from 'jest'
 
+// eslint-disable-next-line no-process-env
 process.env.TZ = 'UTC+1'
 
 const config: Config = {
