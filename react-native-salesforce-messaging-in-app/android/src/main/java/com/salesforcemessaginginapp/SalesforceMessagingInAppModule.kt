@@ -55,6 +55,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var conversationClient: ConversationClient? = null
   private var remoteConfiguration: RemoteConfiguration? = null
   private var scope = MainScope()
+  private val choices: MutableList<OptionItem> = mutableListOf()
 
   override fun getName(): String {
     return NAME
@@ -231,13 +232,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
               when (entry) {
                 is CoreEvent.ConversationEvent.Entry -> {
                   val params = convertEntryToMap(entry.conversationEntry)
-                  // Don't emit the event if the format is "Selections" (Quick Replies)
-                  // This is because the event is already emitted when the user selects a
-                  // quick reply
-                  // Necessary because of SDK bug
-                  if (params.getString("format") != "Selections") {
-                    sendEvent("onNewMessage", params)
-                  }
+                  sendEvent("onNewMessage", params)
                 }
 
                 is CoreEvent.ConversationEvent.TypingIndicator -> {
@@ -359,6 +354,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   private fun convertTypedOptionItemToMap(option: OptionItem.TypedOptionItem): WritableMap {
+    choices.add(option)
     when (option) {
       is OptionItem.TypedOptionItem.ParticipantClientMenuOptionItem -> {
         return convertParticipantClientMenuOptionItemToMap(option)
@@ -732,35 +728,39 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val optionId =
-            choice.getString("optionId")
-              ?: throw IllegalArgumentException("optionId is required")
-          val parentEntryId = choice.getString("parentEntryId")
-          val title =
-            choice.getString("title") ?: throw IllegalArgumentException("title is required")
+//          val optionId =
+//            choice.getString("optionId")
+//              ?: throw IllegalArgumentException("optionId is required")
+//
+//          val optionItem = choices.find { it.optionId == optionId }
+//
+//          if (optionItem != null) {
+//            val result =
+//              conversationClient?.sendReply(optionItem)
+//                ?: throw IllegalStateException("Failed to send reply")
+//
+//            if (result is Result.Success) {
+//              promise.resolve("Success")
+//            } else {
+//              promise.reject("Error", result.toString())
+//            }
+//          } else {
+//            promise.reject("Error", "Option not found")
+//          }
           val optionValue =
             choice.getString("optionValue")
               ?: throw IllegalArgumentException("optionValue is required")
 
-          val optionItem =
-            OptionItem.TypedOptionItem.TitleOptionItem(
-              optionId,
-              parentEntryId,
-              TitleItem.DefaultTitleItem(title),
-              TitleItem.DefaultTitleItem(optionValue)
-            )
-
           val result =
-            conversationClient?.sendReply(optionItem)
-              ?: throw IllegalStateException("Failed to send reply")
+            conversationClient?.sendMessage(optionValue) // TODO: sendReply once bug is fixed in Core SDK
+              ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
-            val params = convertEntryToMap(result.data)
-            sendEvent("onNewMessage", params)
             promise.resolve("Success")
           } else {
             promise.reject("Error", result.toString())
           }
+
         } catch (e: Exception) {
           promise.reject("Error", e.message, e)
         }
@@ -833,6 +833,23 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             }
             val byteArray = byteArrayOutputStream.toByteArray()
             val base64String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            sendEvent("onNewMessage", Arguments.createMap().apply {
+              putString("format", "Transcript")
+              putString("conversationId", "")
+              putString("entryId", "")
+              putString("entryType", "")
+              putString("payloadId", "")
+              putString("status", "Sent")
+              putMap("sender", Arguments.createMap().apply {
+                putString("role", "System")
+                putString("displayName", "")
+                putBoolean("local", false)
+                putArray("options", Arguments.createArray())
+                putString("subject", "")
+              })
+              putString("senderDisplayName", "")
+              putDouble("timestamp", System.currentTimeMillis().toDouble())
+            })
             promise.resolve(base64String)
           } else {
             promise.reject("Error", result.toString())

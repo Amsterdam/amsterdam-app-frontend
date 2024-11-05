@@ -612,7 +612,29 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
 
                 // Encode the PDF data to a Base64 string
                 NSString *base64PdfString = [pdfData base64EncodedStringWithOptions:0];
+                
+                NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
+                messageDict[@"format"] = @"Transcript";
+                messageDict[@"conversationId"] = @"";
+                messageDict[@"entryId"] = @"";
+                messageDict[@"entryType"] = @"";
+                messageDict[@"payloadId"] = @"";
+                messageDict[@"senderDisplayName"] = @"";
+                messageDict[@"status"] = @"Sent";
+                
+                NSDate *currentDate = [NSDate date];
+                messageDict[@"timestamp"] = @([currentDate timeIntervalSince1970]);
+                
+                NSMutableDictionary *senderDict = [NSMutableDictionary dictionary];
+                senderDict[@"role"] = @"System";
+                senderDict[@"displayName"] = @"";
+                senderDict[@"local"] = @(NO);
+                senderDict[@"options"] = [NSMutableArray array];
+                senderDict[@"subject"] = @"";
+                
+                messageDict[@"sender"] = senderDict;
 
+                [self sendEventWithName:@"onNewMessage" body:messageDict];
                 // Resolve the promise with the Base64-encoded PDF string
                 resolve(base64PdfString);
             } else {
