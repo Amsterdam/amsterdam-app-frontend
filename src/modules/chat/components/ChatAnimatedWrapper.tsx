@@ -1,14 +1,20 @@
-import {ReactNode, useEffect} from 'react'
+import {ReactNode, useContext, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {
+  interpolate,
+  interpolateColor,
   SlideInDown,
   SlideOutDown,
   useAnimatedStyle,
   useSharedValue,
+  withRepeat,
+  withSequence,
+  withSpring,
   withTiming,
 } from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useScreen} from '@/store/slices/screen'
@@ -17,6 +23,7 @@ import {useTheme} from '@/themes/useTheme'
 
 const CHAT_MINIMIZED_HEIGHT = 60
 const HEIGHT_CORRECTION = 8 // TODO: don't know why needed, refactor later
+const BOUNCE_HEIGHT = 25
 
 type Props = {
   children: ReactNode
@@ -25,16 +32,23 @@ type Props = {
 export const ChatAnimatedWrapper = ({children}: Props) => {
   const theme = useTheme()
   const {isOpen} = useBottomSheet()
+
+  const [maxHeight, setMaxHeight] = useState<number>(0)
   const height = useSharedValue(0)
+  const bounce = useSharedValue(0)
   const insets = useSafeAreaInsets()
   const {fontScale} = useDeviceContext()
   const {isMaximized} = useChat()
+  const {newMessagesCount} = useContext(ChatContext)
+  const maximized = useSharedValue(0)
+
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)
-  const backgroundColor = isMaximized
-    ? theme.color.chat.maximized.background
-    : theme.color.chat.minimized.background
   const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale + insets.bottom
+
+  useEffect(() => {
+    maximized.value = withTiming(isMaximized ? 1 : 0)
+  }, [isMaximized, maximized])
 
   useEffect(() => {
     setScreenSpaceBottom(minimizedHeight - HEIGHT_CORRECTION)
@@ -44,25 +58,64 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
     }
   }, [minimizedHeight, setScreenSpaceBottom])
 
+  useEffect(() => {
+    if (newMessagesCount > 0 && !isMaximized && !isOpen) {
+      bounce.value = withRepeat(
+        withSequence(
+          withTiming(-BOUNCE_HEIGHT, {
+            duration: 400,
+          }),
+          withSpring(0, {
+            duration: 1000,
+            dampingRatio: 0.3,
+          }),
+          withTiming(0, {
+            duration: 600,
+          }),
+        ),
+        -1,
+      )
+    } else {
+      bounce.value = 0
+    }
+  }, [bounce, isMaximized, isOpen, newMessagesCount])
+
+  useEffect(() => {
+    height.value = withTiming(
+      isMaximized ? 0 : maxHeight - (isOpen ? 0 : minimizedHeight),
+    )
+  }, [isMaximized, height, maxHeight, isOpen, minimizedHeight])
+
   const animatedStylesOuter = useAnimatedStyle(() => ({
     transform: [
       {
-        translateY: withTiming(
-          isMaximized ? 0 : height.value - (isOpen ? 0 : minimizedHeight),
-        ),
+        translateY: height.value + bounce.value,
       },
     ],
-    backgroundColor: withTiming(backgroundColor),
-    borderTopColor: withTiming(
-      isMaximized ? 'transparent' : theme.color.chat.border,
+    backgroundColor: interpolateColor(
+      maximized.value,
+      [0, 1],
+      [
+        theme.color.chat.minimized.background,
+        theme.color.chat.maximized.background,
+      ],
     ),
-    borderTopWidth: withTiming(isMaximized ? 0 : theme.border.width.md),
+    borderTopColor: interpolateColor(
+      maximized.value,
+      [0, 1],
+      [theme.color.chat.border, 'transparent'],
+    ),
+    borderTopWidth: interpolate(
+      maximized.value,
+      [0, 1],
+      [theme.border.width.md, 0],
+    ),
   }))
 
   const animatedStylesInner = useAnimatedStyle(() => ({
     transform: [
       {
-        translateY: withTiming(isMaximized ? 0 : -insets.top),
+        translateY: interpolate(maximized.value, [0, 1], [-insets.top, 0]),
       },
     ],
   }))
@@ -72,7 +125,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
       entering={SlideInDown}
       exiting={SlideOutDown}
       onLayout={e => {
-        height.value = e.nativeEvent.layout.height
+        setMaxHeight(e.nativeEvent.layout.height)
       }}
       style={[StyleSheet.absoluteFill, styles.container, animatedStylesOuter]}>
       <Animated.View style={[styles.inner, animatedStylesInner]}>
