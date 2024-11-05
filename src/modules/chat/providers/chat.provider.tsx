@@ -58,7 +58,8 @@ export const ChatProvider = ({children}: Props) => {
     if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
       setNewMessagesCount(count => count + 1)
     }
-  }, [isMinimized, messages])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages.length])
 
   useEffect(() => {
     if (isMaximized) {

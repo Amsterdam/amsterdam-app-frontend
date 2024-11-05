@@ -81,7 +81,9 @@ const createStyles =
       },
       text: {
         fontFamily:
-          variant === 'small' ? text.fontFamily.bold : text.fontFamily.regular,
+          variant === 'default'
+            ? text.fontFamily.regular
+            : text.fontFamily.bold,
         fontSize,
         color: color.text.inverse,
         bottom: Platform.OS === 'android' ? 2 : 1 * fontScale,
