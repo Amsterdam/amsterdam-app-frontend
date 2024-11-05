@@ -128,6 +128,20 @@ export enum ConversationEntryFormat {
   webview = 'WebView',
 }
 
+/**
+ * @deprecated unverified values, use ConversationEntryFormat
+ */
+export enum ConversationEntryType {
+  deliveryAcknowledgement = 'DeliveryAcknowledgement',
+  message = 'Message',
+  participantChanged = 'ParticipantChanged',
+  readAcknowledgement = 'ReadAcknowledgement',
+  routingResult = 'RoutingResult',
+  routingWorkResult = 'RoutingWorkResult',
+  typingIndicator = 'TypingIndicator',
+  unknownEntry = 'UnknownEntry',
+}
+
 export enum ConversationEntryStatus {
   sending = 'Sending',
   sent = 'Sent',
@@ -143,6 +157,7 @@ export enum ConversationEntrySenderRole {
 export type ConversationEntryBase = {
   conversationId: string
   entryId: string
+  entryType: ConversationEntryType
   // format: ConversationEntryFormat
   /**
    * the id of the ConversationEntry this is a reply to

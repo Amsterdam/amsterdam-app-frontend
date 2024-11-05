@@ -1,4 +1,10 @@
-import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
+import {
+  AccessibilityProps,
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -28,7 +34,7 @@ export const Badge = ({
   variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useDeviceContext()
-  const styles = useThemable(createStyles(fontScale, variant))
+  const styles = useThemable(createStyles(fontScale, variant, value))
 
   return (
     <Row align="start">
@@ -36,7 +42,7 @@ export const Badge = ({
         <Text
           accessibilityLabel={accessibilityLabel}
           accessibilityLanguage={accessibilityLanguage}
-          accessible={!!variantConfig[variant]}
+          accessible={variant !== 'on-icon'}
           numberOfLines={1}
           style={styles.text}
           testID={testID}>
@@ -47,58 +53,40 @@ export const Badge = ({
   )
 }
 
-type VariantConfig = {
-  [v in OmitUndefined<BadgeProps['variant']>]: {
-    accessible?: boolean
-    diameter: number
-    text: number
-  }
-}
-
-const variantConfig: VariantConfig = {
-  default: {
-    diameter: 22,
-    text: 14,
-  },
-  'on-icon': {
-    accessible: false,
-    diameter: 16,
-    text: 12,
-  },
-  small: {
-    diameter: 16,
-    text: 12,
-  },
-}
+const MARGIN_SINGLE_DIGIT = 1.2
+const MARGIN_DOUBLE_DIGIT = 1.4
 
 const createStyles =
   (
     fontScale: Device['fontScale'],
     variant: OmitUndefined<BadgeProps['variant']>,
+    value: number,
   ) =>
-  ({color, size, text}: Theme) => {
-    const {diameter, text: textSize} = variantConfig[variant]
+  ({color, text}: Theme) => {
+    const fontSize = text.fontSize[variant === 'small' ? 'small' : 'body']
     const scalesWithFont = variant !== 'on-icon'
     const scaleFactor = scalesWithFont ? fontScale : 1
+    const marginFactor = value > 9 ? MARGIN_DOUBLE_DIGIT : MARGIN_SINGLE_DIGIT
 
-    const scaledDiameter = diameter * scaleFactor
-    const scaledTextSize = textSize * scaleFactor
+    const scaledDiameter = marginFactor * scaleFactor * fontSize
 
     return StyleSheet.create({
       circle: {
-        flexDirection: 'row',
         justifyContent: 'center',
-        minWidth: scaledDiameter, // Prevent the circle becoming a vertical oval
-        paddingStart: size.spacing.xs + 0.5, // Nudge center-alignment because of even width
-        paddingEnd: size.spacing.xs,
+        alignItems: 'center',
+        height: scaledDiameter,
+        width: scaledDiameter,
         borderRadius: scaledDiameter / 2,
         backgroundColor: color.badge.background,
       },
       text: {
-        fontFamily: text.fontFamily.bold,
-        fontSize: scaledTextSize,
-        lineHeight: scaledDiameter,
+        fontFamily:
+          variant === 'default'
+            ? text.fontFamily.regular
+            : text.fontFamily.bold,
+        fontSize,
         color: color.text.inverse,
+        bottom: Platform.OS === 'android' ? 2 : 1 * fontScale,
       },
     })
   }

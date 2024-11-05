@@ -8,18 +8,22 @@ import {
   RemoteConfiguration,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
+import {useChat} from '@/modules/chat/slice'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
+import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 type ChatContextType = {
   employeeInChat: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
+  newMessagesCount: number
   ready: boolean
   remoteConfiguration: RemoteConfiguration | undefined
 }
 
 const initialValue: ChatContextType = {
   messages: [],
+  newMessagesCount: 0,
   ready: false,
   employeeInChat: false,
   remoteConfiguration: undefined,
@@ -33,6 +37,8 @@ type Props = {
 }
 
 export const ChatProvider = ({children}: Props) => {
+  const {isMaximized, isMinimized} = useChat()
+  const [newMessagesCount, setNewMessagesCount] = useState(0)
   const coreConfig = useCoreConfig()
   const [conversationId, setConversationId] = useState<string>()
   const {
@@ -49,8 +55,22 @@ export const ChatProvider = ({children}: Props) => {
   })
 
   useEffect(() => {
+    if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
+      setNewMessagesCount(count => count + 1)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages.length])
+
+  useEffect(() => {
+    if (isMaximized) {
+      setNewMessagesCount(0)
+    }
+  }, [isMaximized])
+
+  useEffect(() => {
     setConversationId(newConversationId ?? conversationId)
   }, [conversationId, newConversationId])
+
   useEffect(() => {
     if (remoteConfiguration) {
       const remoteConfig = JSON.parse(
@@ -75,6 +95,7 @@ export const ChatProvider = ({children}: Props) => {
       messages: isTyping
         ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
         : filterOutDeliveryAcknowledgements(messages),
+      newMessagesCount,
       ready,
       employeeInChat,
       remoteConfiguration,
@@ -85,6 +106,7 @@ export const ChatProvider = ({children}: Props) => {
       isTyping,
       isWaitingForAgent,
       messages,
+      newMessagesCount,
       ready,
       remoteConfiguration,
     ],

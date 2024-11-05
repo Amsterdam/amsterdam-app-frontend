@@ -716,7 +716,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     messageDict[@"payloadId"] = payload.identifier ?: @"";
     messageDict[@"inReplyToEntryId"] = payload.inReplyToEntryId ?: @"";
     NSString * type = entry.type;
-    messageDict[@"type"] = type;
+    messageDict[@"entryType"] = type;
     if (format == SMIConversationFormatTypesAttachments) {
         id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
