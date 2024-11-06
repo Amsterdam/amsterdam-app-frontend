@@ -19,7 +19,8 @@ export const ChatHistory = () => {
       onContentSizeChange={() => scrollRef?.current?.scrollToEnd()}
       onScrollBeginDrag={Keyboard.dismiss}
       ref={scrollRef}
-      style={styles.scrollView}>
+      style={styles.scrollView}
+      testID="ChatHistoryScrollView">
       <Box
         grow
         insetHorizontal="md">
