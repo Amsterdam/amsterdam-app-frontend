@@ -14,6 +14,7 @@ import {EntryRoutingResult} from '@/modules/chat/components/conversation/EntryRo
 import {EntryRoutingWorkResult} from '@/modules/chat/components/conversation/EntryRoutingWorkResult'
 import {EntrySelections} from '@/modules/chat/components/conversation/EntrySelections'
 import {EntryText} from '@/modules/chat/components/conversation/EntryText'
+import {EntryTranscript} from '@/modules/chat/components/conversation/EntryTranscript'
 import {EntryTypingIndicator} from '@/modules/chat/components/conversation/EntryTypingIndicator'
 
 type Props = {
@@ -118,6 +119,10 @@ const options: Record<
     Component: undefined,
     LastComponent: undefined,
     agentInfo: undefined,
+  },
+  [ConversationEntryFormat.transcript]: {
+    Component: EntryTranscript,
+    LastComponent: EntryGutter,
   },
 }
 

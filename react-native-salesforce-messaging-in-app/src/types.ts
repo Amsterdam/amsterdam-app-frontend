@@ -122,6 +122,7 @@ export enum ConversationEntryFormat {
   routingWorkResult = 'RoutingWorkResult',
   selections = 'Selections',
   text = 'Text',
+  transcript = 'Transcript',
   typingStartedIndicator = 'TypingStartedIndicator',
   typingStoppedIndicator = 'TypingStoppedIndicator',
   unspecified = 'Unspecified',
@@ -162,7 +163,7 @@ export type ConversationEntryBase = {
   /**
    * the id of the ConversationEntry this is a reply to
    */
-  inReplyToEntryId: string
+  inReplyToEntryId?: string
   messageType: string
   /**
    * @deprecated as it is used to see if we handle the payload properly
@@ -178,10 +179,7 @@ export type ConversationEntryBase = {
    */
   senderDisplayName: string
   status: ConversationEntryStatus
-  /**
-   * deze zou hier nog weg moeten
-   */
-  text: string
+  text?: string
   timestamp: number
   title?: string
   url?: string
@@ -206,6 +204,7 @@ export type ConversationEntry =
   | ConversationEntryRoutingWorkResult
   | ConversationEntryParticipantChanged
   | ConversationEntryDeliveryAcknowledgement
+  | ConversationEntryTranscript
 
 export type Attachment = {
   file?: string
@@ -246,6 +245,10 @@ export type Participant = {
    */
   role: ConversationEntrySenderRole
   subject: string
+}
+
+export type ConversationEntryTranscript = ConversationEntryBase & {
+  format: ConversationEntryFormat.transcript
 }
 
 export type ConversationEntryText = ConversationEntryBase & {
