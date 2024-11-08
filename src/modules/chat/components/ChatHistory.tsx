@@ -35,7 +35,7 @@ export const ChatHistory = () => {
               <Entry
                 isLast={index === messages.length - 1}
                 isLastOfRole={isLastOfRole}
-                key={message.entryId}
+                key={message.entryId + message.timestamp}
                 message={message}
               />
             )

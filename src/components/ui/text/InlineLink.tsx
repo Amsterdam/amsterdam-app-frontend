@@ -1,5 +1,4 @@
 import {type ReactNode} from 'react'
-import {type TextProps} from 'react-native'
 import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
@@ -12,7 +11,7 @@ type Props = {
   onPress: () => void
   phraseVariant?: PhraseProps['variant']
 } & TestProps &
-  Omit<TextProps, 'style'> &
+  PhraseProps &
   LogProps
 
 export const InlineLink = ({
