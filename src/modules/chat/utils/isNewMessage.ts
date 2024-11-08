@@ -8,7 +8,5 @@ export const isNewMessage = (format: ConversationEntryFormat) =>
   format === ConversationEntryFormat.listPicker ||
   format === ConversationEntryFormat.richLink ||
   format === ConversationEntryFormat.quickReplies ||
-  format === ConversationEntryFormat.routingResult ||
-  format === ConversationEntryFormat.routingWorkResult ||
   format === ConversationEntryFormat.selections ||
   format === ConversationEntryFormat.text

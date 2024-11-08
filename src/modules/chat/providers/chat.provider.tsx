@@ -1,4 +1,11 @@
-import {createContext, ReactNode, useEffect, useMemo, useState} from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   submitRemoteConfiguration,
   useCreateChat,
@@ -13,6 +20,8 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 type ChatContextType = {
+  addDownloadedTranscriptTimestamp: (timestamp: number) => void
+  downloadedTranscriptTimestamps: number[]
   employeeInChat: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
@@ -22,6 +31,8 @@ type ChatContextType = {
 }
 
 const initialValue: ChatContextType = {
+  addDownloadedTranscriptTimestamp: () => null,
+  downloadedTranscriptTimestamps: [],
   messages: [],
   newMessagesCount: 0,
   ready: false,
@@ -39,6 +50,9 @@ type Props = {
 export const ChatProvider = ({children}: Props) => {
   const {isMaximized, isMinimized} = useChat()
   const [newMessagesCount, setNewMessagesCount] = useState(0)
+  const [downloadedTranscriptTimestamps, setDownloadedTranscriptIds] = useState<
+    number[]
+  >([])
   const coreConfig = useCoreConfig()
   const [conversationId, setConversationId] = useState<string>()
   const {
@@ -53,6 +67,13 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
+
+  const addDownloadedTranscriptTimestamp = useCallback(
+    (transcriptId: number) => {
+      setDownloadedTranscriptIds(ids => [...ids, transcriptId])
+    },
+    [],
+  )
 
   useEffect(() => {
     if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
@@ -92,6 +113,8 @@ export const ChatProvider = ({children}: Props) => {
 
   const value = useMemo(
     () => ({
+      addDownloadedTranscriptTimestamp,
+      downloadedTranscriptTimestamps,
       messages: isTyping
         ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
         : filterOutDeliveryAcknowledgements(messages),
@@ -102,6 +125,8 @@ export const ChatProvider = ({children}: Props) => {
       isWaitingForAgent,
     }),
     [
+      addDownloadedTranscriptTimestamp,
+      downloadedTranscriptTimestamps,
       employeeInChat,
       isTyping,
       isWaitingForAgent,

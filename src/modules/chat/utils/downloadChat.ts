@@ -1,17 +1,22 @@
 import {Alert} from 'react-native'
 import {retrieveTranscript} from 'react-native-salesforce-messaging-in-app/src'
 import {saveFile} from '@/modules/chat/utils/saveFile'
+import {devLog} from '@/processes/development'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTime} from '@/utils/datetime/formatDateTime'
 
 export const downloadChat = async () => {
   try {
-    const fileAsBase64String = await retrieveTranscript()
+    const {transcript, timestamp} = await retrieveTranscript()
+
     const fileName = `Chatgeschiedenis ${formatDateTime(dayjs()).replaceAll(':', ' ')}.pdf`
     const mimeType = 'application/pdf'
 
-    await saveFile({base64: {string: fileAsBase64String, mimeType}, fileName})
-  } catch {
+    await saveFile({base64: {string: transcript, mimeType}, fileName})
+
+    return timestamp
+  } catch (error) {
+    devLog(error)
     Alert.alert('Chat downloaden mislukt.')
   }
 }
