@@ -9,6 +9,7 @@ export const NewMessageIndicator = () => {
     <Badge
       testID="ChatNewMessageIndicatorBadge"
       value={newMessagesCount}
+      variant="small"
     />
   ) : null
 }
