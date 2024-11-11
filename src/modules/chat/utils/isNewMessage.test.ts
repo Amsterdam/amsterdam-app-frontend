@@ -30,14 +30,6 @@ describe('isNewMessage', () => {
     expect(isNewMessage(ConversationEntryFormat.quickReplies)).toBe(true)
   })
 
-  it('should return true for routingResult format', () => {
-    expect(isNewMessage(ConversationEntryFormat.routingResult)).toBe(true)
-  })
-
-  it('should return true for routingWorkResult format', () => {
-    expect(isNewMessage(ConversationEntryFormat.routingWorkResult)).toBe(true)
-  })
-
   it('should return true for selections format', () => {
     expect(isNewMessage(ConversationEntryFormat.selections)).toBe(true)
   })

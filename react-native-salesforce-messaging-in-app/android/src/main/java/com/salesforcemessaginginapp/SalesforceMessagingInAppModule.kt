@@ -833,10 +833,13 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             }
             val byteArray = byteArrayOutputStream.toByteArray()
             val base64String = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            val timestamp = System.currentTimeMillis().toDouble()
+            val entryId = UUID.randomUUID().toString()
+
             sendEvent("onNewMessage", Arguments.createMap().apply {
               putString("format", "Transcript")
               putString("conversationId", "")
-              putString("entryId", "")
+              putString("entryId", entryId)
               putString("entryType", "")
               putString("payloadId", "")
               putString("status", "Sent")
@@ -848,9 +851,12 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                 putString("subject", "")
               })
               putString("senderDisplayName", "")
-              putDouble("timestamp", System.currentTimeMillis().toDouble())
+              putDouble("timestamp", timestamp)
             })
-            promise.resolve(base64String)
+            promise.resolve(Arguments.createMap().apply {
+              putString("transcript", base64String)
+              putString("entryId", entryId)
+            })
           } else {
             promise.reject("Error", result.toString())
           }

@@ -95,7 +95,7 @@ export type NativeSalesforceMessagingInApp = {
   generateUUID: () => string
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
-  retrieveTranscript: () => Promise<string>
+  retrieveTranscript: () => Promise<RetrieveTranscriptResponse>
   sendImage: (imageBase64: string, fileName: string) => Promise<void>
   sendMessage: (message: string) => Promise<void>
   sendPDF: (filePath: string, fileName: string) => Promise<void>
@@ -386,3 +386,5 @@ export type Choice = {
   parentEntryId: string
   title: string
 }
+
+export type RetrieveTranscriptResponse = {entryId: string; transcript: string}

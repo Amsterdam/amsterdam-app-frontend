@@ -612,18 +612,20 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
 
                 // Encode the PDF data to a Base64 string
                 NSString *base64PdfString = [pdfData base64EncodedStringWithOptions:0];
+            
+                NSInteger timestamp = (NSInteger)[[NSDate date] timeIntervalSince1970];
+                NSUUID *entryId = [NSUUID UUID];
                 
                 NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
                 messageDict[@"format"] = @"Transcript";
                 messageDict[@"conversationId"] = @"";
-                messageDict[@"entryId"] = @"";
+                messageDict[@"entryId"] = entryId;
                 messageDict[@"entryType"] = @"";
                 messageDict[@"payloadId"] = @"";
                 messageDict[@"senderDisplayName"] = @"";
                 messageDict[@"status"] = @"Sent";
                 
-                NSDate *currentDate = [NSDate date];
-                messageDict[@"timestamp"] = @([currentDate timeIntervalSince1970]);
+                messageDict[@"timestamp"] = @(timestamp);
                 
                 NSMutableDictionary *senderDict = [NSMutableDictionary dictionary];
                 senderDict[@"role"] = @"System";
@@ -635,8 +637,12 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                 messageDict[@"sender"] = senderDict;
 
                 [self sendEventWithName:@"onNewMessage" body:messageDict];
+                NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
+                resultDict[@"transcript"] = base64PdfString;
+                resultDict[@"entryId"] = entryId;
+
                 // Resolve the promise with the Base64-encoded PDF string
-                resolve(base64PdfString);
+                resolve(resultDict);
             } else {
                 // Handle case where pdfDocument is nil, though no error was returned
                 NSError *noPdfError = [NSError errorWithDomain:@"retrieveTranscript"

@@ -1,10 +1,4 @@
-import {
-  AccessibilityProps,
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -66,27 +60,26 @@ const createStyles =
     const fontSize = text.fontSize[variant === 'small' ? 'small' : 'body']
     const scalesWithFont = variant !== 'on-icon'
     const scaleFactor = scalesWithFont ? fontScale : 1
-    const marginFactor = value > 9 ? MARGIN_DOUBLE_DIGIT : MARGIN_SINGLE_DIGIT
+    const isDoubleDigitValue = value > 9
+    const marginFactor = isDoubleDigitValue
+      ? MARGIN_DOUBLE_DIGIT
+      : MARGIN_SINGLE_DIGIT
 
     const scaledDiameter = marginFactor * scaleFactor * fontSize
 
     return StyleSheet.create({
       circle: {
-        justifyContent: 'center',
-        alignItems: 'center',
         height: scaledDiameter,
         width: scaledDiameter,
         borderRadius: scaledDiameter / 2,
         backgroundColor: color.badge.background,
       },
       text: {
-        fontFamily:
-          variant === 'default'
-            ? text.fontFamily.regular
-            : text.fontFamily.bold,
+        fontFamily: text.fontFamily.bold,
         fontSize,
         color: color.text.inverse,
-        bottom: Platform.OS === 'android' ? 2 : 1 * fontScale,
+        bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
+        textAlign: 'center',
       },
     })
   }

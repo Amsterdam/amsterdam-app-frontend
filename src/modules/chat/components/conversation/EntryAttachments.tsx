@@ -1,57 +1,66 @@
-import {ConversationEntryAttachments} from 'react-native-salesforce-messaging-in-app/src/types'
-import {Column} from '@/components/ui/layout/Column'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {
+  ConversationEntryAttachments,
+  ConversationEntrySenderRole,
+} from 'react-native-salesforce-messaging-in-app/src/types'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ChatInlineMessage} from '@/modules/chat/components/ChatInlineMessage'
+import {MessageBubble} from '@/modules/chat/components/MessageBubble'
+import {saveFile} from '@/modules/chat/utils/saveFile'
 
 type Props = {
   message: ConversationEntryAttachments
 }
 
-const convertMimeTypeToText = (mimeType: string) => {
-  switch (mimeType) {
-    case 'application/pdf':
-      return 'PDF'
-    case 'image/jpeg':
-    case 'image/png':
-    case 'image/gif':
-      return 'foto'
-    default:
-      return mimeType
-  }
-}
+export const EntryAttachments = ({message}: Props) => {
+  const isEmployee =
+    message.sender.role === ConversationEntrySenderRole.employee
 
-const convertMimeTypeToIcon = (mimeType: string): SvgIconName => {
-  switch (mimeType) {
-    case 'application/pdf':
-      return 'document'
-    case 'image/jpeg':
-    case 'image/png':
-    case 'image/gif':
-      return 'picture'
-    default:
-      return 'document-text'
-  }
+  return (
+    <>
+      {message.attachments.map(attachment => (
+        <MessageBubble
+          key={attachment.id}
+          message={message}>
+          <Row
+            grow={1}
+            gutter="sm"
+            valign="center">
+            <Icon
+              color={isEmployee ? 'link' : 'inverse'}
+              name="document"
+              size="lg"
+              testID=""
+            />
+            {isEmployee ? (
+              <InlineLink
+                ellipsizeMode="middle"
+                emphasis="strong"
+                inverse={
+                  message.sender.role === ConversationEntrySenderRole.user
+                }
+                numberOfLines={1}
+                onPress={() => {
+                  void saveFile({
+                    downloadUri: attachment.url,
+                    fileName: attachment.name,
+                  })
+                }}
+                testID="EntryAttachmentsInlineLink">
+                {attachment.name}
+              </InlineLink>
+            ) : (
+              <Phrase
+                color="inverse"
+                testID={'ChatMessageAttachmentFileName'}
+                textAlign="center">
+                {attachment.name}
+              </Phrase>
+            )}
+          </Row>
+        </MessageBubble>
+      ))}
+    </>
+  )
 }
-
-export const EntryAttachments = ({message}: Props) => (
-  <Column gutter="md">
-    {message.attachments.map(attachment => (
-      <Column>
-        <ChatInlineMessage
-          icon={convertMimeTypeToIcon(attachment.mimeType)}
-          testID={`ChatMessageAttachment${attachment.mimeType}`}
-          text={`${message.sender.local ? 'U' : message.senderDisplayName} heeft een ${convertMimeTypeToText(attachment.mimeType)} gedeeld.`}
-        />
-        {!!attachment.name && (
-          <Phrase
-            color="secondary"
-            testID={'ChatMessageAttachmentFileName'}
-            textAlign="center">
-            {attachment.name}
-          </Phrase>
-        )}
-      </Column>
-    ))}
-  </Column>
-)

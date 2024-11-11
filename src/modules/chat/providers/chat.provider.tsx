@@ -1,4 +1,11 @@
-import {createContext, ReactNode, useEffect, useMemo, useState} from 'react'
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react'
 import {
   submitRemoteConfiguration,
   useCreateChat,
@@ -6,6 +13,7 @@ import {
 import {
   ConversationEntry,
   RemoteConfiguration,
+  RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
@@ -13,6 +21,10 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 type ChatContextType = {
+  addDownloadedTranscriptId: (
+    entryId: RetrieveTranscriptResponse['entryId'],
+  ) => void
+  downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   employeeInChat: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
@@ -22,6 +34,8 @@ type ChatContextType = {
 }
 
 const initialValue: ChatContextType = {
+  addDownloadedTranscriptId: () => null,
+  downloadedTranscriptIds: [],
   messages: [],
   newMessagesCount: 0,
   ready: false,
@@ -39,6 +53,9 @@ type Props = {
 export const ChatProvider = ({children}: Props) => {
   const {isMaximized, isMinimized} = useChat()
   const [newMessagesCount, setNewMessagesCount] = useState(0)
+  const [downloadedTranscriptIds, setDownloadedTranscriptIds] = useState<
+    RetrieveTranscriptResponse['entryId'][]
+  >([])
   const coreConfig = useCoreConfig()
   const [conversationId, setConversationId] = useState<string>()
   const {
@@ -53,6 +70,10 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
+
+  const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
+    setDownloadedTranscriptIds(ids => [...ids, transcriptId])
+  }, [])
 
   useEffect(() => {
     if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
@@ -92,6 +113,8 @@ export const ChatProvider = ({children}: Props) => {
 
   const value = useMemo(
     () => ({
+      addDownloadedTranscriptId,
+      downloadedTranscriptIds,
       messages: isTyping
         ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
         : filterOutDeliveryAcknowledgements(messages),
@@ -102,6 +125,8 @@ export const ChatProvider = ({children}: Props) => {
       isWaitingForAgent,
     }),
     [
+      addDownloadedTranscriptId,
+      downloadedTranscriptIds,
       employeeInChat,
       isTyping,
       isWaitingForAgent,

@@ -1,7 +1,9 @@
+import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {Column} from '@/components/ui/layout/Column'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
+import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -14,6 +16,7 @@ type Props = {
 export const ChatMenu = ({headerHeight, close}: Props) => {
   const theme = useTheme()
   const sheetStyles = createStyles(theme, headerHeight)
+  const {addDownloadedTranscriptId} = useContext(ChatContext)
 
   return (
     <Animated.View
@@ -26,7 +29,9 @@ export const ChatMenu = ({headerHeight, close}: Props) => {
           label="Chat downloaden"
           onPress={() => {
             close()
-            void downloadChat()
+            void downloadChat().then(
+              entryId => entryId && addDownloadedTranscriptId(entryId),
+            )
           }}
           testID="ChatMenuPressableDownloadChat"
         />

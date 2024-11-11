@@ -93,8 +93,8 @@ export const ChatHeader = () => {
             <Row
               gutter="xs"
               valign="center">
-              <NewMessageIndicator />
               <ScreenTitle text="Chat" />
+              <NewMessageIndicator />
             </Row>
             <Animated.View style={expandIconStyle}>
               <IconButton
