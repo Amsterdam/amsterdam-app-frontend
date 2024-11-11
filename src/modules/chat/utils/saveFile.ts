@@ -12,8 +12,8 @@ import {devLog} from '@/processes/development'
 
 type Params = {
   base64?: {
+    data: string
     mimeType: string
-    string: string
   }
   downloadUri?: string
   fileName: string
@@ -24,7 +24,7 @@ type Params = {
  * @param downloadUri Optional. http:// or https://
  * @param fileName example.pdf
  * @param base64 Optional. Object containing string and mimeType
- * @param base64.string The base64 encoded string of the file content
+ * @param base64.data The base64 encoded string of the file content
  * @param base64.mimeType The MIME type of the file
  *
  */
@@ -37,7 +37,7 @@ export const saveFile = async ({base64, downloadUri, fileName}: Params) => {
 
       await saveFileOnDevice(contentsAsBase64, fileName, mimeType)
     } else if (base64) {
-      await saveFileOnDevice(base64.string, fileName, base64.mimeType)
+      await saveFileOnDevice(base64.data, fileName, base64.mimeType)
     } else {
       throw 'Give either base64 or downloadUri as an argument to saveFile.'
     }

@@ -12,7 +12,7 @@ export const downloadChat = async () => {
     const fileName = `Chatgeschiedenis ${formatDateTime(dayjs()).replaceAll(':', ' ')}.pdf`
     const mimeType = 'application/pdf'
 
-    await saveFile({base64: {string: transcript, mimeType}, fileName})
+    await saveFile({base64: {data: transcript, mimeType}, fileName})
 
     return entryId
   } catch (error) {
