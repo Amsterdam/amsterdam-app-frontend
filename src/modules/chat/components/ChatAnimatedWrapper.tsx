@@ -70,7 +70,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
             dampingRatio: 0.3,
           }),
           withTiming(0, {
-            duration: 1000,
+            duration: 3000,
           }),
         ),
         -1,
