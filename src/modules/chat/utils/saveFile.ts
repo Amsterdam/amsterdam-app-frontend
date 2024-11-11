@@ -6,6 +6,7 @@ import {
 } from 'expo-file-system'
 import {shareAsync} from 'expo-sharing'
 import {Platform} from 'react-native'
+import {contentTypeToUTI} from '@/modules/chat/utils/contentTypeToUTI'
 import {downloadFile} from '@/modules/chat/utils/downloadFile'
 import {devLog} from '@/processes/development'
 
@@ -115,7 +116,7 @@ const shareFile = async (
     })
     await shareAsync(fileUri, {
       mimeType,
-      UTI: 'com.adobe.pdf',
+      UTI: contentTypeToUTI[mimeType],
     })
     devLog(`saved to file ${fileUri}`)
   } catch {

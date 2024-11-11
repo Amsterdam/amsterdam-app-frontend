@@ -7,14 +7,14 @@ import {formatDateTime} from '@/utils/datetime/formatDateTime'
 
 export const downloadChat = async () => {
   try {
-    const {transcript, timestamp} = await retrieveTranscript()
+    const {transcript, entryId} = await retrieveTranscript()
 
     const fileName = `Chatgeschiedenis ${formatDateTime(dayjs()).replaceAll(':', ' ')}.pdf`
     const mimeType = 'application/pdf'
 
     await saveFile({base64: {string: transcript, mimeType}, fileName})
 
-    return timestamp
+    return entryId
   } catch (error) {
     devLog(error)
     Alert.alert('Chat downloaden mislukt.')
