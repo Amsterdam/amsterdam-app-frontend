@@ -13,6 +13,7 @@ import {
 import {
   ConversationEntry,
   RemoteConfiguration,
+  RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
@@ -20,8 +21,10 @@ import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutD
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 type ChatContextType = {
-  addDownloadedTranscriptTimestamp: (timestamp: number) => void
-  downloadedTranscriptTimestamps: number[]
+  addDownloadedTranscriptId: (
+    entryId: RetrieveTranscriptResponse['entryId'],
+  ) => void
+  downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   employeeInChat: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
@@ -31,8 +34,8 @@ type ChatContextType = {
 }
 
 const initialValue: ChatContextType = {
-  addDownloadedTranscriptTimestamp: () => null,
-  downloadedTranscriptTimestamps: [],
+  addDownloadedTranscriptId: () => null,
+  downloadedTranscriptIds: [],
   messages: [],
   newMessagesCount: 0,
   ready: false,
@@ -50,8 +53,8 @@ type Props = {
 export const ChatProvider = ({children}: Props) => {
   const {isMaximized, isMinimized} = useChat()
   const [newMessagesCount, setNewMessagesCount] = useState(0)
-  const [downloadedTranscriptTimestamps, setDownloadedTranscriptIds] = useState<
-    number[]
+  const [downloadedTranscriptIds, setDownloadedTranscriptIds] = useState<
+    RetrieveTranscriptResponse['entryId'][]
   >([])
   const coreConfig = useCoreConfig()
   const [conversationId, setConversationId] = useState<string>()
@@ -68,12 +71,9 @@ export const ChatProvider = ({children}: Props) => {
     conversationId,
   })
 
-  const addDownloadedTranscriptTimestamp = useCallback(
-    (transcriptId: number) => {
-      setDownloadedTranscriptIds(ids => [...ids, transcriptId])
-    },
-    [],
-  )
+  const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
+    setDownloadedTranscriptIds(ids => [...ids, transcriptId])
+  }, [])
 
   useEffect(() => {
     if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
@@ -113,8 +113,8 @@ export const ChatProvider = ({children}: Props) => {
 
   const value = useMemo(
     () => ({
-      addDownloadedTranscriptTimestamp,
-      downloadedTranscriptTimestamps,
+      addDownloadedTranscriptId,
+      downloadedTranscriptIds,
       messages: isTyping
         ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
         : filterOutDeliveryAcknowledgements(messages),
@@ -125,8 +125,8 @@ export const ChatProvider = ({children}: Props) => {
       isWaitingForAgent,
     }),
     [
-      addDownloadedTranscriptTimestamp,
-      downloadedTranscriptTimestamps,
+      addDownloadedTranscriptId,
+      downloadedTranscriptIds,
       employeeInChat,
       isTyping,
       isWaitingForAgent,

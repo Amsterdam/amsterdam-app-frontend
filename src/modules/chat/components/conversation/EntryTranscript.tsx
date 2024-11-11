@@ -8,15 +8,13 @@ type Props = {
 }
 
 export const EntryTranscript = ({message}: Props) => {
-  const {downloadedTranscriptTimestamps} = useContext(ChatContext)
+  const {downloadedTranscriptIds} = useContext(ChatContext)
 
-  return downloadedTranscriptTimestamps.includes(message.timestamp) ? (
-    <>
-      <ChatInlineMessage
-        icon="download"
-        testID={'ChatDownloadedInlineMessage'}
-        text="Chat gedownload"
-      />
-    </>
+  return downloadedTranscriptIds.includes(message.entryId) ? (
+    <ChatInlineMessage
+      icon="download"
+      testID={'ChatDownloadedInlineMessage'}
+      text="Chat gedownload"
+    />
   ) : null
 }

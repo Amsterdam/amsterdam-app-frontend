@@ -16,7 +16,7 @@ type Props = {
 export const ChatMenu = ({headerHeight, close}: Props) => {
   const theme = useTheme()
   const sheetStyles = createStyles(theme, headerHeight)
-  const {addDownloadedTranscriptTimestamp} = useContext(ChatContext)
+  const {addDownloadedTranscriptId} = useContext(ChatContext)
 
   return (
     <Animated.View
@@ -30,8 +30,7 @@ export const ChatMenu = ({headerHeight, close}: Props) => {
           onPress={() => {
             close()
             void downloadChat().then(
-              timestamp =>
-                timestamp && addDownloadedTranscriptTimestamp(timestamp),
+              entryId => entryId && addDownloadedTranscriptId(entryId),
             )
           }}
           testID="ChatMenuPressableDownloadChat"
