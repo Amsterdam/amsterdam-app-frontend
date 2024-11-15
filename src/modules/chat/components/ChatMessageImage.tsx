@@ -10,6 +10,8 @@ type Props = {
   senderRole: ConversationEntrySenderRole
 }
 
+const THUMBNAIL_SIZE = 220
+
 export const ChatMessageImage = ({image, senderRole}: Props) => {
   const styles = createStyles(senderRole === ConversationEntrySenderRole.user)
 
@@ -18,7 +20,7 @@ export const ChatMessageImage = ({image, senderRole}: Props) => {
       <ThumbnailViewer
         fileName={image.name}
         imageSource={{uri: image.url}}
-        thumbnailSize={220}
+        thumbnailSize={THUMBNAIL_SIZE}
       />
     </View>
   )
