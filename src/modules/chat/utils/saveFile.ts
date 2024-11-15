@@ -8,6 +8,7 @@ import {shareAsync} from 'expo-sharing'
 import {Platform} from 'react-native'
 import {contentTypeToUTI} from '@/modules/chat/utils/contentTypeToUTI'
 import {downloadFile} from '@/modules/chat/utils/downloadFile'
+import {fileExtensionToMimeType} from '@/modules/chat/utils/fileExtensionToMimeType'
 import {devLog} from '@/processes/development'
 
 type Params = {
@@ -17,6 +18,7 @@ type Params = {
   }
   downloadUri?: string
   fileName: string
+  localUri?: string
 }
 
 /**
@@ -28,7 +30,12 @@ type Params = {
  * @param base64.mimeType The MIME type of the file
  *
  */
-export const saveFile = async ({base64, downloadUri, fileName}: Params) => {
+export const saveFile = async ({
+  base64,
+  downloadUri,
+  fileName,
+  localUri,
+}: Params) => {
   try {
     if (downloadUri) {
       const {mimeType, uri} = await downloadFile(downloadUri, fileName)
@@ -38,6 +45,10 @@ export const saveFile = async ({base64, downloadUri, fileName}: Params) => {
       await saveFileOnDevice(contentsAsBase64, fileName, mimeType)
     } else if (base64) {
       await saveFileOnDevice(base64.data, fileName, base64.mimeType)
+    } else if (localUri) {
+      const contentsAsBase64 = await readContentsAsBase64(localUri)
+
+      await saveFileOnDevice(contentsAsBase64, fileName)
     } else {
       throw 'Give either base64 or downloadUri as an argument to saveFile.'
     }
@@ -66,7 +77,7 @@ const requestDirectoryPermission = async (): Promise<string> => {
 const createEmptyFile = async (
   directoryUri: string,
   fileName: string,
-  mimeType: string,
+  mimeType = 'application/pdf',
 ): Promise<string> => {
   try {
     return await StorageAccessFramework.createFileAsync(
@@ -106,7 +117,7 @@ const writeFileContentsAsBase64String = async (
 const shareFile = async (
   base64: string,
   fileName: string,
-  mimeType: string,
+  mimeType?: string,
 ) => {
   const fileUri = `${documentDirectory}${fileName}`
 
@@ -116,7 +127,7 @@ const shareFile = async (
     })
     await shareAsync(fileUri, {
       mimeType,
-      UTI: contentTypeToUTI[mimeType],
+      UTI: mimeType ? contentTypeToUTI[mimeType] : undefined,
     })
     devLog(`saved to file ${fileUri}`)
   } catch {
@@ -127,7 +138,7 @@ const shareFile = async (
 const saveOnAndroid = async (
   base64: string,
   fileName: string,
-  mimeType: string,
+  mimeType?: string,
 ) => {
   try {
     const directoryUri = await requestDirectoryPermission()
@@ -143,11 +154,14 @@ const saveOnAndroid = async (
 const saveFileOnDevice = async (
   base64: string,
   fileName: string,
-  mimeType: string,
+  mimeType?: string,
 ) => {
+  const mimetype =
+    fileExtensionToMimeType[fileName.split('.').pop() || ''] || mimeType
+
   if (Platform.OS === 'android') {
-    await saveOnAndroid(base64, fileName, mimeType)
+    await saveOnAndroid(base64, fileName, mimetype)
   } else {
-    await shareFile(base64, fileName, mimeType)
+    await shareFile(base64, fileName, mimetype)
   }
 }

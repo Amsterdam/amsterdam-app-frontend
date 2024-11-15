@@ -540,6 +540,7 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
 // Method to send the Base64-encoded image
 RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
                   fileName:(NSString *)fileName
+                  uri:(NSString *)uri
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {

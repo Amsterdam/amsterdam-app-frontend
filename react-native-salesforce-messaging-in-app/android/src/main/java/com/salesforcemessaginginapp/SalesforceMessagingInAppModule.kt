@@ -56,6 +56,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   private var remoteConfiguration: RemoteConfiguration? = null
   private var scope = MainScope()
   private val choices: MutableList<OptionItem> = mutableListOf()
+  private var localImageUri: String? = null
 
   override fun getName(): String {
     return NAME
@@ -388,7 +389,12 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
           Uri.fromFile(it).toString()
         ) // Convert File to URI if not null
       }
-      attachment.url?.let { attachmentMap.putString("url", it) }
+      if (attachment.mimeType.startsWith("image") && localImageUri != null) {
+        localImageUri?.let { attachmentMap.putString("url", it) }
+        localImageUri = null
+      } else {
+        attachment.url?.let { attachmentMap.putString("url", it) }
+      }
       attachmentsArray.pushMap(attachmentMap)
     }
     return attachmentsArray
@@ -685,12 +691,13 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   @ReactMethod
-  override fun sendImage(imageBase64: String, fileName: String, promise: Promise) {
+  override fun sendImage(imageBase64: String, fileName: String, uri: String, promise: Promise) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
         return
       }
+      localImageUri = uri
 
       // Decode Base64 string to ByteArray
       val decodedBytes: ByteArray = Base64.decode(imageBase64, Base64.DEFAULT)

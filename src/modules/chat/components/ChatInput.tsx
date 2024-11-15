@@ -89,7 +89,7 @@ export const ChatInput = ({onSubmit}: Props) => {
                 multiline
                 onChangeText={onChangeText}
                 onFocus={hideSelectAttachment}
-                placeholder="Schrijf uw bericht"
+                placeholder="Typ uw bericht"
                 ref={inputRef}
                 style={styles.textInput}
                 testID="ChatTextInput"

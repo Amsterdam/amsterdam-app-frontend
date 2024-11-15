@@ -1,5 +1,5 @@
 import {ConversationEntrySelections} from 'react-native-salesforce-messaging-in-app/src/types'
-import {MessageBubble} from '@/modules/chat/components/MessageBubble'
+import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 
 type Props = {
@@ -7,11 +7,11 @@ type Props = {
 }
 
 export const EntrySelections = ({message}: Props) => (
-  <MessageBubble message={message}>
+  <ChatMessageEntry message={message}>
     <MessagePhrase
       message={message}
       testID="Text">
       {message.selections?.map(selection => selection.title).join(', ')}
     </MessagePhrase>
-  </MessageBubble>
+  </ChatMessageEntry>
 )

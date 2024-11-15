@@ -6,7 +6,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {MessageBubble} from '@/modules/chat/components/MessageBubble'
+import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
+import {ChatMessageImage} from '@/modules/chat/components/ChatMessageImage'
 import {saveFile} from '@/modules/chat/utils/saveFile'
 
 type Props = {
@@ -14,53 +15,66 @@ type Props = {
 }
 
 export const EntryAttachments = ({message}: Props) => {
+  const isImage = message.attachments[0].mimeType.startsWith('image')
   const isEmployee =
     message.sender.role === ConversationEntrySenderRole.employee
 
   return (
     <>
-      {message.attachments.map(attachment => (
-        <MessageBubble
-          key={attachment.id}
-          message={message}>
-          <Row
-            grow={1}
-            gutter="sm"
-            valign="center">
-            <Icon
-              color={isEmployee ? 'link' : 'inverse'}
-              name="document"
-              size="lg"
-              testID=""
+      {message.attachments.map(attachment =>
+        isImage ? (
+          <ChatMessageEntry
+            isText={false}
+            key={attachment.id}
+            message={message}>
+            <ChatMessageImage
+              image={attachment}
+              senderRole={message.sender.role}
             />
-            {isEmployee ? (
-              <InlineLink
-                ellipsizeMode="middle"
-                emphasis="strong"
-                inverse={
-                  message.sender.role === ConversationEntrySenderRole.user
-                }
-                numberOfLines={1}
-                onPress={() => {
-                  void saveFile({
-                    downloadUri: attachment.url,
-                    fileName: attachment.name,
-                  })
-                }}
-                testID="EntryAttachmentsInlineLink">
-                {attachment.name}
-              </InlineLink>
-            ) : (
-              <Phrase
-                color="inverse"
-                testID={'ChatMessageAttachmentFileName'}
-                textAlign="center">
-                {attachment.name}
-              </Phrase>
-            )}
-          </Row>
-        </MessageBubble>
-      ))}
+          </ChatMessageEntry>
+        ) : (
+          <ChatMessageEntry
+            key={attachment.id}
+            message={message}>
+            <Row
+              grow={1}
+              gutter="sm"
+              valign="center">
+              <Icon
+                color={isEmployee ? 'link' : 'inverse'}
+                name="document"
+                size="lg"
+                testID=""
+              />
+              {isEmployee ? (
+                <InlineLink
+                  ellipsizeMode="middle"
+                  emphasis="strong"
+                  inverse={
+                    message.sender.role === ConversationEntrySenderRole.user
+                  }
+                  numberOfLines={1}
+                  onPress={() => {
+                    void saveFile({
+                      downloadUri: attachment.url,
+                      fileName: attachment.name,
+                    })
+                  }}
+                  testID="EntryAttachmentsInlineLink">
+                  {attachment.name}
+                </InlineLink>
+              ) : (
+                <Phrase
+                  color="inverse"
+                  testID={'ChatMessageAttachmentFileName'}
+                  textAlign="center">
+                  {attachment.name}
+                </Phrase>
+              )}
+            </Row>
+          </ChatMessageEntry>
+        ),
+      )}
     </>
   )
 }
