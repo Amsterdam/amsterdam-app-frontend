@@ -3,7 +3,7 @@ import {
   Attachment,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {ThumbnailViewer} from '@/components/ui/media/ThumbnailViewer'
+import {ThumbnailViewer} from '@/modules/chat/components/ThumbnailViewer'
 
 type Props = {
   image: Attachment
