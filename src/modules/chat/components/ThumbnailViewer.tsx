@@ -33,11 +33,11 @@ export const ThumbnailViewer = ({
   thumbnailSize,
   headerTitle,
 }: Props) => {
-  const [isModalVisible, setIsModalVisible] = useState(true)
+  const [isModalVisible, setIsModalVisible] = useState(false)
   const [aspectRatio, setAspectRatio] = useState<number>()
   const insets = useSafeAreaInsets()
 
-  const onPress = () => {
+  const toggleVisibility = () => {
     setIsModalVisible(!isModalVisible)
   }
 
@@ -70,7 +70,7 @@ export const ThumbnailViewer = ({
 
   return (
     <View>
-      <TouchableOpacity onPress={onPress}>
+      <TouchableOpacity onPress={toggleVisibility}>
         <Image
           source={imageSource}
           style={styles.thumbnail}
@@ -79,6 +79,7 @@ export const ThumbnailViewer = ({
 
       <Modal
         animationType="fade"
+        onRequestClose={toggleVisibility}
         supportedOrientations={['portrait', 'landscape']}
         transparent
         visible={isModalVisible}>
@@ -94,7 +95,7 @@ export const ThumbnailViewer = ({
                     testID=""
                   />
                 }
-                onPress={onPress}
+                onPress={toggleVisibility}
                 testID="ThumbnailViewerCloseButton"
               />
               {!!headerTitle && <ScreenTitle text={headerTitle} />}
