@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useEffect, useState} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
@@ -12,6 +12,7 @@ import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
+import {useScreen} from '@/store/slices/screen'
 import {useTheme} from '@/themes/useTheme'
 
 type WrapperProps = {
@@ -44,6 +45,7 @@ export const ChatHeader = () => {
     disable: hideChatMenu,
   } = useToggle(false)
   const [height, setHeight] = useState(0)
+  const {setHideFromAccessibility} = useScreen()
 
   const {color} = useTheme()
   const styles = createStyles()
@@ -64,6 +66,14 @@ export const ChatHeader = () => {
     Keyboard.dismiss()
     hideChatMenu()
   }
+
+  useEffect(() => {
+    setHideFromAccessibility(isMaximized)
+
+    return () => {
+      setHideFromAccessibility(false)
+    }
+  }, [isMaximized, setHideFromAccessibility])
 
   return (
     <View
@@ -97,6 +107,7 @@ export const ChatHeader = () => {
             </Row>
             <Animated.View style={expandIconStyle}>
               <IconButton
+                accessibilityHint={`Druk om chat te ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
                 icon={
                   <Icon
                     color="link"

@@ -1,8 +1,7 @@
 import {useMemo} from 'react'
 import {StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {HideFromAccessibilityWhenBottomSheetIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenBottomSheetIsOpen'
-import {HideFromAccessibilityWhenOverlayIsOpen} from '@/components/features/accessibility/HideFromAccessibilityWhenOverlayIsOpen'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
 import {ScreenHeader} from '@/components/features/screen/ScreenHeader'
 import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrapper'
@@ -28,7 +27,11 @@ export const ScreenBase = ({
   ...wrapperProps
 }: ScreenProps) => {
   const insets = useSafeAreaInsets()
-  const {spaceBottom} = useScreen()
+  const {
+    isContentHiddenFromAccessibility,
+    isHiddenFromAccessibility,
+    spaceBottom,
+  } = useScreen()
 
   const hasStickyFooter = !!stickyFooter
   const hasStickyHeader = !!stickyHeader
@@ -58,13 +61,15 @@ export const ScreenBase = ({
 
   return (
     <DisableScrollProvider>
-      <HideFromAccessibilityWhenOverlayIsOpen
+      <HideFromAccessibility
+        hide={isHiddenFromAccessibility}
         style={styles.screen}
         testID={testID}>
         {!isOutsideNavigation && !!bottomSheet && <ScreenHeader />}
         {stickyHeader}
         {!!hasStickyAlert && <AlertTopOfScreen />}
-        <HideFromAccessibilityWhenBottomSheetIsOpen
+        <HideFromAccessibility
+          hide={isContentHiddenFromAccessibility}
           style={[styles.scrollViewContent, styles.scrollView]}>
           <ScreenWrapper
             scrollViewContentStyle={styles.scrollViewContent}
@@ -75,7 +80,7 @@ export const ScreenBase = ({
               {children}
             </ScreenInnerWrapper>
           </ScreenWrapper>
-        </HideFromAccessibilityWhenBottomSheetIsOpen>
+        </HideFromAccessibility>
         {(!!stickyFooter || !!bottomSheet) && (
           <>
             <Gutter height="sm" />
@@ -83,7 +88,7 @@ export const ScreenBase = ({
             {bottomSheet}
           </>
         )}
-      </HideFromAccessibilityWhenOverlayIsOpen>
+      </HideFromAccessibility>
     </DisableScrollProvider>
   )
 }

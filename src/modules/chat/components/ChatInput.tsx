@@ -13,6 +13,7 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
@@ -25,6 +26,8 @@ type Props = {
 }
 
 export const ChatInput = ({onSubmit}: Props) => {
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
   const inputRef = useRef<TextInput | null>(null)
@@ -86,6 +89,7 @@ export const ChatInput = ({onSubmit}: Props) => {
               style={styles.container}
               testID="ChatTextInputContainer">
               <TextInput
+                autoFocus={isScreenReaderEnabled}
                 multiline
                 onChangeText={onChangeText}
                 onFocus={hideSelectAttachment}
