@@ -3,7 +3,7 @@ import {
   ParticipantChangedOperationType,
   ConversationEntryParticipantChanged,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {ChatInlineMessage} from '@/modules/chat/components/ChatInlineMessage'
+import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 
 type Props = {
@@ -24,7 +24,7 @@ export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
 
   return (
     <>
-      <ChatInlineMessage
+      <ChatSystemEntry
         icon="person"
         testID={`ChatSystemMessage${message.format}`}
         text="U chat nu met een medewerker"

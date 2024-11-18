@@ -9,7 +9,7 @@ type Props = {
   text: string
 } & TestProps
 
-export const ChatInlineMessage = ({icon, text, testID}: Props) => (
+export const ChatSystemEntry = ({icon, text, testID}: Props) => (
   <Row
     align="center"
     gutter="sm"

@@ -139,7 +139,10 @@ const createStyles = ({z}: Theme, insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
       flexGrow: 1,
+      paddingTop: insets.top,
+      paddingRight: insets.right,
       paddingBottom: insets.bottom,
+      paddingLeft: insets.left,
       zIndex: z.overlay - 1,
     },
     inner: {

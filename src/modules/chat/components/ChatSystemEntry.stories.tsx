@@ -1,9 +1,9 @@
-import {ChatInlineMessage} from './ChatInlineMessage'
+import {ChatSystemEntry} from './ChatSystemEntry'
 import type {Meta, StoryObj} from '@storybook/react'
 
 const meta = {
-  component: ChatInlineMessage,
-} satisfies Meta<typeof ChatInlineMessage>
+  component: ChatSystemEntry,
+} satisfies Meta<typeof ChatSystemEntry>
 
 export default meta
 

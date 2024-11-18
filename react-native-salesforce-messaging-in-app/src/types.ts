@@ -96,7 +96,11 @@ export type NativeSalesforceMessagingInApp = {
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   retrieveTranscript: () => Promise<RetrieveTranscriptResponse>
-  sendImage: (imageBase64: string, fileName: string) => Promise<void>
+  sendImage: (
+    imageBase64: string,
+    fileName: string,
+    uri: string,
+  ) => Promise<void>
   sendMessage: (message: string) => Promise<void>
   sendPDF: (filePath: string, fileName: string) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>

@@ -2,7 +2,6 @@ import {ReactNode, useState} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
-import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
@@ -47,8 +46,7 @@ export const ChatHeader = () => {
   const [height, setHeight] = useState(0)
 
   const {color} = useTheme()
-  const insets = useSafeAreaInsets()
-  const styles = createStyles(insets)
+  const styles = createStyles()
 
   const expandIconStyle = useAnimatedStyle(() => ({
     transform: [
@@ -123,10 +121,9 @@ export const ChatHeader = () => {
   )
 }
 
-const createStyles = (insets: EdgeInsets) =>
+const createStyles = () =>
   StyleSheet.create({
     container: {
-      paddingTop: insets.top,
       zIndex: 1,
     },
     pressableWhenMinimized: {

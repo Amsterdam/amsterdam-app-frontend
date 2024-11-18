@@ -46,7 +46,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
         if (result.assets?.[0].uri) {
           const file = result.assets?.[0]
 
-          sendImage(file.base64!, file.fileName ?? 'image.png').then(
+          sendImage(file.base64!, file.fileName ?? 'image.png', file.uri).then(
             onSelect,
             error => {
               Alert.alert(
@@ -92,7 +92,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
         if (result.assets?.[0].uri) {
           const file = result.assets?.[0]
 
-          sendImage(file.base64!, file.fileName ?? 'image.png').then(
+          sendImage(file.base64!, file.fileName ?? 'image.png', file.uri).then(
             onSelect,
             error => {
               Alert.alert(

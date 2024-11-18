@@ -4,7 +4,7 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
-import {MessageBubble} from '@/modules/chat/components/MessageBubble'
+import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 import {getDomainName} from '@/utils/getDomainName'
 
@@ -17,7 +17,7 @@ export const EntryRichLink = ({message}: Props) => {
   const {title, url} = message
 
   return (
-    <MessageBubble message={message}>
+    <ChatMessageEntry message={message}>
       <InlineLink
         emphasis="strong"
         inverse={message.sender.role === ConversationEntrySenderRole.user}
@@ -30,6 +30,6 @@ export const EntryRichLink = ({message}: Props) => {
         testID="RichLinkTitle">
         {getDomainName(url)}
       </MessagePhrase>
-    </MessageBubble>
+    </ChatMessageEntry>
   )
 }
