@@ -18,6 +18,7 @@ id<SMICoreClient> coreClient;
 id<SMIConversationClient> conversationClient;
 id<SMIRemoteConfiguration> remoteConfiguration;
 NSMutableArray<id<SMIChoice>> *receivedChoices;
+NSString *localImageUri;
 
 RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                   organizationId:(NSString *)organizationId
@@ -108,6 +109,7 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
         }
         conversationClient = [coreClient conversationClientWithId:uuid];
         receivedChoices = [NSMutableArray array];
+        localImageUri = nil;
         if (conversationClient != nil) {
             [coreClient addDelegate:self];  // Set the delegate to self after creating the conversation client to receive events for the conversation client.
             resolve(conversationClient.identifier.UUIDString);
@@ -554,7 +556,9 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
         }
         // Decode the Base64 string into NSData
         NSData *imageData = [[NSData alloc] initWithBase64EncodedString:base64Image options:0];
-
+        
+        localImageUri = uri;
+        
         // Ensure the image data is valid
         if (imageData == nil) {
             NSError *error = [NSError errorWithDomain:@"Invalid Base64"
@@ -696,7 +700,11 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
         attachmentDict[@"name"] = attachment.name;
         attachmentDict[@"id"] = attachment.identifier;
         attachmentDict[@"mimeType"] = attachment.mimeType;
-        attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
+        if ([attachment.mimeType hasPrefix:@"image"] && localImageUri != nil && attachment.url == nil) {
+            attachmentDict[@"url"] = localImageUri;
+        } else {
+            attachmentDict[@"url"] = attachment.url ? [attachment.url absoluteString] : nil;
+        }
         NSString *stringFromData = [[NSString alloc] initWithData:attachment.file encoding:NSUTF8StringEncoding];
         if (stringFromData) {
             attachmentDict[@"file"] = stringFromData;
