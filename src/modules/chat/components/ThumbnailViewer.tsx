@@ -7,10 +7,11 @@ import {
   Modal,
   ImageProps,
   DimensionValue,
+  Platform,
 } from 'react-native'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
-import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
@@ -32,11 +33,12 @@ export const ThumbnailViewer = ({
   thumbnailSize,
   headerTitle,
 }: Props) => {
-  const [isModalVisible, setModalVisible] = useState(false)
+  const [isModalVisible, setIsModalVisible] = useState(true)
   const [aspectRatio, setAspectRatio] = useState<number>()
+  const insets = useSafeAreaInsets()
 
   const onPress = () => {
-    setModalVisible(!isModalVisible)
+    setIsModalVisible(!isModalVisible)
   }
 
   const uri = useMemo((): string | undefined => {
@@ -48,9 +50,9 @@ export const ThumbnailViewer = ({
       'uri' in imageSource
     ) {
       return imageSource.uri
+    } else {
+      return undefined
     }
-
-    return undefined
   }, [imageSource])
 
   useEffect(() => {
@@ -62,7 +64,7 @@ export const ThumbnailViewer = ({
   }, [uri])
 
   const styles = useThemable(theme =>
-    createStyles(theme, thumbnailSize, aspectRatio),
+    createStyles(theme, thumbnailSize, insets, aspectRatio),
   )
   const isLocalFile = uri?.startsWith('file://')
 
@@ -81,52 +83,46 @@ export const ThumbnailViewer = ({
         transparent
         visible={isModalVisible}>
         <View style={styles.overlay}>
-          <SafeArea
-            bottom
-            left
-            right
-            top>
-            <Box>
-              <Row align="between">
-                <IconButton
-                  icon={
-                    <Icon
-                      color="link"
-                      name="chevron-left"
-                      size="lg"
-                      testID=""
-                    />
-                  }
-                  onPress={onPress}
-                  testID="ThumbnailViewerCloseButton"
-                />
-                {!!headerTitle && <ScreenTitle text={headerTitle} />}
-                <IconButton
-                  icon={
-                    <Icon
-                      color="link"
-                      name="download"
-                      size="lg"
-                      testID=""
-                    />
-                  }
-                  onPress={() =>
-                    saveFile({
-                      localUri: isLocalFile ? uri : undefined,
-                      downloadUri: isLocalFile ? undefined : uri,
-                      fileName,
-                    })
-                  }
-                  testID="ThumbnailViewerDownloadButton"
-                />
-              </Row>
-            </Box>
-            <Image
-              resizeMode="contain"
-              source={imageSource}
-              style={styles.fullImage}
-            />
-          </SafeArea>
+          <Box>
+            <Row align="between">
+              <IconButton
+                icon={
+                  <Icon
+                    color="link"
+                    name="chevron-left"
+                    size="lg"
+                    testID=""
+                  />
+                }
+                onPress={onPress}
+                testID="ThumbnailViewerCloseButton"
+              />
+              {!!headerTitle && <ScreenTitle text={headerTitle} />}
+              <IconButton
+                icon={
+                  <Icon
+                    color="link"
+                    name="download"
+                    size="lg"
+                    testID=""
+                  />
+                }
+                onPress={() =>
+                  saveFile({
+                    localUri: isLocalFile ? uri : undefined,
+                    downloadUri: isLocalFile ? undefined : uri,
+                    fileName,
+                  })
+                }
+                testID="ThumbnailViewerDownloadButton"
+              />
+            </Row>
+          </Box>
+          <Image
+            resizeMode="contain"
+            source={imageSource}
+            style={styles.fullImage}
+          />
         </View>
       </Modal>
     </View>
@@ -134,8 +130,9 @@ export const ThumbnailViewer = ({
 }
 
 const createStyles = (
-  {color, size}: Theme,
+  {color, size, z}: Theme,
   thumbnailSize: DimensionValue,
+  insets: EdgeInsets,
   aspectRatio?: number,
 ) =>
   StyleSheet.create({
@@ -147,12 +144,15 @@ const createStyles = (
       flex: 1,
       backgroundColor: color.box.distinct,
       justifyContent: 'center',
-      alignItems: 'center',
-      zIndex: 10,
-      paddingBottom: size.spacing.md,
+      zIndex: z.overlay,
+      paddingTop: Platform.OS === 'android' ? 0 : insets.top,
+      paddingRight: insets.right,
+      paddingBottom: size.spacing.md + insets.bottom,
+      paddingLeft: insets.left,
     },
     fullImage: {
       aspectRatio,
+      alignSelf: 'center',
       maxWidth: '100%',
       maxHeight: '100%',
       flex: 1,
