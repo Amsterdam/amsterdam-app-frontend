@@ -7,6 +7,7 @@ export const NewMessageIndicator = () => {
 
   return newMessagesCount ? (
     <Badge
+      accessibilityLabel="Twee nieuwe berichten"
       testID="ChatNewMessageIndicatorBadge"
       value={newMessagesCount}
       variant="small"

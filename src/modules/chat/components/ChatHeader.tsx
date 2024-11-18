@@ -26,11 +26,13 @@ const PressableWhenMinimized = ({
   isMaximized,
   onPress,
   style,
+  ...viewProps
 }: WrapperProps) =>
   isMaximized ? (
     <>{children}</>
   ) : (
     <Pressable
+      {...viewProps}
       onPress={onPress}
       style={style}>
       {children}
@@ -80,6 +82,7 @@ export const ChatHeader = () => {
       onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
       style={styles.container}>
       <PressableWhenMinimized
+        accessibilityHint="Activeer om de chat te maximaliseren"
         isMaximized={isMaximized}
         onPress={toggleVisibility}
         style={styles.pressableWhenMinimized}>
@@ -107,7 +110,7 @@ export const ChatHeader = () => {
             </Row>
             <Animated.View style={expandIconStyle}>
               <IconButton
-                accessibilityHint={`Druk om chat te ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
+                accessibilityHint={`Activeer om chat te ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
                 icon={
                   <Icon
                     color="link"
