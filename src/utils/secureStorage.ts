@@ -25,12 +25,7 @@ export const getSecureItem = (key: SecureItemKey): Promise<string | null> =>
   new Promise((resolve, reject) => {
     RNSecureStorage.getItem(key)
       .then(res => resolve(res))
-      .catch((err: Error) => {
-        appInsights.trackException({
-          exception: err,
-        })
-        reject(err)
-      })
+      .catch(reject)
   })
 
 export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
