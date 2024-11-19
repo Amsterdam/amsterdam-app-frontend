@@ -68,11 +68,11 @@ export const ChatHeader = () => {
     <View
       onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
       style={styles.container}>
-      <Box testID="ChatHeader">
-        <PressableWhenMinimized
-          isMaximized={isMaximized}
-          onPress={toggleVisibility}
-          style={styles.pressableWhenMinimized}>
+      <PressableWhenMinimized
+        isMaximized={isMaximized}
+        onPress={toggleVisibility}
+        style={styles.pressableWhenMinimized}>
+        <Box testID="ChatHeader">
           <Row
             align="between"
             valign="center">
@@ -109,8 +109,8 @@ export const ChatHeader = () => {
               />
             </Animated.View>
           </Row>
-        </PressableWhenMinimized>
-      </Box>
+        </Box>
+      </PressableWhenMinimized>
       {!!isChatMenuVisible && (
         <ChatMenu
           close={hideChatMenu}
