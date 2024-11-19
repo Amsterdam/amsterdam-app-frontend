@@ -166,7 +166,7 @@ export const ProjectsList = ({
           setSearchFieldValue('')
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,
-            screenHeaderTitle: item.title,
+            screenHeaderTitle: 'Project',
           })
         }}
         project={item}

@@ -30,7 +30,7 @@ export const ProjectSegmentMenu = ({project}: Props) => {
             onPress={() =>
               navigation.navigate(ConstructionWorkRouteName.projectSegment, {
                 body: option,
-                screenHeaderTitle: project.title,
+                screenHeaderTitle: title,
                 screenTitle: `${project.title} - ${title}`,
               })
             }

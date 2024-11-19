@@ -86,7 +86,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     const params: VariableContentParams & {projectId?: number} = {
       id,
       projectId,
-      screenHeaderTitle: projectTitle,
+      screenHeaderTitle: 'Nieuws',
       screenTitle: `${projectTitle} - ${articleTitle}`,
     }
 
