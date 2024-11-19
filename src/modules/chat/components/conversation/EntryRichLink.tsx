@@ -15,6 +15,7 @@ type Props = {
 export const EntryRichLink = ({message}: Props) => {
   const openUrl = useOpenUrl()
   const {title, url} = message
+  const domain = getDomainName(url)
 
   return (
     <ChatMessageEntry message={message}>
@@ -25,11 +26,13 @@ export const EntryRichLink = ({message}: Props) => {
         testID="ChatMessageRichLinkUrl">
         {title}
       </InlineLink>
-      <MessagePhrase
-        message={message}
-        testID="RichLinkTitle">
-        {getDomainName(url)}
-      </MessagePhrase>
+      {!!domain && (
+        <MessagePhrase
+          message={message}
+          testID="RichLinkTitle">
+          {domain}
+        </MessagePhrase>
+      )}
     </ChatMessageEntry>
   )
 }
