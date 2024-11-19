@@ -14,9 +14,6 @@ export const timelineStyles = (
   const {color, size, z} = theme
 
   const tokens = {
-    body: {
-      insetLeft: size.spacing.md,
-    },
     indicator: {
       size: size.spacing.lg * fontScale,
     },
@@ -26,12 +23,8 @@ export const timelineStyles = (
   }
 
   return StyleSheet.create({
-    header: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'flex-start',
-    },
     indicator: {
+      flexShrink: 0,
       position: 'relative',
       width: tokens.indicator.size,
       aspectRatio: 1,
