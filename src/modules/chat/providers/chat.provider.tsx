@@ -51,13 +51,13 @@ type Props = {
 }
 
 export const ChatProvider = ({children}: Props) => {
-  const {isMaximized, isMinimized} = useChat()
+  const {isMaximized, isMinimized, conversationId, setConversationId} =
+    useChat()
   const [newMessagesCount, setNewMessagesCount] = useState(0)
   const [downloadedTranscriptIds, setDownloadedTranscriptIds] = useState<
     RetrieveTranscriptResponse['entryId'][]
   >([])
   const coreConfig = useCoreConfig()
-  const [conversationId, setConversationId] = useState<string>()
   const {
     messages,
     isTyping,
@@ -90,7 +90,7 @@ export const ChatProvider = ({children}: Props) => {
 
   useEffect(() => {
     setConversationId(newConversationId ?? conversationId)
-  }, [conversationId, newConversationId])
+  }, [conversationId, newConversationId, setConversationId])
 
   useEffect(() => {
     if (remoteConfiguration) {
@@ -103,7 +103,7 @@ export const ChatProvider = ({children}: Props) => {
           if (field.name === 'Origin') {
             field.value = 'App'
           } else if (field.name === 'Start_Location') {
-            field.value = 'Contact'
+            field.value = 'contact'
           }
         },
       )
