@@ -62,6 +62,7 @@ export const ChatHeader = () => {
   const onPressToggleVisibility = () => {
     toggleVisibility()
     Keyboard.dismiss()
+    hideChatMenu()
   }
 
   return (
