@@ -100,9 +100,9 @@ export const BottomSheet = ({
       enableDynamicSizing
       enablePanDownToClose
       index={-1}
-      onChange={snapPointIndex => {
+      onChange={(snapPointIndex, position, type) => {
         onChangeHandler(snapPointIndex)
-        onChange?.(snapPointIndex)
+        onChange?.(snapPointIndex, position, type)
       }}
       ref={ref}
       snapPoints={snapPoints}
