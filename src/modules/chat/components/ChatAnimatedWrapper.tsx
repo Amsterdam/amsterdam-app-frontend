@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -131,6 +132,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
       <Animated.View style={[styles.inner, animatedStylesInner]}>
         {children}
       </Animated.View>
+      <ChatMenu />
     </Animated.View>
   )
 }
@@ -139,10 +141,10 @@ const createStyles = ({z}: Theme, insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
       flexGrow: 1,
-      paddingTop: insets.top,
-      paddingRight: insets.right,
-      paddingBottom: insets.bottom,
-      paddingLeft: insets.left,
+      marginTop: insets.top,
+      marginRight: insets.right,
+      marginBottom: insets.bottom,
+      marginLeft: insets.left,
       zIndex: z.overlay - 1,
     },
     inner: {

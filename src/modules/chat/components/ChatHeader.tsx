@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useState} from 'react'
+import {ReactNode, useEffect} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
@@ -7,9 +7,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
-import {useToggle} from '@/hooks/useToggle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
-import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
 import {useScreen} from '@/store/slices/screen'
@@ -40,13 +38,14 @@ const PressableWhenMinimized = ({
   )
 
 export const ChatHeader = () => {
-  const {isMaximized, toggleVisibility} = useChat()
   const {
-    value: isChatMenuVisible,
-    toggle: toggleIsChatMenuVisible,
-    disable: hideChatMenu,
-  } = useToggle(false)
-  const [height, setHeight] = useState(0)
+    isMaximized,
+    isMenuOpen,
+    setHeaderHeight,
+    setIsMenuOpen,
+    toggleVisibility,
+  } = useChat()
+
   const {setHideFromAccessibility} = useScreen()
 
   const {color} = useTheme()
@@ -66,7 +65,7 @@ export const ChatHeader = () => {
   const onPressToggleVisibility = () => {
     toggleVisibility()
     Keyboard.dismiss()
-    hideChatMenu()
+    setIsMenuOpen(false)
   }
 
   useEffect(() => {
@@ -79,7 +78,7 @@ export const ChatHeader = () => {
 
   return (
     <View
-      onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
+      onLayout={layout => setHeaderHeight(layout.nativeEvent.layout.height)}
       style={styles.container}>
       <PressableWhenMinimized
         accessibilityHint="Activeer om de chat te maximaliseren"
@@ -92,12 +91,13 @@ export const ChatHeader = () => {
             valign="center">
             <Animated.View style={menuIconStyle}>
               <IconButton
+                accessibilityLabel={`Chat menu ${isMenuOpen ? 'sluiten' : 'openen'}.`}
                 icon={
                   <MeatballsMenu
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={toggleIsChatMenuVisible}
+                onPress={() => setIsMenuOpen(!isMenuOpen)}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />
@@ -110,7 +110,7 @@ export const ChatHeader = () => {
             </Row>
             <Animated.View style={expandIconStyle}>
               <IconButton
-                accessibilityHint={`Activeer om chat te ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
+                accessibilityLabel={`Chat ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
                 icon={
                   <Icon
                     color="link"
@@ -126,12 +126,6 @@ export const ChatHeader = () => {
           </Row>
         </Box>
       </PressableWhenMinimized>
-      {!!isChatMenuVisible && (
-        <ChatMenu
-          close={hideChatMenu}
-          headerHeight={height}
-        />
-      )}
     </View>
   )
 }

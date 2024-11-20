@@ -2,23 +2,24 @@ import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {Column} from '@/components/ui/layout/Column'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
+import {Duration} from '@/types/duration'
 
-type Props = {
-  close: () => void
-  headerHeight: number
-}
-
-export const ChatMenu = ({headerHeight, close}: Props) => {
+export const ChatMenu = () => {
+  const {close, headerHeight, isMenuOpen} = useChat()
   const theme = useTheme()
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
+
   const sheetStyles = createStyles(theme, headerHeight)
   const {addDownloadedTranscriptId} = useContext(ChatContext)
 
-  return (
+  return isMenuOpen ? (
     <Animated.View
       entering={FadeIn.duration(theme.duration.transition.short)}
       exiting={FadeOut.duration(theme.duration.transition.short)}
@@ -33,6 +34,7 @@ export const ChatMenu = ({headerHeight, close}: Props) => {
               entryId => entryId && addDownloadedTranscriptId(entryId),
             )
           }}
+          ref={setAccessibilityFocus}
           testID="ChatMenuPressableDownloadChat"
         />
         <ChatMenuItem
@@ -43,7 +45,7 @@ export const ChatMenu = ({headerHeight, close}: Props) => {
         />
       </Column>
     </Animated.View>
-  )
+  ) : null
 }
 
 const createStyles = ({color, z, size}: Theme, headerHeight: number) =>
