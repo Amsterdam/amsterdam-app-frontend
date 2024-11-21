@@ -55,6 +55,7 @@ export const ProjectWarning = ({id, projectId}: Props) => {
       body={body}
       id={id}
       image={images?.[0]}
+      projectId={projectId}
       publicationDate={publication_date}
       title={title}
       type="warning">
