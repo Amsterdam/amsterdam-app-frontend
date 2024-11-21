@@ -7,28 +7,30 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {CityPass} from '@/modules/city-pass/types'
+import {CityPass, CityPassPass} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
-  cityPass: CityPass
+  cityPass: CityPass | CityPassPass
 } & Omit<PressableProps, 'children' | 'variant'>
 
 export const CityPassCard = ({
-  onPress,
-  cityPass: {
-    budgets,
-    balanceFormatted,
-    owner: {firstname},
-  },
-  testID,
   accessibilityRole = 'button',
+  cityPass,
+  onPress,
+  testID,
   ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
-  const budgetsBalanceSentence = `Totaal saldo ${balanceFormatted}`
+  const firstname =
+    'owner' in cityPass ? cityPass?.owner.firstname : cityPass?.firstname
+  const budgetsBalanceSentence =
+    'balanceFormatted' in cityPass
+      ? `Totaal saldo ${cityPass.balanceFormatted}`
+      : ''
+  const budgets = 'budgets' in cityPass ? cityPass.budgets : []
 
   return (
     <Pressable
