@@ -79,7 +79,6 @@ const ListItem = memo(
       <ProjectCard
         additionalAccessibilityLabel={additionalAccessibilityLabel}
         imageSource={image?.sources}
-        isDummyItem={isDummyItem}
         onPress={() => onPress(id, isDummyItem)}
         subtitle={subtitle}
         testID={`ConstructionWork${id}ProjectCard`}

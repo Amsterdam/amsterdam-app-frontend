@@ -87,7 +87,9 @@ export const LazyImage = ({
       testID={testID}>
       {!!showSkeleton && (
         <View style={positionedView}>
-          <Skeleton />
+          <Skeleton isLoading>
+            <View style={wrapperAspectRatio} />
+          </Skeleton>
         </View>
       )}
       <View style={positionedView}>

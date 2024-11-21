@@ -1,63 +1,67 @@
+import {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   aspectRatio?: ImageAspectRatio
+  children?: ReactElement
+  isLoading: boolean
 }
 
-export const Skeleton = ({aspectRatio}: Props) => {
+export const Skeleton = ({aspectRatio, children, isLoading}: Props) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
-  const [backgroundColor, highlightColor] = useThemable(getColors)
-  const styles = useThemable(createStyles(aspectRatio))
+  const theme = useTheme()
+  const {skeleton} = theme.color
+  const styles = createStyles(theme, aspectRatio)
 
   if (isReduceMotionEnabled) {
     return <View style={styles.noAnimation} />
   }
 
   return (
-    <SkeletonPlaceholder
-      backgroundColor={backgroundColor}
-      highlightColor={highlightColor}
-      speed={1000}>
-      <SkeletonPlaceholder.Item
-        alignItems="stretch"
-        height={'100%'}
-        justifyContent="space-between"
-        style={styles?.wrapper}>
-        <SkeletonPlaceholder.Item
-          height={'100%'}
-          width={'100%'}
-        />
-      </SkeletonPlaceholder.Item>
-    </SkeletonPlaceholder>
+    <View>
+      {!!isLoading && (
+        <View style={styles.wrapper}>
+          <SkeletonPlaceholder
+            backgroundColor={skeleton.background}
+            highlightColor={skeleton.highlight}
+            speed={1000}>
+            <SkeletonPlaceholder.Item
+              height="100%"
+              width="100%"
+            />
+          </SkeletonPlaceholder>
+        </View>
+      )}
+      {children}
+    </View>
   )
 }
 
-const getColors = ({color}: Theme) => [
-  color.skeleton.background,
-  color.skeleton.highlight,
-]
+const createStyles = (
+  {color, media, z}: Theme,
+  aspectRatio?: ImageAspectRatio,
+) => {
+  const aspectRatioValue = aspectRatio
+    ? media.aspectRatio[aspectRatio]
+    : undefined
 
-const createStyles =
-  (aspectRatio?: ImageAspectRatio) =>
-  ({color, media}: Theme) => {
-    const aspectRatioValue = aspectRatio
-      ? media.aspectRatio[aspectRatio]
-      : undefined
-
-    return StyleSheet.create({
-      noAnimation: {
-        aspectRatio: aspectRatioValue,
-        backgroundColor: color.skeleton.background,
-        flex: 1,
-      },
-      wrapper: {
-        aspectRatio: aspectRatioValue,
-        minHeight: 20,
-      },
-    })
-  }
+  return StyleSheet.create({
+    wrapper: {
+      position: 'absolute',
+      flex: 1,
+      height: '100%',
+      width: '100%',
+      zIndex: z.skeleton,
+    },
+    noAnimation: {
+      aspectRatio: aspectRatioValue,
+      backgroundColor: color.skeleton.background,
+      flex: 1,
+    },
+  })
+}
