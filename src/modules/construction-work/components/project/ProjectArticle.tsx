@@ -71,20 +71,23 @@ export const ProjectArticle = ({
         <HorizontalSafeArea>
           <Box>
             <Column gutter="md">
-              <Column>
-                {!!publicationDate && (
-                  <Paragraph testID={`ConstructionWorkProjectArticle${id}Date`}>
-                    {formatDate(publicationDate)}
-                  </Paragraph>
-                )}
-                {!!project && (
-                  <Phrase
-                    emphasis="strong"
-                    testID={`ConstructionWorkProjectArticle${id}ProjectTitle`}>
-                    {project.title}
-                  </Phrase>
-                )}
-              </Column>
+              {(!!publicationDate || !!project) && (
+                <Column>
+                  {!!publicationDate && (
+                    <Paragraph
+                      testID={`ConstructionWorkProjectArticle${id}Date`}>
+                      {formatDate(publicationDate)}
+                    </Paragraph>
+                  )}
+                  {!!project && (
+                    <Phrase
+                      emphasis="strong"
+                      testID={`ConstructionWorkProjectArticle${id}ProjectTitle`}>
+                      {project.title}
+                    </Phrase>
+                  )}
+                </Column>
+              )}
               {!!title && (
                 <Title
                   testID={`ConstructionWorkProjectArticle${id}Title`}
