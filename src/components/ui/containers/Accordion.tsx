@@ -48,6 +48,7 @@ type AccordionProps = {
   initiallyExpanded?: boolean
   isExpandable?: boolean
   onChangeExpanded?: (state: boolean) => void
+  shrink?: number
   title: string
 } & TestProps &
   LogProps
@@ -65,6 +66,7 @@ export const Accordion = ({
   logName,
   logCategory,
   logValue,
+  shrink,
 }: AccordionProps) => {
   const [isExpanded, setIsExpanded] = useState(!!initiallyExpanded)
   const iconName = isExpanded ? 'chevron-up' : 'chevron-down'
@@ -95,7 +97,9 @@ export const Accordion = ({
   }
 
   return (
-    <Column grow={grow}>
+    <Column
+      grow={grow}
+      shrink={shrink}>
       <Pressable
         accessibilityActions={[
           {

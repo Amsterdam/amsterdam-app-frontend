@@ -96,6 +96,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
       id={id}
       image={image}
       intro={intro}
+      projectId={pId}
       publicationDate={publication_date}
       title={title ?? ''}
     />

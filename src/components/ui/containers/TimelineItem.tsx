@@ -3,6 +3,7 @@ import {Fragment, useState} from 'react'
 import {View} from 'react-native'
 import {Accordion} from '@/components/ui/containers/Accordion'
 import {timelineStyles} from '@/components/ui/containers/timelineStyles'
+import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
@@ -39,7 +40,7 @@ export const TimelineItem = ({
 
   return (
     <View>
-      <View style={styles.header}>
+      <Row>
         <View style={styles.indicator}>
           {item.progress === 'Afgelopen' && (
             <Icon
@@ -56,6 +57,7 @@ export const TimelineItem = ({
           isExpandable={!!item.body || !!item.items?.length}
           key={item.title}
           onChangeExpanded={state => setIsExpanded(state)}
+          shrink={1}
           testID={testID}
           title={item.title}>
           {!!item.body && (
@@ -81,7 +83,7 @@ export const TimelineItem = ({
             </Fragment>
           ))}
         </Accordion>
-      </View>
+      </Row>
       <View style={styles.line} />
     </View>
   )
