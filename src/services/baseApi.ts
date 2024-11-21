@@ -7,7 +7,6 @@ import {
   retry,
 } from '@reduxjs/toolkit/query/react'
 import {apiKeyForEnvironment, ApiSlug} from '@/environment'
-import {ProjectsEndpointName} from '@/modules/construction-work/types/api'
 import {devError, devInfo} from '@/processes/development'
 import {
   PrepareHeaders,
@@ -17,25 +16,10 @@ import {
 import {selectApi, selectEnvironment} from '@/store/slices/environment'
 import {RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
-import {DeviceRegistrationEndpointName} from '@/types/device'
-import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {sleep} from '@/utils/sleep'
 import {VERSION_NUMBER} from '@/utils/version'
 
-const deviceIdRequestingEndpoints: string[] = [
-  ProjectsEndpointName.projectFollow,
-  ProjectsEndpointName.projectDetails,
-  ProjectsEndpointName.projects,
-  ProjectsEndpointName.projectsFollowedArticles,
-  ProjectsEndpointName.projectUnfollow,
-  DeviceRegistrationEndpointName.registerDevice,
-  DeviceRegistrationEndpointName.unregisterDevice,
-]
-
-const prepareHeaders: PrepareHeaders = (headers, {endpoint, getState}) => {
-  deviceIdRequestingEndpoints.includes(endpoint) &&
-    headers.set('deviceid', SHA256EncryptedDeviceId)
-
+const prepareHeaders: PrepareHeaders = (headers, {getState}) => {
   const state = getState() as RootState
 
   const {environment} = selectEnvironment(state)
@@ -94,7 +78,9 @@ const dynamicBaseQuery: BaseQueryFn<
       if (!error) {
         devInfo(`Request success: ${requestInfo}`)
       } else {
-        devError(`Request failed (${status}): ${requestInfo}`)
+        devError(
+          `Request failed (${status}): ${requestInfo}, ${JSON.stringify(error.data)}`,
+        )
       }
 
       if (status === 404) {
