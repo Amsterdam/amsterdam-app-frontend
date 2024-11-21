@@ -45,7 +45,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
 
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)
-  const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale + insets.bottom
+  const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale
 
   useEffect(() => {
     maximized.value = withTiming(isMaximized ? 1 : 0)
@@ -113,14 +113,6 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
     ),
   }))
 
-  const animatedStylesInner = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: interpolate(maximized.value, [0, 1], [-insets.top, 0]),
-      },
-    ],
-  }))
-
   return (
     <Animated.View
       entering={SlideInDown}
@@ -129,9 +121,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
         setMaxHeight(e.nativeEvent.layout.height)
       }}
       style={[StyleSheet.absoluteFill, styles.container, animatedStylesOuter]}>
-      <Animated.View style={[styles.inner, animatedStylesInner]}>
-        {children}
-      </Animated.View>
+      {children}
       <ChatMenu />
     </Animated.View>
   )
@@ -146,8 +136,5 @@ const createStyles = ({z}: Theme, insets: EdgeInsets) =>
       marginBottom: insets.bottom,
       marginLeft: insets.left,
       zIndex: z.overlay - 1,
-    },
-    inner: {
-      flexGrow: 1,
     },
   })
