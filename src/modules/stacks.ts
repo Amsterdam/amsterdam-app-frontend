@@ -44,6 +44,7 @@ import {
   HomeStackParams,
 } from '@/modules/home/routes'
 import {homeModals} from '@/modules/home/screenConfig'
+import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {
   OnboardingRouteName,
@@ -123,6 +124,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
   [ModuleSlug.home]: HomeStack,
+  [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
   [ModuleSlug['open-waste-container']]: OpenWasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,

@@ -139,6 +139,11 @@ export const lightColorTokens = {
   noInternet: {
     background: baseColor.primary.red,
   },
+  notificationHistory: {
+    itemIcon: {
+      background: baseColor.primary.blue,
+    },
+  },
   pagination: {
     background: baseColor.primary.blue,
     container: {

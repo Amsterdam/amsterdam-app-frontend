@@ -11,4 +11,7 @@ export const sizeTokens = {
     xl: 40,
     xxl: 80,
   },
+  iconContainer: {
+    xl: 55,
+  },
 } as const

@@ -12,11 +12,11 @@ export type BadgeProps = {
   /**
    * The value to display in the badge.
    */
-  value: number
+  value?: number
   /**
    * Which variant of the badge to display.
    */
-  variant?: 'default' | 'on-icon' | 'small'
+  variant?: 'default' | 'on-icon' | 'small' | 'extraSmall'
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   TestProps
 
@@ -40,7 +40,7 @@ export const Badge = ({
           numberOfLines={1}
           style={styles.text}
           testID={testID}>
-          {formatNumber(value)}
+          {!!value && formatNumber(value)}
         </Text>
       </View>
     </Row>
@@ -54,10 +54,17 @@ const createStyles =
   (
     fontScale: Device['fontScale'],
     variant: OmitUndefined<BadgeProps['variant']>,
-    value: number,
+    value: number = 0,
   ) =>
   ({color, text}: Theme) => {
-    const fontSize = text.fontSize[variant === 'small' ? 'small' : 'body']
+    const fontSize =
+      text.fontSize[
+        variant === 'extraSmall'
+          ? 'extraSmall'
+          : variant === 'small'
+            ? 'small'
+            : 'body'
+      ]
     const scalesWithFont = variant !== 'on-icon'
     const scaleFactor = scalesWithFont ? fontScale : 1
     const isDoubleDigitValue = value > 9

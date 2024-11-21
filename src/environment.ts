@@ -13,6 +13,7 @@ export enum Environment {
 export enum GlobalApiSlug {
   modules = 'modules',
   admin = 'beheer',
+  notification = 'notification',
 }
 
 export type ApiSlug = GlobalApiSlug | ModuleSlug
