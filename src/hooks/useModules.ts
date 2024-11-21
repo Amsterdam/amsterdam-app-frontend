@@ -6,6 +6,7 @@ import {postProcessModules} from '@/modules/utils/modules'
 import {useGetReleaseQuery} from '@/services/modules.service'
 import {
   selectAuthorizedModules,
+  selectCachedServerModules,
   selectDisabledModules,
 } from '@/store/slices/modules'
 
@@ -28,8 +29,18 @@ export const useModules = () => {
       a.length === b.length &&
       a.every((value: string, index) => value === b[index]),
   )
+  const cachedServerModules = useSelector(selectCachedServerModules)
   const postProcessedModules = useMemo(() => {
     if (!serverModules) {
+      if (cachedServerModules) {
+        return postProcessModules(
+          clientModules,
+          userDisabledModulesBySlug,
+          authorizedModulesBySlug,
+          cachedServerModules,
+        )
+      }
+
       return
     }
 
@@ -39,7 +50,12 @@ export const useModules = () => {
       authorizedModulesBySlug,
       serverModules,
     )
-  }, [authorizedModulesBySlug, userDisabledModulesBySlug, serverModules])
+  }, [
+    serverModules,
+    userDisabledModulesBySlug,
+    authorizedModulesBySlug,
+    cachedServerModules,
+  ])
 
   useAppState({
     onForeground: () => {
