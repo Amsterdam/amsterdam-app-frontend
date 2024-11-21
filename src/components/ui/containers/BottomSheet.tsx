@@ -7,7 +7,6 @@ import BottomSheetOriginal, {
 import {type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
-import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -84,18 +83,9 @@ export const BottomSheet = ({
   ...rest
 }: Props) => {
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
-  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   return (
     <BottomSheetOriginal
-      animateOnMount={!isReduceMotionEnabled}
-      animationConfigs={
-        isReduceMotionEnabled
-          ? {
-              duration: 1,
-            }
-          : undefined
-      }
       backdropComponent={Backdrop}
       enableDynamicSizing
       enablePanDownToClose
