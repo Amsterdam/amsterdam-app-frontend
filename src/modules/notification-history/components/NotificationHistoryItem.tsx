@@ -22,7 +22,7 @@ type Props = {
 }
 
 export const NotificationHistoryItem = ({
-  item: {title, module_slug, created_at, is_read, id, context},
+  item: {title, body, module_slug, created_at, is_read, id, context},
   enabledModules = [],
 }: Props) => {
   const module = enabledModules.find(({slug}) => slug === module_slug)
@@ -93,7 +93,7 @@ export const NotificationHistoryItem = ({
               </Row>
             </Row>
             <Paragraph testID={`NotificationHistoryItem${id}Description`}>
-              {title}
+              {title}: {body}
             </Paragraph>
           </Column>
         </Row>

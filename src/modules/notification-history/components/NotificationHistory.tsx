@@ -3,12 +3,16 @@ import {FlatList, type ListRenderItem} from 'react-native'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useModules} from '@/hooks/useModules'
 import {NotificationHistoryEmpty} from '@/modules/notification-history/components/NotificationHistoryEmpty'
 import {NotificationHistoryItem} from '@/modules/notification-history/components/NotificationHistoryItem'
 import {NotificationHistoryListFooter} from '@/modules/notification-history/components/NotificationHistoryListFooter'
-import {useGetNotificationsQuery} from '@/modules/notification-history/service'
+import {
+  useGetNotificationsQuery,
+  useMarkAllNotificationsReadMutation,
+} from '@/modules/notification-history/service'
 import {type Notification} from '@/modules/notification-history/types'
 
 export const NotificationHistory = () => {
@@ -25,6 +29,11 @@ export const NotificationHistory = () => {
     ),
     [enabledModules],
   )
+  const [markAllNotificationsRead, {}] = useMarkAllNotificationsReadMutation()
+
+  useBlurEffect(() => {
+    void markAllNotificationsRead()
+  })
 
   if (isLoading) {
     return <PleaseWait testID="NotificationHistoryPleaseWait" />
