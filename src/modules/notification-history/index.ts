@@ -7,4 +7,5 @@ export const notificationHistoryModule: ModuleClientConfig = {
   name: 'NotificationHistoryModule',
   HeaderComponent,
   slug: ModuleSlug['notification-history'],
+  alwaysEnabled: true,
 }

@@ -47,7 +47,7 @@ export const NotificationHistory = () => {
         Image={ConstructionWorkFigure}
         onPress={() => navigation.goBack()}
         testID="NotificationHistoryError"
-        title="Er zijn geen meldingen beschikbaar"
+        title="Er kunnen geen meldingen worden getoond"
       />
     )
   }

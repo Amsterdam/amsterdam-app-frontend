@@ -21,6 +21,8 @@ export type RowProps = {
   gutter?: keyof SpacingTokens
   /** Whether the items in the row should be reversed. */
   reverse?: boolean
+  /** Whether the row should shrink. */
+  shrink?: number
   /** The vertical alignment of the items in the row. */
   valign?: CrossAxisAlignment
   /** The amount of vertical spacing between the items in the row. */
@@ -46,8 +48,9 @@ export const Row = ({
   flex,
   grow,
   gutter,
-  valign,
   reverse,
+  shrink = 1,
+  valign,
   vgutter,
   wrap,
   zIndex,
@@ -59,6 +62,7 @@ export const Row = ({
       grow,
       gutter,
       reverse,
+      shrink,
       valign,
       vgutter,
       wrap,
@@ -76,6 +80,7 @@ const createStyles =
     grow,
     gutter,
     reverse,
+    shrink,
     valign,
     vgutter,
     wrap,
@@ -88,7 +93,7 @@ const createStyles =
         flexWrap: wrap ? 'wrap' : undefined,
         flex,
         flexGrow: grow,
-        flexShrink: 1,
+        flexShrink: shrink,
         justifyContent: mapMainAxisAlignment(align),
         alignItems: mapCrossAxisAlignment(valign),
         columnGap: gutter && size.spacing[gutter],

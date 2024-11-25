@@ -34,14 +34,14 @@ export const NotificationHistoryItem = ({
     return null
   }
 
-  const {title: moduleTitle, icon} = module
+  const {icon} = module
 
   return (
     <PressableBase
       onPress={() => {
         const deeplinkUrl = createPathFromNotification({
-          title: moduleTitle,
-          body: title,
+          title,
+          body,
           data: context,
         })
 
@@ -66,20 +66,18 @@ export const NotificationHistoryItem = ({
             grow={1}
             shrink={1}>
             <Row
+              align="between"
               flex={1}
               gutter="sm">
-              <Row flex={1}>
-                <Title
-                  level="h5"
-                  testID={`NotificationHistoryItem${id}Title`}
-                  text={moduleTitle}
-                />
-              </Row>
-              <Row
-                gutter="sm"
-                valign="center">
+              <Title
+                level="h5"
+                testID={`NotificationHistoryItem${id}Title`}
+                text={title}
+              />
+              <Row gutter="sm">
                 <Phrase
                   color="secondary"
+                  numberOfLines={1}
                   testID={`NotificationHistoryItem${id}CreationDate`}
                   variant="body">
                   {formatHistoryDateTime(created_at)}
@@ -93,7 +91,7 @@ export const NotificationHistoryItem = ({
               </Row>
             </Row>
             <Paragraph testID={`NotificationHistoryItem${id}Description`}>
-              {title}: {body}
+              {body}
             </Paragraph>
           </Column>
         </Row>
