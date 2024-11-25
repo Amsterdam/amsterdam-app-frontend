@@ -3,26 +3,27 @@ import {View, StyleSheet} from 'react-native'
 import Animated, {FadeOut} from 'react-native-reanimated'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
+import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useTheme} from '@/themes/useTheme'
 
 const ANIMATION_SPEED_MS = 1000
 
 type Props = {
-  aspectRatio?: ImageAspectRatio
   children?: ReactElement
   isLoading: boolean
 }
 
-export const Skeleton = ({aspectRatio, children, isLoading}: Props) => {
+export const Skeleton = ({children, isLoading}: Props) => {
+  const isReduceMotionEnabled = useIsReduceMotionEnabled()
   const theme = useTheme()
   const {skeleton} = theme.color
-  const styles = createStyles(theme, aspectRatio)
+  const styles = createStyles(theme)
+  const isSkeletonVisible = !isReduceMotionEnabled && isLoading
 
   return (
     <View>
-      {!!isLoading && (
+      {!!isSkeletonVisible && (
         <Animated.View
           exiting={FadeOut}
           style={styles.wrapper}>
@@ -37,22 +38,15 @@ export const Skeleton = ({aspectRatio, children, isLoading}: Props) => {
           </SkeletonPlaceholder>
         </Animated.View>
       )}
-      <HideFromAccessibility hide={!!isLoading}>
+      <HideFromAccessibility hide={isSkeletonVisible}>
         {children}
       </HideFromAccessibility>
     </View>
   )
 }
 
-const createStyles = (
-  {color, media, z}: Theme,
-  aspectRatio?: ImageAspectRatio,
-) => {
-  const aspectRatioValue = aspectRatio
-    ? media.aspectRatio[aspectRatio]
-    : undefined
-
-  return StyleSheet.create({
+const createStyles = ({z}: Theme) =>
+  StyleSheet.create({
     wrapper: {
       position: 'absolute',
       flex: 1,
@@ -60,10 +54,4 @@ const createStyles = (
       width: '100%',
       zIndex: z.skeleton,
     },
-    noAnimation: {
-      aspectRatio: aspectRatioValue,
-      backgroundColor: color.skeleton.background,
-      flex: 1,
-    },
   })
-}
