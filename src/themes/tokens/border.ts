@@ -7,4 +7,4 @@ export const borderTokens = {
     lg: 3,
     xl: 4,
   },
-}
+} as const

@@ -56,7 +56,7 @@ const createStyles =
     variant: OmitUndefined<BadgeProps['variant']>,
     value: number = 0,
   ) =>
-  ({color, text}: Theme) => {
+  ({color, text, border}: Theme) => {
     const fontSize =
       text.fontSize[
         variant === 'extraSmall'
@@ -65,8 +65,8 @@ const createStyles =
             ? 'small'
             : 'body'
       ]
-    const scalesWithFont = variant !== 'on-icon'
-    const scaleFactor = scalesWithFont ? fontScale : 1
+    const scaleFactor =
+      variant === 'on-icon' ? 1 + (fontScale - 1) / 2 : fontScale
     const isDoubleDigitValue = value > 9
     const marginFactor = isDoubleDigitValue
       ? MARGIN_DOUBLE_DIGIT
@@ -80,10 +80,12 @@ const createStyles =
         width: scaledDiameter,
         borderRadius: scaledDiameter / 2,
         backgroundColor: color.badge.background,
+        borderWidth: border.width.sm,
+        borderColor: color.badge.border,
       },
       text: {
         fontFamily: text.fontFamily.bold,
-        fontSize,
+        fontSize: (fontSize / fontScale) * scaleFactor,
         color: color.text.inverse,
         bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
         textAlign: 'center',
