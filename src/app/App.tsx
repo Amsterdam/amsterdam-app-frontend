@@ -4,7 +4,6 @@ import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from 'react-native-safe-area-context'
-import {persistStore} from 'redux-persist'
 import {PersistGate} from 'redux-persist/integration/react'
 import {CustomErrorBoundary} from '@/app/CustomErrorBoundary'
 import {Init} from '@/app/Init'
@@ -13,11 +12,9 @@ import {AppNavigationContainer} from '@/app/navigation/AppNavigationContainer'
 import {RootStackNavigator} from '@/app/navigation/RootStackNavigator'
 import {AppInsightsProvider} from '@/providers/appinsights.provider'
 import {RootProvider} from '@/providers/root.provider'
-import {store} from '@/store/store'
+import {persistor} from '@/store/persistor'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 import '@/processes/logging'
-
-const persistor = persistStore(store)
 
 export const App = () => (
   <AppInsightsProvider>
