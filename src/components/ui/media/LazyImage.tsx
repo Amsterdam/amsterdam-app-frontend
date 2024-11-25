@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState, ReactElement} from 'react'
+import {useCallback, useState, ReactElement, useMemo} from 'react'
 import {
   type ImageErrorEventData,
   type ImageSourcePropType,
@@ -8,14 +8,13 @@ import {
   StyleSheet,
   View,
 } from 'react-native'
-import {Fader} from '@/components/ui/animations/Fader'
 import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Image, type ImageProps} from '@/components/ui/media/Image'
 import {ImageFallback} from '@/components/ui/media/ImageFallback'
 import {type TestProps} from '@/components/ui/types'
 import {type Theme} from '@/themes/themes'
 import {type ImageAspectRatio} from '@/themes/tokens/media'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = Omit<ImageProps, 'style'> & {
   fallbackInheritsAspectRatio?: boolean
@@ -46,11 +45,12 @@ export const LazyImage = ({
   ...rest
 }: Props) => {
   const [failed, setFailed] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const [showSkeleton, setShowSkeleton] = useState(true)
-
-  const {fader, image, positionedView, wrapperView, wrapperAspectRatio} =
-    useThemable(useMemo(() => createStyles(aspectRatio), [aspectRatio]))
+  const [isLoading, setIsLoading] = useState(true)
+  const theme = useTheme()
+  const styles = useMemo(
+    () => createStyles(theme, aspectRatio),
+    [theme, aspectRatio],
+  )
 
   const handleError = useCallback(
     (error?: NativeSyntheticEvent<ImageErrorEventData>) => {
@@ -61,17 +61,15 @@ export const LazyImage = ({
   )
 
   const handleLoadEnd = useCallback(() => {
-    setLoading(false)
+    setIsLoading(false)
     onLoadEnd?.()
   }, [onLoadEnd])
-
-  const callback = useCallback(() => setShowSkeleton(false), [])
 
   if (!hasImageSource(source)) {
     if (missingSourceFallback) {
       return (
         <View
-          style={fallbackInheritsAspectRatio ? wrapperAspectRatio : undefined}
+          style={fallbackInheritsAspectRatio ? styles.aspectRatio : undefined}
           testID={testID}>
           {missingSourceFallback}
         </View>
@@ -82,61 +80,37 @@ export const LazyImage = ({
   }
 
   return (
-    <View
-      style={[wrapperView, wrapperAspectRatio]}
-      testID={testID}>
-      {!!showSkeleton && (
-        <View style={positionedView}>
-          <Skeleton isLoading>
-            <View style={wrapperAspectRatio} />
-          </Skeleton>
-        </View>
-      )}
-      <View style={positionedView}>
-        <Fader
-          callback={callback}
-          duration={500}
-          shouldAnimate={!loading || failed}
-          style={fader}>
-          {failed ? (
-            <ImageFallback aspectRatio={aspectRatio} />
-          ) : (
-            <Image
-              {...rest}
-              aspectRatio={aspectRatio}
-              onError={handleError}
-              onLoadEnd={handleLoadEnd}
-              source={source}
-              style={[image, imageStyle]}
-            />
-          )}
-        </Fader>
+    <Skeleton isLoading={isLoading}>
+      <View
+        style={styles.wrapper}
+        testID={testID}>
+        {failed ? (
+          <ImageFallback aspectRatio={aspectRatio} />
+        ) : (
+          <Image
+            {...rest}
+            aspectRatio={aspectRatio}
+            onError={handleError}
+            onLoadEnd={handleLoadEnd}
+            source={source}
+            style={[styles.image, imageStyle]}
+          />
+        )}
       </View>
-    </View>
+    </Skeleton>
   )
 }
 
-const createStyles =
-  (aspectRatio: ImageAspectRatio) =>
-  ({media}: Theme) =>
-    StyleSheet.create({
-      wrapperAspectRatio: {
-        aspectRatio: media.aspectRatio[aspectRatio],
-      },
-      fader: {
-        flex: 1,
-      },
-      image: {
-        flex: 1,
-      },
-      positionedView: {
-        bottom: 0,
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-      },
-      wrapperView: {
-        position: 'relative',
-      },
-    })
+const createStyles = ({media}: Theme, aspectRatio: ImageAspectRatio) =>
+  StyleSheet.create({
+    aspectRatio: {
+      aspectRatio: media.aspectRatio[aspectRatio],
+    },
+    image: {
+      flex: 1,
+    },
+    wrapper: {
+      position: 'relative',
+      aspectRatio: media.aspectRatio[aspectRatio],
+    },
+  })
