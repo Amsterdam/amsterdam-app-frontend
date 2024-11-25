@@ -1,63 +1,57 @@
+import {ReactElement} from 'react'
 import {View, StyleSheet} from 'react-native'
+import Animated, {FadeOut} from 'react-native-reanimated'
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {Theme} from '@/themes/themes'
-import {ImageAspectRatio} from '@/themes/tokens/media'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
+
+const ANIMATION_SPEED_MS = 1000
 
 type Props = {
-  aspectRatio?: ImageAspectRatio
+  children?: ReactElement
+  isLoading: boolean
 }
 
-export const Skeleton = ({aspectRatio}: Props) => {
+export const Skeleton = ({children, isLoading}: Props) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
-  const [backgroundColor, highlightColor] = useThemable(getColors)
-  const styles = useThemable(createStyles(aspectRatio))
-
-  if (isReduceMotionEnabled) {
-    return <View style={styles.noAnimation} />
-  }
+  const theme = useTheme()
+  const {skeleton} = theme.color
+  const styles = createStyles(theme)
+  const isSkeletonVisible = !isReduceMotionEnabled && isLoading
 
   return (
-    <SkeletonPlaceholder
-      backgroundColor={backgroundColor}
-      highlightColor={highlightColor}
-      speed={1000}>
-      <SkeletonPlaceholder.Item
-        alignItems="stretch"
-        height={'100%'}
-        justifyContent="space-between"
-        style={styles?.wrapper}>
-        <SkeletonPlaceholder.Item
-          height={'100%'}
-          width={'100%'}
-        />
-      </SkeletonPlaceholder.Item>
-    </SkeletonPlaceholder>
+    <View>
+      {!!isSkeletonVisible && (
+        <Animated.View
+          exiting={FadeOut}
+          style={styles.wrapper}>
+          <SkeletonPlaceholder
+            backgroundColor={skeleton.background}
+            highlightColor={skeleton.highlight}
+            speed={ANIMATION_SPEED_MS}>
+            <SkeletonPlaceholder.Item
+              height="100%"
+              width="100%"
+            />
+          </SkeletonPlaceholder>
+        </Animated.View>
+      )}
+      <HideFromAccessibility hide={isSkeletonVisible}>
+        {children}
+      </HideFromAccessibility>
+    </View>
   )
 }
 
-const getColors = ({color}: Theme) => [
-  color.skeleton.background,
-  color.skeleton.highlight,
-]
-
-const createStyles =
-  (aspectRatio?: ImageAspectRatio) =>
-  ({color, media}: Theme) => {
-    const aspectRatioValue = aspectRatio
-      ? media.aspectRatio[aspectRatio]
-      : undefined
-
-    return StyleSheet.create({
-      noAnimation: {
-        aspectRatio: aspectRatioValue,
-        backgroundColor: color.skeleton.background,
-        flex: 1,
-      },
-      wrapper: {
-        aspectRatio: aspectRatioValue,
-        minHeight: 20,
-      },
-    })
-  }
+const createStyles = ({z}: Theme) =>
+  StyleSheet.create({
+    wrapper: {
+      position: 'absolute',
+      flex: 1,
+      height: '100%',
+      width: '100%',
+      zIndex: z.skeleton,
+    },
+  })

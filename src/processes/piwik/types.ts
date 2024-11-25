@@ -157,6 +157,9 @@ export enum PiwikError {
 export type LogProps = {
   logAction?: PiwikAction
   logCategory?: PiwikCategory
+  /**
+   * Custom dimensions to log with the event.
+   */
   logDimensions?: CustomDimensions
   logName?: string
   logValue?: number

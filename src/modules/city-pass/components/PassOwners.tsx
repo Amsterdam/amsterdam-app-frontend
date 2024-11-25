@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -11,8 +10,11 @@ import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
+import {ShowCityPassButtonSkeleton} from '@/modules/city-pass/components/ShowCityPassButton.skeleton'
 import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPassCard'
+import {CityPassCardSkeleton} from '@/modules/city-pass/components/card-display/CityPassCard.skeleton'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
+import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
@@ -26,33 +28,44 @@ type Props = {
 export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
   const openRedirect = useOpenRedirect()
+  const secureCityPasses = useGetSecureCityPasses()
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
 
-  const {
-    data: cityPasses,
-    isLoading,
-    isError,
-  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+  const {data, isLoading, isError} = useGetCityPassesQuery(
+    secureAccessToken ? secureAccessToken : skipToken,
+  )
 
-  useSetSecureCityPasses(cityPasses)
+  const cityPasses = data ?? secureCityPasses
 
-  if (isLoading) {
+  useSetSecureCityPasses(data)
+
+  const onPressCityPassCard = (passNumber?: number) => {
+    if (!passNumber) {
+      return
+    }
+
+    navigate(CityPassRouteName.cityPassDetails, {
+      passNumber,
+    })
+  }
+
+  if (!secureCityPasses && isLoading) {
     return (
       <Box
         insetBottom="xl"
         insetHorizontal="md"
         insetTop="md">
         <Column gutter="md">
-          <PleaseWait testID="CityPassDashboardPleaseWait" />
-          <ShowCityPassButton />
+          <ShowCityPassButtonSkeleton isLoading />
+          <CityPassCardSkeleton isLoading />
         </Column>
       </Box>
     )
   }
 
-  if (isError || !cityPasses) {
+  if (!secureCityPasses && (isError || !cityPasses)) {
     return (
       <SomethingWentWrong
         inset="md"
@@ -72,22 +85,18 @@ export const PassOwners = ({logout}: Props) => {
         <Column gutter="md">
           <ShowCityPassButton />
           <Gutter height="sm" />
-          {cityPasses.map(cityPass => {
-            const {id} = cityPass
-
-            return (
-              <CityPassCard
-                cityPass={cityPass}
-                key={id}
-                onPress={() =>
-                  navigate(CityPassRouteName.cityPassDetails, {
-                    passNumber: cityPass.passNumber,
-                  })
+          {cityPasses.map(cityPass => (
+            <CityPassCard
+              cityPass={cityPass}
+              key={cityPass.passNumberComplete}
+              onPress={() => {
+                if ('passNumber' in cityPass) {
+                  onPressCityPassCard(cityPass.passNumber)
                 }
-                testID={`CityPassOwnerButton-${id}`}
-              />
-            )
-          })}
+              }}
+              testID={`CityPassOwnerButton-${'id' in cityPass ? cityPass.id : cityPass.passNumberComplete}`}
+            />
+          ))}
         </Column>
       ) : (
         <>

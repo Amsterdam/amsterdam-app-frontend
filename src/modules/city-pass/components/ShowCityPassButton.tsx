@@ -10,16 +10,16 @@ type Props = {
 
 export const ShowCityPassButton = ({index}: Props) => {
   const dispatch = useDispatch()
-  const cityPasses = useGetSecureCityPasses()
+  const secureCityPasses = useGetSecureCityPasses()
 
-  return cityPasses.length ? (
+  return (
     <Button
       iconName="city-pass-pass"
-      label={simplur`Laat mijn [pas|passen] zien${[cityPasses.length]}`}
+      label={simplur`Laat mijn [pas|passen] zien${[secureCityPasses?.length]} `}
       onPress={() => {
         dispatch(showCityPasses(index))
       }}
       testID="CityPassShowPassesButton"
     />
-  ) : null
+  )
 }
