@@ -8,8 +8,9 @@ import {Title} from '@/components/ui/text/Title'
 export const NotificationHistoryEmpty = () => (
   <Box
     grow
-    inset="no">
-    <Box testID="NotificationHistoryContainer">
+    inset="no"
+    testID="NotificationHistoryEmptyContainer">
+    <Box>
       <Column halign="center">
         <Title
           level="h4"

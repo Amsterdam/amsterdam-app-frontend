@@ -1,4 +1,6 @@
 import {StyleSheet, View} from 'react-native'
+import {createPathFromNotification} from '@/app/navigation/linking'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,6 +9,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
@@ -19,11 +22,13 @@ type Props = {
 }
 
 export const NotificationHistoryItem = ({
-  item: {title, module_slug, created_at, is_read, id},
+  item: {title, module_slug, created_at, is_read, id, context},
   enabledModules = [],
 }: Props) => {
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles)
+
+  const openUrl = useOpenUrl()
 
   if (!module) {
     return null
@@ -32,52 +37,68 @@ export const NotificationHistoryItem = ({
   const {title: moduleTitle, icon} = module
 
   return (
-    <Box>
-      <Row gutter="sm">
-        <View style={styles.iconContainer}>
-          <Icon
-            color="inverse"
-            name={icon}
-            size="xl"
-            testID={`NotificationHistoryItem${id}Icon`}
-          />
-        </View>
-        <Column
-          grow={1}
-          shrink={1}>
-          <Row
-            flex={1}
-            gutter="sm">
-            <Row flex={1}>
-              <Title
-                level="h5"
-                testID={`NotificationHistoryItem${id}Title`}
-                text={moduleTitle}
-              />
-            </Row>
+    <PressableBase
+      onPress={() => {
+        const deeplinkUrl = createPathFromNotification({
+          title: moduleTitle,
+          body: title,
+          data: context,
+        })
+
+        if (deeplinkUrl) {
+          void openUrl(deeplinkUrl)
+        }
+      }}
+      testID={`NotificationHistoryItem${id}Button`}>
+      <Box
+        insetHorizontal="md"
+        insetVertical="smd">
+        <Row gutter="sm">
+          <View style={styles.iconContainer}>
+            <Icon
+              color="inverse"
+              name={icon}
+              size="xl"
+              testID={`NotificationHistoryItem${id}Icon`}
+            />
+          </View>
+          <Column
+            grow={1}
+            shrink={1}>
             <Row
-              gutter="sm"
-              valign="center">
-              <Phrase
-                color="secondary"
-                testID={`NotificationHistoryItem${id}CreationDate`}
-                variant="body">
-                {formatHistoryDateTime(created_at)}
-              </Phrase>
-              {!is_read && (
-                <Badge
-                  testID={`NotificationHistoryItem${id}IsUnreadBadge`}
-                  variant="extraSmall"
+              flex={1}
+              gutter="sm">
+              <Row flex={1}>
+                <Title
+                  level="h5"
+                  testID={`NotificationHistoryItem${id}Title`}
+                  text={moduleTitle}
                 />
-              )}
+              </Row>
+              <Row
+                gutter="sm"
+                valign="center">
+                <Phrase
+                  color="secondary"
+                  testID={`NotificationHistoryItem${id}CreationDate`}
+                  variant="body">
+                  {formatHistoryDateTime(created_at)}
+                </Phrase>
+                {!is_read && (
+                  <Badge
+                    testID={`NotificationHistoryItem${id}IsUnreadBadge`}
+                    variant="extraSmall"
+                  />
+                )}
+              </Row>
             </Row>
-          </Row>
-          <Paragraph testID={`NotificationHistoryItem${id}Description`}>
-            {title}
-          </Paragraph>
-        </Column>
-      </Row>
-    </Box>
+            <Paragraph testID={`NotificationHistoryItem${id}Description`}>
+              {title}
+            </Paragraph>
+          </Column>
+        </Row>
+      </Box>
+    </PressableBase>
   )
 }
 
