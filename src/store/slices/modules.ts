@@ -1,15 +1,18 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {type ModuleServerConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 
 export type ModulesState = {
   authorizedModules: string[]
+  cachedServerModules?: ModuleServerConfig[]
   disabledModules: string[]
 }
 
 const initialState: ModulesState = {
   disabledModules: [],
   authorizedModules: [],
+  cachedServerModules: undefined,
 }
 
 export const modulesSlice = createSlice({
@@ -51,6 +54,12 @@ export const modulesSlice = createSlice({
         moduleSlug => moduleSlug !== slug,
       )
     },
+    setCachedServerModules: (
+      state,
+      {payload: newCachedServerModules}: PayloadAction<ModuleServerConfig[]>,
+    ) => {
+      state.cachedServerModules = newCachedServerModules
+    },
   },
 })
 
@@ -59,6 +68,7 @@ export const {
   removeAuthorizedModule,
   resetModules,
   toggleModule,
+  setCachedServerModules,
 } = modulesSlice.actions
 
 export const selectDisabledModules = (state: RootState) =>
@@ -66,3 +76,6 @@ export const selectDisabledModules = (state: RootState) =>
 
 export const selectAuthorizedModules = (state: RootState) =>
   state[ReduxKey.modules].authorizedModules
+
+export const selectCachedServerModules = (state: RootState) =>
+  state[ReduxKey.modules].cachedServerModules

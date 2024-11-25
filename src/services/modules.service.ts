@@ -1,6 +1,7 @@
 import {GlobalApiSlug} from '@/environment'
 import {ModuleServerConfig} from '@/modules/types'
 import {baseApi} from '@/services/baseApi'
+import {setCachedServerModules} from '@/store/slices/modules'
 import {VERSION_NUMBER} from '@/utils/version'
 
 export type ModulesResponse = {
@@ -25,6 +26,9 @@ export const modulesApi = baseApi.injectEndpoints({
       query: () => ({
         slug: GlobalApiSlug.modules,
         url: `/release/${VERSION_NUMBER}`,
+        afterSuccess: ({data}, {dispatch}) => {
+          dispatch(setCachedServerModules((data as ModulesResponse).modules))
+        },
       }),
     }),
   }),
