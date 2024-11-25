@@ -8,9 +8,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {setHasAutoFollowedProjects} from '@/modules/construction-work-editor/slice'
 import {devError, devLog, isDevApp} from '@/processes/development'
-import {baseApi} from '@/services/baseApi'
+import {persistor} from '@/store/persistor'
 import {
   selectEnvironment,
   setCustomEnvironment,
@@ -59,10 +58,11 @@ export const EnvironmentSelector = () => {
             <Button
               key={env}
               label={env}
-              onPress={() => {
+              onPress={async () => {
+                await persistor.flush()
+                await persistor.purge()
                 dispatch(setEnvironment(env))
-                dispatch(setHasAutoFollowedProjects(false))
-                dispatch(baseApi.util.resetApiState())
+                dispatch(setCustomEnvironment(custom))
                 removeAllSecureItems().then(devLog).catch(devError)
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
