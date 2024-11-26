@@ -81,8 +81,9 @@ const {
   setChatConversationId,
 } = chatSlice.actions
 
-const selectChatIsOpen = (state: RootState) => state[ReduxKey.chat].isOpen
-const selectChatVisibility = (state: RootState) =>
+export const selectChatIsOpen = (state: RootState) =>
+  state[ReduxKey.chat].isOpen
+export const selectChatVisibility = (state: RootState) =>
   state[ReduxKey.chat].visibility
 
 const selectChatMinimizedHeight = (state: RootState) =>
