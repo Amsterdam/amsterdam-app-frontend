@@ -45,7 +45,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
 
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)
-  const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale
+  const minimizedHeight = CHAT_MINIMIZED_HEIGHT * fontScale + insets.bottom
 
   useEffect(() => {
     maximized.value = withTiming(isMaximized ? 1 : 0)
@@ -113,6 +113,14 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
     ),
   }))
 
+  const animatedStylesInner = useAnimatedStyle(() => ({
+    transform: [
+      {
+        translateY: interpolate(maximized.value, [0, 1], [-insets.top, 0]),
+      },
+    ],
+  }))
+
   return (
     <Animated.View
       entering={SlideInDown}
@@ -121,8 +129,10 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
         setMaxHeight(e.nativeEvent.layout.height)
       }}
       style={[StyleSheet.absoluteFill, styles.container, animatedStylesOuter]}>
-      {children}
       <ChatMenu />
+      <Animated.View style={[styles.inner, animatedStylesInner]}>
+        {children}
+      </Animated.View>
     </Animated.View>
   )
 }
@@ -131,10 +141,14 @@ const createStyles = ({z}: Theme, insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
       flexGrow: 1,
-      marginTop: insets.top,
-      marginRight: insets.right,
-      marginBottom: insets.bottom,
-      marginLeft: insets.left,
+      paddingTop: insets.top,
+      paddingRight: insets.right,
+      paddingBottom: insets.bottom,
+      paddingLeft: insets.left,
       zIndex: z.overlay - 1,
+      backgroundColor: 'red',
+    },
+    inner: {
+      flexGrow: 1,
     },
   })

@@ -26,7 +26,7 @@ export const ChatHistory = () => {
         insetHorizontal="md">
         <Column>
           <ChatStartTime firstMessage={messages[0]} />
-          <Gutter />
+          <Gutter height="md" />
           {messages.map((message, index) => {
             const isLastOfRole =
               messages[index + 1]?.sender.role !== message.sender.role

@@ -48,6 +48,8 @@ export const EntryAttachments = ({message}: Props) => {
               />
               {isEmployee ? (
                 <InlineLink
+                  accessibilityHint="Activeer om de bijlage te downloaden."
+                  accessibilityLabel="Bijlage gedeeld door medewerker."
                   ellipsizeMode="middle"
                   emphasis="strong"
                   inverse={

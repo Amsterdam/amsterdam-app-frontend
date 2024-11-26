@@ -1,6 +1,7 @@
 import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
+import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Column} from '@/components/ui/layout/Column'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
@@ -15,8 +16,8 @@ export const ChatMenu = () => {
   const {close, headerHeight, isMenuOpen} = useChat()
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
-
-  const sheetStyles = createStyles(theme, headerHeight)
+  const insets = useSafeAreaInsets()
+  const sheetStyles = createStyles(theme, headerHeight, insets)
   const {addDownloadedTranscriptId} = useContext(ChatContext)
 
   return isMenuOpen ? (
@@ -48,12 +49,16 @@ export const ChatMenu = () => {
   ) : null
 }
 
-const createStyles = ({color, z, size}: Theme, headerHeight: number) =>
+const createStyles = (
+  {color, z, size}: Theme,
+  headerHeight: number,
+  insets: EdgeInsets,
+) =>
   StyleSheet.create({
     container: {
       position: 'absolute',
       left: size.spacing.sm,
-      top: headerHeight,
+      top: headerHeight + insets.top,
       backgroundColor: color.box.distinct,
       zIndex: z.tooltip,
       elevation: 2,

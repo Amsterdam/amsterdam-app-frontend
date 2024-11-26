@@ -10,12 +10,14 @@ import Animated, {SlideInDown} from 'react-native-reanimated'
 import {sendImage, sendPDF} from 'react-native-salesforce-messaging-in-app/src'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {ChatAttachmentButton} from '@/modules/chat/components/ChatAttachmentButton'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {Duration} from '@/types/duration'
 import {Permissions} from '@/types/permissions'
 
 type Props = {
@@ -26,6 +28,7 @@ type Props = {
 const fileName = 'ChatAttachment.tsx'
 
 export const ChatAttachment = ({onSelect, minHeight}: Props) => {
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const styles = useThemable(createStyles)
 
   const trackException = useTrackException()
@@ -175,6 +178,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
             iconName="picture"
             label="Foto"
             onPress={addPhotoFromLibrary}
+            ref={setAccessibilityFocus}
             testID="pdf"
           />
           <ChatAttachmentButton
