@@ -14,6 +14,9 @@ import {reportProblemModule} from '@/modules/report-problem'
 import {userModule} from '@/modules/user'
 import {wasteGuideModule} from '@/modules/waste-guide'
 
+/**
+ * Core Modules don't have a server part and are always loaded.
+ */
 export const coreModules = [
   addressModule,
   homeModule,
@@ -21,6 +24,9 @@ export const coreModules = [
   userModule,
 ]
 
+/**
+ * Client Modules have a server part and can be turned on/off per release.
+ */
 export const clientModules = [
   aboutModule,
   chatModule,
