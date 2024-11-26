@@ -40,7 +40,7 @@ export const EntryRoutingResult = ({
         <Phrase
           emphasis="strong"
           testID="ChatEntryRoutingResultPhrase">
-          Een medewerker neem het gesprek over.
+          Een medewerker neemt het gesprek over.
         </Phrase>
         {!!isEWTAvailable && (
           <Phrase testID="ChatEntryRoutingResultEstimatedWaitingTimePhrase">
