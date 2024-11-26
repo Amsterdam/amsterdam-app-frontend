@@ -99,7 +99,7 @@ export const CityPassesSwiper = () => {
   )
 }
 
-const createStyles = ({color, size}: Theme) =>
+const createStyles = ({color, size, border}: Theme) =>
   StyleSheet.create({
     container: {
       flexBasis: CITY_PASS_HEIGHT + PAGINATION_HEIGHT,
@@ -120,7 +120,7 @@ const createStyles = ({color, size}: Theme) =>
       height: size.spacing.sm,
       marginHorizontal: size.spacing.xs,
       backgroundColor: color.pagination.item.inactive,
-      borderRadius: size.spacing.sm,
+      borderRadius: border.radius.sm,
     },
     paginationItemActive: {
       backgroundColor: color.pagination.item.active,
