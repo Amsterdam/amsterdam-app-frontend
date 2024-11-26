@@ -10,7 +10,7 @@ import {
 } from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
-import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -25,13 +25,15 @@ type Props = {
   headerTitle?: string
   imageSource: ImageProps['source']
   thumbnailSize: DimensionValue
-}
+} & Omit<PressableProps, 'children' | 'testID'>
 
 export const ThumbnailViewer = ({
+  accessibilityLabel = 'Afbeelding, miniatuurweergave.',
   fileName = 'afbeelding.jpg',
   imageSource,
   thumbnailSize,
   headerTitle,
+  ...pressableProps
 }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [aspectRatio, setAspectRatio] = useState<number>()
@@ -71,7 +73,8 @@ export const ThumbnailViewer = ({
   return (
     <View>
       <Pressable
-        accessibilityLabel="Afbeelding, miniatuurweergave."
+        {...pressableProps}
+        accessibilityLabel={accessibilityLabel}
         onPress={toggleVisibility}
         testID="ThumbnailViewerThumbnailPressable">
         <Image

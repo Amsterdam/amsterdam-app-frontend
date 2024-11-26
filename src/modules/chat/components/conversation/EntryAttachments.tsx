@@ -29,7 +29,7 @@ export const EntryAttachments = ({message}: Props) => {
             message={message}>
             <ChatMessageImage
               image={attachment}
-              senderRole={message.sender.role}
+              message={message}
             />
           </ChatMessageEntry>
         ) : (
@@ -48,8 +48,7 @@ export const EntryAttachments = ({message}: Props) => {
               />
               {isEmployee ? (
                 <InlineLink
-                  accessibilityHint="Activeer om de bijlage te downloaden."
-                  accessibilityLabel="Bijlage gedeeld door medewerker."
+                  accessibilityLabel={`Bijlage gedeeld door ${message.senderDisplayName}. Dubbeltik om bijlage te downloaden.`}
                   ellipsizeMode="middle"
                   emphasis="strong"
                   inverse={
