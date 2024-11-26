@@ -14,6 +14,7 @@ import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
 
 type Props = {
@@ -35,9 +36,16 @@ export const NotificationHistoryItem = ({
   }
 
   const {icon} = module
+  const createdAt = formatHistoryDateTime(created_at)
 
   return (
     <PressableBase
+      accessibilityLabel={accessibleText(
+        !is_read ? 'Ongelezen bericht: ' : undefined,
+        title,
+        body,
+        `ontvangen: ${createdAt}`,
+      )}
       onPress={() => {
         const deeplinkUrl = createPathFromNotification({
           title,
@@ -80,7 +88,7 @@ export const NotificationHistoryItem = ({
                   numberOfLines={1}
                   testID={`NotificationHistoryItem${id}CreationDate`}
                   variant="body">
-                  {formatHistoryDateTime(created_at)}
+                  {createdAt}
                 </Phrase>
                 {!is_read && (
                   <Badge

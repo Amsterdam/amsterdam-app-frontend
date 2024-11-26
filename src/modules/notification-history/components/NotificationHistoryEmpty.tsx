@@ -1,5 +1,6 @@
 import AdamEvaCheerBlue from '@/assets/images/adam-eva-cheer-blue.svg'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -11,13 +12,15 @@ export const NotificationHistoryEmpty = () => (
     inset="no"
     testID="NotificationHistoryEmptyContainer">
     <Box>
-      <Column halign="center">
-        <Title
-          level="h4"
-          text="U heeft geen meldingen"
-        />
-        <Paragraph>In de afgelopen 30 dagen</Paragraph>
-      </Column>
+      <SingleSelectable>
+        <Column halign="center">
+          <Title
+            level="h4"
+            text="U heeft geen meldingen"
+          />
+          <Paragraph>In de afgelopen 30 dagen</Paragraph>
+        </Column>
+      </SingleSelectable>
     </Box>
     <Column
       align="center"
