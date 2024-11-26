@@ -23,7 +23,7 @@ export const ChatMessageImage = ({
   return (
     <View style={styles.container}>
       <ThumbnailViewer
-        accessibilityLabel={`Miniatuurweergave van ${isUser ? 'door u gedeelde afbeelding.' : ''} ${!isUser ? 'door ' + senderDisplayName + 'gedeelde afbeelding.' : ''}`}
+        accessibilityLabel={`Miniatuurweergave van door ${isUser ? 'u' : senderDisplayName} gedeelde afbeelding.`}
         fileName={image.name}
         imageSource={{uri: image.url}}
         thumbnailSize={THUMBNAIL_SIZE}
