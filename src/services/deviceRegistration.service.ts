@@ -1,5 +1,5 @@
 import {Platform} from 'react-native'
-import {ModuleSlug} from '@/modules/slugs'
+import {GlobalApiSlug} from '@/environment'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {MutationResponse} from '@/types/api'
@@ -21,7 +21,7 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
           ...body,
         },
         method: 'POST',
-        slug: ModuleSlug['construction-work'],
+        slug: GlobalApiSlug.notification,
         url: '/device/register',
         headers: deviceIdHeader,
       }),
@@ -32,7 +32,7 @@ export const deviceRegistrationApi = baseApi.injectEndpoints({
     >({
       query: () => ({
         method: 'DELETE',
-        slug: ModuleSlug['construction-work'],
+        slug: GlobalApiSlug.notification,
         url: '/device/register',
         headers: deviceIdHeader,
       }),
