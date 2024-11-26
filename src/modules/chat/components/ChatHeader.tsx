@@ -102,12 +102,14 @@ export const ChatHeader = () => {
                 testID="ChatHeaderMeatballsMenuButton"
               />
             </Animated.View>
-            <Row
-              gutter="xs"
-              valign="center">
-              <ScreenTitle text="Chat" />
-              <NewMessageIndicator />
-            </Row>
+            <View accessible>
+              <Row
+                gutter="xs"
+                valign="center">
+                <ScreenTitle text="Chat" />
+                <NewMessageIndicator />
+              </Row>
+            </View>
             <Animated.View style={expandIconStyle}>
               <IconButton
                 accessibilityLabel={`Chat ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
