@@ -13,7 +13,7 @@ type Props = {
   wasteGuide: WasteGuideResponseFraction[]
 }
 
-export const WasteGuideForAmsterdam = ({wasteGuide}: Props) => {
+export const WasteGuideContent = ({wasteGuide}: Props) => {
   const {address} = useSelectedAddress()
   const contract = useSelector(
     selectContract(wasteGuide[0].bagNummeraanduidingId),
