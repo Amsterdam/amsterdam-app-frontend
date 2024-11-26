@@ -3,7 +3,6 @@ import {
   ConversationEntry,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme} from '@/themes/themes'
@@ -54,7 +53,7 @@ export const ChatAgentInfo = ({
 
   return (
     !!isLastOfRole && (
-      <HideFromAccessibility>
+      <>
         <Gutter height="xs" />
         <View style={styles.container}>
           <Phrase
@@ -64,7 +63,7 @@ export const ChatAgentInfo = ({
             {getChatAgentInfo(senderDisplayName, role, timestamp)}
           </Phrase>
         </View>
-      </HideFromAccessibility>
+      </>
     )
   )
 }
