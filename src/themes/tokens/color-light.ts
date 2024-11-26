@@ -43,6 +43,7 @@ export const lightColorTokens = {
   },
   badge: {
     background: baseColor.primary.red,
+    border: baseColor.primary.white,
   },
   barcode: {
     background: baseColor.primary.white,
@@ -138,6 +139,11 @@ export const lightColorTokens = {
   logo: baseColor.primary.red,
   noInternet: {
     background: baseColor.primary.red,
+  },
+  notificationHistory: {
+    itemIcon: {
+      background: baseColor.primary.blue,
+    },
   },
   pagination: {
     background: baseColor.primary.blue,

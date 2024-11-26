@@ -19,4 +19,5 @@ export const chatModule: ModuleClientConfig = {
     },
   ],
   slug: ModuleSlug.chat,
+  alwaysEnabled: true,
 }

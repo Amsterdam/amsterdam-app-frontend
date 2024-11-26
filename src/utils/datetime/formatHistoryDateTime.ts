@@ -1,0 +1,25 @@
+import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import {days} from '@/utils/datetime/days'
+
+export const formatHistoryDateTime = (date: string | number | Dayjs) => {
+  if (date === null || date === undefined || date === '') {
+    return ''
+  }
+
+  const moment = dayjs(date)
+  const today = dayjs()
+  const dayDifference = moment.startOf('day').diff(today.startOf('day'), 'days')
+  const isToday = dayDifference === 0
+  const isYesterday = dayDifference === -1
+  const isLastSixDays = dayDifference > -7 && dayDifference < -1
+
+  if (isToday) {
+    return moment.format('HH:mm')
+  } else if (isYesterday) {
+    return 'gisteren'
+  } else if (isLastSixDays) {
+    return days[moment.get('day')]
+  } else {
+    return moment.format('D MMMM')
+  }
+}

@@ -20,6 +20,7 @@ import {processSearchQueryArgs} from '@/modules/construction-work/utils/processS
 import {tempPostProcessProjectDetails} from '@/modules/construction-work/utils/tempPostProcessProjectDetails'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
@@ -54,6 +55,7 @@ export const projectsApi = baseApi.injectEndpoints({
       query: params => ({
         slug: MODULE_SLUG,
         url: generateRequestUrl({path: '/project/details', params}),
+        headers: deviceIdHeader,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: tempPostProcessProjectDetails,
@@ -97,6 +99,7 @@ export const projectsApi = baseApi.injectEndpoints({
               params,
             })
           : '/projects',
+        headers: deviceIdHeader,
       }),
 
       keepUnusedDataFor: CacheLifetime.hour,
@@ -113,6 +116,7 @@ export const projectsApi = baseApi.injectEndpoints({
         method: 'DELETE',
         slug: MODULE_SLUG,
         url: '/projects/follow',
+        headers: deviceIdHeader,
       }),
     }),
 
@@ -127,6 +131,7 @@ export const projectsApi = baseApi.injectEndpoints({
         method: 'POST',
         slug: MODULE_SLUG,
         url: '/projects/follow',
+        headers: deviceIdHeader,
       }),
     }),
 
@@ -144,6 +149,7 @@ export const projectsApi = baseApi.injectEndpoints({
               params,
             })
           : '/projects/followed/articles',
+        headers: deviceIdHeader,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),

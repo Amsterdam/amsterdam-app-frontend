@@ -3,6 +3,7 @@ import messaging, {
   FirebaseMessagingTypes,
 } from '@react-native-firebase/messaging'
 import {useEffect} from 'react'
+import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 
@@ -12,9 +13,11 @@ import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
  **/
 export const useDisplayNotificationOnAppForeground = () => {
   const {trackCustomEvent} = useTrackEvents()
+  const {refetch} = useGetNotificationsQuery()
 
   useEffect(() => {
     const onMessage = async (message: FirebaseMessagingTypes.RemoteMessage) => {
+      void refetch()
       /**
        * example message:
        * Android:
@@ -80,5 +83,5 @@ export const useDisplayNotificationOnAppForeground = () => {
     }
 
     return messaging().onMessage(onMessage)
-  }, [trackCustomEvent])
+  }, [refetch, trackCustomEvent])
 }
