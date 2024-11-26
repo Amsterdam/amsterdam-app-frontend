@@ -146,7 +146,6 @@ const createStyles = ({z}: Theme, insets: EdgeInsets) =>
       paddingBottom: insets.bottom,
       paddingLeft: insets.left,
       zIndex: z.overlay - 1,
-      backgroundColor: 'red',
     },
     inner: {
       flexGrow: 1,
