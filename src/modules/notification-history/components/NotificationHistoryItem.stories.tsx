@@ -32,7 +32,7 @@ export const Default: Story = {
       pushed_at: '2022-01-15 10:30:00',
       is_read: false,
       id: '1',
-      context: '',
+      context: {},
       body: 'De nieuwe brug is geplaatst',
     },
   },
