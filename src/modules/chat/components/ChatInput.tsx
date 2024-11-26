@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
 } from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
@@ -27,6 +28,7 @@ type Props = {
 
 export const ChatInput = ({onSubmit}: Props) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const insets = useSafeAreaInsets()
 
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
@@ -56,7 +58,8 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={insets.top}>
         <Box>
           <Row gutter="sm">
             {!!employeeInChat && (
