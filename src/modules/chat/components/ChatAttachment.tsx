@@ -28,7 +28,7 @@ type Props = {
 const fileName = 'ChatAttachment.tsx'
 
 export const ChatAttachment = ({onSelect, minHeight}: Props) => {
-  const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
+  const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
   const styles = useThemable(createStyles)
 
   const trackException = useTrackException()
