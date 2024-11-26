@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -5,7 +6,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {selectChatIsOpen, selectChatVisibility} from '@/modules/chat/slice'
+import {ChatVisibility} from '@/modules/chat/types'
 import {useGetWaitingTimesQuery} from '@/modules/contact/service'
 import {
   getQueuedPhrase,
@@ -26,7 +30,18 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
     refetch,
   } = useGetWaitingTimesQuery()
 
-  useRefetchInterval(refetch, refetchInterval)
+  const chatIsOpen = useSelector(selectChatIsOpen)
+  const chatVisibility = useSelector(selectChatVisibility)
+  const chatIsMaximized = chatVisibility === ChatVisibility.maximized
+  const pauseRefetch = chatIsOpen && chatIsMaximized
+
+  const refetchFn = useCallback(() => {
+    if (!pauseRefetch) {
+      return refetch()
+    }
+  }, [refetch, pauseRefetch])
+
+  useRefetchInterval(refetchFn, refetchInterval)
 
   if (isLoading) {
     return <PleaseWait testID="ContactCityOfficeWaitingTimesLoadingSpinner" />
