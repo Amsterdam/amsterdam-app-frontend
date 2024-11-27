@@ -51,8 +51,8 @@ type Props = {
 }
 
 export const ChatProvider = ({children}: Props) => {
-  const {isMaximized, isMinimized, conversationId, setConversationId} =
-    useChat()
+  const {isMaximized, isMinimized} = useChat()
+  const [conversationId, setConversationId] = useState<string | undefined>()
   const [newMessagesCount, setNewMessagesCount] = useState(0)
   const [downloadedTranscriptIds, setDownloadedTranscriptIds] = useState<
     RetrieveTranscriptResponse['entryId'][]
