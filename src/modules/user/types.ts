@@ -5,7 +5,7 @@ import {UserRouteName} from '@/modules/user/routes'
 
 export type UserMenuSection = {
   navigationItems: UserMenuSectionItem[]
-  title: 'Beveiliging'
+  title: string
 }
 
 export type UserMenuSectionItem = {
