@@ -8,6 +8,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useOverlay} from '@/store/slices/overlay'
+import {useScreen} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -29,7 +30,8 @@ export const Overlay = ({
   ...viewProps
 }: Props) => {
   const dispatch = useDispatch()
-  const {close, open} = useOverlay()
+  const {close, isOpen, open} = useOverlay()
+  const {setHideFromAccessibility} = useScreen()
   const styles = useThemable(theme =>
     createStyles(theme, closeButtonContainerWidth),
   )
@@ -41,6 +43,14 @@ export const Overlay = ({
       close()
     }
   }, [close, dispatch, open])
+
+  useEffect(() => {
+    setHideFromAccessibility(isOpen)
+
+    return () => {
+      setHideFromAccessibility(false)
+    }
+  }, [isOpen, setHideFromAccessibility])
 
   return (
     <Animated.View

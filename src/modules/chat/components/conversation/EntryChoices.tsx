@@ -29,6 +29,7 @@ export const EntryChoices = ({message: {choices}, isLastOfRole}: Props) => {
         wrap>
         {choices.map(({optionId, title, optionValue, parentEntryId}) => (
           <Button
+            accessibilityLabel={`Keuzeknop: ${title}`}
             key={optionId}
             label={title}
             onPress={() =>

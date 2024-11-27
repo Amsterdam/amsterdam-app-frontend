@@ -68,7 +68,7 @@ const createStyles = ({color, size}: Theme) =>
     pagination: {
       width: size.spacing.sm,
       height: size.spacing.sm,
-      borderRadius: 25,
+      borderRadius: size.spacing.sm / 2,
       marginHorizontal: size.spacing.xs,
       backgroundColor: color.pagination.background,
     },

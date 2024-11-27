@@ -3,7 +3,6 @@ import {
   View,
   Image,
   StyleSheet,
-  TouchableOpacity,
   Modal,
   ImageProps,
   DimensionValue,
@@ -11,6 +10,7 @@ import {
 } from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -25,13 +25,15 @@ type Props = {
   headerTitle?: string
   imageSource: ImageProps['source']
   thumbnailSize: DimensionValue
-}
+} & Omit<PressableProps, 'children' | 'testID'>
 
 export const ThumbnailViewer = ({
+  accessibilityLabel = 'Afbeelding, miniatuurweergave.',
   fileName = 'afbeelding.jpg',
   imageSource,
   thumbnailSize,
   headerTitle,
+  ...pressableProps
 }: Props) => {
   const [isModalVisible, setIsModalVisible] = useState(false)
   const [aspectRatio, setAspectRatio] = useState<number>()
@@ -70,29 +72,36 @@ export const ThumbnailViewer = ({
 
   return (
     <View>
-      <TouchableOpacity onPress={toggleVisibility}>
+      <Pressable
+        {...pressableProps}
+        accessibilityLabel={accessibilityLabel}
+        onPress={toggleVisibility}
+        testID="ThumbnailViewerThumbnailPressable">
         <Image
           source={imageSource}
           style={styles.thumbnail}
+          testID="ThumbnailViewerThumbnailImage"
         />
-      </TouchableOpacity>
+      </Pressable>
 
       <Modal
         animationType="fade"
         onRequestClose={toggleVisibility}
         supportedOrientations={['portrait', 'landscape']}
+        testID="ThumbnailViewerModal"
         transparent
         visible={isModalVisible}>
         <View style={styles.overlay}>
           <Box>
             <Row align="between">
               <IconButton
+                accessibilityLabel="Terug"
                 icon={
                   <Icon
                     color="link"
                     name="chevron-left"
                     size="lg"
-                    testID=""
+                    testID="ThumbnailViewerCloseIcon"
                   />
                 }
                 onPress={toggleVisibility}
@@ -100,12 +109,13 @@ export const ThumbnailViewer = ({
               />
               {!!headerTitle && <ScreenTitle text={headerTitle} />}
               <IconButton
+                accessibilityLabel="Download de afbeelding."
                 icon={
                   <Icon
                     color="link"
                     name="download"
                     size="lg"
-                    testID=""
+                    testID="ThumbnailViewerDownloadIcon"
                   />
                 }
                 onPress={() =>
@@ -120,9 +130,12 @@ export const ThumbnailViewer = ({
             </Row>
           </Box>
           <Image
+            accessibilityLabel="Afbeelding"
+            accessible
             resizeMode="contain"
             source={imageSource}
             style={styles.fullImage}
+            testID="ThumbnailViewerFullImage"
           />
         </View>
       </Modal>

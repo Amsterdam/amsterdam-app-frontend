@@ -57,6 +57,9 @@ export const lightColorTokens = {
     onGrey: baseColor.neutral.grey2,
     cityPass: baseColor.secondary.purple,
   },
+  bottomSheet: {
+    background: baseColor.primary.white,
+  },
   box: {
     distinct: baseColor.primary.white,
     cityPass: baseColor.secondary.purple,

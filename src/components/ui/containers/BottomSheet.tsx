@@ -1,24 +1,60 @@
 import BottomSheetOriginal, {
   BottomSheetBackdrop,
-  BottomSheetBackdropProps,
+  type BottomSheetBackdropProps,
+  BottomSheetBackgroundProps,
+  BottomSheetHandle,
+  type BottomSheetHandleProps,
   BottomSheetProps,
   BottomSheetScrollView,
 } from '@gorhom/bottom-sheet'
 import {type ReactNode, useCallback, useEffect, useRef} from 'react'
+import {StyleSheet, View} from 'react-native'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
-import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {useScreen} from '@/store/slices/screen'
+import {Theme} from '@/themes/themes'
+import {useThemable} from '@/themes/useThemable'
 
 const Backdrop = (props: BottomSheetBackdropProps) => (
   <BottomSheetBackdrop
+    accessibilityHint="Dubbeltik om te sluiten"
+    accessibilityLabel="Sluiten"
     appearsOnIndex={0}
     disappearsOnIndex={-1}
     {...props}
   />
 )
+
+const Handle = (props: BottomSheetHandleProps) => (
+  <BottomSheetHandle
+    accessibilityHint="Veeg omlaag om te sluiten"
+    accessibilityLabel="Sluiten"
+    {...props}
+  />
+)
+
+const BackgroundComponent = ({style, ...props}: BottomSheetBackgroundProps) => {
+  const styles = useThemable(createStyles)
+
+  return (
+    <View
+      {...props}
+      accessible={false}
+      style={[styles.container, style]}
+    />
+  )
+}
+
+const createStyles = ({color, border}: Theme) =>
+  StyleSheet.create({
+    container: {
+      backgroundColor: color.bottomSheet.background,
+      borderRadius: border.radius.lg,
+    },
+  })
 
 type Props = Partial<
   Omit<
@@ -36,21 +72,10 @@ const useBottomSheetHandler = () => {
     addIsPresentAtRouteName,
     removeIsPresentAtRouteName,
   } = useBottomSheet()
+  const {setHideContentFromAccessibility} = useScreen()
   const ref = useRef<BottomSheetOriginal>(null)
 
   useBlurEffect(close)
-
-  useEffect(() => {
-    isOpen ? ref.current?.expand() : ref.current?.close()
-  }, [isOpen])
-
-  useEffect(() => {
-    addIsPresentAtRouteName(routeName)
-
-    return () => {
-      removeIsPresentAtRouteName(routeName)
-    }
-  }, [addIsPresentAtRouteName, routeName, removeIsPresentAtRouteName])
 
   const onChange = useCallback(
     (snapPointIndex: number) => {
@@ -63,6 +88,19 @@ const useBottomSheetHandler = () => {
     [close, isOpen, open],
   )
 
+  useEffect(() => {
+    isOpen ? ref.current?.expand() : ref.current?.close()
+    setHideContentFromAccessibility(isOpen)
+  }, [isOpen, setHideContentFromAccessibility])
+
+  useEffect(() => {
+    addIsPresentAtRouteName(routeName)
+
+    return () => {
+      removeIsPresentAtRouteName(routeName)
+    }
+  }, [addIsPresentAtRouteName, routeName, removeIsPresentAtRouteName])
+
   return {
     isOpen,
     onChange,
@@ -72,7 +110,6 @@ const useBottomSheetHandler = () => {
 
 /**
  * To autofocus on an element within the bottom sheet, use the `useSetBottomSheetElementFocus` hook.
- * To hide children from accessibility when the bottom sheet is open, use the `HideFromAccessibilityWithBottomSheetOpen` component.
  */
 export const BottomSheet = ({
   children,
@@ -82,25 +119,19 @@ export const BottomSheet = ({
   ...rest
 }: Props) => {
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
-  const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
   return (
     <BottomSheetOriginal
-      animateOnMount={!isReduceMotionEnabled}
-      animationConfigs={
-        isReduceMotionEnabled
-          ? {
-              duration: 1,
-            }
-          : undefined
-      }
+      accessible={false}
       backdropComponent={Backdrop}
+      backgroundComponent={BackgroundComponent}
       enableDynamicSizing
       enablePanDownToClose
+      handleComponent={Handle}
       index={-1}
-      onChange={snapPointIndex => {
+      onChange={(snapPointIndex, position, type) => {
         onChangeHandler(snapPointIndex)
-        onChange?.(snapPointIndex)
+        onChange?.(snapPointIndex, position, type)
       }}
       ref={ref}
       snapPoints={snapPoints}

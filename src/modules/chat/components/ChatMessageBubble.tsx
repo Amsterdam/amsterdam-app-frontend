@@ -12,7 +12,13 @@ type Props = {
 export const ChatMessageBubble = ({children, senderRole}: Props) => {
   const styles = useThemable(theme => createStyles(theme, senderRole))
 
-  return <View style={styles.bubble}>{children}</View>
+  return (
+    <View
+      accessible
+      style={styles.bubble}>
+      {children}
+    </View>
+  )
 }
 
 const createStyles = (

@@ -1,3 +1,5 @@
+import {forwardRef} from 'react'
+import {View} from 'react-native-reanimated/lib/typescript/Animated'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Size} from '@/components/ui/layout/Size'
@@ -11,20 +13,23 @@ type Props = {
   onPress: () => void
 } & TestProps
 
-export const ChatMenuItem = ({onPress, testID, label, color}: Props) => (
-  <Size width={'100%'}>
-    <Pressable
-      onPress={onPress}
-      testID={testID}>
-      <Box
-        insetHorizontal="md"
-        insetVertical="sm">
-        <Phrase
-          color={color}
-          testID={`${testID}Phrase`}>
-          {label}
-        </Phrase>
-      </Box>
-    </Pressable>
-  </Size>
+export const ChatMenuItem = forwardRef<View, Props>(
+  ({onPress, testID, label, color}, ref) => (
+    <Size width={'100%'}>
+      <Pressable
+        onPress={onPress}
+        ref={ref}
+        testID={testID}>
+        <Box
+          insetHorizontal="md"
+          insetVertical="sm">
+          <Phrase
+            color={color}
+            testID={`${testID}Phrase`}>
+            {label}
+          </Phrase>
+        </Box>
+      </Pressable>
+    </Size>
+  ),
 )

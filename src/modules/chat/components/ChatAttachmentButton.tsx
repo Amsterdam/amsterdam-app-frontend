@@ -1,3 +1,4 @@
+import {forwardRef} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
@@ -14,34 +15,32 @@ type Props = {
   onPress: () => void
 } & TestProps
 
-export const ChatAttachmentButton = ({
-  onPress,
-  iconName,
-  testID,
-  label,
-}: Props) => {
-  const styles = useThemable(createStyles)
+export const ChatAttachmentButton = forwardRef<View, Props>(
+  ({onPress, iconName, testID, label}, ref) => {
+    const styles = useThemable(createStyles)
 
-  return (
-    <PressableBase
-      onPress={onPress}
-      testID={testID}>
-      <Column
-        gutter="xs"
-        halign="center">
-        <View style={styles.circle}>
-          <Icon
-            color="link"
-            name={iconName}
-            size="xl"
-            testID={testID + 'Icon'}
-          />
-        </View>
-        <Phrase testID={testID + 'Phrase'}>{label}</Phrase>
-      </Column>
-    </PressableBase>
-  )
-}
+    return (
+      <PressableBase
+        onPress={onPress}
+        ref={ref}
+        testID={testID}>
+        <Column
+          gutter="xs"
+          halign="center">
+          <View style={styles.circle}>
+            <Icon
+              color="link"
+              name={iconName}
+              size="xl"
+              testID={testID + 'Icon'}
+            />
+          </View>
+          <Phrase testID={testID + 'Phrase'}>{label}</Phrase>
+        </Column>
+      </PressableBase>
+    )
+  },
+)
 
 const createStyles = ({color, size}: Theme) =>
   StyleSheet.create({

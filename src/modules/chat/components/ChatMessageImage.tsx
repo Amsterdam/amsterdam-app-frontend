@@ -1,23 +1,29 @@
 import {StyleSheet, View} from 'react-native'
 import {
   Attachment,
+  ConversationEntry,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {ThumbnailViewer} from '@/modules/chat/components/ThumbnailViewer'
 
 type Props = {
   image: Attachment
-  senderRole: ConversationEntrySenderRole
+  message: ConversationEntry
 }
 
 const THUMBNAIL_SIZE = 220
 
-export const ChatMessageImage = ({image, senderRole}: Props) => {
-  const styles = createStyles(senderRole === ConversationEntrySenderRole.user)
+export const ChatMessageImage = ({
+  image,
+  message: {sender, senderDisplayName},
+}: Props) => {
+  const isUser = sender.role === ConversationEntrySenderRole.user
+  const styles = createStyles(isUser)
 
   return (
     <View style={styles.container}>
       <ThumbnailViewer
+        accessibilityLabel={`Miniatuurweergave van door ${isUser ? 'u' : senderDisplayName} gedeelde afbeelding.`}
         fileName={image.name}
         imageSource={{uri: image.url}}
         thumbnailSize={THUMBNAIL_SIZE}

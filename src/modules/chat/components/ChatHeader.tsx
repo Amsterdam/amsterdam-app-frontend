@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useEffect} from 'react'
 // eslint-disable-next-line no-restricted-imports
 import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
@@ -7,11 +7,10 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
-import {useToggle} from '@/hooks/useToggle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
-import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
+import {useScreen} from '@/store/slices/screen'
 import {useTheme} from '@/themes/useTheme'
 
 type WrapperProps = {
@@ -25,11 +24,13 @@ const PressableWhenMinimized = ({
   isMaximized,
   onPress,
   style,
+  ...viewProps
 }: WrapperProps) =>
   isMaximized ? (
     <>{children}</>
   ) : (
     <Pressable
+      {...viewProps}
       onPress={onPress}
       style={style}>
       {children}
@@ -37,13 +38,15 @@ const PressableWhenMinimized = ({
   )
 
 export const ChatHeader = () => {
-  const {isMaximized, toggleVisibility} = useChat()
   const {
-    value: isChatMenuVisible,
-    toggle: toggleIsChatMenuVisible,
-    disable: hideChatMenu,
-  } = useToggle(false)
-  const [height, setHeight] = useState(0)
+    isMaximized,
+    isMenuOpen,
+    setHeaderHeight,
+    setIsMenuOpen,
+    toggleVisibility,
+  } = useChat()
+
+  const {setHideFromAccessibility} = useScreen()
 
   const {color} = useTheme()
   const styles = createStyles()
@@ -62,14 +65,23 @@ export const ChatHeader = () => {
   const onPressToggleVisibility = () => {
     toggleVisibility()
     Keyboard.dismiss()
-    hideChatMenu()
+    setIsMenuOpen(false)
   }
+
+  useEffect(() => {
+    setHideFromAccessibility(isMaximized)
+
+    return () => {
+      setHideFromAccessibility(false)
+    }
+  }, [isMaximized, setHideFromAccessibility])
 
   return (
     <View
-      onLayout={layout => setHeight(layout.nativeEvent.layout.height)}
+      onLayout={layout => setHeaderHeight(layout.nativeEvent.layout.height)}
       style={styles.container}>
       <PressableWhenMinimized
+        accessibilityHint="Activeer om de chat te maximaliseren"
         isMaximized={isMaximized}
         onPress={toggleVisibility}
         style={styles.pressableWhenMinimized}>
@@ -79,24 +91,28 @@ export const ChatHeader = () => {
             valign="center">
             <Animated.View style={menuIconStyle}>
               <IconButton
+                accessibilityLabel={`Chat menu ${isMenuOpen ? 'sluiten' : 'openen'}.`}
                 icon={
                   <MeatballsMenu
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={toggleIsChatMenuVisible}
+                onPress={() => setIsMenuOpen(!isMenuOpen)}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />
             </Animated.View>
-            <Row
-              gutter="xs"
-              valign="center">
-              <ScreenTitle text="Chat" />
-              <NewMessageIndicator />
-            </Row>
+            <View accessible>
+              <Row
+                gutter="xs"
+                valign="center">
+                <ScreenTitle text="Chat" />
+                <NewMessageIndicator />
+              </Row>
+            </View>
             <Animated.View style={expandIconStyle}>
               <IconButton
+                accessibilityLabel={`Chat ${isMaximized ? 'minimaliseren' : 'maximaliseren'}`}
                 icon={
                   <Icon
                     color="link"
@@ -112,12 +128,6 @@ export const ChatHeader = () => {
           </Row>
         </Box>
       </PressableWhenMinimized>
-      {!!isChatMenuVisible && (
-        <ChatMenu
-          close={hideChatMenu}
-          headerHeight={height}
-        />
-      )}
     </View>
   )
 }

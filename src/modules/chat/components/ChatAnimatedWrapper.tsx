@@ -14,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {ChatMenu} from '@/modules/chat/components/ChatMenu'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -128,6 +129,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
         setMaxHeight(e.nativeEvent.layout.height)
       }}
       style={[StyleSheet.absoluteFill, styles.container, animatedStylesOuter]}>
+      <ChatMenu />
       <Animated.View style={[styles.inner, animatedStylesInner]}>
         {children}
       </Animated.View>

@@ -7,12 +7,14 @@ import {
   TextInput,
   View,
 } from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
@@ -25,6 +27,9 @@ type Props = {
 }
 
 export const ChatInput = ({onSubmit}: Props) => {
+  const isScreenReaderEnabled = useIsScreenReaderEnabled()
+  const insets = useSafeAreaInsets()
+
   const styles = useThemable(createStyles)
   const [input, setInput] = useState('')
   const inputRef = useRef<TextInput | null>(null)
@@ -53,7 +58,8 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={insets.top}>
         <Box>
           <Row gutter="sm">
             {!!employeeInChat && (
@@ -86,6 +92,7 @@ export const ChatInput = ({onSubmit}: Props) => {
               style={styles.container}
               testID="ChatTextInputContainer">
               <TextInput
+                autoFocus={isScreenReaderEnabled}
                 multiline
                 onChangeText={onChangeText}
                 onFocus={hideSelectAttachment}

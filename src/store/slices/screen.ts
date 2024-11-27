@@ -6,11 +6,23 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type ScreenState = {
+  /**
+   * Used to hide screen content when overlay is open. Header is still shown.
+   * This is used to prevent screen readers from reading the content behind the overlay.
+   */
+  isContentHiddenFromAccessibility: boolean
+  /**
+   * Used to hide screen content when overlay is open.
+   * This is used to prevent screen readers from reading the content behind the overlay.
+   */
+  isHiddenFromAccessibility: boolean
   spaceBottom: number
 }
 
 const initialState = {
   spaceBottom: 0,
+  isContentHiddenFromAccessibility: false,
+  isHiddenFromAccessibility: false,
 }
 
 export const screenSlice = createSlice({
@@ -18,26 +30,69 @@ export const screenSlice = createSlice({
   initialState,
   reducers: {
     resetScreen: () => initialState,
+    setHideScreenFromAccessibility: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isHiddenFromAccessibility = payload
+    },
+    setHideScreenContentFromAccessibility: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isContentHiddenFromAccessibility = payload
+    },
     setExtraSpaceBottom: (state, {payload}: PayloadAction<number>) => {
       state.spaceBottom = payload
     },
   },
 })
 
-export const {setExtraSpaceBottom} = screenSlice.actions
+export const {
+  setExtraSpaceBottom,
+  setHideScreenFromAccessibility,
+  setHideScreenContentFromAccessibility,
+} = screenSlice.actions
 
 export const selectScreenBottomExtraSpace = (state: RootState) =>
   state[ReduxKey.screen].spaceBottom
+
+export const selectIsHiddenFromAccessibility = (state: RootState) =>
+  state[ReduxKey.screen].isHiddenFromAccessibility
+
+export const selectIsContentHiddenFromAccessibility = (state: RootState) =>
+  state[ReduxKey.screen].isContentHiddenFromAccessibility
 
 export const useScreen = () => {
   const dispatch = useDispatch()
 
   const spaceBottom = useSelector(selectScreenBottomExtraSpace)
+  const isContentHiddenFromAccessibility = useSelector(
+    selectIsContentHiddenFromAccessibility,
+  )
+  const isHiddenFromAccessibility = useSelector(selectIsHiddenFromAccessibility)
 
   const setSpaceBottom = useCallback(
     (space: number) => dispatch(setExtraSpaceBottom(space)),
     [dispatch],
   )
 
-  return {spaceBottom, setSpaceBottom}
+  const setHideFromAccessibility = useCallback(
+    (hide: boolean) => dispatch(setHideScreenFromAccessibility(hide)),
+    [dispatch],
+  )
+
+  const setHideContentFromAccessibility = useCallback(
+    (hide: boolean) => dispatch(setHideScreenContentFromAccessibility(hide)),
+    [dispatch],
+  )
+
+  return {
+    isContentHiddenFromAccessibility,
+    isHiddenFromAccessibility,
+    spaceBottom,
+    setHideContentFromAccessibility,
+    setHideFromAccessibility,
+    setSpaceBottom,
+  }
 }

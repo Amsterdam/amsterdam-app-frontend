@@ -1,9 +1,10 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
-import {HideFromAccessibilityWhenInBackground} from '@/components/features/accessibility/HideFromAccessibilityWhenInBackground'
+import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {HeaderProps} from '@/components/features/header/types'
 import {Box} from '@/components/ui/containers/Box'
+import {useScreen} from '@/store/slices/screen'
 
 type BackgroundColorProp = {
   backgroundColor?: HeaderProps['backgroundColor']
@@ -15,15 +16,19 @@ type Props = {
 
 export const HeaderBase = ({backgroundColor, children}: Props) => {
   const {top = 0, left = 0, right = 0} = useSafeAreaInsets()
+  const {isContentHiddenFromAccessibility, isHiddenFromAccessibility} =
+    useScreen()
   const styles = useMemo(
     () => createStyles({backgroundColor, top, left, right}),
     [backgroundColor, top, left, right],
   )
 
   return (
-    <HideFromAccessibilityWhenInBackground style={styles.header}>
+    <HideFromAccessibility
+      hide={isContentHiddenFromAccessibility || isHiddenFromAccessibility}
+      style={styles.header}>
       <Box>{children}</Box>
-    </HideFromAccessibilityWhenInBackground>
+    </HideFromAccessibility>
   )
 }
 
