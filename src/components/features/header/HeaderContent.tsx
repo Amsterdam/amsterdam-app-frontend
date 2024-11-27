@@ -5,7 +5,7 @@ import {HeaderProps} from '@/components/features/header/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
+import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
 
@@ -61,7 +61,7 @@ export const HeaderContent = ({
         )}
       </View>
       <View style={styles.middleColumn}>
-        <ScreenTitle
+        <ScreenHeaderTitle
           accessibilityLanguage={accessibilityLanguage}
           text={title}
         />

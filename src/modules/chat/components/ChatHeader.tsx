@@ -6,7 +6,7 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
+import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
@@ -106,7 +106,7 @@ export const ChatHeader = () => {
               <Row
                 gutter="xs"
                 valign="center">
-                <ScreenTitle text="Chat" />
+                <ScreenHeaderTitle text="Chat" />
                 <NewMessageIndicator />
               </Row>
             </View>
