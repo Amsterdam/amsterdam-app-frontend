@@ -29,7 +29,7 @@ export const EntryRichLink = ({message}: Props) => {
       {!!domain && (
         <MessagePhrase
           message={message}
-          testID="RichLinkTitle">
+          testID={'RichLinkTitle' + message.entryId}>
           {domain}
         </MessagePhrase>
       )}
