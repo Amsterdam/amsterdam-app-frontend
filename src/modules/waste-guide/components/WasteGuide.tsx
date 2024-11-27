@@ -16,8 +16,7 @@ import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressCity} from '@/modules/address/types'
 import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
 import WasteGuideNotFoundImage from '@/modules/waste-guide/assets/images/waste-guide-not-found.svg'
-import {WasteGuideForAmsterdam} from '@/modules/waste-guide/components/WasteGuideForAmsterdam'
-import {WasteGuideForWeesp} from '@/modules/waste-guide/components/WasteGuideForWeesp'
+import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
@@ -96,9 +95,6 @@ export const WasteGuide = () => {
 
   const {city} = address
   const cityIsWeesp = city === AddressCity.Weesp
-  const WasteGuideForCity = cityIsWeesp
-    ? WasteGuideForWeesp
-    : WasteGuideForAmsterdam
   const hasContent = Object.keys(wasteGuide).length > 0 || cityIsWeesp
 
   return (
@@ -114,7 +110,7 @@ export const WasteGuide = () => {
               <ShareLocationTopTaskButton testID="WasteGuide" />
             </Column>
             {hasContent ? (
-              <WasteGuideForCity wasteGuide={wasteGuide} />
+              <WasteGuideContent wasteGuide={wasteGuide} />
             ) : (
               <WasteGuideNotFound />
             )}
