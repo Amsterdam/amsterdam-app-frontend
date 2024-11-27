@@ -19,11 +19,11 @@ export const EntryRoutingWorkResult = ({
   isLast,
   isLastOfRole,
 }: Props) => {
-  const {isWaitingForAgent} = useContext(ChatContext)
+  const {isEnded} = useContext(ChatContext)
 
   if (
     message.workType !== ConversationEntryRoutingWorkType.closed ||
-    isWaitingForAgent ||
+    !isEnded ||
     !isLast
   ) {
     return null

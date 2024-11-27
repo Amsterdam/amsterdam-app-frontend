@@ -12,6 +12,9 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
+  ConversationEntryRoutingWorkResult,
+  ConversationEntryRoutingWorkType,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
@@ -26,6 +29,7 @@ type ChatContextType = {
   ) => void
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   employeeInChat: boolean
+  isEnded: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
   newMessagesCount: number
@@ -36,12 +40,13 @@ type ChatContextType = {
 const initialValue: ChatContextType = {
   addDownloadedTranscriptId: () => null,
   downloadedTranscriptIds: [],
+  employeeInChat: false,
+  isEnded: false,
+  isWaitingForAgent: false,
   messages: [],
   newMessagesCount: 0,
   ready: false,
-  employeeInChat: false,
   remoteConfiguration: undefined,
-  isWaitingForAgent: false,
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -70,6 +75,12 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
+  const isEnded =
+    messages[messages.length - 1]?.format ===
+      ConversationEntryFormat.routingWorkResult &&
+    (messages[messages.length - 1] as ConversationEntryRoutingWorkResult)
+      .workType === ConversationEntryRoutingWorkType.closed &&
+    !isWaitingForAgent
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -115,12 +126,14 @@ export const ChatProvider = ({children}: Props) => {
     () => ({
       addDownloadedTranscriptId,
       downloadedTranscriptIds,
-      messages: isTyping
-        ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
-        : filterOutDeliveryAcknowledgements(messages),
+      messages:
+        isTyping && !isEnded
+          ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
+          : filterOutDeliveryAcknowledgements(messages),
       newMessagesCount,
       ready,
       employeeInChat,
+      isEnded,
       remoteConfiguration,
       isWaitingForAgent,
     }),
@@ -130,6 +143,7 @@ export const ChatProvider = ({children}: Props) => {
       employeeInChat,
       isTyping,
       isWaitingForAgent,
+      isEnded,
       messages,
       newMessagesCount,
       ready,
