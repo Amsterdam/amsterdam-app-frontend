@@ -8,6 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Environment, editableApiSlug} from '@/environment'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {setHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {devError, devLog, isDevApp} from '@/processes/development'
 import {persistor} from '@/store/persistor'
 import {
@@ -63,6 +64,7 @@ export const EnvironmentSelector = () => {
                 await persistor.purge()
                 dispatch(setEnvironment(env))
                 dispatch(setCustomEnvironment(custom))
+                dispatch(setHasSeenOnboarding(true))
                 removeAllSecureItems().then(devLog).catch(devError)
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
