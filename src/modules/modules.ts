@@ -1,4 +1,5 @@
 import {aboutModule} from '@/modules/about'
+import {accessCodeModule} from '@/modules/access-code'
 import {addressModule} from '@/modules/address'
 import {chatModule} from '@/modules/chat'
 import {cityPassModule} from '@/modules/city-pass'
@@ -18,6 +19,7 @@ import {wasteGuideModule} from '@/modules/waste-guide'
  * Core Modules don't have a server part and are always loaded.
  */
 export const coreModules = [
+  accessCodeModule,
   addressModule,
   homeModule,
   onboardingModule,
