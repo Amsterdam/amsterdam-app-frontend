@@ -15,7 +15,11 @@ export const EntryText = ({message}: Props) => {
   return (
     <ChatMessageEntry message={message}>
       <MessagePhrase
-        accessibilityLabel={isUser ? `Uw bericht: ${message.text}`  : `${message.text} ontvangen van ${message.senderDisplayName}`}
+        accessibilityLabel={
+          isUser
+            ? `Uw bericht: ${message.text}`
+            : `${message.text} ontvangen van ${message.senderDisplayName}`
+        }
         message={message}
         testID="Text">
         {message.text}
