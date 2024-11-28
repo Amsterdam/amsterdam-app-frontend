@@ -16,6 +16,19 @@ export const Default: StoryObj<typeof NavigationButton> = {
   },
 }
 
+export const Icon: StoryObj<typeof NavigationButton> = {
+  args: {
+    icon: 'alert',
+    label: 'Met icoon',
+  },
+}
+export const LessEmphasis: StoryObj<typeof NavigationButton> = {
+  args: {
+    emphasis: 'default',
+    label: 'Minder nadruk',
+  },
+}
+
 export const Previous: StoryObj<typeof NavigationButton> = {
   args: {
     direction: 'backward',

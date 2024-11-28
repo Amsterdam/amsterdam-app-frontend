@@ -3,7 +3,7 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
+import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
@@ -30,7 +30,7 @@ export const ModalHeader = ({testID, title}: Props) => {
         gutter="md">
         <View style={styles.balanceCenterAlignment} />
         <View style={styles.nudgeVerticalAlignment}>
-          <ScreenTitle text={title} />
+          <ScreenHeaderTitle text={title} />
         </View>
         <IconButton
           accessibilityLabel="Sluiten"

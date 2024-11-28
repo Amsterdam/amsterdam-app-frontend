@@ -14,7 +14,7 @@ import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {ScreenTitle} from '@/components/ui/text/ScreenTitle'
+import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {saveFile} from '@/modules/chat/utils/saveFile'
 import {devLog} from '@/processes/development'
 import {Theme} from '@/themes/themes'
@@ -107,7 +107,7 @@ export const ThumbnailViewer = ({
                 onPress={toggleVisibility}
                 testID="ThumbnailViewerCloseButton"
               />
-              {!!headerTitle && <ScreenTitle text={headerTitle} />}
+              {!!headerTitle && <ScreenHeaderTitle text={headerTitle} />}
               <IconButton
                 accessibilityLabel="Download de afbeelding."
                 icon={

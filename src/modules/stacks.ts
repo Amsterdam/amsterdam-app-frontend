@@ -2,6 +2,13 @@ import {ComponentType} from 'react'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AboutStack} from '@/modules/about/Stack'
 import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
+import {AccessCodeStack} from '@/modules/access-code/Stack'
+import {
+  AccessCodeModalParams,
+  AccessCodeRouteName,
+  AccessCodeStackParams,
+} from '@/modules/access-code/routes'
+import {accessCodeModals} from '@/modules/access-code/screenConfig'
 import {AddressStack} from '@/modules/address/Stack'
 import {
   AddressModalParams,
@@ -88,6 +95,7 @@ import {devError} from '@/processes/development'
 
 export type ModuleRoutes =
   | AboutRouteName
+  | AccessCodeRouteName
   | AddressRouteName
   | CityPassRouteName
   | ConstructionWorkRouteName
@@ -102,6 +110,7 @@ export type ModuleRoutes =
   | WasteGuideRouteName
 
 export type ModuleStackParams = AboutStackParams &
+  AccessCodeStackParams &
   AddressStackParams &
   CityPassStackParams &
   ConstructionWorkStackParams &
@@ -117,6 +126,7 @@ export type ModuleStackParams = AboutStackParams &
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.about]: AboutStack,
+  [ModuleSlug['access-code']]: AccessCodeStack,
   [ModuleSlug.address]: AddressStack,
   [ModuleSlug.chat]: ChatStack,
   [ModuleSlug['city-pass']]: CityPassStack,
@@ -133,7 +143,8 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 
-export type ModalParams = AddressModalParams &
+export type ModalParams = AccessCodeModalParams &
+  AddressModalParams &
   CityPassModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
@@ -144,6 +155,7 @@ export type ModalParams = AddressModalParams &
   WasteGuideModalParams
 
 export const modals: StackNavigationRoutes<RootStackParams> = {
+  ...accessCodeModals,
   ...addressModals,
   ...cityPassModals,
   ...constructionWorkModals,
