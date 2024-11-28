@@ -48,6 +48,14 @@ const initialValue: ChatContextType = {
   remoteConfiguration: undefined,
 }
 
+/**
+ * Function to check if the chat is ended or not
+ * How it works:
+ * It checks whether the last received message (excluding Transcript entries) is of format RoutingWorkResult
+ * If that is the case, and the workType is 'closed' and we are not waiting for an agent, then the chat is ended
+ *
+ * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
+ */
 const isChatEnded = (
   messages: ConversationEntry[],
   isWaitingForAgent: boolean,
