@@ -60,12 +60,22 @@ export const EnvironmentSelector = () => {
               key={env}
               label={env}
               onPress={async () => {
+                dispatch(
+                  setEnvironment(
+                    env === Environment.development
+                      ? Environment.production
+                      : Environment.development,
+                  ),
+                )
+                dispatch(setCustomEnvironment({}))
+                dispatch(setHasSeenOnboarding(false))
                 await persistor.flush()
                 await persistor.purge()
                 dispatch(setEnvironment(env))
                 dispatch(setCustomEnvironment(custom))
                 dispatch(setHasSeenOnboarding(true))
                 removeAllSecureItems().then(devLog).catch(devError)
+                await persistor.flush()
               }}
               testID={`HomeEnvironmentSelector${pascalCase(env)}Button`}
               variant={environment === env ? 'secondary' : 'primary'}
