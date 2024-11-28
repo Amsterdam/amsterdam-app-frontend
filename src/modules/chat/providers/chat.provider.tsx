@@ -13,7 +13,6 @@ import {
 import {
   ConversationEntry,
   ConversationEntryFormat,
-  ConversationEntryRoutingWorkResult,
   ConversationEntryRoutingWorkType,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
@@ -49,6 +48,22 @@ const initialValue: ChatContextType = {
   remoteConfiguration: undefined,
 }
 
+const isChatEnded = (
+  messages: ConversationEntry[],
+  isWaitingForAgent: boolean,
+): boolean => {
+  const filteredMessages = messages.filter(
+    message => message.format !== ConversationEntryFormat.transcript,
+  )
+  const lastMessage = filteredMessages[filteredMessages.length - 1]
+
+  return (
+    lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
+    lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
+    !isWaitingForAgent
+  )
+}
+
 export const ChatContext = createContext<ChatContextType>(initialValue)
 
 type Props = {
@@ -75,12 +90,7 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
-  const isEnded =
-    messages[messages.length - 1]?.format ===
-      ConversationEntryFormat.routingWorkResult &&
-    (messages[messages.length - 1] as ConversationEntryRoutingWorkResult)
-      .workType === ConversationEntryRoutingWorkType.closed &&
-    !isWaitingForAgent
+  const isEnded = isChatEnded(messages, isWaitingForAgent)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
