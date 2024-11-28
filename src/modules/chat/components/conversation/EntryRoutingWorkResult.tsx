@@ -2,6 +2,7 @@ import {useContext} from 'react'
 import {
   ConversationEntryRoutingWorkType,
   ConversationEntryRoutingWorkResult,
+  ConversationEntryFormat,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
@@ -14,17 +15,15 @@ type Props = {
   message: ConversationEntryRoutingWorkResult
 }
 
-export const EntryRoutingWorkResult = ({
-  message,
-  isLast,
-  isLastOfRole,
-}: Props) => {
-  const {isWaitingForAgent} = useContext(ChatContext)
+export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
+  const {messages, isEnded} = useContext(ChatContext)
 
   if (
     message.workType !== ConversationEntryRoutingWorkType.closed ||
-    isWaitingForAgent ||
-    !isLast
+    !isEnded ||
+    messages
+      .filter(m => m.format === ConversationEntryFormat.routingWorkResult)
+      .slice(-1)[0].entryId !== message.entryId
   ) {
     return null
   }

@@ -1,7 +1,7 @@
 import {Alert} from 'react-native'
 import {retrieveTranscript} from 'react-native-salesforce-messaging-in-app/src'
 import {saveFile} from '@/modules/chat/utils/saveFile'
-import {devLog} from '@/processes/development'
+import {devError} from '@/processes/development'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTime} from '@/utils/datetime/formatDateTime'
 
@@ -16,7 +16,7 @@ export const downloadChat = async () => {
 
     return entryId
   } catch (error) {
-    devLog(error)
+    devError(error, JSON.stringify(error))
     Alert.alert('Chat downloaden mislukt.')
   }
 }

@@ -18,6 +18,7 @@ import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderE
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
+import {ChatEnded} from '@/modules/chat/components/ChatEnded'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -53,7 +54,11 @@ export const ChatInput = ({onSubmit}: Props) => {
   )
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
-  const {employeeInChat} = useContext(ChatContext)
+  const {employeeInChat, isEnded} = useContext(ChatContext)
+
+  if (isEnded) {
+    return <ChatEnded />
+  }
 
   return (
     <>

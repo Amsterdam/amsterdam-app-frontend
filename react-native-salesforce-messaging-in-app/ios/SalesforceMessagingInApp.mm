@@ -624,7 +624,7 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                 NSMutableDictionary *messageDict = [NSMutableDictionary dictionary];
                 messageDict[@"format"] = @"Transcript";
                 messageDict[@"conversationId"] = @"";
-                messageDict[@"entryId"] = entryId;
+                messageDict[@"entryId"] = [entryId UUIDString];
                 messageDict[@"entryType"] = @"";
                 messageDict[@"payloadId"] = @"";
                 messageDict[@"senderDisplayName"] = @"";
@@ -644,7 +644,7 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                 [self sendEventWithName:@"onNewMessage" body:messageDict];
                 NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
                 resultDict[@"transcript"] = base64PdfString;
-                resultDict[@"entryId"] = entryId;
+                resultDict[@"entryId"] = [entryId UUIDString];
 
                 // Resolve the promise with the Base64-encoded PDF string
                 resolve(resultDict);

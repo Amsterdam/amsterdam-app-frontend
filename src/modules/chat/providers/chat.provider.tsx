@@ -12,6 +12,8 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
+  ConversationEntryRoutingWorkType,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
@@ -26,6 +28,7 @@ type ChatContextType = {
   ) => void
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   employeeInChat: boolean
+  isEnded: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
   newMessagesCount: number
@@ -36,12 +39,37 @@ type ChatContextType = {
 const initialValue: ChatContextType = {
   addDownloadedTranscriptId: () => null,
   downloadedTranscriptIds: [],
+  employeeInChat: false,
+  isEnded: false,
+  isWaitingForAgent: false,
   messages: [],
   newMessagesCount: 0,
   ready: false,
-  employeeInChat: false,
   remoteConfiguration: undefined,
-  isWaitingForAgent: false,
+}
+
+/**
+ * Function to check if the chat is ended or not
+ * How it works:
+ * It checks whether the last received message (excluding Transcript entries) is of format RoutingWorkResult
+ * If that is the case, and the workType is 'closed' and we are not waiting for an agent, then the chat is ended
+ *
+ * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
+ */
+const isChatEnded = (
+  messages: ConversationEntry[],
+  isWaitingForAgent: boolean,
+): boolean => {
+  const filteredMessages = messages.filter(
+    message => message.format !== ConversationEntryFormat.transcript,
+  )
+  const lastMessage = filteredMessages[filteredMessages.length - 1]
+
+  return (
+    lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
+    lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
+    !isWaitingForAgent
+  )
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -70,6 +98,7 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
+  const isEnded = isChatEnded(messages, isWaitingForAgent)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -115,12 +144,14 @@ export const ChatProvider = ({children}: Props) => {
     () => ({
       addDownloadedTranscriptId,
       downloadedTranscriptIds,
-      messages: isTyping
-        ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
-        : filterOutDeliveryAcknowledgements(messages),
+      messages:
+        isTyping && !isEnded
+          ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
+          : filterOutDeliveryAcknowledgements(messages),
       newMessagesCount,
       ready,
       employeeInChat,
+      isEnded,
       remoteConfiguration,
       isWaitingForAgent,
     }),
@@ -130,6 +161,7 @@ export const ChatProvider = ({children}: Props) => {
       employeeInChat,
       isTyping,
       isWaitingForAgent,
+      isEnded,
       messages,
       newMessagesCount,
       ready,
