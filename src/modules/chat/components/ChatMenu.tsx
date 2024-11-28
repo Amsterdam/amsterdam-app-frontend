@@ -13,7 +13,7 @@ import {useTheme} from '@/themes/useTheme'
 import {Duration} from '@/types/duration'
 
 export const ChatMenu = () => {
-  const {close, headerHeight, isMenuOpen} = useChat()
+  const {setIsMenuOpen, headerHeight, isMenuOpen} = useChat()
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const insets = useSafeAreaInsets()
@@ -30,7 +30,7 @@ export const ChatMenu = () => {
           color="link"
           label="Chat downloaden"
           onPress={() => {
-            close()
+            setIsMenuOpen(false)
             void downloadChat().then(
               entryId => entryId && addDownloadedTranscriptId(entryId),
             )
@@ -38,12 +38,12 @@ export const ChatMenu = () => {
           ref={setAccessibilityFocus}
           testID="ChatMenuPressableDownloadChat"
         />
-        <ChatMenuItem
+        {/* <ChatMenuItem
           color="warning"
           label="Chat stoppen"
-          onPress={close}
+          onPress={() => setIsMenuOpen(false)}
           testID="ChatMenuPressableStopChat"
-        />
+        /> */}
       </Column>
     </Animated.View>
   ) : null
