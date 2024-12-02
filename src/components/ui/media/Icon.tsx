@@ -18,6 +18,7 @@ type AdditionalIconConfig = {
 const AdditionalIconConfigs: Partial<
   Record<SvgIconName, AdditionalIconConfig>
 > = {
+  backspace: {stroke: true, strokeWidth: 2},
   spinner: {Wrapper: Rotator, stroke: true},
 }
 
