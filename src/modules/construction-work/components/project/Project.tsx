@@ -10,7 +10,6 @@ import {LazyImage} from '@/components/ui/media/LazyImage'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
@@ -38,7 +37,6 @@ export const Project = ({id}: Props) => {
     error: projectError,
   } = useProjectDetailsQuery({id, ...addressParam})
 
-  useSetScreenTitle(project?.title)
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (isLoading) {

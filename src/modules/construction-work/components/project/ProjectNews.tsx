@@ -1,19 +1,14 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {useEffect} from 'react'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {
-  useProjectNewsQuery,
-  useProjectDetailsQuery,
-} from '@/modules/construction-work/service'
+import {useProjectNewsQuery} from '@/modules/construction-work/service'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
@@ -22,7 +17,7 @@ type Props = {
   projectId?: number
 }
 
-export const ProjectNews = ({id, projectId}: Props) => {
+export const ProjectNews = ({id, projectId: passedProjectId}: Props) => {
   const navigation = useNavigation()
   const {markAsRead} = useMarkArticleAsRead()
 
@@ -37,15 +32,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
 
   // If we come here via a deeplink, we don't have the projectId. Then we fetch the article first and use an ID from the response.
   // Note that the article has an array of project IDs, because there is a many-to-many relation between news articles and projects. We assume the first ID is the correct one.
-  const pId = projectId ?? article?.projects?.[0]
-
-  const {data: project, isLoading: projectIsLoading} = useProjectDetailsQuery(
-    pId !== undefined
-      ? {
-          id: pId,
-        }
-      : skipToken,
-  )
+  const projectId = passedProjectId ?? article?.projects?.[0]
 
   useEffect(() => {
     if (!article) {
@@ -58,10 +45,9 @@ export const ProjectNews = ({id, projectId}: Props) => {
     })
   }, [article, id, markAsRead])
 
-  const projectTitle = useSetScreenTitle(project?.title)
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
-  if (articleIsLoading || projectIsLoading) {
+  if (articleIsLoading) {
     return <PleaseWait testID="ConstructionWorkNewsLoadingSpinner" />
   }
 
@@ -78,7 +64,6 @@ export const ProjectNews = ({id, projectId}: Props) => {
         onPress={() =>
           navigation.navigate(ConstructionWorkRouteName.project, {
             id,
-            screenHeaderTitle: projectTitle,
           })
         }
         testID="ProjectDetailErrorScreen"
@@ -96,7 +81,7 @@ export const ProjectNews = ({id, projectId}: Props) => {
       id={id}
       image={image}
       intro={intro}
-      projectId={pId}
+      projectId={projectId}
       publicationDate={publication_date}
       title={title ?? ''}
     />

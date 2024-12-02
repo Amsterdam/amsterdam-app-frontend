@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/dist/query'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {
@@ -15,7 +14,7 @@ type Props = {
   projectId?: number
 }
 
-export const ProjectWarning = ({id, projectId}: Props) => {
+export const ProjectWarning = ({id, projectId: passedProjectId}: Props) => {
   const {
     data: warningData,
     isError: warningIsError,
@@ -25,18 +24,18 @@ export const ProjectWarning = ({id, projectId}: Props) => {
   })
 
   // If we come here via a deeplink, we don't have the projectId. Then we fetch the warning article first and use the ID from the response.
-  const pId = projectId ?? warningData?.project
+  const projectId = passedProjectId ?? warningData?.project ?? undefined
 
   const {data: projectData, isLoading: projectIsLoading} =
     useProjectDetailsQuery(
-      pId
+      projectId
         ? {
-            id: pId,
+            id: projectId,
           }
         : skipToken,
     )
 
-  useSetScreenTitle(projectData?.title)
+  // useSetScreenTitle(projectData?.title)
 
   if (projectIsLoading || warningIsLoading) {
     return <PleaseWait testID="ConstructionWorkWarningLoadingSpinner" />

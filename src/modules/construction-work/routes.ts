@@ -16,7 +16,7 @@ export enum ConstructionWorkRouteName {
 export type ConstructionWorkStackParams = {
   [ConstructionWorkRouteName.constructionWork]: undefined
   [ConstructionWorkRouteName.search]: undefined
-  [ConstructionWorkRouteName.project]: VariableContentParams
+  [ConstructionWorkRouteName.project]: {id: number}
   [ConstructionWorkRouteName.projectSegment]: TitleParams & {
     body: ProjectSegment
   }

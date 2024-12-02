@@ -74,6 +74,8 @@ const createStyles =
 
     const scaledDiameter = marginFactor * scaleFactor * fontSize
 
+    const scaledFontSize = (fontSize / fontScale) * scaleFactor
+
     return StyleSheet.create({
       circle: {
         height: scaledDiameter,
@@ -85,9 +87,9 @@ const createStyles =
       },
       text: {
         fontFamily: text.fontFamily.bold,
-        fontSize: (fontSize / fontScale) * scaleFactor,
+        fontSize: scaledFontSize,
+        lineHeight: isDoubleDigitValue ? scaledFontSize * 1.28 : scaledDiameter,
         color: color.text.inverse,
-        bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
         textAlign: 'center',
       },
     })

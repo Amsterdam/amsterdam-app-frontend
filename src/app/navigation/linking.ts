@@ -4,6 +4,7 @@ import messaging, {
 } from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
+import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
@@ -32,11 +33,10 @@ export const pushNotificationTypes: Record<
   },
 }
 
-export const createPathFromNotification = ({
-  data,
-  title = '',
-  body = '',
-}: PushNotification): string | undefined => {
+export const createPathFromNotification = (
+  {data, title = '', body = ''}: PushNotification,
+  isDeeplink = true,
+): string | undefined => {
   const notificationType = data?.type && pushNotificationTypes[data.type]
 
   if (!notificationType?.routeWithPrefix || !data?.linkSourceid) {
@@ -45,7 +45,13 @@ export const createPathFromNotification = ({
 
   const analyticsTitle = encodeURIComponent(`${title} - ${body}`)
 
-  return `${notificationType.routeWithPrefix}/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}/true`
+  const path = `/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}/${isDeeplink}`
+
+  if (isDeeplink) {
+    return `${notificationType.routeWithPrefix}${path}`
+  } else {
+    return `${notificationType.route}${path}`
+  }
 }
 
 export const linking: LinkingOptions<RootStackParams> = {
@@ -81,7 +87,7 @@ export const linking: LinkingOptions<RootStackParams> = {
   getStateFromPath: (path, config) => {
     const state = getStateFromPath(path, config)
 
-    if (state) {
+    if (state && !navigationRef.isReady()) {
       const {routes} = state
       const homeRouteName = ModuleSlug.home
 
@@ -89,7 +95,7 @@ export const linking: LinkingOptions<RootStackParams> = {
         routes?.length === 1 &&
         (routes[0].name as ModuleSlug) !== homeRouteName
       ) {
-        state.routes.unshift({name: homeRouteName})
+        state.routes.unshift({name: homeRouteName, params: undefined})
       }
     }
 

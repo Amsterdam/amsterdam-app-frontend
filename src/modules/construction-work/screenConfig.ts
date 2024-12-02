@@ -33,6 +33,9 @@ export const screenConfig: StackNavigationRoutes<
   [ConstructionWorkRouteName.project]: {
     component: ProjectScreen,
     name: ConstructionWorkRouteName.project,
+    options: {
+      headerTitle: 'Project',
+    },
   },
   [ConstructionWorkRouteName.projectSegment]: {
     component: ProjectSegmentScreen,
@@ -41,10 +44,16 @@ export const screenConfig: StackNavigationRoutes<
   [ConstructionWorkRouteName.projectNews]: {
     component: ProjectNewsScreen,
     name: ConstructionWorkRouteName.projectNews,
+    options: {
+      headerTitle: 'Nieuws',
+    },
   },
   [ConstructionWorkRouteName.projectWarning]: {
     component: ProjectWarningScreen,
     name: ConstructionWorkRouteName.projectWarning,
+    options: {
+      headerTitle: 'Nieuws',
+    },
   },
 }
 

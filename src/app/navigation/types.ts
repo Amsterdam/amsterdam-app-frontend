@@ -16,7 +16,7 @@ export type TitleParams = {
   screenTitle?: string
 }
 
-export type VariableContentParams = TitleParams & {
+export type VariableContentParams = Partial<TitleParams> & {
   id: number
 }
 
