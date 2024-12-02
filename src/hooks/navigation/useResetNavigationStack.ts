@@ -13,13 +13,10 @@ export const useResetNavigationStack = (routeIndex = 1, routeName?: string) => {
 
   const {routes, key, routeNames, type} = navigation.getState()
   const targetRouteIndex = routeName
-    ? routes.findIndex(route => route.name === routeName)
+    ? routes.findIndex(route => route.name === routeName) + 1
     : undefined
 
-  const newRoutes = routes.slice(
-    0,
-    targetRouteIndex ? targetRouteIndex + 1 : -routeIndex,
-  )
+  const newRoutes = routes.slice(0, targetRouteIndex ?? -routeIndex)
 
   return useCallback(() => {
     navigation.reset({
