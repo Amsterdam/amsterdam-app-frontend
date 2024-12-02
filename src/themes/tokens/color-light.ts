@@ -126,7 +126,7 @@ export const lightColorTokens = {
     },
   },
   customKeyboard: {
-    background: baseColor.custom.grey1,
+    background: baseColor.neutral.grey2,
     button: baseColor.primary.white,
   },
   control: {
