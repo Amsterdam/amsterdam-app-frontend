@@ -2,6 +2,7 @@ import RNSecureStorage, {ACCESSIBLE} from 'rn-secure-storage'
 import {appInsights} from '@/providers/appinsights.provider'
 
 export enum SecureItemKey {
+  accessCode = 'accessCode',
   cityPassAccessToken = 'cityPassAccessToken',
   cityPassRefreshToken = 'cityPassRefreshToken',
   cityPasses = 'cityPasses',
