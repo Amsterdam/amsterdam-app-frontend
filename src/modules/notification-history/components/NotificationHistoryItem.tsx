@@ -1,3 +1,4 @@
+import {useLinkTo} from '@react-navigation/native'
 import {StyleSheet, View} from 'react-native'
 import {createPathFromNotification} from '@/app/navigation/linking'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
@@ -9,7 +10,6 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
@@ -29,7 +29,7 @@ export const NotificationHistoryItem = ({
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles)
 
-  const openUrl = useOpenUrl()
+  const linkTo = useLinkTo()
 
   if (!module) {
     return null
@@ -47,14 +47,17 @@ export const NotificationHistoryItem = ({
         `ontvangen: ${createdAt}`,
       )}
       onPress={() => {
-        const deeplinkUrl = createPathFromNotification({
-          title,
-          body,
-          data: context,
-        })
+        const deeplinkUrl = createPathFromNotification(
+          {
+            title,
+            body,
+            data: context,
+          },
+          false,
+        )
 
         if (deeplinkUrl) {
-          void openUrl(deeplinkUrl)
+          linkTo(deeplinkUrl)
         }
       }}
       testID={`NotificationHistoryItem${id}Button`}>
@@ -76,13 +79,16 @@ export const NotificationHistoryItem = ({
             <Row
               align="between"
               flex={1}
-              gutter="sm">
+              gutter="sm"
+              valign="start">
               <Title
                 level="h5"
                 testID={`NotificationHistoryItem${id}Title`}
                 text={title}
               />
-              <Row gutter="sm">
+              <Row
+                gutter="sm"
+                valign="center">
                 <Phrase
                   color="secondary"
                   numberOfLines={1}
