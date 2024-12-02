@@ -21,7 +21,7 @@ const accessCodeSection: UserMenuSection = {
 
 const sections: UserMenuSection[] = []
 
-const UserMenUSection = ({title, navigationItems}: UserMenuSection) => {
+const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
 
   return (
@@ -51,10 +51,10 @@ export const UserMenu = () => {
 
   return (
     <>
-      {!!secureAccessCode && <UserMenUSection {...accessCodeSection} />}
+      {!!secureAccessCode && <MenuSection {...accessCodeSection} />}
       {!!sections.length &&
         sections.map(section => (
-          <UserMenUSection
+          <MenuSection
             key={section.title}
             {...section}
           />
