@@ -1,9 +1,10 @@
 import {type ReactNode, memo, useMemo} from 'react'
-import {type ImageSourcePropType, StyleSheet} from 'react-native'
+import {type ImageSourcePropType, StyleSheet, View} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import type {LogProps} from '@/processes/piwik/types'
 import type {Theme} from '@/themes/themes'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
+import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {AspectRatio} from '@/components/ui/layout/AspectRatio'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {LazyImage} from '@/components/ui/media/LazyImage'
@@ -17,6 +18,7 @@ type Props = {
   additionalAccessibilityLabel?: string
   children?: ReactNode
   imageSource?: ImageSourcePropType
+  isDummyItem?: boolean
   onPress: () => void
   subtitle?: string | null
   title: string
@@ -29,6 +31,7 @@ export const ProjectCard = memo(
     additionalAccessibilityLabel,
     children,
     imageSource,
+    isDummyItem,
     onPress,
     subtitle,
     testID,
@@ -54,7 +57,15 @@ export const ProjectCard = memo(
           {...logProps}>
           <AspectRatio aspectRatio="wide">
             <LazyImage
-              missingSourceFallback={<ProjectWarningFallbackImage />}
+              missingSourceFallback={
+                !isDummyItem ? (
+                  <ProjectWarningFallbackImage />
+                ) : (
+                  <Skeleton isLoading>
+                    <View style={styles.image} />
+                  </Skeleton>
+                )
+              }
               source={imageSource}
               testID="ConstructionWorkProjectCardImage"
             />
@@ -96,5 +107,9 @@ const createStyles =
       },
       pressed: {
         backgroundColor: color.card.pressed.background,
+      },
+      image: {
+        width: '100%',
+        height: '100%',
       },
     })
