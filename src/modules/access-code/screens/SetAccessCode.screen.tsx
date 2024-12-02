@@ -1,5 +1,6 @@
 import {useFocusEffect} from '@react-navigation/core'
 import {useCallback, useEffect} from 'react'
+import {View} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -51,14 +52,20 @@ export const SetAccessCodeScreen = () => {
             text="Kies een toegangscode"
           />
           <SetAccessCode />
-          <Paragraph>Uw toegangscode mag niet bestaan uit:</Paragraph>
-          <List
-            items={[
-              '5 dezelfde cijfers',
-              'Opeenvolgende cijfers, zoals 12345 of 87654',
-            ]}
-            testID=""
-          />
+          <View
+            accessibilityLabel="Uw toegangscode mag niet bestaan uit 5 dezelfde cijfers of Opeenvolgende cijfers, zoals 12345 of 87654"
+            accessibilityLanguage="nl-NL"
+            accessible
+            testID="SetAccessCodeScreenText">
+            <Paragraph>Uw toegangscode mag niet bestaan uit:</Paragraph>
+            <List
+              items={[
+                '5 dezelfde cijfers',
+                'Opeenvolgende cijfers, zoals 12345 of 87654',
+              ]}
+              testID=""
+            />
+          </View>
         </Column>
       </Box>
     </Screen>
