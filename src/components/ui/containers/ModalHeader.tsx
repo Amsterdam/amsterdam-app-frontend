@@ -5,21 +5,31 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize, TestProps} from '@/components/ui/types'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useResetNavigationStack} from '@/hooks/navigation/useResetNavigationStack'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  navigationResetIndex?: number
+  navigationResetRouteName?: string
   title: string
 } & Required<Pick<TestProps, 'testID'>>
 
 const closeIconSize = 'ml'
 
-export const ModalHeader = ({testID, title}: Props) => {
+export const ModalHeader = ({
+  navigationResetIndex,
+  navigationResetRouteName,
+  testID,
+  title,
+}: Props) => {
   const {isLandscape, isTablet} = useDeviceContext()
-  const navigation = useNavigation()
   const styles = useThemable(createStyles)
+  const resetNavigationStack = useResetNavigationStack(
+    navigationResetIndex,
+    navigationResetRouteName,
+  )
 
   return (
     <Box
@@ -43,7 +53,7 @@ export const ModalHeader = ({testID, title}: Props) => {
               testID={`${testID}Icon`}
             />
           }
-          onPress={navigation.goBack}
+          onPress={resetNavigationStack}
           testID={`${testID}CloseButton`}
         />
       </Row>

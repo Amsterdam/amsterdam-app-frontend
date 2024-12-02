@@ -10,10 +10,9 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useResetNavigationStack} from '@/hooks/navigation/useResetNavigationStack'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useAppState} from '@/hooks/useAppState'
-import {AddressModalName} from '@/modules/address/routes'
 import {HomeModalName} from '@/modules/home/routes'
 
 type Props = NavigationProps<HomeModalName.permissionInstructions>
@@ -23,25 +22,15 @@ export const PermissionInstructionsScreen = ({route}: Props) => {
     params: {icon, paragraph, permission, screenTitle, title},
   } = route
   const {hasPermission, requestPermission} = usePermission(permission)
-
-  const {getState, reset} = useNavigation<AddressModalName>()
+  const resetNavigationStack = useResetNavigationStack(1)
 
   useEffect(() => {
     if (!hasPermission) {
       return
     }
 
-    const {index, routes, key, routeNames, type} = getState()
-
-    reset({
-      index: index - 1,
-      routes: routes.slice(0, -1),
-      stale: false,
-      key,
-      routeNames,
-      type,
-    })
-  }, [getState, hasPermission, reset])
+    resetNavigationStack()
+  }, [hasPermission, resetNavigationStack])
 
   useAppState({
     onForeground: useCallback(() => {
