@@ -26,7 +26,7 @@ export const AccessCodeScreen = () => {
           title="Toegangscode"
         />
       }
-      testID="AccessCodeModalScreen"
+      testID="AccessCodeScreen"
       withBottomInset={false}>
       <Center grow>
         <Box>
@@ -39,7 +39,7 @@ export const AccessCodeScreen = () => {
             <EnterAccessCode onIsValid={onIsValid} />
             <Button
               label="Toegangscode vergeten"
-              testID=""
+              testID="AccessCodeScreenForgotButton"
               variant="tertiary"
             />
           </Column>
