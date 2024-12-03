@@ -7,6 +7,12 @@ export type ColorTokens = typeof lightColorTokens
  * The light color theme, the keys of the object should not contain any color name at all
  */
 export const lightColorTokens = {
+  accessToken: {
+    digit: {
+      background: baseColor.primary.white,
+      border: baseColor.primary.black,
+    },
+  },
   alert: {
     information: {
       border: baseColor.primary.blue,
@@ -118,6 +124,10 @@ export const lightColorTokens = {
     card: {
       border: baseColor.neutral.grey2,
     },
+  },
+  customKeyboard: {
+    background: baseColor.neutral.grey2,
+    button: baseColor.primary.white,
   },
   control: {
     default: {

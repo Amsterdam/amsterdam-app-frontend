@@ -1,4 +1,5 @@
 import {ProductTourState} from '@/components/features/product-tour/slice'
+import {AccessCodeState} from '@/modules/access-code/slice'
 import {AddressState} from '@/modules/address/types'
 import {ChatState} from '@/modules/chat/slice'
 import {CityPassState} from '@/modules/city-pass/slice'
@@ -24,6 +25,7 @@ import {ThemeState} from '@/themes/slice'
 
 export type RootState = {
   [baseApi.reducerPath]: typeof baseApi.reducer
+  [ReduxKey.accessCode]: AccessCodeState
   [ReduxKey.address]: AddressState
   [ReduxKey.alert]: AlertState
   [ReduxKey.bottomSheet]: BottomSheetState

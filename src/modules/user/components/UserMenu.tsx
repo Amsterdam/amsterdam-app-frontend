@@ -2,31 +2,30 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserMenuSection} from '@/modules/user/types'
 
-const sections: UserMenuSection[] = [
-  {
-    title: 'Beveiliging',
-    navigationItems: [
-      {
-        icon: 'accessCode',
-        label: 'Wijzig toegangscode',
-        moduleSlug: ModuleSlug['access-code'],
-        route: AccessCodeRouteName.setAccessCode,
-      },
-    ],
-  },
-]
+const accessCodeSection: UserMenuSection = {
+  title: 'Beveiliging',
+  navigationItems: [
+    {
+      icon: 'accessCode',
+      label: 'Wijzig toegangscode',
+      moduleSlug: ModuleSlug['access-code'],
+      route: AccessCodeRouteName.setAccessCode,
+    },
+  ],
+}
 
-export const UserMenu = () => {
+const sections: UserMenuSection[] = []
+
+const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
 
-  return sections.map(({title, navigationItems}) => (
-    <Column
-      gutter="sm"
-      key={title}>
+  return (
+    <Column gutter="sm">
       <Title
         level="h5"
         text={title}
@@ -44,5 +43,22 @@ export const UserMenu = () => {
         />
       ))}
     </Column>
-  ))
+  )
+}
+
+export const UserMenu = () => {
+  const secureAccessCode = useGetSecureAccessCode()
+
+  return (
+    <>
+      {!!secureAccessCode && <MenuSection {...accessCodeSection} />}
+      {!!sections.length &&
+        sections.map(section => (
+          <MenuSection
+            key={section.title}
+            {...section}
+          />
+        ))}
+    </>
+  )
 }

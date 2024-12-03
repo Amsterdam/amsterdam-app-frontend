@@ -2,6 +2,7 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {Platform} from 'react-native'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
+import {accessCodeSlice} from '@/modules/access-code/slice'
 import {chatSlice} from '@/modules/chat/slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
@@ -22,6 +23,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {themeSlice} from '@/themes/slice'
 
 const baseFunctionalitySlicesConfig: ReduxConfig[] = [
+  {key: ReduxKey.accessCode, slice: accessCodeSlice},
   {key: ReduxKey.alert, slice: alertSlice},
   {key: ReduxKey.bottomSheet, slice: bottomSheetSlice},
   {key: ReduxKey.chat, slice: chatSlice},

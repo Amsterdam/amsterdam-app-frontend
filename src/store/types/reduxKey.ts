@@ -1,4 +1,5 @@
 export enum ReduxKey {
+  accessCode = 'accessCode',
   address = 'address',
   alert = 'alert',
   bottomSheet = 'bottomSheet',
