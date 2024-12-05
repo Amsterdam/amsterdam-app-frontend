@@ -13,7 +13,7 @@ export const EntryTranscript = ({message}: Props) => {
   return downloadedTranscriptIds.includes(message.entryId) ? (
     <ChatSystemEntry
       icon="download"
-      testID={'ChatDownloadedInlineMessage'}
+      testID="ChatEntryTranscript"
       text="Chat gedownload"
     />
   ) : null

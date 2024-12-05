@@ -21,7 +21,7 @@ export const EntryText = ({message}: Props) => {
             : `${message.text} ontvangen van ${message.senderDisplayName}`
         }
         message={message}
-        testID={'EntryText' + message.entryId}>
+        testID="ChatEntryText">
         {message.text}
       </MessagePhrase>
     </ChatMessageEntry>
