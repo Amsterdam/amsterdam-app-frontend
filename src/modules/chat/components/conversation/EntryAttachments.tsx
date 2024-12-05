@@ -61,13 +61,13 @@ export const EntryAttachments = ({message}: Props) => {
                       fileName: attachment.name,
                     })
                   }}
-                  testID="EntryAttachmentsInlineLink">
+                  testID="ChatEntryAttachmentsInlineLink">
                   {attachment.name}
                 </InlineLink>
               ) : (
                 <Phrase
                   color="inverse"
-                  testID={'ChatMessageAttachmentFileName'}
+                  testID="ChatEntryAttachmentFileName"
                   textAlign="center">
                   {attachment.name}
                 </Phrase>
