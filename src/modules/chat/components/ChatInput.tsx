@@ -5,6 +5,7 @@ import {
   Platform,
   StyleSheet,
   TextInput,
+  type TextInputProps,
   View,
 } from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
@@ -32,6 +33,8 @@ export const ChatInput = ({onSubmit}: Props) => {
   const insets = useSafeAreaInsets()
 
   const styles = useThemable(createStyles)
+  const themedTextInputProps = useThemable(createTextInputProps)
+
   const [input, setInput] = useState('')
   const inputRef = useRef<TextInput | null>(null)
   const {
@@ -97,6 +100,7 @@ export const ChatInput = ({onSubmit}: Props) => {
               style={styles.container}
               testID="ChatTextInputContainer">
               <TextInput
+                {...themedTextInputProps}
                 autoFocus={isScreenReaderEnabled}
                 multiline
                 onChangeText={onChangeText}
@@ -173,3 +177,7 @@ const createStyles = ({border, color, text, size}: Theme) =>
       paddingBottom: size.spacing.sm,
     },
   })
+
+const createTextInputProps = ({color}: Theme): TextInputProps => ({
+  placeholderTextColor: color.text.secondary,
+})
