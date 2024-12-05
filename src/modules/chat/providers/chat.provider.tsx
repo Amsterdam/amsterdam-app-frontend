@@ -17,6 +17,7 @@ import {
   RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
+import {useToggle} from '@/hooks/useToggle'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
@@ -28,6 +29,7 @@ type ChatContextType = {
   ) => void
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   employeeInChat: boolean
+  endChat: () => void
   isEnded: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
@@ -40,6 +42,7 @@ const initialValue: ChatContextType = {
   addDownloadedTranscriptId: () => null,
   downloadedTranscriptIds: [],
   employeeInChat: false,
+  endChat: () => null,
   isEnded: false,
   isWaitingForAgent: false,
   messages: [],
@@ -72,6 +75,18 @@ const isChatEnded = (
   )
 }
 
+const useIsChatEnded = (
+  messages: ConversationEntry[],
+  isWaitingForAgent: boolean,
+): {endChat: () => void; isEnded: boolean} => {
+  const {value: isEnded, enable: endChat} = useToggle(false)
+
+  return {
+    isEnded: isEnded || isChatEnded(messages, isWaitingForAgent),
+    endChat,
+  }
+}
+
 export const ChatContext = createContext<ChatContextType>(initialValue)
 
 type Props = {
@@ -98,7 +113,7 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
-  const isEnded = isChatEnded(messages, isWaitingForAgent)
+  const {isEnded, endChat} = useIsChatEnded(messages, isWaitingForAgent)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -144,6 +159,7 @@ export const ChatProvider = ({children}: Props) => {
     () => ({
       addDownloadedTranscriptId,
       downloadedTranscriptIds,
+      endChat,
       messages:
         isTyping && !isEnded
           ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
@@ -159,6 +175,7 @@ export const ChatProvider = ({children}: Props) => {
       addDownloadedTranscriptId,
       downloadedTranscriptIds,
       employeeInChat,
+      endChat,
       isTyping,
       isWaitingForAgent,
       isEnded,

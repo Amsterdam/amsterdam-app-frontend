@@ -4,7 +4,9 @@ import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Column} from '@/components/ui/layout/Column'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
+import {CHAT_PRIVACY_URL} from '@/modules/chat/external-links'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
@@ -18,7 +20,8 @@ export const ChatMenu = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const insets = useSafeAreaInsets()
   const sheetStyles = createStyles(theme, headerHeight, insets)
-  const {addDownloadedTranscriptId} = useContext(ChatContext)
+  const {addDownloadedTranscriptId, endChat} = useContext(ChatContext)
+  const openUrl = useOpenUrl()
 
   return isMenuOpen ? (
     <Animated.View
@@ -38,12 +41,24 @@ export const ChatMenu = () => {
           ref={setAccessibilityFocus}
           testID="ChatMenuPressableDownloadChat"
         />
-        {/* <ChatMenuItem
+        <ChatMenuItem
+          color="link"
+          label="Privacy"
+          onPress={() => {
+            setIsMenuOpen(false)
+            openUrl(CHAT_PRIVACY_URL)
+          }}
+          testID="ChatMenuPressableStopChat"
+        />
+        <ChatMenuItem
           color="warning"
           label="Chat stoppen"
-          onPress={() => setIsMenuOpen(false)}
+          onPress={() => {
+            setIsMenuOpen(false)
+            void endChat()
+          }}
           testID="ChatMenuPressableStopChat"
-        /> */}
+        />
       </Column>
     </Animated.View>
   ) : null
