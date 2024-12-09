@@ -5,7 +5,10 @@ import {
   // eslint-disable-next-line no-restricted-imports
   type RouteProp as RoutePropOriginal,
 } from '@react-navigation/core'
-import {type StackNavigationOptions} from '@react-navigation/stack'
+import {
+  type StackNavigationOptions,
+  StackNavigationProp as StackNavigationPropOriginal,
+} from '@react-navigation/stack'
 import {type ComponentType} from 'react'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type ModuleStackParams, type ModalParams} from '@/modules/stacks'
@@ -33,6 +36,12 @@ type ModuleParams<
 export type RootStackParams = ModuleParams<ModuleStackParams> &
   ModuleStackParams &
   ModalParams
+
+/**
+ * NavigationProp is the type of a navigation object as part of NavigationProps or as returned by useNavigation.
+ */
+export type StackNavigationProp<RouteName extends keyof RootStackParams> =
+  StackNavigationPropOriginal<RootStackParams, RouteName>
 
 /**
  * NavigationProp is the type of a navigation object as part of NavigationProps or as returned by useNavigation.
