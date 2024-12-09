@@ -65,14 +65,6 @@ export const LoginStepsScreen = ({route}: Props) => {
       return
     }
 
-    if (!isCodeValid) {
-      navigate(ACCESS_CODE_SLUG, {
-        screen: AccessCodeRouteName.accessCode,
-      })
-
-      return
-    }
-
     if (isStepsComplete) {
       navigate(CityPassRouteName.dashboard)
     }
@@ -120,19 +112,11 @@ export const LoginStepsScreen = ({route}: Props) => {
             />
             <LoginItem
               isCurrent={isCityPassOwnerRegistered}
-              isDone={isCodeValid}
+              isDone={!!accessCode}
               isLast
               numberIndicator={2}
-              text={
-                !!accessCode && !isCodeValid
-                  ? 'Of opnieuw instellen.'
-                  : 'Om uw persoonlijke gegevens te beschermen.'
-              }
-              title={
-                !!accessCode && !isCodeValid
-                  ? 'Voer uw toegangscode in'
-                  : 'Toegangscode instellen'
-              }
+              text="Om uw persoonlijke gegevens te beschermen."
+              title="Toegangscode instellen"
             />
           </View>
         </Column>

@@ -2,7 +2,9 @@ import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useGetSecureAccessCode = () => {
-  const {item: accessCode} = useGetSecureItem(SecureItemKey.accessCode)
+  const {item: accessCode, isLoading} = useGetSecureItem(
+    SecureItemKey.accessCode,
+  )
 
-  return accessCode
+  return {accessCode, isLoading}
 }
