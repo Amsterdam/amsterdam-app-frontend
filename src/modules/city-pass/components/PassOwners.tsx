@@ -51,7 +51,7 @@ export const PassOwners = ({logout}: Props) => {
     })
   }
 
-  if (!secureCityPasses && isLoading) {
+  if (!secureCityPasses.length && isLoading) {
     return (
       <Box
         insetBottom="xl"
