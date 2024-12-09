@@ -4,11 +4,9 @@ import {AboutStack} from '@/modules/about/Stack'
 import {AboutRouteName, AboutStackParams} from '@/modules/about/routes'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
 import {
-  AccessCodeModalParams,
   AccessCodeRouteName,
   AccessCodeStackParams,
 } from '@/modules/access-code/routes'
-import {accessCodeModals} from '@/modules/access-code/screenConfig'
 import {AddressStack} from '@/modules/address/Stack'
 import {
   AddressModalParams,
@@ -143,8 +141,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 
-export type ModalParams = AccessCodeModalParams &
-  AddressModalParams &
+export type ModalParams = AddressModalParams &
   CityPassModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
@@ -155,7 +152,6 @@ export type ModalParams = AccessCodeModalParams &
   WasteGuideModalParams
 
 export const modals: StackNavigationRoutes<RootStackParams> = {
-  ...accessCodeModals,
   ...addressModals,
   ...cityPassModals,
   ...constructionWorkModals,

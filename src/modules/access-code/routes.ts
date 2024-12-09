@@ -1,4 +1,6 @@
 export enum AccessCodeRouteName {
+  accessCode = 'AccessCode',
+  accessCodeInvalid = 'AccessCodeInvalid',
   accessCodeLogin = 'AccessCodeLogin',
   confirmAccessCode = 'ConfirmAccessCode',
   setAccessCode = 'SetAccessCode',
@@ -6,18 +8,10 @@ export enum AccessCodeRouteName {
 }
 
 export type AccessCodeStackParams = {
+  [AccessCodeRouteName.accessCode]: undefined
+  [AccessCodeRouteName.accessCodeInvalid]: undefined
   [AccessCodeRouteName.accessCodeLogin]: undefined
   [AccessCodeRouteName.setAccessCode]: undefined
   [AccessCodeRouteName.confirmAccessCode]: undefined
   [AccessCodeRouteName.validAccessCode]: undefined
-}
-
-export enum AccessCodeModalName {
-  accessCode = 'AccessCode',
-  accessCodeInvalid = 'AccessCodeInvalid',
-}
-
-export type AccessCodeModalParams = {
-  [AccessCodeModalName.accessCode]: undefined
-  [AccessCodeModalName.accessCodeInvalid]: undefined
 }
