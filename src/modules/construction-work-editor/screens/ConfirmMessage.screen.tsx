@@ -13,7 +13,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useToggle} from '@/hooks/useToggle'
+import {useBoolean} from '@/hooks/useBoolean'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {alerts} from '@/modules/construction-work-editor/alerts'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
@@ -45,7 +45,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const {
     value: isPushNotificationChecked,
     toggle: togglePushNotificationChecked,
-  } = useToggle()
+  } = useBoolean()
   const currentProjectId = useSelector(selectCurrentProjectId)
   const message = useSelector(selectMessage(currentProjectId))
   const mainImage = useSelector(selectMainImage(currentProjectId))

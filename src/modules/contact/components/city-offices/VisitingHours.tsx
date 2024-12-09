@@ -8,7 +8,7 @@ import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Placement} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
-import {useToggle} from '@/hooks/useToggle'
+import {useBoolean} from '@/hooks/useBoolean'
 import {CityOffice, ExceptionDate, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -77,7 +77,7 @@ export const VisitingHours = ({
     visitingHours,
     visitingHoursExceptions,
   )
-  const {value: isOpen, toggle: toggleTooltip} = useToggle()
+  const {value: isOpen, toggle: toggleTooltip} = useBoolean()
 
   const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !isOpen,

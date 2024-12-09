@@ -16,8 +16,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
+import {useBoolean} from '@/hooks/useBoolean'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
-import {useToggle} from '@/hooks/useToggle'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
 import {ChatEnded} from '@/modules/chat/components/ChatEnded'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
@@ -41,7 +41,7 @@ export const ChatInput = ({onSubmit}: Props) => {
     value: selectAttachment,
     disable: hideSelectAttachment,
     enable: showSelectAttachment,
-  } = useToggle(false)
+  } = useBoolean(false)
 
   const onChangeText = useCallback((text: string) => {
     setInput(text)
