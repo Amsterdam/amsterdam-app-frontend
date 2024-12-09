@@ -17,7 +17,7 @@ import {
   RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {useToggle} from '@/hooks/useToggle'
+import {useBoolean} from '@/hooks/useBoolean'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
@@ -79,7 +79,7 @@ const useIsChatEnded = (
   messages: ConversationEntry[],
   isWaitingForAgent: boolean,
 ): {endChat: () => void; isEnded: boolean} => {
-  const {value: isEnded, enable: endChat} = useToggle(false)
+  const {value: isEnded, enable: endChat} = useBoolean(false)
 
   return {
     isEnded: isEnded || isChatEnded(messages, isWaitingForAgent),

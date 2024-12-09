@@ -1,15 +1,19 @@
 import {useContext} from 'react'
-import {StyleSheet} from 'react-native'
+import {Alert, StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Column} from '@/components/ui/layout/Column'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
-import {CHAT_PRIVACY_URL} from '@/modules/chat/external-links'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 import {Duration} from '@/types/duration'
@@ -21,7 +25,9 @@ export const ChatMenu = () => {
   const insets = useSafeAreaInsets()
   const sheetStyles = createStyles(theme, headerHeight, insets)
   const {addDownloadedTranscriptId, endChat} = useContext(ChatContext)
-  const openUrl = useOpenUrl()
+  const openWebUrl = useOpenWebUrl()
+  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
+  const trackException = useTrackException()
 
   return isMenuOpen ? (
     <Animated.View
@@ -41,15 +47,27 @@ export const ChatMenu = () => {
           ref={setAccessibilityFocus}
           testID="ChatMenuPressableDownloadChat"
         />
-        <ChatMenuItem
-          color="link"
-          label="Privacy"
-          onPress={() => {
-            setIsMenuOpen(false)
-            openUrl(CHAT_PRIVACY_URL)
-          }}
-          testID="ChatMenuPressableStopChat"
-        />
+        {!isLoading && !isError && (
+          <ChatMenuItem
+            color="link"
+            label="Privacy"
+            onPress={() => {
+              if (redirectUrls?.chatPrivacy) {
+                setIsMenuOpen(false)
+                openWebUrl(redirectUrls.chatPrivacy)
+              } else {
+                Alert.alert(
+                  'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
+                )
+
+                trackException(ExceptionLogKey.getRedirectsUrl, 'ChatMenu.ts', {
+                  redirectsKey: 'chatPrivacy',
+                })
+              }
+            }}
+            testID="ChatMenuPressableStopChat"
+          />
+        )}
         <ChatMenuItem
           color="warning"
           label="Chat stoppen"

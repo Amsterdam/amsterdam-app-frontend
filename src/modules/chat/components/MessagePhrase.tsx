@@ -28,7 +28,7 @@ export const MessagePhrase = ({
           ? 'inverse'
           : undefined
       }
-      testID={`ChatMessage${message.format + testID}`}>
+      testID={testID}>
       {parseTextToComponentsWithInlineLinks(
         children,
         openWebUrl,
