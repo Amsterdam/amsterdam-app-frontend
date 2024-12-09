@@ -1,44 +1,18 @@
-import {useCallback, useEffect, useState} from 'react'
-import DigiD from '@/assets/icons/digid.svg'
-import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
-import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
-import {useUrlForEnv} from '@/hooks/useUrlForEnv'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
-import {cityPassExternalLinks} from '@/modules/city-pass/external-links'
-import {useGetAccessToken} from '@/modules/city-pass/hooks/useGetAccessToken'
+import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 export const LoginScreen = () => {
-  const [startLogin, setStartLogin] = useState(false)
-  const openWebUrl = useOpenWebUrl()
-  const loginUrl = useUrlForEnv(cityPassExternalLinks)
-
-  const secureAccessToken = useGetAccessToken(startLogin)
-
-  useFocusAndForegroundEffect(() => {
-    setStartLogin(false)
-  }, [])
-
-  useEffect(() => {
-    if (secureAccessToken && startLogin) {
-      openWebUrl(`${loginUrl}${secureAccessToken}`) // Re-enters the app with a deeplink when finished
-    }
-  }, [openWebUrl, secureAccessToken, loginUrl, startLogin])
-
-  const login = useCallback(() => {
-    setStartLogin(true)
-  }, [])
+  const {navigate} = useNavigation()
 
   return (
     <Screen
@@ -55,25 +29,16 @@ export const LoginScreen = () => {
           de Stadspas gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
-        <Row gutter="sm">
-          <HideFromAccessibility>
-            <Pressable
-              onPress={login}
-              testID="CityPassDigiDIconPressable">
-              <DigiD />
-            </Pressable>
-          </HideFromAccessibility>
-          <Column
-            grow={1}
-            gutter="md"
-            halign="stretch">
-            <Button
-              label="Inloggen met DigiD"
-              onPress={login}
-              testID="CityPassLoginButton"
-            />
-          </Column>
-        </Row>
+        <Column
+          grow={1}
+          gutter="md"
+          halign="stretch">
+          <Button
+            label="Inloggen met DigiD"
+            onPress={() => navigate(CityPassRouteName.loginSteps)}
+            testID="CityPassLoginButton"
+          />
+        </Column>
         <Gutter height="xl" />
         <RequestCityPass />
       </Box>

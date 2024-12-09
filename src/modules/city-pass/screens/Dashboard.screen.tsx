@@ -1,4 +1,4 @@
-import {useCallback, useEffect} from 'react'
+import {useCallback} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
@@ -7,72 +7,22 @@ import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
-import {alerts} from '@/modules/city-pass/alerts'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {LoginResult} from '@/modules/city-pass/types'
-import {useTrackException} from '@/processes/logging/hooks/useTrackException'
-import {ExceptionLogKey} from '@/processes/logging/types'
-import {useAlert} from '@/store/slices/alert'
-import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
 
-export const DashboardScreen = ({navigation, route}: Props) => {
-  const dispatch = useDispatch()
-  const {setAlert} = useAlert()
-  const trackException = useTrackException()
-
-  const {
-    loginResult,
-    accessToken: deeplinkAccessToken,
-    refreshToken: deeplinkRefreshToken,
-  } = route.params || {}
+export const DashboardScreen = ({navigation}: Props) => {
   const logout = useCallback(() => {
     navigation.navigate(CityPassRouteName.cityPassLogout)
   }, [navigation])
   const openRedirect = useOpenRedirect()
-  const setSecureItem = useSetSecureItem()
-
-  useEffect(() => {
-    if (loginResult === LoginResult.success) {
-      dispatch(setIsCityPassOwnerRegistered(true))
-
-      if (deeplinkAccessToken && deeplinkRefreshToken) {
-        void setSecureItem(
-          SecureItemKey.cityPassAccessToken,
-          deeplinkAccessToken,
-        )
-        void setSecureItem(
-          SecureItemKey.cityPassRefreshToken,
-          deeplinkRefreshToken,
-        )
-      }
-    } else if (loginResult === LoginResult.failed) {
-      dispatch(setIsCityPassOwnerRegistered(false))
-      setAlert(alerts.retrievePassesFailed)
-      trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
-        error:
-          getValueFromUrlParam(loginResult, 'errorMessage') ??
-          'Stadspas login niet gelukt.',
-      })
-    } else {
-      // do nothing
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loginResult])
 
   return (
-    <CityPassLoginBoundaryScreen
-      hasStickyAlert
-      testID="CityPassDashboardScreen">
+    <CityPassLoginBoundaryScreen testID="CityPassDashboardScreen">
       <PassOwners logout={logout} />
       <Box
         insetHorizontal="md"

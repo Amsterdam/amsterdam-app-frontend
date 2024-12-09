@@ -9,7 +9,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 
 export const cityPassModule: ModuleClientConfig = {
   linking: {
-    [CityPassRouteName.dashboard]:
+    [CityPassRouteName.loginSteps]:
       'stadspas/:loginResult/:accessToken?/:refreshToken?',
   },
   logDimension: PiwikSessionDimension.cityPassModule,
