@@ -22,6 +22,7 @@ export const ConfirmAccessCodeScreen = () => {
     resetError,
     setCode,
     isCodeConfirmed,
+    useBiometrics,
   } = useAccessCode()
 
   const isUserRoute = useMemo(
@@ -57,14 +58,16 @@ export const ConfirmAccessCodeScreen = () => {
       return
     }
 
-    if (isUserRoute) {
+    if (useBiometrics === undefined) {
+      navigation.navigate(AccessCodeRouteName.biometricsPermission)
+    } else if (isUserRoute) {
       navigation.navigate(AccessCodeRouteName.validAccessCode)
     } else {
       navigation
         .getParent<StackNavigationProp<AccessCodeRouteName.confirmAccessCode>>()
         .pop()
     }
-  }, [isCodeConfirmed, isUserRoute, navigation])
+  }, [isCodeConfirmed, isUserRoute, navigation, useBiometrics])
 
   return (
     <AccessCodeValidationBoundaryScreen

@@ -18,6 +18,7 @@ import {
   setIsCodeValid,
   resetAttemptsLeft,
   selectIsEnteringCode,
+  selectUseBiometrics,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {isAccessCodeValid} from '@/modules/access-code/utils/isAccessCodeValid'
@@ -37,6 +38,7 @@ export const useAccessCode = () => {
   const codeValidTimestamp = useSelector(selectCodeValidTimestamp)
   const isCodeConfirmed = useSelector(selectIsCodeConfirmed)
   const isEnteringCode = useSelector(selectIsEnteringCode)
+  const useBiometrics = useSelector(selectUseBiometrics)
 
   const {accessCode: secureAccessCode} = useGetSecureAccessCode()
   const setSecureAccessCode = useSetSecureAccessCode()
@@ -76,6 +78,12 @@ export const useAccessCode = () => {
   const setCode = useCallback(
     ({code, type}: {code: number[]; type: AccessCodeType}) =>
       dispatch(accessCodeSlice.actions.setCode({code, type})),
+    [dispatch],
+  )
+
+  const setUseBiometrics = useCallback(
+    (permission: boolean) =>
+      dispatch(accessCodeSlice.actions.setUseBiometrics(permission)),
     [dispatch],
   )
 
@@ -189,5 +197,7 @@ export const useAccessCode = () => {
     setIsCodeSet,
     setIsCodeConfirmed,
     setIsEnteringCode,
+    setUseBiometrics,
+    useBiometrics,
   }
 }

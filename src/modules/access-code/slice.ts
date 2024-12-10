@@ -17,6 +17,7 @@ export type AccessCodeState = {
   isCodeValid: boolean
   isEnteringCode: boolean
   tempAccessCode: number[]
+  useBiometrics?: boolean
 }
 
 const initialValue: AccessCodeState = {
@@ -31,6 +32,7 @@ const initialValue: AccessCodeState = {
   isCodeValid: false,
   isEnteringCode: false,
   tempAccessCode: [],
+  useBiometrics: undefined,
 }
 
 export const accessCodeSlice = createSlice({
@@ -84,6 +86,9 @@ export const accessCodeSlice = createSlice({
     setIsEnteringCode: (state, {payload}: PayloadAction<boolean>) => {
       state.isEnteringCode = payload
     },
+    setUseBiometrics: (state, {payload}: PayloadAction<boolean>) => {
+      state.useBiometrics = payload
+    },
   },
 })
 
@@ -122,6 +127,9 @@ const selectIsEnteringCode = (state: RootState) =>
 const selectCodeValidTimestamp = (state: RootState) =>
   state[ReduxKey.accessCode].codeValidTimestamp
 
+const selectUseBiometrics = (state: RootState) =>
+  state[ReduxKey.accessCode].useBiometrics
+
 export {
   selectAttemptsLeft,
   selectCodeConfirmed,
@@ -133,4 +141,5 @@ export {
   selectIsCodeSet,
   selectIsCodeValid,
   selectIsEnteringCode,
+  selectUseBiometrics,
 }
