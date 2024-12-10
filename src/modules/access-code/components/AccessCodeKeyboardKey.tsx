@@ -7,6 +7,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  accessibilityLabel?: string
   iconName?: SvgIconName
   iconSize?: keyof typeof IconSize
   keyNumber?: number
@@ -14,6 +15,7 @@ type Props = {
 }
 
 export const AccessCodeKeyBoardKey = ({
+  accessibilityLabel,
   iconName,
   iconSize,
   keyNumber,
@@ -23,6 +25,7 @@ export const AccessCodeKeyBoardKey = ({
 
   return (
     <Pressable
+      accessibilityLabel={accessibilityLabel}
       onPress={onPress}
       style={[styles.button, iconName && styles.transparent]}
       testID={`AccessCodeKeyBoardKey${keyNumber ?? iconName}`}>

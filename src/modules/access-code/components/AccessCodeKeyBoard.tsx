@@ -79,6 +79,7 @@ export const AccessCodeKeyBoard = ({type}: Props) => {
             gutter="sm">
             {!!useBiometrics && (
               <AccessCodeKeyBoardKey
+                accessibilityLabel="Geef toegang met biometrische gegevens"
                 iconName="faceId"
                 iconSize="lg"
                 onPress={() => {
@@ -91,6 +92,7 @@ export const AccessCodeKeyBoard = ({type}: Props) => {
               onPress={() => addDigit(0, type)}
             />
             <AccessCodeKeyBoardKey
+              accessibilityLabel="Verwijder laatste cijfer"
               iconName="backspace"
               iconSize="xl"
               onPress={() => removeDigit(type)}
