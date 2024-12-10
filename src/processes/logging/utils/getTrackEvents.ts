@@ -33,6 +33,7 @@ export const getTrackEvents = (
           path: routeName,
           customDimensions: getCustomDimensions(dimensions),
           value,
+          name,
         })
         .catch(() => {
           trackException(ExceptionLogKey.piwikTrackCustomEvent, FILENAME, {
@@ -50,6 +51,7 @@ export const getTrackEvents = (
       properties: {
         ...getCustomDimensions(dimensions, true),
         value,
+        name,
         routeName,
         category,
       },
