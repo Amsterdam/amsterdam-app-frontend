@@ -149,7 +149,12 @@ export const ChatProvider = ({children}: Props) => {
           ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
           : filterOutDeliveryAcknowledgements(messages),
       newMessagesCount,
-      ready,
+      ready:
+        ready &&
+        (!!isTyping ||
+          messages.some(
+            message => message.format === ConversationEntryFormat.text,
+          )),
       employeeInChat,
       isEnded,
       remoteConfiguration,
