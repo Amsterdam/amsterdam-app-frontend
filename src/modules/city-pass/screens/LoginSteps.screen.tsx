@@ -90,15 +90,15 @@ export const LoginStepsScreen = ({route}: Props) => {
           />
         </Box>
       }
-      testID="">
+      testID="LoginStepsScreenButton">
       <Box>
         <Column gutter="lg">
           <Column gutter="sm">
             <Title
-              testID=""
+              testID="LoginStepsScreenTitle"
               text="Inloggen & beveiligen"
             />
-            <Paragraph testID="">
+            <Paragraph testID="LoginStepsScreenParagraph">
               Stel na het inloggen een toegangscode in.
             </Paragraph>
           </Column>

@@ -75,7 +75,7 @@ export const CityPasses: ModuleClientConfig['PreRenderComponent'] = () => {
       onClose={() => {
         dispatch(hideCityPasses())
       }}>
-      {<CityPassesSwiper />}
+      <CityPassesSwiper />
     </Overlay>
   ) : null
 }

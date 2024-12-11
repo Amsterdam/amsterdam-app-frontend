@@ -14,7 +14,7 @@ export const useLogin = () => {
     SecureItemKey.cityPassAccessToken,
   )
 
-  const {getAccessToken} = useCreateSecureAccessToken()
+  const createSecureAccessToken = useCreateSecureAccessToken()
 
   useEffect(() => {
     if (secureAccessToken && openUrl) {
@@ -27,8 +27,8 @@ export const useLogin = () => {
     if (secureAccessToken) {
       openWebUrl(`${loginUrl}${secureAccessToken}`)
     } else {
-      void getAccessToken()
+      void createSecureAccessToken()
       setOpenUrl(true)
     }
-  }, [secureAccessToken, getAccessToken, openWebUrl, loginUrl])
+  }, [secureAccessToken, createSecureAccessToken, openWebUrl, loginUrl])
 }

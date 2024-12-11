@@ -17,5 +17,5 @@ export const useCreateSecureAccessToken = () => {
     }
   }, [data, setSecureItem])
 
-  return {getAccessToken}
+  return getAccessToken
 }
