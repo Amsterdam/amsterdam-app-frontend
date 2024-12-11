@@ -18,12 +18,16 @@ type Props = {
 export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
   const {messages, isEnded} = useContext(ChatContext)
 
+  const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
+  const isNotLastRoutingWorkResultEntry =
+    messagesAfterCurrent.filter(
+      m => m.format === ConversationEntryFormat.routingWorkResult,
+    ).length > 0
+
   if (
     message.workType !== ConversationEntryRoutingWorkType.closed ||
     !isEnded ||
-    messages
-      .filter(m => m.format === ConversationEntryFormat.routingWorkResult)
-      .slice(-1)[0].entryId !== message.entryId
+    isNotLastRoutingWorkResultEntry
   ) {
     return null
   }
