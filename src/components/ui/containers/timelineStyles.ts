@@ -12,8 +12,8 @@ export const timelineStyles = (
   lastItem: boolean,
 ) => {
   const {color, size, z} = theme
-  const backgroundColorUpcoming = color.timeline.background.upcoming.primary
-  const backgroundColorDone = color.timeline.background.done.primary
+  const backgroundColorUpcoming = color.timeline.primary.upcoming.background
+  const backgroundColorDone = color.timeline.primary.done.background
 
   const tokens = {
     indicator: {

@@ -272,29 +272,34 @@ export const lightColorTokens = {
     },
   },
   timeline: {
-    background: {
-      current: baseColor.primary.black,
+    current: {
+      background: baseColor.primary.black,
+      border: baseColor.primary.black,
+      color: baseColor.primary.white,
+    },
+    done: {
+      color: baseColor.primary.white,
+    },
+    upcoming: {
+      border: baseColor.neutral.grey3,
+      color: baseColor.neutral.grey3,
+    },
+    primary: {
       done: {
-        primary: baseColor.primary.blue,
-        secondary: baseColor.secondary.darkgreen,
+        background: baseColor.primary.blue,
       },
       upcoming: {
-        primary: baseColor.neutral.grey3,
-        secondary: baseColor.primary.white,
+        background: baseColor.neutral.grey3,
       },
     },
-    border: {
-      current: baseColor.primary.black,
+    secondary: {
       done: {
-        primary: baseColor.primary.blue,
-        secondary: baseColor.secondary.darkgreen,
+        background: baseColor.secondary.darkgreen,
+        border: baseColor.secondary.darkgreen,
       },
-      upcoming: baseColor.neutral.grey3,
-    },
-    color: {
-      current: baseColor.primary.white,
-      done: baseColor.primary.white,
-      upcoming: baseColor.neutral.grey3,
+      upcoming: {
+        background: baseColor.primary.white,
+      },
     },
   },
   tooltip: {

@@ -78,16 +78,16 @@ const createStyles = (
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: isDone
-        ? color.timeline.background.done.secondary
+        ? color.timeline.secondary.done.background
         : isCurrent
-          ? color.timeline.background.current
-          : color.timeline.background.upcoming.secondary,
+          ? color.timeline.current.background
+          : color.timeline.secondary.upcoming.background,
       borderWidth: 2,
       borderColor: isDone
-        ? color.timeline.border.done.secondary
+        ? color.timeline.secondary.done.border
         : isCurrent
-          ? color.timeline.border.current
-          : color.timeline.border.upcoming,
+          ? color.timeline.current.border
+          : color.timeline.upcoming.border,
       borderRadius: indicatorSize / 2,
     },
     line: {
@@ -98,15 +98,15 @@ const createStyles = (
       width: lineWidth,
       height: isLast ? 0 : '100%',
       backgroundColor: isDone
-        ? color.timeline.background.done.secondary
-        : color.timeline.background.upcoming.primary,
+        ? color.timeline.secondary.done.background
+        : color.timeline.primary.upcoming.background,
     },
     text: {
       alignSelf: 'center',
       color:
         isCurrent || isDone
-          ? color.timeline.color.current
-          : color.timeline.color.upcoming,
+          ? color.timeline.current.color
+          : color.timeline.upcoming.color,
       fontFamily: text.fontFamily.bold,
       fontSize: text.fontSize.h5,
     },
