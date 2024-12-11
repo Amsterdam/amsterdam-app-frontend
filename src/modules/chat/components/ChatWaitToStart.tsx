@@ -1,12 +1,9 @@
-import {ReactNode, useContext, useEffect, useState} from 'react'
+import {ReactNode, useContext} from 'react'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
-import {sleep} from '@/utils/sleep'
-
-const SHOW_DELAY = 1000
 
 type Props = {
   children?: ReactNode
@@ -14,17 +11,10 @@ type Props = {
 
 export const ChatWaitToStart = ({children}: Props) => {
   const {ready} = useContext(ChatContext)
-  const [shouldShowWaiting, setShouldShowWaiting] = useState(false)
-
-  useEffect(() => {
-    void sleep(SHOW_DELAY).then(() => {
-      setShouldShowWaiting(true)
-    })
-  }, [])
 
   return (
     <>
-      {shouldShowWaiting && !ready ? (
+      {!ready ? (
         <Center grow>
           <Column gutter="sm">
             <LoadingDots
