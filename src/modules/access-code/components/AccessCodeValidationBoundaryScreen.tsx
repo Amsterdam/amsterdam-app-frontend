@@ -13,13 +13,13 @@ export const AccessCodeValidationBoundaryScreen = ({
   ...screenProps
 }: Props) => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
-  const {isCodeValid} = useAccessCode()
+  const {isCodeValid, isLoggingIn} = useAccessCode()
 
   if (isLoading) {
     return null
   }
 
-  if (!isCodeValid && !!accessCode) {
+  if (!isCodeValid && !!accessCode && !isLoggingIn) {
     return <AccessCodeScreen />
   }
 

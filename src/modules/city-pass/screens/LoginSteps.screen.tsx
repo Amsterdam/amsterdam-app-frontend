@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -34,7 +34,11 @@ export const LoginStepsScreen = ({route}: Props) => {
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
   const login = useLogin()
-  const {attemptsLeft, isCodeValid} = useAccessCode()
+  const {attemptsLeft, isCodeValid, setIsLoggingIn} = useAccessCode()
+
+  useEffect(() => {
+    setIsLoggingIn(true)
+  }, [setIsLoggingIn])
 
   useRegisterCityPassOwner({
     loginResult,
@@ -66,6 +70,7 @@ export const LoginStepsScreen = ({route}: Props) => {
     }
 
     if (isStepsComplete) {
+      setIsLoggingIn(false)
       navigate(CityPassRouteName.dashboard)
     }
   }, [
@@ -76,6 +81,7 @@ export const LoginStepsScreen = ({route}: Props) => {
     isStepsComplete,
     login,
     navigate,
+    setIsLoggingIn,
   ])
 
   return (

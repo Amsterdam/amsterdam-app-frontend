@@ -6,15 +6,14 @@ import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
+import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
 import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
-import {AccessCodeType} from '@/modules/access-code/types'
 
 export const AccessCodeScreen = () => {
   const navigation = useNavigation()
-  const {attemptsLeft, isCodeValid} = useAccessCode()
+  const {attemptsLeft, isCodeValid, onAccessCodeEntered} = useAccessCode()
 
   useEffect(() => {
     if (isCodeValid) {
@@ -28,7 +27,11 @@ export const AccessCodeScreen = () => {
 
   return (
     <Screen
-      stickyFooter={<AccessCodeKeyBoard type={AccessCodeType.codeEntered} />}
+      stickyFooter={
+        <AuthenticateWithCodeOrBiometrics
+          onAuthenticatedWithBiometrics={() => onAccessCodeEntered(true)}
+        />
+      }
       testID="AccessCodeScreen"
       withBottomInset={false}>
       <Center grow>

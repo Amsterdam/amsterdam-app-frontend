@@ -1,5 +1,6 @@
+import {AuthenticationType} from 'expo-local-authentication'
 import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,13 +13,25 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  onPressAuthenticate?: () => void
   type: AccessCodeType
 }
 
-export const AccessCodeKeyBoard = ({type}: Props) => {
+export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
-  const {addDigit, removeDigit, useBiometrics} = useAccessCode()
+  const {addDigit, biometricsAuthenticationType, removeDigit, useBiometrics} =
+    useAccessCode()
+
+  const getBiometricsIconName = useCallback(() => {
+    if (
+      biometricsAuthenticationType?.includes(AuthenticationType.FINGERPRINT)
+    ) {
+      return 'touchId'
+    } else {
+      return 'faceId'
+    }
+  }, [biometricsAuthenticationType])
 
   useEffect(() => {
     void lockAsync(OrientationLock.PORTRAIT_UP)
@@ -77,13 +90,13 @@ export const AccessCodeKeyBoard = ({type}: Props) => {
           <Row
             align="end"
             gutter="sm">
-            {!!useBiometrics && (
+            {!!useBiometrics && type === AccessCodeType.codeEntered && (
               <AccessCodeKeyBoardKey
                 accessibilityLabel="Geef toegang met biometrische gegevens"
-                iconName="faceId"
+                iconName={getBiometricsIconName()}
                 iconSize="lg"
                 onPress={() => {
-                  // do something
+                  onPressAuthenticate?.()
                 }}
               />
             )}

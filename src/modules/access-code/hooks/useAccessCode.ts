@@ -1,4 +1,8 @@
-import {useCallback, useEffect, useMemo} from 'react'
+import {
+  AuthenticationType,
+  supportedAuthenticationTypesAsync,
+} from 'expo-local-authentication'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
@@ -19,9 +23,11 @@ import {
   resetAttemptsLeft,
   selectIsEnteringCode,
   selectUseBiometrics,
+  selectIsLoggingIn,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {isAccessCodeValid} from '@/modules/access-code/utils/isAccessCodeValid'
+import {appInsights} from '@/providers/appinsights.provider'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 const CODE_LENGTH = 5
@@ -29,16 +35,36 @@ const CODE_LENGTH = 5
 export const useAccessCode = () => {
   const dispatch = useDispatch()
 
+  const attemptsLeft = useSelector(selectAttemptsLeft)
+  const codeConfirmed = useSelector(selectCodeConfirmed)
   const codeEntered = useSelector(selectCodeEntered)
   const codeSet = useSelector(selectCodeSet)
-  const codeConfirmed = useSelector(selectCodeConfirmed)
-  const attemptsLeft = useSelector(selectAttemptsLeft)
-  const error = useSelector(selectError)
-  const isCodeSet = useSelector(selectIsCodeSet)
   const codeValidTimestamp = useSelector(selectCodeValidTimestamp)
+  const error = useSelector(selectError)
   const isCodeConfirmed = useSelector(selectIsCodeConfirmed)
+  const isCodeSet = useSelector(selectIsCodeSet)
   const isEnteringCode = useSelector(selectIsEnteringCode)
+  const isLoggingIn = useSelector(selectIsLoggingIn)
   const useBiometrics = useSelector(selectUseBiometrics)
+
+  const [biometricsAuthenticationType, setBiometricsAuthenticationType] =
+    useState<AuthenticationType[]>()
+
+  useEffect(() => {
+    const fetchBiometricsAuthenticationType = async () => {
+      try {
+        const type = await supportedAuthenticationTypesAsync()
+
+        setBiometricsAuthenticationType(type)
+      } catch (err) {
+        appInsights.trackException({
+          exception: err as Error,
+        })
+      }
+    }
+
+    void fetchBiometricsAuthenticationType()
+  }, [])
 
   const {accessCode: secureAccessCode} = useGetSecureAccessCode()
   const setSecureAccessCode = useSetSecureAccessCode()
@@ -87,6 +113,11 @@ export const useAccessCode = () => {
     [dispatch],
   )
 
+  const setIsLoggingIn = useCallback(
+    (value: boolean) => dispatch(accessCodeSlice.actions.setIsLoggingIn(value)),
+    [dispatch],
+  )
+
   const addDigit = useCallback(
     (digit: number, type: AccessCodeType) => {
       if (digit >= 0 && digit <= 9) {
@@ -103,26 +134,29 @@ export const useAccessCode = () => {
     [dispatch],
   )
 
-  const onAccessCodeEntered = useCallback(() => {
-    if (isCodeValid) {
-      return
-    }
+  const onAccessCodeEntered = useCallback(
+    (withBiometrics = false) => {
+      if (isCodeValid) {
+        return
+      }
 
-    if (codeEntered.join('') === secureAccessCode) {
-      dispatch(resetAttemptsLeft())
-      dispatch(setIsCodeValid(true))
-      resetError()
-    } else {
-      dispatch(setAttemptsLeft(attemptsLeft - 1))
-      dispatch(
-        setError(
-          `Toegangscode is onjuist. Nog ${attemptsLeft - 1} pogingen over.`,
-        ),
-      )
-      setCode({code: [], type: AccessCodeType.codeEntered})
-    }
+      if (codeEntered.join('') === secureAccessCode || withBiometrics) {
+        dispatch(resetAttemptsLeft())
+        dispatch(setIsCodeValid(true))
+        resetError()
+      } else {
+        dispatch(setAttemptsLeft(attemptsLeft - 1))
+        dispatch(
+          setError(
+            `Toegangscode is onjuist. Nog ${attemptsLeft - 1} pogingen over.`,
+          ),
+        )
+        setCode({code: [], type: AccessCodeType.codeEntered})
+      }
+    },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [codeEntered, dispatch, resetError, secureAccessCode])
+    [codeEntered, dispatch, resetError, secureAccessCode],
+  )
 
   useEffect(() => {
     if (codeEntered.length !== codeLength) {
@@ -182,6 +216,7 @@ export const useAccessCode = () => {
   return {
     addDigit,
     attemptsLeft,
+    biometricsAuthenticationType,
     codeConfirmed,
     codeEntered,
     codeSet,
@@ -191,12 +226,15 @@ export const useAccessCode = () => {
     isCodeConfirmed,
     isCodeValid,
     isEnteringCode,
+    isLoggingIn,
+    onAccessCodeEntered,
     removeDigit,
     resetError,
     setCode,
     setIsCodeSet,
     setIsCodeConfirmed,
     setIsEnteringCode,
+    setIsLoggingIn,
     setUseBiometrics,
     useBiometrics,
   }

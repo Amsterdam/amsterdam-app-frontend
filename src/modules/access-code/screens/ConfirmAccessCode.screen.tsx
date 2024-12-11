@@ -1,13 +1,13 @@
 import {useFocusEffect} from '@react-navigation/core'
 import {useCallback, useEffect, useMemo} from 'react'
 import {StackNavigationProp} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
-import {AccessCodeValidationBoundaryScreen} from '@/modules/access-code/components/AccessCodeValidationBoundaryScreen'
 import {ConfirmAccessCode} from '@/modules/access-code/components/ConfirmAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
@@ -70,7 +70,7 @@ export const ConfirmAccessCodeScreen = () => {
   }, [isCodeConfirmed, isUserRoute, navigation, useBiometrics])
 
   return (
-    <AccessCodeValidationBoundaryScreen
+    <Screen
       stickyFooter={<AccessCodeKeyBoard type={AccessCodeType.codeConfirmed} />}
       testID="ConfirmAccessCodeScreen"
       withBottomInset={false}>
@@ -93,6 +93,6 @@ export const ConfirmAccessCodeScreen = () => {
           />
         </Column>
       </Box>
-    </AccessCodeValidationBoundaryScreen>
+    </Screen>
   )
 }
