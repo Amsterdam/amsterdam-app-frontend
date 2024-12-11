@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useMemo} from 'react'
 import {StackNavigationProp} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,12 +8,15 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {mapBiometricsAuthenticationTypeToLabel} from '@/modules/access-code/utils/mapValidationTypeToLabel'
+import {capitalizeString} from '@/utils/capitalizeString'
 
 export const BiometricsPermissionScreen = () => {
   const navigation = useNavigation()
-  const {setUseBiometrics} = useAccessCode()
+  const {biometricsAuthenticationType, isLoading, setUseBiometrics} =
+    useAccessCodeBiometrics()
 
   const onPress = useCallback(
     (permission: boolean) => {
@@ -27,6 +30,15 @@ export const BiometricsPermissionScreen = () => {
     [navigation, setUseBiometrics],
   )
 
+  const biometricsLabel = useMemo(
+    () => mapBiometricsAuthenticationTypeToLabel(biometricsAuthenticationType),
+    [biometricsAuthenticationType],
+  )
+
+  if (isLoading) {
+    return null
+  }
+
   return (
     <Screen
       stickyFooter={
@@ -39,7 +51,7 @@ export const BiometricsPermissionScreen = () => {
               variant="secondary"
             />
             <Button
-              label="Face ID instellen"
+              label={`${capitalizeString(biometricsLabel ?? '')} instellen`}
               onPress={() => onPress(true)}
               testID="AccessCodeBiometricsPermissionScreenButtonAccept"
             />
@@ -64,7 +76,7 @@ export const BiometricsPermissionScreen = () => {
           <Title
             level="h2"
             testID="BiometricsPermissionScreenTitle"
-            text="De volgende keer sneller toegang met Face ID?"
+            text={`De volgende keer sneller toegang met ${biometricsLabel}?`}
             textAlign="center"
           />
         </Column>

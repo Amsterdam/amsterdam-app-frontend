@@ -4,7 +4,7 @@ import {Platform} from 'react-native'
 export const mapBiometricsAuthenticationTypeToLabel = (
   types?: AuthenticationType[],
 ) => {
-  if (!types) {
+  if (!types || types.length === 0) {
     return ''
   }
 
