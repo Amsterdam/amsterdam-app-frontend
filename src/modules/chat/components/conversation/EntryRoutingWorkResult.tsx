@@ -7,7 +7,7 @@ import {
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
-import {dayjs, dayjsFromUnix} from '@/utils/datetime/dayjs'
+import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
   isLast: boolean
@@ -18,12 +18,16 @@ type Props = {
 export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
   const {messages, isEnded} = useContext(ChatContext)
 
+  const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
+  const isNotLastRoutingWorkResultEntry =
+    messagesAfterCurrent.filter(
+      m => m.format === ConversationEntryFormat.routingWorkResult,
+    ).length > 0
+
   if (
     message.workType !== ConversationEntryRoutingWorkType.closed ||
     !isEnded ||
-    messages
-      .filter(m => m.format === ConversationEntryFormat.routingWorkResult)
-      .slice(-1)[0].entryId !== message.entryId
+    isNotLastRoutingWorkResultEntry
   ) {
     return null
   }
@@ -33,7 +37,7 @@ export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
       <ChatSystemEntry
         icon="chat"
         testID="ChatEntryRoutingWorkResult"
-        text={`Chat gestopt om ${dayjsFromUnix(message?.timestamp ?? dayjs().unix()).format('HH:mm')}`}
+        text={`Chat gestopt - ${dayjsFromUnix(message.timestamp).format('HH:mm')}`}
       />
       <EntryGutter isLastOfRole={isLastOfRole} />
     </>
