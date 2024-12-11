@@ -44,7 +44,7 @@ export const EntryAttachments = ({message}: Props) => {
                 color={isEmployee ? 'link' : 'inverse'}
                 name="document"
                 size="lg"
-                testID=""
+                testID="EntryAttachmentsIcon"
               />
               {isEmployee ? (
                 <InlineLink

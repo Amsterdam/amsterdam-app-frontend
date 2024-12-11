@@ -63,7 +63,7 @@ export const SetAccessCodeScreen = () => {
                 '5 dezelfde cijfers',
                 'Opeenvolgende cijfers, zoals 12345 of 87654',
               ]}
-              testID=""
+              testID="SetAccessCodeScreenList"
             />
           </View>
         </Column>
