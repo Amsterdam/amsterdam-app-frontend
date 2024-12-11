@@ -10,20 +10,21 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {ConfirmAccessCode} from '@/modules/access-code/components/ConfirmAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
+import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
+import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
+import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 export const ConfirmAccessCodeScreen = () => {
   const navigation = useNavigation()
-  const {
-    setIsCodeConfirmed,
-    setIsCodeSet,
-    resetError,
-    setCode,
-    isCodeConfirmed,
-    useBiometrics,
-  } = useAccessCode()
+  const {setCode} = useAccessCode()
+  const {isCodeConfirmed, setIsCodeConfirmed} = useConfirmAccessCode()
+  const {resetError} = useAccessCodeError()
+  const {useBiometrics} = useAccessCodeBiometrics()
+  const {setIsCodeSet} = useSetAccessCode()
 
   const isUserRoute = useMemo(
     () =>
@@ -42,9 +43,7 @@ export const ConfirmAccessCodeScreen = () => {
 
   useEffect(() => {
     const listener = navigation.addListener('blur', () => {
-      setCode({code: [], type: AccessCodeType.codeSet})
       setCode({code: [], type: AccessCodeType.codeConfirmed})
-      setIsCodeSet(false)
       setIsCodeConfirmed(false)
     })
 
