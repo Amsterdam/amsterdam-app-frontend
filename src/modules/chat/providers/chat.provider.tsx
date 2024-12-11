@@ -27,8 +27,8 @@ type ChatContextType = {
   addDownloadedTranscriptId: (
     entryId: RetrieveTranscriptResponse['entryId'],
   ) => void
+  agentInChat: boolean
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
-  employeeInChat: boolean
   endChat: () => void
   isEnded: boolean
   isWaitingForAgent: boolean
@@ -41,7 +41,7 @@ type ChatContextType = {
 const initialValue: ChatContextType = {
   addDownloadedTranscriptId: () => null,
   downloadedTranscriptIds: [],
-  employeeInChat: false,
+  agentInChat: false,
   endChat: () => null,
   isEnded: false,
   isWaitingForAgent: false,
@@ -57,11 +57,15 @@ const initialValue: ChatContextType = {
  * It checks whether the last received message (excluding Transcript entries) is of format RoutingWorkResult
  * If that is the case, and the workType is 'closed' and we are not waiting for an agent, then the chat is ended
  *
+ * If above condition is false, it will check whether an agent was in the chat and has since left and no agents remain.
+ *
  * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
  */
 const isChatEnded = (
   messages: ConversationEntry[],
   isWaitingForAgent: boolean,
+  agentEnteredChat: boolean,
+  agentInChat: boolean,
 ): boolean => {
   const filteredMessages = messages.filter(
     message => message.format !== ConversationEntryFormat.transcript,
@@ -69,20 +73,31 @@ const isChatEnded = (
   const lastMessage = filteredMessages[filteredMessages.length - 1]
 
   return (
-    lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
-    lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
-    !isWaitingForAgent
+    (lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
+      lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
+      !isWaitingForAgent) ||
+    (agentEnteredChat && !agentInChat)
   )
 }
 
 const useIsChatEnded = (
   messages: ConversationEntry[],
   isWaitingForAgent: boolean,
+  agentInChat: boolean,
 ): {endChat: () => void; isEnded: boolean} => {
   const {value: isEnded, enable: endChat} = useBoolean(false)
+  const [agentEnteredChat, setAgentEnteredChat] = useState(agentInChat)
+
+  useEffect(() => {
+    if (agentInChat) {
+      setAgentEnteredChat(true)
+    }
+  }, [agentInChat])
 
   return {
-    isEnded: isEnded || isChatEnded(messages, isWaitingForAgent),
+    isEnded:
+      isEnded ||
+      isChatEnded(messages, isWaitingForAgent, agentEnteredChat, agentInChat),
     endChat,
   }
 }
@@ -106,14 +121,18 @@ export const ChatProvider = ({children}: Props) => {
     isTyping,
     conversationId: newConversationId,
     ready,
-    employeeInChat,
+    agentInChat,
     remoteConfiguration,
     isWaitingForAgent,
   } = useCreateChat({
     ...coreConfig,
     conversationId,
   })
-  const {isEnded, endChat} = useIsChatEnded(messages, isWaitingForAgent)
+  const {isEnded, endChat} = useIsChatEnded(
+    messages,
+    isWaitingForAgent,
+    agentInChat,
+  )
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -171,7 +190,7 @@ export const ChatProvider = ({children}: Props) => {
           messages.some(
             message => message.format === ConversationEntryFormat.text,
           )),
-      employeeInChat,
+      agentInChat,
       isEnded,
       remoteConfiguration,
       isWaitingForAgent,
@@ -179,7 +198,7 @@ export const ChatProvider = ({children}: Props) => {
     [
       addDownloadedTranscriptId,
       downloadedTranscriptIds,
-      employeeInChat,
+      agentInChat,
       endChat,
       isTyping,
       isWaitingForAgent,

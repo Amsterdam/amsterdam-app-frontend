@@ -57,7 +57,7 @@ export const ChatInput = ({onSubmit}: Props) => {
   )
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
-  const {employeeInChat, isEnded} = useContext(ChatContext)
+  const {agentInChat, isEnded} = useContext(ChatContext)
 
   if (isEnded) {
     return <ChatEnded />
@@ -70,7 +70,7 @@ export const ChatInput = ({onSubmit}: Props) => {
         keyboardVerticalOffset={insets.top}>
         <Box>
           <Row gutter="sm">
-            {!!employeeInChat && (
+            {!!agentInChat && (
               <IconButton
                 accessibilityLabel={
                   selectAttachment ? 'Naar toetsenbord' : 'Naar bijlages'

@@ -153,8 +153,8 @@ export enum ConversationEntryStatus {
 }
 
 export enum ConversationEntrySenderRole {
+  agent = 'Agent',
   chatbot = 'Chatbot',
-  employee = 'Agent',
   system = 'System',
   user = 'USER',
 }

@@ -96,7 +96,7 @@ export const lightColorTokens = {
       [ConversationEntrySenderRole.chatbot]: {
         background: baseColor.neutral.grey1,
       },
-      [ConversationEntrySenderRole.employee]: {
+      [ConversationEntrySenderRole.agent]: {
         background: baseColor.neutral.grey1,
       },
       [ConversationEntrySenderRole.user]: {

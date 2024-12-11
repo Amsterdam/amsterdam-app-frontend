@@ -16,8 +16,7 @@ type Props = {
 
 export const EntryAttachments = ({message}: Props) => {
   const isImage = message.attachments[0].mimeType.startsWith('image')
-  const isEmployee =
-    message.sender.role === ConversationEntrySenderRole.employee
+  const isAgent = message.sender.role === ConversationEntrySenderRole.agent
 
   return (
     <>
@@ -41,12 +40,12 @@ export const EntryAttachments = ({message}: Props) => {
               gutter="sm"
               valign="center">
               <Icon
-                color={isEmployee ? 'link' : 'inverse'}
+                color={isAgent ? 'link' : 'inverse'}
                 name="document"
                 size="lg"
                 testID=""
               />
-              {isEmployee ? (
+              {isAgent ? (
                 <InlineLink
                   accessibilityLabel={`Bijlage gedeeld door ${message.senderDisplayName}. Dubbeltik om bijlage te downloaden.`}
                   ellipsizeMode="middle"

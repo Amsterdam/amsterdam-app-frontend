@@ -128,11 +128,10 @@ export const useCreateChat = ({
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
-  const employeeInChat = useMemo(
+  const agentInChat = useMemo(
     () =>
       participants.some(
-        participant =>
-          participant.role === ConversationEntrySenderRole.employee,
+        participant => participant.role === ConversationEntrySenderRole.agent,
       ),
     [participants],
   )
@@ -185,9 +184,7 @@ export const useCreateChat = ({
                     participant,
                   ])
 
-                  if (
-                    participant.role === ConversationEntrySenderRole.employee
-                  ) {
+                  if (participant.role === ConversationEntrySenderRole.agent) {
                     setIsWaitingForAgent(false)
                   }
                 } else {
@@ -280,7 +277,7 @@ export const useCreateChat = ({
     networkStatus,
     ready,
     participants,
-    employeeInChat,
+    agentInChat,
     remoteConfiguration,
     isWaitingForAgent,
   }

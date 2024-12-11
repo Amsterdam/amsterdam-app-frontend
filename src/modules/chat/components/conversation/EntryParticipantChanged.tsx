@@ -13,19 +13,19 @@ type Props = {
 }
 
 export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
-  const joiningEmployees = message.operations.find(
+  const joiningAgents = message.operations.find(
     operation =>
       operation.type === ParticipantChangedOperationType.add &&
-      operation.participant.role === ConversationEntrySenderRole.employee,
+      operation.participant.role === ConversationEntrySenderRole.agent,
   )
 
-  const leavingEmployees = message.operations.find(
+  const leavingAgents = message.operations.find(
     operation =>
       operation.type === ParticipantChangedOperationType.remove &&
-      operation.participant.role === ConversationEntrySenderRole.employee,
+      operation.participant.role === ConversationEntrySenderRole.agent,
   )
 
-  if (!joiningEmployees && !leavingEmployees) {
+  if (!joiningAgents && !leavingAgents) {
     return null
   }
 
@@ -37,9 +37,9 @@ export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
         icon="person"
         testID={`ChatSystemMessage${message.format}`}
         text={
-          joiningEmployees
-            ? `U chat nu met ${joiningEmployees?.participant.displayName} - ${timestamp}`
-            : `${leavingEmployees?.participant.displayName} heeft het gesprek verlaten - ${timestamp}`
+          joiningAgents
+            ? `U chat nu met ${joiningAgents?.participant.displayName} - ${timestamp}`
+            : `${leavingAgents?.participant.displayName} heeft het gesprek verlaten - ${timestamp}`
         }
       />
       <EntryGutter isLastOfRole={isLastOfRole} />
