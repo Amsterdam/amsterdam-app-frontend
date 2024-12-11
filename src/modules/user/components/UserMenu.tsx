@@ -47,11 +47,11 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
 }
 
 export const UserMenu = () => {
-  const secureAccessCode = useGetSecureAccessCode()
+  const {accessCode} = useGetSecureAccessCode()
 
   return (
     <>
-      {!!secureAccessCode && <MenuSection {...accessCodeSection} />}
+      {!!accessCode && <MenuSection {...accessCodeSection} />}
       {!!sections.length &&
         sections.map(section => (
           <MenuSection

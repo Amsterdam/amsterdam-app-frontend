@@ -272,8 +272,35 @@ export const lightColorTokens = {
     },
   },
   timeline: {
-    future: baseColor.neutral.grey3,
-    past: baseColor.primary.blue,
+    current: {
+      background: baseColor.primary.black,
+      border: baseColor.primary.black,
+      color: baseColor.primary.white,
+    },
+    done: {
+      color: baseColor.primary.white,
+    },
+    upcoming: {
+      border: baseColor.neutral.grey3,
+      color: baseColor.neutral.grey3,
+    },
+    primary: {
+      done: {
+        background: baseColor.primary.blue,
+      },
+      upcoming: {
+        background: baseColor.neutral.grey3,
+      },
+    },
+    secondary: {
+      done: {
+        background: baseColor.secondary.darkgreen,
+        border: baseColor.secondary.darkgreen,
+      },
+      upcoming: {
+        background: baseColor.primary.white,
+      },
+    },
   },
   tooltip: {
     background: baseColor.neutral.grey4,

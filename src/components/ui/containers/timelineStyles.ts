@@ -12,6 +12,8 @@ export const timelineStyles = (
   lastItem: boolean,
 ) => {
   const {color, size, z} = theme
+  const backgroundColorUpcoming = color.timeline.primary.upcoming.background
+  const backgroundColorDone = color.timeline.primary.done.background
 
   const tokens = {
     indicator: {
@@ -31,7 +33,9 @@ export const timelineStyles = (
       justifyContent: 'center',
       alignItems: 'center',
       top: size.spacing.md,
-      backgroundColor: isUpcoming ? color.timeline.future : color.timeline.past,
+      backgroundColor: isUpcoming
+        ? backgroundColorUpcoming
+        : backgroundColorDone,
       borderRadius: tokens.indicator.size / 2,
     },
     line: {
@@ -43,8 +47,8 @@ export const timelineStyles = (
       height: lastItem && !isExpanded ? 0 : '100%',
       backgroundColor:
         isUpcoming || isBeforeUpcoming
-          ? color.timeline.future
-          : color.timeline.past,
+          ? backgroundColorUpcoming
+          : backgroundColorDone,
     },
   })
 }

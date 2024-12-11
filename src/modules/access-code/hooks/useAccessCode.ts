@@ -1,10 +1,8 @@
-import {useCallback, useEffect} from 'react'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useCallback, useEffect, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useSetSecureAccessCode} from '@/modules/access-code/hooks/useSetSecureAccessCode'
-import {AccessCodeModalName} from '@/modules/access-code/routes'
 import {
   selectCodeEntered,
   selectCodeSet,
@@ -13,32 +11,36 @@ import {
   selectError,
   selectIsCodeSet,
   selectIsCodeConfirmed,
-  selectIsCodeValid,
+  selectCodeValidTimestamp,
   setError,
   accessCodeSlice,
   setAttemptsLeft,
   setIsCodeValid,
   resetAttemptsLeft,
+  selectIsEnteringCode,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {isAccessCodeValid} from '@/modules/access-code/utils/isAccessCodeValid'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 const CODE_LENGTH = 5
 
 export const useAccessCode = () => {
   const dispatch = useDispatch()
+
   const codeEntered = useSelector(selectCodeEntered)
   const codeSet = useSelector(selectCodeSet)
   const codeConfirmed = useSelector(selectCodeConfirmed)
   const attemptsLeft = useSelector(selectAttemptsLeft)
   const error = useSelector(selectError)
   const isCodeSet = useSelector(selectIsCodeSet)
+  const codeValidTimestamp = useSelector(selectCodeValidTimestamp)
   const isCodeConfirmed = useSelector(selectIsCodeConfirmed)
-  const isCodeValid = useSelector(selectIsCodeValid)
-  const secureAccessCode = useGetSecureAccessCode()
+  const isEnteringCode = useSelector(selectIsEnteringCode)
+
+  const {accessCode: secureAccessCode} = useGetSecureAccessCode()
   const setSecureAccessCode = useSetSecureAccessCode()
 
-  const {navigate} = useNavigation()
   const codeLength = CODE_LENGTH
 
   const resetError = useCallback(() => dispatch(setError('')), [dispatch])
@@ -46,10 +48,28 @@ export const useAccessCode = () => {
     (isSet: boolean) => dispatch(accessCodeSlice.actions.setIsCodeSet(isSet)),
     [dispatch],
   )
+  const isCodeValid = useMemo(() => {
+    const now = Date.now()
+    const msToMinutes = 1000 * 60
+
+    if (!codeValidTimestamp) {
+      return false
+    } else {
+      return (
+        Math.abs(dayjs(now).diff(dayjs(codeValidTimestamp))) <= 15 * msToMinutes
+      )
+    }
+  }, [codeValidTimestamp])
 
   const setIsCodeConfirmed = useCallback(
     (isConfirmed: boolean) =>
       dispatch(accessCodeSlice.actions.setIsCodeConfirmed(isConfirmed)),
+    [dispatch],
+  )
+
+  const setIsEnteringCode = useCallback(
+    (isEntering: boolean) =>
+      dispatch(accessCodeSlice.actions.setIsEnteringCode(isEntering)),
     [dispatch],
   )
 
@@ -76,6 +96,10 @@ export const useAccessCode = () => {
   )
 
   const onAccessCodeEntered = useCallback(() => {
+    if (isCodeValid) {
+      return
+    }
+
     if (codeEntered.join('') === secureAccessCode) {
       dispatch(resetAttemptsLeft())
       dispatch(setIsCodeValid(true))
@@ -99,12 +123,6 @@ export const useAccessCode = () => {
 
     onAccessCodeEntered()
   }, [codeEntered.length, codeLength, onAccessCodeEntered])
-
-  useEffect(() => {
-    if (attemptsLeft <= 0) {
-      navigate(AccessCodeModalName.accessCodeInvalid)
-    }
-  }, [attemptsLeft, navigate])
 
   useEffect(() => {
     if (codeSet.length !== codeLength) {
@@ -164,10 +182,12 @@ export const useAccessCode = () => {
     isCodeSet,
     isCodeConfirmed,
     isCodeValid,
+    isEnteringCode,
     removeDigit,
     resetError,
     setCode,
     setIsCodeSet,
     setIsCodeConfirmed,
+    setIsEnteringCode,
   }
 }

@@ -1,7 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  AccessCodeModalName,
-  AccessCodeModalParams,
   AccessCodeRouteName,
   AccessCodeStackParams,
 } from '@/modules/access-code/routes'
@@ -16,6 +14,17 @@ export const screenConfig: StackNavigationRoutes<
   AccessCodeStackParams,
   AccessCodeRouteName
 > = {
+  [AccessCodeRouteName.accessCode]: {
+    component: AccessCodeScreen,
+    name: AccessCodeRouteName.accessCode,
+    options: {
+      headerTitle: 'Toegangscode invoeren',
+    },
+  },
+  [AccessCodeRouteName.accessCodeInvalid]: {
+    component: AccessCodeInvalidScreen,
+    name: AccessCodeRouteName.accessCodeInvalid,
+  },
   [AccessCodeRouteName.accessCodeLogin]: {
     component: AccessCodeLoginScreen,
     name: AccessCodeRouteName.accessCodeLogin,
@@ -40,16 +49,5 @@ export const screenConfig: StackNavigationRoutes<
   [AccessCodeRouteName.validAccessCode]: {
     component: AccessCodeValidScreen,
     name: AccessCodeRouteName.validAccessCode,
-  },
-}
-
-export const accessCodeModals: StackNavigationRoutes<AccessCodeModalParams> = {
-  [AccessCodeModalName.accessCode]: {
-    component: AccessCodeScreen,
-    name: AccessCodeModalName.accessCode,
-  },
-  [AccessCodeModalName.accessCodeInvalid]: {
-    component: AccessCodeInvalidScreen,
-    name: AccessCodeModalName.accessCodeInvalid,
   },
 }

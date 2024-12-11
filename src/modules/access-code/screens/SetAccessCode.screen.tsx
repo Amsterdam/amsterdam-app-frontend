@@ -1,7 +1,5 @@
-import {useFocusEffect} from '@react-navigation/core'
-import {useCallback, useEffect} from 'react'
+import {useEffect} from 'react'
 import {View} from 'react-native'
-import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -9,9 +7,9 @@ import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
+import {AccessCodeValidationBoundaryScreen} from '@/modules/access-code/components/AccessCodeValidationBoundaryScreen'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
-import {useHandleAccessCodeValidity} from '@/modules/access-code/hooks/useHandleAccessCodeValidity'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 
@@ -20,15 +18,12 @@ export const SetAccessCodeScreen = () => {
   const {isCodeSet, setIsCodeConfirmed, setIsCodeSet, resetError, setCode} =
     useAccessCode()
 
-  useHandleAccessCodeValidity()
-  useFocusEffect(
-    useCallback(() => {
-      resetError()
-      setIsCodeSet(false)
-      setIsCodeConfirmed(false)
-      setCode({code: [], type: AccessCodeType.codeSet})
-    }, [resetError, setCode, setIsCodeConfirmed, setIsCodeSet]),
-  )
+  useEffect(() => {
+    resetError()
+    setIsCodeSet(false)
+    setIsCodeConfirmed(false)
+    setCode({code: [], type: AccessCodeType.codeSet})
+  }, [resetError, setCode, setIsCodeConfirmed, setIsCodeSet])
 
   useEffect(() => {
     if (isCodeSet) {
@@ -37,7 +32,7 @@ export const SetAccessCodeScreen = () => {
   }, [isCodeSet, navigation])
 
   return (
-    <Screen
+    <AccessCodeValidationBoundaryScreen
       stickyFooter={<AccessCodeKeyBoard type={AccessCodeType.codeSet} />}
       testID="SetAccessCodeScreen"
       withBottomInset={false}>
@@ -68,6 +63,6 @@ export const SetAccessCodeScreen = () => {
           </View>
         </Column>
       </Box>
-    </Screen>
+    </AccessCodeValidationBoundaryScreen>
   )
 }

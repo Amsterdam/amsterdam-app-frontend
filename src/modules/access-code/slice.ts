@@ -10,10 +10,12 @@ export type AccessCodeState = {
   [AccessCodeType.codeEntered]: number[]
   [AccessCodeType.codeConfirmed]: number[]
   [AccessCodeType.codeSet]: number[]
+  codeValidTimestamp?: number
   error: string
   isCodeConfirmed: boolean
   isCodeSet: boolean
   isCodeValid: boolean
+  isEnteringCode: boolean
   tempAccessCode: number[]
 }
 
@@ -22,10 +24,12 @@ const initialValue: AccessCodeState = {
   [AccessCodeType.codeEntered]: [],
   [AccessCodeType.codeConfirmed]: [],
   [AccessCodeType.codeSet]: [],
+  codeValidTimestamp: undefined,
   error: '',
   isCodeSet: false,
   isCodeConfirmed: false,
   isCodeValid: false,
+  isEnteringCode: false,
   tempAccessCode: [],
 }
 
@@ -69,7 +73,16 @@ export const accessCodeSlice = createSlice({
       state.isCodeConfirmed = payload
     },
     setIsCodeValid: (state, {payload}: PayloadAction<boolean>) => {
-      state.isCodeValid = payload
+      if (payload) {
+        state.isCodeValid = true
+        state.codeValidTimestamp = Date.now()
+      } else {
+        state.isCodeValid = false
+        state.codeValidTimestamp = undefined
+      }
+    },
+    setIsEnteringCode: (state, {payload}: PayloadAction<boolean>) => {
+      state.isEnteringCode = payload
     },
   },
 })
@@ -103,13 +116,21 @@ const selectIsCodeConfirmed = (state: RootState) =>
 const selectIsCodeValid = (state: RootState) =>
   state[ReduxKey.accessCode].isCodeValid
 
+const selectIsEnteringCode = (state: RootState) =>
+  state[ReduxKey.accessCode].isEnteringCode
+
+const selectCodeValidTimestamp = (state: RootState) =>
+  state[ReduxKey.accessCode].codeValidTimestamp
+
 export {
   selectAttemptsLeft,
   selectCodeConfirmed,
   selectCodeEntered,
   selectCodeSet,
+  selectCodeValidTimestamp,
   selectError,
   selectIsCodeConfirmed,
   selectIsCodeSet,
   selectIsCodeValid,
+  selectIsEnteringCode,
 }
