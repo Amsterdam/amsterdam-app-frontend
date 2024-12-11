@@ -1,5 +1,6 @@
 import {useContext} from 'react'
 import {
+  ConversationEntryFormat,
   ConversationEntryRoutingResult,
   ConversationEntryRoutingType,
 } from 'react-native-salesforce-messaging-in-app/src/types'
@@ -15,15 +16,19 @@ type Props = {
   message: ConversationEntryRoutingResult
 }
 
-export const EntryRoutingResult = ({
-  message: {isEWTAvailable, estimatedWaitTime, routingType},
-  isLastOfRole,
-}: Props) => {
-  const {isWaitingForAgent} = useContext(ChatContext)
+export const EntryRoutingResult = ({message, isLastOfRole}: Props) => {
+  const {isEWTAvailable, estimatedWaitTime, routingType} = message
+  const {isWaitingForAgent, messages} = useContext(ChatContext)
+
+  const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
+  const hasTextMessageAfterCurrentMessage =
+    messagesAfterCurrent.filter(m => m.format === ConversationEntryFormat.text)
+      .length > 0
 
   if (
     routingType !== ConversationEntryRoutingType.transfer ||
-    !isWaitingForAgent
+    !isWaitingForAgent ||
+    hasTextMessageAfterCurrentMessage
   ) {
     return null
   }
