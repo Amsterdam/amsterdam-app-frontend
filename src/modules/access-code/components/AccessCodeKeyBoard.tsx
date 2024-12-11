@@ -8,6 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCodeKeyboardKey'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -20,8 +21,9 @@ type Props = {
 export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
-  const {addDigit, biometricsAuthenticationType, removeDigit, useBiometrics} =
-    useAccessCode()
+  const {biometricsAuthenticationType, useBiometrics} =
+    useAccessCodeBiometrics()
+  const {addDigit, removeDigit} = useAccessCode()
 
   const getBiometricsIconName = useCallback(() => {
     if (

@@ -12,6 +12,10 @@ export type CityPassState = {
    */
   isCityPassesVisible: boolean
   /**
+   * Whether the user is still completing the login steps
+   */
+  isLoginStepsActive: boolean
+  /**
    * The index of the city-passes to start displaying
    */
   startIndex: number
@@ -20,6 +24,7 @@ export type CityPassState = {
 const initialState: CityPassState = {
   isCityPassesVisible: false,
   isCityPassOwnerRegistered: false,
+  isLoginStepsActive: false,
   startIndex: 0,
 }
 
@@ -40,17 +45,27 @@ export const cityPassSlice = createSlice({
       state.isCityPassesVisible = true
       state.startIndex = payload ?? 0
     },
+    setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
+      state.isLoginStepsActive = payload
+    },
   },
 })
 
-export const {hideCityPasses, setIsCityPassOwnerRegistered, showCityPasses} =
-  cityPassSlice.actions
+export const {
+  hideCityPasses,
+  setIsCityPassOwnerRegistered,
+  setLoginStepsActive,
+  showCityPasses,
+} = cityPassSlice.actions
 
 export const selectIsCityPassesVisible = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassesVisible
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassOwnerRegistered
+
+export const selectIsLoginStepsActive = (state: RootState) =>
+  state[ReduxKey.cityPass].isLoginStepsActive
 
 export const selectStartIndex = (state: RootState) =>
   state[ReduxKey.cityPass].startIndex

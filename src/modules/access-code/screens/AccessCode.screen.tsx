@@ -8,12 +8,12 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
 import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
 
 export const AccessCodeScreen = () => {
   const navigation = useNavigation()
-  const {attemptsLeft, isCodeValid, onAccessCodeEntered} = useAccessCode()
+  const {attemptsLeft, isCodeValid, onAccessCodeEntered} = useEnterAccessCode()
 
   useEffect(() => {
     if (isCodeValid) {

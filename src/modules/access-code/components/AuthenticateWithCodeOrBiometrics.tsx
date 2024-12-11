@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {AccessCodeType} from '@/modules/access-code/types'
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
 export const AuthenticateWithCodeOrBiometrics = ({
   onAuthenticatedWithBiometrics,
 }: Props) => {
-  const {useBiometrics: isUseBiometrics} = useAccessCode()
+  const {useBiometrics: isUseBiometrics} = useAccessCodeBiometrics()
   const {authenticated, authenticate} = useBiometrics({
     autoTrigger: isUseBiometrics,
     promptMessage: 'Ontgrendel toegang tot je stadspas.',

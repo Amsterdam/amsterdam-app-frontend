@@ -10,13 +10,18 @@ import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKey
 import {AccessCodeValidationBoundaryScreen} from '@/modules/access-code/components/AccessCodeValidationBoundaryScreen'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
+import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
+import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 
 export const SetAccessCodeScreen = () => {
   const navigation = useNavigation()
-  const {isCodeSet, setIsCodeConfirmed, setIsCodeSet, resetError, setCode} =
-    useAccessCode()
+  const {setCode} = useAccessCode()
+  const {setIsCodeConfirmed} = useConfirmAccessCode()
+  const {resetError} = useAccessCodeError()
+  const {isCodeSet, setIsCodeSet} = useSetAccessCode()
 
   useEffect(() => {
     resetError()

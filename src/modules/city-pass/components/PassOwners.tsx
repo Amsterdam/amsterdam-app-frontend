@@ -34,7 +34,7 @@ export const PassOwners = ({logout}: Props) => {
   )
 
   const {data, isLoading, isError} = useGetCityPassesQuery(
-    secureAccessToken ? secureAccessToken : skipToken,
+    secureAccessToken ?? skipToken,
   )
 
   const cityPasses = data ?? secureCityPasses

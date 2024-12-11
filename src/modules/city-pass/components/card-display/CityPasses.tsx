@@ -7,7 +7,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {useBrightScreen} from '@/hooks/useBrightScreen'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {CityPassesSwiper} from '@/modules/city-pass/components/card-display/CityPassesSwiper'
 import {DEFAULT_PASS_WIDTH} from '@/modules/city-pass/constants'
@@ -23,7 +23,7 @@ export const CityPasses: ModuleClientConfig['PreRenderComponent'] = () => {
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
   const isCityPassesVisible = useSelector(selectIsCityPassesVisible)
-  const {isCodeValid, isEnteringCode} = useAccessCode()
+  const {isCodeValid, isEnteringCode} = useEnterAccessCode()
   const {color} = useTheme()
 
   useEffect(() => {

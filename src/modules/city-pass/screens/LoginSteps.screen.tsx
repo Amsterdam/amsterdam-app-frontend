@@ -9,7 +9,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
@@ -33,12 +33,12 @@ export const LoginStepsScreen = ({route}: Props) => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
-  const login = useLogin()
-  const {attemptsLeft, isCodeValid, setIsLoggingIn} = useAccessCode()
+  const {login, setIsLoginStepsActive} = useLogin()
+  const {attemptsLeft, isCodeValid} = useEnterAccessCode()
 
   useEffect(() => {
-    setIsLoggingIn(true)
-  }, [setIsLoggingIn])
+    setIsLoginStepsActive(true)
+  }, [setIsLoginStepsActive])
 
   useRegisterCityPassOwner({
     loginResult,
@@ -70,7 +70,7 @@ export const LoginStepsScreen = ({route}: Props) => {
     }
 
     if (isStepsComplete) {
-      setIsLoggingIn(false)
+      setIsLoginStepsActive(false)
       navigate(CityPassRouteName.dashboard)
     }
   }, [
@@ -81,7 +81,7 @@ export const LoginStepsScreen = ({route}: Props) => {
     isStepsComplete,
     login,
     navigate,
-    setIsLoggingIn,
+    setIsLoginStepsActive,
   ])
 
   return (
