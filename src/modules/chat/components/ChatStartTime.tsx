@@ -3,13 +3,13 @@ import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {dayjs, dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
-  firstMessage: ConversationEntry
+  firstMessage?: ConversationEntry
 }
 
 export const ChatStartTime = ({firstMessage}: Props) => (
   <ChatSystemEntry
     icon="chat"
     testID="ChatStartingTime"
-    text={`Chat gestart om ${dayjsFromUnix(firstMessage?.timestamp ?? dayjs().unix()).format('HH:mm')}`}
+    text={`Chat gestart - ${dayjsFromUnix(firstMessage?.timestamp ?? dayjs().unix()).format('HH:mm')}`}
   />
 )
