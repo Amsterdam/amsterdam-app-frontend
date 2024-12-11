@@ -4,8 +4,8 @@ import {
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
+import {AvatarAgent} from '@/modules/chat/assets/AvatarAgent'
 import {AvatarBot} from '@/modules/chat/assets/AvatarBot'
-import {AvatarEmployee} from '@/modules/chat/assets/AvatarEmployee'
 import {ChatMessageBubble} from '@/modules/chat/components/ChatMessageBubble'
 
 type Props = {
@@ -25,8 +25,8 @@ export const ChatMessageEntry = ({message, children, isText = true}: Props) => {
       {message.sender.role === ConversationEntrySenderRole.chatbot && (
         <AvatarBot />
       )}
-      {message.sender.role === ConversationEntrySenderRole.employee && (
-        <AvatarEmployee />
+      {message.sender.role === ConversationEntrySenderRole.agent && (
+        <AvatarAgent />
       )}
       {isText ? (
         <ChatMessageBubble senderRole={message.sender.role}>

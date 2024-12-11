@@ -1,7 +1,7 @@
 import {Svg, Circle, Path} from 'react-native-svg'
 import {useTheme} from '@/themes/useTheme'
 
-export const AvatarEmployee = () => {
+export const AvatarAgent = () => {
   const {color} = useTheme()
 
   return (
