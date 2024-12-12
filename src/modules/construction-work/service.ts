@@ -9,8 +9,6 @@ import {
   ProjectWarningQueryArgs,
   ProjectWarningResponse,
   ProjectsEndpointName,
-  ProjectsFollowedArticlesQueryArgs,
-  ProjectsFollowedArticlesResponse,
   ProjectsQueryArgs,
   ProjectsResponse,
   ProjectsSearchQueryArgs,
@@ -135,25 +133,6 @@ export const projectsApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // /projects/followed/articles GET
-    [ProjectsEndpointName.projectsFollowedArticles]: builder.query<
-      ProjectsFollowedArticlesResponse,
-      ProjectsFollowedArticlesQueryArgs
-    >({
-      providesTags: ['Articles', 'FollowedProjects'],
-      query: params => ({
-        slug: MODULE_SLUG,
-        url: params
-          ? generateRequestUrl({
-              path: '/projects/followed/articles',
-              params,
-            })
-          : '/projects/followed/articles',
-        headers: deviceIdHeader,
-      }),
-      keepUnusedDataFor: CacheLifetime.hour,
-    }),
-
     // /projects/search GET
     [ProjectsEndpointName.projectsSearch]: builder.query<
       ProjectsSearchResponse,
@@ -183,7 +162,6 @@ export const {
   useProjectNewsQuery,
   useProjectUnfollowMutation,
   useProjectWarningQuery,
-  useProjectsFollowedArticlesQuery,
   useProjectsQuery,
   useProjectsSearchQuery,
 } = projectsApi

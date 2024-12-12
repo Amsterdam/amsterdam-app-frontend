@@ -192,14 +192,6 @@ export type ProjectsResponse = Paginated<ProjectsItem>
 
 export type FollowProjectBody = {id: number}
 
-// /projects/followed/articles
-
-export type ProjectsFollowedArticlesQueryArgs = {
-  article_max_age: number
-}
-
-export type ProjectsFollowedArticlesResponse = Record<string, ArticleStub[]>
-
 // /projects/search
 
 export type ProjectsSearchQueryArgs = {
