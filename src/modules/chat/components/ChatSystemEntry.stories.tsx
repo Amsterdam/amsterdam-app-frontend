@@ -12,7 +12,8 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     icon: 'chat',
-    text: 'Chat gestopt om 12:34',
+    text: 'Chat gestopt',
     testID: 'chatEntryRoutingWorkResult',
+    timestamp: 1630510440,
   },
 }
