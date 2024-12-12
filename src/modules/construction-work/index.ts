@@ -1,4 +1,3 @@
-import {BadgeValue} from '@/modules/construction-work/components/BadgeValue'
 import {PreRenderComponent} from '@/modules/construction-work/components/PreRenderComponent'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
@@ -14,7 +13,6 @@ const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule: ModuleClientConfig = {
   PreRenderComponent: PreRenderComponent,
-  BadgeValue,
   linking: {
     [ConstructionWorkRouteName.projectNews]:
       'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',

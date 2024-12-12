@@ -50,10 +50,6 @@ export type CoreModuleConfig = BaseModuleConfig
  */
 export type ModuleClientConfig = BaseModuleConfig & {
   /**
-   * A component for displaying a badge on the module’s button.
-   */
-  BadgeValue?: ComponentType
-  /**
    * A component to show in the header of the Home screen.
    */
   HeaderComponent?: ComponentType

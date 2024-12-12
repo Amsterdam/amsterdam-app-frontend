@@ -1,4 +1,4 @@
-import {ElementType, useCallback, useMemo} from 'react'
+import {useCallback, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
@@ -19,7 +19,6 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type ModuleButtonContentProps = {
-  badgeValue?: ElementType
   disabled: boolean | undefined
   iconName: SvgIconName | 'projects'
   label: string
@@ -27,7 +26,6 @@ type ModuleButtonContentProps = {
 } & TestProps
 
 const ModuleButtonContent = ({
-  badgeValue: BadgeValue,
   disabled,
   iconName,
   label,
@@ -48,35 +46,30 @@ const ModuleButtonContent = ({
 
   return (
     <Column gutter="sm">
-      <Row
-        align="between"
-        valign="center">
-        <Row gutter="md">
-          {/* TODO Remove fallback after updating icon name in database. */}
-          {iconName === 'projects' ? (
+      <Row gutter="md">
+        {/* TODO Remove fallback after updating icon name in database. */}
+        {iconName === 'projects' ? (
+          <Icon
+            color={color}
+            name="construction-work"
+            size="lg"
+            testID={`${testID}Icon`}
+          />
+        ) : (
+          !!iconName && (
             <Icon
               color={color}
-              name="construction-work"
+              name={iconName}
               size="lg"
               testID={`${testID}Icon`}
             />
-          ) : (
-            !!iconName && (
-              <Icon
-                color={color}
-                name={iconName}
-                size="lg"
-                testID={`${testID}Icon`}
-              />
-            )
-          )}
-          <Title
-            color={color}
-            level="h5"
-            text={label}
-          />
-        </Row>
-        {!!BadgeValue && !disabled && <BadgeValue />}
+          )
+        )}
+        <Title
+          color={color}
+          level="h5"
+          text={label}
+        />
       </Row>
       {!!disabled && <InactiveModuleMessage />}
     </Column>
@@ -87,7 +80,6 @@ type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
   alwaysEnabled?: boolean
-  badgeValue?: ElementType
   disabled?: boolean
   iconName: SvgIconName | 'projects'
   label: string
@@ -97,7 +89,6 @@ type ModuleButtonProps = {
 
 export const ModuleButton = ({
   alwaysEnabled = false,
-  badgeValue,
   disabled,
   iconName,
   label,
@@ -117,7 +108,6 @@ export const ModuleButton = ({
   const button = useMemo(
     () => (
       <ModuleButtonContent
-        badgeValue={badgeValue}
         disabled={disabled}
         iconName={iconName}
         label={label}
@@ -125,7 +115,7 @@ export const ModuleButton = ({
         variant={variant}
       />
     ),
-    [badgeValue, disabled, iconName, label, testID, variant],
+    [disabled, iconName, label, testID, variant],
   )
 
   const pressable = useMemo(

@@ -29,7 +29,6 @@ export const Modules = ({modules}: Props) => {
         {availableModules?.map(
           ({
             alwaysEnabled,
-            BadgeValue,
             icon,
             requiresAuthorization,
             slug,
@@ -38,7 +37,6 @@ export const Modules = ({modules}: Props) => {
           }) => (
             <ModuleButton
               alwaysEnabled={alwaysEnabled}
-              badgeValue={BadgeValue}
               disabled={status === ModuleStatus.inactive}
               iconName={icon}
               key={slug}
