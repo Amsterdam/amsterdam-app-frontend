@@ -5,12 +5,14 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
-import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
   isLastOfRole: boolean
   message: ConversationEntryParticipantChanged
 }
+
+const hasDisplayname = (displayName: string | undefined) =>
+  !!displayName && displayName !== 'User'
 
 export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
   const joiningAgents = message.operations.find(
@@ -29,7 +31,9 @@ export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
     return null
   }
 
-  const timestamp = dayjsFromUnix(message.timestamp).format('HH:mm')
+  const displayName = joiningAgents
+    ? joiningAgents.participant.displayName
+    : leavingAgents?.participant.displayName
 
   return (
     <>
@@ -38,9 +42,10 @@ export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
         testID={`ChatSystemMessage${message.format}`}
         text={
           joiningAgents
-            ? `U chat nu met ${joiningAgents?.participant.displayName} - ${timestamp}`
-            : `${leavingAgents?.participant.displayName} heeft het gesprek verlaten - ${timestamp}`
+            ? `U chat nu met ${hasDisplayname(displayName) ? displayName : 'een medewerker'}`
+            : `${hasDisplayname(displayName) ? displayName : 'Medewerker'} heeft het gesprek verlaten`
         }
+        timestamp={message.timestamp}
       />
       <EntryGutter isLastOfRole={isLastOfRole} />
     </>
