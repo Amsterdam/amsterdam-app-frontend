@@ -19,12 +19,12 @@ import {useTheme} from '@/themes/useTheme'
 import {Duration} from '@/types/duration'
 
 export const ChatMenu = () => {
-  const {setIsMenuOpen, headerHeight, isMenuOpen} = useChat()
+  const {setIsMenuOpen, headerHeight, isMenuOpen, close} = useChat()
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const insets = useSafeAreaInsets()
   const sheetStyles = createStyles(theme, headerHeight, insets)
-  const {addDownloadedTranscriptId, endChat} = useContext(ChatContext)
+  const {addDownloadedTranscriptId, endChat, ready} = useContext(ChatContext)
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
@@ -73,7 +73,12 @@ export const ChatMenu = () => {
           label="Chat stoppen"
           onPress={() => {
             setIsMenuOpen(false)
-            void endChat()
+
+            if (ready) {
+              void endChat()
+            } else {
+              close()
+            }
           }}
           testID="ChatMenuPressableStopChat"
         />
