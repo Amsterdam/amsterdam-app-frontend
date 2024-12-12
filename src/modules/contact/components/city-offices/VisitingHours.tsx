@@ -1,14 +1,6 @@
-import {View} from 'react-native'
-import {IconButton} from '@/components/ui/buttons/IconButton'
-import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Placement} from '@/components/ui/types'
-import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
-import {useBoolean} from '@/hooks/useBoolean'
 import {CityOffice, ExceptionDate, VisitingHour} from '@/modules/contact/types'
 import {getVisitingState} from '@/modules/contact/utils/getVisitingState'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
@@ -50,7 +42,7 @@ const getVisitingHoursSentence = (
   return {spoken: '', written: ''}
 }
 
-const getTooltipContent = (form: 'spoken' | 'written') => {
+const getOpeningHoursMore = (form: 'spoken' | 'written') => {
   const formatTime = (time: number) =>
     dayjs()
       .startOf('day')
@@ -77,11 +69,6 @@ export const VisitingHours = ({
     visitingHours,
     visitingHoursExceptions,
   )
-  const {value: isOpen, toggle: toggleTooltip} = useBoolean()
-
-  const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
-    isActive: !isOpen,
-  })
 
   if (visitingHoursContent) {
     return (
@@ -93,41 +80,19 @@ export const VisitingHours = ({
   }
 
   return (
-    <Column gutter="md">
-      <Row
-        gutter="sm"
-        valign="center">
-        {!!visitingHoursSentence.written && (
-          <Paragraph
-            accessibilityLabel={visitingHoursSentence.spoken}
-            testID="ContactVisitingHoursParagraph">
-            {visitingHoursSentence.written}
-          </Paragraph>
-        )}
-        <IconButton
-          accessibilityLabel={`${isOpen ? 'Verberg' : 'Bekijk'} uitleg`}
-          icon={
-            <Icon
-              color="link"
-              name="question-mark-solid"
-              size="lg"
-              testID="ContactVisitingHoursTooltipIcon"
-            />
-          }
-          onPress={toggleTooltip}
-          ref={accessibilityAutoFocusRef}
-          testID="ContactVisitingHoursTooltipButton"
-        />
-      </Row>
-      {!!isOpen && (
-        <Tooltip
-          accessibilityLabel={accessibleText(getTooltipContent('spoken'))}
-          onPress={toggleTooltip}
-          placement={Placement.below}
-          testID="ContactVisitingHoursTooltip"
-          text={getTooltipContent('written')}
-        />
+    <Column gutter="sm">
+      {!!visitingHoursSentence.written && (
+        <Paragraph
+          accessibilityLabel={visitingHoursSentence.spoken}
+          testID="ContactVisitingHoursParagraphOpeningTimes">
+          {visitingHoursSentence.written}
+        </Paragraph>
       )}
+      <Paragraph
+        accessibilityLabel={accessibleText(getOpeningHoursMore('spoken'))}
+        testID="ContactVisitingHoursParagraphOpeningTimesMore">
+        {getOpeningHoursMore('written')}
+      </Paragraph>
     </Column>
   )
 }

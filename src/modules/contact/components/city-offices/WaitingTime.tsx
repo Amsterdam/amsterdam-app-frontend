@@ -1,10 +1,7 @@
 import {useCallback} from 'react'
-import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
@@ -68,29 +65,9 @@ export const WaitingTime = ({cityOfficeId}: Props) => {
   const {queued, waitingTime} = waitingTimesForCityOffice
 
   return (
-    <Box>
-      <Column gutter="md">
-        <Row
-          gutter="md"
-          valign="center">
-          <Icon
-            name="two-persons"
-            size="xl"
-            testID="ContactCityOfficeQueueIcon"
-          />
-          <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
-        </Row>
-        <Row
-          gutter="md"
-          valign="center">
-          <Icon
-            name="clock"
-            size="xl"
-            testID="ContactCityOfficeTimeIcon"
-          />
-          <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
-        </Row>
-      </Column>
-    </Box>
+    <Column gutter="sm">
+      <Paragraph>{getQueuedPhrase(queued)}</Paragraph>
+      <Paragraph>{getWaitingTimePhrase(waitingTime)}</Paragraph>
+    </Column>
   )
 }

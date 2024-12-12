@@ -72,40 +72,58 @@ export const CityOffice = () => {
           addressContent={addressContent}
           title={title}
         />
-        <VisitingHours
-          visitingHours={visitingHours.regular}
-          visitingHoursContent={visitingHoursContent}
-          visitingHoursExceptions={visitingHours.exceptions}
-        />
-        {appointment ? (
-          <Column gutter="md">
-            <Paragraph testID="ContactMakeAppointmentParagraph">
-              {appointment.text}
-            </Paragraph>
-            <Button
-              accessibilityHint="Opent een link naar een formulier."
-              accessibilityRole="link"
-              label="Maak een afspraak"
-              onPress={() => openWebUrl(appointment.url)}
-              testID="ContactMakeAppointmentButton"
+        <Column gutter="lg">
+          <Column gutter="sm">
+            <Title
+              level="h5"
+              testID="ContactVisitingHoursTitle"
+              text="Openingstijden"
+            />
+            <VisitingHours
+              visitingHours={visitingHours.regular}
+              visitingHoursContent={visitingHoursContent}
+              visitingHoursExceptions={visitingHours.exceptions}
             />
           </Column>
-        ) : (
-          isOpenForVisiting(
-            visitingHours.regular,
-            visitingHours.exceptions,
-          ) && <WaitingTime cityOfficeId={identifier} />
-        )}
-        {!!directionsUrl && (
-          <Button
-            accessibilityHint="Opent een link naar Google Maps."
-            accessibilityRole="link"
-            label="Bekijk route"
-            onPress={() => openWebUrl(directionsUrl)}
-            testID="ContactSeeRouteButton"
-            variant={appointment ? 'secondary' : 'primary'}
-          />
-        )}
+          {appointment ? (
+            <Column gutter="md">
+              <Paragraph testID="ContactMakeAppointmentParagraph">
+                {appointment.text}
+              </Paragraph>
+              <Button
+                accessibilityHint="Opent een link naar een formulier."
+                accessibilityRole="link"
+                label="Maak een afspraak"
+                onPress={() => openWebUrl(appointment.url)}
+                testID="ContactMakeAppointmentButton"
+              />
+            </Column>
+          ) : (
+            isOpenForVisiting(
+              visitingHours.regular,
+              visitingHours.exceptions,
+            ) && (
+              <Column gutter="sm">
+                <Title
+                  level="h5"
+                  testID="ContactWaitingTimeTitle"
+                  text="Wachttijden"
+                />
+                <WaitingTime cityOfficeId={identifier} />
+              </Column>
+            )
+          )}
+          {!!directionsUrl && (
+            <Button
+              accessibilityHint="Opent een link naar Google Maps."
+              accessibilityRole="link"
+              label="Bekijk route"
+              onPress={() => openWebUrl(directionsUrl)}
+              testID="ContactSeeRouteButton"
+              variant={appointment ? 'secondary' : 'primary'}
+            />
+          )}
+        </Column>
       </Column>
     </Box>
   )
