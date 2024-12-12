@@ -4,13 +4,15 @@ import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {TestProps} from '@/components/ui/types'
+import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 type Props = {
   icon: SvgIconName
   text: string
+  timestamp: number
 } & TestProps
 
-export const ChatSystemEntry = ({icon, text, testID}: Props) => (
+export const ChatSystemEntry = ({icon, text, testID, timestamp}: Props) => (
   <View accessible>
     <Row
       align="center"
@@ -25,7 +27,7 @@ export const ChatSystemEntry = ({icon, text, testID}: Props) => (
         color="secondary"
         testID={`${testID}Phrase`}
         textAlign="center">
-        {text}
+        {text} - {dayjsFromUnix(timestamp).format('HH:mm')}
       </Phrase>
     </Row>
   </View>
