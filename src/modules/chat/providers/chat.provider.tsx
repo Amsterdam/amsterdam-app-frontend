@@ -163,7 +163,7 @@ export const ChatProvider = ({children}: Props) => {
 
       remoteConfig.preChatConfiguration[0]?.hiddenPreChatFields.forEach(
         field => {
-          if (field.name === 'Origin') {
+          if (field.name === 'Origin' || field.name === 'Chat_Origin') {
             field.value = 'App'
           } else if (field.name === 'Start_Location') {
             field.value = 'contact'

@@ -1,6 +1,7 @@
 import {ReactNode} from 'react'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {Row} from '@/components/ui/layout/Row'
@@ -14,6 +15,14 @@ type Props = {
   message: ConversationEntry
 }
 
+/**
+ * When the message is sent by the agent, or when there is a text message by system, to introduce an agent
+ */
+const isAgent = (message: ConversationEntry) =>
+  message.sender.role === ConversationEntrySenderRole.agent ||
+  (message.sender.role === ConversationEntrySenderRole.system &&
+    message.format === ConversationEntryFormat.text)
+
 export const ChatMessageEntry = ({message, children, isText = true}: Props) => {
   const isUser = message.sender.role === ConversationEntrySenderRole.user
 
@@ -25,9 +34,7 @@ export const ChatMessageEntry = ({message, children, isText = true}: Props) => {
       {message.sender.role === ConversationEntrySenderRole.chatbot && (
         <AvatarBot />
       )}
-      {message.sender.role === ConversationEntrySenderRole.agent && (
-        <AvatarAgent />
-      )}
+      {isAgent(message) && <AvatarAgent />}
       {isText ? (
         <ChatMessageBubble senderRole={message.sender.role}>
           {children}
