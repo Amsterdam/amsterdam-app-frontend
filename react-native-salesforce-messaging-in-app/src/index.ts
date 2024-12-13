@@ -54,16 +54,12 @@ const messagingEventEmitter = new NativeEventEmitter(
   SalesforceMessagingInAppModule,
 )
 
-// const subscription: EmitterSubscription | null = null
-
 export const createCoreClient = ({
   developerName,
   organizationId,
   url,
 }: CoreConfig) =>
   SalesforceMessagingInApp.createCoreClient(url, organizationId, developerName)
-
-// const messages: unknown[] = []
 
 export const createConversationClient = (conversationId?: string) =>
   SalesforceMessagingInApp.createConversationClient(conversationId ?? null)
@@ -224,7 +220,7 @@ export const useCreateChat = ({
         onErrorSubscription.current = messagingEventEmitter.addListener(
           'onError',
           (state: CoreError) => {
-            // console.log('onNetworkStatusChanged:', state)
+            // console.log('onError:', state)
             setError(state)
           },
         )
@@ -240,7 +236,7 @@ export const useCreateChat = ({
           messagingEventEmitter.addListener(
             'onConnectionStatusChanged',
             (state: ConnectionState) => {
-              // console.log('onNetworkStatusChanged:', state)
+              // console.log('onConnectionStatusChanged:', state)
               setConnectionStatus(state)
             },
           )
