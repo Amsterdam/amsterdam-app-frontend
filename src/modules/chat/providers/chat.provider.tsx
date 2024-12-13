@@ -21,6 +21,7 @@ import {
 import {useBoolean} from '@/hooks/useBoolean'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
+import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
@@ -178,8 +179,14 @@ export const ChatProvider = ({children}: Props) => {
     }
   }, [remoteConfiguration])
 
-  const value = useMemo(
-    () => ({
+  const value = useMemo(() => {
+    const filteredMessages = filterOutCloseChatMessage(
+      filterOutDeliveryAcknowledgements(messages),
+    )
+    const preparedMessages =
+      isTyping && !isEnded ? [...filteredMessages, isTyping] : filteredMessages
+
+    return {
       addDownloadedTranscriptId,
       agentInChat,
       connectionStatus,
@@ -187,10 +194,7 @@ export const ChatProvider = ({children}: Props) => {
       endChat,
       isEnded,
       isWaitingForAgent,
-      messages:
-        isTyping && !isEnded
-          ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
-          : filterOutDeliveryAcknowledgements(messages),
+      messages: preparedMessages,
       newMessagesCount,
       ready:
         ready &&
@@ -199,22 +203,21 @@ export const ChatProvider = ({children}: Props) => {
             message => message.format === ConversationEntryFormat.text,
           )),
       remoteConfiguration,
-    }),
-    [
-      addDownloadedTranscriptId,
-      agentInChat,
-      connectionStatus,
-      downloadedTranscriptIds,
-      endChat,
-      isEnded,
-      isWaitingForAgent,
-      isTyping,
-      messages,
-      newMessagesCount,
-      ready,
-      remoteConfiguration,
-    ],
-  )
+    }
+  }, [
+    addDownloadedTranscriptId,
+    agentInChat,
+    connectionStatus,
+    downloadedTranscriptIds,
+    endChat,
+    isEnded,
+    isWaitingForAgent,
+    isTyping,
+    messages,
+    newMessagesCount,
+    ready,
+    remoteConfiguration,
+  ])
 
   return <ChatContext.Provider value={value}>{children}</ChatContext.Provider>
 }

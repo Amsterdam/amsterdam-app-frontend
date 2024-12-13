@@ -1,6 +1,9 @@
 import {useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
-import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
+import {
+  ConversationEntry,
+  ConversationEntrySenderRole,
+} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -13,7 +16,7 @@ import {dayjsFromUnix} from '@/utils/datetime/dayjs'
  * Chats are grouped when they :
  * - are in the same minute (rounded down)
  * - have the same sender
- * - have the same status
+ * - have the same status ( but only if the sender is the user, otherwise all statuses may be grouped together)
  */
 const checkIsMessageLastOfGroup = (
   message: ConversationEntry,
@@ -21,7 +24,8 @@ const checkIsMessageLastOfGroup = (
   messages: ConversationEntry[],
 ): boolean =>
   messages[index + 1]?.sender.role !== message.sender.role ||
-  messages[index + 1]?.status !== message.status ||
+  (message.sender.role === ConversationEntrySenderRole.user &&
+    messages[index + 1]?.status !== message.status) ||
   dayjsFromUnix(messages[index + 1]?.timestamp).format('HH:mm') !==
     dayjsFromUnix(message.timestamp).format('HH:mm')
 
