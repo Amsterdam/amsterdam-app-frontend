@@ -54,6 +54,7 @@ RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
         // Assuming successful creation of the core client, resolve the promise
         if (coreClient != nil) {
             [coreClient start];
+            [coreClient addDelegate:self];
             resolve(@(YES));
         } else {
             NSError *error = [NSError errorWithDomain:@"CoreClient Creation Failed"
@@ -950,6 +951,41 @@ didChangeNetworkState:(nonnull SMINetworkConnectivityState)state
     }
 }
 
+- (void)core:(nonnull id<SMICoreClient>)core
+didChangeConnectionState:(nonnull SMIRealtimeConnectionState)state
+{
+    if (hasListeners) {
+        [self sendEventWithName:@"onConnectionStatusChanged" body:state];
+    }
+}
+
+- (void)core:(nonnull id<SMICoreClient>)core
+didCreateConversation:(nonnull id<SMIConversation>)state
+{
+    if (hasListeners) {
+        
+    }
+}
+
+- (void)core:(nonnull id<SMICoreClient>)core
+didUpdateConversation:(nonnull id<SMIConversation>)state
+{
+    if (hasListeners) {
+        
+    }
+}
+
+// Triggered when there is an error
+- (void)core:(nonnull id<SMICoreClient>)core
+didError:(nonnull NSError *)error
+{
+    if (hasListeners) {
+        NSMutableDictionary *errorMessageDict = [NSMutableDictionary dictionary];
+        errorMessageDict[@"message"] = [error description];
+        [self sendEventWithName:@"onError" body:[errorMessageDict copy]];
+    }
+}
+
 // Triggered when a typing event starts
 - (void)core:(nonnull id<SMICoreClient>)core
 didReceiveTypingStartedEvent:(nonnull id<SMIConversationEntry>)entry
@@ -983,7 +1019,7 @@ didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
 }
 
 - (NSArray<NSString *> *)supportedEvents {
-    return @[@"onNewMessage", @"onUpdatedMessage", @"onNetworkStatusChanged", @"onTypingStarted", @"onTypingStopped"];
+    return @[@"onNewMessage", @"onUpdatedMessage", @"onNetworkStatusChanged", @"onConnectionStatusChanged", @"onTypingStarted", @"onTypingStopped", @"onError"];
 }
 
 // Don't compile this code when we build for the old architecture.

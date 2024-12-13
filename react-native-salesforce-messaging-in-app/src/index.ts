@@ -16,6 +16,9 @@ import {
   Choice,
   RemoteConfiguration,
   ConversationEntryRoutingType,
+  ConnectionState,
+  NetworkState,
+  CoreError,
 } from './types'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
@@ -111,11 +114,14 @@ export const useCreateChat = ({
   const [newConversationId, setNewConversationId] = useState<
     string | undefined
   >(conversationId)
+  const onErrorSubscription = useRef<EmitterSubscription | null>(null)
   const onNewMessageSubscription = useRef<EmitterSubscription | null>(null)
   const onUpdatedMessageSubscription = useRef<EmitterSubscription | null>(null)
   const onNetworkStatusChangedSubscription = useRef<EmitterSubscription | null>(
     null,
   )
+  const onConnectionStatusChangedSubscription =
+    useRef<EmitterSubscription | null>(null)
   const onTypingStartedSubscription = useRef<EmitterSubscription | null>(null)
   const onTypingStoppedSubscription = useRef<EmitterSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
@@ -123,9 +129,10 @@ export const useCreateChat = ({
   const [remoteConfiguration, setRemoteConfiguration] = useState<
     RemoteConfiguration | undefined
   >()
-  const [networkStatus, setNetworkStatus] = useState<ConversationEntry | null>(
-    null,
-  )
+  const [error, setError] = useState<CoreError | null>(null)
+  const [networkStatus, setNetworkStatus] = useState<NetworkState | null>(null)
+  const [connectionStatus, setConnectionStatus] =
+    useState<ConnectionState | null>(null)
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
   const agentInChat = useMemo(
@@ -137,6 +144,16 @@ export const useCreateChat = ({
   )
 
   useEffect(() => {
+    const listeners = [
+      onErrorSubscription,
+      onNewMessageSubscription,
+      onUpdatedMessageSubscription,
+      onNetworkStatusChangedSubscription,
+      onConnectionStatusChangedSubscription,
+      onTypingStartedSubscription,
+      onTypingStoppedSubscription,
+    ] as Array<React.MutableRefObject<EmitterSubscription | null>>
+
     if (developerName && organizationId && url) {
       setParticipants([])
       setMessages([])
@@ -144,30 +161,12 @@ export const useCreateChat = ({
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration)
 
-        if (onNewMessageSubscription.current) {
-          onNewMessageSubscription.current.remove()
-          onNewMessageSubscription.current = null
-        }
-
-        if (onUpdatedMessageSubscription.current) {
-          onUpdatedMessageSubscription.current.remove()
-          onUpdatedMessageSubscription.current = null
-        }
-
-        if (onNetworkStatusChangedSubscription.current) {
-          onNetworkStatusChangedSubscription.current?.remove()
-          onNetworkStatusChangedSubscription.current = null
-        }
-
-        if (onTypingStartedSubscription.current) {
-          onTypingStartedSubscription.current?.remove()
-          onTypingStartedSubscription.current = null
-        }
-
-        if (onTypingStoppedSubscription.current) {
-          onTypingStoppedSubscription.current?.remove()
-          onTypingStoppedSubscription.current = null
-        }
+        listeners.forEach(listener => {
+          if (listener.current) {
+            listener.current.remove()
+            listener.current = null
+          }
+        })
 
         onNewMessageSubscription.current = messagingEventEmitter.addListener(
           'onNewMessage',
@@ -222,12 +221,27 @@ export const useCreateChat = ({
               )
             },
           )
+        onErrorSubscription.current = messagingEventEmitter.addListener(
+          'onError',
+          (state: CoreError) => {
+            // console.log('onNetworkStatusChanged:', state)
+            setError(state)
+          },
+        )
         onNetworkStatusChangedSubscription.current =
           messagingEventEmitter.addListener(
             'onNetworkStatusChanged',
-            (message: ConversationEntry) => {
-              // console.log('onNetworkStatusChanged:', message)
-              setNetworkStatus(message)
+            (state: NetworkState) => {
+              // console.log('onNetworkStatusChanged:', state)
+              setNetworkStatus(state)
+            },
+          )
+        onConnectionStatusChangedSubscription.current =
+          messagingEventEmitter.addListener(
+            'onConnectionStatusChanged',
+            (state: ConnectionState) => {
+              // console.log('onNetworkStatusChanged:', state)
+              setConnectionStatus(state)
             },
           )
         onTypingStartedSubscription.current = messagingEventEmitter.addListener(
@@ -256,29 +270,25 @@ export const useCreateChat = ({
     }
 
     return () => {
-      onNewMessageSubscription.current?.remove()
-      onNewMessageSubscription.current = null
-      onUpdatedMessageSubscription.current?.remove()
-      onUpdatedMessageSubscription.current = null
-      onNetworkStatusChangedSubscription.current?.remove()
-      onNetworkStatusChangedSubscription.current = null
-      onTypingStartedSubscription.current?.remove()
-      onTypingStartedSubscription.current = null
-      onTypingStoppedSubscription.current?.remove()
-      onTypingStoppedSubscription.current = null
+      listeners.forEach(listener => {
+        listener.current?.remove()
+        listener.current = null
+      })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [conversationId, developerName, organizationId, url])
 
   return {
+    agentInChat,
+    connectionStatus,
     conversationId: newConversationId,
     isTyping,
+    isWaitingForAgent,
+    error,
     messages,
     networkStatus,
-    ready,
     participants,
-    agentInChat,
+    ready,
     remoteConfiguration,
-    isWaitingForAgent,
   }
 }

@@ -14,6 +14,7 @@ import {
   ConversationEntry,
   ConversationEntryFormat,
   ConversationEntryRoutingWorkType,
+  ConnectionState,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/types'
@@ -28,6 +29,7 @@ type ChatContextType = {
     entryId: RetrieveTranscriptResponse['entryId'],
   ) => void
   agentInChat: boolean
+  connectionStatus: ConnectionState | null
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
   endChat: () => void
   isEnded: boolean
@@ -40,8 +42,9 @@ type ChatContextType = {
 
 const initialValue: ChatContextType = {
   addDownloadedTranscriptId: () => null,
-  downloadedTranscriptIds: [],
   agentInChat: false,
+  downloadedTranscriptIds: [],
+  connectionStatus: null,
   endChat: () => null,
   isEnded: false,
   isWaitingForAgent: false,
@@ -123,6 +126,7 @@ export const ChatProvider = ({children}: Props) => {
     ready,
     agentInChat,
     remoteConfiguration,
+    connectionStatus,
     isWaitingForAgent,
   } = useCreateChat({
     ...coreConfig,
@@ -177,8 +181,12 @@ export const ChatProvider = ({children}: Props) => {
   const value = useMemo(
     () => ({
       addDownloadedTranscriptId,
+      agentInChat,
+      connectionStatus,
       downloadedTranscriptIds,
       endChat,
+      isEnded,
+      isWaitingForAgent,
       messages:
         isTyping && !isEnded
           ? [...filterOutDeliveryAcknowledgements(messages), isTyping]
@@ -190,19 +198,17 @@ export const ChatProvider = ({children}: Props) => {
           messages.some(
             message => message.format === ConversationEntryFormat.text,
           )),
-      agentInChat,
-      isEnded,
       remoteConfiguration,
-      isWaitingForAgent,
     }),
     [
       addDownloadedTranscriptId,
-      downloadedTranscriptIds,
       agentInChat,
+      connectionStatus,
+      downloadedTranscriptIds,
       endChat,
-      isTyping,
-      isWaitingForAgent,
       isEnded,
+      isWaitingForAgent,
+      isTyping,
       messages,
       newMessagesCount,
       ready,
