@@ -10,11 +10,11 @@ import {ChatContext} from '@/modules/chat/providers/chat.provider'
 
 type Props = {
   isLast: boolean
-  isLastOfRole: boolean
+  isLastOfGroup: boolean
   message: ConversationEntryRoutingWorkResult
 }
 
-export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
+export const EntryRoutingWorkResult = ({message, isLastOfGroup}: Props) => {
   const {messages, isEnded} = useContext(ChatContext)
 
   const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
@@ -39,7 +39,7 @@ export const EntryRoutingWorkResult = ({message, isLastOfRole}: Props) => {
         text="Chat gestopt"
         timestamp={message.timestamp}
       />
-      <EntryGutter isLastOfRole={isLastOfRole} />
+      <EntryGutter isLastOfGroup={isLastOfGroup} />
     </>
   )
 }

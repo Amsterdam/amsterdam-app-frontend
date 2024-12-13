@@ -12,11 +12,11 @@ import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {getWaitingTimePhrase} from '@/modules/chat/utils/getWaitingTimePhrase'
 
 type Props = {
-  isLastOfRole: boolean
+  isLastOfGroup: boolean
   message: ConversationEntryRoutingResult
 }
 
-export const EntryRoutingResult = ({message, isLastOfRole}: Props) => {
+export const EntryRoutingResult = ({message, isLastOfGroup}: Props) => {
   const {isEWTAvailable, estimatedWaitTime, routingType} = message
   const {isWaitingForAgent, messages} = useContext(ChatContext)
 
@@ -53,7 +53,7 @@ export const EntryRoutingResult = ({message, isLastOfRole}: Props) => {
           </Phrase>
         )}
       </Column>
-      <EntryGutter isLastOfRole={isLastOfRole} />
+      <EntryGutter isLastOfGroup={isLastOfGroup} />
     </>
   )
 }

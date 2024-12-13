@@ -120,6 +120,7 @@ export enum ConversationEntryFormat {
   listPicker = 'Buttons',
   participantChanged = 'ParticipantChanged',
   quickReplies = 'QuickReplies',
+  readAcknowledgement = 'ReadAcknowledgement',
   result = 'Result',
   richLink = 'RichLink',
   routingResult = 'RoutingResult',
@@ -148,6 +149,9 @@ export enum ConversationEntryType {
 }
 
 export enum ConversationEntryStatus {
+  delivered = 'Delivered',
+  error = 'Error',
+  read = 'Read',
   sending = 'Sending',
   sent = 'Sent',
 }
@@ -208,6 +212,7 @@ export type ConversationEntry =
   | ConversationEntryRoutingWorkResult
   | ConversationEntryParticipantChanged
   | ConversationEntryDeliveryAcknowledgement
+  | ConversationEntryReadAcknowledgement
   | ConversationEntryTranscript
 
 export type Attachment = {
@@ -350,8 +355,14 @@ export type ConversationEntryRoutingWorkResult = ConversationEntryBase & {
   workType: ConversationEntryRoutingWorkType
 }
 export type ConversationEntryDeliveryAcknowledgement = ConversationEntryBase & {
+  acknowledgedConversationEntryIdentifier: string
+  acknowledgementTimestamp: number
   format: ConversationEntryFormat.deliveryAcknowledgement
-  // TODO
+}
+export type ConversationEntryReadAcknowledgement = ConversationEntryBase & {
+  acknowledgedConversationEntryIdentifier: string
+  acknowledgementTimestamp: number
+  format: ConversationEntryFormat.readAcknowledgement
 }
 export type ConversationEntryParticipantChanged = ConversationEntryBase & {
   format: ConversationEntryFormat.participantChanged

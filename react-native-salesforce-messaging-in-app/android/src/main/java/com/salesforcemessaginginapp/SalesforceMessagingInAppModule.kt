@@ -352,7 +352,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
   private fun convertEntryToMap(entry: ConversationEntry): WritableMap {
     val map = Arguments.createMap()
-    map.putString("entryId", entry.entryId)
+    map.putString("entryId", entry.identifier)
     map.putMap("sender", convertParticipantToMap(entry.sender))
     map.putString("senderDisplayName", entry.senderDisplayName)
     map.putString("messageType", entry.entryType.toString())
@@ -520,11 +520,13 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
 
       is EntryPayload.AcknowledgeDeliveryPayload -> {
-        // TODO once implemented for iOS
+        map.putString("acknowledgedConversationEntryIdentifier", payload.acknowledgedConversationEntryIdentifier)
+        map.putDouble("acknowledgementTimestamp", (payload.acknowledgementTimestamp / 1000).toDouble())
       }
 
       is EntryPayload.AcknowledgeReadPayload -> {
-        // TODO once implemented for iOS
+        map.putString("acknowledgedConversationEntryIdentifier", payload.acknowledgedConversationEntryIdentifier)
+        map.putDouble("acknowledgementTimestamp", (payload.acknowledgementTimestamp / 1000).toDouble())
       }
 
       is EntryPayload.ParticipantChangedPayload -> {

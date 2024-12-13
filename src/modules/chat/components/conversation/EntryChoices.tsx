@@ -10,11 +10,11 @@ import {Row} from '@/components/ui/layout/Row'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 
 type Props = {
-  isLastOfRole: boolean
+  isLastOfGroup: boolean
   message: ConversationEntryQuickReplies
 }
 
-export const EntryChoices = ({message: {choices}, isLastOfRole}: Props) => {
+export const EntryChoices = ({message: {choices}, isLastOfGroup}: Props) => {
   const [isSent, setIsSent] = useState(false)
   const onPress = useCallback((choice: Choice) => {
     void sendReply(choice).then(() => setIsSent(true))
@@ -40,7 +40,7 @@ export const EntryChoices = ({message: {choices}, isLastOfRole}: Props) => {
           />
         ))}
       </Row>
-      <EntryGutter isLastOfRole={isLastOfRole} />
+      <EntryGutter isLastOfGroup={isLastOfGroup} />
     </>
   ) : null
 }

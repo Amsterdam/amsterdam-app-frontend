@@ -1,11 +1,29 @@
 import {useContext, useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
+import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 import {Entry} from '@/modules/chat/components/conversation/Entry'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {dayjsFromUnix} from '@/utils/datetime/dayjs'
+
+/**
+ * Chats are grouped when they :
+ * - are in the same minute (rounded down)
+ * - have the same sender
+ * - have the same status
+ */
+const checkIsMessageLastOfGroup = (
+  message: ConversationEntry,
+  index: number,
+  messages: ConversationEntry[],
+): boolean =>
+  messages[index + 1]?.sender.role !== message.sender.role ||
+  messages[index + 1]?.status !== message.status ||
+  dayjsFromUnix(messages[index + 1]?.timestamp).format('HH:mm') !==
+    dayjsFromUnix(message.timestamp).format('HH:mm')
 
 export const ChatHistory = () => {
   const scrollRef = useRef<ScrollView>(null)
@@ -28,13 +46,16 @@ export const ChatHistory = () => {
           <ChatStartTime firstMessage={messages[0]} />
           <Gutter height="md" />
           {messages.map((message, index) => {
-            const isLastOfRole =
-              messages[index + 1]?.sender.role !== message.sender.role
+            const isLastOfGroup = checkIsMessageLastOfGroup(
+              message,
+              index,
+              messages,
+            )
 
             return (
               <Entry
                 isLast={index === messages.length - 1}
-                isLastOfRole={isLastOfRole}
+                isLastOfGroup={isLastOfGroup}
                 key={message.entryId + index}
                 message={message}
               />
