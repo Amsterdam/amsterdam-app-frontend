@@ -1,4 +1,5 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
@@ -10,7 +11,7 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const AccessCodeStack = () => {
   const {accessCode, isLoading} = useGetSecureAccessCode()

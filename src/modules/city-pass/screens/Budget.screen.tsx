@@ -1,12 +1,14 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
-import {useRoute} from '@/hooks/navigation/useRoute'
 import {Budget} from '@/modules/city-pass/components/Budget'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
-export const BudgetScreen = () => {
+type Props = NavigationProps<CityPassRouteName.budget>
+
+export const BudgetScreen = ({route}: Props) => {
   const {
     params: {budgetCode, passNumber},
-  } = useRoute<CityPassRouteName.budget>()
+  } = route
 
   return (
     <Screen testID="CityPassBalanceScreen">

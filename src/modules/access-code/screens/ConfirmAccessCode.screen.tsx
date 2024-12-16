@@ -1,12 +1,12 @@
 import {useFocusEffect} from '@react-navigation/core'
 import {hasHardwareAsync} from 'expo-local-authentication'
 import {useCallback, useEffect, useMemo} from 'react'
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {ConfirmAccessCode} from '@/modules/access-code/components/ConfirmAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
@@ -18,8 +18,9 @@ import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ConfirmAccessCodeScreen = () => {
-  const navigation = useNavigation()
+type Props = NavigationProps<AccessCodeRouteName.confirmAccessCode>
+
+export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
   const {setCode} = useAccessCode()
   const {isCodeConfirmed, setIsCodeConfirmed} = useConfirmAccessCode()
   const {resetError} = useAccessCodeError()

@@ -1,9 +1,10 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {UserRouteName} from '@/modules/user/routes'
 import {screenConfig} from '@/modules/user/screenConfig'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const UserStack = () => {
   const screenOptions = useScreenOptions({

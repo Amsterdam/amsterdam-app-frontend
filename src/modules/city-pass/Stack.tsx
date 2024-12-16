@@ -1,4 +1,5 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
@@ -21,7 +22,7 @@ import {LogoutScreen} from '@/modules/city-pass/screens/Logout.screen'
 import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const CityPassStack = () => {
   const screenOptions = useScreenOptions()

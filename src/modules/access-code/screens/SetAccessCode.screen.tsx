@@ -1,12 +1,12 @@
 import {useEffect} from 'react'
 import {View} from 'react-native'
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
@@ -16,8 +16,9 @@ import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 
-export const SetAccessCodeScreen = () => {
-  const navigation = useNavigation()
+type Props = NavigationProps<AccessCodeRouteName.setAccessCode>
+
+export const SetAccessCodeScreen = ({navigation}: Props) => {
   const {setCode} = useAccessCode()
   const {setIsCodeConfirmed} = useConfirmAccessCode()
   const {resetError} = useAccessCodeError()

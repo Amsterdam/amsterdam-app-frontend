@@ -1,9 +1,11 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
-import {useRoute} from '@/hooks/navigation/useRoute'
 import {SecurityCode} from '@/modules/city-pass/components/details/SecurityCode'
+import {CityPassRouteName} from '@/modules/city-pass/routes'
 
-export const SecurityCodeScreen = () => {
-  const route = useRoute()
+type Props = NavigationProps<CityPassRouteName.securityCode>
+
+export const SecurityCodeScreen = ({route}: Props) => {
   const {id} = route.params ?? {}
 
   return id ? (

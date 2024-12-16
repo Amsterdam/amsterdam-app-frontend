@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
@@ -7,14 +8,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
-export const DashboardScreen = () => {
-  const navigation = useNavigation()
+type Props = NavigationProps<CityPassRouteName.dashboard>
+
+export const DashboardScreen = ({navigation}: Props) => {
   const logout = useCallback(() => {
     navigation.navigate(CityPassRouteName.cityPassLogout)
   }, [navigation])

@@ -10,15 +10,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useAppState} from '@/hooks/useAppState'
 import {HomeModalName} from '@/modules/home/routes'
 
 type Props = NavigationProps<HomeModalName.permissionInstructions>
 
-export const PermissionInstructionsScreen = ({route}: Props) => {
-  const navigation = useNavigation()
+export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   const {
     params: {icon, paragraph, permission, screenTitle, title},
   } = route

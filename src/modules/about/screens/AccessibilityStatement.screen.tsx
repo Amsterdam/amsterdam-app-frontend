@@ -1,3 +1,4 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,13 +8,16 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {AboutRouteName} from '@/modules/about/routes'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const AccessibilityStatementScreen = () => {
+type Props = NavigationProps<AboutRouteName.accessibilityStatement>
+
+export const AccessibilityStatementScreen = ({
+  navigation: {navigate},
+}: Props) => {
   const {isPortrait, isTablet} = useDeviceContext()
-  const {navigate} = useNavigation()
   const openUrl = useOpenUrl()
 
   return (

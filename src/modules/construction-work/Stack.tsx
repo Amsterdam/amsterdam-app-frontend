@@ -1,9 +1,10 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {screenConfig} from '@/modules/construction-work/screenConfig'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const ConstructionWorkStack = () => {
   const screenOptions = useScreenOptions()

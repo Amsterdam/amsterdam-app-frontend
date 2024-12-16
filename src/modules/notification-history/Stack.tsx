@@ -1,9 +1,10 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {NotificationHistoryRouteName} from '@/modules/notification-history/routes'
 import {screenConfig} from '@/modules/notification-history/screenConfig'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const NotificationHistoryStack = () => {
   const screenOptions = useScreenOptions()
