@@ -9,6 +9,7 @@ export const zTokens = {
   skeleton: 3,
   timelineLine: -1,
   tooltip: 2,
+  noInternetBanner: 5,
 }
 
 export type ZTokens = typeof zTokens

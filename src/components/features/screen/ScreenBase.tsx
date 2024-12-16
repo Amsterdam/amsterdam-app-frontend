@@ -1,5 +1,5 @@
 import {useMemo} from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {ScreenProps, WithInsetProps} from '@/components/features/screen/Screen'
@@ -39,7 +39,6 @@ export const ScreenBase = ({
   const styles = useMemo(
     () =>
       createStyles(insets, {
-        spaceBottom,
         hasStickyFooter,
         hasStickyHeader,
         withBottomInset,
@@ -48,7 +47,6 @@ export const ScreenBase = ({
         withTopInset,
       }),
     [
-      spaceBottom,
       insets,
       hasStickyFooter,
       hasStickyHeader,
@@ -88,6 +86,7 @@ export const ScreenBase = ({
             {bottomSheet}
           </>
         )}
+        {!!spaceBottom && <View style={{height: spaceBottom}} />}
       </HideFromAccessibility>
     </DisableScrollProvider>
   )
@@ -102,11 +101,9 @@ const createStyles = (
     withLeftInset,
     withRightInset,
     withTopInset,
-    spaceBottom,
   }: {
     hasStickyFooter: boolean
     hasStickyHeader: boolean
-    spaceBottom: number
   } & WithInsetProps,
 ) =>
   StyleSheet.create({
@@ -121,7 +118,6 @@ const createStyles = (
     },
     scrollViewContent: {
       flexGrow: 1,
-      paddingBottom: spaceBottom,
     },
     screen: {
       flex: 1,
