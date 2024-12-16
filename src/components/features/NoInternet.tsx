@@ -100,7 +100,7 @@ export const NoInternet = memo(() => {
   )
 })
 
-const createStyles = ({color, size}: Theme) =>
+const createStyles = ({color, size, z}: Theme) =>
   StyleSheet.create({
     container: {
       margin: size.spacing.xl,
@@ -108,6 +108,7 @@ const createStyles = ({color, size}: Theme) =>
       bottom: 0,
       left: 0,
       right: 0,
+      zIndex: z.noInternetBanner,
     },
     inner: {
       backgroundColor: color.noInternet.background,
