@@ -24,6 +24,7 @@ abstract class SalesforceMessagingInAppSpec internal constructor(context: ReactA
   )
 
   abstract fun createConversationClient(clientID: String?, promise: Promise)
+  abstract fun markAsRead(entryDict: ReadableMap, promise: Promise)
   abstract fun sendMessage(message: String, promise: Promise)
   abstract fun sendReply(choice: ReadableMap, promise: Promise)
   abstract fun sendTypingEvent(promise: Promise)

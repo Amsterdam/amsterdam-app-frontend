@@ -13,6 +13,7 @@ import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.salesforce.android.smi.common.api.Result
+import com.salesforce.android.smi.common.api.data
 import com.salesforce.android.smi.core.Configuration
 import com.salesforce.android.smi.core.ConversationClient
 import com.salesforce.android.smi.core.CoreClient
@@ -573,6 +574,47 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     }
 
     return map
+  }
+
+  @ReactMethod
+  override fun markAsRead(entryDict: ReadableMap, promise: Promise) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+      val entryId = entryDict.getString("entryId")
+      if (entryId.isNullOrEmpty()) {
+        promise.reject(
+          "mark_as_read_invalid_entry",
+          "entryId is required"
+        )
+        return
+      }
+      scope.launch {
+        try {
+          val matchingEntry = conversationClient?.conversationEntries(1000)?.data?.firstOrNull { it.identifier == entryId }
+          if (matchingEntry != null) {
+            val result: Result<ConversationEntry>? =
+              conversationClient?.markAsRead(matchingEntry)
+            if (result is Result.Success) {
+              //            val params = convertEntryToMap(result.data)
+              // Emit the event with message data
+              promise.resolve(true)
+            } else {
+              promise.reject("Error", result.toString())
+            }
+          } else {
+            promise.reject("Error", "Entry not found")
+          }
+        } catch (e: Exception) {
+          promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+      // Catch any exception and reject the promise
+      promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
   }
 
   @ReactMethod

@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react'
 import {
+  markAsRead,
   submitRemoteConfiguration,
   useCreateChat,
 } from 'react-native-salesforce-messaging-in-app/src'
@@ -17,6 +18,7 @@ import {
   ConnectionState,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
+  ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
 import {useBoolean} from '@/hooks/useBoolean'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
@@ -155,6 +157,16 @@ export const ChatProvider = ({children}: Props) => {
       setNewMessagesCount(0)
     }
   }, [isMaximized])
+
+  useEffect(() => {
+    if (isMaximized && messages.length > 0) {
+      const externalMessages = messages.filter(
+        message => message.sender.role !== ConversationEntrySenderRole.user,
+      )
+
+      void markAsRead(externalMessages[externalMessages.length - 1])
+    }
+  }, [messages, messages.length, isMaximized])
 
   useEffect(() => {
     setConversationId(newConversationId ?? conversationId)

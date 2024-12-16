@@ -375,6 +375,76 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
     }
 }
 
+RCT_EXPORT_METHOD(markAsRead:(NSDictionary *)entryDict
+                  resolve:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        // Ensure that the conversation client has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"mark_as_read_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        // Extract entryId from entryDict
+        NSString *entryId = entryDict[@"entryId"];
+        if (!entryId) {
+            NSError *error = [NSError errorWithDomain:@"mark_as_read_exception"
+                                                 code:400
+                                             userInfo:@{NSLocalizedDescriptionKey: @"entryId is required"}];
+            reject(@"mark_as_read_invalid_entry", @"entryId is required", error);
+            return;
+        }
+
+        // Query the entries from the conversation client
+        NSDate *fromDate = [NSDate dateWithTimeIntervalSince1970:0];
+        SMIListAPIDirections queryDirection = SMIListAPIDirectionsAscending;
+
+        [conversationClient entriesWithLimit:10000
+                                fromTimestamp:fromDate
+                                    direction:queryDirection
+                                  completion:^(NSArray<id<SMIConversationEntry>> *entries, id<SMIConversation> conversation, NSError *error) {
+            if (error) {
+                // Handle errors during the query
+                reject(@"mark_as_read_query_error", @"Failed to retrieve entries", error);
+                return;
+            }
+
+            // Find the entry with the matching entryId
+            id<SMIConversationEntry> matchingEntry = nil;
+            for (id<SMIConversationEntry> entry in entries) {
+                if ([entry.identifier isEqualToString:entryId]) {
+                    matchingEntry = entry;
+                    break;
+                }
+            }
+
+            if (matchingEntry) {
+                // Mark the found entry as read
+                [coreClient markAsRead:matchingEntry];
+                
+                // Resolve the promise indicating success
+                resolve(@(YES));
+            } else {
+                // Entry not found
+                NSError *notFoundError = [NSError errorWithDomain:@"mark_as_read_exception"
+                                                             code:404
+                                                         userInfo:@{NSLocalizedDescriptionKey: @"SMIConversationEntry not found for the provided entryId."}];
+                reject(@"mark_as_read_not_found", @"Entry not found", notFoundError);
+            }
+        }];
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"mark_as_read_exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"mark_as_read_exception", @"An exception occurred during markAsRead", error);
+    }
+}
+
 RCT_EXPORT_METHOD(sendMessage:(NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)

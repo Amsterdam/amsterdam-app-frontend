@@ -93,6 +93,7 @@ export type NativeSalesforceMessagingInApp = {
     developerName: string,
   ) => Promise<void>
   generateUUID: () => string
+  markAsRead: (message: ConversationEntry) => Promise<boolean>
   removeListeners: (count: number) => void
   retrieveRemoteConfiguration: () => Promise<RemoteConfiguration>
   retrieveTranscript: () => Promise<RetrieveTranscriptResponse>
