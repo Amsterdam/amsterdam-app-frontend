@@ -4,12 +4,9 @@ import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {setAccessCodeScreenConfig} from '@/modules/access-code/screenConfig'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
-import {AccessCodeValidScreen} from '@/modules/access-code/screens/AccessCodeValid.screen'
-import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
-import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
-import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -43,25 +40,12 @@ export const AccessCodeStack = () => {
         </>
       ) : (
         <>
-          <Stack.Screen
-            component={SetAccessCodeScreen}
-            name={AccessCodeRouteName.setAccessCode}
-            options={{headerTitle: 'Toegangscode kiezen'}}
-          />
-          <Stack.Screen
-            component={BiometricsPermissionScreen}
-            name={AccessCodeRouteName.biometricsPermission}
-            options={{headerTitle: 'Sneller toegang'}}
-          />
-          <Stack.Screen
-            component={ConfirmAccessCodeScreen}
-            name={AccessCodeRouteName.confirmAccessCode}
-            options={{headerTitle: 'Toegangscode herhalen'}}
-          />
-          <Stack.Screen
-            component={AccessCodeValidScreen}
-            name={AccessCodeRouteName.validAccessCode}
-          />
+          {Object.entries(setAccessCodeScreenConfig).map(([key, route]) => (
+            <Stack.Screen
+              key={key}
+              {...route}
+            />
+          ))}
         </>
       )}
     </Stack.Navigator>
