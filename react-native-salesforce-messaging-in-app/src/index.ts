@@ -19,6 +19,7 @@ import {
   ConnectionState,
   NetworkState,
   CoreError,
+  ConversationEntryStatus,
 } from './types'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
@@ -169,7 +170,35 @@ export const useCreateChat = ({
           (message: ConversationEntry) => {
             // console.log('New message received:', message)
 
-            setMessages(oldMessages => [...oldMessages, message])
+            if (
+              message.format === ConversationEntryFormat.deliveryAcknowledgement
+            ) {
+              setMessages(oldMessages =>
+                oldMessages.map(m =>
+                  m.entryId === message.acknowledgedConversationEntryIdentifier
+                    ? {
+                        ...m,
+                        status:
+                          m.status !== ConversationEntryStatus.read
+                            ? ConversationEntryStatus.delivered
+                            : ConversationEntryStatus.read,
+                      }
+                    : m,
+                ),
+              )
+            } else if (
+              message.format === ConversationEntryFormat.readAcknowledgement
+            ) {
+              setMessages(oldMessages =>
+                oldMessages.map(m =>
+                  m.entryId === message.acknowledgedConversationEntryIdentifier
+                    ? {...m, status: ConversationEntryStatus.read}
+                    : m,
+                ),
+              )
+            } else {
+              setMessages(oldMessages => [...oldMessages, message])
+            }
 
             if (message.format === ConversationEntryFormat.participantChanged) {
               message.operations.forEach(({participant, type}) => {

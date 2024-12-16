@@ -19,7 +19,7 @@ import {EntryTypingIndicator} from '@/modules/chat/components/conversation/Entry
 
 type Props = {
   isLast: boolean
-  isLastOfRole: boolean
+  isLastOfGroup: boolean
   message: ConversationEntry
 }
 
@@ -27,9 +27,9 @@ const options: Record<
   ConversationEntryFormat,
   {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    Component?: FC<{isLast: boolean; isLastOfRole: boolean; message: any}>
+    Component?: FC<{isLast: boolean; isLastOfGroup: boolean; message: any}>
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    LastComponent?: FC<{isLast: boolean; isLastOfRole: boolean; message: any}>
+    LastComponent?: FC<{isLast: boolean; isLastOfGroup: boolean; message: any}>
     agentInfo?: boolean
   }
 > = {
@@ -82,6 +82,11 @@ const options: Record<
     LastComponent: EntryChoices,
     agentInfo: true,
   },
+  [ConversationEntryFormat.readAcknowledgement]: {
+    Component: undefined,
+    LastComponent: undefined,
+    agentInfo: undefined,
+  },
   [ConversationEntryFormat.result]: {
     Component: undefined,
     LastComponent: undefined,
@@ -126,7 +131,7 @@ const options: Record<
   },
 }
 
-export const Entry = ({message, isLast, isLastOfRole}: Props) => {
+export const Entry = ({message, isLast, isLastOfGroup}: Props) => {
   const result = options[message.format]
 
   if (!result) {
@@ -144,21 +149,21 @@ export const Entry = ({message, isLast, isLastOfRole}: Props) => {
       {!!Component && (
         <Component
           isLast={isLast}
-          isLastOfRole={isLastOfRole}
+          isLastOfGroup={isLastOfGroup}
           message={message}
         />
       )}
       {!!agentInfo && (
         <ChatAgentInfo
           isLast={isLast}
-          isLastOfRole={isLastOfRole}
+          isLastOfGroup={isLastOfGroup}
           message={message}
         />
       )}
       {!!LastComponent && (
         <LastComponent
           isLast={isLast}
-          isLastOfRole={isLastOfRole}
+          isLastOfGroup={isLastOfGroup}
           message={message}
         />
       )}

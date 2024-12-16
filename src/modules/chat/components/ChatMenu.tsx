@@ -2,10 +2,12 @@ import {useContext} from 'react'
 import {Alert, StyleSheet} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
+import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
 import {Column} from '@/components/ui/layout/Column'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {ChatMenuItem} from '@/modules/chat/components/ChatMenuItem'
+import {CLOSE_CHAT_MESSAGE} from '@/modules/chat/constants'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
@@ -75,6 +77,7 @@ export const ChatMenu = () => {
             setIsMenuOpen(false)
 
             if (ready) {
+              void sendMessage(CLOSE_CHAT_MESSAGE)
               void endChat()
             } else {
               close()

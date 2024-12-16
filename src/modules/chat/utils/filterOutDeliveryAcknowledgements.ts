@@ -7,5 +7,7 @@ export const filterOutDeliveryAcknowledgements = (
   messages: ConversationEntry[],
 ): ConversationEntry[] =>
   messages.filter(
-    ({format}) => format !== ConversationEntryFormat.deliveryAcknowledgement,
+    ({format}) =>
+      format !== ConversationEntryFormat.deliveryAcknowledgement &&
+      format !== ConversationEntryFormat.readAcknowledgement,
   )

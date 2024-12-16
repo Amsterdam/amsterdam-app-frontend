@@ -7,14 +7,14 @@ import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 
 type Props = {
-  isLastOfRole: boolean
+  isLastOfGroup: boolean
   message: ConversationEntryParticipantChanged
 }
 
 const hasDisplayname = (displayName: string | undefined) =>
   !!displayName && displayName !== 'User'
 
-export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
+export const EntryParticipantChanged = ({message, isLastOfGroup}: Props) => {
   const joiningAgents = message.operations.find(
     operation =>
       operation.type === ParticipantChangedOperationType.add &&
@@ -47,7 +47,7 @@ export const EntryParticipantChanged = ({message, isLastOfRole}: Props) => {
         }
         timestamp={message.timestamp}
       />
-      <EntryGutter isLastOfRole={isLastOfRole} />
+      <EntryGutter isLastOfGroup={isLastOfGroup} />
     </>
   )
 }
