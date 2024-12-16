@@ -1,6 +1,6 @@
 import {useFocusEffect} from '@react-navigation/core'
+import {hasHardwareAsync} from 'expo-local-authentication'
 import {useCallback, useEffect, useMemo} from 'react'
-import {StackNavigationProp} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -25,6 +25,7 @@ export const ConfirmAccessCodeScreen = () => {
   const {resetError} = useAccessCodeError()
   const {useBiometrics} = useAccessCodeBiometrics()
   const {setIsCodeSet} = useSetAccessCode()
+  const {setUseBiometrics} = useAccessCodeBiometrics()
 
   const isUserRoute = useMemo(
     () =>
@@ -58,15 +59,25 @@ export const ConfirmAccessCodeScreen = () => {
     }
 
     if (useBiometrics === undefined) {
-      navigation.navigate(AccessCodeRouteName.biometricsPermission)
+      void hasHardwareAsync().then(hasHardware => {
+        if (hasHardware) {
+          navigation.navigate(AccessCodeRouteName.biometricsPermission)
+        } else {
+          setUseBiometrics(false)
+        }
+      })
     } else if (isUserRoute) {
       navigation.navigate(AccessCodeRouteName.validAccessCode)
     } else {
-      navigation
-        .getParent<StackNavigationProp<AccessCodeRouteName.confirmAccessCode>>()
-        .pop()
+      navigation.pop(2)
     }
-  }, [isCodeConfirmed, isUserRoute, navigation, useBiometrics])
+  }, [
+    isCodeConfirmed,
+    isUserRoute,
+    navigation,
+    setUseBiometrics,
+    useBiometrics,
+  ])
 
   return (
     <Screen
