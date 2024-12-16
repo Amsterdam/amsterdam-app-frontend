@@ -18,7 +18,7 @@ export const mapBiometricsAuthenticationTypeToLabel = (
       return 'gezichtsherkenning of vingerafdruk'
     }
 
-    return 'face ID of touch ID'
+    return 'Face ID of Touch ID'
   }
 
   if (types.includes(AuthenticationType.FINGERPRINT)) {
@@ -26,7 +26,7 @@ export const mapBiometricsAuthenticationTypeToLabel = (
       return 'vingerafdruk'
     }
 
-    return 'touch ID'
+    return 'Touch ID'
   }
 
   if (types.includes(AuthenticationType.FACIAL_RECOGNITION)) {
@@ -34,7 +34,7 @@ export const mapBiometricsAuthenticationTypeToLabel = (
       return 'gezichtsherkenning'
     }
 
-    return 'face ID'
+    return 'Face ID'
   }
 
   if (types.includes(AuthenticationType.IRIS)) {
