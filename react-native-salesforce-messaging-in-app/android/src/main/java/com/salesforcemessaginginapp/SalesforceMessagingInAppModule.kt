@@ -246,29 +246,41 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                 }
               }
             }
+            coreClient?.events?.collect { entry ->
+              when (entry) {
+                is CoreEvent.Connection -> {
+                  val params = Arguments.createMap()
+                  when (entry.event) {
+                    is ServerSentEvent.Connection.Closed -> {
+                      params.putString("status", "Closed")
+                    }
 
-            coreClient?.events?.filterIsInstance<CoreEvent.Connection>()
-              ?.collect { entry: CoreEvent.Connection ->
-                val params = Arguments.createMap()
-                when (entry.event) {
-                  is ServerSentEvent.Connection.Closed -> {
-                    params.putString("status", "Closed")
-                  }
+                    is ServerSentEvent.Connection.Connecting -> {
+                      params.putString("status", "Connecting")
+                    }
 
-                  is ServerSentEvent.Connection.Connecting -> {
-                    params.putString("status", "Connecting")
-                  }
+                    is ServerSentEvent.Connection.Open -> {
+                      params.putString("status", "Open")
+                    }
 
-                  is ServerSentEvent.Connection.Open -> {
-                    params.putString("status", "Open")
+                    is ServerSentEvent.Connection.Ping -> {
+                      params.putString("status", "Ping")
+                    }
                   }
-
-                  is ServerSentEvent.Connection.Ping -> {
-                    params.putString("status", "Ping")
-                  }
+                  sendEvent("onConnectionStatusChanged", params)
                 }
-                sendEvent("onNetworkStatusChanged", params)
+
+                is CoreEvent.ConversationEvent.Entry -> {}
+                is CoreEvent.ConversationEvent.TypingIndicator -> {}
+                is CoreEvent.Error -> {
+
+                  val params = Arguments.createMap()
+                  params.putString("message", entry.message)
+
+                  sendEvent("onError", params)
+                }
               }
+            }
           } catch (e: Exception) {
             promise.reject("Error", "Failed to listen for messages: ${e.message}", e)
           }

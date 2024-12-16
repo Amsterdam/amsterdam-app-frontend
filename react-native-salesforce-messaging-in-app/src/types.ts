@@ -392,3 +392,18 @@ export type Choice = {
 }
 
 export type RetrieveTranscriptResponse = {entryId: string; transcript: string}
+
+export enum ConnectionState {
+  closed = 'Closed',
+  connecting = 'Connecting',
+  open = 'Open',
+}
+
+export enum NetworkState {
+  connected = 'Connected',
+  offline = 'Offline',
+}
+
+export type CoreError = {
+  message: string
+}
