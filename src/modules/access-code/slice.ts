@@ -11,7 +11,7 @@ export type AccessCodeState = {
   [AccessCodeType.codeConfirmed]: number[]
   [AccessCodeType.codeSet]: number[]
   codeValidTimestamp?: number
-  error: string
+  error?: string
   isCodeConfirmed: boolean
   isCodeSet: boolean
   isCodeValid: boolean
@@ -25,7 +25,7 @@ const initialValue: AccessCodeState = {
   [AccessCodeType.codeConfirmed]: [],
   [AccessCodeType.codeSet]: [],
   codeValidTimestamp: undefined,
-  error: '',
+  error: undefined,
   isCodeSet: false,
   isCodeConfirmed: false,
   isCodeValid: false,
@@ -63,7 +63,7 @@ export const accessCodeSlice = createSlice({
     setAttemptsLeft: (state, {payload}: PayloadAction<number>) => {
       state.attemptsLeft = payload
     },
-    setError: (state, {payload}: PayloadAction<string>) => {
+    setError: (state, {payload}: PayloadAction<string | undefined>) => {
       state.error = payload
     },
     setIsCodeSet: (state, {payload}: PayloadAction<boolean>) => {

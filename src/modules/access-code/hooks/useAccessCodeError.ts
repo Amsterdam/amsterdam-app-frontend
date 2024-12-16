@@ -6,7 +6,7 @@ import {selectError, setError} from '@/modules/access-code/slice'
 export const useAccessCodeError = () => {
   const dispatch = useDispatch()
   const error = useSelector(selectError)
-  const resetError = useCallback(() => dispatch(setError('')), [dispatch])
+  const resetError = useCallback(() => dispatch(setError()), [dispatch])
 
   return {error, resetError}
 }

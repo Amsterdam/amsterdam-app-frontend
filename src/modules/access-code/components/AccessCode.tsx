@@ -9,7 +9,7 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   accessCode: number[]
   codeLength: number
-  error: string
+  error?: string
 }
 
 export const AccessCode = ({accessCode, codeLength, error}: Props) => {
