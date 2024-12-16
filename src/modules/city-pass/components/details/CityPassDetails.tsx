@@ -1,5 +1,4 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -20,35 +19,21 @@ type Props = {
 }
 
 export const CityPassDetails = ({passNumber}: Props) => {
-  const [cityPass, setCityPass] = useState<CityPass>()
-  const [cityPassIndex, setCityPassIndex] = useState<number>()
-  const [isReady, setIsReady] = useState(false)
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
-
   const {
     data: cityPasses,
     isLoading,
     isError,
   } = useGetCityPassesQuery(secureAccessToken ?? skipToken)
 
-  useEffect(() => {
-    if (!cityPasses) {
-      return
-    } else {
-      const pass = cityPasses?.find(cp => cp.passNumber === passNumber)
-      const passIndex = cityPasses?.findIndex(
-        cp => cp.passNumber === passNumber,
-      )
+  const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
+  const cityPassIndex = cityPasses?.findIndex(
+    cp => cp.passNumber === passNumber,
+  )
 
-      pass && setCityPass(pass)
-      passIndex && setCityPassIndex(passIndex)
-      setIsReady(true)
-    }
-  }, [cityPasses, passNumber])
-
-  if (isLoading || !isReady) {
+  if (isLoading || !secureAccessToken) {
     return (
       <Box grow>
         <Column gutter="md">
