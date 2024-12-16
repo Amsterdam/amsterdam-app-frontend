@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {InformationButton} from '@/components/ui/buttons/InformationButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,22 +7,21 @@ import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
-import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
-type Props = NavigationProps<CityPassRouteName.dashboard>
-
-export const DashboardScreen = ({navigation}: Props) => {
+export const DashboardScreen = () => {
+  const navigation = useNavigation()
   const logout = useCallback(() => {
     navigation.navigate(CityPassRouteName.cityPassLogout)
   }, [navigation])
   const openRedirect = useOpenRedirect()
 
   return (
-    <CityPassLoginBoundaryScreen testID="CityPassDashboardScreen">
+    <Screen testID="CityPassDashboardScreen">
       <PassOwners logout={logout} />
       <Box
         insetHorizontal="md"
@@ -62,6 +61,6 @@ export const DashboardScreen = ({navigation}: Props) => {
       <FigureWithFacadesBackground testID="CityPassStartImage">
         <SportsImage />
       </FigureWithFacadesBackground>
-    </CityPassLoginBoundaryScreen>
+    </Screen>
   )
 }

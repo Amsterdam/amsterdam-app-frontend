@@ -36,9 +36,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
           iconSize="md"
           key={item.route}
           {...item}
-          onPress={() =>
-            navigate(item.moduleSlug ?? ModuleSlug.user, {screen: item.route})
-          }
+          onPress={() => navigate(item.moduleSlug ?? ModuleSlug.user)}
           testID={`NavigationButtonTo${item.route}`}
         />
       ))}

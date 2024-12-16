@@ -1,7 +1,6 @@
 export enum AccessCodeRouteName {
   accessCode = 'AccessCode',
   accessCodeInvalid = 'AccessCodeInvalid',
-  accessCodeLogin = 'AccessCodeLogin',
   biometricsPermission = 'BiometricsPermission',
   confirmAccessCode = 'ConfirmAccessCode',
   setAccessCode = 'SetAccessCode',
@@ -11,7 +10,6 @@ export enum AccessCodeRouteName {
 export type AccessCodeStackParams = {
   [AccessCodeRouteName.accessCode]: undefined
   [AccessCodeRouteName.accessCodeInvalid]: undefined
-  [AccessCodeRouteName.accessCodeLogin]: undefined
   [AccessCodeRouteName.biometricsPermission]: undefined
   [AccessCodeRouteName.setAccessCode]: undefined
   [AccessCodeRouteName.confirmAccessCode]: undefined

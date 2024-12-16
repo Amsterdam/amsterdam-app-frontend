@@ -8,6 +8,7 @@ import {useState, useCallback, useEffect} from 'react'
 export const useBiometrics = ({
   autoTrigger = true,
   cancelButtonText = 'Annuleer',
+  disableDeviceFallback = false,
   fallbackPromptMessage,
   promptMessage,
 }: {
@@ -23,6 +24,7 @@ export const useBiometrics = ({
    * @platform Android
    */
   cancelButtonText?: string
+  disableDeviceFallback?: boolean
   /**
    * Message that will be shown when FaceID or TouchID has failed and a passcode has been set on the device.
    * @platform iOS
@@ -44,6 +46,7 @@ export const useBiometrics = ({
         promptMessage,
         fallbackLabel: fallbackPromptMessage,
         cancelLabel: cancelButtonText,
+        disableDeviceFallback,
       }).then(
         ({success}) => {
           if (success) {
@@ -61,7 +64,12 @@ export const useBiometrics = ({
       setFailed(false)
       setAuthenticated(true)
     }
-  }, [cancelButtonText, fallbackPromptMessage, promptMessage])
+  }, [
+    cancelButtonText,
+    disableDeviceFallback,
+    fallbackPromptMessage,
+    promptMessage,
+  ])
 
   useEffect(() => {
     if (autoTrigger) {

@@ -1,19 +1,17 @@
 import {useCallback} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/city-pass/alerts'
-import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {useLogout} from '@/modules/city-pass/hooks/useLogout'
-import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useAlert} from '@/store/slices/alert'
 
-type Props = NavigationProps<CityPassRouteName.cityPassLogout>
-
-export const LogoutScreen = ({navigation}: Props) => {
+export const LogoutScreen = () => {
+  const navigation = useNavigation()
   const {setAlert} = useAlert()
   const logout = useLogout()
   const onLogout = useCallback(() => {
@@ -32,7 +30,7 @@ export const LogoutScreen = ({navigation}: Props) => {
   }, [navigation])
 
   return (
-    <CityPassLoginBoundaryScreen
+    <Screen
       hasStickyAlert
       testID="CityPassLogoutScreen">
       <Box>
@@ -57,6 +55,6 @@ export const LogoutScreen = ({navigation}: Props) => {
           variant="primary"
         />
       </Box>
-    </CityPassLoginBoundaryScreen>
+    </Screen>
   )
 }

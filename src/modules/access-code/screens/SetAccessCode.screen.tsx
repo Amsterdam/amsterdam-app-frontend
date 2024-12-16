@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {View} from 'react-native'
+import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -7,7 +8,6 @@ import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
-import {AccessCodeValidationBoundaryScreen} from '@/modules/access-code/components/AccessCodeValidationBoundaryScreen'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
@@ -37,7 +37,7 @@ export const SetAccessCodeScreen = () => {
   }, [isCodeSet, navigation])
 
   return (
-    <AccessCodeValidationBoundaryScreen
+    <Screen
       stickyFooter={<AccessCodeKeyBoard type={AccessCodeType.codeSet} />}
       testID="SetAccessCodeScreen"
       withBottomInset={false}>
@@ -68,6 +68,6 @@ export const SetAccessCodeScreen = () => {
           </View>
         </Column>
       </Box>
-    </AccessCodeValidationBoundaryScreen>
+    </Screen>
   )
 }

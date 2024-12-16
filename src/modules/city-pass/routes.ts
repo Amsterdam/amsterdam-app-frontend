@@ -5,6 +5,7 @@ export enum CityPassRouteName {
   cityPassDetails = 'CityPassDetails',
   cityPassLogout = 'CityPassLogout',
   dashboard = 'Dashboard',
+  login = 'Login',
   loginSteps = 'LoginSteps',
   securityCode = 'SecurityCode',
 }
@@ -17,6 +18,7 @@ export type CityPassStackParams = {
     budgetCode: CityPassBudget['code']
     passNumber: CityPass['passNumber']
   }
+  [CityPassRouteName.login]: undefined
   [CityPassRouteName.loginSteps]:
     | {
         accessToken?: string

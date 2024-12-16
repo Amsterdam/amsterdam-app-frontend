@@ -1,6 +1,6 @@
+import {Screen} from '@/components/features/screen/Screen'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {Budget} from '@/modules/city-pass/components/Budget'
-import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 export const BudgetScreen = () => {
@@ -9,11 +9,11 @@ export const BudgetScreen = () => {
   } = useRoute<CityPassRouteName.budget>()
 
   return (
-    <CityPassLoginBoundaryScreen testID="CityPassBalanceScreen">
+    <Screen testID="CityPassBalanceScreen">
       <Budget
         budgetCode={budgetCode}
         passNumber={passNumber}
       />
-    </CityPassLoginBoundaryScreen>
+    </Screen>
   )
 }
