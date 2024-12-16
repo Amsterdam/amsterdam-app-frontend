@@ -115,6 +115,7 @@ export const ChatInput = ({onSubmit}: Props) => {
                 <View style={styles.buttonWrapper}>
                   <View style={styles.spacePlaceholder} />
                   <PressableBase
+                    accessibilityLabel="Verstuur bericht"
                     onPress={() => handleSubmit(input)}
                     style={styles.button}
                     testID="ChatTextInputSendButton">
