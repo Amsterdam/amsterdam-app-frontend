@@ -1,5 +1,4 @@
 import {useCallback, useMemo} from 'react'
-import {StackNavigationProp} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,7 +8,6 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {mapBiometricsAuthenticationTypeToLabel} from '@/modules/access-code/utils/mapValidationTypeToLabel'
 import {capitalizeString} from '@/utils/capitalizeString'
 
@@ -21,11 +19,7 @@ export const BiometricsPermissionScreen = () => {
   const onPress = useCallback(
     (permission: boolean) => {
       setUseBiometrics(permission)
-      navigation
-        .getParent<
-          StackNavigationProp<AccessCodeRouteName.biometricsPermission>
-        >()
-        .pop()
+      navigation.pop(3)
     },
     [navigation, setUseBiometrics],
   )
