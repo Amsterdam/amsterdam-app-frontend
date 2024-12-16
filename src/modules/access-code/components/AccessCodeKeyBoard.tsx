@@ -1,6 +1,5 @@
-import {AuthenticationType} from 'expo-local-authentication'
 import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
-import {useCallback, useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
@@ -10,6 +9,7 @@ import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCode
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {AccessCodeType} from '@/modules/access-code/types'
+import {mapBiometricsAuthenticationTypeToIconName} from '@/modules/access-code/utils/mapValidationTypeToIconName'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -25,15 +25,11 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
     useAccessCodeBiometrics()
   const {addDigit, removeDigit} = useAccessCode()
 
-  const getBiometricsIconName = useCallback(() => {
-    if (
-      biometricsAuthenticationType?.includes(AuthenticationType.FINGERPRINT)
-    ) {
-      return 'touchId'
-    } else {
-      return 'faceId'
-    }
-  }, [biometricsAuthenticationType])
+  const iconName = useMemo(
+    () =>
+      mapBiometricsAuthenticationTypeToIconName(biometricsAuthenticationType),
+    [biometricsAuthenticationType],
+  )
 
   useEffect(() => {
     void lockAsync(OrientationLock.PORTRAIT_UP)
@@ -92,16 +88,18 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
           <Row
             align="end"
             gutter="sm">
-            {!!useBiometrics && type === AccessCodeType.codeEntered && (
-              <AccessCodeKeyBoardKey
-                accessibilityLabel="Geef toegang met biometrische gegevens"
-                iconName={getBiometricsIconName()}
-                iconSize="lg"
-                onPress={() => {
-                  onPressAuthenticate?.()
-                }}
-              />
-            )}
+            {!!useBiometrics &&
+              type === AccessCodeType.codeEntered &&
+              !!iconName && (
+                <AccessCodeKeyBoardKey
+                  accessibilityLabel="Geef toegang met biometrische gegevens"
+                  iconName={iconName}
+                  iconSize="lg"
+                  onPress={() => {
+                    onPressAuthenticate?.()
+                  }}
+                />
+              )}
             <AccessCodeKeyBoardKey
               keyNumber={0}
               onPress={() => addDigit(0, type)}

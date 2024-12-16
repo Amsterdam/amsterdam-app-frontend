@@ -31,7 +31,7 @@ export const CityPassDetails = ({passNumber}: Props) => {
     data: cityPasses,
     isLoading,
     isError,
-  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+  } = useGetCityPassesQuery(secureAccessToken ?? skipToken)
 
   useEffect(() => {
     if (!cityPasses) {
