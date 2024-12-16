@@ -65,6 +65,9 @@ export const createCoreClient = ({
 export const createConversationClient = (conversationId?: string) =>
   SalesforceMessagingInApp.createConversationClient(conversationId ?? null)
 
+export const markAsRead = (message: ConversationEntry) =>
+  SalesforceMessagingInApp.markAsRead(message)
+
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
 
@@ -156,7 +159,11 @@ export const useCreateChat = ({
       setMessages([])
       setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
-        void retrieveRemoteConfiguration().then(setRemoteConfiguration)
+        void retrieveRemoteConfiguration().then(setRemoteConfiguration, () => {
+          void retrieveRemoteConfiguration().catch(() => {
+            setError({message: 'Failed to retrieve remote configuration'})
+          })
+        })
 
         listeners.forEach(listener => {
           if (listener.current) {
