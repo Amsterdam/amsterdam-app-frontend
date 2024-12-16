@@ -59,7 +59,7 @@ export type RouteProp<RouteName extends keyof RootStackParams> =
  * NavigationProps contains a NavigationProp and a RouteProp. This can be used in screen components (i.e. components that receive these props because the are stack screens).
  */
 export type NavigationProps<RouteName extends keyof RootStackParams> = {
-  navigation: NavigationProp<RouteName>
+  navigation: StackNavigationProp<RouteName>
   route: RouteProp<RouteName>
 }
 

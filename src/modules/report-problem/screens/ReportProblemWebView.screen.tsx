@@ -1,3 +1,4 @@
+import {HeaderBackButton} from '@react-navigation/elements'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import {Platform, BackHandler, Alert} from 'react-native'
 import {WebViewMessageEvent, WebViewNavigation} from 'react-native-webview'
@@ -100,7 +101,10 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   }, [navigation, onHandleBackPress])
 
   useEffect(() => {
-    navigation.setOptions({back: {onPress: onHeaderBackPress}})
+    navigation.setOptions({
+      headerLeft: props =>
+        HeaderBackButton({...props, onPress: onHeaderBackPress}),
+    })
   }, [navigation, onHeaderBackPress])
 
   useEffect(() => {

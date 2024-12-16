@@ -1,28 +1,32 @@
 import {useFocusEffect} from '@react-navigation/core'
+import {hasHardwareAsync} from 'expo-local-authentication'
 import {useCallback, useEffect, useMemo} from 'react'
-import {StackNavigationProp} from '@/app/navigation/types'
+import {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
-import {AccessCodeValidationBoundaryScreen} from '@/modules/access-code/components/AccessCodeValidationBoundaryScreen'
 import {ConfirmAccessCode} from '@/modules/access-code/components/ConfirmAccessCode'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
+import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
+import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
+import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ConfirmAccessCodeScreen = () => {
-  const navigation = useNavigation()
-  const {
-    setIsCodeConfirmed,
-    setIsCodeSet,
-    resetError,
-    setCode,
-    isCodeConfirmed,
-  } = useAccessCode()
+type Props = NavigationProps<AccessCodeRouteName.confirmAccessCode>
+
+export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
+  const {setCode} = useAccessCode()
+  const {isCodeConfirmed, setIsCodeConfirmed} = useConfirmAccessCode()
+  const {resetError} = useAccessCodeError()
+  const {useBiometrics} = useAccessCodeBiometrics()
+  const {setIsCodeSet} = useSetAccessCode()
+  const {setUseBiometrics} = useAccessCodeBiometrics()
 
   const isUserRoute = useMemo(
     () =>
@@ -41,9 +45,7 @@ export const ConfirmAccessCodeScreen = () => {
 
   useEffect(() => {
     const listener = navigation.addListener('blur', () => {
-      setCode({code: [], type: AccessCodeType.codeSet})
       setCode({code: [], type: AccessCodeType.codeConfirmed})
-      setIsCodeSet(false)
       setIsCodeConfirmed(false)
     })
 
@@ -57,17 +59,29 @@ export const ConfirmAccessCodeScreen = () => {
       return
     }
 
-    if (isUserRoute) {
+    if (useBiometrics === undefined) {
+      void hasHardwareAsync().then(hasHardware => {
+        if (hasHardware) {
+          navigation.navigate(AccessCodeRouteName.biometricsPermission)
+        } else {
+          setUseBiometrics(false)
+        }
+      })
+    } else if (isUserRoute) {
       navigation.navigate(AccessCodeRouteName.validAccessCode)
     } else {
-      navigation
-        .getParent<StackNavigationProp<AccessCodeRouteName.confirmAccessCode>>()
-        .pop()
+      navigation.pop(2)
     }
-  }, [isCodeConfirmed, isUserRoute, navigation])
+  }, [
+    isCodeConfirmed,
+    isUserRoute,
+    navigation,
+    setUseBiometrics,
+    useBiometrics,
+  ])
 
   return (
-    <AccessCodeValidationBoundaryScreen
+    <Screen
       stickyFooter={<AccessCodeKeyBoard type={AccessCodeType.codeConfirmed} />}
       testID="ConfirmAccessCodeScreen"
       withBottomInset={false}>
@@ -90,6 +104,6 @@ export const ConfirmAccessCodeScreen = () => {
           />
         </Column>
       </Box>
-    </AccessCodeValidationBoundaryScreen>
+    </Screen>
   )
 }

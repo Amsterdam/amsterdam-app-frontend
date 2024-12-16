@@ -43,7 +43,7 @@ export const EntryAttachments = ({message}: Props) => {
                 color={isAgent ? 'link' : 'inverse'}
                 name="document"
                 size="lg"
-                testID=""
+                testID="EntryAttachmentsIcon"
               />
               {isAgent ? (
                 <InlineLink

@@ -1,9 +1,10 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {OnboardingRouteName} from '@/modules/onboarding/routes'
 import {screenConfig} from '@/modules/onboarding/screenConfig'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const OnboardingStack = () => {
   const screenOptions = useScreenOptions()

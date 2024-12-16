@@ -21,7 +21,6 @@ import {
   CityPassRouteName,
   CityPassStackParams,
 } from '@/modules/city-pass/routes'
-import {cityPassModals} from '@/modules/city-pass/screenConfig'
 import {ConstructionWorkStack} from '@/modules/construction-work/Stack'
 import {
   ConstructionWorkRouteName,
@@ -153,7 +152,6 @@ export type ModalParams = AddressModalParams &
 
 export const modals: StackNavigationRoutes<RootStackParams> = {
   ...addressModals,
-  ...cityPassModals,
   ...constructionWorkModals,
   ...constructionWorkEditorModals,
   ...contactModals,

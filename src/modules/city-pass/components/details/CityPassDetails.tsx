@@ -22,18 +22,18 @@ export const CityPassDetails = ({passNumber}: Props) => {
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
   )
-
   const {
     data: cityPasses,
     isLoading,
     isError,
-  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+  } = useGetCityPassesQuery(secureAccessToken ?? skipToken)
+
   const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
   const cityPassIndex = cityPasses?.findIndex(
     cp => cp.passNumber === passNumber,
   )
 
-  if (isLoading) {
+  if (isLoading || !secureAccessToken) {
     return (
       <Box grow>
         <Column gutter="md">

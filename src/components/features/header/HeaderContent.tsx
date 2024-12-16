@@ -1,10 +1,9 @@
 import {getHeaderTitle} from '@react-navigation/elements'
 import {StyleSheet, View} from 'react-native'
 import {navigationRef} from '@/app/navigation/navigationRef'
+import {HeaderBackButton} from '@/components/features/header/HeaderBackButton'
 import {HeaderProps} from '@/components/features/header/types'
-import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
@@ -44,19 +43,9 @@ export const HeaderContent = ({
         ref={accessibilityAutoFocusRef}
         style={styles.sideColumn}>
         {!!back && (
-          <IconButton
-            accessibilityLabel="Terug"
-            hitSlop={16}
-            icon={
-              <Icon
-                color="link"
-                name="chevron-left"
-                size={chevronSize}
-                testID="HeaderBackIcon"
-              />
-            }
+          <HeaderBackButton
+            iconSize={chevronSize}
             onPress={onBackPress}
-            testID="HeaderBackButton"
           />
         )}
       </View>

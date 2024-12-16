@@ -1,4 +1,4 @@
-import {useCallback} from 'react'
+import {useCallback, useEffect} from 'react'
 import {View} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -9,17 +9,14 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {useLogin} from '@/modules/city-pass/hooks/useLogin'
+import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {ModuleSlug} from '@/modules/slugs'
-
-const ACCESS_CODE_SLUG = ModuleSlug['access-code']
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
 
@@ -33,8 +30,12 @@ export const LoginStepsScreen = ({route}: Props) => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
+  const {setIsLoginStepsActive} = useLoginSteps()
   const login = useLogin()
-  const {attemptsLeft, isCodeValid} = useAccessCode()
+
+  useEffect(() => {
+    setIsLoginStepsActive(true)
+  }, [setIsLoginStepsActive])
 
   useRegisterCityPassOwner({
     loginResult,
@@ -50,32 +51,21 @@ export const LoginStepsScreen = ({route}: Props) => {
     }
 
     if (!accessCode) {
-      navigate(ACCESS_CODE_SLUG, {
-        screen: AccessCodeRouteName.setAccessCode,
-      })
-
-      return
-    }
-
-    if (!isCodeValid && attemptsLeft <= 0) {
-      navigate(ACCESS_CODE_SLUG, {
-        screen: AccessCodeRouteName.setAccessCode,
-      })
+      navigate(AccessCodeRouteName.setAccessCode)
 
       return
     }
 
     if (isStepsComplete) {
-      navigate(CityPassRouteName.dashboard)
+      setIsLoginStepsActive(false)
     }
   }, [
     accessCode,
-    attemptsLeft,
     isCityPassOwnerRegistered,
-    isCodeValid,
     isStepsComplete,
     login,
     navigate,
+    setIsLoginStepsActive,
   ])
 
   return (

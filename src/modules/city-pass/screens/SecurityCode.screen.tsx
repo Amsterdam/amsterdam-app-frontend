@@ -1,5 +1,5 @@
 import {NavigationProps} from '@/app/navigation/types'
-import {CityPassLoginBoundaryScreen} from '@/modules/city-pass/components/CityPassLoginBoundaryScreen'
+import {Screen} from '@/components/features/screen/Screen'
 import {SecurityCode} from '@/modules/city-pass/components/details/SecurityCode'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
@@ -9,8 +9,8 @@ export const SecurityCodeScreen = ({route}: Props) => {
   const {id} = route.params ?? {}
 
   return id ? (
-    <CityPassLoginBoundaryScreen testID="CityPassSecurityCodeScreen">
+    <Screen testID="CityPassSecurityCodeScreen">
       <SecurityCode id={id} />
-    </CityPassLoginBoundaryScreen>
+    </Screen>
   ) : null
 }

@@ -1,9 +1,10 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
+import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {ContactRouteName} from '@/modules/contact/routes'
 import {screenConfig} from '@/modules/contact/screenConfig'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParams>()
 
 export const ContactStack = () => {
   const screenOptions = useScreenOptions()

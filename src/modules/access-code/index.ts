@@ -3,7 +3,10 @@ import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof AccessCodeState)[] = ['attemptsLeft']
+const persistWhitelist: (keyof AccessCodeState)[] = [
+  'attemptsLeft',
+  'useBiometrics',
+]
 
 export const accessCodeModule: ModuleClientConfig = {
   hiddenInMenu: true,
