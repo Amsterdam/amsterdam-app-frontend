@@ -116,9 +116,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val remoteConfig: Result<RemoteConfiguration> =
+          val remoteConfig: Result<RemoteConfiguration>? =
             coreClient?.retrieveRemoteConfiguration()
-              ?: throw IllegalStateException("Failed to retrieve remote configuration")
           if (remoteConfig is Result.Success) {
             remoteConfiguration = remoteConfig.data
             val remoteConfigMap = Arguments.createMap()
@@ -626,9 +625,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendMessage(message)
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             //            val params = convertEntryToMap(result.data)
             // Emit the event with message data
@@ -681,12 +679,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             }
           }
 
-          val result: Result<Conversation> =
+          val result: Result<Conversation>? =
             conversationClient?.submitRemoteConfiguration(
               this@SalesforceMessagingInAppModule.remoteConfiguration!!,
               createConversationOnSubmit
             )
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
@@ -727,9 +724,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendPdf(newPdfFile)
-              ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
             promise.resolve(true)
@@ -764,9 +760,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       FileOutputStream(tempFile).use { fos -> fos.write(decodedBytes) }
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendImage(tempFile)
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
@@ -812,17 +807,18 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 //          }
           val optionValue =
             choice.getString("optionValue")
-              ?: throw IllegalArgumentException("optionValue is required")
-
+          if (optionValue == null) {
+            promise.reject("Error", "optionValue is required")
+          } else {
           val result =
             conversationClient?.sendMessage(optionValue) // TODO: sendReply once bug is fixed in Core SDK
-              ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
             promise.resolve("Success")
           } else {
             promise.reject("Error", result.toString())
           }
+            }
 
         } catch (e: Exception) {
           promise.reject("Error", e.message, e)
