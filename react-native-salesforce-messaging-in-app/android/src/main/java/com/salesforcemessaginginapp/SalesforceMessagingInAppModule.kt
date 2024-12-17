@@ -948,7 +948,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
         putString("url", imageAsset.url)
       }
     } else {
-      throw IllegalArgumentException("File cannot be null")
+      return Arguments.createMap()
     }
   }
 
