@@ -593,7 +593,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val matchingEntry = conversationClient?.conversationEntries(1000)?.data?.firstOrNull { it.identifier == entryId }
+          val matchingEntry = conversationClient?.conversationEntries(10000)?.data?.firstOrNull { it.identifier == entryId }
           if (matchingEntry != null) {
             val result: Result<ConversationEntry>? =
               conversationClient?.markAsRead(matchingEntry)
@@ -933,14 +933,22 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   private fun encodeImageAssetToMap(imageAsset: FileAsset.ImageAsset): ReadableMap {
-    val file = imageAsset.file ?: throw IllegalArgumentException("File cannot be null")
-    val bytes = file.readBytes()
-    val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    BitmapFactory.decodeFile(file.absolutePath, options)
-    return Arguments.createMap().apply {
-      putString("imageBase64", Base64.encodeToString(bytes, Base64.DEFAULT))
-      putInt("height", options.outHeight)
-      putInt("width", options.outWidth)
+    if (imageAsset.file != null) {
+      val file = imageAsset.file!!
+      val bytes = file.readBytes()
+      val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+      BitmapFactory.decodeFile(file.absolutePath, options)
+      return Arguments.createMap().apply {
+        putString("imageBase64", Base64.encodeToString(bytes, Base64.DEFAULT))
+        putInt("height", options.outHeight)
+        putInt("width", options.outWidth)
+      }
+    } else if (imageAsset.url != null) {
+      return Arguments.createMap().apply {
+        putString("url", imageAsset.url)
+      }
+    } else {
+      throw IllegalArgumentException("File cannot be null")
     }
   }
 

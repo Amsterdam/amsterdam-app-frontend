@@ -317,11 +317,15 @@ export type ConversationEntryQuickReplies = ConversationEntryBase & {
 }
 
 export type ConversationEntryRichLink = ConversationEntryBase & {
-  asset: {
-    height: number
-    imageBase64: string
-    width: number
-  }
+  asset:
+    | {
+        height: number
+        imageBase64: string
+        width: number
+      }
+    | {
+        url: string
+      }
   format: ConversationEntryFormat.richLink
   title: string
   url: string
