@@ -21,6 +21,7 @@ import {
   CoreError,
   ConversationEntryStatus,
 } from './types'
+import {useListenerStatus} from './useListenerStatus'
 import type {Spec} from './NativeSalesforceMessagingInApp'
 
 const LINKING_ERROR =
@@ -117,11 +118,6 @@ export const useCreateChat = ({
   const onErrorSubscription = useRef<EmitterSubscription | null>(null)
   const onNewMessageSubscription = useRef<EmitterSubscription | null>(null)
   const onUpdatedMessageSubscription = useRef<EmitterSubscription | null>(null)
-  const onNetworkStatusChangedSubscription = useRef<EmitterSubscription | null>(
-    null,
-  )
-  const onConnectionStatusChangedSubscription =
-    useRef<EmitterSubscription | null>(null)
   const onTypingStartedSubscription = useRef<EmitterSubscription | null>(null)
   const onTypingStoppedSubscription = useRef<EmitterSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
@@ -130,9 +126,14 @@ export const useCreateChat = ({
     RemoteConfiguration | undefined
   >()
   const [error, setError] = useState<CoreError | null>(null)
-  const [networkStatus, setNetworkStatus] = useState<NetworkState | null>(null)
-  const [connectionStatus, setConnectionStatus] =
-    useState<ConnectionState | null>(null)
+  const networkStatus = useListenerStatus<NetworkState>(
+    'onNetworkStatusChanged',
+    messagingEventEmitter,
+  )
+  const connectionStatus = useListenerStatus<ConnectionState>(
+    'onConnectionStatusChanged',
+    messagingEventEmitter,
+  )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
   const agentInChat = useMemo(
@@ -148,8 +149,6 @@ export const useCreateChat = ({
       onErrorSubscription,
       onNewMessageSubscription,
       onUpdatedMessageSubscription,
-      onNetworkStatusChangedSubscription,
-      onConnectionStatusChangedSubscription,
       onTypingStartedSubscription,
       onTypingStoppedSubscription,
     ] as Array<React.MutableRefObject<EmitterSubscription | null>>
@@ -204,7 +203,16 @@ export const useCreateChat = ({
                 ),
               )
             } else {
-              setMessages(oldMessages => [...oldMessages, message])
+              // check if the message is already in the list and update it, otherwise add it
+              setMessages(oldMessages =>
+                oldMessages.some(m => m.entryId === message.entryId)
+                  ? oldMessages.map(oldMessage =>
+                      oldMessage.entryId === message.entryId
+                        ? message
+                        : oldMessage,
+                    )
+                  : [...oldMessages, message],
+              )
             }
 
             if (message.format === ConversationEntryFormat.participantChanged) {
@@ -260,22 +268,6 @@ export const useCreateChat = ({
             setError(state)
           },
         )
-        onNetworkStatusChangedSubscription.current =
-          messagingEventEmitter.addListener(
-            'onNetworkStatusChanged',
-            (state: NetworkState) => {
-              // console.log('onNetworkStatusChanged:', state)
-              setNetworkStatus(state)
-            },
-          )
-        onConnectionStatusChangedSubscription.current =
-          messagingEventEmitter.addListener(
-            'onConnectionStatusChanged',
-            (state: ConnectionState) => {
-              // console.log('onConnectionStatusChanged:', state)
-              setConnectionStatus(state)
-            },
-          )
         onTypingStartedSubscription.current = messagingEventEmitter.addListener(
           'onTypingStarted',
           (message: ConversationEntry) => {

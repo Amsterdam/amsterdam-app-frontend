@@ -116,9 +116,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val remoteConfig: Result<RemoteConfiguration> =
+          val remoteConfig: Result<RemoteConfiguration>? =
             coreClient?.retrieveRemoteConfiguration()
-              ?: throw IllegalStateException("Failed to retrieve remote configuration")
           if (remoteConfig is Result.Success) {
             remoteConfiguration = remoteConfig.data
             val remoteConfigMap = Arguments.createMap()
@@ -593,7 +592,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val matchingEntry = conversationClient?.conversationEntries(1000)?.data?.firstOrNull { it.identifier == entryId }
+          val matchingEntry = conversationClient?.conversationEntries(10000)?.data?.firstOrNull { it.identifier == entryId }
           if (matchingEntry != null) {
             val result: Result<ConversationEntry>? =
               conversationClient?.markAsRead(matchingEntry)
@@ -626,9 +625,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       }
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendMessage(message)
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             //            val params = convertEntryToMap(result.data)
             // Emit the event with message data
@@ -681,12 +679,11 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             }
           }
 
-          val result: Result<Conversation> =
+          val result: Result<Conversation>? =
             conversationClient?.submitRemoteConfiguration(
               this@SalesforceMessagingInAppModule.remoteConfiguration!!,
               createConversationOnSubmit
             )
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
@@ -727,9 +724,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendPdf(newPdfFile)
-              ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
             promise.resolve(true)
@@ -764,9 +760,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       FileOutputStream(tempFile).use { fos -> fos.write(decodedBytes) }
       scope.launch {
         try {
-          val result: Result<ConversationEntry> =
+          val result: Result<ConversationEntry>? =
             conversationClient?.sendImage(tempFile)
-              ?: throw IllegalStateException("Failed to send message")
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
@@ -812,17 +807,18 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
 //          }
           val optionValue =
             choice.getString("optionValue")
-              ?: throw IllegalArgumentException("optionValue is required")
-
+          if (optionValue == null) {
+            promise.reject("Error", "optionValue is required")
+          } else {
           val result =
             conversationClient?.sendMessage(optionValue) // TODO: sendReply once bug is fixed in Core SDK
-              ?: throw IllegalStateException("Failed to send message")
 
           if (result is Result.Success) {
             promise.resolve("Success")
           } else {
             promise.reject("Error", result.toString())
           }
+            }
 
         } catch (e: Exception) {
           promise.reject("Error", e.message, e)
@@ -933,14 +929,22 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   private fun encodeImageAssetToMap(imageAsset: FileAsset.ImageAsset): ReadableMap {
-    val file = imageAsset.file ?: throw IllegalArgumentException("File cannot be null")
-    val bytes = file.readBytes()
-    val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
-    BitmapFactory.decodeFile(file.absolutePath, options)
-    return Arguments.createMap().apply {
-      putString("imageBase64", Base64.encodeToString(bytes, Base64.DEFAULT))
-      putInt("height", options.outHeight)
-      putInt("width", options.outWidth)
+    if (imageAsset.file != null) {
+      val file = imageAsset.file!!
+      val bytes = file.readBytes()
+      val options = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+      BitmapFactory.decodeFile(file.absolutePath, options)
+      return Arguments.createMap().apply {
+        putString("imageBase64", Base64.encodeToString(bytes, Base64.DEFAULT))
+        putInt("height", options.outHeight)
+        putInt("width", options.outWidth)
+      }
+    } else if (imageAsset.url != null) {
+      return Arguments.createMap().apply {
+        putString("url", imageAsset.url)
+      }
+    } else {
+      return Arguments.createMap()
     }
   }
 
