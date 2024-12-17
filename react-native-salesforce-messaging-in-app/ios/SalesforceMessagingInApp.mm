@@ -861,38 +861,44 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
         // text = textPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesRichLink) {
-        id<SMIRichLinkMessage> textPayload = (id<SMIRichLinkMessage>)payload;
+        id<SMIRichLinkMessage> richLinkPayload = (id<SMIRichLinkMessage>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIRichLinkMessage.html
         // text = textPayload.text ?: @"";
-        messageDict[@"title"] = textPayload.title;
-        messageDict[@"url"] = [textPayload.url absoluteString];
-        messageDict[@"messageReason"] = textPayload.messageReason;
+        messageDict[@"title"] = richLinkPayload.title;
+        messageDict[@"url"] = [richLinkPayload.url absoluteString];
+        messageDict[@"messageReason"] = richLinkPayload.messageReason;
 
         NSMutableDictionary *assetDict = [NSMutableDictionary dictionary];
-        assetDict[@"width"] = @(textPayload.asset.width);
-        assetDict[@"height"] = @(textPayload.asset.height);
-        // messageDict[@"asset"] = assetDict;
-        // Fetch the image asset (assuming fetchContentWithCompletion just returns an error if there's a problem)
-        [textPayload.asset fetchContentWithCompletion:^(NSError * _Nullable error) {
-            if (error) {
-                NSLog(@"Error fetching image: %@", error.localizedDescription);
-            } else {
-                // Access the image after fetching completes
-                UIImage *image = textPayload.asset.image;
-                if (image) {
-                    // You can either add the UIImage directly or convert it to base64 string representation
-                    NSData *imageData = UIImagePNGRepresentation(image);
-                    if (imageData) {
-                        NSString *base64String = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
-                        assetDict[@"imageBase64"] = base64String;
+        if (richLinkPayload.asset.url) {
+            assetDict[@"url"] = richLinkPayload.asset.url.absoluteString;
+        } else if(richLinkPayload.asset.file) {
+            assetDict[@"width"] = @(richLinkPayload.asset.width);
+            assetDict[@"height"] = @(richLinkPayload.asset.height);
+            // messageDict[@"asset"] = assetDict;
+            // Fetch the image asset (assuming fetchContentWithCompletion just returns an error if there's a problem)
+            /*[textPayload.asset fetchContentWithCompletion:^(NSError * _Nullable error) {
+                if (error) {
+                    NSLog(@"Error fetching image: %@", error.localizedDescription);
+                } else {
+                    // Access the image after fetching completes
+                    UIImage *image = textPayload.asset.image;
+                    if (image) {
+                        // You can either add the UIImage directly or convert it to base64 string representation
+                        NSData *imageData = UIImagePNGRepresentation(image);
+                        if (imageData) {
+                            NSString *base64String = [imageData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+                            assetDict[@"imageBase64"] = base64String;
+                        }
                     }
                 }
-            }
-            
-            // Add the asset dictionary to messageDict
-            messageDict[@"asset"] = assetDict;
+                
+                // Add the asset dictionary to messageDict
+                messageDict[@"asset"] = assetDict;
 
-        }];
+            }];*/
+        }
+        
+        messageDict[@"asset"] = assetDict;
 
     }
     if (format == SMIConversationFormatTypesListPicker) {
