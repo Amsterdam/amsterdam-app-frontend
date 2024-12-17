@@ -204,7 +204,16 @@ export const useCreateChat = ({
                 ),
               )
             } else {
-              setMessages(oldMessages => [...oldMessages, message])
+              // check if the message is already in the list and update it, otherwise add it
+              setMessages(oldMessages =>
+                oldMessages.some(m => m.entryId === message.entryId)
+                  ? oldMessages.map(oldMessage =>
+                      oldMessage.entryId === message.entryId
+                        ? message
+                        : oldMessage,
+                    )
+                  : [...oldMessages, message],
+              )
             }
 
             if (message.format === ConversationEntryFormat.participantChanged) {
