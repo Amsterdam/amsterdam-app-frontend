@@ -59,6 +59,7 @@ export const PassOwners = ({logout}: Props) => {
         insetTop="md">
         <Column gutter="md">
           <ShowCityPassButtonSkeleton isLoading />
+          <Gutter height="sm" />
           <CityPassCardSkeleton isLoading />
         </Column>
       </Box>
