@@ -1,4 +1,5 @@
-import {useEffect} from 'react'
+import {useFocusEffect} from '@react-navigation/core'
+import {useCallback} from 'react'
 import {View} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -9,33 +10,22 @@ import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
-import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
-import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
-import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
 import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 
 type Props = NavigationProps<AccessCodeRouteName.setAccessCode>
 
-export const SetAccessCodeScreen = ({navigation}: Props) => {
-  const {setCode} = useAccessCode()
-  const {setIsCodeConfirmed} = useConfirmAccessCode()
-  const {resetError} = useAccessCodeError()
-  const {isCodeSet, setIsCodeSet} = useSetAccessCode()
+export const SetAccessCodeScreen = ({navigation: {navigate}}: Props) => {
+  const {isCodeSet} = useSetAccessCode()
 
-  useEffect(() => {
-    resetError()
-    setIsCodeSet(false)
-    setIsCodeConfirmed(false)
-    setCode({code: [], type: AccessCodeType.codeSet})
-  }, [resetError, setCode, setIsCodeConfirmed, setIsCodeSet])
-
-  useEffect(() => {
-    if (isCodeSet) {
-      navigation.navigate(AccessCodeRouteName.confirmAccessCode)
-    }
-  }, [isCodeSet, navigation])
+  useFocusEffect(
+    useCallback(() => {
+      if (isCodeSet) {
+        navigate(AccessCodeRouteName.confirmAccessCode)
+      }
+    }, [isCodeSet, navigate]),
+  )
 
   return (
     <Screen

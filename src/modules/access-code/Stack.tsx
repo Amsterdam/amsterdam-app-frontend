@@ -1,53 +1,66 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
+import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {setAccessCodeScreenConfig} from '@/modules/access-code/screenConfig'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
+import {AccessCodeValidScreen} from '@/modules/access-code/screens/AccessCodeValid.screen'
+import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
+import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 
 const Stack = createStackNavigator<RootStackParams>()
 
 export const AccessCodeStack = () => {
-  const {accessCode, isLoading} = useGetSecureAccessCode()
-  const {attemptsLeft, isCodeValid} = useEnterAccessCode()
+  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
+  const {isCodeConfirmed} = useConfirmAccessCode()
   const screenOptions = useScreenOptions()
-
-  if (isLoading) {
-    return null
-  }
 
   return (
     <Stack.Navigator
       initialRouteName={AccessCodeRouteName.setAccessCode}
       screenOptions={screenOptions}>
-      {!isCodeValid && !!accessCode ? (
-        <>
-          {attemptsLeft > 0 ? (
-            <Stack.Screen
-              component={AccessCodeScreen}
-              name={AccessCodeRouteName.accessCode}
-              options={{headerTitle: 'Toegangscode invoeren'}}
-            />
-          ) : (
-            <Stack.Screen
-              component={AccessCodeInvalidScreen}
-              name={AccessCodeRouteName.accessCodeInvalid}
-            />
-          )}
-        </>
-      ) : (
-        <>
-          {Object.entries(setAccessCodeScreenConfig).map(([key, route]) => (
-            <Stack.Screen
-              key={key}
-              {...route}
-            />
-          ))}
-        </>
-      )}
+      <Stack.Group navigationKey={isForgotCode ? 'forgotten' : 'access-code'}>
+        {!isCodeValid ? (
+          <>
+            {attemptsLeft > 0 ? (
+              <Stack.Screen
+                component={AccessCodeScreen}
+                name={AccessCodeRouteName.accessCode}
+                options={{headerTitle: 'Toegangscode invoeren'}}
+              />
+            ) : (
+              <Stack.Screen
+                component={AccessCodeInvalidScreen}
+                name={AccessCodeRouteName.accessCodeInvalid}
+              />
+            )}
+          </>
+        ) : (
+          <>
+            {isCodeConfirmed ? (
+              <Stack.Screen
+                component={AccessCodeValidScreen}
+                name={AccessCodeRouteName.validAccessCode}
+              />
+            ) : (
+              <>
+                <Stack.Screen
+                  component={SetAccessCodeScreen}
+                  name={AccessCodeRouteName.setAccessCode}
+                  options={{headerTitle: 'Toegangscode kiezen'}}
+                />
+                <Stack.Screen
+                  component={ConfirmAccessCodeScreen}
+                  name={AccessCodeRouteName.confirmAccessCode}
+                  options={{headerTitle: 'Toegangscode herhalen'}}
+                />
+              </>
+            )}
+          </>
+        )}
+      </Stack.Group>
     </Stack.Navigator>
   )
 }

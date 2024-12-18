@@ -15,12 +15,14 @@ import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
+import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
+import {UserRouteName} from '@/modules/user/routes'
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
 
-export const LoginStepsScreen = ({route}: Props) => {
+export const LoginStepsScreen = ({navigation, route}: Props) => {
   const {
     loginResult,
     accessToken: deeplinkAccessToken,
@@ -31,7 +33,12 @@ export const LoginStepsScreen = ({route}: Props) => {
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
   const {setIsLoginStepsActive} = useLoginSteps()
+  const {setShouldShowLoginScreen} = useShouldShowLoginScreen()
   const login = useLogin()
+  const isUserRoute = navigation
+    .getParent()
+    ?.getState()
+    .routes.find(r => r.name === 'user')
 
   useEffect(() => {
     setIsLoginStepsActive(true)
@@ -58,19 +65,22 @@ export const LoginStepsScreen = ({route}: Props) => {
 
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
+      setShouldShowLoginScreen(true)
+      isUserRoute && navigate(UserRouteName.user)
     }
   }, [
     accessCode,
     isCityPassOwnerRegistered,
     isStepsComplete,
+    isUserRoute,
     login,
     navigate,
     setIsLoginStepsActive,
+    setShouldShowLoginScreen,
   ])
 
   return (
     <Screen
-      hasStickyAlert
       stickyFooter={
         <Box>
           <Button
