@@ -21,7 +21,7 @@ export const AccessCodeInvalidScreen = ({navigation: {navigate}}: Props) => (
           label="Toegangscode opnieuw instellen"
           onPress={() =>
             navigate(ModuleSlug['city-pass'], {
-              screen: CityPassRouteName.loginSteps,
+              screen: CityPassRouteName.restartLogin,
             })
           }
           testID="AccessCodeInvalidScreenButton"

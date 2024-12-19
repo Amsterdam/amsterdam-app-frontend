@@ -14,6 +14,7 @@ import {
   setAttemptsLeft,
   setError,
   selectCodeValidTimestamp,
+  selectIsForgotCode,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -23,6 +24,7 @@ export const useEnterAccessCode = () => {
   const attemptsLeft = useSelector(selectAttemptsLeft)
   const codeEntered = useSelector(selectCodeEntered)
   const isEnteringCode = useSelector(selectIsEnteringCode)
+  const isForgotCode = useSelector(selectIsForgotCode)
   const {accessCode: secureAccessCode} = useGetSecureAccessCode()
   const codeValidTimestamp = useSelector(selectCodeValidTimestamp)
   const {codeLength, setCode} = useAccessCode()
@@ -70,6 +72,12 @@ export const useEnterAccessCode = () => {
     }
   }, [codeValidTimestamp])
 
+  const setIsForgotCode = useCallback(
+    (forgot: boolean) =>
+      dispatch(accessCodeSlice.actions.setIsForgotCode(forgot)),
+    [dispatch],
+  )
+
   useEffect(() => {
     if (codeEntered.length !== codeLength) {
       return
@@ -83,7 +91,9 @@ export const useEnterAccessCode = () => {
     codeEntered,
     isCodeValid,
     isEnteringCode,
+    isForgotCode,
     onAccessCodeEntered,
     setIsEnteringCode,
+    setIsForgotCode,
   }
 }

@@ -1,8 +1,10 @@
+import {useEffect} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -14,6 +16,15 @@ type Props = {
 
 export const AccessCode = ({accessCode, codeLength, error}: Props) => {
   const styles = useThemable(createStyles)
+  const {resetError} = useAccessCodeError()
+
+  useEffect(
+    () => () => {
+      resetError()
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  )
 
   return (
     <Column gutter="sm">

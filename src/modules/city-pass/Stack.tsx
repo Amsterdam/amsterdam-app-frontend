@@ -2,24 +2,22 @@ import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeScreen} from '@/modules/access-code/screens/AccessCode.screen'
 import {AccessCodeInvalidScreen} from '@/modules/access-code/screens/AccessCodeInvalid.screen'
-import {AccessCodeValidScreen} from '@/modules/access-code/screens/AccessCodeValid.screen'
 import {BiometricsPermissionScreen} from '@/modules/access-code/screens/BiometricsPermission.screen'
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
+import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {BudgetScreen} from '@/modules/city-pass/screens/Budget.screen'
-import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
-import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
+import {cityPassScreenConfig} from '@/modules/city-pass/screenConfig'
 import {LoginScreen} from '@/modules/city-pass/screens/Login.screen'
 import {LoginStepsScreen} from '@/modules/city-pass/screens/LoginSteps.screen'
-import {LogoutScreen} from '@/modules/city-pass/screens/Logout.screen'
-import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
+import {RestartLoginScreen} from '@/modules/city-pass/screens/RestartLogin.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -28,8 +26,10 @@ export const CityPassStack = () => {
   const screenOptions = useScreenOptions()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode, isLoading} = useGetSecureAccessCode()
-  const {attemptsLeft, isCodeValid} = useEnterAccessCode()
+  const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
+  const {useBiometrics} = useAccessCodeBiometrics()
+  const {shouldShowLoginScreen} = useShouldShowLoginScreen()
 
   if (isLoading) {
     return null
@@ -37,90 +37,86 @@ export const CityPassStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={CityPassRouteName.dashboard}
+      initialRouteName={
+        isCityPassOwnerRegistered
+          ? accessCode
+            ? isCodeValid
+              ? CityPassRouteName.dashboard
+              : attemptsLeft > 0
+                ? AccessCodeRouteName.accessCode
+                : AccessCodeRouteName.accessCodeInvalid
+            : CityPassRouteName.loginSteps
+          : CityPassRouteName.login
+      }
       screenOptions={screenOptions}>
-      {!isCityPassOwnerRegistered || !accessCode || isLoginStepsActive ? (
-        <>
-          <Stack.Group>
+      {attemptsLeft <= 0 || !!isForgotCode ? (
+        <Stack.Screen
+          component={RestartLoginScreen}
+          name={CityPassRouteName.restartLogin}
+          options={{headerTitle: 'Toegangscode vergeten'}}
+        />
+      ) : isCityPassOwnerRegistered ? (
+        accessCode && !isLoginStepsActive ? (
+          isCodeValid ? (
+            Object.entries(cityPassScreenConfig).map(([key, route]) => (
+              <Stack.Screen
+                key={key}
+                {...route}
+              />
+            ))
+          ) : attemptsLeft > 0 ? (
+            useBiometrics === undefined ? (
+              <Stack.Screen
+                component={BiometricsPermissionScreen}
+                name={AccessCodeRouteName.biometricsPermission}
+                options={{headerTitle: 'Sneller toegang'}}
+              />
+            ) : (
+              <Stack.Screen
+                component={AccessCodeScreen}
+                name={AccessCodeRouteName.accessCode}
+                options={{headerTitle: 'Toegangscode invoeren'}}
+              />
+            )
+          ) : (
             <Stack.Screen
-              component={LoginScreen}
-              name={CityPassRouteName.login}
-              options={{headerTitle: 'Stadspas'}}
+              component={AccessCodeInvalidScreen}
+              name={AccessCodeRouteName.accessCodeInvalid}
             />
+          )
+        ) : (
+          <>
             <Stack.Screen
               component={LoginStepsScreen}
               name={CityPassRouteName.loginSteps}
               options={{headerTitle: 'Login'}}
             />
-          </Stack.Group>
-          <Stack.Group>
             <Stack.Screen
               component={SetAccessCodeScreen}
               name={AccessCodeRouteName.setAccessCode}
               options={{headerTitle: 'Toegangscode kiezen'}}
             />
             <Stack.Screen
-              component={BiometricsPermissionScreen}
-              name={AccessCodeRouteName.biometricsPermission}
-              options={{headerTitle: 'Sneller toegang'}}
-            />
-            <Stack.Screen
               component={ConfirmAccessCodeScreen}
               name={AccessCodeRouteName.confirmAccessCode}
               options={{headerTitle: 'Toegangscode herhalen'}}
             />
-            <Stack.Screen
-              component={AccessCodeValidScreen}
-              name={AccessCodeRouteName.validAccessCode}
-            />
-          </Stack.Group>
-        </>
+          </>
+        )
       ) : (
         <>
-          {!isCodeValid && !!accessCode ? (
-            <>
-              {attemptsLeft > 0 ? (
-                <Stack.Screen
-                  component={AccessCodeScreen}
-                  name={AccessCodeRouteName.accessCode}
-                  options={{headerTitle: 'Toegangscode invoeren'}}
-                />
-              ) : (
-                <Stack.Screen
-                  component={AccessCodeInvalidScreen}
-                  name={AccessCodeRouteName.accessCodeInvalid}
-                />
-              )}
-            </>
-          ) : (
-            <>
-              <Stack.Screen
-                component={DashboardScreen}
-                name={CityPassRouteName.dashboard}
-                options={{headerTitle: 'Stadspas'}}
-              />
-              <Stack.Screen
-                component={CityPassDetailsScreen}
-                name={CityPassRouteName.cityPassDetails}
-                options={{headerTitle: 'Stadspas'}}
-              />
-              <Stack.Screen
-                component={BudgetScreen}
-                name={CityPassRouteName.budget}
-              />
-              <Stack.Screen
-                component={LogoutScreen}
-                name={CityPassRouteName.cityPassLogout}
-                options={{
-                  headerTitle: 'Uitloggen',
-                }}
-              />
-              <Stack.Screen
-                component={SecurityCodeScreen}
-                name={CityPassRouteName.securityCode}
-              />
-            </>
+          {!!shouldShowLoginScreen && (
+            <Stack.Screen
+              component={LoginScreen}
+              name={CityPassRouteName.login}
+              options={{headerTitle: 'Stadspas'}}
+            />
           )}
+          <Stack.Screen
+            component={LoginStepsScreen}
+            name={CityPassRouteName.loginSteps}
+            options={{headerTitle: 'Login'}}
+          />
         </>
       )}
     </Stack.Navigator>

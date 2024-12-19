@@ -7,6 +7,7 @@ export enum CityPassRouteName {
   dashboard = 'Dashboard',
   login = 'Login',
   loginSteps = 'LoginSteps',
+  restartLogin = 'RestartLogin',
   securityCode = 'SecurityCode',
 }
 
@@ -26,6 +27,7 @@ export type CityPassStackParams = {
         refreshToken?: string
       }
     | undefined
+  [CityPassRouteName.restartLogin]: undefined
   [CityPassRouteName.securityCode]: {id: CityPass['id']}
 }
 

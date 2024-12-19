@@ -1,5 +1,4 @@
 import {useCallback, useMemo} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,22 +7,18 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {mapBiometricsAuthenticationTypeToLabel} from '@/modules/access-code/utils/mapValidationTypeToLabel'
 import {capitalizeString} from '@/utils/capitalizeString'
 
-type Props = NavigationProps<AccessCodeRouteName.biometricsPermission>
-
-export const BiometricsPermissionScreen = ({navigation}: Props) => {
+export const BiometricsPermissionScreen = () => {
   const {biometricsAuthenticationType, isLoading, setUseBiometrics} =
     useAccessCodeBiometrics()
 
   const onPress = useCallback(
     (permission: boolean) => {
       setUseBiometrics(permission)
-      navigation.pop(3)
     },
-    [navigation, setUseBiometrics],
+    [setUseBiometrics],
   )
 
   const biometricsLabel = useMemo(
