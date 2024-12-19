@@ -20,11 +20,9 @@ export const AccessCode = ({accessCode, codeLength, error}: Props) => {
 
   useEffect(
     () => () => {
-      if (accessCodeError) {
-        resetError()
-      }
+      resetError()
     },
-    [accessCodeError, resetError],
+    [],
   )
 
   return (
