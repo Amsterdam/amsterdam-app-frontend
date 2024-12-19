@@ -662,19 +662,38 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
           this@SalesforceMessagingInAppModule.remoteConfiguration?.forms?.forEach { form ->
             form.formFields.forEach { field ->
               val fieldName = field.name
-              if (remoteConfiguration.hasKey(fieldName)) {
-                remoteConfiguration.getArray("preChatConfiguration")?.getMap(0)
-                  ?.getArray("preChatFields")
-                  ?.toArrayList()?.forEach { filledField ->
-                    filledField as ReadableMap
-                    filledField.getString("name")?.let { name ->
-                      if (name == fieldName) {
-                        filledField.getString("value")?.let { value ->
-                          field.userInput = value
-                        }
-                      }
-                    }
+              val preChatConfig = remoteConfiguration.getArray("preChatConfiguration")
+              val preChatConfig0 = preChatConfig?.getMap(0)
+              val preChatConfig0Fields = preChatConfig0?.getArray("preChatFields")
+              val preChatConfig0FieldsArray = preChatConfig0Fields?.toArrayList()
+
+              preChatConfig0FieldsArray?.forEach { filledField ->
+                filledField as HashMap<*, *>
+                val name = filledField["name"]
+                if (name == fieldName) {
+                  val value = filledField["value"]
+                  if (value != null) {
+                    field.userInput = value.toString()
                   }
+                }
+              }
+            }
+            form.hiddenFormFields.forEach { field ->
+              val fieldName = field.name
+              val preChatConfig = remoteConfiguration.getArray("preChatConfiguration")
+              val preChatConfig0 = preChatConfig?.getMap(0)
+              val preChatConfig0Fields = preChatConfig0?.getArray("hiddenPreChatFields")
+              val preChatConfig0FieldsArray = preChatConfig0Fields?.toArrayList()
+
+              preChatConfig0FieldsArray?.forEach { filledField ->
+                filledField as HashMap<*, *>
+                val name = filledField["name"]
+                if (name == fieldName) {
+                  val value = filledField["value"]
+                  if (value != null) {
+                    field.userInput = value.toString()
+                  }
+                }
               }
             }
           }
