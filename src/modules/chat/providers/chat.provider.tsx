@@ -1,3 +1,4 @@
+import notifee from '@notifee/react-native'
 import {
   createContext,
   ReactNode,
@@ -6,6 +7,8 @@ import {
   useMemo,
   useState,
 } from 'react'
+import {Platform} from 'react-native'
+import {useAppLifecycle} from 'react-native-applifecycle'
 import {
   markAsRead,
   submitRemoteConfiguration,
@@ -20,12 +23,16 @@ import {
   RetrieveTranscriptResponse,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
+import {useAsync} from '@/hooks/useAsync'
 import {useBoolean} from '@/hooks/useBoolean'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
+import {ModuleSlug} from '@/modules/slugs'
+import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
+import {PiwikAction} from '@/processes/piwik/types'
 
 type ChatContextType = {
   addDownloadedTranscriptId: (
@@ -148,6 +155,47 @@ export const ChatProvider = ({children}: Props) => {
   useEffect(() => {
     if (isMinimized && isNewMessage(messages[messages.length - 1]?.format)) {
       setNewMessagesCount(count => count + 1)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [messages.length])
+
+  const appState = useAppLifecycle()
+
+  const {trackCustomEvent} = useTrackEvents()
+
+  useAsync(async () => {
+    // notify users of new messages in the chat, when the app is in background/inactive
+    // for iOS 'background' is disabled, because that would only show when the app becomes active again
+    if (
+      appState !== 'active' &&
+      !(Platform.OS === 'ios' && appState === 'background') &&
+      isNewMessage(messages[messages.length - 1]?.format)
+    ) {
+      const channelId = await notifee.createChannel({
+        id: 'default',
+        name: 'Default Channel',
+      })
+
+      void notifee
+        .displayNotification({
+          title: messages[messages.length - 1].senderDisplayName,
+          body: messages[messages.length - 1].text,
+          android: {
+            channelId,
+            pressAction: {id: 'default'},
+          },
+          data: {
+            maximizeChat: 1,
+            module: ModuleSlug.chat,
+          },
+        })
+        .then(() => {
+          trackCustomEvent(
+            'chat-push-notification',
+            PiwikAction.pushNotificationDisplay,
+            {},
+          )
+        })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages.length])

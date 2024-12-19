@@ -92,7 +92,6 @@ export const chatSlice = createSlice({
 const {
   closeChat,
   openChat,
-  maximizeChat,
   minimizeChat,
   setHeightMinimized,
   toggleChatIsOpen,
@@ -101,6 +100,8 @@ const {
   setChatHeaderHeight,
   setIsChatMenuOpen,
 } = chatSlice.actions
+
+export const {maximizeChat} = chatSlice.actions
 
 export const selectChatIsOpen = (state: RootState) =>
   state[ReduxKey.chat].isOpen
