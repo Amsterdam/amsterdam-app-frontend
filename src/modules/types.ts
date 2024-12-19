@@ -1,6 +1,7 @@
+import {EventDetail, EventType} from '@notifee/react-native'
 import {type PathConfigMap} from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
-import {type ComponentType} from 'react'
+import {Dispatch, type ComponentType} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {type SvgIconName} from '@/components/ui/media/svgIcons'
 import {type ModuleSlug} from '@/modules/slugs'
@@ -77,6 +78,17 @@ export type ModuleClientConfig = BaseModuleConfig & {
    * @see https://reactnavigation.org/docs/configuring-links
    */
   linking?: PathConfigMap<RootStackParams>
+  /**
+   * Module specific logic for handling notification events
+   * @param type Interaction type with the notification, for example Press or Delivered
+   * @param detail details of the event
+   * @param dispatch Redux dispatch function
+   */
+  onNotificationEvent?: (
+    type: EventType,
+    detail: EventDetail,
+    dispatch: Dispatch<unknown>,
+  ) => void
   /**
    * Determines whether the module requires authorization to be accessed.
    */
