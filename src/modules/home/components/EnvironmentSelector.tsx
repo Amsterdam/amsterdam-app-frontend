@@ -1,6 +1,7 @@
 import {pascalCase} from 'pascal-case'
 import {useEffect} from 'react'
 import RNRestart from 'react-native-restart'
+import {destroyStorageAndAuthorization} from 'react-native-salesforce-messaging-in-app/src'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {TextInput} from '@/components/ui/forms/TextInput'
@@ -60,10 +61,11 @@ export const EnvironmentSelector = () => {
               key={env}
               label={env}
               onPress={async () => {
+                await destroyStorageAndAuthorization()
                 dispatch(
                   setEnvironment(
                     env === Environment.development
-                      ? Environment.production
+                      ? Environment.acceptance
                       : Environment.development,
                   ),
                 )

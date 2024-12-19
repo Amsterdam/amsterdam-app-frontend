@@ -644,6 +644,19 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     }
   }
 
+  @ReactMethod
+  override fun destroyStorageAndAuthorization(
+    promise: Promise
+  ) {
+    try {
+      coreClient?.stop()
+      coreClient?.destroy()
+      promise.resolve(true)
+    } catch (e: Exception) {
+      // Catch any exception and reject the promise
+      promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
+  }
 
   @ReactMethod
   override fun submitRemoteConfiguration(

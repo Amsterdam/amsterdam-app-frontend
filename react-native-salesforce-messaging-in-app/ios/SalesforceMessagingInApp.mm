@@ -19,6 +19,27 @@ id<SMIConversationClient> conversationClient;
 id<SMIRemoteConfiguration> remoteConfiguration;
 NSMutableArray<id<SMIChoice>> *receivedChoices;
 NSString *localImageUri;
+RCT_EXPORT_METHOD(destroyStorageAndAuthorization:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+    @try {
+        if (coreClient != nil) {
+            [coreClient destroyStorageAndAuthorization:TRUE completion:^(NSError * _Nullable error) {
+                [coreClient stop];
+                [coreClient removeDelegate:self];
+                resolve(@"YES");
+            }];
+        }else {
+            resolve(@"YES");
+        }
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"destroyStorageAndAuthorization Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"destroy_storage_and_authorizationn_exception", @"An exception occurred during destroyStorageAndAuthorization", error);
+    }
+}
 
 RCT_EXPORT_METHOD(createCoreClient:(NSString *)url
                   organizationId:(NSString *)organizationId
@@ -112,7 +133,6 @@ RCT_EXPORT_METHOD(createConversationClient:(NSString *)conversationId
         receivedChoices = [NSMutableArray array];
         localImageUri = nil;
         if (conversationClient != nil) {
-            [coreClient addDelegate:self];  // Set the delegate to self after creating the conversation client to receive events for the conversation client.
             resolve(conversationClient.identifier.UUIDString);
         } else {
             NSError *error = [NSError errorWithDomain:@"ConversationClient Creation Failed"
