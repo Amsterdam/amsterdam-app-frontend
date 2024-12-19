@@ -1,4 +1,3 @@
-import notifee from '@notifee/react-native'
 import {
   createContext,
   ReactNode,
@@ -7,32 +6,23 @@ import {
   useMemo,
   useState,
 } from 'react'
-import {Platform} from 'react-native'
-import {useAppLifecycle} from 'react-native-applifecycle'
-import {
-  markAsRead,
-  submitRemoteConfiguration,
-  useCreateChat,
-} from 'react-native-salesforce-messaging-in-app/src'
+import {useCreateChat} from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
   ConversationEntryFormat,
-  ConversationEntryRoutingWorkType,
   ConnectionState,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
-  ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/types'
-import {useAsync} from '@/hooks/useAsync'
-import {useBoolean} from '@/hooks/useBoolean'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
+import {useIsChatEnded} from '@/modules/chat/hooks/useIsChatEnded'
+import {useMarkAsRead} from '@/modules/chat/hooks/useMarkAsRead'
+import {useSendNotificationWhenInBackground} from '@/modules/chat/hooks/useSendNotificationWhenInBackground'
+import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
-import {ModuleSlug} from '@/modules/slugs'
-import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-import {PiwikAction} from '@/processes/piwik/types'
 
 type ChatContextType = {
   addDownloadedTranscriptId: (
@@ -62,57 +52,6 @@ const initialValue: ChatContextType = {
   newMessagesCount: 0,
   ready: false,
   remoteConfiguration: undefined,
-}
-
-/**
- * Function to check if the chat is ended or not
- * How it works:
- * It checks whether the last received message (excluding Transcript entries) is of format RoutingWorkResult
- * If that is the case, and the workType is 'closed' and we are not waiting for an agent, then the chat is ended
- *
- * If above condition is false, it will check whether an agent was in the chat and has since left and no agents remain.
- *
- * This function should preferably be replaced by a reliable isEnded value that is provided by Salesforce
- */
-const isChatEnded = (
-  messages: ConversationEntry[],
-  isWaitingForAgent: boolean,
-  agentEnteredChat: boolean,
-  agentInChat: boolean,
-): boolean => {
-  const filteredMessages = messages.filter(
-    message => message.format !== ConversationEntryFormat.transcript,
-  )
-  const lastMessage = filteredMessages[filteredMessages.length - 1]
-
-  return (
-    (lastMessage?.format === ConversationEntryFormat.routingWorkResult &&
-      lastMessage.workType === ConversationEntryRoutingWorkType.closed &&
-      !isWaitingForAgent) ||
-    (agentEnteredChat && !agentInChat)
-  )
-}
-
-const useIsChatEnded = (
-  messages: ConversationEntry[],
-  isWaitingForAgent: boolean,
-  agentInChat: boolean,
-): {endChat: () => void; isEnded: boolean} => {
-  const {value: isEnded, enable: endChat} = useBoolean(false)
-  const [agentEnteredChat, setAgentEnteredChat] = useState(agentInChat)
-
-  useEffect(() => {
-    if (agentInChat) {
-      setAgentEnteredChat(true)
-    }
-  }, [agentInChat])
-
-  return {
-    isEnded:
-      isEnded ||
-      isChatEnded(messages, isWaitingForAgent, agentEnteredChat, agentInChat),
-    endChat,
-  }
 }
 
 export const ChatContext = createContext<ChatContextType>(initialValue)
@@ -159,85 +98,20 @@ export const ChatProvider = ({children}: Props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages.length])
 
-  const appState = useAppLifecycle()
-
-  const {trackCustomEvent} = useTrackEvents()
-
-  useAsync(async () => {
-    // notify users of new messages in the chat, when the app is in background/inactive
-    // for iOS 'background' is disabled, because that would only show when the app becomes active again
-    if (
-      appState !== 'active' &&
-      !(Platform.OS === 'ios' && appState === 'background') &&
-      isNewMessage(messages[messages.length - 1]?.format)
-    ) {
-      const channelId = await notifee.createChannel({
-        id: 'default',
-        name: 'Default Channel',
-      })
-
-      void notifee
-        .displayNotification({
-          title: messages[messages.length - 1].senderDisplayName,
-          body: messages[messages.length - 1].text,
-          android: {
-            channelId,
-            pressAction: {id: 'default'},
-          },
-          data: {
-            maximizeChat: 1,
-            module: ModuleSlug.chat,
-          },
-        })
-        .then(() => {
-          trackCustomEvent(
-            'chat-push-notification',
-            PiwikAction.pushNotificationDisplay,
-            {},
-          )
-        })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages.length])
-
   useEffect(() => {
     if (isMaximized) {
       setNewMessagesCount(0)
     }
   }, [isMaximized])
-
-  useEffect(() => {
-    if (isMaximized && messages.length > 0) {
-      const externalMessages = messages.filter(
-        message => message.sender.role !== ConversationEntrySenderRole.user,
-      )
-
-      void markAsRead(externalMessages[externalMessages.length - 1])
-    }
-  }, [messages, messages.length, isMaximized])
-
   useEffect(() => {
     setConversationId(newConversationId ?? conversationId)
   }, [conversationId, newConversationId, setConversationId])
 
-  useEffect(() => {
-    if (remoteConfiguration) {
-      const remoteConfig = JSON.parse(
-        JSON.stringify(remoteConfiguration),
-      ) as RemoteConfiguration
+  useSendNotificationWhenInBackground(messages)
 
-      remoteConfig.preChatConfiguration[0]?.hiddenPreChatFields.forEach(
-        field => {
-          if (field.name === 'Origin' || field.name === 'Chat_Origin') {
-            field.value = 'App'
-          } else if (field.name === 'Start_Location') {
-            field.value = 'contact'
-          }
-        },
-      )
-      void submitRemoteConfiguration(remoteConfig, true)
-    }
-  }, [remoteConfiguration])
+  useMarkAsRead(messages)
+
+  useSubmitRemoteConfiguration(remoteConfiguration)
 
   const value = useMemo(() => {
     const filteredMessages = filterOutCloseChatMessage(
