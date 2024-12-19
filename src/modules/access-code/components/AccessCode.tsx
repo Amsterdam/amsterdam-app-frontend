@@ -16,12 +16,13 @@ type Props = {
 
 export const AccessCode = ({accessCode, codeLength, error}: Props) => {
   const styles = useThemable(createStyles)
-  const {error: accessCodeError, resetError} = useAccessCodeError()
+  const {resetError} = useAccessCodeError()
 
   useEffect(
     () => () => {
       resetError()
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   )
 
