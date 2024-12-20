@@ -2,9 +2,10 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {UserRouteName} from '@/modules/user/routes'
 import {UserMenuSection} from '@/modules/user/types'
 
 const accessCodeSection: UserMenuSection = {
@@ -14,7 +15,12 @@ const accessCodeSection: UserMenuSection = {
       icon: 'accessCode',
       label: 'Wijzig toegangscode',
       moduleSlug: ModuleSlug['access-code'],
-      route: AccessCodeRouteName.setAccessCode,
+    },
+    {
+      icon: 'lock',
+      label: 'Toegang met biometrische gevens',
+      moduleSlug: ModuleSlug.user,
+      route: UserRouteName.userBiometrics,
     },
   ],
 }
@@ -23,6 +29,7 @@ const sections: UserMenuSection[] = []
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
+  const {biometricsLabel} = useAccessCodeBiometrics()
 
   return (
     <Column gutter="sm">
@@ -30,16 +37,26 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
         level="h5"
         text={title}
       />
-      {navigationItems.map(item => (
-        <NavigationButton
-          emphasis="default"
-          iconSize="md"
-          key={item.route}
-          {...item}
-          onPress={() => navigate(item.moduleSlug ?? ModuleSlug.user)}
-          testID={`NavigationButtonTo${item.route}`}
-        />
-      ))}
+      {navigationItems.map(item =>
+        item.route === UserRouteName.userBiometrics &&
+        !biometricsLabel ? null : (
+          <NavigationButton
+            emphasis="default"
+            iconSize="md"
+            key={item.moduleSlug}
+            {...item}
+            label={
+              item.route === UserRouteName.userBiometrics
+                ? `Toegang met ${biometricsLabel}`
+                : item.label
+            }
+            onPress={() =>
+              navigate(item.moduleSlug ?? ModuleSlug.user, {screen: item.route})
+            }
+            testID={`NavigationButtonTo${item.route}`}
+          />
+        ),
+      )}
     </Column>
   )
 }

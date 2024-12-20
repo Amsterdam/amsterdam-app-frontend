@@ -1,4 +1,4 @@
-import {useCallback, useMemo} from 'react'
+import {useCallback} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,11 +7,10 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
-import {mapBiometricsAuthenticationTypeToLabel} from '@/modules/access-code/utils/mapValidationTypeToLabel'
 import {capitalizeString} from '@/utils/capitalizeString'
 
 export const BiometricsPermissionScreen = () => {
-  const {biometricsAuthenticationType, isLoading, setUseBiometrics} =
+  const {biometricsLabel, isLoading, setUseBiometrics} =
     useAccessCodeBiometrics()
 
   const onPress = useCallback(
@@ -19,11 +18,6 @@ export const BiometricsPermissionScreen = () => {
       setUseBiometrics(permission)
     },
     [setUseBiometrics],
-  )
-
-  const biometricsLabel = useMemo(
-    () => mapBiometricsAuthenticationTypeToLabel(biometricsAuthenticationType),
-    [biometricsAuthenticationType],
   )
 
   if (isLoading) {

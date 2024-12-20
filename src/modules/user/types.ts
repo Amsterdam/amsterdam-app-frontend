@@ -12,5 +12,5 @@ export type UserMenuSectionItem = {
   icon: SvgIconName
   label: string
   moduleSlug?: ModuleSlug
-  route: AccessCodeRouteName | UserRouteName
+  route?: AccessCodeRouteName | UserRouteName
 }
