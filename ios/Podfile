@@ -20,7 +20,7 @@ setup_permissions([
   # 'Calendars',
   'Camera',
   # 'Contacts',
-  # 'FaceID',
+  'FaceID',
   'LocationAccuracy',
   # 'LocationAlways',
   'LocationWhenInUse',

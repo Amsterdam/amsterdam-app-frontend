@@ -22,14 +22,16 @@ import {
 
 const checkPermission = async (
   permission: Permissions,
-): Promise<PermissionStatus> => {
+): Promise<PermissionStatus | undefined> => {
   if (permission === Permissions.notifications) {
     const result = await checkNotifications()
 
     return result.status
   }
 
-  return check(permission)
+  if (permission) {
+    return check(permission)
+  }
 }
 
 export const useCheckPermissions = () => {

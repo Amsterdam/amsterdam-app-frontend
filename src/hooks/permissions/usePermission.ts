@@ -19,7 +19,7 @@ import {Permissions} from '@/types/permissions'
 
 const requestPermission = async (
   permission: Permissions,
-): Promise<PermissionStatus> => {
+): Promise<PermissionStatus | undefined> => {
   if (permission === Permissions.notifications) {
     const result = await requestNotifications([
       'alert',
@@ -31,7 +31,9 @@ const requestPermission = async (
     return result.status
   }
 
-  return request(permission)
+  if (permission) {
+    return request(permission)
+  }
 }
 
 export const usePermission = (permission: Permissions) => {

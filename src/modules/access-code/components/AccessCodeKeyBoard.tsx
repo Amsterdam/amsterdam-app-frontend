@@ -1,6 +1,6 @@
 import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
-import {useEffect, useMemo} from 'react'
-import {View, StyleSheet} from 'react-native'
+import {useEffect} from 'react'
+import {View, StyleSheet, Platform} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -9,7 +9,6 @@ import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCode
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {AccessCodeType} from '@/modules/access-code/types'
-import {mapBiometricsAuthenticationTypeToIconName} from '@/modules/access-code/utils/mapValidationTypeToIconName'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -21,15 +20,8 @@ type Props = {
 export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
-  const {biometricsAuthenticationType, useBiometrics} =
-    useAccessCodeBiometrics()
+  const {iconName, hasPermission, useBiometrics} = useAccessCodeBiometrics()
   const {addDigit, removeDigit} = useAccessCode()
-
-  const iconName = useMemo(
-    () =>
-      mapBiometricsAuthenticationTypeToIconName(biometricsAuthenticationType),
-    [biometricsAuthenticationType],
-  )
 
   useEffect(() => {
     void lockAsync(OrientationLock.PORTRAIT_UP)
@@ -89,6 +81,7 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
             align="end"
             gutter="sm">
             {!!useBiometrics &&
+              (Platform.OS === 'android' || !!hasPermission) &&
               type === AccessCodeType.codeEntered &&
               !!iconName && (
                 <AccessCodeKeyBoardKey
