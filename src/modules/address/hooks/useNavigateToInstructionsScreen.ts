@@ -8,6 +8,13 @@ const navigationParams: Record<
   Permissions[number],
   PermissionInstructionScreenParams
 > = {
+  [Permissions.biometrics]: {
+    icon: 'faceId',
+    paragraph: 'Ga naar Instellingen en geef de app toegang tot Face ID.',
+    permission: Permissions.biometrics,
+    screenTitle: 'Face ID',
+    title: 'Geef toegang tot Face ID',
+  },
   [Permissions.location]: {
     icon: 'location',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot uw locatie.',

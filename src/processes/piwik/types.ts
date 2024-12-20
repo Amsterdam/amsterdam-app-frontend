@@ -102,6 +102,8 @@ export enum PiwikSessionDimension {
   hasPhotosPermission = 33,
   hasLocationPermission = 34,
   hasNotificationPermission = 35,
+  hasBiometricsPermission = 48,
+  // modules
   contactModule = 37,
   redirectsModule = 38,
   wasteGuideModule = 39,

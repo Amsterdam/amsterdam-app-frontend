@@ -3,6 +3,7 @@ import {PERMISSIONS} from 'react-native-permissions'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 
 export const Permissions = {
+  biometrics: PERMISSIONS.IOS.FACE_ID, // On Android, biometrics is not a "dangerous level" permission
   camera:
     Platform.OS === 'android'
       ? PERMISSIONS.ANDROID.CAMERA
@@ -26,6 +27,10 @@ export const ALL_PERMISSIONS_WITH_LOG_DIMENSION: Array<{
   logDimension: PiwikSessionDimension
   permission: Permissions
 }> = [
+  {
+    permission: Permissions.biometrics,
+    logDimension: PiwikSessionDimension.hasBiometricsPermission,
+  },
   {
     permission: Permissions.location,
     logDimension: PiwikSessionDimension.hasLocationPermission,
