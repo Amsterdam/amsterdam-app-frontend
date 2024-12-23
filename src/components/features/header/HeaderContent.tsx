@@ -40,6 +40,7 @@ export const HeaderContent = ({
       gutter="lg"
       valign="center">
       <View
+        accessible
         ref={accessibilityAutoFocusRef}
         style={styles.sideColumn}>
         {!!back && (
