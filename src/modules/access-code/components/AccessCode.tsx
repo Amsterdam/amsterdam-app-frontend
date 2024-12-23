@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {AccessCodeError} from '@/modules/access-code/components/AccessCodeError'
 import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -33,6 +33,7 @@ export const AccessCode = ({accessCode, codeLength, error}: Props) => {
         gutter="md">
         {Array.from({length: codeLength}).map((_, index) => (
           <View
+            accessibilityLabel={`Tekstveld, ${index + 1} van ${codeLength}`}
             key={index}
             style={[
               styles.item,
@@ -47,7 +48,7 @@ export const AccessCode = ({accessCode, codeLength, error}: Props) => {
           </View>
         ))}
       </Row>
-      {!!error && <Paragraph color="warning">{error}</Paragraph>}
+      {!!error && <AccessCodeError error={error} />}
     </Column>
   )
 }
