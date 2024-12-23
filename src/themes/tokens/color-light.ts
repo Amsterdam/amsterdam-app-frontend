@@ -127,7 +127,22 @@ export const lightColorTokens = {
   },
   customKeyboard: {
     background: baseColor.neutral.grey2,
-    button: baseColor.primary.white,
+    button: {
+      background: baseColor.primary.white,
+      elevation: 2,
+      pressed: {
+        background: baseColor.neutral.grey1,
+      },
+      shadow: {
+        color: baseColor.primary.black,
+        opacity: 0.25,
+        radius: 1,
+        offset: {
+          width: 0,
+          height: 1,
+        },
+      },
+    },
   },
   control: {
     default: {

@@ -27,7 +27,11 @@ export const AccessCodeKeyBoardKey = ({
     <Pressable
       accessibilityLabel={accessibilityLabel}
       onPress={onPress}
-      style={[styles.button, iconName && styles.transparent]}
+      style={({pressed}) => [
+        styles.button,
+        iconName && styles.transparent,
+        pressed && !iconName && styles.pressed,
+      ]}
       testID={`AccessCodeKeyBoardKey${keyNumber ?? iconName}`}>
       {!!iconName && (
         <Icon
@@ -50,19 +54,33 @@ export const AccessCodeKeyBoardKey = ({
 const WIDTH = 115
 const HEIGHT = 44
 
-const createStyles = ({color, text}: Theme) =>
-  StyleSheet.create({
+const createStyles = ({color, text}: Theme) => {
+  const {background, elevation, pressed, shadow} = color.customKeyboard.button
+
+  return StyleSheet.create({
     button: {
       alignItems: 'center',
-      backgroundColor: color.customKeyboard.button,
+      backgroundColor: background,
       justifyContent: 'center',
       width: WIDTH,
       height: HEIGHT,
+      borderRadius: 4,
+      shadowColor: shadow.color,
+      shadowOffset: shadow.offset,
+      shadowOpacity: shadow.opacity,
+      shadowRadius: shadow.radius,
+      elevation,
+    },
+    pressed: {
+      backgroundColor: pressed.background,
     },
     transparent: {
       backgroundColor: 'transparent',
+      shadowColor: 'transparent',
+      elevation: 0,
     },
     text: {
       fontSize: text.fontSize.h2,
     },
   })
+}
