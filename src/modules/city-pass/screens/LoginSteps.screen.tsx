@@ -84,6 +84,13 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
       stickyFooter={
         <Box>
           <Button
+            accessibilityLabel={
+              isStepsComplete
+                ? 'Gereed'
+                : isCityPassOwnerRegistered
+                  ? 'Volgende. Ga naar toegangscode instellen.'
+                  : 'Volgende. Ga naar inloggen met DigiD.'
+            }
             label={isStepsComplete ? 'Gereed' : 'Volgende'}
             onPress={onPress}
             testID="CityPassLoginScreenNextButton"
