@@ -57,7 +57,7 @@ export const CityPassStack = () => {
         />
       ) : isCityPassOwnerRegistered ? (
         accessCode && !isLoginStepsActive ? (
-          isCodeValid ? (
+          isCodeValid && useBiometrics !== undefined ? (
             Object.entries(cityPassScreenConfig).map(([key, route]) => (
               <Stack.Screen
                 key={key}
@@ -65,19 +65,18 @@ export const CityPassStack = () => {
               />
             ))
           ) : attemptsLeft > 0 ? (
-            useBiometrics === undefined ? (
-              <Stack.Screen
-                component={BiometricsPermissionScreen}
-                name={AccessCodeRouteName.biometricsPermission}
-                options={{headerTitle: 'Sneller toegang'}}
-              />
-            ) : (
+            <>
               <Stack.Screen
                 component={AccessCodeScreen}
                 name={AccessCodeRouteName.accessCode}
                 options={{headerTitle: 'Toegangscode invoeren'}}
               />
-            )
+              <Stack.Screen
+                component={BiometricsPermissionScreen}
+                name={AccessCodeRouteName.biometricsPermission}
+                options={{headerTitle: 'Sneller toegang'}}
+              />
+            </>
           ) : (
             <Stack.Screen
               component={AccessCodeInvalidScreen}
