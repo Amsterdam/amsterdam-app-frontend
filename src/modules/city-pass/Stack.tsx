@@ -88,7 +88,7 @@ export const CityPassStack = () => {
             <Stack.Screen
               component={LoginStepsScreen}
               name={CityPassRouteName.loginSteps}
-              options={{headerTitle: 'Login'}}
+              options={{headerTitle: 'Inloggen'}}
             />
             <Stack.Screen
               component={SetAccessCodeScreen}
@@ -114,7 +114,7 @@ export const CityPassStack = () => {
           <Stack.Screen
             component={LoginStepsScreen}
             name={CityPassRouteName.loginSteps}
-            options={{headerTitle: 'Login'}}
+            options={{headerTitle: 'Inloggen'}}
           />
         </>
       )}
