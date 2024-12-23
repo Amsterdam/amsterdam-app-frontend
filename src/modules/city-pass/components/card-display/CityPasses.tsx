@@ -44,7 +44,7 @@ export const CityPasses = ({index}: Props) => {
     onScreenshot,
   })
 
-  useBrightScreen({})
+  useBrightScreen()
 
   return isCodeValid ? (
     <View style={styles.container}>
