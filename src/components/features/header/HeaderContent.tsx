@@ -32,7 +32,6 @@ export const HeaderContent = ({
    */
   const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !preventInitialFocus,
-    platform: 'ios',
   })
 
   return (
