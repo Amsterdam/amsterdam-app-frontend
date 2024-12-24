@@ -4,6 +4,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 import {UserMenuSection} from '@/modules/user/types'
@@ -19,13 +20,28 @@ const accessCodeSection: UserMenuSection = {
     {
       icon: 'lock',
       label: 'Toegang met biometrische gevens',
-      moduleSlug: ModuleSlug.user,
       route: UserRouteName.userBiometrics,
     },
   ],
 }
 
-const sections: UserMenuSection[] = []
+const sections: UserMenuSection[] = [
+  {
+    navigationItems: [
+      {
+        icon: 'housing',
+        label: 'Mijn adres',
+        moduleSlug: ModuleSlug.address,
+        route: AddressRouteName.address,
+      },
+      {
+        icon: 'settings',
+        label: 'Onderwerpen in de app',
+        route: UserRouteName.moduleSettings,
+      },
+    ],
+  },
+]
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
@@ -33,10 +49,12 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
 
   return (
     <Column gutter="sm">
-      <Title
-        level="h5"
-        text={title}
-      />
+      {!!title && (
+        <Title
+          level="h5"
+          text={title}
+        />
+      )}
       {navigationItems.map(item =>
         item.route === UserRouteName.userBiometrics &&
         !biometricsLabel ? null : (
@@ -66,7 +84,6 @@ export const UserMenu = () => {
 
   return (
     <>
-      {!!accessCode && <MenuSection {...accessCodeSection} />}
       {!!sections.length &&
         sections.map(section => (
           <MenuSection
@@ -74,6 +91,7 @@ export const UserMenu = () => {
             {...section}
           />
         ))}
+      {!!accessCode && <MenuSection {...accessCodeSection} />}
     </>
   )
 }
