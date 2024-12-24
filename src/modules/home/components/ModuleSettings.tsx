@@ -22,7 +22,7 @@ export const ModuleSettings = () => {
     return (
       <PleaseWait
         grow
-        testID="HomeModulesLoadingSpinner"
+        testID="UserModuleSettingsLoadingSpinner"
       />
     )
   }
@@ -39,7 +39,7 @@ export const ModuleSettings = () => {
         error={modulesError}
         Image={ModulesFigure}
         onPress={refetchModules}
-        testID="ModuleSettingsErrorScreen"
+        testID="UserModuleSettingsErrorScreen"
         text="Probeer het later opnieuw."
         title="Helaas kunnen de modules niet geladen worden"
       />
@@ -50,7 +50,7 @@ export const ModuleSettings = () => {
     return (
       <Box>
         <EmptyMessage
-          testID="ModuleSettingsEmptyList"
+          testID="UserModuleSettingsEmptyList"
           text={`We hebben geen modules gevonden voor versie ${getVersion()} van de app.`}
         />
       </Box>
@@ -68,7 +68,7 @@ export const ModuleSettings = () => {
             <ModuleSetting
               key={module.slug}
               module={module}
-              testID={`HomeModule${pascalCase(module.slug)}`}
+              testID={`UserModuleSettings${pascalCase(module.slug)}`}
             />
           ))}
         </Column>
