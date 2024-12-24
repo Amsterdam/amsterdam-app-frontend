@@ -1,3 +1,4 @@
+import {TransitionPresets} from '@react-navigation/stack'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
@@ -69,12 +70,17 @@ export const CityPassStack = () => {
               <Stack.Screen
                 component={AccessCodeScreen}
                 name={AccessCodeRouteName.accessCode}
-                options={{headerTitle: 'Toegangscode invoeren'}}
+                options={{
+                  headerTitle: 'Toegangscode invoeren',
+                  ...TransitionPresets.ModalFadeTransition,
+                }}
               />
               <Stack.Screen
                 component={BiometricsPermissionScreen}
                 name={AccessCodeRouteName.biometricsPermission}
-                options={{headerTitle: 'Sneller toegang'}}
+                options={{
+                  headerTitle: 'Sneller toegang',
+                }}
               />
             </>
           ) : (

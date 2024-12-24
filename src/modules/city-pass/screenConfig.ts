@@ -1,3 +1,4 @@
+import {TransitionPresets} from '@react-navigation/stack'
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   CityPassRouteName,
@@ -50,6 +51,7 @@ export const cityPassScreenConfig: StackNavigationRoutes<
     name: CityPassRouteName.cityPasses,
     options: {
       headerTitle: 'Stadspas tonen',
+      ...TransitionPresets.ModalFadeTransition,
     },
   },
   [CityPassRouteName.securityCode]: {
