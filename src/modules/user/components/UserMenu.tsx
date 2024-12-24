@@ -1,3 +1,4 @@
+import {View} from 'react-native'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
@@ -83,7 +84,7 @@ export const UserMenu = () => {
   const {accessCode} = useGetSecureAccessCode()
 
   return (
-    <>
+    <View testID="UserMenu">
       {!!sections.length &&
         sections.map(section => (
           <MenuSection
@@ -92,6 +93,6 @@ export const UserMenu = () => {
           />
         ))}
       {!!accessCode && <MenuSection {...accessCodeSection} />}
-    </>
+    </View>
   )
 }
