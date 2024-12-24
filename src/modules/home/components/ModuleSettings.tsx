@@ -58,7 +58,7 @@ export const ModuleSettings = () => {
   }
 
   return (
-    <Box>
+    <Box testID="UserModuleSettings">
       <Column gutter="md">
         <Paragraph>
           Hier kunt u zelf bepalen welke onderwerpen u wilt zien in de app.
