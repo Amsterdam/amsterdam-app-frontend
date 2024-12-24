@@ -54,8 +54,8 @@ export const AccessCodeKeyBoardKey = ({
 const WIDTH = 115
 const HEIGHT = 44
 
-const createStyles = ({color, text}: Theme) => {
-  const {background, elevation, pressed, shadow} = color.customKeyboard.button
+const createStyles = ({color, shadow: {customKeyboardButton}, text}: Theme) => {
+  const {background, pressed, shadow: shadowColor} = color.customKeyboard.button
 
   return StyleSheet.create({
     button: {
@@ -65,11 +65,11 @@ const createStyles = ({color, text}: Theme) => {
       width: WIDTH,
       height: HEIGHT,
       borderRadius: 4,
-      shadowColor: shadow.color,
-      shadowOffset: shadow.offset,
-      shadowOpacity: shadow.opacity,
-      shadowRadius: shadow.radius,
-      elevation,
+      shadowColor,
+      shadowOffset: customKeyboardButton.offset,
+      shadowOpacity: customKeyboardButton.opacity,
+      shadowRadius: customKeyboardButton.radius,
+      elevation: customKeyboardButton.elevation,
     },
     pressed: {
       backgroundColor: pressed.background,
@@ -77,7 +77,7 @@ const createStyles = ({color, text}: Theme) => {
     transparent: {
       backgroundColor: 'transparent',
       shadowColor: 'transparent',
-      elevation: 0,
+      elevation: undefined,
     },
     text: {
       fontSize: text.fontSize.h2,

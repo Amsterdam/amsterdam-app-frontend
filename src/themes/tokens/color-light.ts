@@ -129,19 +129,10 @@ export const lightColorTokens = {
     background: baseColor.neutral.grey2,
     button: {
       background: baseColor.primary.white,
-      elevation: 2,
       pressed: {
         background: baseColor.neutral.grey1,
       },
-      shadow: {
-        color: baseColor.primary.black,
-        opacity: 0.25,
-        radius: 1,
-        offset: {
-          width: 0,
-          height: 1,
-        },
-      },
+      shadow: baseColor.primary.black,
     },
   },
   control: {
