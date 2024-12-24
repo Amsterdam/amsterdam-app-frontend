@@ -85,14 +85,16 @@ export const UserMenu = () => {
 
   return (
     <View testID="UserMenu">
-      {!!sections.length &&
-        sections.map(section => (
-          <MenuSection
-            key={section.title}
-            {...section}
-          />
-        ))}
-      {!!accessCode && <MenuSection {...accessCodeSection} />}
+      <Column gutter="lg">
+        {!!sections.length &&
+          sections.map(section => (
+            <MenuSection
+              key={section.title}
+              {...section}
+            />
+          ))}
+        {!!accessCode && <MenuSection {...accessCodeSection} />}
+      </Column>
     </View>
   )
 }
