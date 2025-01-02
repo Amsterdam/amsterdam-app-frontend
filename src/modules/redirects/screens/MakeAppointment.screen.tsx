@@ -36,16 +36,15 @@ export const MakeAppointmentScreen = () => {
               moet meenemen.
             </Paragraph>
           </Column>
-          <>
-            {isLoading ? (
-              <PleaseWait testID="RedirectsMakeAppointmentPleaseWait" />
-            ) : isError ? (
-              <SomethingWentWrong testID="RedirectsMakeAppointmentSomethingWentWrong" />
-            ) : (
-              appointmentSubjects.map(
-                ({requiresPhoneCall, links, text, title}) => (
+          {isLoading ? (
+            <PleaseWait testID="RedirectsMakeAppointmentPleaseWait" />
+          ) : isError ? (
+            <SomethingWentWrong testID="RedirectsMakeAppointmentSomethingWentWrong" />
+          ) : (
+            appointmentSubjects.map(
+              ({requiresPhoneCall, links, text, title}) => (
+                <Box key={title}>
                   <Accordion
-                    key={title}
                     testID={`RedirectsMakeAppointment${pascalCase(title)}Accordion`}
                     title={title}>
                     <Column gutter="md">
@@ -79,10 +78,10 @@ export const MakeAppointmentScreen = () => {
                       )}
                     </Column>
                   </Accordion>
-                ),
-              )
-            )}
-          </>
+                </Box>
+              ),
+            )
+          )}
         </Column>
       </Box>
     </Screen>

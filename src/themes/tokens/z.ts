@@ -7,7 +7,7 @@ export const zTokens = {
   overlay: 3,
   productTourTooltipWrapperParent: 1, // this should be lower than the value for `tooltip`, set this on a view higher in the component tree to prevent z index issues
   skeleton: 3,
-  timelineLine: -1,
+  progressStepConnector: -1,
   tooltip: 2,
   noInternetBanner: 5,
 }

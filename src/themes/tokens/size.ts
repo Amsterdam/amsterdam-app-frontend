@@ -15,4 +15,14 @@ export const sizeTokens = {
   iconContainer: {
     xl: 55,
   },
+  progressSteps: {
+    primary: {
+      indicator: 24,
+      line: 4,
+    },
+    secondary: {
+      indicator: 30,
+      line: 3,
+    },
+  },
 } as const

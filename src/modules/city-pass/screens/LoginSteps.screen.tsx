@@ -113,6 +113,7 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
             <LoginItem
               isCurrent
               isDone={isCityPassOwnerRegistered}
+              isNextDone={!!accessCode}
               numberIndicator={1}
               text="Om te laten zien wie u bent."
               title="Inloggen met DigiD"
@@ -120,7 +121,6 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
             <LoginItem
               isCurrent={isCityPassOwnerRegistered}
               isDone={!!accessCode}
-              isLast
               numberIndicator={2}
               text="Om uw persoonlijke gegevens te beschermen."
               title="Toegangscode instellen"
