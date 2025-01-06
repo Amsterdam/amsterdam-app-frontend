@@ -44,18 +44,6 @@ export const HeaderNavigation = () => {
         onPress={() => navigation.navigate(ModuleSlug.user)}
         testID="HeaderUserButton"
       />
-      <IconButton
-        accessibilityLabel="Instellingen"
-        icon={
-          <Icon
-            name="settings"
-            {...iconProps}
-            testID="HeaderModuleSettingsIcon"
-          />
-        }
-        onPress={() => navigation.navigate(HomeRouteName.settings)}
-        testID="HeaderModuleSettingsButton"
-      />
     </Row>
   )
 }

@@ -1,16 +1,17 @@
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
 
 export type UserMenuSection = {
   navigationItems: UserMenuSectionItem[]
-  title: string
+  title?: string
 }
 
 export type UserMenuSectionItem = {
   icon: SvgIconName
   label: string
   moduleSlug?: ModuleSlug
-  route?: AccessCodeRouteName | UserRouteName
+  route?: AccessCodeRouteName | AddressRouteName | UserRouteName
 }

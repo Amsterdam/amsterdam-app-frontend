@@ -1,6 +1,8 @@
-export enum AddressRouteName {}
+export enum AddressRouteName {
+  address = 'Address',
+}
 
-export type AddressStackParams = Record<string, never>
+export type AddressStackParams = {[AddressRouteName.address]: undefined}
 
 export enum AddressModalName {
   addressForm = 'AddressForm',

@@ -7,8 +7,7 @@ import {screenConfig} from '@/modules/home/screenConfig'
 const Stack = createStackNavigator<RootStackParams>()
 
 export const HomeStack = () => {
-  const screenOptionsHome = useScreenOptions()
-  const screenOptions = useScreenOptions({screenType: 'settings'})
+  const screenOptions = useScreenOptions()
 
   return (
     <Stack.Navigator
@@ -18,17 +17,6 @@ export const HomeStack = () => {
         <Stack.Screen
           key={key}
           {...route}
-          options={
-            route.name === HomeRouteName.settings
-              ? {
-                  ...screenOptions,
-                  ...route.options,
-                }
-              : {
-                  ...screenOptionsHome,
-                  ...route.options,
-                }
-          }
         />
       ))}
     </Stack.Navigator>

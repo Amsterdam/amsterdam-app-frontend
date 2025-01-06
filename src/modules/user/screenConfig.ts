@@ -4,6 +4,7 @@ import {
   UserRouteName,
   UserStackParams,
 } from '@/modules/user/routes'
+import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
 import {UserScreen} from '@/modules/user/screens/User.screen'
 import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen'
 
@@ -11,6 +12,13 @@ export const screenConfig: StackNavigationRoutes<
   UserStackParams,
   UserRouteName
 > = {
+  [UserRouteName.moduleSettings]: {
+    component: ModuleSettingsScreen,
+    name: UserRouteName.moduleSettings,
+    options: {
+      headerTitle: 'Onderwerpen in de app',
+    },
+  },
   [UserRouteName.user]: {
     component: UserScreen,
     name: UserRouteName.user,

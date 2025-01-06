@@ -14,7 +14,7 @@ import {useAddress} from '@/modules/address/hooks/useAddress'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
-import {AddressModalName} from '@/modules/address/routes'
+import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -94,7 +94,9 @@ export const SelectLocationTypeBottomSheet = ({
               <Button
                 label="Wijzig adres"
                 onPress={() => {
-                  navigate(ModuleSlug.user)
+                  navigate(ModuleSlug.address, {
+                    screen: AddressRouteName.address,
+                  })
 
                   setLocationType('address')
                 }}
