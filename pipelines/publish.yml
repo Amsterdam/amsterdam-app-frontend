@@ -7,13 +7,13 @@ jobs:
   - job: 'Build_Storybook'
     timeoutInMinutes: 30
     pool:
-      vmImage: macOS-14
+      vmImage: macOS-15
     steps:
       - template: ./templates/storybook-build.yml
   - job: 'Push_to_github'
     timeoutInMinutes: 30
     pool:
-      vmImage: macOS-14
+      vmImage: macOS-15
     variables:
       - group: github-authorization
     steps:
