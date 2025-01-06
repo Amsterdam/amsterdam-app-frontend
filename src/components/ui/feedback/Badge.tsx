@@ -89,6 +89,7 @@ const createStyles =
         fontFamily: text.fontFamily.bold,
         fontSize: scaledFontSize,
         lineHeight: scaledFontSize * 1.28,
+        bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
         color: color.text.inverse,
         textAlign: 'center',
       },
