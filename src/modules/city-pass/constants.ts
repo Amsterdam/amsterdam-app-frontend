@@ -2,7 +2,7 @@ import {AboutBlock} from '@/modules/city-pass/types'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const DEFAULT_PASS_WIDTH = 312
-export const CITY_PASS_HEIGHT = 550
+export const CITY_PASS_HEIGHT = 500
 export const NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE = 0.33
 
 export const SOMETHING_WENT_WRONG_TEXT =
