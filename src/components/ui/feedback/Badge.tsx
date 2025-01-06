@@ -88,7 +88,7 @@ const createStyles =
       text: {
         fontFamily: text.fontFamily.bold,
         fontSize: scaledFontSize,
-        lineHeight: isDoubleDigitValue ? scaledFontSize * 1.28 : scaledDiameter,
+        lineHeight: scaledFontSize * 1.28,
         color: color.text.inverse,
         textAlign: 'center',
       },
