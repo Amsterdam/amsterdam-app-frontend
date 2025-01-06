@@ -1,9 +1,10 @@
-import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
+import {OrientationLock} from 'expo-screen-orientation'
 import {useCallback, useEffect} from 'react'
 import {AccessibilityInfo, Alert, StyleSheet, View} from 'react-native'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {useBrightScreen} from '@/hooks/useBrightScreen'
+import {useLockScreen} from '@/hooks/useLockScreen'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {CityPassesSwiper} from '@/modules/city-pass/components/card-display/CityPassesSwiper'
 import {setStartIndex} from '@/modules/city-pass/slice'
@@ -19,17 +20,11 @@ export const CityPasses = ({index}: Props) => {
   const {isCodeValid} = useEnterAccessCode()
   const styles = useThemable(createStyles)
 
+  useLockScreen(OrientationLock.PORTRAIT_UP)
+
   useEffect(() => {
     dispatch(setStartIndex(index))
   }, [dispatch, index])
-
-  useEffect(() => {
-    void lockAsync(OrientationLock.PORTRAIT_UP)
-
-    return () => {
-      void unlockAsync()
-    }
-  }, [])
 
   const onScreenshot = useCallback(() => {
     const screenshotMessage = 'Dit scherm staat geen schermafdrukken toe'

@@ -1,11 +1,12 @@
-import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
-import {useCallback, useEffect, useMemo} from 'react'
+import {OrientationLock} from 'expo-screen-orientation'
+import {useCallback, useMemo} from 'react'
 import {View, StyleSheet, Platform} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {useLockScreen} from '@/hooks/useLockScreen'
 import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCodeKeyboardKey'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
@@ -32,6 +33,8 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const {codeConfirmed} = useConfirmAccessCode()
   const {codeLength} = useAccessCode()
 
+  useLockScreen(OrientationLock.PORTRAIT_UP)
+
   const nextTextField = useMemo(() => {
     switch (type) {
       case AccessCodeType.codeEntered:
@@ -57,14 +60,6 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
     },
     [accessibilityAnnounce, addDigit, codeLength, nextTextField, type],
   )
-
-  useEffect(() => {
-    void lockAsync(OrientationLock.PORTRAIT_UP)
-
-    return () => {
-      void unlockAsync()
-    }
-  }, [])
 
   return (
     <View style={styles.container}>
