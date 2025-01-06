@@ -92,6 +92,7 @@ export type NativeSalesforceMessagingInApp = {
     organizationId: string,
     developerName: string,
   ) => Promise<void>
+  destroyStorageAndAuthorization: () => Promise<void>
   generateUUID: () => string
   markAsRead: (message: ConversationEntry) => Promise<boolean>
   removeListeners: (count: number) => void

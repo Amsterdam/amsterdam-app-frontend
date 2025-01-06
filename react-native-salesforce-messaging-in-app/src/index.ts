@@ -66,6 +66,9 @@ export const createCoreClient = ({
 export const createConversationClient = (conversationId?: string) =>
   SalesforceMessagingInApp.createConversationClient(conversationId ?? null)
 
+export const destroyStorageAndAuthorization = () =>
+  SalesforceMessagingInApp.destroyStorageAndAuthorization()
+
 export const markAsRead = (message: ConversationEntry) =>
   SalesforceMessagingInApp.markAsRead(message)
 
