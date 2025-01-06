@@ -1,3 +1,4 @@
+import {TransitionPresets} from '@react-navigation/stack'
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
   CityPassRouteName,
@@ -5,6 +6,7 @@ import {
 } from '@/modules/city-pass/routes'
 import {BudgetScreen} from '@/modules/city-pass/screens/Budget.screen'
 import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
+import {CityPassesScreen} from '@/modules/city-pass/screens/CityPasses.screen'
 import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
 import {LogoutScreen} from '@/modules/city-pass/screens/Logout.screen'
 import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.screen'
@@ -15,6 +17,7 @@ export const cityPassScreenConfig: StackNavigationRoutes<
   | CityPassRouteName.dashboard
   | CityPassRouteName.cityPassDetails
   | CityPassRouteName.cityPassLogout
+  | CityPassRouteName.cityPasses
   | CityPassRouteName.securityCode
 > = {
   [CityPassRouteName.dashboard]: {
@@ -41,6 +44,14 @@ export const cityPassScreenConfig: StackNavigationRoutes<
     name: CityPassRouteName.cityPassLogout,
     options: {
       headerTitle: 'Uitloggen',
+    },
+  },
+  [CityPassRouteName.cityPasses]: {
+    component: CityPassesScreen,
+    name: CityPassRouteName.cityPasses,
+    options: {
+      headerTitle: 'Stadspas tonen',
+      ...TransitionPresets.ModalFadeTransition,
     },
   },
   [CityPassRouteName.securityCode]: {

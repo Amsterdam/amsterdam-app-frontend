@@ -6,8 +6,10 @@ import type {CityPassPass} from '@/modules/city-pass/types'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {CityPass} from '@/modules/city-pass/components/card-display/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
-import {CITY_PASS_HEIGHT} from '@/modules/city-pass/constants'
-import {NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE} from '@/modules/city-pass/constants'
+import {
+  CITY_PASS_HEIGHT,
+  NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE,
+} from '@/modules/city-pass/constants'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {selectStartIndex} from '@/modules/city-pass/slice'
 import {getParallaxScrollingOffset} from '@/modules/city-pass/utils/getParallaxScrollingOffset'
@@ -51,6 +53,7 @@ export const CityPassesSwiper = () => {
       <Carousel
         data={cityPasses}
         defaultIndex={startIndex}
+        height={CITY_PASS_HEIGHT}
         loop={false}
         mode="parallax"
         modeConfig={{

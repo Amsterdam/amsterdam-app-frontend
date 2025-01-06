@@ -8,10 +8,6 @@ export type CityPassState = {
    */
   isCityPassOwnerRegistered: boolean
   /**
-   * Whether the city-passes overlay UI is visible.
-   */
-  isCityPassesVisible: boolean
-  /**
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
@@ -23,7 +19,6 @@ export type CityPassState = {
 }
 
 const initialState: CityPassState = {
-  isCityPassesVisible: false,
   isCityPassOwnerRegistered: false,
   isLoginStepsActive: false,
   shouldShowLoginScreen: true,
@@ -34,18 +29,11 @@ export const cityPassSlice = createSlice({
   name: ReduxKey.cityPass,
   initialState,
   reducers: {
-    hideCityPasses: state => {
-      state.isCityPassesVisible = false
-    },
     setIsCityPassOwnerRegistered: (
       state,
       {payload}: PayloadAction<boolean>,
     ) => {
       state.isCityPassOwnerRegistered = payload
-    },
-    showCityPasses: (state, {payload}: PayloadAction<number | undefined>) => {
-      state.isCityPassesVisible = true
-      state.startIndex = payload ?? 0
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
@@ -53,19 +41,18 @@ export const cityPassSlice = createSlice({
     setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowLoginScreen = payload
     },
+    setStartIndex: (state, {payload}: PayloadAction<number | undefined>) => {
+      state.startIndex = payload ?? 0
+    },
   },
 })
 
 export const {
-  hideCityPasses,
   setIsCityPassOwnerRegistered,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
-  showCityPasses,
+  setStartIndex,
 } = cityPassSlice.actions
-
-export const selectIsCityPassesVisible = (state: RootState) =>
-  state[ReduxKey.cityPass].isCityPassesVisible
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
   state[ReduxKey.cityPass].isCityPassOwnerRegistered

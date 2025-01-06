@@ -110,7 +110,6 @@ export const CityPass = ({
 const createStyles = ({color, size}: Theme, passWidth: number) =>
   StyleSheet.create({
     container: {
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
     },

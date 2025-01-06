@@ -1,15 +1,15 @@
 import simplur from 'simplur'
 import {Button} from '@/components/ui/buttons/Button'
-import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
-import {showCityPasses} from '@/modules/city-pass/slice'
+import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 type Props = {
   index?: number
 }
 
 export const ShowCityPassButton = ({index}: Props) => {
-  const dispatch = useDispatch()
+  const {navigate} = useNavigation()
   const secureCityPasses = useGetSecureCityPasses()
 
   return (
@@ -17,7 +17,7 @@ export const ShowCityPassButton = ({index}: Props) => {
       iconName="city-pass-pass"
       label={simplur`Laat mijn [pas|passen] zien${[secureCityPasses?.length]} `}
       onPress={() => {
-        dispatch(showCityPasses(index))
+        navigate(CityPassRouteName.cityPasses, {index})
       }}
       testID="CityPassShowPassesButton"
     />

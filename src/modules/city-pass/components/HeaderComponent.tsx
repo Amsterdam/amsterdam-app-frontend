@@ -3,12 +3,13 @@ import {Tip} from '@/components/features/product-tour/types'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {Placement} from '@/components/ui/types'
-import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
-import {showCityPasses} from '@/modules/city-pass/slice'
+import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const HeaderComponent = () => {
-  const dispatch = useDispatch()
+  const {navigate} = useNavigation()
   const secureCityPasses = useGetSecureCityPasses()
 
   if (!secureCityPasses?.length) {
@@ -31,7 +32,11 @@ export const HeaderComponent = () => {
             testID="HeaderCityPassIcon"
           />
         }
-        onPress={() => dispatch(showCityPasses())}
+        onPress={() =>
+          navigate(ModuleSlug['city-pass'], {
+            screen: CityPassRouteName.cityPasses,
+          })
+        }
         testID="HeaderCityPassButton"
       />
     </ProductTourTipWrapper>
