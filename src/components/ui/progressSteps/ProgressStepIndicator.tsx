@@ -73,8 +73,8 @@ const createStyles = (
       alignSelf: 'center',
       color:
         status === 'upcoming'
-          ? color.progressSteps.secondary.indicator.upcoming.color
-          : color.progressSteps.secondary.indicator.current.color,
+          ? color.progressSteps.secondary.indicator.upcoming.label
+          : color.progressSteps.secondary.indicator.current.label,
       fontFamily: text.fontFamily.bold,
       fontSize: text.fontSize.h5,
     },

@@ -306,7 +306,7 @@ export const lightColorTokens = {
         current: {
           background: baseColor.primary.black,
           border: baseColor.primary.black,
-          color: baseColor.primary.white,
+          label: baseColor.primary.white,
         },
         done: {
           background: baseColor.secondary.darkgreen,
@@ -315,7 +315,7 @@ export const lightColorTokens = {
         upcoming: {
           background: baseColor.primary.white,
           border: baseColor.neutral.grey3,
-          color: baseColor.neutral.grey3,
+          label: baseColor.neutral.grey3,
         },
       },
     },
