@@ -279,30 +279,44 @@ export const lightColorTokens = {
   },
   progressSteps: {
     primary: {
-      current: {
-        background: baseColor.primary.blue,
+      connector: {
+        current: baseColor.primary.blue,
+        done: baseColor.primary.blue,
+        upcoming: baseColor.neutral.grey3,
       },
-      done: {
-        background: baseColor.primary.blue,
-      },
-      upcoming: {
-        background: baseColor.neutral.grey3,
+      indicator: {
+        current: {
+          background: baseColor.primary.blue,
+        },
+        done: {
+          background: baseColor.primary.blue,
+        },
+        upcoming: {
+          background: baseColor.neutral.grey3,
+        },
       },
     },
     secondary: {
-      current: {
-        background: baseColor.primary.black,
-        border: baseColor.primary.black,
-        color: baseColor.primary.white,
+      connector: {
+        current: baseColor.primary.black,
+        done: baseColor.secondary.darkgreen,
+        upcoming: baseColor.neutral.grey3,
       },
-      done: {
-        background: baseColor.secondary.darkgreen,
-        border: baseColor.secondary.darkgreen,
-      },
-      upcoming: {
-        background: baseColor.primary.white,
-        border: baseColor.neutral.grey3,
-        color: baseColor.neutral.grey3,
+      indicator: {
+        current: {
+          background: baseColor.primary.black,
+          border: baseColor.primary.black,
+          color: baseColor.primary.white,
+        },
+        done: {
+          background: baseColor.secondary.darkgreen,
+          border: baseColor.secondary.darkgreen,
+        },
+        upcoming: {
+          background: baseColor.primary.white,
+          border: baseColor.neutral.grey3,
+          color: baseColor.neutral.grey3,
+        },
       },
     },
   },

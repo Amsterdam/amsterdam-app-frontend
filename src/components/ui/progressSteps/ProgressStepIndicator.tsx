@@ -60,11 +60,12 @@ const createStyles = (
       height: scaledIndicatorSize,
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: color.progressSteps[variant][status].background,
+      backgroundColor:
+        color.progressSteps[variant].indicator[status].background,
       borderWidth: variant === 'secondary' ? 2 : undefined,
       borderColor:
-        'border' in color.progressSteps[variant][status]
-          ? color.progressSteps[variant][status].border
+        'border' in color.progressSteps[variant].indicator[status]
+          ? color.progressSteps[variant].indicator[status].border
           : undefined,
       borderRadius: scaledIndicatorSize / 2,
     },
@@ -72,8 +73,8 @@ const createStyles = (
       alignSelf: 'center',
       color:
         status === 'upcoming'
-          ? color.progressSteps.secondary.upcoming.color
-          : color.progressSteps.secondary.current.color,
+          ? color.progressSteps.secondary.indicator.upcoming.color
+          : color.progressSteps.secondary.indicator.current.color,
       fontFamily: text.fontFamily.bold,
       fontSize: text.fontSize.h5,
     },

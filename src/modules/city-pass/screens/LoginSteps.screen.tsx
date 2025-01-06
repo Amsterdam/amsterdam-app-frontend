@@ -121,6 +121,7 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
             <LoginItem
               isCurrent={isCityPassOwnerRegistered}
               isDone={!!accessCode}
+              isLast
               numberIndicator={2}
               text="Om uw persoonlijke gegevens te beschermen."
               title="Toegangscode instellen"

@@ -7,6 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 type Props = {
   isCurrent: boolean
   isDone: boolean
+  isLast?: boolean
   isNextDone?: boolean
   numberIndicator: number
   text: string
@@ -16,6 +17,7 @@ type Props = {
 export const LoginItem = ({
   isCurrent,
   isDone,
+  isLast = false,
   isNextDone = false,
   numberIndicator,
   text,
@@ -28,7 +30,9 @@ export const LoginItem = ({
     <ProgressStep
       numberIndicator={numberIndicator}
       progressStatus={isDone ? 'done' : isCurrent ? 'current' : 'upcoming'}
-      progressStatusNextItem={isNextDone ? 'done' : 'upcoming'}
+      progressStatusNextItem={
+        isLast ? undefined : isNextDone ? 'done' : 'upcoming'
+      }
       testID="CityPassLoginProgressStep"
       variant="secondary">
       <Column shrink={1}>

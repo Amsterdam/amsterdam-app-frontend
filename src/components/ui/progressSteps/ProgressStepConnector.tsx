@@ -52,8 +52,8 @@ const createStyles = (
       width: scaledLineWidth,
       height: '100%',
       backgroundColor: statusNext
-        ? color.progressSteps[variant][statusNext].background
-        : color.progressSteps[variant][status].background,
+        ? color.progressSteps[variant].connector[statusNext]
+        : undefined,
     },
   })
 }
