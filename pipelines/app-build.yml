@@ -15,7 +15,7 @@ jobs:
   - job: 'Build_Android'
     timeoutInMinutes: 120
     pool:
-      vmImage: macOS-14
+      vmImage: macOS-15
     variables:
       - group: React Native Variables
       - group: React Native Piwik Pro Analytics
@@ -31,7 +31,7 @@ jobs:
   - job: 'Build_iOS'
     timeoutInMinutes: 120
     pool:
-      vmImage: macOS-14
+      vmImage: macOS-15
     variables:
       - group: React Native Variables
       - group: React Native Piwik Pro Analytics
