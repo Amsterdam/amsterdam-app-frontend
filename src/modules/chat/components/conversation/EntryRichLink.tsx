@@ -5,7 +5,6 @@ import {
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
-import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 import {getDomainName} from '@/utils/getDomainName'
 
 type Props = {
@@ -23,15 +22,16 @@ export const EntryRichLink = ({message}: Props) => {
         emphasis="strong"
         inverse={message.sender.role === ConversationEntrySenderRole.user}
         onPress={() => url && openUrl(url)}
-        testID="ChatMessageRichLinkUrl">
+        testID="ChatMessageRichLinkTitle">
         {title}
       </InlineLink>
       {!!domain && (
-        <MessagePhrase
-          message={message}
-          testID="ChatRichLinkTitle">
+        <InlineLink
+          inverse={message.sender.role === ConversationEntrySenderRole.user}
+          onPress={() => url && openUrl(url)}
+          testID="ChatMessageRichLinkUrl">
           {domain}
-        </MessagePhrase>
+        </InlineLink>
       )}
     </ChatMessageEntry>
   )
