@@ -277,34 +277,46 @@ export const lightColorTokens = {
       background: baseColor.primary.white,
     },
   },
-  timeline: {
-    current: {
-      background: baseColor.primary.black,
-      border: baseColor.primary.black,
-      color: baseColor.primary.white,
-    },
-    done: {
-      color: baseColor.primary.white,
-    },
-    upcoming: {
-      border: baseColor.neutral.grey3,
-      color: baseColor.neutral.grey3,
-    },
+  progressSteps: {
     primary: {
-      done: {
-        background: baseColor.primary.blue,
+      connector: {
+        current: baseColor.primary.blue,
+        done: baseColor.primary.blue,
+        upcoming: baseColor.neutral.grey3,
       },
-      upcoming: {
-        background: baseColor.neutral.grey3,
+      indicator: {
+        current: {
+          background: baseColor.primary.blue,
+        },
+        done: {
+          background: baseColor.primary.blue,
+        },
+        upcoming: {
+          background: baseColor.neutral.grey3,
+        },
       },
     },
     secondary: {
-      done: {
-        background: baseColor.secondary.darkgreen,
-        border: baseColor.secondary.darkgreen,
+      connector: {
+        current: baseColor.primary.black,
+        done: baseColor.secondary.darkgreen,
+        upcoming: baseColor.neutral.grey3,
       },
-      upcoming: {
-        background: baseColor.primary.white,
+      indicator: {
+        current: {
+          background: baseColor.primary.black,
+          border: baseColor.primary.black,
+          label: baseColor.primary.white,
+        },
+        done: {
+          background: baseColor.secondary.darkgreen,
+          border: baseColor.secondary.darkgreen,
+        },
+        upcoming: {
+          background: baseColor.primary.white,
+          border: baseColor.neutral.grey3,
+          label: baseColor.neutral.grey3,
+        },
       },
     },
   },

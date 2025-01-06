@@ -1,11 +1,11 @@
 import {Meta, StoryObj} from '@storybook/react'
-import {Timeline} from '@/components/ui/containers/Timeline'
+import {ProjectTimeline} from './ProjectTimeline'
 
 export default {
-  component: Timeline,
-} as Meta<typeof Timeline>
+  component: ProjectTimeline,
+} as Meta<typeof ProjectTimeline>
 
-export const Default: StoryObj<typeof Timeline> = {
+export const Default: StoryObj<typeof ProjectTimeline> = {
   args: {
     items: [
       {
