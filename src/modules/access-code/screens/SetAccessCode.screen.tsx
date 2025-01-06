@@ -44,7 +44,7 @@ export const SetAccessCodeScreen = ({navigation: {navigate}}: Props) => {
           />
           <SetAccessCode />
           <View
-            accessibilityLabel="Uw toegangscode mag niet bestaan uit 5 dezelfde cijfers of Opeenvolgende cijfers, zoals 12345 of 87654"
+            accessibilityLabel="Uw toegangscode mag niet bestaan uit 5 dezelfde cijfers of Opeenvolgende cijfers, zoals 1 2 3 4 5 of 8 7 6 5 4"
             accessibilityLanguage="nl-NL"
             accessible
             testID="SetAccessCodeScreenText">

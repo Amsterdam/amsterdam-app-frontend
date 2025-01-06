@@ -6,7 +6,7 @@ import {
 import {useState, useCallback, useEffect} from 'react'
 
 export const useBiometrics = ({
-  autoTrigger = true,
+  autoTrigger,
   cancelButtonText = 'Annuleer',
   disableDeviceFallback = false,
   fallbackPromptMessage,

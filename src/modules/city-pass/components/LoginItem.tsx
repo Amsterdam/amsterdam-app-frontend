@@ -31,7 +31,10 @@ export const LoginItem = ({
   const styles = createStyles(theme, fontScale, isCurrent, isDone, isLast)
 
   return (
-    <View>
+    <View
+      accessibilityLabel={`Stap ${numberIndicator},`.concat(
+        isDone ? 'afgerond' : `${title}, ${text}`,
+      )}>
       <Row gutter="md">
         <View style={styles.indicator}>
           {isDone ? (

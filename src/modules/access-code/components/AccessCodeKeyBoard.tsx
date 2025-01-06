@@ -1,13 +1,17 @@
 import {lockAsync, OrientationLock, unlockAsync} from 'expo-screen-orientation'
-import {useEffect} from 'react'
+import {useCallback, useEffect, useMemo} from 'react'
 import {View, StyleSheet, Platform} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {AccessCodeKeyBoardKey} from '@/modules/access-code/components/AccessCodeKeyboardKey'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
+import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
+import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
+import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -22,6 +26,37 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const styles = useThemable(createStyles(insets))
   const {iconName, hasPermission, useBiometrics} = useAccessCodeBiometrics()
   const {addDigit, removeDigit} = useAccessCode()
+  const accessibilityAnnounce = useAccessibilityAnnounce()
+  const {codeEntered} = useEnterAccessCode()
+  const {codeSet} = useSetAccessCode()
+  const {codeConfirmed} = useConfirmAccessCode()
+  const {codeLength} = useAccessCode()
+
+  const nextTextField = useMemo(() => {
+    switch (type) {
+      case AccessCodeType.codeEntered:
+        return codeEntered.length + 2
+      case AccessCodeType.codeSet:
+        return codeSet.length + 2
+      case AccessCodeType.codeConfirmed:
+        return codeConfirmed.length + 2
+      default:
+        return 0
+    }
+  }, [codeEntered, codeSet, codeConfirmed, type])
+
+  const onPressNumber = useCallback(
+    (number: number) => {
+      accessibilityAnnounce(
+        nextTextField <= codeLength
+          ? `${number}, ingevoerd. Tekstveld ${nextTextField} van ${codeLength}`
+          : '',
+      )
+
+      addDigit(number, type)
+    },
+    [accessibilityAnnounce, addDigit, codeLength, nextTextField, type],
+  )
 
   useEffect(() => {
     void lockAsync(OrientationLock.PORTRAIT_UP)
@@ -38,43 +73,43 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
           <Row gutter="sm">
             <AccessCodeKeyBoardKey
               keyNumber={1}
-              onPress={() => addDigit(1, type)}
+              onPress={() => onPressNumber(1)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={2}
-              onPress={() => addDigit(2, type)}
+              onPress={() => onPressNumber(2)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={3}
-              onPress={() => addDigit(3, type)}
+              onPress={() => onPressNumber(3)}
             />
           </Row>
           <Row gutter="sm">
             <AccessCodeKeyBoardKey
               keyNumber={4}
-              onPress={() => addDigit(4, type)}
+              onPress={() => onPressNumber(4)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={5}
-              onPress={() => addDigit(5, type)}
+              onPress={() => onPressNumber(5)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={6}
-              onPress={() => addDigit(6, type)}
+              onPress={() => onPressNumber(6)}
             />
           </Row>
           <Row gutter="sm">
             <AccessCodeKeyBoardKey
               keyNumber={7}
-              onPress={() => addDigit(7, type)}
+              onPress={() => onPressNumber(7)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={8}
-              onPress={() => addDigit(8, type)}
+              onPress={() => onPressNumber(8)}
             />
             <AccessCodeKeyBoardKey
               keyNumber={9}
-              onPress={() => addDigit(9, type)}
+              onPress={() => onPressNumber(9)}
             />
           </Row>
           <Row

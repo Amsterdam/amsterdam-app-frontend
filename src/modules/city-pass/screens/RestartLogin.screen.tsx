@@ -48,7 +48,7 @@ export const RestartLoginScreen = () => {
             U moet opnieuw inloggen om een nieuwe toegangscode te kiezen.
           </Paragraph>
           <Button
-            label="Inloggen"
+            label="Inloggen met DigiD"
             onPress={onRestartLogin}
             testID={TEST_ID + 'Button'}
           />

@@ -30,15 +30,15 @@ export const BiometricsPermissionScreen = () => {
         <Box>
           <Column gutter="sm">
             <Button
+              label={`${capitalizeString(biometricsLabel ?? '')} instellen`}
+              onPress={() => onPress(true)}
+              testID="AccessCodeBiometricsPermissionScreenButtonAccept"
+            />
+            <Button
               label="Nee, bedankt"
               onPress={() => onPress(false)}
               testID="AccessCodeBiometricsPermissionScreenButtonDecline"
               variant="secondary"
-            />
-            <Button
-              label={`${capitalizeString(biometricsLabel ?? '')} instellen`}
-              onPress={() => onPress(true)}
-              testID="AccessCodeBiometricsPermissionScreenButtonAccept"
             />
           </Column>
         </Box>

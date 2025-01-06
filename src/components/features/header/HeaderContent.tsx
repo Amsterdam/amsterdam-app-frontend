@@ -32,7 +32,6 @@ export const HeaderContent = ({
    */
   const accessibilityAutoFocusRef = useAccessibilityAutoFocus<View>({
     isActive: !preventInitialFocus,
-    platform: 'ios',
   })
 
   return (
@@ -40,6 +39,7 @@ export const HeaderContent = ({
       gutter="lg"
       valign="center">
       <View
+        accessible
         ref={accessibilityAutoFocusRef}
         style={styles.sideColumn}>
         {!!back && (
