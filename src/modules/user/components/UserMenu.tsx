@@ -56,26 +56,30 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
           text={title}
         />
       )}
-      {navigationItems.map(item =>
-        item.route === UserRouteName.userBiometrics &&
-        !biometricsLabel ? null : (
-          <NavigationButton
-            emphasis="default"
-            iconSize="md"
-            key={item.moduleSlug}
-            {...item}
-            label={
-              item.route === UserRouteName.userBiometrics
-                ? `Toegang met ${biometricsLabel}`
-                : item.label
-            }
-            onPress={() =>
-              navigate(item.moduleSlug ?? ModuleSlug.user, {screen: item.route})
-            }
-            testID={`NavigationButtonTo${item.route}`}
-          />
-        ),
-      )}
+      <Column gutter="xxs">
+        {navigationItems.map(item =>
+          item.route === UserRouteName.userBiometrics &&
+          !biometricsLabel ? null : (
+            <NavigationButton
+              emphasis="default"
+              iconSize="md"
+              key={item.moduleSlug}
+              {...item}
+              label={
+                item.route === UserRouteName.userBiometrics
+                  ? `Toegang met ${biometricsLabel}`
+                  : item.label
+              }
+              onPress={() =>
+                navigate(item.moduleSlug ?? ModuleSlug.user, {
+                  screen: item.route,
+                })
+              }
+              testID={`NavigationButtonTo${item.route}`}
+            />
+          ),
+        )}
+      </Column>
     </Column>
   )
 }
