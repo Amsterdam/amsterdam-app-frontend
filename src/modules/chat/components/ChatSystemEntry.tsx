@@ -25,6 +25,7 @@ export const ChatSystemEntry = ({icon, text, testID, timestamp}: Props) => (
       />
       <Phrase
         color="secondary"
+        flexShrink={0}
         testID={`${testID}Phrase`}
         textAlign="center">
         {text} - {dayjsFromUnix(timestamp).format('HH:mm')}
