@@ -46,7 +46,7 @@ const sections: UserMenuSection[] = [
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
-  const {biometricsLabel} = useAccessCodeBiometrics()
+  const {biometricsLabel, isEnrolled} = useAccessCodeBiometrics()
 
   return (
     <Column gutter="sm">
@@ -59,11 +59,11 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
       <Column gutter="xxs">
         {navigationItems.map(item =>
           item.route === UserRouteName.userBiometrics &&
-          !biometricsLabel ? null : (
+          (!biometricsLabel || !isEnrolled) ? null : (
             <NavigationButton
               emphasis="default"
               iconSize="md"
-              key={item.moduleSlug}
+              key={item.icon}
               {...item}
               label={
                 item.route === UserRouteName.userBiometrics
@@ -93,7 +93,7 @@ export const UserMenu = () => {
         {!!sections.length &&
           sections.map(section => (
             <MenuSection
-              key={section.title}
+              key={section.navigationItems[0].icon}
               {...section}
             />
           ))}

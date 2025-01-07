@@ -29,7 +29,7 @@ export const CityPassStack = () => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
-  const {useBiometrics} = useAccessCodeBiometrics()
+  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {shouldShowLoginScreen} = useShouldShowLoginScreen()
 
   if (isLoading) {
@@ -56,9 +56,17 @@ export const CityPassStack = () => {
           name={CityPassRouteName.restartLogin}
           options={{headerTitle: 'Toegangscode vergeten'}}
         />
+      ) : useBiometrics === undefined && isEnrolled && isCodeValid ? (
+        <Stack.Screen
+          component={BiometricsPermissionScreen}
+          name={AccessCodeRouteName.biometricsPermission}
+          options={{
+            headerTitle: 'Sneller toegang',
+          }}
+        />
       ) : isCityPassOwnerRegistered ? (
         accessCode && !isLoginStepsActive ? (
-          isCodeValid && useBiometrics !== undefined ? (
+          isCodeValid ? (
             Object.entries(cityPassScreenConfig).map(([key, route]) => (
               <Stack.Screen
                 key={key}
@@ -66,23 +74,14 @@ export const CityPassStack = () => {
               />
             ))
           ) : attemptsLeft > 0 ? (
-            <>
-              <Stack.Screen
-                component={AccessCodeScreen}
-                name={AccessCodeRouteName.accessCode}
-                options={{
-                  headerTitle: 'Toegangscode invoeren',
-                  ...TransitionPresets.ModalFadeTransition,
-                }}
-              />
-              <Stack.Screen
-                component={BiometricsPermissionScreen}
-                name={AccessCodeRouteName.biometricsPermission}
-                options={{
-                  headerTitle: 'Sneller toegang',
-                }}
-              />
-            </>
+            <Stack.Screen
+              component={AccessCodeScreen}
+              name={AccessCodeRouteName.accessCode}
+              options={{
+                headerTitle: 'Toegangscode invoeren',
+                ...TransitionPresets.ModalFadeTransition,
+              }}
+            />
           ) : (
             <Stack.Screen
               component={AccessCodeInvalidScreen}
