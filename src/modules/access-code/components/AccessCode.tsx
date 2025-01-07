@@ -12,9 +12,15 @@ type Props = {
   accessCode: number[]
   codeLength: number
   error?: string
+  isCodeEntered?: boolean
 }
 
-export const AccessCode = ({accessCode, codeLength, error}: Props) => {
+export const AccessCode = ({
+  accessCode,
+  codeLength,
+  error,
+  isCodeEntered,
+}: Props) => {
   const styles = useThemable(createStyles)
   const {resetError} = useAccessCodeError()
 
@@ -39,7 +45,7 @@ export const AccessCode = ({accessCode, codeLength, error}: Props) => {
               styles.item,
               index === accessCode.length ? styles.active : undefined,
             ]}>
-            {accessCode[index] !== undefined ? ( // Just `accessCode[index]` excludes 0 value
+            {accessCode[index] !== undefined || isCodeEntered ? ( // Just `accessCode[index]` excludes 0 value
               <Icon
                 name="asterisk"
                 testID="AccessCodeDigitAsterisk"

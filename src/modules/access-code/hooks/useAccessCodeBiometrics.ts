@@ -1,5 +1,6 @@
 import {
   AuthenticationType,
+  isEnrolledAsync,
   supportedAuthenticationTypesAsync,
 } from 'expo-local-authentication'
 import {useState, useEffect, useCallback, useMemo} from 'react'
@@ -14,6 +15,7 @@ import {appInsights} from '@/providers/appinsights.provider'
 import {Permissions} from '@/types/permissions'
 
 export const useAccessCodeBiometrics = () => {
+  const [isEnrolled, setIsEnrolled] = useState(false)
   const dispatch = useDispatch()
   const {hasPermission, requestPermission} = usePermission(
     Permissions.biometrics,
@@ -34,6 +36,10 @@ export const useAccessCodeBiometrics = () => {
       mapBiometricsAuthenticationTypeToIconName(biometricsAuthenticationType),
     [biometricsAuthenticationType],
   )
+
+  useEffect(() => {
+    void isEnrolledAsync().then(setIsEnrolled)
+  }, [])
 
   const setUseBiometrics = useCallback(
     (choice: boolean) =>
@@ -64,8 +70,9 @@ export const useAccessCodeBiometrics = () => {
   return {
     biometricsAuthenticationType,
     biometricsLabel,
-    hasPermission,
+    hasIOSFaceIDPermission: hasPermission,
     iconName,
+    isEnrolled,
     isLoading,
     requestPermission,
     setUseBiometrics,

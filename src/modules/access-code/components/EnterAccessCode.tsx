@@ -6,7 +6,7 @@ import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode
 
 export const EnterAccessCode = () => {
   const {codeLength} = useAccessCode()
-  const {codeEntered, setIsEnteringCode} = useEnterAccessCode()
+  const {codeEntered, isCodeValid, setIsEnteringCode} = useEnterAccessCode()
   const {error} = useAccessCodeError()
 
   useEffect(() => {
@@ -22,6 +22,7 @@ export const EnterAccessCode = () => {
       accessCode={codeEntered}
       codeLength={codeLength}
       error={error}
+      isCodeEntered={isCodeValid}
     />
   )
 }

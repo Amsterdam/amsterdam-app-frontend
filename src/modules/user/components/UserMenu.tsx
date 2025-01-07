@@ -46,7 +46,7 @@ const sections: UserMenuSection[] = [
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   const {navigate} = useNavigation()
-  const {biometricsLabel} = useAccessCodeBiometrics()
+  const {biometricsLabel, isEnrolled} = useAccessCodeBiometrics()
 
   return (
     <Column gutter="sm">
@@ -56,26 +56,30 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
           text={title}
         />
       )}
-      {navigationItems.map(item =>
-        item.route === UserRouteName.userBiometrics &&
-        !biometricsLabel ? null : (
-          <NavigationButton
-            emphasis="default"
-            iconSize="md"
-            key={item.moduleSlug}
-            {...item}
-            label={
-              item.route === UserRouteName.userBiometrics
-                ? `Toegang met ${biometricsLabel}`
-                : item.label
-            }
-            onPress={() =>
-              navigate(item.moduleSlug ?? ModuleSlug.user, {screen: item.route})
-            }
-            testID={`NavigationButtonTo${item.route}`}
-          />
-        ),
-      )}
+      <Column gutter="xxs">
+        {navigationItems.map(item =>
+          item.route === UserRouteName.userBiometrics &&
+          (!biometricsLabel || !isEnrolled) ? null : (
+            <NavigationButton
+              emphasis="default"
+              iconSize="md"
+              key={item.icon}
+              {...item}
+              label={
+                item.route === UserRouteName.userBiometrics
+                  ? `Toegang met ${biometricsLabel}`
+                  : item.label
+              }
+              onPress={() =>
+                navigate(item.moduleSlug ?? ModuleSlug.user, {
+                  screen: item.route,
+                })
+              }
+              testID={`NavigationButtonTo${item.route}`}
+            />
+          ),
+        )}
+      </Column>
     </Column>
   )
 }
@@ -89,7 +93,7 @@ export const UserMenu = () => {
         {!!sections.length &&
           sections.map(section => (
             <MenuSection
-              key={section.title}
+              key={section.navigationItems[0].icon}
               {...section}
             />
           ))}

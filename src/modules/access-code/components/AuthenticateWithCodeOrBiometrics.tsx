@@ -10,9 +10,9 @@ export const AuthenticateWithCodeOrBiometrics = () => {
   const {useBiometrics: isUseBiometrics} = useAccessCodeBiometrics()
   const {authenticated, authenticate} = useBiometrics({
     autoTrigger: isUseBiometrics,
-    promptMessage: 'Ontgrendel toegang tot je stadspas.',
+    promptMessage: 'Automatisch toegangscode invullen',
     cancelButtonText: 'Terug',
-    fallbackPromptMessage: 'Ontgrendel de stadspas.',
+    fallbackPromptMessage: 'Opnieuw',
     disableDeviceFallback: true,
   })
 

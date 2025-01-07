@@ -81,6 +81,7 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen
+      hasStickyAlert
       stickyFooter={
         <Box>
           <Button

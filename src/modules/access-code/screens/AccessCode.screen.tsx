@@ -17,13 +17,13 @@ type Props = NavigationProps<AccessCodeRouteName.accessCode>
 
 export const AccessCodeScreen = ({navigation: {navigate}}: Props) => {
   const {isCodeValid, setIsForgotCode} = useEnterAccessCode()
-  const {useBiometrics} = useAccessCodeBiometrics()
+  const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
 
   useEffect(() => {
-    if (isCodeValid && useBiometrics === undefined) {
+    if (isCodeValid && isEnrolled && useBiometrics === undefined) {
       navigate(AccessCodeRouteName.biometricsPermission)
     }
-  }, [isCodeValid, navigate, useBiometrics])
+  }, [isCodeValid, isEnrolled, navigate, useBiometrics])
 
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
