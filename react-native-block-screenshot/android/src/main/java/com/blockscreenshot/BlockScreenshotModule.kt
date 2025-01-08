@@ -7,6 +7,7 @@ import com.facebook.react.bridge.Promise
 import android.view.WindowManager;
 import android.os.Bundle;
 import android.app.Activity;
+import com.facebook.react.bridge.Callback
 
 class BlockScreenshotModule internal constructor(reactContext: ReactApplicationContext) :
   BlockScreenshotSpec(reactContext) {
@@ -28,6 +29,11 @@ class BlockScreenshotModule internal constructor(reactContext: ReactApplicationC
     } else {
       promise.reject("E_NO_ACTIVITY", "No activity found")
     }
+  }
+
+  @ReactMethod
+  override fun addEventListener(callback: Callback) {
+    // Not implemented
   }
 
   @ReactMethod
