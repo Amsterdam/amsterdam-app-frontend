@@ -10,11 +10,15 @@ import {Row} from '@/components/ui/layout/Row'
 
 export type ContentProps = SharedProps & {
   Image: FullScreenErrorProps['Image']
+  backgroundPosition: FullScreenErrorProps['backgroundPosition']
+  isImageFullSize: FullScreenErrorProps['isImageFullSize']
   withFacadesBackground: FullScreenErrorProps['withFacadesBackground']
 }
 
 export const FullScreenErrorContent = ({
+  backgroundPosition,
   error,
+  isImageFullSize,
   text,
   Image,
   isPortrait,
@@ -26,13 +30,22 @@ export const FullScreenErrorContent = ({
   const ImageComponent = useMemo(
     () => (
       <ImageWithBackground
+        backgroundPosition={backgroundPosition}
         Image={Image}
+        isImageFullSize={isImageFullSize}
         isPortrait={isPortrait}
         testID={testID}
         withFacadesBackground={withFacadesBackground}
       />
     ),
-    [Image, isPortrait, testID, withFacadesBackground],
+    [
+      Image,
+      backgroundPosition,
+      isImageFullSize,
+      isPortrait,
+      testID,
+      withFacadesBackground,
+    ],
   )
 
   return isPortrait ? (

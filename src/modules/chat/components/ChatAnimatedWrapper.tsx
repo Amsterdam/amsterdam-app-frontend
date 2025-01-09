@@ -140,7 +140,6 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
 const createStyles = ({z}: Theme, insets: EdgeInsets) =>
   StyleSheet.create({
     container: {
-      flexGrow: 1,
       paddingTop: insets.top,
       paddingRight: insets.right,
       paddingBottom: insets.bottom,

@@ -9,10 +9,12 @@ export type ErrorType = FetchBaseQueryError | SerializedError | undefined
 export type FullScreenErrorProps = {
   Image: ComponentType<SvgProps>
   TopComponent?: ReactNode
+  backgroundPosition?: 'bottom' | 'center'
   buttonAccessibilityLabel?: string
-  buttonLabel: string
+  buttonLabel?: string
   error?: ErrorType
-  onPress: () => void
+  isImageFullSize?: boolean
+  onPress?: () => void
   testID: string
   text?: string
   title: string
