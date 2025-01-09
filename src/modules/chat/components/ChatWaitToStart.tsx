@@ -6,6 +6,7 @@ import {ErrorFigure} from '@/components/ui/media/errors/ErrorFigure'
 import {Title} from '@/components/ui/text/Title'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {isDevApp} from '@/processes/development'
 
 type Props = {
   children?: ReactNode
@@ -34,7 +35,11 @@ export const ChatWaitToStart = ({children}: Props) => {
         Image={ErrorFigure}
         isImageFullSize={false}
         testID="ChatWaitToStartErrorTitle"
-        text="Probeer het later nog eens."
+        text={
+          isDevApp
+            ? 'Switchen van omgeving: verander eerst van omgeving en herstart dan de app'
+            : 'Probeer het later nog eens.'
+        }
         title="De chat kon niet geladen worden"
       />
     )
