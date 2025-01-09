@@ -11,6 +11,7 @@
     "clean": "react-native-clean-project",
     "format": "prettier --check .",
     "format:fix": "prettier --write .",
+    "generate:splashscreen": "react-native generate-bootsplash --background=#ffffff --logo-width=167 --platforms=android,ios --flavor=main src/modules/home/assets/icons/logo.svg",
     "ios:install:pods": "bundle exec pod install --project-directory=ios --repo-update",
     "ios:update:pods": "bundle exec pod update --project-directory=ios --repo-update",
     "ios:phone:dev": "react-native run-ios --mode='DevDebug' --scheme='AmsterdamApp Test' --verbose > ioslog.txt",

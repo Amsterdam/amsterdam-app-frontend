@@ -23,7 +23,6 @@ module.exports = {
     '!.*',
     'node_modules',
     'android',
-    'ios',
     'patches',
     'pipelines',
     'storybook-static',
