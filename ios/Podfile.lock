@@ -1447,7 +1447,7 @@ PODS:
     - Yoga
   - react-native-barcode-creator (0.1.7):
     - React-Core
-  - react-native-block-screenshot (0.1.0):
+  - react-native-block-screenshot (0.2.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2574,7 +2574,7 @@ SPEC CHECKSUMS:
   React-Mapbuffer: c174e11bdea12dce07df8669d6c0dc97eb0c7706
   React-microtasksnativemodule: 8a80099ad7391f4e13a48b12796d96680f120dc6
   react-native-barcode-creator: a311a66cf233b58a3993dcf6902fb227399b7a87
-  react-native-block-screenshot: 39848d0b47ecf0c855e85a930cddf88bbfb5aafe
+  react-native-block-screenshot: 7eff9cc49f4e581827ff9e800d98ce66c5fe7ba8
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
   react-native-device-brightness: 886cfbfb49a32b6de4ccfc1f720776dc5f381d24
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b

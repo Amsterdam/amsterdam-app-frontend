@@ -5,8 +5,8 @@
 #import <React/RCTEventEmitter.h> // Import RCTEventEmitter
 
 @implementation BlockScreenshot
-
 RCT_EXPORT_MODULE()
+
 
 bool hasListeners;
 
@@ -208,12 +208,10 @@ RCT_EXPORT_METHOD(removeEventListener) {
     return @[@"onScreenshot"]; // List all events your module will emit
 }
 
-// Don't compile this code when we build for the old architecture.
-#ifdef RCT_NEW_ARCH_ENABLED
-- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:(const facebook::react::ObjCTurboModule::InitParams &)params
+- (std::shared_ptr<facebook::react::TurboModule>)getTurboModule:
+    (const facebook::react::ObjCTurboModule::InitParams &)params
 {
     return std::make_shared<facebook::react::NativeBlockScreenshotSpecJSI>(params);
 }
-#endif
 
 @end

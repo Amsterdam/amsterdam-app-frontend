@@ -28,7 +28,6 @@ module.exports = {
     'pipelines',
     'storybook-static',
     'coverage',
-    'react-native-block-screenshot',
     '.git',
   ],
 
@@ -86,13 +85,6 @@ module.exports = {
         'no-restricted-imports': [
           'error',
           {
-            patterns: [
-              {
-                group: ['.*'],
-                message:
-                  "Please use a clean path like: '@/components/something' instead of '../components/something'.",
-              },
-            ],
             paths: [
               {
                 name: '@/providers/piwik.provider',

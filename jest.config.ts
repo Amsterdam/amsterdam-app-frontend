@@ -28,8 +28,6 @@ const config: Config = {
     '.husky',
     'logs',
     'patches',
-    'react-native-block-screenshot/lib',
-    'react-native-salesforce-messaging-in-app/lib',
   ],
   cacheDirectory: '.jest/cache',
   coverageReporters: ['cobertura'],
