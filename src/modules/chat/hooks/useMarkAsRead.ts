@@ -3,7 +3,7 @@ import {markAsRead} from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {useChat} from '@/modules/chat/slice'
 
 export const useMarkAsRead = (messages: ConversationEntry[]) => {

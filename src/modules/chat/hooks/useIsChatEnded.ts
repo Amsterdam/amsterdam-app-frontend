@@ -3,7 +3,7 @@ import {
   ConversationEntry,
   ConversationEntryFormat,
   ConversationEntryRoutingWorkType,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {useBoolean} from '@/hooks/useBoolean'
 
 /**

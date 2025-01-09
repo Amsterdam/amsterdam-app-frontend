@@ -3,7 +3,7 @@ import {sendReply} from 'react-native-salesforce-messaging-in-app/src'
 import {
   Choice,
   ConversationEntryQuickReplies,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Button} from '@/components/ui/buttons/Button'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'

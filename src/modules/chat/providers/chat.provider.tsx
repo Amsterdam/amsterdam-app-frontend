@@ -13,7 +13,7 @@ import {
   ConnectionState,
   RemoteConfiguration,
   RetrieveTranscriptResponse,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useIsChatEnded} from '@/modules/chat/hooks/useIsChatEnded'
 import {useMarkAsRead} from '@/modules/chat/hooks/useMarkAsRead'

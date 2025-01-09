@@ -1,5 +1,5 @@
 import {ReactNode, useContext, useEffect, useState} from 'react'
-import {ConnectionState} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConnectionState} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {Center} from '@/components/ui/layout/Center'
 import {ErrorFigure} from '@/components/ui/media/errors/ErrorFigure'

@@ -12,7 +12,7 @@ import {
   CHAT_ORGANIZATION_ID_PROD,
   CHAT_URL_PROD,
 } from '@env'
-import {CoreConfig} from 'react-native-salesforce-messaging-in-app/src/types'
+import {CoreConfig} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Environment} from '@/environment'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {selectEnvironment} from '@/store/slices/environment'

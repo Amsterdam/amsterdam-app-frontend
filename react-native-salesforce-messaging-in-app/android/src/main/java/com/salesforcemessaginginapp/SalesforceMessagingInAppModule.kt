@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.salesforce.android.smi.common.api.Result
 import com.salesforce.android.smi.common.api.data
@@ -48,8 +49,9 @@ import java.net.URI
 import java.net.URL
 import java.util.UUID
 
-class SalesforceMessagingInAppModule internal constructor(context: ReactApplicationContext) :
-  SalesforceMessagingInAppSpec(context) {
+@ReactModule(name = SalesforceMessagingInAppModule.NAME)
+class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
+  NativeSalesforceMessagingInAppSpec(reactContext) {
 
   private var config: Configuration? = null
   private var coreClient: CoreClient? = null
@@ -70,7 +72,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
       .emit(eventName, params)
   }
 
-  private var listenerCount = 0
+  private var listenerCount: Int = 0
 
   @ReactMethod
   override fun addListener(eventName: String) {
@@ -82,8 +84,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   @ReactMethod
-  override fun removeListeners(count: Int) {
-    listenerCount -= count
+  override fun removeListeners(count: Double) {
+    listenerCount -= count.toInt()
     if (listenerCount == 0) {
       // Remove upstream listeners, stop unnecessary background tasks
     }
@@ -649,8 +651,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     promise: Promise
   ) {
     try {
-      coreClient?.stop()
-      coreClient?.destroy()
+      // coreClient?.stop()
+      // coreClient?.destroy()
       promise.resolve(true)
     } catch (e: Exception) {
       // Catch any exception and reject the promise

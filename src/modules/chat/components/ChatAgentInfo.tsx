@@ -4,7 +4,7 @@ import {
   ConversationEntry,
   ConversationEntrySenderRole,
   ConversationEntryStatus,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'

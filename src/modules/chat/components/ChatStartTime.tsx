@@ -1,4 +1,4 @@
-import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntry} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {dayjs} from '@/utils/datetime/dayjs'
 

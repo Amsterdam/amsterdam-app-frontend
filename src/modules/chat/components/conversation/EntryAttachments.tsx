@@ -1,7 +1,7 @@
 import {
   ConversationEntryAttachments,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {InlineLink} from '@/components/ui/text/InlineLink'

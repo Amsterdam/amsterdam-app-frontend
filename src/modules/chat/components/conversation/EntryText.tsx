@@ -1,7 +1,7 @@
 import {
   ConversationEntrySenderRole,
   ConversationEntryText,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 

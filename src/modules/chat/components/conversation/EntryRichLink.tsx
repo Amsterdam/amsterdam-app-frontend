@@ -1,7 +1,7 @@
 import {
   ConversationEntryRichLink,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'

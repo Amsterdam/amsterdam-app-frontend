@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {submitRemoteConfiguration} from 'react-native-salesforce-messaging-in-app/src'
-import {RemoteConfiguration} from 'react-native-salesforce-messaging-in-app/src/types'
+import {RemoteConfiguration} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 
 export const useSubmitRemoteConfiguration = (
   remoteConfiguration: RemoteConfiguration | undefined,

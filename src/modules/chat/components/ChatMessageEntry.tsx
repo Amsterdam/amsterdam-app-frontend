@@ -3,7 +3,7 @@ import {
   ConversationEntry,
   ConversationEntryFormat,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Row} from '@/components/ui/layout/Row'
 import {AvatarAgent} from '@/modules/chat/assets/AvatarAgent'
 import {AvatarBot} from '@/modules/chat/assets/AvatarBot'

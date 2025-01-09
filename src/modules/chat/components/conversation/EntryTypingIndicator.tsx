@@ -1,4 +1,4 @@
-import {ConversationEntryTypingStartedIndicator} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntryTypingStartedIndicator} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Box} from '@/components/ui/containers/Box'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
