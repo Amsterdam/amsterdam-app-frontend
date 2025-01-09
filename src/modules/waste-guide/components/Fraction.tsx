@@ -6,12 +6,16 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {AddWasteCardButton} from '@/modules/waste-guide/components/AddWasteCardButton'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
-import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {
+  FractionCode,
+  WasteGuideResponseFraction,
+} from '@/modules/waste-guide/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {capitalizeString} from '@/utils/capitalizeString'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -103,11 +107,16 @@ export const Fraction = ({fraction, testID}: Props) => {
               withPhoneButton={!seenonsUrl}
             />
           ) : (
-            <FractionSection
-              content={afvalwijzerInstructie2}
-              sectionTitle="Hoe"
-              testID={`${testID}HowSection`}
-            />
+            <>
+              <FractionSection
+                content={afvalwijzerInstructie2}
+                sectionTitle="Hoe"
+                testID={`${testID}HowSection`}
+              />
+              {afvalwijzerFractieCode === FractionCode.GFT && ( // TODO: add check to see if the user has a waste card
+                <AddWasteCardButton />
+              )}
+            </>
           )}
           {!!collectionPointsMapUrl && (
             <InlineLink
