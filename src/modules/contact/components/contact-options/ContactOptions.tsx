@@ -28,46 +28,50 @@ export const ContactOptions = () => {
           </Paragraph>
         </Column>
         <Column gutter="md">
-          {contactOptions.map(({redirectsKey, url, iconName, ...props}) => {
-            const redirectUrl = redirectsKey && redirectUrls?.[redirectsKey]
-            const resultUrl = redirectUrl ?? url
+          {contactOptions.map(
+            ({redirectsKey, url, iconName, key, ...props}) => {
+              const redirectUrl = redirectsKey && redirectUrls?.[redirectsKey]
+              const resultUrl = redirectUrl ?? url
 
-            if (redirectsKey && isError) {
-              return (
-                <SomethingWentWrong
-                  key={props.key}
-                  testID="ContactContactOptionsSomethingWentWrong"
-                />
-              )
-            }
+              if (redirectsKey && isError) {
+                return (
+                  <SomethingWentWrong
+                    key={key}
+                    testID="ContactContactOptionsSomethingWentWrong"
+                  />
+                )
+              }
 
-            if (props.key === 'chat') {
+              if (key === 'chat') {
+                return (
+                  <ChatOption
+                    key={key}
+                    {...props}
+                    iconName={iconName}
+                  />
+                )
+              }
+
               return (
-                <ChatOption
+                <TopTaskButton
+                  key={key}
                   {...props}
-                  iconName={iconName}
+                  accessibilityLabel={accessibleText(
+                    props.accessibilityLabel ?? props.title,
+                    props.text,
+                  )}
+                  accessibilityRole="link"
+                  iconName={redirectsKey && isLoading ? 'spinner' : iconName}
+                  onPress={() => {
+                    if (resultUrl) {
+                      openUrl(resultUrl)
+                    } else {
+                    }
+                  }}
                 />
               )
-            }
-
-            return (
-              <TopTaskButton
-                {...props}
-                accessibilityLabel={accessibleText(
-                  props.accessibilityLabel ?? props.title,
-                  props.text,
-                )}
-                accessibilityRole="link"
-                iconName={redirectsKey && isLoading ? 'spinner' : iconName}
-                onPress={() => {
-                  if (resultUrl) {
-                    openUrl(resultUrl)
-                  } else {
-                  }
-                }}
-              />
-            )
-          })}
+            },
+          )}
         </Column>
       </Column>
     </Box>
