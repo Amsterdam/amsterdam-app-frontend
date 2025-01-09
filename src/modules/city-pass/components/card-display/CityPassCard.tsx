@@ -1,4 +1,3 @@
-import {title} from 'process'
 import {StyleSheet} from 'react-native'
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -34,7 +33,10 @@ export const CityPassCard = ({
 
   return (
     <Pressable
-      accessibilityLabel={accessibleText(title, budgetsBalanceSentence)}
+      accessibilityLabel={accessibleText(
+        `Stadspas details van ${firstname}.`,
+        budgetsBalanceSentence,
+      )}
       accessibilityLanguage="nl-NL"
       accessibilityRole={accessibilityRole}
       onPress={onPress}
