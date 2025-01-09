@@ -12,12 +12,16 @@ const MIN_IMAGE_HEIGHT = 200
 
 type ImageWithBackgroundProps = {
   Image: ComponentType<SvgProps>
+  backgroundPosition: FullScreenErrorProps['backgroundPosition']
+  isImageFullSize: FullScreenErrorProps['isImageFullSize']
   isPortrait: boolean
   testID: string
   withFacadesBackground: FullScreenErrorProps['withFacadesBackground']
 }
 
 export const ImageWithBackground = ({
+  backgroundPosition,
+  isImageFullSize = true,
   Image,
   testID,
   withFacadesBackground,
@@ -25,6 +29,8 @@ export const ImageWithBackground = ({
 }: ImageWithBackgroundProps) => {
   const styles = useThemable(
     createStyles({
+      backgroundPosition,
+      isImageFullSize,
       isPortrait,
     }),
   )
@@ -48,7 +54,7 @@ export const ImageWithBackground = ({
             <Box inset="md">
               <Image
                 height="100%"
-                width="100%"
+                width={isImageFullSize ? '100%' : undefined}
               />
             </Box>
           </HideOnSmallSize>
@@ -68,21 +74,25 @@ export const ImageWithBackground = ({
 }
 
 const createStyles =
-  ({isPortrait}: {isPortrait: boolean}) =>
-  ({media}: Theme) =>
+  ({
+    backgroundPosition = 'bottom',
+    isPortrait,
+    isImageFullSize,
+  }: Partial<ImageWithBackgroundProps>) =>
+  ({media, size}: Theme) =>
     StyleSheet.create({
       figureBackground: {
         position: 'absolute',
-        bottom: '20%',
+        bottom: backgroundPosition === 'center' && isPortrait ? '50%' : '20%',
         width: '100%',
         alignContent: 'flex-start',
         overflow: 'hidden',
       },
       figureForeground: {
-        position: 'absolute',
-        bottom: isPortrait ? 0 : undefined,
-        height: '100%',
-        width: '100%',
+        flexGrow: 1,
+        alignSelf: !isImageFullSize && isPortrait ? 'center' : undefined,
+        justifyContent: 'center',
+        paddingBottom: isPortrait ? undefined : size.spacing.md,
       },
       facade: {
         aspectRatio: media.illustrationAspectRatio.facades,
