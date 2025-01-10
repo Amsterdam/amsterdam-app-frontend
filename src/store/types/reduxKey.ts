@@ -13,6 +13,7 @@ export enum ReduxKey {
   messageDraft = 'messageDraft',
   modules = 'modules',
   onboarding = 'onboarding',
+  openWasteContainer = 'openWasteContainer',
   permissions = 'permissions',
   productTour = 'productTour',
   screen = 'screen',

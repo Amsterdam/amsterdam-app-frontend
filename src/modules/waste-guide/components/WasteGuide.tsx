@@ -8,13 +8,12 @@ import {useIsFocusedAndroid} from '@/hooks/useIsFocusedAndroid'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressCity} from '@/modules/address/types'
-import {AddWasteCardButton} from '@/modules/waste-guide/components/AddWasteCardButton'
-
 import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
 import {WasteGuideFigure} from '@/modules/waste-guide/components/WasteGuideFigure'
 import {WasteGuideFullScreenError} from '@/modules/waste-guide/components/WasteGuideFullScreenError'
 import {WasteGuideNoAddress} from '@/modules/waste-guide/components/WasteGuideNoAddress'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
+import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
@@ -72,7 +71,7 @@ export const WasteGuide = () => {
             gutter="lg">
             <Column gutter="md">
               <ShareLocationTopTaskButton testID="WasteGuide" />
-              <AddWasteCardButton />
+              <WasteCardButton />
             </Column>
             {hasContent ? (
               <WasteGuideContent wasteGuide={wasteGuide} />

@@ -6,11 +6,11 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {AddWasteCardButton} from '@/modules/waste-guide/components/AddWasteCardButton'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
+import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
 import {
   FractionCode,
@@ -113,8 +113,8 @@ export const Fraction = ({fraction, testID}: Props) => {
                 sectionTitle="Hoe"
                 testID={`${testID}HowSection`}
               />
-              {afvalwijzerFractieCode === FractionCode.GFT && ( // TODO: add check to see if the user has a waste card
-                <AddWasteCardButton />
+              {afvalwijzerFractieCode === FractionCode.GFT && (
+                <WasteCardButton showAddOnly />
               )}
             </>
           )}
