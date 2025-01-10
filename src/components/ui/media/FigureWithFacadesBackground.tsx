@@ -1,13 +1,11 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import AmsterdamAndWeespFacadesImage from '@/assets/images/amsterdam-and-weesp-facades.svg'
 import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {IllustratioAspectRatio, ImageAspectRatio} from '@/themes/tokens/media'
-import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -15,7 +13,6 @@ type Props = {
   backgroundImageHeightFraction?: number
   children?: ReactNode
   height?: number
-  horizontalInset?: keyof SpacingTokens
   illustrationAspectRatio?: IllustratioAspectRatio
   withWeesp?: boolean
 } & TestProps
@@ -32,11 +29,9 @@ export const FigureWithFacadesBackground = ({
   children,
   height,
   illustrationAspectRatio,
-  horizontalInset,
   testID,
   withWeesp = false,
 }: Props) => {
-  const {left, right} = useSafeAreaInsets()
   const {height: availableHeight, isLandscape} = useDeviceContext()
   const figureHeight = height ?? getHeight(availableHeight, isLandscape)
 
@@ -46,9 +41,6 @@ export const FigureWithFacadesBackground = ({
       backgroundImageHeightFraction,
       height: figureHeight,
       illustrationAspectRatio,
-      horizontalInset,
-      left,
-      right,
     }),
   )
 
@@ -72,14 +64,9 @@ export const FigureWithFacadesBackground = ({
 
 type StyleProps = Pick<
   Props,
-  | 'aspectRatio'
-  | 'backgroundImageHeightFraction'
-  | 'illustrationAspectRatio'
-  | 'horizontalInset'
+  'aspectRatio' | 'backgroundImageHeightFraction' | 'illustrationAspectRatio'
 > & {
   height: number
-  left: number
-  right: number
 }
 
 const createStyles =
@@ -88,39 +75,28 @@ const createStyles =
     backgroundImageHeightFraction = DEFAULT_BACKGROUND_IMAGE_HEIGHT_FRACTION,
     height,
     illustrationAspectRatio = 'landscape',
-    horizontalInset = 'md',
-    left,
-    right,
   }: StyleProps) =>
-  ({media, size}: Theme) => {
-    const horizontalInsetSize = size.spacing[horizontalInset]
-
-    return StyleSheet.create({
-      backgroundImage: {
-        alignSelf: 'center',
-        aspectRatio: media.illustrationAspectRatio.facades,
-        height: height * backgroundImageHeightFraction,
-        position: 'absolute',
-      },
+  ({media}: Theme) =>
+    StyleSheet.create({
       figure: {
         aspectRatio: aspectRatio ? media.aspectRatio[aspectRatio] : undefined,
         height,
         overflow: 'hidden',
         position: 'relative',
       },
+      backgroundImage: {
+        alignSelf: 'center',
+        aspectRatio: media.illustrationAspectRatio.facades,
+        height: height * backgroundImageHeightFraction,
+        position: 'absolute',
+      },
+      imageOuter: {
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       imageInner: {
         aspectRatio: media.illustrationAspectRatio[illustrationAspectRatio],
         height,
         maxWidth: '100%',
       },
-      imageOuter: {
-        alignItems: 'center',
-        bottom: 0,
-        height,
-        left: left + horizontalInsetSize,
-        position: 'absolute',
-        right: right + horizontalInsetSize,
-        top: 0,
-      },
     })
-  }

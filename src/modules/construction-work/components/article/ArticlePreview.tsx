@@ -100,7 +100,6 @@ export const ArticlePreview = ({
                     <FigureWithFacadesBackground
                       aspectRatio={IMAGE_ASPECT_RATIO}
                       height={IMAGE_HEIGHT}
-                      horizontalInset="no"
                       testID={`${testID}ImageFallback`}>
                       <ProjectWarningFallbackImage />
                     </FigureWithFacadesBackground>
