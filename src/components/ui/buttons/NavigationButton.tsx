@@ -51,6 +51,7 @@ export const NavigationButton = ({
         )}
         <Row
           gutter="md"
+          shrink={0}
           valign="center">
           {!!icon && (
             <Icon
