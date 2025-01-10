@@ -5,11 +5,19 @@ import {
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
+import {AddWasteCardScreen} from '@/modules/open-waste-container/screens/AddWasteCard.screen'
 
 export const screenConfig: StackNavigationRoutes<
   OpenWasteContainerStackParams,
   OpenWasteContainerRouteName
 > = {
+  [OpenWasteContainerRouteName.addWasteCard]: {
+    component: AddWasteCardScreen,
+    name: OpenWasteContainerRouteName.addWasteCard,
+    options: {
+      headerTitle: 'Afvalpas toevoegen',
+    },
+  },
   [OpenWasteContainerRouteName.openWasteContainer]: {
     component: OpenWasteContainerScreen,
     name: OpenWasteContainerRouteName.openWasteContainer,

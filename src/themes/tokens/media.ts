@@ -19,6 +19,7 @@ export const mediaTokens = {
     xl: 320,
   },
   illustrationAspectRatio: {
+    default: 1,
     facades: 2048 / 256,
     landscape: 512 / 256,
     portrait: 256 / 512,
