@@ -1,11 +1,11 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {RootState} from '@/store/types/rootState'
 
-export type OpenWasteContainerState = {
+export type WasteContainerState = {
   hasWasteCard: boolean
 }
 
-const initialState: OpenWasteContainerState = {
+const initialState: WasteContainerState = {
   hasWasteCard: false,
 }
 

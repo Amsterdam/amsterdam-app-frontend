@@ -10,13 +10,13 @@ type Props = {
 }
 
 export const WasteCardButton = ({showAddOnly}: Props) => {
-  const isOpenWasteContainerModuleActive = useIsModuleActive(
+  const isWasteContainerModuleActive = useIsModuleActive(
     ModuleSlug['waste-container'],
   )
   const hasWasteCard = useSelector(selectHasWasteCard)
   const isContainerWithinRange = true // TODO: implement this once the API is ready
 
-  if (!isOpenWasteContainerModuleActive) {
+  if (!isWasteContainerModuleActive) {
     return null
   }
 

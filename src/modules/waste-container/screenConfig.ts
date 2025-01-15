@@ -1,30 +1,30 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  OpenWasteContainerModalName,
-  OpenWasteContainerModalParams,
-  OpenWasteContainerRouteName,
-  OpenWasteContainerStackParams,
+  WasteContainerModalName,
+  WasteContainerModalParams,
+  WasteContainerRouteName,
+  WasteContainerStackParams,
 } from '@/modules/waste-container/routes'
 import {AddWasteCardScreen} from '@/modules/waste-container/screens/AddWasteCard.screen'
 import {AddWasteCardSuccessScreen} from '@/modules/waste-container/screens/AddWasteCardSuccess.screen'
 
 export const screenConfig: StackNavigationRoutes<
-  OpenWasteContainerStackParams,
-  OpenWasteContainerRouteName
+  WasteContainerStackParams,
+  WasteContainerRouteName
 > = {
-  [OpenWasteContainerRouteName.addWasteCard]: {
+  [WasteContainerRouteName.addWasteCard]: {
     component: AddWasteCardScreen,
-    name: OpenWasteContainerRouteName.addWasteCard,
+    name: WasteContainerRouteName.addWasteCard,
     options: {
       headerTitle: 'Afvalpas toevoegen',
     },
   },
 }
 
-export const wasteContainerModals: StackNavigationRoutes<OpenWasteContainerModalParams> =
+export const wasteContainerModals: StackNavigationRoutes<WasteContainerModalParams> =
   {
-    [OpenWasteContainerModalName.addWasteCardSuccess]: {
+    [WasteContainerModalName.addWasteCardSuccess]: {
       component: AddWasteCardSuccessScreen,
-      name: OpenWasteContainerModalName.addWasteCardSuccess,
+      name: WasteContainerModalName.addWasteCardSuccess,
     },
   }

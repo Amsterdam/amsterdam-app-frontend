@@ -74,11 +74,11 @@ import {
   UserStackParams,
 } from '@/modules/user/routes'
 import {userModals} from '@/modules/user/screenConfig'
-import {OpenWasteContainerStack} from '@/modules/waste-container/Stack'
+import {WasteContainerStack} from '@/modules/waste-container/Stack'
 import {
-  OpenWasteContainerModalParams,
-  OpenWasteContainerRouteName,
-  OpenWasteContainerStackParams,
+  WasteContainerModalParams,
+  WasteContainerRouteName,
+  WasteContainerStackParams,
 } from '@/modules/waste-container/routes'
 import {wasteContainerModals} from '@/modules/waste-container/screenConfig'
 import {WasteGuideStack} from '@/modules/waste-guide/Stack'
@@ -100,7 +100,7 @@ export type ModuleRoutes =
   | ContactRouteName
   | HomeRouteName
   | OnboardingRouteName
-  | OpenWasteContainerRouteName
+  | WasteContainerRouteName
   | RedirectsRouteName
   | ReportProblemRouteName
   | UserRouteName
@@ -115,7 +115,7 @@ export type ModuleStackParams = AboutStackParams &
   ContactStackParams &
   HomeStackParams &
   OnboardingStackParams &
-  OpenWasteContainerStackParams &
+  WasteContainerStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
@@ -133,7 +133,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.home]: HomeStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
-  [ModuleSlug['waste-container']]: OpenWasteContainerStack,
+  [ModuleSlug['waste-container']]: WasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
@@ -145,7 +145,7 @@ export type ModalParams = AddressModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
   HomeModalParams &
-  OpenWasteContainerModalParams &
+  WasteContainerModalParams &
   ReportProblemModalParams &
   UserModalParams &
   WasteGuideModalParams
