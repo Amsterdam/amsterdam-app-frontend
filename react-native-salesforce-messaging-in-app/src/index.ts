@@ -122,9 +122,12 @@ export const useCreateChat = ({
       setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration, () => {
-          void retrieveRemoteConfiguration().catch(() => {
-            setError({message: 'Failed to retrieve remote configuration'})
-          })
+          void retrieveRemoteConfiguration().then(
+            setRemoteConfiguration,
+            () => {
+              setError({message: 'Failed to retrieve remote configuration'})
+            },
+          )
         })
 
         listeners.forEach(listener => {

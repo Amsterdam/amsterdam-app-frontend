@@ -1,6 +1,6 @@
 
-#import "generated/RNSalesforceMessagingInAppSpec/RNSalesforceMessagingInAppSpec.h"
+#import "RNSalesforceMessagingInAppSpec/RNSalesforceMessagingInAppSpec.h"
 
-@interface SalesforceMessagingInApp : NSObject <NativeSalesforceMessagingInAppSpec>
+@interface SalesforceMessagingInApp : NativeSalesforceMessagingInAppSpecBase <NativeSalesforceMessagingInAppSpec>
 
 @end

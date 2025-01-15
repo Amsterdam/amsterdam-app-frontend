@@ -309,7 +309,7 @@ RCT_EXPORT_METHOD(retrieveRemoteConfiguration:(RCTPromiseResolveBlock)resolve
 }
 
 
-RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationDict
+RCT_EXPORT_METHOD(submitRemoteConfiguration:(JS::NativeSalesforceMessagingInApp::RemoteConfiguration &)remoteConfigurationDict
                   createConversationOnSubmit:(BOOL)createConversationOnSubmit
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -328,7 +328,7 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
 
         // Get the pre-chat fields from the remote config.
         NSArray *preChatFields = remoteConfiguration.preChatConfiguration.firstObject.preChatFields;
-        NSArray *filledPreChatFields = remoteConfigurationDict[@"preChatConfiguration"][0][@"preChatFields"];
+        facebook::react::LazyVector<JS::NativeSalesforceMessagingInApp::PreChatField> filledPreChatFields = remoteConfigurationDict.preChatConfiguration().at(0).preChatFields();
         if (preChatFields != nil) {
             // Set the pre-chat values.
             for (id field in preChatFields) {
@@ -340,12 +340,18 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
                 }
                 
                 // Find the corresponding field in filledPreChatFields with the same name.
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", fieldName];
-                id matchingField = [[filledPreChatFields filteredArrayUsingPredicate:predicate] firstObject];
-                
+                auto matchingField = std::find_if(
+                    filledPreChatFields.begin(),
+                    filledPreChatFields.end(),
+                    [&](const auto& field) {
+                        // Replace with the appropriate condition matching your predicate
+                        return [field.name() isEqualToString:fieldName];
+                    }
+                );
                 // If a matching field is found, set its value.
-                if (matchingField != nil) {
-                    NSString *fieldValue = matchingField[@"value"];
+                if (matchingField != filledPreChatFields.end()) {
+                    const auto& foundfield = *matchingField;
+                    NSString *fieldValue = foundfield.value();
                     
                     // Ensure fieldValue is a valid string before setting.
                     if ([fieldValue isKindOfClass:[NSString class]]) {
@@ -357,7 +363,7 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
         }
         // Get the pre-chat fields from the remote config.
         NSArray *hiddenPreChatFields = remoteConfiguration.preChatConfiguration.firstObject.hiddenPreChatFields;
-        NSArray *filledHiddenPreChatFields = remoteConfigurationDict[@"preChatConfiguration"][0][@"hiddenPreChatFields"];
+        facebook::react::LazyVector<JS::NativeSalesforceMessagingInApp::PreChatField> filledHiddenPreChatFields = remoteConfigurationDict.preChatConfiguration().at(0).hiddenPreChatFields();
         if (hiddenPreChatFields != nil) {
             // Set the pre-chat values.
             for (id field in hiddenPreChatFields) {
@@ -369,13 +375,19 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
                 }
                 
                 // Find the corresponding field in filledHiddenPreChatFields with the same name.
-                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name == %@", fieldName];
-                id matchingField = [[filledHiddenPreChatFields filteredArrayUsingPredicate:predicate] firstObject];
+                auto matchingField = std::find_if(
+                    filledHiddenPreChatFields.begin(),
+                    filledHiddenPreChatFields.end(),
+                    [&](const auto& field) {
+                        // Replace with the appropriate condition matching your predicate
+                        return [field.name() isEqualToString:fieldName];
+                    }
+                );
                 
                 // If a matching field is found, set its value.
-                if (matchingField != nil) {
-                    NSString *fieldValue = matchingField[@"value"];
-                    
+                if (matchingField != filledHiddenPreChatFields.end()) {
+                    const auto& foundfield = *matchingField;
+                    NSString *fieldValue = foundfield.value();
                     // Ensure fieldValue is a valid string before setting.
                     if ([fieldValue isKindOfClass:[NSString class]]) {
                         // Use Key-Value Coding to set the value safely.
@@ -395,7 +407,7 @@ RCT_EXPORT_METHOD(submitRemoteConfiguration:(NSDictionary *)remoteConfigurationD
     }
 }
 
-RCT_EXPORT_METHOD(markAsRead:(NSDictionary *)entryDict
+RCT_EXPORT_METHOD(markAsRead:(JS::NativeSalesforceMessagingInApp::ConversationEntryBase &)entryDict
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -410,7 +422,7 @@ RCT_EXPORT_METHOD(markAsRead:(NSDictionary *)entryDict
         }
 
         // Extract entryId from entryDict
-        NSString *entryId = entryDict[@"entryId"];
+        NSString *entryId = entryDict.entryId();
         if (!entryId) {
             NSError *error = [NSError errorWithDomain:@"mark_as_read_exception"
                                                  code:400
@@ -491,7 +503,7 @@ RCT_EXPORT_METHOD(sendMessage:(NSString *)message
         reject(@"send_message_exception", @"An exception occurred during sendMessage", error);
     }
 }
-RCT_EXPORT_METHOD(sendReply:(NSDictionary *)replyDict
+RCT_EXPORT_METHOD(sendReply:(JS::NativeSalesforceMessagingInApp::Choice &)replyDict
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -506,7 +518,7 @@ RCT_EXPORT_METHOD(sendReply:(NSDictionary *)replyDict
         }
 
         // Create a SMIChoice object from the provided reply dictionary
-        NSString *optionId = replyDict[@"optionId"];
+        NSString *optionId = replyDict.optionId();
         id<SMIChoice> reply = nil;
         for (id<SMIChoice> choice in receivedChoices) {
             if ([choice.optionId isEqualToString:optionId]) { // Match by optionId
@@ -732,7 +744,7 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                 
                 messageDict[@"sender"] = senderDict;
 
-                [self sendEventWithName:@"onNewMessage" body:messageDict];
+                [self emitOnNewMessage:messageDict];
                 NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
                 resultDict[@"transcript"] = base64PdfString;
                 resultDict[@"entryId"] = [entryId UUIDString];
@@ -1013,15 +1025,9 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
 didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
         paged:(BOOL)paged
 {
-    if (hasListeners) {
-        // NSMutableArray *messageArray = [NSMutableArray array];
-        
-        for (id<SMIConversationEntry> entry in entries) {
-            NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-            [self sendEventWithName:@"onNewMessage" body:finalMessageDict];
-        }
-
-        // Emit the event to JavaScript
+    for (id<SMIConversationEntry> entry in entries) {
+        NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+        [self emitOnNewMessage:finalMessageDict];
     }
 }
 
@@ -1030,11 +1036,10 @@ didReceiveEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
   conversation:(nonnull id<SMIConversation>)conversation
 didUpdateEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
 {
-    if (hasListeners) {
-        for (id<SMIConversationEntry> entry in entries) {
-            NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-            [self sendEventWithName:@"onUpdatedMessage" body:finalMessageDict];
-        }
+    for (id<SMIConversationEntry> entry in entries) {
+        NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+        [self emitOnUpdatedMessage:finalMessageDict];
+        
     }
 }
 
@@ -1042,64 +1047,50 @@ didUpdateEntries:(nonnull NSArray<id<SMIConversationEntry>> *)entries
 - (void)core:(nonnull id<SMICoreClient>)core
 didChangeNetworkState:(nonnull SMINetworkConnectivityState)state
 {
-    if (hasListeners) {
-        [self sendEventWithName:@"onNetworkStatusChanged" body:state];
-    }
+    [self emitOnNetworkStatusChanged:state];
 }
 
 - (void)core:(nonnull id<SMICoreClient>)core
 didChangeConnectionState:(nonnull SMIRealtimeConnectionState)state
 {
-    if (hasListeners) {
-        [self sendEventWithName:@"onConnectionStatusChanged" body:state];
-    }
+    [self emitOnConnectionStatusChanged:state];
 }
 
 - (void)core:(nonnull id<SMICoreClient>)core
 didCreateConversation:(nonnull id<SMIConversation>)state
 {
-    if (hasListeners) {
-        
-    }
+    
 }
 
 - (void)core:(nonnull id<SMICoreClient>)core
 didUpdateConversation:(nonnull id<SMIConversation>)state
 {
-    if (hasListeners) {
-        
-    }
+    
 }
 
 // Triggered when there is an error
 - (void)core:(nonnull id<SMICoreClient>)core
 didError:(nonnull NSError *)error
 {
-    if (hasListeners) {
-        NSMutableDictionary *errorMessageDict = [NSMutableDictionary dictionary];
-        errorMessageDict[@"message"] = [error description];
-        [self sendEventWithName:@"onError" body:[errorMessageDict copy]];
-    }
+    NSMutableDictionary *errorMessageDict = [NSMutableDictionary dictionary];
+    errorMessageDict[@"message"] = [error description];
+    [self emitOnError:[errorMessageDict copy]];
 }
 
 // Triggered when a typing event starts
 - (void)core:(nonnull id<SMICoreClient>)core
 didReceiveTypingStartedEvent:(nonnull id<SMIConversationEntry>)entry
 {
-    if (hasListeners) {
-        NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-        [self sendEventWithName:@"onTypingStarted" body:finalMessageDict];
-    }
+    NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+    [self emitOnTypingStarted:finalMessageDict];
 }
 
 // Triggered when a typing event stops
 - (void)core:(nonnull id<SMICoreClient>)core
 didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
 {
-    if (hasListeners) {
-        NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-        [self sendEventWithName:@"onTypingStopped" body:finalMessageDict];
-    }
+    NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+    [self emitOnTypingStopped:finalMessageDict];
 }
 
 // Will be called when this module's first listener is added.
@@ -1112,6 +1103,15 @@ didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
 -(void)stopObserving {
     hasListeners = NO;
     // Remove upstream listeners, stop unnecessary background tasks
+}
+
+- (void)addListener:(NSString *)eventName {
+    hasListeners = YES;
+}
+
+
+- (void)removeListeners:(double)count {
+    hasListeners = NO;
 }
 
 - (NSArray<NSString *> *)supportedEvents {
