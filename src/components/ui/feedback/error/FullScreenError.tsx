@@ -49,16 +49,14 @@ export const FullScreenError = ({
         TopComponent={TopComponent}
         withFacadesBackground={withFacadesBackground}
       />
-      {!!onPress && !!buttonLabel && (
-        <Box inset="md">
-          <Button
-            accessibilityLabel={buttonAccessibilityLabel}
-            label={buttonLabel}
-            onPress={onPress}
-            testID={testID + 'Button'}
-          />
-        </Box>
-      )}
+      <Box inset="md">
+        <Button
+          accessibilityLabel={buttonAccessibilityLabel}
+          label={buttonLabel}
+          onPress={onPress}
+          testID={testID + 'Button'}
+        />
+      </Box>
     </Column>
   )
 }
