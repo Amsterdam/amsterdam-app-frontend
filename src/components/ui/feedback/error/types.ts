@@ -11,10 +11,10 @@ export type FullScreenErrorProps = {
   TopComponent?: ReactNode
   backgroundPosition?: 'bottom' | 'center'
   buttonAccessibilityLabel?: string
-  buttonLabel?: string
+  buttonLabel: string
   error?: ErrorType
   isImageFullSize?: boolean
-  onPress?: () => void
+  onPress: () => void
   testID: string
   text?: string
   title: string
