@@ -2,8 +2,8 @@ import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
-import {useRequestBluetoothPermission} from '@/modules/open-waste-container/hooks/useRequestBluetoothPermission'
-import {OpenWasteContainerModalName} from '@/modules/open-waste-container/routes'
+import {useRequestBluetoothPermission} from '@/modules/waste-container/hooks/useRequestBluetoothPermission'
+import {WasteContainerModalName} from '@/modules/waste-container/routes'
 import {Permissions} from '@/types/permissions'
 
 type Props = {
@@ -22,7 +22,7 @@ export const AddWasteCardButton = ({onPress}: Props) => {
     void requestBluetoothPermission().then(hasBTPermission => {
       if (hasBTPermission) {
         // TODO: store waste card in secure storage once endpoint is implemented
-        navigate(OpenWasteContainerModalName.addWasteCardSuccess)
+        navigate(WasteContainerModalName.addWasteCardSuccess)
       } else {
         navigateToInstructionsScreen()
       }

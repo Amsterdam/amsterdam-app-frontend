@@ -5,7 +5,7 @@ import {productTourSlice} from '@/components/features/product-tour/slice'
 import {accessCodeSlice} from '@/modules/access-code/slice'
 import {chatSlice} from '@/modules/chat/slice'
 import {clientModules, coreModules} from '@/modules/modules'
-import {openWasteContainerSlice} from '@/modules/open-waste-container/slice'
+import {wasteContainerSlice} from '@/modules/waste-container/slice'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
 import {baseApi} from '@/services/baseApi'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
@@ -30,7 +30,7 @@ const baseFunctionalitySlicesConfig: ReduxConfig[] = [
   {key: ReduxKey.environment, slice: environmentSlice, persistVersion: 0},
   {key: ReduxKey.internetConnection, slice: internetConnectionSlice},
   {key: ReduxKey.modules, slice: modulesSlice, persistVersion: 0},
-  {key: ReduxKey.openWasteContainer, slice: openWasteContainerSlice},
+  {key: ReduxKey.wasteContainer, slice: wasteContainerSlice},
   {key: ReduxKey.permissions, slice: permissionsSlice},
   {key: ReduxKey.productTour, slice: productTourSlice, persistVersion: 0},
   {key: ReduxKey.secureStorage, slice: secureStorageSlice, persistVersion: 0},

@@ -1,7 +1,7 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {OpenWasteContainerRouteName} from '@/modules/open-waste-container/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 
 export const AddWasteCardButton = () => {
   const {navigate} = useNavigation()
@@ -11,8 +11,8 @@ export const AddWasteCardButton = () => {
       iconName="add"
       label="Afvalpas toevoegen"
       onPress={() =>
-        navigate(ModuleSlug['open-waste-container'], {
-          screen: OpenWasteContainerRouteName.addWasteCard,
+        navigate(ModuleSlug['waste-container'], {
+          screen: WasteContainerRouteName.addWasteCard,
         })
       }
       testID="WasteGuideAddWasteCardButton"

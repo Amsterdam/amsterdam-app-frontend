@@ -9,10 +9,10 @@ import {contactModule} from '@/modules/contact'
 import {homeModule} from '@/modules/home'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
-import {openWasteContainerModule} from '@/modules/open-waste-container'
 import {redirectsModule} from '@/modules/redirects'
 import {reportProblemModule} from '@/modules/report-problem'
 import {userModule} from '@/modules/user'
+import {wasteContainerModule} from '@/modules/waste-container'
 import {wasteGuideModule} from '@/modules/waste-guide'
 
 /**
@@ -36,7 +36,7 @@ export const clientModules = [
   constructionWorkEditorModule,
   constructionWorkModule,
   contactModule,
-  openWasteContainerModule,
+  wasteContainerModule,
   redirectsModule,
   reportProblemModule,
   wasteGuideModule,

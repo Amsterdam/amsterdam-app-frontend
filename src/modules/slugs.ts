@@ -10,9 +10,9 @@ export enum ModuleSlug {
   home = 'home',
   'notification-history' = 'notification-history',
   onboarding = 'onboarding',
-  'open-waste-container' = 'open-waste-container',
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
+  'waste-container' = 'waste-container',
   'waste-guide' = 'waste-guide',
 }

@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {check} from 'react-native-permissions'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
-import {alerts} from '@/modules/open-waste-container/alerts'
+import {alerts} from '@/modules/waste-container/alerts'
 import {useAlert} from '@/store/slices/alert'
 import {Permissions} from '@/types/permissions'
 
