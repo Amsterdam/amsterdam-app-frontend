@@ -4,9 +4,9 @@ import {
   OpenWasteContainerModalParams,
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
-} from '@/modules/open-waste-container/routes'
-import {AddWasteCardScreen} from '@/modules/open-waste-container/screens/AddWasteCard.screen'
-import {AddWasteCardSuccessScreen} from '@/modules/open-waste-container/screens/AddWasteCardSuccess.screen'
+} from '@/modules/waste-container/routes'
+import {AddWasteCardScreen} from '@/modules/waste-container/screens/AddWasteCard.screen'
+import {AddWasteCardSuccessScreen} from '@/modules/waste-container/screens/AddWasteCardSuccess.screen'
 
 export const screenConfig: StackNavigationRoutes<
   OpenWasteContainerStackParams,
@@ -21,7 +21,7 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const openWasteContainerModals: StackNavigationRoutes<OpenWasteContainerModalParams> =
+export const wasteContainerModals: StackNavigationRoutes<OpenWasteContainerModalParams> =
   {
     [OpenWasteContainerModalName.addWasteCardSuccess]: {
       component: AddWasteCardSuccessScreen,

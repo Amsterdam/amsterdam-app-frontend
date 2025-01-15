@@ -1,8 +1,8 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
-import {OpenWasteContainerRouteName} from '@/modules/open-waste-container/routes'
-import {screenConfig} from '@/modules/open-waste-container/screenConfig'
+import {OpenWasteContainerRouteName} from '@/modules/waste-container/routes'
+import {screenConfig} from '@/modules/waste-container/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 

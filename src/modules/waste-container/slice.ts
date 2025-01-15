@@ -9,8 +9,8 @@ const initialState: OpenWasteContainerState = {
   hasWasteCard: false,
 }
 
-export const openWasteContainerSlice = createSlice({
-  name: 'openWasteContainerSlice',
+export const wasteContainerSlice = createSlice({
+  name: 'wasteContainerSlice',
   initialState,
   reducers: {
     setHasWasteCard: (
@@ -22,7 +22,7 @@ export const openWasteContainerSlice = createSlice({
   },
 })
 
-export const {setHasWasteCard} = openWasteContainerSlice.actions
+export const {setHasWasteCard} = wasteContainerSlice.actions
 
 export const selectHasWasteCard = (state: RootState) =>
-  state.openWasteContainer.hasWasteCard
+  state.wasteContainer.hasWasteCard

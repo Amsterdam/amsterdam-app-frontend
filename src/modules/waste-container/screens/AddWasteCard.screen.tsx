@@ -5,9 +5,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {AddWasteCardFigure} from '@/modules/open-waste-container/assets/images/AddWasteCardFigure'
-import {AddWasteCardButton} from '@/modules/open-waste-container/components/AddWasteCardButton'
-import {useShowAlertAfterPermissionGrantedInSystem} from '@/modules/open-waste-container/hooks/useShowAlertAfterPermissionGrantedInSystem'
+import {AddWasteCardFigure} from '@/modules/waste-container/assets/images/AddWasteCardFigure'
+import {AddWasteCardButton} from '@/modules/waste-container/components/AddWasteCardButton'
+import {useShowAlertAfterPermissionGrantedInSystem} from '@/modules/waste-container/hooks/useShowAlertAfterPermissionGrantedInSystem'
 
 export const AddWasteCardScreen = () => {
   const {setIsAddWasteCardButtonPressed} =

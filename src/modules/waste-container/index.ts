@@ -1,8 +1,8 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 
-export const openWasteContainerModule: ModuleClientConfig = {
+export const wasteContainerModule: ModuleClientConfig = {
   hiddenInMenu: true,
   name: 'OpenWasteContainerModule',
-  slug: ModuleSlug['open-waste-container'],
+  slug: ModuleSlug['waste-container'],
 }
