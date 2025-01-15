@@ -1,9 +1,9 @@
 import {
   Image,
-  NativeEventEmitter,
   Platform,
   processColor,
   type ImageSourcePropType,
+  type ColorValue,
 } from 'react-native'
 import BlockScreenshot from './NativeBlockScreenshot'
 
@@ -20,41 +20,32 @@ export const enableBlockScreenshot = ({
   scale,
   source,
 }: {
-  backgroundColor: string
+  backgroundColor: ColorValue
   scale: number
   source: ImageSourcePropType
-}): Promise<void> =>
+}): void =>
   BlockScreenshot.enableBlockScreenshot({
-    // @ts-expect-error changes...
+    // @ts-expect-error does work
     backgroundColor: processColor(backgroundColor),
     scale,
-    // @ts-expect-error changes...
-    source: checkSource(source),
+    source: checkSource(source) ?? undefined,
   })
 
-export const disableBlockScreenshot = (): Promise<void> =>
+export const disableBlockScreenshot = (): void =>
   BlockScreenshot.disableBlockScreenshot()
-
-const eventListener = new NativeEventEmitter(BlockScreenshot)
 
 export const addEventListener = (callBack: () => void) => {
   let remove = (): void => undefined
 
   if (Platform.OS === 'ios') {
-    // if (!eventListener) {
-    //   BlockScreenshot.addEventListener(callBack)
-    // eventListener = new NativeEventEmitter(BlockScreenshot)
-    // }
-    const add = eventListener.addListener('onScreenshot', callBack)
+    BlockScreenshot.addListener('onScreenshot')
+    const add = BlockScreenshot.onScreenshot(callBack)
 
     remove = () => add.remove()
   }
 
   return () => {
+    BlockScreenshot.removeListeners(1)
     remove()
-    // if (eventListener?.listenerCount('onScreenshot') === 0) {
-    //   BlockScreenshot.removeListeners()
-    //   // eventListener = null
-    // }
   }
 }

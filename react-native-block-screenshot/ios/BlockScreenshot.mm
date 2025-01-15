@@ -15,22 +15,6 @@ UIImageView *imageView;
 UIScrollView *scrollView;
 RCTBridge *_bridge;
 
-// Ensure proper RCTEventEmitter initialization
-- (instancetype)init {
-    if (self = [super init]) {
-        _bridge = nil;
-    }
-    return self;
-}
-
-// Implement required RCTBridge setter and getter
-- (void)setBridge:(RCTBridge *)bridge {
-    _bridge = bridge;
-}
-
-- (RCTBridge *)bridge {
-    return _bridge;
-}
 
 // Initialize and configure textField
 - (void)initTextField {
@@ -49,9 +33,9 @@ RCTBridge *_bridge;
     }
 }
 
-- (void)secureViewWithImage:(nonnull NSDictionary *)source
-                  withScale:(nonnull NSNumber *)scale
-        withBackgroundColor:(nonnull NSString *)backgroundColor 
+- (void)secureViewWithImage:(std::optional<JS::NativeBlockScreenshot::ImageResolvedAssetSource>)source
+                  withScale:(double)scale
+        withBackgroundColor:(double)backgroundColor
 {
     if (@available(iOS 13.0, *)) {
         if (!textField) {
@@ -68,9 +52,9 @@ RCTBridge *_bridge;
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.scrollEnabled = NO;
 
-        if (source[@"uri"]) {
-            NSString *uriImage = source[@"uri"];
-            CGFloat scaleValue = [scale doubleValue];
+        if (source->uri()) {
+            NSString *uriImage = source->uri();
+            CGFloat scaleValue = scale;
 
             // Load the image from the URI
             [[_bridge moduleForClass:[RCTImageLoader class]] loadImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:uriImage]]
@@ -104,7 +88,7 @@ RCTBridge *_bridge;
                         [imageView setImage:image];
                         [textField addSubview:scrollView];
                         [textField sendSubviewToBack:scrollView];
-                        textField.backgroundColor = [RCTConvert UIColor:backgroundColor];
+                        textField.backgroundColor = [RCTConvert UIColor:@(backgroundColor)];
                     });
                 } else {
                     NSLog(@"Error loading image: %@", error);
@@ -117,15 +101,24 @@ RCTBridge *_bridge;
     }
 }
 
-RCT_EXPORT_METHOD(enableBlockScreenshot:(nonnull NSDictionary *)data) {
-    if (![data isKindOfClass:[NSDictionary class]]) {
-        NSLog(@"Invalid data type for enableBlockScreenshot");
-        return;
-    }
 
-    NSDictionary *source = data[@"source"];
-    NSNumber *scale = data[@"scale"];
-    NSString *backgroundColor = data[@"backgroundColor"];
+//- (void)disableBlockScreenshot:(RCTPromiseResolveBlock)resolve reject:(RCTPromiseRejectBlock)reject {
+//    <#code#>
+//}
+//
+- (void)enableBlockScreenshot:(JS::NativeBlockScreenshot::SpecEnableBlockScreenshotParams &)data {
+//    <#code#>
+//}
+
+//RCT_EXPORT_METHOD(enableBlockScreenshot:(JS::NativeBlockScreenshot::SpecEnableBlockScreenshotParams &)data) {
+//    if (![data isKindOfClass:[NSDictionary class]]) {
+//        NSLog(@"Invalid data type for enableBlockScreenshot");
+//        return;
+//    }
+    
+    std::optional<JS::NativeBlockScreenshot::ImageResolvedAssetSource> source = data.source();
+    double scale = data.scale();
+    double backgroundColor = data.backgroundColor();
 
     dispatch_async(dispatch_get_main_queue(), ^{
         [self secureViewWithImage:source withScale:scale withBackgroundColor:backgroundColor];
@@ -154,7 +147,8 @@ RCT_EXPORT_METHOD(enableBlockScreenshot:(nonnull NSDictionary *)data) {
     }
 }
 
-RCT_EXPORT_METHOD(disableBlockScreenshot) {
+//RCT_EXPORT_METHOD(disableBlockScreenshot) {
+- (void)disableBlockScreenshot {
     dispatch_async(dispatch_get_main_queue(), ^{
         [self disableBlockScreenshotFn];
         [[NSNotificationCenter defaultCenter] removeObserver:UIApplicationUserDidTakeScreenshotNotification];
@@ -175,7 +169,9 @@ RCT_EXPORT_METHOD(disableBlockScreenshot) {
 id screenshotObserver;
 
 // Register screenshot event listener and emit events
-RCT_EXPORT_METHOD(addEventListener) {
+
+- (void)addListener:(NSString *)eventName {
+//RCT_EXPORT_METHOD(addEventListener) {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
     
@@ -190,11 +186,13 @@ RCT_EXPORT_METHOD(addEventListener) {
                                              object:nil
                                               queue:mainQueue
                                          usingBlock:^(NSNotification *notification) {
-        [self sendEventWithName:@"onScreenshot" body:nil]; // Emit event to JavaScript
+        [self emitOnScreenshot];
     }];
 }
 
-RCT_EXPORT_METHOD(removeEventListener) {
+//RCT_EXPORT_METHOD(removeEventListener) {
+
+- (void)removeListeners:(double)count {
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSOperationQueue *mainQueue = [NSOperationQueue mainQueue];
      if (screenshotObserver) {
