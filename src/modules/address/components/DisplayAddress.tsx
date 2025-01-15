@@ -44,7 +44,7 @@ const AddressDeleteButton = ({
     )
   }
 
-  return <>{children}</>
+  return children
 }
 
 export const DisplayAddress = () => {
