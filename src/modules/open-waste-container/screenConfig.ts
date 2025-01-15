@@ -1,11 +1,12 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
-import {OpenWasteContainerScreen} from '@/modules/open-waste-container/Screen'
 import {
+  OpenWasteContainerModalName,
   OpenWasteContainerModalParams,
   OpenWasteContainerRouteName,
   OpenWasteContainerStackParams,
 } from '@/modules/open-waste-container/routes'
 import {AddWasteCardScreen} from '@/modules/open-waste-container/screens/AddWasteCard.screen'
+import {AddWasteCardSuccessScreen} from '@/modules/open-waste-container/screens/AddWasteCardSuccess.screen'
 
 export const screenConfig: StackNavigationRoutes<
   OpenWasteContainerStackParams,
@@ -18,14 +19,12 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Afvalpas toevoegen',
     },
   },
-  [OpenWasteContainerRouteName.openWasteContainer]: {
-    component: OpenWasteContainerScreen,
-    name: OpenWasteContainerRouteName.openWasteContainer,
-    options: {
-      headerTitle: 'Gft-container openen',
-    },
-  },
 }
 
 export const openWasteContainerModals: StackNavigationRoutes<OpenWasteContainerModalParams> =
-  {}
+  {
+    [OpenWasteContainerModalName.addWasteCardSuccess]: {
+      component: AddWasteCardSuccessScreen,
+      name: OpenWasteContainerModalName.addWasteCardSuccess,
+    },
+  }

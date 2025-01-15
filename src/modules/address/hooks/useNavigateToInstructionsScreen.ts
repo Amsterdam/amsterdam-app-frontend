@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import {BluetoothIcon} from '@/components/ui/media/icons/BluetoothIcon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {HomeModalName} from '@/modules/home/routes'
 import {PermissionInstructionScreenParams} from '@/modules/home/types'
@@ -9,21 +10,28 @@ const navigationParams: Record<
   PermissionInstructionScreenParams
 > = {
   [Permissions.biometrics]: {
-    icon: 'faceId',
+    iconName: 'faceId',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot Face ID.',
     permission: Permissions.biometrics,
     screenTitle: 'Face ID',
     title: 'Geef toegang tot Face ID',
   },
+  [Permissions.bluetooth]: {
+    IconComponent: BluetoothIcon,
+    paragraph: 'Ga naar Instellingen en geef de app toegang tot bluetooth.',
+    permission: Permissions.bluetooth,
+    screenTitle: 'Bluetooth delen',
+    title: 'Geef toegang tot bluetooth',
+  },
   [Permissions.location]: {
-    icon: 'location',
+    iconName: 'location',
     paragraph: 'Ga naar Instellingen en geef de app toegang tot uw locatie.',
     permission: Permissions.location,
     screenTitle: 'Locatie delen',
     title: 'Geef uw locatie door',
   },
   [Permissions.notifications]: {
-    icon: 'alarm',
+    iconName: 'alarm',
     paragraph:
       'Ga naar Instellingen en zet de Meldingen aan zodat u geen belangrijke informatie mist.',
     permission: Permissions.notifications,

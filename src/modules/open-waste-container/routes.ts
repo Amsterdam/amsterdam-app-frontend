@@ -1,13 +1,15 @@
 export enum OpenWasteContainerRouteName {
   addWasteCard = 'AddWasteCard',
-  openWasteContainer = 'OpenWasteContainer',
 }
 
 export type OpenWasteContainerStackParams = {
   [OpenWasteContainerRouteName.addWasteCard]: undefined
-  [OpenWasteContainerRouteName.openWasteContainer]: undefined
 }
 
-export enum OpenWasteContainerModalName {}
+export enum OpenWasteContainerModalName {
+  addWasteCardSuccess = 'AddWasteCardSuccess',
+}
 
-export type OpenWasteContainerModalParams = Record<string, never>
+export type OpenWasteContainerModalParams = {
+  [OpenWasteContainerModalName.addWasteCardSuccess]: undefined
+}

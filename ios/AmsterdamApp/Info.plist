@@ -61,6 +61,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>De Amsterdam app kan toegang tot bluetooth vragen om met apparaten te verbinden.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>De Amsterdam app kan toegang tot bluetooth vragen om met apparaten te verbinden.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot uw camera om foto’s te kunnen maken en te delen.</string>
 	<key>NSFaceIDUsageDescription</key>

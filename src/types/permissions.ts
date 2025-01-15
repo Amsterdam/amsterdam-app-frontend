@@ -4,6 +4,11 @@ import {PiwikSessionDimension} from '@/processes/piwik/types'
 
 export const Permissions = {
   biometrics: PERMISSIONS.IOS.FACE_ID, // On Android, biometrics is not a "dangerous level" permission
+  bluetooth:
+    Platform.OS === 'android'
+      ? PERMISSIONS.ANDROID.BLUETOOTH_SCAN
+      : PERMISSIONS.IOS.BLUETOOTH,
+  bluetoothConnect: PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
   camera:
     Platform.OS === 'android'
       ? PERMISSIONS.ANDROID.CAMERA

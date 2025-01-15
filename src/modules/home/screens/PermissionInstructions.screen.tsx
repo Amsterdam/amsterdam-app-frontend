@@ -18,7 +18,14 @@ type Props = NavigationProps<HomeModalName.permissionInstructions>
 
 export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   const {
-    params: {icon, paragraph, permission, screenTitle, title},
+    params: {
+      IconComponent,
+      iconName,
+      paragraph,
+      permission,
+      screenTitle,
+      title,
+    },
   } = route
   const {hasPermission, requestPermission} = usePermission(permission)
 
@@ -59,11 +66,14 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
         insetVertical="xxl">
         <Column gutter="lg">
           <Row align="center">
-            <Icon
-              name={icon}
-              size="xxl"
-              testID="PermissionInstructionScreenIcon"
-            />
+            {!!iconName && (
+              <Icon
+                name={iconName}
+                size="xxl"
+                testID="PermissionInstructionScreenIcon"
+              />
+            )}
+            {!!IconComponent && <IconComponent />}
           </Row>
           <Column gutter="md">
             <Title
