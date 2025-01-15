@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import {Platform} from 'react-native'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {Permissions} from '@/types/permissions'
 
@@ -16,9 +15,7 @@ export const useRequestBluetoothPermission = () => {
       const bluetoothConnectPermission =
         await requestBluetoothConnectPermissionAndroid()
 
-      return Platform.OS === 'android'
-        ? bluetoothScanPermission && bluetoothConnectPermission
-        : bluetoothScanPermission
+      return bluetoothScanPermission && bluetoothConnectPermission
     } catch (error) {
       return false
     }

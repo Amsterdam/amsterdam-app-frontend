@@ -23,7 +23,7 @@ export const AddWasteCardScreen = () => {
         <Column gutter="lg">
           <FigureWithFacadesBackground
             height={209}
-            illustrationAspectRatio="default"
+            illustrationAspectRatio="square"
             testID="AddWasteCardFigureWithFacadesBackground">
             <AddWasteCardFigure />
           </FigureWithFacadesBackground>

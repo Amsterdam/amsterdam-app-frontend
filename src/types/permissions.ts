@@ -8,7 +8,10 @@ export const Permissions = {
     Platform.OS === 'android'
       ? PERMISSIONS.ANDROID.BLUETOOTH_SCAN
       : PERMISSIONS.IOS.BLUETOOTH,
-  bluetoothConnect: PERMISSIONS.ANDROID.BLUETOOTH_CONNECT,
+  bluetoothConnect:
+    Platform.OS === 'android'
+      ? PERMISSIONS.ANDROID.BLUETOOTH_CONNECT
+      : PERMISSIONS.IOS.BLUETOOTH,
   camera:
     Platform.OS === 'android'
       ? PERMISSIONS.ANDROID.CAMERA
