@@ -65,13 +65,6 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     return NAME
   }
 
-  // Function to emit events to React Native
-  private fun sendEvent(eventName: String, params: WritableMap?) {
-    reactApplicationContext
-      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-      .emit(eventName, params)
-  }
-
   private var listenerCount: Int = 0
 
   @ReactMethod
@@ -235,15 +228,15 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
               when (entry) {
                 is CoreEvent.ConversationEvent.Entry -> {
                   val params = convertEntryToMap(entry.conversationEntry)
-                  sendEvent("onNewMessage", params)
+                  emitOnNewMessage(params)
                 }
 
                 is CoreEvent.ConversationEvent.TypingIndicator -> {
                   val params = convertEntryToMap(entry.conversationEntry)
                   if (entry.status === TypingIndicatorStatus.Started) {
-                    sendEvent("onTypingStarted", params)
+                    emitOnTypingStarted(params)
                   } else {
-                    sendEvent("onTypingStopped", params)
+                    emitOnTypingStopped(params)
                   }
                 }
               }
@@ -251,25 +244,25 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             coreClient?.events?.collect { entry ->
               when (entry) {
                 is CoreEvent.Connection -> {
-                  val params = Arguments.createMap()
+                  var status = ""
                   when (entry.event) {
                     is ServerSentEvent.Connection.Closed -> {
-                      params.putString("status", "Closed")
+                      status = "Closed"
                     }
 
                     is ServerSentEvent.Connection.Connecting -> {
-                      params.putString("status", "Connecting")
+                      status = "Connecting"
                     }
 
                     is ServerSentEvent.Connection.Open -> {
-                      params.putString("status", "Open")
+                      status = "Open"
                     }
 
                     is ServerSentEvent.Connection.Ping -> {
-                      params.putString("status", "Ping")
+                      status = "Ping"
                     }
                   }
-                  sendEvent("onConnectionStatusChanged", params)
+                  emitOnConnectionStatusChanged(status)
                 }
 
                 is CoreEvent.ConversationEvent.Entry -> {}
@@ -279,7 +272,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                   val params = Arguments.createMap()
                   params.putString("message", entry.message)
 
-                  sendEvent("onError", params)
+                  emitOnError(params)
                 }
               }
             }
@@ -651,8 +644,8 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     promise: Promise
   ) {
     try {
-      // coreClient?.stop()
-      // coreClient?.destroy()
+      coreClient?.stop()
+      coreClient?.destroy()
       promise.resolve(true)
     } catch (e: Exception) {
       // Catch any exception and reject the promise
@@ -929,7 +922,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             val timestamp = System.currentTimeMillis().toDouble()
             val entryId = UUID.randomUUID().toString()
 
-            sendEvent("onNewMessage", Arguments.createMap().apply {
+            emitOnNewMessage(Arguments.createMap().apply {
               putString("format", "Transcript")
               putString("conversationId", "")
               putString("entryId", entryId)

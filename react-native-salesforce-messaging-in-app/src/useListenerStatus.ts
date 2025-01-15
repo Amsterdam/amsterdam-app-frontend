@@ -1,29 +1,27 @@
 import {useState, useRef, useEffect} from 'react'
-import {type EmitterSubscription, type NativeEventEmitter} from 'react-native'
+import {type EventSubscription} from 'react-native'
+import type {EventEmitter} from 'react-native/Libraries/Types/CodegenTypes'
 
-export const useListenerStatus = <T>(
-  eventType: string,
-  eventEmitter: NativeEventEmitter,
+export const useListenerStatus = <T extends S, S>(
+  eventEmitter: EventEmitter<S>,
 ) => {
   const [listenerStatus, setListenerStatus] = useState<T | null>(null)
-  const onListenerStatusChangedSubscription =
-    useRef<EmitterSubscription | null>(null)
+  const onListenerStatusChangedSubscription = useRef<EventSubscription | null>(
+    null,
+  )
 
   useEffect(() => {
     onListenerStatusChangedSubscription.current?.remove()
 
-    onListenerStatusChangedSubscription.current = eventEmitter.addListener(
-      eventType,
-      (state: T) => {
-        setListenerStatus(state)
-      },
-    )
+    onListenerStatusChangedSubscription.current = eventEmitter((state: S) => {
+      setListenerStatus(state as T)
+    })
 
     return () => {
       onListenerStatusChangedSubscription.current?.remove()
       onListenerStatusChangedSubscription.current = null
     }
-  }, [eventEmitter, eventType])
+  }, [eventEmitter])
 
   return listenerStatus
 }

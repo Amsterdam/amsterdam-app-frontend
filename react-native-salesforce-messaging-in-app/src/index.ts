@@ -1,9 +1,5 @@
 import {useEffect, useMemo, useRef, useState} from 'react'
-import {
-  NativeEventEmitter,
-  EmitterSubscription,
-  EventSubscription,
-} from 'react-native'
+import {EmitterSubscription, EventSubscription} from 'react-native'
 import SalesforceMessagingInApp, {
   ConversationEntryFormat,
   ConversationEntrySenderRole,
@@ -21,8 +17,6 @@ import SalesforceMessagingInApp, {
   ConversationEntryBase,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
-
-const messagingEventEmitter = new NativeEventEmitter(SalesforceMessagingInApp)
 
 export const createCoreClient = ({
   developerName,
@@ -97,13 +91,11 @@ export const useCreateChat = ({
     RemoteConfiguration | undefined
   >()
   const [error, setError] = useState<CoreError | null>(null)
-  const networkStatus = useListenerStatus<NetworkState>(
-    'onNetworkStatusChanged',
-    messagingEventEmitter,
+  const networkStatus = useListenerStatus<NetworkState, string>(
+    SalesforceMessagingInApp.onNetworkStatusChanged,
   )
-  const connectionStatus = useListenerStatus<ConnectionState>(
-    'onConnectionStatusChanged',
-    messagingEventEmitter,
+  const connectionStatus = useListenerStatus<ConnectionState, string>(
+    SalesforceMessagingInApp.onConnectionStatusChanged,
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
