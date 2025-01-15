@@ -1,6 +1,7 @@
 import {useCallback, useState} from 'react'
 import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {FlatGridProps} from 'react-native-super-grid'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
@@ -77,22 +78,24 @@ export const Projects = () => {
   }, [])
 
   return (
-    <SearchFieldProvider
-      amount={result.data.length}
-      type="projects">
-      <ProjectsList
-        {...result}
-        byDistance={!!addressParam}
-        listHeader={
-          <ProjectsListHeader>
-            <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-            <ShareLocationTopTaskButton testID="ConstructionWork" />
-          </ProjectsListHeader>
-        }
-        noResultsMessage="We hebben geen werkzaamheden gevonden."
-        onItemsPerRowChange={setItemsPerRow}
-        onViewableItemsChanged={onViewableItemsChanged}
-      />
-    </SearchFieldProvider>
+    <HorizontalSafeArea>
+      <SearchFieldProvider
+        amount={result.data.length}
+        type="projects">
+        <ProjectsList
+          {...result}
+          byDistance={!!addressParam}
+          listHeader={
+            <ProjectsListHeader>
+              <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
+              <ShareLocationTopTaskButton testID="ConstructionWork" />
+            </ProjectsListHeader>
+          }
+          noResultsMessage="We hebben geen werkzaamheden gevonden."
+          onItemsPerRowChange={setItemsPerRow}
+          onViewableItemsChanged={onViewableItemsChanged}
+        />
+      </SearchFieldProvider>
+    </HorizontalSafeArea>
   )
 }

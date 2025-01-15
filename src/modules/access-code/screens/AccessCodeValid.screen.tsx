@@ -5,8 +5,8 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {SuccessIcon} from '@/components/ui/media/icons/SuccessIcon'
 import {Title} from '@/components/ui/text/Title'
-import CodeValidSVG from '@/modules/access-code/assets/code-valid.svg'
 import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -45,7 +45,7 @@ export const AccessCodeValidScreen = ({navigation}: Props) => {
           grow={1}
           gutter="lg">
           <Row align="center">
-            <CodeValidSVG />
+            <SuccessIcon />
           </Row>
           <Title
             level="h2"

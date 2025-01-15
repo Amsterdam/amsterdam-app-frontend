@@ -11,7 +11,7 @@ export const OpenWasteContainerStack = () => {
 
   return (
     <Stack.Navigator
-      initialRouteName={OpenWasteContainerRouteName.openWasteContainer}
+      initialRouteName={OpenWasteContainerRouteName.addWasteCard}
       screenOptions={screenOptions}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen
