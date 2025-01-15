@@ -63,7 +63,7 @@ NativeModules.RNCNetInfo = {
 }
 
 jest.mock('expo-screen-orientation', () => ({}))
-jest.mock('rn-secure-storage', () => ({}))
+jest.mock('expo-secure-store', () => ({}))
 jest.mock('expo-local-authentication', () => ({}))
 
 jest.mock('react-native-applifecycle/dist/AppLifecycle', () =>

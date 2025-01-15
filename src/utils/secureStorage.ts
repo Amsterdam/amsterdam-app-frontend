@@ -1,4 +1,5 @@
-import RNSecureStorage, {ACCESSIBLE} from 'rn-secure-storage'
+import {getItemAsync, deleteItemAsync, setItemAsync} from 'expo-secure-store'
+
 import {appInsights} from '@/providers/appinsights.provider'
 
 export enum SecureItemKey {
@@ -10,9 +11,7 @@ export enum SecureItemKey {
 
 export const setSecureItem = (key: SecureItemKey, value: string) =>
   new Promise((resolve, reject) => {
-    RNSecureStorage.setItem(key, value, {
-      accessible: ACCESSIBLE.WHEN_UNLOCKED,
-    })
+    setItemAsync(key, value, {requireAuthentication: false})
       .then(res => resolve(res))
       .catch((err: Error) => {
         appInsights.trackException({
@@ -24,14 +23,14 @@ export const setSecureItem = (key: SecureItemKey, value: string) =>
 
 export const getSecureItem = (key: SecureItemKey): Promise<string | null> =>
   new Promise((resolve, reject) => {
-    RNSecureStorage.getItem(key)
+    getItemAsync(key, {requireAuthentication: false})
       .then(res => resolve(res))
       .catch(reject)
   })
 
 export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
   new Promise((resolve, reject) => {
-    RNSecureStorage.exist(key)
+    getItemAsync(key, {requireAuthentication: false})
       .then(res => resolve(!!res))
       .catch((err: Error) => {
         appInsights.trackException({
@@ -43,7 +42,9 @@ export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
 
 export const removeSecureItems = (keys: SecureItemKey[]) =>
   new Promise((resolve, reject) => {
-    RNSecureStorage.multiRemove(keys)
+    Promise.all(
+      keys.map(key => deleteItemAsync(key, {requireAuthentication: false})),
+    )
       .then(res => resolve(res))
       .catch((err: Error) => {
         appInsights.trackException({
@@ -55,8 +56,12 @@ export const removeSecureItems = (keys: SecureItemKey[]) =>
 
 export const removeAllSecureItems = () =>
   new Promise((resolve, reject) => {
-    RNSecureStorage.clear()
-      .then(res => resolve(res))
+    Promise.all(
+      Object.keys(SecureItemKey).map(key =>
+        deleteItemAsync(key, {requireAuthentication: false}),
+      ),
+    )
+      .then(() => resolve(true))
       .catch((err: Error) => {
         appInsights.trackException({
           exception: err,
