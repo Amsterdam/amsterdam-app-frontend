@@ -6,18 +6,19 @@ export const useRequestBluetoothPermission = () => {
   const {requestPermission: requestBluetoothPermission} = usePermission(
     Permissions.bluetooth,
   )
-  const {requestPermission: requestBluetoothConnectPermissionAndroid} =
-    usePermission(Permissions.bluetoothConnect)
+  const {requestPermission: requestBluetoothConnectPermission} = usePermission(
+    Permissions.bluetoothConnect,
+  )
 
   return useCallback(async () => {
     try {
       const bluetoothScanPermission = await requestBluetoothPermission()
       const bluetoothConnectPermission =
-        await requestBluetoothConnectPermissionAndroid()
+        await requestBluetoothConnectPermission()
 
       return bluetoothScanPermission && bluetoothConnectPermission
     } catch (error) {
       return false
     }
-  }, [requestBluetoothConnectPermissionAndroid, requestBluetoothPermission])
+  }, [requestBluetoothConnectPermission, requestBluetoothPermission])
 }

@@ -1,4 +1,4 @@
-import {useEffect, useCallback} from 'react'
+import {useEffect} from 'react'
 import {Linking} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -11,15 +11,16 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useAppState} from '@/hooks/useAppState'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {HomeModalName} from '@/modules/home/routes'
+import {iconComponentNameToIcon} from '@/modules/home/utils/iconComponentNameToIcon'
 
 type Props = NavigationProps<HomeModalName.permissionInstructions>
 
 export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
   const {
     params: {
-      IconComponent,
+      iconComponentName,
       iconName,
       paragraph,
       permission,
@@ -28,6 +29,8 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
     },
   } = route
   const {hasPermission, requestPermission} = usePermission(permission)
+  const IconComponent =
+    iconComponentName && iconComponentNameToIcon[iconComponentName]
 
   useEffect(() => {
     if (!hasPermission) {
@@ -37,11 +40,9 @@ export const PermissionInstructionsScreen = ({navigation, route}: Props) => {
     navigation.pop()
   }, [hasPermission, navigation])
 
-  useAppState({
-    onForeground: useCallback(() => {
-      void requestPermission()
-    }, [requestPermission]),
-  })
+  useFocusAndForegroundEffect(() => {
+    void requestPermission()
+  }, [requestPermission])
 
   return (
     <Screen
