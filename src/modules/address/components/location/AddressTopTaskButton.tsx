@@ -1,6 +1,6 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {type TestProps} from '@/components/ui/types'
-import {useAddress} from '@/modules/address/hooks/useAddress'
+import {useAddress} from '@/modules/address/slice'
 import {type LogProps} from '@/processes/piwik/types'
 
 type Props = {
