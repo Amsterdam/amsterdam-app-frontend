@@ -1,10 +1,22 @@
 import {Button} from '@/components/ui/buttons/Button'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ModuleSlug} from '@/modules/slugs'
+import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 
-export const ShowWasteCardButton = () => (
-  <Button
-    iconName="wasteCard"
-    label="Afvalpas tonen"
-    testID="WasteGuideShowWasteCardButton"
-    variant="secondary"
-  />
-)
+export const ShowWasteCardButton = () => {
+  const {navigate} = useNavigation()
+
+  return (
+    <Button
+      iconName="wasteCard"
+      label="Afvalpas tonen"
+      onPress={() =>
+        navigate(ModuleSlug['waste-container'], {
+          screen: WasteContainerRouteName.wasteCard,
+        })
+      }
+      testID="WasteGuideShowWasteCardButton"
+      variant="secondary"
+    />
+  )
+}

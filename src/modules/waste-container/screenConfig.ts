@@ -7,6 +7,7 @@ import {
 } from '@/modules/waste-container/routes'
 import {AddWasteCardScreen} from '@/modules/waste-container/screens/AddWasteCard.screen'
 import {AddWasteCardSuccessScreen} from '@/modules/waste-container/screens/AddWasteCardSuccess.screen'
+import {WasteCardScreen} from '@/modules/waste-container/screens/WasteCard.screen'
 
 export const screenConfig: StackNavigationRoutes<
   WasteContainerStackParams,
@@ -17,6 +18,13 @@ export const screenConfig: StackNavigationRoutes<
     name: WasteContainerRouteName.addWasteCard,
     options: {
       headerTitle: 'Afvalpas toevoegen',
+    },
+  },
+  [WasteContainerRouteName.wasteCard]: {
+    component: WasteCardScreen,
+    name: WasteContainerRouteName.wasteCard,
+    options: {
+      headerTitle: 'Afvalpas',
     },
   },
 }
