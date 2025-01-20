@@ -88,7 +88,6 @@ export type ArticlesResponse = ArticlesItem[]
 // /project/details
 
 export type ProjectDetailsQueryArgs = {
-  article_max_age?: number
   id: number
 } & AddressQueryArgs
 
@@ -177,7 +176,6 @@ export type ProjectWarningResponse = ArticleWarning
 // /projects
 
 export type ProjectsQueryArgs = {
-  article_max_age?: number
   page?: number
   page_size?: number
 } & AddressQueryArgs
@@ -195,7 +193,6 @@ export type FollowProjectBody = {id: number}
 // /projects/search
 
 export type ProjectsSearchQueryArgs = {
-  article_max_age?: number
   fields: (keyof ProjectsItem)[]
   query_fields: (keyof ProjectsItem)[]
   text: string

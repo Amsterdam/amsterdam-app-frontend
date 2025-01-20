@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {config} from '@/modules/construction-work/components/projects/config'
-import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {useProjectsQuery} from '@/modules/construction-work/service'
 
 export const PreRenderComponent = () => {
@@ -11,7 +10,6 @@ export const PreRenderComponent = () => {
   // Use the same params as the Projects component to already have the data in the cache
   const {data} = useProjectsQuery(
     {
-      article_max_age: recentArticleMaxAge,
       page_size: config.projectItemListPageSize,
       page: 1,
     },
