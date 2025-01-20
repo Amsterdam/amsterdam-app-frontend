@@ -11,7 +11,6 @@ import {ProjectsListHeader} from '@/modules/construction-work/components/project
 import {SearchFieldNavigator} from '@/modules/construction-work/components/projects/SearchFieldNavigator'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
-import {recentArticleMaxAge} from '@/modules/construction-work/config'
 import {
   projectsApi,
   useProjectsQuery,
@@ -58,7 +57,6 @@ export const Projects = () => {
     page,
     projectItemListPageSize,
     {
-      article_max_age: recentArticleMaxAge,
       page_size: projectItemListPageSize,
       ...addressParam,
     },
