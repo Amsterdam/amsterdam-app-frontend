@@ -19,15 +19,13 @@ class BlockScreenshotModule(reactContext: ReactApplicationContext) :
     return NAME
   }
 
-  override fun enableBlockScreenshot(params: ReadableMap, promise: Promise) {
+  override fun enableBlockScreenshot(params: ReadableMap) {
     val activity: Activity? = currentReactContext.currentActivity
-    if (activity != null) {
-      activity.runOnUiThread {
-        activity.window.setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE)
-        promise.resolve(null)
-      }
-    } else {
-      promise.reject("E_NO_ACTIVITY", "No activity found")
+    activity?.runOnUiThread {
+      activity.window.setFlags(
+        WindowManager.LayoutParams.FLAG_SECURE,
+        WindowManager.LayoutParams.FLAG_SECURE
+      )
     }
   }
 
@@ -38,15 +36,10 @@ class BlockScreenshotModule(reactContext: ReactApplicationContext) :
     // Not implemented
   }
 
-  override fun disableBlockScreenshot(promise: Promise) {
+  override fun disableBlockScreenshot() {
     val activity: Activity? = currentReactContext.currentActivity
-    if (activity != null) {
-      activity.runOnUiThread {
-        activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-        promise.resolve(null)
-      }
-    } else {
-      promise.reject("E_NO_ACTIVITY", "No activity found")
+    activity?.runOnUiThread {
+      activity.window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
     }
   }
 
