@@ -7,6 +7,7 @@ import {
   QueryStatus,
   skipToken,
 } from '@reduxjs/toolkit/dist/query'
+import {useEffect, useState} from 'react'
 import type {ApiSlug} from '@/environment'
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
 import type {ApiEndpointQuery} from '@reduxjs/toolkit/dist/query/core/module'
@@ -28,6 +29,12 @@ const getEmptyItems = <DummyItem>(
         }))
     : []
 
+const config = {
+  page: 1,
+  totalPages: 2,
+  pageSize: 10,
+}
+
 type QueryDef<Item, QueryArgs extends PaginationQueryArgs> = QueryDefinition<
   QueryArgs,
   BaseQueryFn<FetchArgs & {slug: ApiSlug}, unknown, FetchBaseQueryError>,
@@ -44,11 +51,12 @@ export const useInfiniteScroller = <
   endpoint: ApiEndpointQuery<QueryDef<Item, QueryArgs>, EndpointDefinitions>,
   keyName: keyof ItemOrDummyItem,
   useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
-  page = 1,
-  pageSize = 10,
+  page = config.page,
+  pageSize = config.pageSize,
   queryParams: QueryArgs = {} as QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
+  const [totalPages, setTotalPages] = useState<number>(config.totalPages)
 
   const {
     data: previousData,
@@ -69,31 +77,40 @@ export const useInfiniteScroller = <
     isError: isErrorCurrentPage,
     isLoading: isLoadingCurrentPage,
     error: errorCurrentPage,
-  } = useQueryHook({
-    ...queryParams,
-    page,
-  })
+  } = useQueryHook(
+    page < totalPages
+      ? {
+          ...queryParams,
+          page,
+        }
+      : skipToken,
+  )
 
   const {
     data: nextData,
     isError: isErrorNextPage,
     isLoading: isLoadingNextPage,
     error: errorNextPage,
-  } = useQueryHook({
-    ...queryParams,
-    page: page + 1,
-  })
+  } = useQueryHook(
+    page < totalPages
+      ? {
+          ...queryParams,
+          page: page + 1,
+        }
+      : skipToken,
+  )
+
+  useEffect(() => {
+    if (currentData?.page.totalPages) {
+      setTotalPages(currentData?.page.totalPages)
+    }
+  }, [currentData?.page.totalPages])
 
   const totalElements =
     previousData?.page.totalElements ??
     currentData?.page.totalElements ??
     nextData?.page.totalElements ??
     0
-  const totalPages =
-    previousData?.page.totalPages ??
-    currentData?.page.totalPages ??
-    nextData?.page.totalPages ??
-    page + 1
 
   return {
     // create an array of pages with data
