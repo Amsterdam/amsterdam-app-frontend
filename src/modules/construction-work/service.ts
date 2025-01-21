@@ -140,14 +140,12 @@ export const projectsApi = baseApi.injectEndpoints({
     >({
       providesTags: ['Projects'],
       query: params => ({
+        params: {
+          page_size: DEFAULT_SEARCH_PAGE_SIZE,
+          ...processSearchQueryArgs(params),
+        },
         slug: MODULE_SLUG,
-        url: generateRequestUrl({
-          path: '/projects/search',
-          params: {
-            page_size: DEFAULT_SEARCH_PAGE_SIZE,
-            ...processSearchQueryArgs(params),
-          },
-        }),
+        url: '/projects/search',
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),

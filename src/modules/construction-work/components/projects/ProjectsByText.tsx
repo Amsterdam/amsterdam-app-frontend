@@ -19,7 +19,7 @@ export const ProjectsByText = () => {
     hasSearchText
       ? {
           fields: ['id', 'image', 'subtitle', 'title'],
-          text: searchText.trim(),
+          text: searchText,
           query_fields: ['title', 'subtitle'],
         }
       : skipToken,
