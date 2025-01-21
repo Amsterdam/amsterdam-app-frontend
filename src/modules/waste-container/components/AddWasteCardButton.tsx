@@ -1,6 +1,4 @@
 import {useCallback} from 'react'
-import {Platform} from 'react-native'
-import {check} from 'react-native-permissions'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
@@ -16,23 +14,11 @@ export const AddWasteCardButton = () => {
   )
 
   const onPressButton = useCallback(() => {
-    if (Platform.OS === 'ios') {
-      check(Permissions.bluetooth)
-        .then(result => {
-          if (result === 'blocked') {
-            navigateToInstructionsScreen()
-          }
-        })
-        .catch(() => {
-          navigateToInstructionsScreen()
-        })
-    }
-
     void requestBluetoothPermission().then(hasBTPermission => {
       if (hasBTPermission) {
         // TODO: store waste card in secure storage once endpoint is implemented
         navigate(WasteContainerModalName.addWasteCardSuccess)
-      } else if (Platform.OS === 'android') {
+      } else {
         navigateToInstructionsScreen() // Permissions on Android don't have a 'blocked' status
       }
     })
