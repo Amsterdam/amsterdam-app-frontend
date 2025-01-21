@@ -78,7 +78,7 @@ export const useInfiniteScroller = <
     isLoading: isLoadingCurrentPage,
     error: errorCurrentPage,
   } = useQueryHook(
-    page < totalPages
+    page <= totalPages
       ? {
           ...queryParams,
           page,
