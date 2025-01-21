@@ -6,11 +6,7 @@ import {useRequestBluetoothPermission} from '@/modules/waste-container/hooks/use
 import {WasteContainerModalName} from '@/modules/waste-container/routes'
 import {Permissions} from '@/types/permissions'
 
-type Props = {
-  onPress: () => void
-}
-
-export const AddWasteCardButton = ({onPress}: Props) => {
+export const AddWasteCardButton = () => {
   const {navigate} = useNavigation()
   const requestBluetoothPermission = useRequestBluetoothPermission()
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
@@ -18,21 +14,15 @@ export const AddWasteCardButton = ({onPress}: Props) => {
   )
 
   const onPressButton = useCallback(() => {
-    onPress()
     void requestBluetoothPermission().then(hasBTPermission => {
       if (hasBTPermission) {
         // TODO: store waste card in secure storage once endpoint is implemented
         navigate(WasteContainerModalName.addWasteCardSuccess)
       } else {
-        navigateToInstructionsScreen()
+        navigateToInstructionsScreen() // Permissions on Android don't have a 'blocked' status
       }
     })
-  }, [
-    navigate,
-    navigateToInstructionsScreen,
-    onPress,
-    requestBluetoothPermission,
-  ])
+  }, [navigate, navigateToInstructionsScreen, requestBluetoothPermission])
 
   return (
     <Button

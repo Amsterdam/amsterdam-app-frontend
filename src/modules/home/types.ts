@@ -1,9 +1,12 @@
-import {type ElementType} from 'react'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Permissions} from '@/types/permissions'
 
+export enum IconComponentName {
+  bluetooth = 'bluetooth',
+}
+
 export type PermissionInstructionScreenParams = {
-  IconComponent?: ElementType
+  iconComponentName?: IconComponentName
   iconName?: SvgIconName
   paragraph: string
   permission: Permissions
