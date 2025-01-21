@@ -100,6 +100,8 @@ export const selectHighAccuracyPurposeKey = (state: RootState) =>
 export const selectIsGettingLocation = (state: RootState) =>
   state[ReduxKey.address].isGettingLocation
 
+export const useAddress = () => useSelector(selectAddress)
+
 export const useLocation = () => ({
   startGettingLocation: useSelector(selectStartGettingLocation),
   getLocationIsError: useSelector(selectGetLocationIsError),

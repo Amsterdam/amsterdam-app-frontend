@@ -6,6 +6,7 @@ export enum SecureItemKey {
   cityPassAccessToken = 'cityPassAccessToken',
   cityPassRefreshToken = 'cityPassRefreshToken',
   cityPasses = 'cityPasses',
+  wasteCardNumber = 'wasteCardNumber',
 }
 
 export const setSecureItem = (key: SecureItemKey, value: string) =>
