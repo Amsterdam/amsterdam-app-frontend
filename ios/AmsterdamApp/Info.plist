@@ -62,9 +62,9 @@
 		<true/>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>De Amsterdam app kan toegang tot bluetooth vragen om met apparaten te verbinden.</string>
+	<string>De Amsterdam app wil toegang tot Bluetooth om afvalcontainers te openen.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>De Amsterdam app kan toegang tot bluetooth vragen om met apparaten te verbinden.</string>
+	<string>De Amsterdam app wil toegang tot Bluetooth om afvalcontainers te openen.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>De Amsterdam app wil toegang tot uw camera om foto’s te kunnen maken en te delen.</string>
 	<key>NSFaceIDUsageDescription</key>
