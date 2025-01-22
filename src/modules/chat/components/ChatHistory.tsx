@@ -3,7 +3,7 @@ import {Keyboard, ScrollView, StyleSheet} from 'react-native'
 import {
   ConversationEntry,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'

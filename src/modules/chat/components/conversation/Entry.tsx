@@ -3,7 +3,7 @@ import Animated, {SlideInDown} from 'react-native-reanimated'
 import {
   ConversationEntry,
   ConversationEntryFormat,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatAgentInfo} from '@/modules/chat/components/ChatAgentInfo'
 import {EntryAttachments} from '@/modules/chat/components/conversation/EntryAttachments'
 import {EntryChoices} from '@/modules/chat/components/conversation/EntryChoices'

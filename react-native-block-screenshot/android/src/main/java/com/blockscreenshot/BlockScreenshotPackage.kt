@@ -1,13 +1,13 @@
 package com.blockscreenshot
 
-import com.facebook.react.TurboReactPackage
-import com.facebook.react.bridge.ReactApplicationContext
+import com.facebook.react.BaseReactPackage
 import com.facebook.react.bridge.NativeModule
-import com.facebook.react.module.model.ReactModuleInfoProvider
+import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.module.model.ReactModuleInfo
+import com.facebook.react.module.model.ReactModuleInfoProvider
 import java.util.HashMap
 
-class BlockScreenshotPackage : TurboReactPackage() {
+class BlockScreenshotPackage : BaseReactPackage() {
   override fun getModule(name: String, reactContext: ReactApplicationContext): NativeModule? {
     return if (name == BlockScreenshotModule.NAME) {
       BlockScreenshotModule(reactContext)
@@ -19,7 +19,6 @@ class BlockScreenshotPackage : TurboReactPackage() {
   override fun getReactModuleInfoProvider(): ReactModuleInfoProvider {
     return ReactModuleInfoProvider {
       val moduleInfos: MutableMap<String, ReactModuleInfo> = HashMap()
-      val isTurboModule: Boolean = BuildConfig.IS_NEW_ARCHITECTURE_ENABLED
       moduleInfos[BlockScreenshotModule.NAME] = ReactModuleInfo(
         BlockScreenshotModule.NAME,
         BlockScreenshotModule.NAME,
@@ -27,7 +26,7 @@ class BlockScreenshotPackage : TurboReactPackage() {
         false,  // needsEagerInit
         true,  // hasConstants
         false,  // isCxxModule
-        isTurboModule // isTurboModule
+        true // isTurboModule
       )
       moduleInfos
     }

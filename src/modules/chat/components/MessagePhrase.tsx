@@ -1,7 +1,7 @@
 import {
   ConversationEntry,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'

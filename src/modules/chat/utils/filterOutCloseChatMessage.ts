@@ -2,7 +2,7 @@ import {
   ConversationEntry,
   ConversationEntryFormat,
   ConversationEntrySenderRole,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {CLOSE_CHAT_MESSAGE} from '@/modules/chat/constants'
 
 export const filterOutCloseChatMessage = (

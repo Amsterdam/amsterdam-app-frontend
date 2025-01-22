@@ -1,4 +1,4 @@
-import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {baseColor} from '@/themes/tokens/base-color'
 
 export type ColorTokens = typeof lightColorTokens

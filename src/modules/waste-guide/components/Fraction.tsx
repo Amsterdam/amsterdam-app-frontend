@@ -132,7 +132,7 @@ export const Fraction = ({fraction, testID}: Props) => {
               ? `${
                   formatEnumeration(afvalwijzerOphaaldagen2) ?? ''
                 }, ${afvalwijzerAfvalkalenderFrequentie}`
-              : formatEnumeration(afvalwijzerOphaaldagen2) ?? '',
+              : (formatEnumeration(afvalwijzerOphaaldagen2) ?? ''),
           )}
           sectionTitle="Ophaaldag"
           testID={`${testID}DaySection`}

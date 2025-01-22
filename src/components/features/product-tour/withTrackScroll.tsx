@@ -87,6 +87,7 @@ const withTrackScroll = (
   }
 
   return forwardRef<ScrollViewRef, ScrollViewWrapperProps>((props, ref) => (
+    // @ts-expect-error this needs to be improved
     <ScrollViewWrapper
       {...props}
       childRef={ref}

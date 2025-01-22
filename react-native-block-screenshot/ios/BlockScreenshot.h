@@ -1,14 +1,6 @@
 
-#ifdef RCT_NEW_ARCH_ENABLED
-#import "RNBlockScreenshotSpec.h"
-#import <React/RCTEventEmitter.h>
+#import "RNBlockScreenshotSpec/RNBlockScreenshotSpec.h"
 
-@interface BlockScreenshot : RCTEventEmitter <NativeBlockScreenshotSpec>
-#else
-#import <React/RCTBridgeModule.h>
-#import <React/RCTEventEmitter.h>
-
-@interface BlockScreenshot : RCTEventEmitter <RCTBridgeModule>
-#endif
+@interface BlockScreenshot : NativeBlockScreenshotSpecBase <NativeBlockScreenshotSpec>
 
 @end

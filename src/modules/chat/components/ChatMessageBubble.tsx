@@ -1,6 +1,6 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 

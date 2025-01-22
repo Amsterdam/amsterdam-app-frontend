@@ -3,7 +3,7 @@ import {
   ConversationEntryFormat,
   ConversationEntryRoutingResult,
   ConversationEntryRoutingType,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'

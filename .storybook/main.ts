@@ -110,10 +110,6 @@ const config: StorybookConfig = {
             replacement: 'react-native-web',
           },
           {
-            find: 'rn-secure-storage',
-            replacement: require.resolve('./mocks/rn-secure-storage'),
-          },
-          {
             find: '@env',
             replacement: require.resolve('./mocks/env'),
           },

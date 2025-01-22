@@ -33,8 +33,6 @@ jest.mock('react-native-reanimated', () => {
   return Reanimated
 })
 
-// Silence the warning: Animated: `useNativeDriver` is not supported because the native animated module is missing
-jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper')
 jest.mock('react-native-image-crop-picker', () => ({}))
 jest.mock(
   '@react-navigation/elements/lib/commonjs/assets/back-icon.png',
@@ -65,7 +63,7 @@ NativeModules.RNCNetInfo = {
 }
 
 jest.mock('expo-screen-orientation', () => ({}))
-jest.mock('rn-secure-storage', () => ({}))
+jest.mock('expo-secure-store', () => ({}))
 jest.mock('expo-local-authentication', () => ({}))
 
 jest.mock('react-native-applifecycle/dist/AppLifecycle', () =>
@@ -75,8 +73,11 @@ jest.mock('react-native-applifecycle/dist/AppLifecycle', () =>
 jest.mock('react-native-barcode-creator', () => ({
   getConstants: jest.fn(),
 }))
-jest.mock('react-native-block-screenshot', () => ({}))
 jest.mock('react-native-salesforce-messaging-in-app', () => ({}))
+jest.mock(
+  'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp.ts',
+  () => require('react-native-salesforce-messaging-in-app/src/jestMock.ts'),
+)
 jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
 jest.mock('expo-file-system', () => ({}))

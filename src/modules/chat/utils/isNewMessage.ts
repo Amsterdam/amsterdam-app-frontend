@@ -1,4 +1,4 @@
-import {ConversationEntryFormat} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntryFormat} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 
 export const isNewMessage = (format: ConversationEntryFormat) =>
   format === ConversationEntryFormat.attachments ||

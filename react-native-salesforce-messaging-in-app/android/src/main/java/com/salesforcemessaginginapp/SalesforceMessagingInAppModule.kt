@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.bridge.ReadableMap
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
+import com.facebook.react.module.annotations.ReactModule
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.salesforce.android.smi.common.api.Result
 import com.salesforce.android.smi.common.api.data
@@ -48,8 +49,9 @@ import java.net.URI
 import java.net.URL
 import java.util.UUID
 
-class SalesforceMessagingInAppModule internal constructor(context: ReactApplicationContext) :
-  SalesforceMessagingInAppSpec(context) {
+@ReactModule(name = SalesforceMessagingInAppModule.NAME)
+class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
+  NativeSalesforceMessagingInAppSpec(reactContext) {
 
   private var config: Configuration? = null
   private var coreClient: CoreClient? = null
@@ -63,14 +65,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
     return NAME
   }
 
-  // Function to emit events to React Native
-  private fun sendEvent(eventName: String, params: WritableMap?) {
-    reactApplicationContext
-      .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
-      .emit(eventName, params)
-  }
-
-  private var listenerCount = 0
+  private var listenerCount: Int = 0
 
   @ReactMethod
   override fun addListener(eventName: String) {
@@ -82,8 +77,8 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
   }
 
   @ReactMethod
-  override fun removeListeners(count: Int) {
-    listenerCount -= count
+  override fun removeListeners(count: Double) {
+    listenerCount -= count.toInt()
     if (listenerCount == 0) {
       // Remove upstream listeners, stop unnecessary background tasks
     }
@@ -233,15 +228,15 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
               when (entry) {
                 is CoreEvent.ConversationEvent.Entry -> {
                   val params = convertEntryToMap(entry.conversationEntry)
-                  sendEvent("onNewMessage", params)
+                  emitOnNewMessage(params)
                 }
 
                 is CoreEvent.ConversationEvent.TypingIndicator -> {
                   val params = convertEntryToMap(entry.conversationEntry)
                   if (entry.status === TypingIndicatorStatus.Started) {
-                    sendEvent("onTypingStarted", params)
+                    emitOnTypingStarted(params)
                   } else {
-                    sendEvent("onTypingStopped", params)
+                    emitOnTypingStopped(params)
                   }
                 }
               }
@@ -249,25 +244,25 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             coreClient?.events?.collect { entry ->
               when (entry) {
                 is CoreEvent.Connection -> {
-                  val params = Arguments.createMap()
+                  var status = ""
                   when (entry.event) {
                     is ServerSentEvent.Connection.Closed -> {
-                      params.putString("status", "Closed")
+                      status = "Closed"
                     }
 
                     is ServerSentEvent.Connection.Connecting -> {
-                      params.putString("status", "Connecting")
+                      status = "Connecting"
                     }
 
                     is ServerSentEvent.Connection.Open -> {
-                      params.putString("status", "Open")
+                      status = "Open"
                     }
 
                     is ServerSentEvent.Connection.Ping -> {
-                      params.putString("status", "Ping")
+                      status = "Ping"
                     }
                   }
-                  sendEvent("onConnectionStatusChanged", params)
+                  emitOnConnectionStatusChanged(status)
                 }
 
                 is CoreEvent.ConversationEvent.Entry -> {}
@@ -277,7 +272,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
                   val params = Arguments.createMap()
                   params.putString("message", entry.message)
 
-                  sendEvent("onError", params)
+                  emitOnError(params)
                 }
               }
             }
@@ -927,7 +922,7 @@ class SalesforceMessagingInAppModule internal constructor(context: ReactApplicat
             val timestamp = System.currentTimeMillis().toDouble()
             val entryId = UUID.randomUUID().toString()
 
-            sendEvent("onNewMessage", Arguments.createMap().apply {
+            emitOnNewMessage(Arguments.createMap().apply {
               putString("format", "Transcript")
               putString("conversationId", "")
               putString("entryId", entryId)

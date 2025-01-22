@@ -1,18 +1,12 @@
 import {useEffect, useMemo, useRef, useState} from 'react'
-import {
-  NativeModules,
-  Platform,
-  NativeEventEmitter,
-  EmitterSubscription,
-} from 'react-native'
-import {
+import {EmitterSubscription, EventSubscription} from 'react-native'
+import SalesforceMessagingInApp, {
   ConversationEntryFormat,
   ConversationEntrySenderRole,
   Participant,
   ParticipantChangedOperationType,
   type ConversationEntry,
   type CoreConfig,
-  type NativeSalesforceMessagingInApp,
   Choice,
   RemoteConfiguration,
   ConversationEntryRoutingType,
@@ -20,41 +14,9 @@ import {
   NetworkState,
   CoreError,
   ConversationEntryStatus,
-} from './types'
+  ConversationEntryBase,
+} from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
-import type {Spec} from './NativeSalesforceMessagingInApp'
-
-const LINKING_ERROR =
-  "The package 'react-native-salesforce-messaging-in-app' doesn't seem to be linked. Make sure: \n\n" +
-  Platform.select({ios: "- You have run 'pod install'\n", default: ''}) +
-  '- You rebuilt the app after installing the package\n' +
-  '- You are not using Expo Go\n'
-
-// @ts-expect-error default code of a library
-const isTurboModuleEnabled = global.__turboModuleProxy != null
-
-const SalesforceMessagingInAppModule = isTurboModuleEnabled
-  ? (
-      require('./NativeSalesforceMessagingInApp') as {
-        default: Spec
-      }
-    ).default
-  : (NativeModules.SalesforceMessagingInApp as NativeSalesforceMessagingInApp)
-
-const SalesforceMessagingInApp =
-  SalesforceMessagingInAppModule ??
-  new Proxy(
-    {},
-    {
-      get: () => {
-        throw new Error(LINKING_ERROR)
-      },
-    },
-  )
-
-const messagingEventEmitter = new NativeEventEmitter(
-  SalesforceMessagingInAppModule,
-)
 
 export const createCoreClient = ({
   developerName,
@@ -118,24 +80,22 @@ export const useCreateChat = ({
   const [newConversationId, setNewConversationId] = useState<
     string | undefined
   >(conversationId)
-  const onErrorSubscription = useRef<EmitterSubscription | null>(null)
-  const onNewMessageSubscription = useRef<EmitterSubscription | null>(null)
-  const onUpdatedMessageSubscription = useRef<EmitterSubscription | null>(null)
-  const onTypingStartedSubscription = useRef<EmitterSubscription | null>(null)
-  const onTypingStoppedSubscription = useRef<EmitterSubscription | null>(null)
+  const onErrorSubscription = useRef<EventSubscription | null>(null)
+  const onNewMessageSubscription = useRef<EventSubscription | null>(null)
+  const onUpdatedMessageSubscription = useRef<EventSubscription | null>(null)
+  const onTypingStartedSubscription = useRef<EventSubscription | null>(null)
+  const onTypingStoppedSubscription = useRef<EventSubscription | null>(null)
   const [messages, setMessages] = useState<ConversationEntry[]>([])
   const [isTyping, setIsTyping] = useState<ConversationEntry | false>(false)
   const [remoteConfiguration, setRemoteConfiguration] = useState<
     RemoteConfiguration | undefined
   >()
   const [error, setError] = useState<CoreError | null>(null)
-  const networkStatus = useListenerStatus<NetworkState>(
-    'onNetworkStatusChanged',
-    messagingEventEmitter,
+  const networkStatus = useListenerStatus<NetworkState, string>(
+    SalesforceMessagingInApp.onNetworkStatusChanged,
   )
-  const connectionStatus = useListenerStatus<ConnectionState>(
-    'onConnectionStatusChanged',
-    messagingEventEmitter,
+  const connectionStatus = useListenerStatus<ConnectionState, string>(
+    SalesforceMessagingInApp.onConnectionStatusChanged,
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
@@ -162,9 +122,12 @@ export const useCreateChat = ({
       setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration, () => {
-          void retrieveRemoteConfiguration().catch(() => {
-            setError({message: 'Failed to retrieve remote configuration'})
-          })
+          void retrieveRemoteConfiguration().then(
+            setRemoteConfiguration,
+            () => {
+              setError({message: 'Failed to retrieve remote configuration'})
+            },
+          )
         })
 
         listeners.forEach(listener => {
@@ -174,87 +137,95 @@ export const useCreateChat = ({
           }
         })
 
-        onNewMessageSubscription.current = messagingEventEmitter.addListener(
-          'onNewMessage',
-          (message: ConversationEntry) => {
-            // console.log('New message received:', message)
+        onNewMessageSubscription.current =
+          SalesforceMessagingInApp.onNewMessage(
+            (inMessage: ConversationEntryBase) => {
+              const message: ConversationEntry = inMessage as ConversationEntry
+              // console.log('New message received:', message)
 
-            if (
-              message.format === ConversationEntryFormat.deliveryAcknowledgement
-            ) {
-              setMessages(oldMessages =>
-                oldMessages.map(m =>
-                  m.entryId === message.acknowledgedConversationEntryIdentifier
-                    ? {
-                        ...m,
-                        status:
-                          m.status !== ConversationEntryStatus.read
-                            ? ConversationEntryStatus.delivered
-                            : ConversationEntryStatus.read,
-                      }
-                    : m,
-                ),
-              )
-            } else if (
-              message.format === ConversationEntryFormat.readAcknowledgement
-            ) {
-              setMessages(oldMessages =>
-                oldMessages.map(m =>
-                  m.entryId === message.acknowledgedConversationEntryIdentifier
-                    ? {...m, status: ConversationEntryStatus.read}
-                    : m,
-                ),
-              )
-            } else {
-              // check if the message is already in the list and update it, otherwise add it
-              setMessages(oldMessages =>
-                oldMessages.some(m => m.entryId === message.entryId)
-                  ? oldMessages.map(oldMessage =>
-                      oldMessage.entryId === message.entryId
-                        ? message
-                        : oldMessage,
+              if (
+                message.format ===
+                ConversationEntryFormat.deliveryAcknowledgement
+              ) {
+                setMessages(oldMessages =>
+                  oldMessages.map(m =>
+                    m.entryId ===
+                    message.acknowledgedConversationEntryIdentifier
+                      ? {
+                          ...m,
+                          status:
+                            m.status !== ConversationEntryStatus.read
+                              ? ConversationEntryStatus.delivered
+                              : ConversationEntryStatus.read,
+                        }
+                      : m,
+                  ),
+                )
+              } else if (
+                message.format === ConversationEntryFormat.readAcknowledgement
+              ) {
+                setMessages(oldMessages =>
+                  oldMessages.map(m =>
+                    m.entryId ===
+                    message.acknowledgedConversationEntryIdentifier
+                      ? {...m, status: ConversationEntryStatus.read}
+                      : m,
+                  ),
+                )
+              } else {
+                // check if the message is already in the list and update it, otherwise add it
+                setMessages(oldMessages =>
+                  oldMessages.some(m => m.entryId === message.entryId)
+                    ? oldMessages.map(oldMessage =>
+                        oldMessage.entryId === message.entryId
+                          ? message
+                          : oldMessage,
+                      )
+                    : [...oldMessages, message],
+                )
+              }
+
+              if (
+                message.format === ConversationEntryFormat.participantChanged
+              ) {
+                message.operations.forEach(({participant, type}) => {
+                  if (type === ParticipantChangedOperationType.add) {
+                    setParticipants(currentParticipants => [
+                      ...currentParticipants,
+                      participant,
+                    ])
+
+                    if (
+                      participant.role === ConversationEntrySenderRole.agent
+                    ) {
+                      setIsWaitingForAgent(false)
+                    }
+                  } else {
+                    setParticipants(currentParticipants =>
+                      currentParticipants.filter(
+                        currentParticipant =>
+                          !(
+                            currentParticipant.displayName ===
+                              participant.displayName &&
+                            currentParticipant.local === participant.local &&
+                            currentParticipant.role === participant.role
+                          ),
+                      ),
                     )
-                  : [...oldMessages, message],
-              )
-            }
-
-            if (message.format === ConversationEntryFormat.participantChanged) {
-              message.operations.forEach(({participant, type}) => {
-                if (type === ParticipantChangedOperationType.add) {
-                  setParticipants(currentParticipants => [
-                    ...currentParticipants,
-                    participant,
-                  ])
-
-                  if (participant.role === ConversationEntrySenderRole.agent) {
-                    setIsWaitingForAgent(false)
                   }
-                } else {
-                  setParticipants(currentParticipants =>
-                    currentParticipants.filter(
-                      currentParticipant =>
-                        !(
-                          currentParticipant.displayName ===
-                            participant.displayName &&
-                          currentParticipant.local === participant.local &&
-                          currentParticipant.role === participant.role
-                        ),
-                    ),
-                  )
-                }
-              })
-            } else if (
-              message.format === ConversationEntryFormat.routingResult &&
-              message.routingType === ConversationEntryRoutingType.transfer
-            ) {
-              setIsWaitingForAgent(true)
-            }
-          },
-        )
+                })
+              } else if (
+                message.format === ConversationEntryFormat.routingResult &&
+                message.routingType === ConversationEntryRoutingType.transfer
+              ) {
+                setIsWaitingForAgent(true)
+              }
+            },
+          )
         onUpdatedMessageSubscription.current =
-          messagingEventEmitter.addListener(
-            'onUpdatedMessage',
-            (message: ConversationEntry) => {
+          SalesforceMessagingInApp.onUpdatedMessage(
+            (inMessage: ConversationEntryBase) => {
+              const message: ConversationEntry = inMessage as ConversationEntry
               // console.log('Updated message received:', message)
 
               setMessages(oldMessages =>
@@ -264,28 +235,28 @@ export const useCreateChat = ({
               )
             },
           )
-        onErrorSubscription.current = messagingEventEmitter.addListener(
-          'onError',
+        onErrorSubscription.current = SalesforceMessagingInApp.onError(
           (state: CoreError) => {
             // console.log('onError:', state)
             setError(state)
           },
         )
-        onTypingStartedSubscription.current = messagingEventEmitter.addListener(
-          'onTypingStarted',
-          (message: ConversationEntry) => {
-            // console.log('Started typing:', message)
+        onTypingStartedSubscription.current =
+          SalesforceMessagingInApp.onTypingStarted(
+            (inMessage: ConversationEntryBase) => {
+              const message: ConversationEntry = inMessage as ConversationEntry
+              // console.log('Started typing:', message)
 
-            setIsTyping(message)
-          },
-        )
-        onTypingStoppedSubscription.current = messagingEventEmitter.addListener(
-          'onTypingStopped',
-          (_message: ConversationEntry) => {
-            // console.log('Typing stopped:', _message)
-            setIsTyping(false)
-          },
-        )
+              setIsTyping(message)
+            },
+          )
+        onTypingStoppedSubscription.current =
+          SalesforceMessagingInApp.onTypingStopped(
+            (_message: ConversationEntryBase) => {
+              // console.log('Typing stopped:', _message)
+              setIsTyping(false)
+            },
+          )
 
         void createConversationClient(conversationId ?? newConversationId).then(
           (resultConversationId: string) => {

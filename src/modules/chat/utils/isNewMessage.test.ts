@@ -1,4 +1,4 @@
-import {ConversationEntryFormat} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntryFormat} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
 describe('isNewMessage', () => {

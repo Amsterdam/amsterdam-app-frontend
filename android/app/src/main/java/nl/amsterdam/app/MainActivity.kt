@@ -31,7 +31,7 @@ class MainActivity : ReactActivity() {
 
   // Needed by react-navigation:
   override fun onCreate(savedInstanceState: Bundle?) {
-    RNBootSplash.init(this); // initialize the splashscreen
+    RNBootSplash.init(this, R.style.BootTheme); // initialize the splashscreen
     super.onCreate(null)
 
     OkHttpClientProvider.setOkHttpClientFactory(OkHttpClientWithCertificatePinningFactory());

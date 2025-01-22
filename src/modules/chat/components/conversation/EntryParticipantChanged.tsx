@@ -2,7 +2,7 @@ import {
   ConversationEntrySenderRole,
   ParticipantChangedOperationType,
   ConversationEntryParticipantChanged,
-} from 'react-native-salesforce-messaging-in-app/src/types'
+} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
 

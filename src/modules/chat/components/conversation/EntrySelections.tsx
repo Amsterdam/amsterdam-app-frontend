@@ -1,4 +1,4 @@
-import {ConversationEntrySelections} from 'react-native-salesforce-messaging-in-app/src/types'
+import {ConversationEntrySelections} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 
