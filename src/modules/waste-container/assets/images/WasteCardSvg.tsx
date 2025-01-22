@@ -12,6 +12,7 @@ import Svg, {
 export const WasteCardSvg = (props: SvgProps) => (
   <Svg
     accessibilityLabel="Afvalpas"
+    accessible
     fill="none"
     height={245}
     width={359}
