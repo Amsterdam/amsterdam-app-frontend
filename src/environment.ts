@@ -22,6 +22,8 @@ export const editableApiSlug = {
   constructionWork: ModuleSlug['construction-work'],
   contact: ModuleSlug.contact,
   modules: GlobalApiSlug.modules,
+  notification: GlobalApiSlug.notification,
+  cityPass: ModuleSlug['city-pass'],
 } as const
 
 export type EnvUrlMap = Record<Environment, string>
@@ -57,11 +59,16 @@ export const getApi = (
   return `https://${env}${interPunction}app.amsterdam.nl/${slug}${apiVersionPath}`
 }
 
-export const customDefaultUrls = {
+export const customDefaultUrls: Record<
+  (typeof editableApiSlug)[keyof typeof editableApiSlug],
+  string
+> = {
   [editableApiSlug.constructionWork]:
     'http://localhost:8000/construction-work/api/v1',
-  [editableApiSlug.contact]: 'http://localhost:8000/contact/api/v1',
-  [editableApiSlug.modules]: 'http://localhost:9000/modules/api/v1',
+  [editableApiSlug.contact]: 'http://localhost:8001/contact/api/v1',
+  [editableApiSlug.modules]: 'http://localhost:8002/modules/api/v1',
+  [editableApiSlug.notification]: 'http://localhost:8003/notification/api/v1',
+  [editableApiSlug.cityPass]: 'http://localhost:8004/city-pass/api/v1',
 }
 
 export const apiKeyForEnvironment: EnvUrlMap = {
