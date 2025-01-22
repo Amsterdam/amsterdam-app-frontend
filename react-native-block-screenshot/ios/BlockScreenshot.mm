@@ -51,52 +51,75 @@ RCTBridge *_bridge;
         scrollView.showsHorizontalScrollIndicator = NO;
         scrollView.showsVerticalScrollIndicator = NO;
         scrollView.scrollEnabled = NO;
+        textField.backgroundColor = [RCTConvert UIColor:@(backgroundColor)];
 
         if (source->uri()) {
             NSString *uriImage = source->uri();
             CGFloat scaleValue = scale;
 
-            // Load the image from the URI
-            [[_bridge moduleForClass:[RCTImageLoader class]] loadImageWithURLRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:uriImage]]
-                                                                                 size:CGSizeZero
-                                                                                scale:UIScreen.mainScreen.scale
-                                                                              clipped:NO
-                                                                           resizeMode:RCTResizeModeContain
-                                                                        progressBlock:nil
-                                                                     partialLoadBlock:nil
-                                                                      completionBlock:^(NSError *error, UIImage *image) {
-                if (image) {
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
-                        CGFloat imageViewWidth = screenWidth * scaleValue;
-                        CGFloat imageViewHeight = imageViewWidth * (image.size.height / image.size.width);
+            // Validate the URI string
+            if (!uriImage || [uriImage length] == 0) {
+                return;
+            }
 
-                        imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
-                        imageView.translatesAutoresizingMaskIntoConstraints = NO;
-                        imageView.clipsToBounds = YES;
-                        [scrollView addSubview:imageView];
+            NSURL *url = [NSURL URLWithString:uriImage];
+            if (!url) {
+                return;
+            }
 
-                        CGFloat scrollViewWidth = scrollView.bounds.size.width;
-                        CGFloat scrollViewHeight = scrollView.bounds.size.height;
-
-                        CGPoint imageViewOrigin = CGPointMake((scrollViewWidth - imageViewWidth) / 2, (scrollViewHeight - imageViewHeight) / 2);
-                        imageView.frame = CGRectMake(imageViewOrigin.x, imageViewOrigin.y, imageViewWidth, imageViewHeight);
-
-                        scrollView.contentSize = CGSizeMake(MAX(scrollViewWidth, imageViewOrigin.x + imageViewWidth),
-                                                            MAX(scrollViewHeight, imageViewOrigin.y + imageViewHeight));
-
-                        [imageView setImage:image];
-                        [textField addSubview:scrollView];
-                        [textField sendSubviewToBack:scrollView];
-                        textField.backgroundColor = [RCTConvert UIColor:@(backgroundColor)];
-                    });
-                } else {
-                    NSLog(@"Error loading image: %@", error);
+            // Fetch the image using NSURLSession
+            NSURLSessionDataTask *downloadTask = [[NSURLSession sharedSession] dataTaskWithURL:url
+                                                                             completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                if (error) {
+                    return;
                 }
+                if (!data) {
+                    return;
+                }
+
+                UIImage *image = [UIImage imageWithData:data];
+                if (!image) {
+                    return;
+                }
+
+                // Process the image on the main thread
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+                    CGFloat imageViewWidth = screenWidth * scaleValue;
+                    CGFloat imageViewHeight = imageViewWidth * (image.size.height / image.size.width);
+
+                    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, imageViewWidth, imageViewHeight)];
+                    imageView.translatesAutoresizingMaskIntoConstraints = NO;
+                    imageView.clipsToBounds = YES;
+                    imageView.contentMode = UIViewContentModeScaleAspectFit;
+                    [imageView setImage:image];
+
+                    // Add imageView to scrollView
+                    [scrollView addSubview:imageView];
+
+                    CGFloat scrollViewWidth = scrollView.bounds.size.width;
+                    CGFloat scrollViewHeight = scrollView.bounds.size.height;
+
+                    CGPoint imageViewOrigin = CGPointMake((scrollViewWidth - imageViewWidth) / 2, (scrollViewHeight - imageViewHeight) / 2);
+                    imageView.frame = CGRectMake(imageViewOrigin.x, imageViewOrigin.y, imageViewWidth, imageViewHeight);
+
+                    // Set scrollView content size to fit the imageView
+                    scrollView.contentSize = CGSizeMake(MAX(scrollViewWidth, imageViewOrigin.x + imageViewWidth),
+                                                        MAX(scrollViewHeight, imageViewOrigin.y + imageViewHeight));
+
+                    // Add scrollView to textField
+                    [textField addSubview:scrollView];
+                    [textField sendSubviewToBack:scrollView];
+
+                    // Set textField background color
+                    textField.backgroundColor = [RCTConvert UIColor:@(backgroundColor)];
+                });
             }];
+
+            // Start the download task
+            [downloadTask resume];
         }
     } else {
-        NSLog(@"iOS version is not supported for secure view.");
         return;
     }
 }
