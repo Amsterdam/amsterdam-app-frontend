@@ -1,5 +1,5 @@
 import {useFocusEffect} from '@react-navigation/core'
-import {useCallback, useEffect} from 'react'
+import {ReactNode, useCallback, useEffect} from 'react'
 import {Platform, Linking} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
@@ -8,7 +8,11 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {setIsNoInternetFullScreenErrorVisible} from '@/store/slices/internetConnection'
 
-export const NoInternetErrorFullScreen = () => {
+type Props = {
+  TopComponent?: ReactNode
+}
+
+export const NoInternetErrorFullScreen = ({TopComponent}: Props) => {
   const {isPortrait} = useDeviceContext()
   const dispatch = useDispatch()
 
@@ -43,6 +47,7 @@ export const NoInternetErrorFullScreen = () => {
         testID="HomeErrorScreen"
         text="Controleer de internetverbinding in uw instellingen."
         title="Geen internetverbinding"
+        TopComponent={TopComponent}
       />
     </Screen>
   )
