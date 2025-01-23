@@ -1,4 +1,4 @@
-import {HeaderComponent} from '@/modules/city-pass/components/HeaderComponent'
+import {CityPassActionButton} from '@/modules/city-pass/components/CityPassActionButton'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
@@ -7,13 +7,13 @@ import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export const cityPassModule: ModuleClientConfig = {
+  ActionButton: CityPassActionButton,
   linking: {
     [CityPassRouteName.loginSteps]:
       'stadspas/:loginResult/:accessToken?/:refreshToken?',
   },
   logDimension: PiwikSessionDimension.cityPassModule,
   name: 'CityPassModule',
-  HeaderComponent,
   reduxConfigs: [
     {
       key: ReduxKey.cityPass,

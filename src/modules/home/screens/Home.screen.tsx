@@ -1,5 +1,4 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
-import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -31,7 +30,6 @@ export const HomeScreen = () => {
     return (
       <Screen
         testID="HomeErrorScreen"
-        trackScroll={[Tip.cityPassShowPassesButton]}
         withBottomInset
         withLeftInset={isPortrait}
         withRightInset={isPortrait}>
