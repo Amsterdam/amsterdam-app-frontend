@@ -23,7 +23,7 @@ export const HomeScreen = () => {
   }
 
   if (modulesError || !enabledModules) {
-    if (isInternetReachable !== false) {
+    if (isInternetReachable === false) {
       return <NoInternetErrorFullScreen TopComponent={<ActionButtons />} />
     }
 
