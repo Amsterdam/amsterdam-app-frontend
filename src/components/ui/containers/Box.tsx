@@ -38,6 +38,7 @@ export type BoxProps = {
    * The amount of inner spacing at the top and bottom.
    */
   insetVertical?: keyof SpacingTokens
+  shrink?: number
   /**
    *
    */
@@ -60,6 +61,7 @@ export const Box = memo(
     insetVertical,
     insetTop,
     insetBottom,
+    shrink,
     variant,
     ...viewProps
   }: BoxProps) => {
@@ -73,6 +75,7 @@ export const Box = memo(
         insetTop,
         insetVertical,
         insetBottom,
+        shrink,
         variant,
       }),
     )
@@ -97,11 +100,13 @@ const createStyles =
     insetTop,
     insetVertical,
     insetBottom,
+    shrink,
     variant,
   }: Partial<BoxProps>) =>
   ({color, size}: Theme) =>
     StyleSheet.create({
       box: {
+        flexShrink: shrink,
         backgroundColor: distinct
           ? color.box.distinct
           : variant === 'city-pass'

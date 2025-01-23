@@ -8,6 +8,7 @@ import {
 import {AddWasteCardScreen} from '@/modules/waste-container/screens/AddWasteCard.screen'
 import {AddWasteCardSuccessScreen} from '@/modules/waste-container/screens/AddWasteCardSuccess.screen'
 import {WasteCardScreen} from '@/modules/waste-container/screens/WasteCard.screen'
+import {WasteCardHelpScreen} from '@/modules/waste-container/screens/WasteCardHelp.screen'
 
 export const screenConfig: StackNavigationRoutes<
   WasteContainerStackParams,
@@ -25,6 +26,13 @@ export const screenConfig: StackNavigationRoutes<
     name: WasteContainerRouteName.wasteCard,
     options: {
       headerTitle: 'Afvalpas',
+    },
+  },
+  [WasteContainerRouteName.wasteCardHelp]: {
+    component: WasteCardHelpScreen,
+    name: WasteContainerRouteName.wasteCardHelp,
+    options: {
+      headerTitle: 'Hulp bij container openen',
     },
   },
 }
