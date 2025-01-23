@@ -51,6 +51,10 @@ export type CoreModuleConfig = BaseModuleConfig
  */
 export type ModuleClientConfig = BaseModuleConfig & {
   /**
+   * A button on the home screen that leads to an action within the module.
+   */
+  ActionButton?: ComponentType
+  /**
    * A component to show in the header of the Home screen.
    */
   HeaderComponent?: ComponentType

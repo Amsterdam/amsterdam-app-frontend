@@ -16,11 +16,11 @@ export const FullScreenErrorHeader = ({
   <Box
     distinct={!isPortrait}
     grow={!isPortrait}>
+    {!!TopComponent && TopComponent}
     <Column
       align="center"
       grow={1}
       gutter="md">
-      {!!TopComponent && TopComponent}
       <Title
         level="h3"
         testID={testID + 'Title'}

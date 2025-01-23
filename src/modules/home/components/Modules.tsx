@@ -24,30 +24,21 @@ export const Modules = ({modules}: Props) => {
   }
 
   return (
-    <Box grow>
-      <Column gutter="md">
-        {availableModules?.map(
-          ({
-            alwaysEnabled,
-            icon,
-            requiresAuthorization,
-            slug,
-            status,
-            title,
-          }) => (
-            <ModuleButton
-              alwaysEnabled={alwaysEnabled}
-              disabled={status === ModuleStatus.inactive}
-              iconName={icon}
-              key={slug}
-              label={title}
-              slug={slug}
-              testID={`Home${pascalCase(slug)}Module`}
-              variant={requiresAuthorization ? 'primary' : 'tertiary'}
-            />
-          ),
-        )}
-      </Column>
-    </Box>
+    <Column gutter="md">
+      {availableModules?.map(
+        ({alwaysEnabled, icon, requiresAuthorization, slug, status, title}) => (
+          <ModuleButton
+            alwaysEnabled={alwaysEnabled}
+            disabled={status === ModuleStatus.inactive}
+            iconName={icon}
+            key={slug}
+            label={title}
+            slug={slug}
+            testID={`Home${pascalCase(slug)}Module`}
+            variant={requiresAuthorization ? 'primary' : 'tertiary'}
+          />
+        ),
+      )}
+    </Column>
   )
 }

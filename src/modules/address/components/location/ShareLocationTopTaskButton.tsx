@@ -1,4 +1,5 @@
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {type TestProps} from '@/components/ui/types'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -26,6 +27,7 @@ export const ShareLocationTopTaskButton = ({testID}: Props) => {
         onPress={openBottomSheet}
         testID={`${testID ?? ''}RequestLocationButton`}
       />
+      <Gutter height="md" />
     </Column>
   )
 }

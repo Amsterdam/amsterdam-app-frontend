@@ -1,12 +1,14 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
+import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
+import {ActionButtons} from '@/modules/home/components/ActionButtons'
 import {Modules} from '@/modules/home/components/Modules'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
@@ -22,8 +24,8 @@ export const HomeScreen = () => {
   }
 
   if (modulesError || !enabledModules) {
-    if (isInternetReachable === false) {
-      return <NoInternetErrorFullScreen />
+    if (isInternetReachable !== false) {
+      return <NoInternetErrorFullScreen TopComponent={<ActionButtons />} />
     }
 
     return (
@@ -49,7 +51,10 @@ export const HomeScreen = () => {
 
   return (
     <Screen testID="HomeScreen">
-      <Modules modules={enabledModules} />
+      <Box grow>
+        <ActionButtons />
+        <Modules modules={enabledModules} />
+      </Box>
     </Screen>
   )
 }
