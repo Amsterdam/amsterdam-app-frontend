@@ -1,4 +1,4 @@
-import {useIsFeatureAvailableOnDevice} from '@/hooks/permissions/useIsFeatureAvailableOnDevice'
+import {useIsPermissionFeatureAvailableOnDevice} from '@/hooks/permissions/useIsPermissionFeatureAvailableOnDevice'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useIsModuleActive} from '@/hooks/useIsModuleActive'
 import {ModuleSlug} from '@/modules/slugs'
@@ -12,7 +12,7 @@ type Props = {
 }
 
 export const WasteCardButton = ({showAddOnly}: Props) => {
-  const isBluetoothAvailable = useIsFeatureAvailableOnDevice(
+  const isBluetoothAvailable = useIsPermissionFeatureAvailableOnDevice(
     Permissions.bluetooth,
   )
   const isWasteContainerModuleActive = useIsModuleActive(
@@ -23,7 +23,7 @@ export const WasteCardButton = ({showAddOnly}: Props) => {
     SecureItemKey.wasteCardNumber,
   )
 
-  if (!isWasteContainerModuleActive || isLoading || isBluetoothAvailable) {
+  if (!isWasteContainerModuleActive || isLoading || !isBluetoothAvailable) {
     return null
   }
 
