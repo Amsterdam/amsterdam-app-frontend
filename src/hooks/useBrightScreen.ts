@@ -1,21 +1,23 @@
-import DeviceBrightness from '@adrianso/react-native-device-brightness'
+import {getBrightnessAsync, setBrightnessAsync} from 'expo-brightness'
+
 import {useEffect} from 'react'
 
-export const useBrightScreen = ({enabled = true}: {enabled?: boolean} = {}) =>
+export const useBrightScreen = (enabled = true) => {
   useEffect(() => {
     if (enabled) {
-      const oldBrightness = DeviceBrightness.getBrightnessLevel()
+      const oldBrightness = getBrightnessAsync()
 
       void oldBrightness.then(() => {
-        void DeviceBrightness.setBrightnessLevel(1)
+        void setBrightnessAsync(1)
       })
 
       return () => {
         void oldBrightness.then(brightness => {
-          void DeviceBrightness.setBrightnessLevel(brightness)
+          void setBrightnessAsync(brightness)
         })
       }
     } else {
       return () => null
     }
   }, [enabled])
+}

@@ -12,6 +12,8 @@ PODS:
     - ExpoModulesCore
   - ExpoAsset (11.0.1):
     - ExpoModulesCore
+  - ExpoBrightness (12.0.1):
+    - ExpoModulesCore
   - ExpoClipboard (7.0.0):
     - ExpoModulesCore
   - ExpoDocumentPicker (13.0.1):
@@ -1470,8 +1472,6 @@ PODS:
     - Yoga
   - react-native-build-config (0.3.2):
     - React
-  - react-native-device-brightness (1.2.7):
-    - React
   - react-native-geolocation-service (5.3.1):
     - React
   - react-native-get-random-values (1.11.0):
@@ -2169,6 +2169,7 @@ DEPENDENCIES:
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
   - Expo (from `../node_modules/expo`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoBrightness (from `../node_modules/expo-brightness/ios`)
   - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
   - ExpoDocumentPicker (from `../node_modules/expo-document-picker/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
@@ -2220,7 +2221,6 @@ DEPENDENCIES:
   - react-native-barcode-creator (from `../node_modules/react-native-barcode-creator`)
   - react-native-block-screenshot (from `../node_modules/react-native-block-screenshot`)
   - react-native-build-config (from `../node_modules/react-native-build-config`)
-  - "react-native-device-brightness (from `../node_modules/@adrianso/react-native-device-brightness`)"
   - react-native-geolocation-service (from `../node_modules/react-native-geolocation-service`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -2312,6 +2312,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoBrightness:
+    :path: "../node_modules/expo-brightness/ios"
   ExpoClipboard:
     :path: "../node_modules/expo-clipboard/ios"
   ExpoDocumentPicker:
@@ -2403,8 +2405,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-block-screenshot"
   react-native-build-config:
     :path: "../node_modules/react-native-build-config"
-  react-native-device-brightness:
-    :path: "../node_modules/@adrianso/react-native-device-brightness"
   react-native-geolocation-service:
     :path: "../node_modules/react-native-geolocation-service"
   react-native-get-random-values:
@@ -2516,6 +2516,7 @@ SPEC CHECKSUMS:
   EXImageLoader: 759063a65ab016b836f73972d3bb25404888713d
   Expo: 37cea4167605a3a1b88fa0caf8349ae76c0d389c
   ExpoAsset: 8138f2a9ec55ae1ad7c3871448379f7d97692d15
+  ExpoBrightness: c184f0ef116a51d7f5c1dd4c253d4d9806a5e022
   ExpoClipboard: 166ca8c13ca1041f5ba619a211f59427ab5da8a7
   ExpoDocumentPicker: 4a89fd8a0cb90010214a416c858d7dece1c1eb10
   ExpoFileSystem: 179a0661fd6d3c4e5d7e500a99a9cd8b295d9566
@@ -2576,7 +2577,6 @@ SPEC CHECKSUMS:
   react-native-barcode-creator: a311a66cf233b58a3993dcf6902fb227399b7a87
   react-native-block-screenshot: 7eff9cc49f4e581827ff9e800d98ce66c5fe7ba8
   react-native-build-config: 1130ad8668ca251b65e95e002b5b8f308a96726f
-  react-native-device-brightness: 886cfbfb49a32b6de4ccfc1f720776dc5f381d24
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
