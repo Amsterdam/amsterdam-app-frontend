@@ -18,7 +18,7 @@ export const WasteCardHeaderMenuButton = () => {
       accessibilityLabel={`Afvalpas menu ${isMenuVisible ? 'sluiten' : 'openen'}.`}
       icon={<MeatballsMenu color={color.pressable.secondary.default.icon} />}
       onPress={() => dispatch(setIsMenuVisible(!isMenuVisible))}
-      testID="ChatHeaderMeatballsMenuButton"
+      testID="WasteCardHeaderMeatballsMenuButton"
     />
   )
 }
