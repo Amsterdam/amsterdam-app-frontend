@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {WasteCardHeaderMenuButton} from '@/modules/waste-container/components/WasteCardHeaderMenuButton'
 import {
   WasteContainerModalName,
   WasteContainerModalParams,
@@ -26,6 +27,7 @@ export const screenConfig: StackNavigationRoutes<
     name: WasteContainerRouteName.wasteCard,
     options: {
       headerTitle: 'Afvalpas',
+      SideComponent: WasteCardHeaderMenuButton,
     },
   },
   [WasteContainerRouteName.wasteCardHelp]: {

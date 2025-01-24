@@ -1,5 +1,7 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Screen} from '@/components/features/screen/Screen'
+import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
@@ -9,9 +11,14 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {ActionButtons} from '@/modules/home/components/ActionButtons'
 import {Modules} from '@/modules/home/components/Modules'
+import {HomeRouteName} from '@/modules/home/routes'
+import {ModuleSlug} from '@/modules/slugs'
+import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
-export const HomeScreen = () => {
+type Props = NavigationProps<HomeRouteName.home>
+
+export const HomeScreen = ({navigation: {navigate}}: Props) => {
   const {enabledModules, modulesError, modulesLoading, refetchModules} =
     useModules()
   const {isPortrait} = useDeviceContext()
@@ -52,6 +59,15 @@ export const HomeScreen = () => {
       <Box grow>
         <ActionButtons />
         <Modules modules={enabledModules} />
+        <Button
+          label="Afvalpas"
+          onPress={() =>
+            navigate(ModuleSlug['waste-container'], {
+              screen: WasteContainerRouteName.wasteCard,
+            })
+          }
+          testID=""
+        />
       </Box>
     </Screen>
   )

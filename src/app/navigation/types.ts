@@ -64,6 +64,8 @@ export type NavigationProps<RouteName extends keyof RootStackParams> = {
 }
 
 export type HeaderContentOptions = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  SideComponent?: ComponentType<any>
   accessibilityLanguage?: string
   preventInitialFocus?: boolean
 }

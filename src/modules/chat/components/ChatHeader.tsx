@@ -27,7 +27,7 @@ const PressableWhenMinimized = ({
   ...viewProps
 }: WrapperProps) =>
   isMaximized ? (
-    <>{children}</>
+    children
   ) : (
     <Pressable
       {...viewProps}
