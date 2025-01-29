@@ -1,3 +1,4 @@
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useIsPermissionFeatureAvailableOnDevice} from '@/hooks/permissions/useIsPermissionFeatureAvailableOnDevice'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useIsModuleActive} from '@/hooks/useIsModuleActive'
@@ -23,7 +24,11 @@ export const WasteCardButton = ({showAddOnly}: Props) => {
     SecureItemKey.wasteCardNumber,
   )
 
-  if (!isWasteContainerModuleActive || isLoading || !isBluetoothAvailable) {
+  if (isLoading) {
+    return <PleaseWait testID="WasteCardButtonPleaseWait" />
+  }
+
+  if (!isWasteContainerModuleActive || !isBluetoothAvailable) {
     return null
   }
 
