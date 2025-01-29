@@ -78,7 +78,7 @@ export const WebView = forwardRef<WebViewRN, Props>(
               : -sliceFromTop.landscape,
           }
         }
-        textZoom={fontScale * 100}
+        textZoom={Math.round(fontScale * 100)}
         {...webViewProps}
         injectedJavaScript={webViewInjection(fontScale, injectedJavaScript)}
       />
