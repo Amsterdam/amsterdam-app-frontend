@@ -133,10 +133,9 @@ const createStyles =
         borderWidth,
       },
       textInput: {
-        minHeight:
-          Platform.OS === 'ios' && numberOfLines
-            ? numberOfLines * text.lineHeight.body + 2 * paddingVertical
-            : 'auto',
+        minHeight: numberOfLines
+          ? numberOfLines * text.lineHeight.body + 2 * paddingVertical
+          : 'auto',
         flex: 1,
         padding: 0, // Override an Android default
         paddingTop: 0,
