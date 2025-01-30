@@ -64,6 +64,7 @@ export type NavigationProps<RouteName extends keyof RootStackParams> = {
 }
 
 export type HeaderContentOptions = {
+  SideComponent?: ComponentType
   accessibilityLanguage?: string
   preventInitialFocus?: boolean
 }

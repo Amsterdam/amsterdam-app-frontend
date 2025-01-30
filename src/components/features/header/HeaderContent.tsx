@@ -19,7 +19,7 @@ export const HeaderContent = ({
     options,
     getHeaderTitle(navigationRef.current?.getCurrentOptions() ?? {}, ''),
   )
-  const {accessibilityLanguage, preventInitialFocus} = options
+  const {accessibilityLanguage, preventInitialFocus, SideComponent} = options
 
   const onBackPress =
     back?.onPress ??
@@ -55,7 +55,9 @@ export const HeaderContent = ({
           text={title}
         />
       </View>
-      <View style={styles.sideColumn} />
+      <View style={styles.sideColumn}>
+        {!!SideComponent && <SideComponent />}
+      </View>
     </Row>
   )
 }

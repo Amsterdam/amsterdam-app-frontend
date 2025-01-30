@@ -7,6 +7,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {WasteCardSvg} from '@/modules/waste-container/assets/images/WasteCardSvg'
 import {WasteCardDirections} from '@/modules/waste-container/components/WasteCardDirections'
 import {WasteCardHelpButton} from '@/modules/waste-container/components/WasteCardHelpButton'
+import {WasteCardMenu} from '@/modules/waste-container/components/WasteCardMenu'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const WasteCardScreen = () => {
@@ -21,6 +22,7 @@ export const WasteCardScreen = () => {
 
   return (
     <Screen testID="WasteCardScreen">
+      <WasteCardMenu />
       {isPortrait ? (
         <Box grow>
           <Column
