@@ -26,7 +26,7 @@ const menuItems: PopupMenuItem[] = [
 
 export default {
   component: PopUpMenu,
-  decorators: [Story => <Canvas height="135px">{Story()}</Canvas>],
+  decorators: [Story => <Canvas height="135px">{<Story />}</Canvas>],
 } as Meta<typeof PopUpMenu>
 
 export const Default: StoryObj<typeof PopUpMenu> = {
