@@ -1573,7 +1573,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-webview (13.12.5):
+  - react-native-webview (13.13.2):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2585,7 +2585,7 @@ SPEC CHECKSUMS:
   react-native-restart: 7595693413fe3ca15893702f2c8306c62a708162
   react-native-safe-area-context: 782fec0553f14a630a2bac87b116e512a9f35500
   react-native-salesforce-messaging-in-app: d99f382c9ee6baafaba6846e2586ce385a634e2c
-  react-native-webview: 40b8823be3fac70f0404016e6aed754ef4307517
+  react-native-webview: 08a61d1d92fee7875c8702e70f7da1d706a9d2dc
   React-nativeconfig: f7ab6c152e780b99a8c17448f2d99cf5f69a2311
   React-NativeModulesApple: 70600f7edfc2c2a01e39ab13a20fd59f4c60df0b
   React-perflogger: ceb97dd4e5ca6ff20eebb5a6f9e00312dcdea872
