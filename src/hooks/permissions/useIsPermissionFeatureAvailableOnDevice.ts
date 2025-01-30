@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import {check, Permission} from 'react-native-permissions'
+import {isAndroidVersionBelow12} from '@/modules/waste-guide/utils/isAndroidVersionBelow12'
 
 export const useIsPermissionFeatureAvailableOnDevice = (
   permission: Permission,
@@ -7,6 +8,12 @@ export const useIsPermissionFeatureAvailableOnDevice = (
   const [isAvailable, setIsAvailable] = useState<boolean>()
 
   useEffect(() => {
+    if (isAndroidVersionBelow12) {
+      setIsAvailable(true)
+
+      return
+    }
+
     void check(permission).then(result => {
       setIsAvailable(result !== 'unavailable')
     })
