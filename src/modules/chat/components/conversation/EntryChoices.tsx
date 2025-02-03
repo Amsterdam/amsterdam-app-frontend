@@ -46,9 +46,10 @@ export const EntryChoices = ({message: {choices}, isLastOfGroup}: Props) => {
             accessibilityLabel={`Keuzeknop: ${title}`}
             key={optionId}
             label={title}
-            onPress={() =>
+            onPressOut={() => {
+              // TODO: onPress not always working correctly in this instance. Don't know why. Therefore onPressOut is used.
               onPress({optionId, title, optionValue, parentEntryId})
-            }
+            }}
             testID={`ChatHistoryChoices${title}`}
             variant="secondary"
           />
