@@ -4,6 +4,7 @@ import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {Center} from '@/components/ui/layout/Center'
 import {ErrorFigure} from '@/components/ui/media/errors/ErrorFigure'
 import {Title} from '@/components/ui/text/Title'
+import {ChatAnimatedContentWrapper} from '@/modules/chat/components/ChatAnimatedContentWrapper'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
 import {useChat} from '@/modules/chat/slice'
@@ -39,20 +40,22 @@ export const ChatWaitToStart = ({children}: Props) => {
         />
       </Center>
     ) : (
-      <FullScreenError
-        backgroundPosition="center"
-        buttonLabel="Chat sluiten"
-        Image={ErrorFigure}
-        isImageFullSize={false}
-        onPress={close}
-        testID="ChatWaitToStartErrorTitle"
-        text={
-          isDevApp
-            ? 'Switchen van omgeving: verander eerst van omgeving en herstart dan de app'
-            : 'Probeer het later nog eens.'
-        }
-        title="De chat kon niet geladen worden"
-      />
+      <ChatAnimatedContentWrapper>
+        <FullScreenError
+          backgroundPosition="center"
+          buttonLabel="Chat sluiten"
+          Image={ErrorFigure}
+          isImageFullSize={false}
+          onPress={close}
+          testID="ChatWaitToStartErrorTitle"
+          text={
+            isDevApp
+              ? 'Switchen van omgeving: verander eerst van omgeving en herstart dan de app'
+              : 'Probeer het later nog eens.'
+          }
+          title="De chat kon niet geladen worden"
+        />
+      </ChatAnimatedContentWrapper>
     )
   ) : (
     children
