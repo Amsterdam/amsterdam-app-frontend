@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {
   ConversationEntryRichLink,
   ConversationEntrySenderRole,
@@ -16,19 +17,23 @@ export const EntryRichLink = ({message}: Props) => {
   const {title, url} = message
   const domain = getDomainName(url)
 
+  const onPress = useCallback(() => {
+    url && openUrl(url, false)
+  }, [openUrl, url])
+
   return (
     <ChatMessageEntry message={message}>
       <InlineLink
         emphasis="strong"
         inverse={message.sender.role === ConversationEntrySenderRole.user}
-        onPress={() => url && openUrl(url)}
+        onPress={onPress}
         testID="ChatMessageRichLinkTitle">
         {title}
       </InlineLink>
       {!!domain && (
         <InlineLink
           inverse={message.sender.role === ConversationEntrySenderRole.user}
-          onPress={() => url && openUrl(url)}
+          onPress={onPress}
           testID="ChatMessageRichLinkUrl">
           {domain}
         </InlineLink>
