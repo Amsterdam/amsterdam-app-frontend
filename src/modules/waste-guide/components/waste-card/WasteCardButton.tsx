@@ -24,12 +24,12 @@ export const WasteCardButton = ({showAddOnly}: Props) => {
     SecureItemKey.wasteCardNumber,
   )
 
-  if (isLoading) {
-    return <PleaseWait testID="WasteCardButtonPleaseWait" />
-  }
-
   if (!isWasteContainerModuleActive || !isBluetoothAvailable) {
     return null
+  }
+
+  if (isLoading) {
+    return <PleaseWait testID="WasteCardButtonPleaseWait" />
   }
 
   if (!!secureWasteCardNumber && !showAddOnly) {
