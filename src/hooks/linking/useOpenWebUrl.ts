@@ -9,18 +9,17 @@ import {
 import {addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
 import {getCurrentModuleSlugFromNavigationRootState} from '@/utils/getCurrentModuleSlugFromNavigationRootState'
 
-export type OpenWebUrl = (url: string) => void
+export type OpenWebUrl = (url: string, addAppParams?: boolean) => void
 
 export const useOpenWebUrl = (): OpenWebUrl => {
   const trackException = useTrackException()
   const {trackOutlink} = useTrackEvents()
 
   return useCallback(
-    (url: string) => {
-      const fullUrl = addAppParamsToUrl(
-        url,
-        getCurrentModuleSlugFromNavigationRootState(),
-      )
+    (url: string, addAppParams = true) => {
+      const fullUrl = addAppParams
+        ? addAppParamsToUrl(url, getCurrentModuleSlugFromNavigationRootState())
+        : url
 
       trackOutlink(fullUrl)
 

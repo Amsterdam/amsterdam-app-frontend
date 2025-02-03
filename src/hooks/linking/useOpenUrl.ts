@@ -4,7 +4,7 @@ import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
 
-export type OpenUrl = (href: string) => void
+export type OpenUrl = (href: string, addAppParams?: boolean) => void
 
 export const useOpenUrl = (): OpenUrl => {
   const openMailUrl = useOpenMailUrl()
@@ -13,7 +13,7 @@ export const useOpenUrl = (): OpenUrl => {
   const {trackOutlink} = useTrackEvents()
 
   return useCallback(
-    (href: string) => {
+    (href: string, addAppParams = true) => {
       trackOutlink(href)
 
       if (href.startsWith('mailto:')) {
@@ -30,7 +30,7 @@ export const useOpenUrl = (): OpenUrl => {
         return
       }
 
-      openWebUrl(href)
+      openWebUrl(href, addAppParams)
     },
     [openMailUrl, openPhoneUrl, openWebUrl, trackOutlink],
   )
