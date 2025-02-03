@@ -17,6 +17,8 @@ import SalesforceMessagingInApp, {
   ConversationEntryBase,
 } from './NativeSalesforceMessagingInApp'
 import {useListenerStatus} from './useListenerStatus'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const createCoreClient = ({
   developerName,
@@ -99,6 +101,7 @@ export const useCreateChat = ({
   )
   const [participants, setParticipants] = useState<Participant[]>([])
   const [isWaitingForAgent, setIsWaitingForAgent] = useState<boolean>(false)
+  const trackException = useTrackException()
   const agentInChat = useMemo(
     () =>
       participants.some(
@@ -122,12 +125,19 @@ export const useCreateChat = ({
       setRemoteConfiguration(undefined)
       void createCoreClient({developerName, organizationId, url}).then(() => {
         void retrieveRemoteConfiguration().then(setRemoteConfiguration, () => {
-          void retrieveRemoteConfiguration().then(
-            setRemoteConfiguration,
-            () => {
+          retrieveRemoteConfiguration()
+            .then(setRemoteConfiguration, () => {
               setError({message: 'Failed to retrieve remote configuration'})
-            },
-          )
+            })
+            .catch(err =>
+              trackException(
+                ExceptionLogKey.chatRetrieveRemoteConfiguration,
+                'useCreateChat (index.tsx)',
+                {
+                  error: err,
+                },
+              ),
+            )
         })
 
         listeners.forEach(listener => {
@@ -258,12 +268,20 @@ export const useCreateChat = ({
             },
           )
 
-        void createConversationClient(conversationId ?? newConversationId).then(
-          (resultConversationId: string) => {
+        createConversationClient(conversationId ?? newConversationId)
+          .then((resultConversationId: string) => {
             setNewConversationId(resultConversationId)
             setReady(true)
-          },
-        )
+          })
+          .catch(err =>
+            trackException(
+              ExceptionLogKey.chatCreateConversationClient,
+              'useCreateChat (index.tsx)',
+              {
+                error: err,
+              },
+            ),
+          )
       })
     }
 

@@ -62,7 +62,15 @@ export const useChatMenuItems = () => {
         setIsMenuOpen(false)
 
         if (ready) {
-          void sendMessage(CLOSE_CHAT_MESSAGE)
+          void sendMessage(CLOSE_CHAT_MESSAGE).catch(error =>
+            trackException(
+              ExceptionLogKey.chatSendMessage,
+              'useChatMenuItems.ts',
+              {
+                error,
+              },
+            ),
+          )
           endChat()
         } else {
           close()

@@ -8,6 +8,10 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 
 type Props = {
   isLastOfGroup: boolean
@@ -15,10 +19,20 @@ type Props = {
 }
 
 export const EntryChoices = ({message: {choices}, isLastOfGroup}: Props) => {
+  const trackException = useTrackException()
   const [isSent, setIsSent] = useState(false)
-  const onPress = useCallback((choice: Choice) => {
-    void sendReply(choice).then(() => setIsSent(true))
-  }, [])
+  const onPress = useCallback(
+    (choice: Choice) => {
+      sendReply(choice)
+        .then(() => setIsSent(true))
+        .catch(error =>
+          trackException(ExceptionLogKey.chatSendReply, 'EntryChoices.tsx', {
+            error,
+          }),
+        )
+    },
+    [trackException],
+  )
 
   return choices && !isSent ? (
     <>

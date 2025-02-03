@@ -6,11 +6,17 @@ export enum EventLogKey {
   nativeStartup = 'Native startup',
 }
 export enum ExceptionLogKey {
+  chatCreateConversationClient = 'Chat create conversation client failed',
   chatPickImageFromLibrary = 'Chat pick image from library failed',
   chatPickPDF = 'Chat pick PDF document failed',
+  chatRetrieveRemoteConfiguration = 'Chat retrieve remote configuration failed',
   chatSendImageFromCamera = 'Chat send image from camera failed',
   chatSendImageFromLibrary = 'Chat send image from library failed',
+  chatSendMessage = 'Chat send message failed',
   chatSendPDF = 'Chat send PDF document failed',
+  chatSendReply = 'Chat send reply failed',
+  chatSendTypingEvent = 'Chat send typing event failed',
+  chatSubmitRemoteConfiguration = 'Chat submit remote configuration failed',
   chatTakeImageWithCamera = 'Chat take image with camera failed',
   coordinates = 'Failed to get coordinates to determine location',
   deepLink = 'Deep link returns failed state',

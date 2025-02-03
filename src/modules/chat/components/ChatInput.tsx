@@ -21,6 +21,8 @@ import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
 import {ChatEnded} from '@/modules/chat/components/ChatEnded'
 import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -31,6 +33,7 @@ type Props = {
 export const ChatInput = ({onSubmit}: Props) => {
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
   const insets = useSafeAreaInsets()
+  const trackException = useTrackException()
 
   const styles = useThemable(createStyles)
   const themedTextInputProps = useThemable(createTextInputProps)
@@ -43,10 +46,17 @@ export const ChatInput = ({onSubmit}: Props) => {
     enable: showSelectAttachment,
   } = useBoolean(false)
 
-  const onChangeText = useCallback((text: string) => {
-    setInput(text)
-    void sendTypingEvent()
-  }, [])
+  const onChangeText = useCallback(
+    (text: string) => {
+      setInput(text)
+      void sendTypingEvent().catch(error =>
+        trackException(ExceptionLogKey.chatSendTypingEvent, 'ChatInput.tsx', {
+          error,
+        }),
+      )
+    },
+    [trackException],
+  )
 
   const handleSubmit = useCallback(
     (message: string) => {
