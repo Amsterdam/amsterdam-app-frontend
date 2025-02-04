@@ -13,7 +13,8 @@ import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const useChatMenuItems = () => {
   const {setIsMenuOpen, close} = useChat()
-  const {addDownloadedTranscriptId, endChat, ready} = useContext(ChatContext)
+  const {addDownloadedTranscriptId, endChat, ready, isEnded} =
+    useContext(ChatContext)
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
@@ -55,35 +56,38 @@ export const useChatMenuItems = () => {
       })
     }
 
-    menuItems.push({
-      color: 'warning',
-      label: 'Chat stoppen',
-      onPress: () => {
-        setIsMenuOpen(false)
+    if (!isEnded) {
+      menuItems.push({
+        color: 'warning',
+        label: 'Chat stoppen',
+        onPress: () => {
+          setIsMenuOpen(false)
 
-        if (ready) {
-          void sendMessage(CLOSE_CHAT_MESSAGE).catch(error =>
-            trackException(
-              ExceptionLogKey.chatSendMessage,
-              'useChatMenuItems.ts',
-              {
-                error,
-              },
-            ),
-          )
-          endChat()
-        } else {
-          close()
-        }
-      },
-      testID: 'ChatMenuPressableStopChat',
-    })
+          if (ready) {
+            void sendMessage(CLOSE_CHAT_MESSAGE).catch(error =>
+              trackException(
+                ExceptionLogKey.chatSendMessage,
+                'useChatMenuItems.ts',
+                {
+                  error,
+                },
+              ),
+            )
+            endChat()
+          } else {
+            close()
+          }
+        },
+        testID: 'ChatMenuPressableStopChat',
+      })
+    }
 
     return menuItems
   }, [
     addDownloadedTranscriptId,
     close,
     endChat,
+    isEnded,
     isError,
     isLoading,
     openWebUrl,
