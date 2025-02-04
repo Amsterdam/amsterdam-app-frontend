@@ -4,10 +4,12 @@ import {WasteCardBluetoothSvg} from '@/modules/waste-container/assets/images/Was
 
 export const WasteCardDirections = () => (
   <Column
-    gutter="sm"
+    gutter="lg"
     halign="center">
     <WasteCardBluetoothSvg />
-    <Paragraph testID="WasteCardScreenBluetoothText">
+    <Paragraph
+      testID="WasteCardScreenBluetoothText"
+      textAlign="center">
       Houd uw telefoon voor de sensor in het gele vlak op de container.
     </Paragraph>
   </Column>

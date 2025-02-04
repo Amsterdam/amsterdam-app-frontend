@@ -1,3 +1,4 @@
+import {Platform} from 'react-native'
 import Svg, {
   SvgProps,
   G,
@@ -7,6 +8,12 @@ import Svg, {
   Stop,
   ClipPath,
   Rect,
+  FeGaussianBlur,
+  FeMerge,
+  FeMergeNode,
+  FeOffset,
+  Filter,
+  FeColorMatrix,
 } from 'react-native-svg'
 /* SVGR has dropped some elements not supported by react-native-svg: filter */
 export const WasteCardSvg = (props: SvgProps) => (
@@ -15,9 +22,50 @@ export const WasteCardSvg = (props: SvgProps) => (
     accessible
     fill="none"
     height={245}
+    style={
+      Platform.OS === 'ios'
+        ? {
+            elevation: 8,
+            shadowColor: '#000',
+            shadowOffset: {width: 0, height: 4},
+            shadowOpacity: 0.25,
+            shadowRadius: 8,
+          }
+        : undefined
+    }
     width={359}
     {...props}>
-    <G filter="url(#a)">
+    <Defs>
+      <Filter
+        height="200%"
+        id="shadow"
+        width="200%"
+        x="-50%"
+        y="-50%">
+        <FeOffset
+          dx="0"
+          dy="4"
+          in="SourceAlpha"
+          result="offOut"
+        />
+        <FeGaussianBlur
+          in="offOut"
+          result="blurOut"
+          stdDeviation="8"
+        />
+        <FeColorMatrix
+          in="blurOut"
+          result="blurOutAlpha"
+          type="matrix"
+          values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.25 0"
+        />
+        <FeMerge>
+          <FeMergeNode in="blurOutAlpha" />
+          <FeMergeNode in="SourceGraphic" />
+        </FeMerge>
+      </Filter>
+    </Defs>
+    <G filter="url(#shadow)">
       <G clipPath="url(#b)">
         <Path
           d="M8 4h343v228.667H8z"
