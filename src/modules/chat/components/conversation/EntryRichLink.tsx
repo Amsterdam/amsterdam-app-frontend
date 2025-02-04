@@ -3,7 +3,8 @@ import {
   ConversationEntryRichLink,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
-import {InlineLink} from '@/components/ui/text/InlineLink'
+import {PressableBase} from '@/components/ui/buttons/PressableBase'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {getDomainName} from '@/utils/getDomainName'
@@ -23,20 +24,36 @@ export const EntryRichLink = ({message}: Props) => {
 
   return (
     <ChatMessageEntry message={message}>
-      <InlineLink
-        emphasis="strong"
-        inverse={message.sender.role === ConversationEntrySenderRole.user}
-        onPress={onPress}
-        testID="ChatMessageRichLinkTitle">
-        {title}
-      </InlineLink>
+      <PressableBase /* TODO: replace this by InlineLink once https://github.com/facebook/react-native/issues/48387 is fixed. */
+        onPressOut={onPress}
+        testID="ChatMessageRichLinkTitlePressable">
+        <Phrase
+          color={
+            message.sender.role === ConversationEntrySenderRole.user
+              ? 'inverse'
+              : 'link'
+          }
+          emphasis="strong"
+          testID="ChatMessageRichLinkTitle"
+          underline>
+          {title}
+        </Phrase>
+      </PressableBase>
       {!!domain && (
-        <InlineLink
-          inverse={message.sender.role === ConversationEntrySenderRole.user}
-          onPress={onPress}
-          testID="ChatMessageRichLinkUrl">
-          {domain}
-        </InlineLink>
+        <PressableBase
+          onPressOut={onPress}
+          testID="ChatMessageRichLinkUrlPressable">
+          <Phrase
+            color={
+              message.sender.role === ConversationEntrySenderRole.user
+                ? 'inverse'
+                : 'link'
+            }
+            testID="ChatMessageRichLinkUrl"
+            underline>
+            {domain}
+          </Phrase>
+        </PressableBase>
       )}
     </ChatMessageEntry>
   )

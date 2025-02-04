@@ -34,7 +34,7 @@ export const InlineLink = ({
       accessibilityRole="link"
       color={inverse ? 'inverse' : 'link'}
       emphasis={emphasis}
-      onPressOut={onEvent}
+      onPress={onEvent}
       underline
       variant={phraseVariant}
       {...otherProps}>
