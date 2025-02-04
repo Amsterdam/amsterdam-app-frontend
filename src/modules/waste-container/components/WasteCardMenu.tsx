@@ -1,5 +1,4 @@
 import {useCallback} from 'react'
-import {Alert} from 'react-native'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -20,22 +19,9 @@ export const WasteCardMenu = () => {
 
   const onPress = useCallback(() => {
     dispatch(setIsMenuVisible(false))
-    Alert.alert(
-      'Weet u zeker dat u de pas wilt verwijderen?',
-      'Deze actie kan niet ongedaan worden gemaakt.',
-      [
-        {text: 'Annuleren', style: 'cancel', onPress: () => null},
-        {
-          text: 'Verwijderen',
-          onPress: () => {
-            void removeSecureItems([SecureItemKey.wasteCardNumber]).then(() => {
-              navigation.pop()
-            })
-          },
-        },
-      ],
-      {cancelable: true},
-    )
+    void removeSecureItems([SecureItemKey.wasteCardNumber]).then(() => {
+      navigation.pop()
+    })
   }, [dispatch, navigation, removeSecureItems])
 
   const menuItems: PopupMenuItem[] = [
