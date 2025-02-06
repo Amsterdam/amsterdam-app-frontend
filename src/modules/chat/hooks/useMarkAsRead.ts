@@ -2,6 +2,7 @@ import {useEffect} from 'react'
 import {markAsRead} from 'react-native-salesforce-messaging-in-app/src'
 import {
   ConversationEntry,
+  ConversationEntryFormat,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {useChat} from '@/modules/chat/slice'
@@ -9,13 +10,15 @@ import {useChat} from '@/modules/chat/slice'
 export const useMarkAsRead = (messages: ConversationEntry[]) => {
   const {isMaximized} = useChat()
 
-  useEffect(() => {
-    if (isMaximized && messages.length > 0) {
-      const externalMessages = messages.filter(
-        message => message.sender.role !== ConversationEntrySenderRole.user,
-      )
+  const externalMessages = messages.filter(
+    message =>
+      message.sender.role !== ConversationEntrySenderRole.user &&
+      message.format !== ConversationEntryFormat.readAcknowledgement,
+  )
 
+  useEffect(() => {
+    if (isMaximized && externalMessages.length > 0) {
       void markAsRead(externalMessages[externalMessages.length - 1])
     }
-  }, [messages, messages.length, isMaximized])
+  }, [externalMessages, externalMessages.length, isMaximized])
 }
