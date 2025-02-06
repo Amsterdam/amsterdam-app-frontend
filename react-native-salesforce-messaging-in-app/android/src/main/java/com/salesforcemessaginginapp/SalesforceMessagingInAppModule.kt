@@ -837,15 +837,15 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           if (optionValue == null) {
             promise.reject("Error", "optionValue is required")
           } else {
-          val result =
-            conversationClient?.sendMessage(optionValue) // TODO: sendReply once bug is fixed in Core SDK
+            val result =
+              conversationClient?.sendMessage(optionValue) // TODO: sendReply once bug is fixed in Core SDK
 
-          if (result is Result.Success) {
-            promise.resolve("Success")
-          } else {
-            promise.reject("Error", result.toString())
-          }
+            if (result is Result.Success) {
+              promise.resolve("Success")
+            } else {
+              promise.reject("Error", result.toString())
             }
+          }
 
         } catch (e: Exception) {
           promise.reject("Error", e.message, e)
