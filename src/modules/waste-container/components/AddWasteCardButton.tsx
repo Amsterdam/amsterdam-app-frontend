@@ -40,7 +40,7 @@ export const AddWasteCardButton = () => {
           })
         }
       } else {
-        navigateToInstructionsScreen() // Permissions on Android don't have a 'blocked' status
+        navigateToInstructionsScreen()
       }
     })
   }, [
