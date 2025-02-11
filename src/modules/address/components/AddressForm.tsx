@@ -68,7 +68,7 @@ export const AddressForm = () => {
       } else {
         dispatch(addAddress(transformAddressApiResponse(item)))
 
-        if (previousRoute?.name === ModuleSlug.user) {
+        if (previousRoute?.name === ModuleSlug.address) {
           setAlert(alerts.addAddressSuccess)
         }
 
