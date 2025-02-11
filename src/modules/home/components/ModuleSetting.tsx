@@ -24,7 +24,7 @@ type ModuleSettingWrapperProps = {
 const ModuleSettingBox = ({children, slug}: ModuleSettingWrapperProps) => (
   <Box
     distinct
-    testID={`HomeModuleSetting${pascalCase(slug)}Box`}>
+    testID={`UserModuleSettings${pascalCase(slug)}Box`}>
     {children}
   </Box>
 )
@@ -84,6 +84,7 @@ type ModuleSettingProps = {
 
 export const ModuleSetting = ({
   module: {description, icon: iconName, slug, status, title},
+  testID,
 }: ModuleSettingProps) => {
   const dispatch = useDispatch()
   const disabledModules = useSelector(selectDisabledModules)
@@ -101,7 +102,7 @@ export const ModuleSetting = ({
       description={description}
       disabled={isModuleActive}
       iconName={iconName}
-      testID={`HomeModuleSetting${pascalCase(slug)}`}
+      testID={`${testID}Content`}
       title={title}
     />
   )
@@ -130,7 +131,7 @@ export const ModuleSetting = ({
       disabled={!isModuleActive}
       label={ModuleSettingContentComponent}
       onChange={onChange}
-      testID={`HomeModuleSetting${pascalCase(slug)}Switch`}
+      testID={`${testID}Switch`}
       value={value}
       wrapper={EnhancedModuleSettingBox}
     />
