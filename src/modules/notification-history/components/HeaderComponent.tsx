@@ -1,3 +1,4 @@
+import simplur from 'simplur'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -9,10 +10,15 @@ export const HeaderComponent = () => {
   const {data} = useGetNotificationsQuery()
 
   const unreadNotifications = data?.filter(({is_read}) => !is_read).length ?? 0
+  const accessibilityLabel = unreadNotifications
+    ? unreadNotifications +
+      'ongelezen' +
+      simplur`[melding|meldingen]${[unreadNotifications]}`
+    : 'Meldingen'
 
   return (
     <IconButton
-      accessibilityLabel="Meldingen"
+      accessibilityLabel={accessibilityLabel}
       badgeValue={unreadNotifications > 0 ? unreadNotifications : undefined}
       icon={
         <Icon

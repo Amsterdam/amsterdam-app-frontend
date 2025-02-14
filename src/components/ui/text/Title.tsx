@@ -1,5 +1,6 @@
 import {forwardRef, useMemo} from 'react'
 import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {Theme} from '@/themes/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -34,14 +35,14 @@ export const Title = forwardRef<Text, Props>(
     const styles = useThemable(createdStyles)
 
     return (
-      <Text
+      <AccessibleText
         accessibilityLanguage="nl-NL"
         {...textProps}
         accessibilityRole="header"
         ref={ref}
         style={styles.title}>
         {text}
-      </Text>
+      </AccessibleText>
     )
   },
 )
