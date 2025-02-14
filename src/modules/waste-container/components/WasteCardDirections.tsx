@@ -8,6 +8,7 @@ export const WasteCardDirections = () => (
     halign="center">
     <WasteCardBluetoothSvg />
     <Paragraph
+      accessibilityLabel="Houd uw telefoon voor de sensor rechts van de opening van de container."
       testID="WasteCardScreenBluetoothText"
       textAlign="center">
       Houd uw telefoon voor de sensor in het gele vlak op de container.

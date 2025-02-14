@@ -1,5 +1,6 @@
 import {ReactNode, useMemo} from 'react'
-import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
+import {StyleSheet, TextProps, TextStyle} from 'react-native'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {type TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
@@ -70,14 +71,14 @@ export const Phrase = ({
   const styles = useThemable(createdStyles)
 
   return (
-    <Text
+    <AccessibleText
+      {...textProps}
       accessibilityLanguage="nl-NL"
       logging-label={loggingLabel}
       style={styles.text}
-      testID={testID}
-      {...textProps}>
+      testID={testID}>
       {children}
-    </Text>
+    </AccessibleText>
   )
 }
 

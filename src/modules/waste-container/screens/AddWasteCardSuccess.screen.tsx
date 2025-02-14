@@ -41,7 +41,8 @@ export const AddWasteCardSuccessScreen = ({navigation: {navigate}}: Props) => (
           textAlign="center"
         />
         <Paragraph textAlign="center">
-          U kunt de afvalpas vanaf nu gebruiken.
+          U kunt de afvalpas vanaf nu gebruiken om de gfe/t-container in uw
+          buurt te openen.
         </Paragraph>
       </Column>
     </Box>

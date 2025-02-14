@@ -1,5 +1,6 @@
-import {AccessibilityProps, StyleSheet, Text, View} from 'react-native'
+import {AccessibilityProps, StyleSheet, View} from 'react-native'
 import {Row} from '@/components/ui/layout/Row'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Device} from '@/providers/device.provider'
@@ -33,7 +34,7 @@ export const Badge = ({
   return (
     <Row align="start">
       <View style={styles.circle}>
-        <Text
+        <AccessibleText
           accessibilityLabel={accessibilityLabel}
           accessibilityLanguage={accessibilityLanguage}
           accessible={variant !== 'on-icon'}
@@ -41,7 +42,7 @@ export const Badge = ({
           style={styles.text}
           testID={testID}>
           {!!value && formatNumber(value)}
-        </Text>
+        </AccessibleText>
       </View>
     </Row>
   )

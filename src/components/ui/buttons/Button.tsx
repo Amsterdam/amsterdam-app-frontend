@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {GestureResponderEvent, StyleSheet, Text} from 'react-native'
+import {GestureResponderEvent, StyleSheet} from 'react-native'
 import {
   PressableBaseProps,
   PressableBase,
@@ -8,6 +8,7 @@ import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -77,13 +78,13 @@ export const Button = ({
           />
         )}
         {!!label && (
-          <Text
+          <AccessibleText
             ellipsizeMode={ellipsizeMode}
             numberOfLines={numberOfLines}
             style={styles.label}
             testID={`${testID}Label`}>
             {label}
-          </Text>
+          </AccessibleText>
         )}
       </Row>
     </PressableBase>

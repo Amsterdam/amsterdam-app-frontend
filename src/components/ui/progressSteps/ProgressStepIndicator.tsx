@@ -1,9 +1,10 @@
-import {StyleSheet, Text, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {Icon} from '@/components/ui/media/Icon'
 import {
   ProgressStatus,
   ProgressStepsVariant,
 } from '@/components/ui/progressSteps/types'
+import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -36,11 +37,11 @@ export const ProgressStepIndicator = ({
         />
       )}
       {!!numberIndicator && progressStatus !== 'done' && (
-        <Text
+        <AccessibleText
           style={styles.text}
           testID="ProgressStepIndicatorNumberIndicator">
           {numberIndicator}
-        </Text>
+        </AccessibleText>
       )}
     </View>
   )

@@ -26,7 +26,7 @@ export const screenConfig: StackNavigationRoutes<
     component: WasteCardScreen,
     name: WasteContainerRouteName.wasteCard,
     options: {
-      headerTitle: 'Afvalpas',
+      headerTitle: 'Container openen',
       SideComponent: WasteCardHeaderMenuButton,
     },
   },
