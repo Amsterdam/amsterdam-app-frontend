@@ -8,6 +8,7 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {ExtendAccessCodeValidityOnPanGesture} from '@/modules/access-code/components/ExtendAccessCodeValidityOnPanGesture'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 import {useScreen} from '@/store/slices/screen'
 
@@ -59,35 +60,37 @@ export const ScreenBase = ({
 
   return (
     <DisableScrollProvider>
-      <HideFromAccessibility
-        hide={isHiddenFromAccessibility}
-        style={styles.screen}
-        testID={testID}>
-        {!isOutsideNavigation && !!bottomSheet && <ScreenHeader />}
-        {stickyHeader}
-        {!!hasStickyAlert && <AlertTopOfScreen />}
+      <ExtendAccessCodeValidityOnPanGesture>
         <HideFromAccessibility
-          hide={isContentHiddenFromAccessibility}
-          style={[styles.scrollViewContent, styles.scrollView]}>
-          <ScreenWrapper
-            scrollViewContentStyle={styles.scrollViewContent}
-            scrollViewStyle={styles.scrollView}
-            trackScroll={trackScroll}
-            {...wrapperProps}>
-            <ScreenInnerWrapper style={styles.content}>
-              {children}
-            </ScreenInnerWrapper>
-          </ScreenWrapper>
+          hide={isHiddenFromAccessibility}
+          style={styles.screen}
+          testID={testID}>
+          {!isOutsideNavigation && !!bottomSheet && <ScreenHeader />}
+          {stickyHeader}
+          {!!hasStickyAlert && <AlertTopOfScreen />}
+          <HideFromAccessibility
+            hide={isContentHiddenFromAccessibility}
+            style={[styles.scrollViewContent, styles.scrollView]}>
+            <ScreenWrapper
+              scrollViewContentStyle={styles.scrollViewContent}
+              scrollViewStyle={styles.scrollView}
+              trackScroll={trackScroll}
+              {...wrapperProps}>
+              <ScreenInnerWrapper style={styles.content}>
+                {children}
+              </ScreenInnerWrapper>
+            </ScreenWrapper>
+          </HideFromAccessibility>
+          {(!!stickyFooter || !!bottomSheet) && (
+            <>
+              <Gutter height="sm" />
+              {stickyFooter}
+              {bottomSheet}
+            </>
+          )}
+          {!!spaceBottom && <View style={{height: spaceBottom}} />}
         </HideFromAccessibility>
-        {(!!stickyFooter || !!bottomSheet) && (
-          <>
-            <Gutter height="sm" />
-            {stickyFooter}
-            {bottomSheet}
-          </>
-        )}
-        {!!spaceBottom && <View style={{height: spaceBottom}} />}
-      </HideFromAccessibility>
+      </ExtendAccessCodeValidityOnPanGesture>
     </DisableScrollProvider>
   )
 }

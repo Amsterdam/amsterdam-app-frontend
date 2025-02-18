@@ -67,10 +67,18 @@ export const useEnterAccessCode = () => {
       return false
     } else {
       return (
-        Math.abs(dayjs(now).diff(dayjs(codeValidTimestamp))) <= 15 * msToMinutes
+        Math.abs(dayjs(now).diff(dayjs(codeValidTimestamp))) <= 5 * msToMinutes
       )
     }
   }, [codeValidTimestamp])
+
+  const onExtendAccessCodeValidity = useCallback(() => {
+    if (!isCodeValid) {
+      return
+    }
+
+    dispatch(setIsCodeValid(true))
+  }, [dispatch, isCodeValid])
 
   const setIsForgotCode = useCallback(
     (forgot: boolean) =>
@@ -93,6 +101,7 @@ export const useEnterAccessCode = () => {
     isEnteringCode,
     isForgotCode,
     onAccessCodeEntered,
+    onExtendAccessCodeValidity,
     setIsEnteringCode,
     setIsForgotCode,
   }

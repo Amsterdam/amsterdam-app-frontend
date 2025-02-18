@@ -7,6 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {IconSize} from '@/components/ui/types'
 import {useAccessibilityAutoFocus} from '@/hooks/accessibility/useAccessibilityAutoFocus'
+import {ExtendAccessCodeValidityOnPanGesture} from '@/modules/access-code/components/ExtendAccessCodeValidityOnPanGesture'
 
 const chevronSize = 'ml'
 
@@ -35,30 +36,34 @@ export const HeaderContent = ({
   })
 
   return (
-    <Row
-      gutter="lg"
-      valign="center">
-      <View
-        accessible
-        ref={accessibilityAutoFocusRef}
-        style={styles.sideColumn}>
-        {!!back && (
-          <HeaderBackButton
-            iconSize={chevronSize}
-            onPress={onBackPress}
-          />
-        )}
+    <ExtendAccessCodeValidityOnPanGesture>
+      <View collapsable={false}>
+        <Row
+          gutter="lg"
+          valign="center">
+          <View
+            accessible
+            ref={accessibilityAutoFocusRef}
+            style={styles.sideColumn}>
+            {!!back && (
+              <HeaderBackButton
+                iconSize={chevronSize}
+                onPress={onBackPress}
+              />
+            )}
+          </View>
+          <View style={styles.middleColumn}>
+            <ScreenHeaderTitle
+              accessibilityLanguage={accessibilityLanguage}
+              text={title}
+            />
+          </View>
+          <View style={styles.sideColumn}>
+            {!!SideComponent && <SideComponent />}
+          </View>
+        </Row>
       </View>
-      <View style={styles.middleColumn}>
-        <ScreenHeaderTitle
-          accessibilityLanguage={accessibilityLanguage}
-          text={title}
-        />
-      </View>
-      <View style={styles.sideColumn}>
-        {!!SideComponent && <SideComponent />}
-      </View>
-    </Row>
+    </ExtendAccessCodeValidityOnPanGesture>
   )
 }
 
