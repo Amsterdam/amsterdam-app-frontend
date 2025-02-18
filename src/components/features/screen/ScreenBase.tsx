@@ -8,7 +8,7 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {ExtendAccessCodeValidityOnPanGesture} from '@/modules/access-code/components/ExtendAccessCodeValidityOnPanGesture'
+import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
 import {DisableScrollProvider} from '@/providers/disableScroll.provider'
 import {useScreen} from '@/store/slices/screen'
 
@@ -60,7 +60,7 @@ export const ScreenBase = ({
 
   return (
     <DisableScrollProvider>
-      <ExtendAccessCodeValidityOnPanGesture>
+      <ExtendAccessCodeValidityOnTap>
         <HideFromAccessibility
           hide={isHiddenFromAccessibility}
           style={styles.screen}
@@ -90,7 +90,7 @@ export const ScreenBase = ({
           )}
           {!!spaceBottom && <View style={{height: spaceBottom}} />}
         </HideFromAccessibility>
-      </ExtendAccessCodeValidityOnPanGesture>
+      </ExtendAccessCodeValidityOnTap>
     </DisableScrollProvider>
   )
 }

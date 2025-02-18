@@ -7,12 +7,12 @@ type Props = {
   children: ReactNode
 }
 
-export const ExtendAccessCodeValidityOnPanGesture = ({children}: Props) => {
+export const ExtendAccessCodeValidityOnTap = ({children}: Props) => {
   const {onExtendAccessCodeValidity} = useEnterAccessCode()
 
   const gesture = useMemo(
     () =>
-      Gesture.Pan().onBegin(() => {
+      Gesture.Tap().onBegin(() => {
         runOnJS(onExtendAccessCodeValidity)()
       }),
     [onExtendAccessCodeValidity],
