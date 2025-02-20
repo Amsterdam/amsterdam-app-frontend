@@ -54,6 +54,8 @@ import {
   OnboardingRouteName,
   OnboardingStackParams,
 } from '@/modules/onboarding/routes'
+import {ParkingStack} from '@/modules/parking/Stack'
+import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
 import {RedirectsStack} from '@/modules/redirects/Stack'
 import {
   RedirectsRouteName,
@@ -100,6 +102,7 @@ export type ModuleRoutes =
   | ContactRouteName
   | HomeRouteName
   | OnboardingRouteName
+  | ParkingRouteName
   | WasteContainerRouteName
   | RedirectsRouteName
   | ReportProblemRouteName
@@ -115,6 +118,7 @@ export type ModuleStackParams = AboutStackParams &
   ContactStackParams &
   HomeStackParams &
   OnboardingStackParams &
+  ParkingStackParams &
   WasteContainerStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
@@ -133,6 +137,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug.home]: HomeStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
+  [ModuleSlug.parking]: ParkingStack,
   [ModuleSlug['waste-container']]: WasteContainerStack,
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,

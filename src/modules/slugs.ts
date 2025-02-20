@@ -10,6 +10,7 @@ export enum ModuleSlug {
   home = 'home',
   'notification-history' = 'notification-history',
   onboarding = 'onboarding',
+  parking = 'parking',
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
