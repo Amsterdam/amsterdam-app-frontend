@@ -1,7 +1,7 @@
 export enum ParkingRouteName {
-  parking = 'Parking',
+  parkingHome = 'ParkingHome',
 }
 
 export type ParkingStackParams = {
-  [ParkingRouteName.parking]: undefined
+  [ParkingRouteName.parkingHome]: undefined
 }
