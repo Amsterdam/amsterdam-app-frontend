@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useMemo} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useAccessCode} from '@/modules/access-code/hooks/useAccessCode'
@@ -17,7 +17,7 @@ import {
   selectIsForgotCode,
 } from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {getIsAccessCodeWithinDuration} from '@/modules/access-code/utils/getIsAccessCodeWithinDuration'
 
 export const useEnterAccessCode = () => {
   const dispatch = useDispatch()
@@ -25,10 +25,13 @@ export const useEnterAccessCode = () => {
   const codeEntered = useSelector(selectCodeEntered)
   const isEnteringCode = useSelector(selectIsEnteringCode)
   const isForgotCode = useSelector(selectIsForgotCode)
-  const {accessCode: secureAccessCode} = useGetSecureAccessCode()
+  const {accessCode: secureAccessCode, isLoading: secureAccessCodeIsLoading} =
+    useGetSecureAccessCode()
   const codeValidTimestamp = useSelector(selectCodeValidTimestamp)
   const {codeLength, setCode} = useAccessCode()
   const {resetError} = useAccessCodeError()
+
+  const isCodeValid = getIsAccessCodeWithinDuration(codeValidTimestamp)
 
   const setIsEnteringCode = useCallback(
     (isEntering: boolean) =>
@@ -37,13 +40,14 @@ export const useEnterAccessCode = () => {
   )
   const onAccessCodeEntered = useCallback(
     (withBiometrics = false) => {
-      if (isCodeValid) {
+      if (isCodeValid || secureAccessCodeIsLoading) {
         return
       }
 
       if (codeEntered.join('') === secureAccessCode || withBiometrics) {
         dispatch(resetAttemptsLeft())
         dispatch(setIsCodeValid(true))
+        setCode({code: [], type: AccessCodeType.codeEntered})
         resetError()
       } else {
         dispatch(setAttemptsLeft(attemptsLeft - 1))
@@ -59,26 +63,13 @@ export const useEnterAccessCode = () => {
     [codeEntered, dispatch, resetError, secureAccessCode],
   )
 
-  const isCodeValid = useMemo(() => {
-    const now = Date.now()
-    const msToMinutes = 1000 * 60
-
-    if (!codeValidTimestamp) {
-      return false
-    } else {
-      return (
-        Math.abs(dayjs(now).diff(dayjs(codeValidTimestamp))) <= 5 * msToMinutes
-      )
-    }
-  }, [codeValidTimestamp])
-
   const onExtendAccessCodeValidity = useCallback(() => {
-    if (!isCodeValid) {
+    if (!getIsAccessCodeWithinDuration(codeValidTimestamp)) {
       return
     }
 
     dispatch(setIsCodeValid(true))
-  }, [dispatch, isCodeValid])
+  }, [codeValidTimestamp, dispatch])
 
   const setIsForgotCode = useCallback(
     (forgot: boolean) =>
@@ -97,9 +88,9 @@ export const useEnterAccessCode = () => {
   return {
     attemptsLeft,
     codeEntered,
-    isCodeValid,
     isEnteringCode,
     isForgotCode,
+    isCodeValid,
     onAccessCodeEntered,
     onExtendAccessCodeValidity,
     setIsEnteringCode,
