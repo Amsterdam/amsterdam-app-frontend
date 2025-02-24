@@ -24,10 +24,13 @@ type Props = NavigationProps<CityPassRouteName.loginSteps>
 
 export const LoginStepsScreen = ({navigation, route}: Props) => {
   const {
-    loginResult,
     accessToken: deeplinkAccessToken,
+    errorCode,
+    errorMessage,
+    loginResult,
     refreshToken: deeplinkRefreshToken,
   } = route.params || {}
+
   const {navigate} = useNavigation()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const {accessCode} = useGetSecureAccessCode()
@@ -48,6 +51,8 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
     loginResult,
     deeplinkAccessToken,
     deeplinkRefreshToken,
+    errorCode: errorCode ? errorCode : route.params?.['amp;errorCode'], // TODO: remove this once fixed at Mijn Amsterdam
+    errorMessage,
   })
 
   const onPress = useCallback(() => {

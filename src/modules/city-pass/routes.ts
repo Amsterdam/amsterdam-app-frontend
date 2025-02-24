@@ -25,6 +25,9 @@ export type CityPassStackParams = {
   [CityPassRouteName.loginSteps]:
     | {
         accessToken?: string
+        'amp;errorCode'?: string
+        errorCode?: string
+        errorMessage?: string
         loginResult?: string
         refreshToken?: string
       }
