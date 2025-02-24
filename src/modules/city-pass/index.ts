@@ -10,7 +10,7 @@ export const cityPassModule: ModuleClientConfig = {
   ActionButton: CityPassActionButton,
   linking: {
     [CityPassRouteName.loginSteps]:
-      'stadspas/:loginResult/:accessToken?/:refreshToken?',
+      'stadspas/:loginResult/:accessToken?/:refreshToken?/:errorMessage?/:errorCode?',
   },
   logDimension: PiwikSessionDimension.cityPassModule,
   name: 'CityPassModule',

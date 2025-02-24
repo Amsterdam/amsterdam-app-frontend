@@ -7,16 +7,19 @@ import {LoginResult} from '@/modules/city-pass/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
-import {getValueFromUrlParam} from '@/utils/getValueFromUrlParam'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 type Params = {
   deeplinkAccessToken?: string
   deeplinkRefreshToken?: string
+  errorCode?: string
+  errorMessage?: string
   loginResult?: string
 }
 
 export const useRegisterCityPassOwner = ({
+  errorCode,
+  errorMessage,
   loginResult,
   deeplinkAccessToken,
   deeplinkRefreshToken,
@@ -44,10 +47,13 @@ export const useRegisterCityPassOwner = ({
     } else if (loginResult === LoginResult.failed) {
       dispatch(setIsCityPassOwnerRegistered(false))
       setAlert(alerts.retrievePassesFailed)
-      trackException(ExceptionLogKey.deepLink, 'Dashboard.screen.tsx', {
-        error:
-          getValueFromUrlParam(loginResult, 'errorMessage') ??
-          'Stadspas login niet gelukt.',
+      trackException(ExceptionLogKey.deepLink, 'LoginSteps.screen.tsx', {
+        error: {
+          deeplinkAccessToken,
+          deeplinkRefreshToken,
+          errorCode,
+          errorMessage,
+        },
       })
     } else {
       // do nothing
