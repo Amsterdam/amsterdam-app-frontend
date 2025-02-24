@@ -67,10 +67,10 @@ export const NotificationHistoryItem = ({
         insetVertical="smd">
         <Row gutter="sm">
           <View style={styles.iconContainer}>
-            {image ? (
+            {image && image.sources[0] ? (
               <Image
                 aspectRatio="square"
-                source={{uri: image.variants[0].image}}
+                source={image.sources[0]}
                 testID={`NotificationHistoryItem${id}Image`}
               />
             ) : (

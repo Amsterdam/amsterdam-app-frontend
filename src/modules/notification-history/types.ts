@@ -18,5 +18,5 @@ export type Notification = {
 type NotificationImage = {
   description: string
   id: number
-  variants: {height: number; image: string; width: number}[]
+  sources: {height: number; uri: string; width: number}[]
 }
