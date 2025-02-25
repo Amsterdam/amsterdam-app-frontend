@@ -11,7 +11,7 @@ type Props = {
   label: string
   maxCharacters?: number
   numberOfLines?: number
-  placeholder: string
+  placeholder?: string
 } & TestProps &
   UseControllerProps &
   Pick<TextInputProps, 'autoFocus'>
@@ -45,7 +45,7 @@ export const TextInputField = ({
                 autoFocus={autoFocus}
                 label={label}
                 multiline={!!numberOfLines}
-                numberOfLines={numberOfLines ?? 1}
+                numberOfLines={numberOfLines}
                 onChangeText={onChange}
                 placeholder={placeholder}
                 testID={`${testID}Input`}

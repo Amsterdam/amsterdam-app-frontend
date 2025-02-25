@@ -15,20 +15,24 @@ import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AccessCodeRouteName.accessCode>
 
-export const AccessCodeScreen = ({navigation: {navigate}}: Props) => {
+export const AccessCodeScreen = ({navigation}: Props) => {
   const {isCodeValid, setIsForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+  const currentModule =
+    (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
+    ModuleSlug.home
 
   useEffect(() => {
     if (isCodeValid && isEnrolled && useBiometrics === undefined) {
-      navigate(AccessCodeRouteName.biometricsPermission)
+      navigation.navigate(AccessCodeRouteName.biometricsPermission)
     }
-  }, [isCodeValid, isEnrolled, navigate, useBiometrics])
+  }, [isCodeValid, isEnrolled, navigation, useBiometrics])
 
   const onForgotCode = useCallback(() => {
     setIsForgotCode(true)
-    navigate(ModuleSlug['city-pass'])
-  }, [navigate, setIsForgotCode])
+    // The module's stack automatically redirects user to forgot code screen.
+    navigation.navigate(currentModule)
+  }, [currentModule, navigation, setIsForgotCode])
 
   return (
     <Screen

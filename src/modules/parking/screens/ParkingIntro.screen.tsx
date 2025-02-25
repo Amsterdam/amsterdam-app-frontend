@@ -1,3 +1,4 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -5,9 +6,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 
-export const ParkingHomeScreen = () => {
+type Props = NavigationProps<ParkingRouteName.intro>
+
+export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => {
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls} = useGetRedirectUrlsQuery()
 
@@ -29,6 +33,7 @@ export const ParkingHomeScreen = () => {
               </Paragraph>
               <Button
                 label="Inloggen vergunninghouder"
+                onPress={() => navigate(ParkingRouteName.login)}
                 testID="ParkingHomeLoginButton"
               />
             </Column>
@@ -46,6 +51,7 @@ export const ParkingHomeScreen = () => {
               </Paragraph>
               <Button
                 label="Inloggen bezoek"
+                onPress={() => navigate(ParkingRouteName.login)}
                 testID="ParkingHomeLoginVisitorButton"
                 variant="secondary"
               />

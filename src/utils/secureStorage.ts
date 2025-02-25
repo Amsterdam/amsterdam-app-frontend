@@ -7,6 +7,8 @@ export enum SecureItemKey {
   cityPassAccessToken = 'cityPassAccessToken',
   cityPassRefreshToken = 'cityPassRefreshToken',
   cityPasses = 'cityPasses',
+  parkingPermitHolder = 'parkingPermitHolder',
+  parkingVisitor = 'parkingVisitor',
   wasteCardNumber = 'wasteCardNumber',
 }
 

@@ -4,7 +4,6 @@ import {
   StyleSheet,
   TextInput as TextInputRN,
   TextInputProps,
-  TextInputProps as TextInputRNProps,
   View,
 } from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -21,7 +20,7 @@ type Props = {
   onFocus?: () => void
   placeholder?: string
   warning?: boolean
-} & TextInputRNProps
+} & TextInputProps
 
 export const TextInput = forwardRef<TextInputRN, Props>(
   (

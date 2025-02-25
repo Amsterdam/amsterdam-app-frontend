@@ -11,25 +11,27 @@ import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccess
 import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
-import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AccessCodeRouteName.confirmAccessCode>
 
 export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
   const {isCodeConfirmed} = useConfirmAccessCode()
-  const {isLoginStepsActive} = useLoginSteps()
   const unsetCode = useUnsetCode()
+  const isUserRoute =
+    (navigation.getParent()?.getState().routes.at(-2)?.name as ModuleSlug) ===
+    ModuleSlug.user
 
   useEffect(() => {
     if (!isCodeConfirmed) {
       return
-    } else if (isLoginStepsActive) {
+    } else if (isUserRoute) {
+      navigation.navigate(AccessCodeRouteName.validAccessCode)
+    } else {
       unsetCode()
       navigation.pop(2)
-    } else {
-      navigation.navigate(AccessCodeRouteName.validAccessCode)
     }
-  }, [isCodeConfirmed, isLoginStepsActive, navigation, unsetCode])
+  }, [isCodeConfirmed, isUserRoute, navigation, unsetCode])
 
   const onResetAccessCode = useCallback(() => {
     unsetCode()
