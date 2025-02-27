@@ -8,7 +8,7 @@ import {Title} from '@/components/ui/text/Title'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {ConfirmAccessCode} from '@/modules/access-code/components/ConfirmAccessCode'
 import {useConfirmAccessCode} from '@/modules/access-code/hooks/useConfirmAccessCode'
-import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
+import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -17,7 +17,8 @@ type Props = NavigationProps<AccessCodeRouteName.confirmAccessCode>
 
 export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
   const {isCodeConfirmed} = useConfirmAccessCode()
-  const unsetCode = useUnsetCode()
+
+  useUnsetCodeOnBlur(AccessCodeType.codeSet)
   const isUserRoute =
     (navigation.getParent()?.getState().routes.at(-2)?.name as ModuleSlug) ===
     ModuleSlug.user
@@ -28,15 +29,13 @@ export const ConfirmAccessCodeScreen = ({navigation}: Props) => {
     } else if (isUserRoute) {
       navigation.navigate(AccessCodeRouteName.validAccessCode)
     } else {
-      unsetCode()
       navigation.pop(2)
     }
-  }, [isCodeConfirmed, isUserRoute, navigation, unsetCode])
+  }, [isCodeConfirmed, isUserRoute, navigation])
 
   const onResetAccessCode = useCallback(() => {
-    unsetCode()
     navigation.pop()
-  }, [navigation, unsetCode])
+  }, [navigation])
 
   return (
     <Screen

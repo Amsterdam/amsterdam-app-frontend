@@ -1,5 +1,5 @@
 import {useFocusEffect} from '@react-navigation/core'
-import {useCallback} from 'react'
+import {useEffect} from 'react'
 import {View} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -11,6 +11,7 @@ import {List} from '@/components/ui/text/list/List'
 import {AccessCodeKeyBoard} from '@/modules/access-code/components/AccessCodeKeyBoard'
 import {SetAccessCode} from '@/modules/access-code/components/SetAccessCode'
 import {useSetAccessCode} from '@/modules/access-code/hooks/useSetAccessCode'
+import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AccessCodeType} from '@/modules/access-code/types'
 
@@ -18,14 +19,15 @@ type Props = NavigationProps<AccessCodeRouteName.setAccessCode>
 
 export const SetAccessCodeScreen = ({navigation: {navigate}}: Props) => {
   const {isCodeSet} = useSetAccessCode()
+  const unsetCode = useUnsetCode(AccessCodeType.codeConfirmed)
 
-  useFocusEffect(
-    useCallback(() => {
-      if (isCodeSet) {
-        navigate(AccessCodeRouteName.confirmAccessCode)
-      }
-    }, [isCodeSet, navigate]),
-  )
+  useEffect(() => {
+    if (isCodeSet) {
+      navigate(AccessCodeRouteName.confirmAccessCode)
+    }
+  }, [isCodeSet, navigate])
+
+  useFocusEffect(unsetCode)
 
   return (
     <Screen

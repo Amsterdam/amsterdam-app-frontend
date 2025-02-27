@@ -1,4 +1,3 @@
-import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -7,23 +6,15 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {SuccessIcon} from '@/components/ui/media/icons/SuccessIcon'
 import {Title} from '@/components/ui/text/Title'
-import {useUnsetCode} from '@/modules/access-code/hooks/useUnsetCode'
+import {useUnsetCodeOnBlur} from '@/modules/access-code/hooks/useUnsetCodeOnBlur'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {AccessCodeType} from '@/modules/access-code/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AccessCodeRouteName.validAccessCode>
 
-export const AccessCodeValidScreen = ({navigation}: Props) => {
-  const {navigate} = navigation
-  const unsetCode = useUnsetCode()
-
-  useEffect(() => {
-    const listener = navigation.addListener('blur', unsetCode)
-
-    return () => {
-      listener()
-    }
-  }, [navigation, unsetCode])
+export const AccessCodeValidScreen = ({navigation: {navigate}}: Props) => {
+  useUnsetCodeOnBlur(AccessCodeType.codeConfirmed)
 
   return (
     <Screen
