@@ -7,6 +7,7 @@ import {Badge} from '@/components/ui/feedback/Badge'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -23,7 +24,7 @@ type Props = {
 }
 
 export const NotificationHistoryItem = ({
-  item: {title, body, module_slug, created_at, is_read, id, context},
+  item: {body, context, created_at, id, image, is_read, module_slug, title},
   enabledModules = [],
 }: Props) => {
   const module = enabledModules.find(({slug}) => slug === module_slug)
@@ -66,12 +67,20 @@ export const NotificationHistoryItem = ({
         insetVertical="smd">
         <Row gutter="sm">
           <View style={styles.iconContainer}>
-            <Icon
-              color="inverse"
-              name={icon}
-              size="xl"
-              testID={`NotificationHistoryItem${id}Icon`}
-            />
+            {image && image.sources[0] ? (
+              <Image
+                aspectRatio="square"
+                source={image.sources[0]}
+                testID={`NotificationHistoryItem${id}Image`}
+              />
+            ) : (
+              <Icon
+                color="inverse"
+                name={icon}
+                size="xl"
+                testID={`NotificationHistoryItem${id}Icon`}
+              />
+            )}
           </View>
           <Column
             grow={1}
