@@ -30,13 +30,13 @@ export const ParkingStack = () => {
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {isLoginStepsActive} = useLoginSteps()
   const {shouldShowIntroScreen} = useShouldShowIntroScreen()
-  const {item: securePermitHolder} = useGetSecureItem(
-    SecureItemKey.parkingPermitHolder,
-  )
-  const {item: secureVisitor} = useGetSecureItem(SecureItemKey.parkingVisitor)
+  const {item: securePermitHolder, isLoading: isLoadingSecurePermitHolder} =
+    useGetSecureItem(SecureItemKey.parkingPermitHolder)
+  const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
+    useGetSecureItem(SecureItemKey.parkingVisitor)
   const screenOptions = useScreenOptions()
 
-  if (isLoading) {
+  if (isLoading || isLoadingSecurePermitHolder || isLoadingSecureVisitor) {
     return null
   }
 
