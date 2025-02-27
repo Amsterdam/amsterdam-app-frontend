@@ -5,12 +5,14 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
 import {useLoginParkingMutation} from '@/modules/parking/service'
+import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {
   ParkingFormLoginFormData,
   ParkingLoginEndpointRequest,
 } from '@/modules/parking/types'
 
 export const ParkingLoginFormSubmitButton = () => {
+  const {setCurrentAccountType} = useCurrentParkingAccount()
   const {handleSubmit} = useFormContext<ParkingFormLoginFormData>()
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
@@ -27,6 +29,7 @@ export const ParkingLoginFormSubmitButton = () => {
     } as ParkingLoginEndpointRequest)
       .unwrap()
       .then(({access_token, scope}) => {
+        setCurrentAccountType(scope)
         void setSecureParkingAccount({accessToken: access_token, scope})
       })
   })
