@@ -1,12 +1,14 @@
-export type ParkingAccount = {
+type ParkingAccountAuth = {
   accessToken: string
   scope: ParkingPermitScope
 }
 
-export type ParkingFormLoginFormData = {
+export type ParkingAccountLogin = {
   pin: string
   reportCode: string
 }
+
+export type SecureParkingAccount = ParkingAccountAuth & ParkingAccountLogin
 
 export enum ParkingEndpointName {
   login = 'login',

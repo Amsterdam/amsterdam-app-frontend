@@ -7,13 +7,13 @@ import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecurePa
 import {useLoginParkingMutation} from '@/modules/parking/service'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {
-  ParkingFormLoginFormData,
+  ParkingAccountLogin,
   ParkingLoginEndpointRequest,
 } from '@/modules/parking/types'
 
 export const ParkingLoginFormSubmitButton = () => {
   const {setCurrentAccountType} = useCurrentParkingAccount()
-  const {handleSubmit} = useFormContext<ParkingFormLoginFormData>()
+  const {handleSubmit} = useFormContext<ParkingAccountLogin>()
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
   const setSecureParkingAccount = useSetSecureParkingAccount()
@@ -30,7 +30,12 @@ export const ParkingLoginFormSubmitButton = () => {
       .unwrap()
       .then(({access_token, scope}) => {
         setCurrentAccountType(scope)
-        void setSecureParkingAccount({accessToken: access_token, scope})
+        void setSecureParkingAccount({
+          accessToken: access_token,
+          pin,
+          reportCode,
+          scope,
+        })
       })
   })
 

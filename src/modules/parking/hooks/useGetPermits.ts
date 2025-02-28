@@ -1,25 +1,23 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {useEffect} from 'react'
+import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {usePermitsQuery} from '@/modules/parking/service'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
-import {ParkingAccount, ParkingPermitScope} from '@/modules/parking/types'
-import {SecureItemKey} from '@/utils/secureStorage'
+import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 
 export const useGetPermits = () => {
-  const {currentAccountType} = useCurrentParkingAccount()
-  const {item: account} = useGetSecureItem(
-    currentAccountType === ParkingPermitScope.permitHolder
-      ? SecureItemKey.parkingPermitHolder
-      : SecureItemKey.parkingVisitor,
-  )
-
-  const parsedAccount = account
-    ? (JSON.parse(account) as ParkingAccount)
-    : undefined
+  const {currentPermitName, setCurrentPermitName} =
+    useCurrentParkingPermitName()
+  const {secureParkingAccount} = useGetSecureParkingAccount()
 
   const {data, isLoading} = usePermitsQuery(
-    parsedAccount ? parsedAccount.accessToken : skipToken,
+    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
   )
 
-  return {permits: data, isLoading}
+  useEffect(() => {
+    if (data && !currentPermitName) {
+      setCurrentPermitName(data[0].permit_name)
+    }
+  }, [currentPermitName, data, setCurrentPermitName])
+
+  return {permits: data, isLoading: !secureParkingAccount || isLoading}
 }
