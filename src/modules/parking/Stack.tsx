@@ -62,6 +62,7 @@ export const ParkingStack = () => {
             <Stack.Screen
               component={ParkingDashboardScreen}
               name={ParkingRouteName.dashboard}
+              options={{headerTitle: 'Aanmelden parkeren'}}
             />
           ) : attemptsLeft > 0 ? (
             <Stack.Screen
