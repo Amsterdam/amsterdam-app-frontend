@@ -8,6 +8,7 @@ import {RootState} from '@/store/types/rootState'
 
 export type ParkingState = {
   currentAccountType?: ParkingPermitScope
+  currentPermitName?: string
   /**
    * Whether the user is still completing the login steps
    */
@@ -17,6 +18,7 @@ export type ParkingState = {
 
 const initialState: ParkingState = {
   currentAccountType: undefined,
+  currentPermitName: undefined,
   isLoginStepsActive: false,
   shouldShowIntroScreen: true,
 }
@@ -30,6 +32,9 @@ export const parkingSlice = createSlice({
       {payload}: PayloadAction<ParkingPermitScope>,
     ) => {
       state.currentAccountType = payload
+    },
+    setCurrentPermitName: (state, {payload}: PayloadAction<string>) => {
+      state.currentPermitName = payload
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
@@ -48,6 +53,9 @@ export const {
 export const selectCurrentAccountType = (state: RootState) =>
   state[ReduxKey.parking].currentAccountType
 
+export const selectCurrentPermitName = (state: RootState) =>
+  state[ReduxKey.parking].currentPermitName
+
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
 
@@ -65,4 +73,17 @@ export const useCurrentParkingAccount = () => {
   )
 
   return {currentAccountType, setCurrentAccountType}
+}
+
+export const useCurrentParkingPermitName = () => {
+  const dispatch = useDispatch()
+  const currentPermitName = useSelector(selectCurrentPermitName)
+
+  const setCurrentPermitName = useCallback(
+    (permitName: string) =>
+      dispatch(parkingSlice.actions.setCurrentPermitName(permitName)),
+    [dispatch],
+  )
+
+  return {currentPermitName, setCurrentPermitName}
 }

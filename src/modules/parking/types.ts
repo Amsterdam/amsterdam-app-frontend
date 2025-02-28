@@ -30,7 +30,18 @@ export type ParkingLoginEndpointResponse = {
   scope: ParkingPermitScope
 }
 
-export type ParkingPermitsEndpointResponse = {
+export type PaymentZone = {
+  city: string
+  days: {
+    day_of_week: string
+    end_time: string
+    start_time: string
+  }[]
+  description: string
+  id: string
+}
+
+export type ParkingPermit = {
   discount: number
   forced_license_plate_list: boolean
   max_session_length_in_days: number
@@ -45,20 +56,7 @@ export type ParkingPermitsEndpointResponse = {
     currency: string
     value: number
   }
-  payment_zones: [
-    {
-      city: string
-      days: [
-        {
-          day_of_week: string
-          end_time: string
-          start_time: string
-        },
-      ]
-      description: string
-      id: string
-    },
-  ]
+  payment_zones: PaymentZone[]
   permit_name: string
   permit_type: string
   permit_zone: {
@@ -76,4 +74,6 @@ export type ParkingPermitsEndpointResponse = {
     report_code: number
   }
   visitor_account_allowed: boolean
-}[]
+}
+
+export type ParkingPermitsEndpointResponse = ParkingPermit[]
