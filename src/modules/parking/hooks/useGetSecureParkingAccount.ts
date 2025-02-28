@@ -1,26 +1,15 @@
-import {useState, useEffect} from 'react'
+import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
-import {SecureParkingAccount} from '@/modules/parking/types'
-import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
+import {ParkingPermitScope} from '@/modules/parking/types'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useGetSecureParkingAccount = () => {
-  const [isLoading, setIsLoading] = useState(true)
   const {currentAccountType} = useCurrentParkingAccount()
+  const {item, isLoading} = useGetSecureItem(
+    currentAccountType === ParkingPermitScope.permitHolder
+      ? SecureItemKey.parkingPermitHolder
+      : SecureItemKey.parkingVisitor,
+  )
 
-  const [secureParkingAccount, setSecureParkingAccount] =
-    useState<SecureParkingAccount>()
-
-  useEffect(() => {
-    setIsLoading(true)
-
-    if (currentAccountType) {
-      void getSecureParkingAccount(currentAccountType).then(account => {
-        setSecureParkingAccount(account)
-      })
-    }
-
-    setIsLoading(false)
-  }, [currentAccountType])
-
-  return {secureParkingAccount, isLoading}
+  return {secureParkingAccount: item, isLoading}
 }
