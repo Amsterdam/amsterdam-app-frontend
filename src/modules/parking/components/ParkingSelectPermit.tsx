@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -6,10 +7,22 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {useCurrentParkingPermitName} from '@/modules/parking/slice'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingSelectPermit = () => {
+  const {close} = useBottomSheet()
   const focusRef = useSetBottomSheetElementFocus()
   const {isLoading, permits} = useGetPermits()
+  const {setCurrentPermitName} = useCurrentParkingPermitName()
+
+  const onPress = useCallback(
+    (permitName: string) => {
+      setCurrentPermitName(permitName)
+      close()
+    },
+    [close, setCurrentPermitName],
+  )
 
   if (isLoading) {
     return <PleaseWait testID="ParkingSelectPermitPleaseWait" />
@@ -29,12 +42,13 @@ export const ParkingSelectPermit = () => {
           text="Parkeeraccount kiezen"
         />
         <Column>
-          {permits.map(permit => (
+          {permits.map(({permit_name}) => (
             <TopTaskButton
               iconName="documentCheckmark"
-              key={permit.permit_name}
+              key={permit_name}
+              onPress={() => onPress(permit_name)}
               testID="ParkingSelectPermitTopTaskButton"
-              title={permit.permit_name}
+              title={permit_name}
             />
           ))}
         </Column>

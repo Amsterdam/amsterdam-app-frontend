@@ -47,6 +47,9 @@ export const lightColorTokens = {
       border: baseColor.primary.red,
     },
   },
+  backgroundArea: {
+    primary: baseColor.primary.blue,
+  },
   badge: {
     background: baseColor.primary.red,
     border: baseColor.primary.white,
