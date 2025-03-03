@@ -106,16 +106,19 @@ export const ParkingStack = () => {
               <Stack.Screen
                 component={ParkingIntroScreen}
                 name={ParkingRouteName.intro}
+                options={{headerTitle: 'Aanmelden parkeren'}}
               />
               <Stack.Screen
                 component={ParkingLoginScreen}
                 name={ParkingRouteName.login}
+                options={{headerTitle: 'Inloggen'}}
               />
             </>
           ) : (
             <Stack.Screen
               component={ParkingLoginScreen}
               name={ParkingRouteName.login}
+              options={{headerTitle: 'Inloggen'}}
             />
           )}
           <Stack.Screen
