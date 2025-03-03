@@ -19,6 +19,7 @@ import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
+import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
 import {RestartLoginScreen} from '@/modules/parking/screens/RestartLogin.screen'
 import {SecureItemKey} from '@/utils/secureStorage'
 
@@ -105,18 +106,26 @@ export const ParkingStack = () => {
               <Stack.Screen
                 component={ParkingIntroScreen}
                 name={ParkingRouteName.intro}
+                options={{headerTitle: 'Aanmelden parkeren'}}
               />
               <Stack.Screen
                 component={ParkingLoginScreen}
                 name={ParkingRouteName.login}
+                options={{headerTitle: 'Inloggen'}}
               />
             </>
           ) : (
             <Stack.Screen
               component={ParkingLoginScreen}
               name={ParkingRouteName.login}
+              options={{headerTitle: 'Inloggen'}}
             />
           )}
+          <Stack.Screen
+            component={ParkingRequestPinCodeScreen}
+            name={ParkingRouteName.requestPinCode}
+            options={{headerTitle: 'Pincode vergeten'}}
+          />
         </>
       )}
     </Stack.Navigator>
