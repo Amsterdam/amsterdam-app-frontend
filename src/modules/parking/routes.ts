@@ -3,6 +3,7 @@ export enum ParkingRouteName {
   intro = 'ParkingIntro',
   login = 'ParkingLogin',
   loginSteps = 'ParkingLoginSteps',
+  requestPinCode = 'ParkingRequestPinCode',
   restartLogin = 'ParkingRestartLogin',
 }
 
@@ -11,5 +12,6 @@ export type ParkingStackParams = {
   [ParkingRouteName.intro]: undefined
   [ParkingRouteName.login]: undefined
   [ParkingRouteName.loginSteps]: undefined
+  [ParkingRouteName.requestPinCode]: undefined
   [ParkingRouteName.restartLogin]: undefined
 }
