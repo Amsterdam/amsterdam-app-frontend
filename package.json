@@ -52,6 +52,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "expo": "^52.0.23",
+    "expo-brightness": "~12.0.1",
     "expo-clipboard": "~7.0.0",
     "expo-document-picker": "~13.0.1",
     "expo-file-system": "~18.0.6",
@@ -72,6 +73,7 @@
     "react-native-bootsplash": "^6.3.2",
     "react-native-build-config": "^0.3.2",
     "react-native-device-info": "^14.0.0",
+    "react-native-edge-to-edge": "^1.4.3",
     "react-native-fast-image": "^8.6.3",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.21.1",
@@ -94,8 +96,7 @@
     "react-native-webview": "^13.13.2",
     "react-redux": "^8.1.3",
     "redux-persist": "^6.0.0",
-    "simplur": "^3.0.1",
-    "expo-brightness": "~12.0.1"
+    "simplur": "^3.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
