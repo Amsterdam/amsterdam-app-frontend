@@ -14,6 +14,7 @@ export const screenConfig: StackNavigationRoutes<
     component: ContactScreen,
     name: ContactRouteName.contact,
     options: {
+      headerShown: false,
       headerTitle: 'Contact',
     },
   },
