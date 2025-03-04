@@ -87,6 +87,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         method: 'POST',
         slug: ModuleSlug['city-pass'],
         url: '/session/logout',
+        afterError,
       }),
     }),
     [CityPassEndpointName.refreshToken]: builder.mutation<
