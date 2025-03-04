@@ -17,9 +17,7 @@ import {Permissions} from '@/types/permissions'
 export const useAccessCodeBiometrics = () => {
   const [isEnrolled, setIsEnrolled] = useState(false)
   const dispatch = useDispatch()
-  const {hasPermission, requestPermission} = usePermission(
-    Permissions.biometrics,
-  )
+  const {requestPermission} = usePermission(Permissions.biometrics)
   const [isLoading, setIsLoading] = useState(true)
   const useBiometrics = useSelector(selectUseBiometrics)
 
@@ -70,7 +68,6 @@ export const useAccessCodeBiometrics = () => {
   return {
     biometricsAuthenticationType,
     biometricsLabel,
-    hasIOSFaceIDPermission: hasPermission,
     iconName,
     isEnrolled,
     isLoading,
