@@ -1,8 +1,6 @@
 import {StackNavigationOptions} from '@react-navigation/stack'
 import {StatusBar} from 'react-native'
 import {Header} from '@/components/features/header/Header'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectIsBottomSheetPresentRouteNames} from '@/store/slices/bottomSheet'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 export type CustomScreenOptions = {
@@ -19,9 +17,6 @@ export const useScreenOptions = ({
   isBelowStatusBar = false,
 }: CustomScreenOptions = {}): StackNavigationOptions => {
   const theme = useTheme()
-  const isBottomSheetPresentRouteNames = useSelector(
-    selectIsBottomSheetPresentRouteNames,
-  )
   const backgroundColor = theme.color.screen.background[screenType]
 
   return {
@@ -29,13 +24,12 @@ export const useScreenOptions = ({
       backgroundColor,
       paddingTop: isBelowStatusBar ? StatusBar.currentHeight : undefined,
     },
-    header: props =>
-      isBottomSheetPresentRouteNames.includes(props.route.name) ? null : (
-        <Header
-          {...props}
-          backgroundColor={backgroundColor}
-        />
-      ),
+    header: props => (
+      <Header
+        {...props}
+        backgroundColor={backgroundColor}
+      />
+    ),
     headerMode: 'screen',
   }
 }

@@ -12,7 +12,6 @@ import {StyleSheet, View} from 'react-native'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
-import {useRoute} from '@/hooks/navigation/useRoute'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useScreen} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
@@ -64,14 +63,7 @@ type Props = Partial<
 > & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
 
 const useBottomSheetHandler = () => {
-  const {name: routeName} = useRoute()
-  const {
-    close,
-    isOpen,
-    open,
-    addIsPresentAtRouteName,
-    removeIsPresentAtRouteName,
-  } = useBottomSheet()
+  const {close, isOpen, open} = useBottomSheet()
   const {setHideContentFromAccessibility} = useScreen()
   const ref = useRef<BottomSheetOriginal>(null)
 
@@ -92,14 +84,6 @@ const useBottomSheetHandler = () => {
     isOpen ? ref.current?.expand() : ref.current?.close()
     setHideContentFromAccessibility(isOpen)
   }, [isOpen, setHideContentFromAccessibility])
-
-  useEffect(() => {
-    addIsPresentAtRouteName(routeName)
-
-    return () => {
-      removeIsPresentAtRouteName(routeName)
-    }
-  }, [addIsPresentAtRouteName, routeName, removeIsPresentAtRouteName])
 
   return {
     isOpen,
