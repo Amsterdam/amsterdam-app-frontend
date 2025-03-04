@@ -23,9 +23,8 @@ export const BudgetTransactions = ({
   dateEnd,
   passNumber,
 }: Props) => {
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
+  const {item: secureAccessToken, isLoading: isLoadingSecureAccessToken} =
+    useGetSecureItem(SecureItemKey.cityPassAccessToken)
 
   const {
     data: budgetTransactions,
@@ -37,7 +36,7 @@ export const BudgetTransactions = ({
       : skipToken,
   )
 
-  if (isLoading) {
+  if (isLoading || isLoadingSecureAccessToken) {
     return <PleaseWait testID="CityPassBudgetPleaseWait" />
   }
 

@@ -1,7 +1,6 @@
-import {AuthenticationType} from 'expo-local-authentication'
 import {OrientationLock} from 'expo-screen-orientation'
 import {useCallback, useMemo} from 'react'
-import {View, StyleSheet, Platform} from 'react-native'
+import {View, StyleSheet} from 'react-native'
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -26,13 +25,7 @@ type Props = {
 export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
   const insets = useSafeAreaInsets()
   const styles = useThemable(createStyles(insets))
-  const {
-    biometricsAuthenticationType,
-    iconName,
-    isEnrolled,
-    hasIOSFaceIDPermission,
-    useBiometrics,
-  } = useAccessCodeBiometrics()
+  const {iconName, isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {addDigit, removeDigit} = useAccessCode()
   const accessibilityAnnounce = useAccessibilityAnnounce()
   const {codeEntered} = useEnterAccessCode()
@@ -119,11 +112,6 @@ export const AccessCodeKeyBoard = ({onPressAuthenticate, type}: Props) => {
             gutter="sm">
             {!!useBiometrics &&
               !!isEnrolled &&
-              (Platform.OS === 'android' ||
-                biometricsAuthenticationType?.includes(
-                  AuthenticationType.FINGERPRINT,
-                ) ||
-                !!hasIOSFaceIDPermission) &&
               type === AccessCodeType.codeEntered &&
               !!iconName && (
                 <AccessCodeKeyBoardKey

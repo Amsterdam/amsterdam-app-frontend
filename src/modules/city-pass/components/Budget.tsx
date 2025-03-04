@@ -19,9 +19,8 @@ type Props = {
 }
 
 export const Budget = ({budgetCode, passNumber}: Props) => {
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
+  const {item: secureAccessToken, isLoading: isLoadingSecureAccessToken} =
+    useGetSecureItem(SecureItemKey.cityPassAccessToken)
 
   const {
     data: cityPasses,
@@ -34,7 +33,7 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
 
   useSetScreenTitle(cityPass?.owner.firstname)
 
-  if (isLoading) {
+  if (isLoading || isLoadingSecureAccessToken) {
     return <PleaseWait testID="CityPassDashboardPleaseWait" />
   }
 
