@@ -63,6 +63,7 @@ export const WebView = forwardRef<WebViewRN, Props>(
     return (
       <WebViewRN
         containerStyle={!!grow && styles.grow}
+        nestedScrollEnabled
         ref={ref}
         renderLoading={() => (
           <Column grow={1}>
