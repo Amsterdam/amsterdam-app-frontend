@@ -19,13 +19,12 @@ export const LogoutScreen = ({navigation}: Props) => {
   const onLogout = useCallback(() => {
     logout()
       .then(() => {
-        // navigate back, so the user does not open the logout screen directly when he logs in again
-        navigation.goBack()
+        // Do nothing
       })
       .catch(() => {
         setAlert(alerts.logoutFailed)
       })
-  }, [logout, navigation, setAlert])
+  }, [logout, setAlert])
 
   const cancel = useCallback(() => {
     navigation.goBack()
