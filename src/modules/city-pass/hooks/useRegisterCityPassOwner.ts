@@ -3,7 +3,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {alerts} from '@/modules/city-pass/alerts'
 import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {LoginResult} from '@/modules/city-pass/types'
+import {LoginResult, RedirectErrorCodes} from '@/modules/city-pass/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
@@ -12,7 +12,7 @@ import {SecureItemKey} from '@/utils/secureStorage'
 type Params = {
   deeplinkAccessToken?: string
   deeplinkRefreshToken?: string
-  errorCode?: string
+  errorCode?: RedirectErrorCodes
   errorMessage?: string
   loginResult?: string
 }
@@ -46,7 +46,11 @@ export const useRegisterCityPassOwner = ({
       }
     } else if (loginResult === LoginResult.failed) {
       dispatch(setIsCityPassOwnerRegistered(false))
-      setAlert(alerts.retrievePassesFailed)
+      setAlert(
+        errorCode === RedirectErrorCodes['Geen administratienummer gevonden']
+          ? alerts.noPassesInfo
+          : alerts.retrievePassesFailed,
+      )
       trackException(ExceptionLogKey.deepLink, 'LoginSteps.screen.tsx', {
         error: {
           deeplinkAccessToken,

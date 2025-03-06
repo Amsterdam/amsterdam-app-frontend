@@ -1,4 +1,8 @@
-import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
+import {
+  CityPass,
+  CityPassBudget,
+  RedirectErrorCodes,
+} from '@/modules/city-pass/types'
 
 export enum CityPassRouteName {
   budget = 'Budget',
@@ -26,7 +30,7 @@ export type CityPassStackParams = {
     | {
         accessToken?: string
         'amp;errorCode'?: string
-        errorCode?: string
+        errorCode?: RedirectErrorCodes
         errorMessage?: string
         loginResult?: string
         refreshToken?: string

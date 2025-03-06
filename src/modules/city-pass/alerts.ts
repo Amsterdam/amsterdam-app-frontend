@@ -36,6 +36,14 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'CityPassLoggedInAlertNegative',
   },
+  noPassesInfo: {
+    variant: AlertVariant.information,
+    text: 'De Stadspas is voor Amsterdammers met een laag inkomen en weinig vermogen.',
+    title: 'U hebt geen Stadspas',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'CityPassNoPassesInformationAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts
