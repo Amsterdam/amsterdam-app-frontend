@@ -18,6 +18,7 @@ import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCit
 import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
+import {RedirectErrorCodes} from '@/modules/city-pass/types'
 import {UserRouteName} from '@/modules/user/routes'
 
 type Props = NavigationProps<CityPassRouteName.loginSteps>
@@ -51,7 +52,9 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
     loginResult,
     deeplinkAccessToken,
     deeplinkRefreshToken,
-    errorCode: errorCode ? errorCode : route.params?.['amp;errorCode'], // TODO: remove this once fixed at Mijn Amsterdam
+    errorCode: errorCode
+      ? errorCode
+      : (route.params?.['amp;errorCode'] as RedirectErrorCodes), // TODO: remove this once fixed at Mijn Amsterdam
     errorMessage,
   })
 
