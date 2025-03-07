@@ -20,7 +20,7 @@ export const ParkingLoginScreen = ({navigation: {navigate}}: Props) => (
         <Column gutter="lg">
           <Title
             level="h2"
-            text="Inloggen Aanmelden Parkeren"
+            text="Inloggen Aanmelden parkeren"
           />
           <ParkingLoginForm />
           <Button

@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 
 type Props = {
   isAccessible?: boolean
@@ -12,6 +12,10 @@ export const Label = ({isAccessible, text}: Props) => (
     accessibilityLanguage="nl-NL"
     importantForAccessibility={!isAccessible ? 'no-hide-descendants' : 'auto'} // in case of Android
   >
-    <Paragraph>{text}</Paragraph>
+    <Phrase
+      emphasis="strong"
+      testID="TextInputLabel">
+      {text}
+    </Phrase>
   </View>
 )
