@@ -10,6 +10,9 @@ import {ParkingPermitDetail} from '@/modules/parking/components/ParkingPermitDet
 import {ParkingPermitSessions} from '@/modules/parking/components/ParkingPermitSessions'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
+import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/buttons/ParkingDashboardNavigationButtons'
+import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/buttons/ParkingPaymentByVisitorButton'
+import {ParkingStartSessionButton} from '@/modules/parking/components/buttons/ParkingStartSessionButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 
 export const ParkingDashboardScreen = () => {
@@ -41,6 +44,11 @@ export const ParkingDashboardScreen = () => {
         <Column gutter="lg">
           <ParkingPermitTopTaskButton />
           <ParkingPermitSessions />
+          <Column gutter="md">
+            <ParkingStartSessionButton />
+            <ParkingPaymentByVisitorButton />
+          </Column>
+          <ParkingDashboardNavigationButtons />
           <ParkingPermitBalance />
           <ParkingPermitDetail />
         </Column>
