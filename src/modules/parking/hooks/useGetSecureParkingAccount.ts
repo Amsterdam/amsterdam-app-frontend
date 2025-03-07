@@ -1,6 +1,6 @@
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
-import {ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingPermitScope, SecureParkingAccount} from '@/modules/parking/types'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useGetSecureParkingAccount = () => {
@@ -11,5 +11,10 @@ export const useGetSecureParkingAccount = () => {
       : SecureItemKey.parkingVisitor,
   )
 
-  return {secureParkingAccount: item, isLoading}
+  return {
+    secureParkingAccount: item
+      ? (JSON.parse(item) as SecureParkingAccount)
+      : undefined,
+    isLoading,
+  }
 }
