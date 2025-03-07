@@ -14,8 +14,10 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
   }
 
   const {permit_name, time_balance, parking_rate} = permit
+  const timeBalanceHoursMinutes =
+    convertMillisecondsToHoursAndMinutes(time_balance)
   const timeBalance = time_balance
-    ? convertMillisecondsToHoursAndMinutes(time_balance)
+    ? `${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`
     : 'Onbeperkt'
   const parkingRate = parking_rate.value
     ? `${formatNumber(parking_rate.value, true)} per uur`

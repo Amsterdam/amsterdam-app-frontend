@@ -3,13 +3,15 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingPermitBalanceMoney} from '@/modules/parking/components/ParkingPermitBalanceMoney'
 import {ParkingPermitBalanceTime} from '@/modules/parking/components/ParkingPermitBalanceTime'
 import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 
 export const ParkingPermitBalance = () => {
-  const {secureParkingAccount} = useGetSecureParkingAccount()
+  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
+    useGetSecureParkingAccount()
   const {currentPermit} = useGetCurrentPermit()
 
   const {data, isLoading} = useAccountDetailsQuery(
@@ -24,7 +26,7 @@ export const ParkingPermitBalance = () => {
     return null
   }
 
-  if (isLoading) {
+  if (isLoadingSecureParkingAccount || isLoading) {
     return <PleaseWait testID="ParkingPermitBalancePleaseWait" />
   }
 
@@ -41,6 +43,7 @@ export const ParkingPermitBalance = () => {
         text="Uw saldo"
       />
       <ParkingPermitBalanceTime />
+      <ParkingPermitBalanceMoney />
     </Column>
   )
 }

@@ -17,6 +17,10 @@ export const ParkingPermitBalanceTime = () => {
     return null
   }
 
+  const timeBalanceHoursMinutes = convertMillisecondsToHoursAndMinutes(
+    currentPermit.time_balance,
+  )
+
   return (
     <Column gutter="xs">
       <Row
@@ -30,7 +34,7 @@ export const ParkingPermitBalanceTime = () => {
         <Phrase
           emphasis="strong"
           testID="ParkingPermitBalanceTimeTitlePhrase">
-          {convertMillisecondsToHoursAndMinutes(currentPermit.time_balance)}
+          {`${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`}
         </Phrase>
       </Row>
       <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
