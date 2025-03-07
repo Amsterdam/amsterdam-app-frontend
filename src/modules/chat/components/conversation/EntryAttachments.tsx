@@ -37,8 +37,7 @@ export const EntryAttachments = ({message}: Props) => {
             message={message}>
             <Row
               grow={1}
-              gutter="sm"
-              valign="center">
+              gutter="sm">
               <Icon
                 color={isAgent ? 'link' : 'inverse'}
                 name="document"

@@ -66,9 +66,7 @@ export const Button = ({
       style={styles.button}
       testID={testID}
       {...pressableProps}>
-      <Row
-        gutter="sm"
-        valign="center">
+      <Row gutter="sm">
         {!!iconName && (
           <Icon
             color={variant === 'primary' ? 'inverse' : 'link'}

@@ -30,9 +30,7 @@ export const SuggestionButton = ({
     logging-label={loggingLabel}
     onPress={() => selectResult(pdokAddress)}
     testID={testID}>
-    <Row
-      gutter="sm"
-      valign="center">
+    <Row gutter="sm">
       <Icon
         color="link"
         logging-label={`${loggingLabel ?? ''}Icon`}

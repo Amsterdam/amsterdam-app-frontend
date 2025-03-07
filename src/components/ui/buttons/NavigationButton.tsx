@@ -39,8 +39,7 @@ export const NavigationButton = ({
       insetVertical="sm">
       <Row
         align="between"
-        gutter="md"
-        valign="center">
+        gutter="md">
         {direction === 'backward' && (
           <Icon
             color="link"
@@ -51,8 +50,7 @@ export const NavigationButton = ({
         )}
         <Row
           gutter="md"
-          shrink={0}
-          valign="center">
+          shrink={0}>
           {!!icon && (
             <Icon
               color="link"

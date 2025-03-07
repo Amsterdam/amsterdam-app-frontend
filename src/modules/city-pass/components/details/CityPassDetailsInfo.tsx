@@ -26,8 +26,7 @@ export const CityPassDetailsInfo = ({cityPass}: Props) => {
       {!!securityCode && (
         <Row
           align="between"
-          gutter="md"
-          valign="center">
+          gutter="md">
           <HideFromAccessibility>
             <Phrase testID="CityPassCityPassDetailsSecurityCodeLabel">
               Beveiligingscode

@@ -95,9 +95,7 @@ export const NotificationHistoryItem = ({
                 testID={`NotificationHistoryItem${id}Title`}
                 text={title}
               />
-              <Row
-                gutter="sm"
-                valign="center">
+              <Row gutter="sm">
                 <Phrase
                   color="secondary"
                   numberOfLines={1}

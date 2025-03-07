@@ -40,8 +40,7 @@ const DeleteButton = ({
       grow={1}>
       <Row
         align="end"
-        gutter="sm"
-        valign="center">
+        gutter="sm">
         <Phrase
           color="inverse"
           testID={`${testID}Phrase`}

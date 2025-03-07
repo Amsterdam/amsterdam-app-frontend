@@ -156,7 +156,7 @@ const createStyles = (
     },
     overlay: {
       flex: 1,
-      backgroundColor: color.box.distinct,
+      backgroundColor: color.box.background.distinct,
       justifyContent: 'center',
       zIndex: z.overlay,
       paddingTop: Platform.OS === 'android' ? 0 : insets.top,

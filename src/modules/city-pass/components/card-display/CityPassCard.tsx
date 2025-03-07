@@ -79,7 +79,7 @@ export const CityPassCard = ({
             </Paragraph>
           )}
         </Column>
-        <Row valign="center">
+        <Row>
           <Icon
             color="link"
             name="chevron-right"

@@ -63,9 +63,7 @@ export const NoInternet = memo(() => {
               <Box
                 insetHorizontal="md"
                 insetVertical="sm">
-                <Row
-                  align="between"
-                  valign="center">
+                <Row align="between">
                   <Icon
                     color="inverse"
                     name="wifi-disconnect"

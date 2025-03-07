@@ -47,9 +47,7 @@ const ModuleSettingContent = ({
 
   return (
     <Column gutter="sm">
-      <Row
-        gutter="sm"
-        valign="center">
+      <Row gutter="sm">
         {!!iconName && (
           <Icon
             color={color}

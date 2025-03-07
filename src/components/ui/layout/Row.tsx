@@ -50,7 +50,7 @@ export const Row = ({
   gutter,
   reverse,
   shrink = 1,
-  valign,
+  valign = 'center',
   vgutter,
   wrap,
   zIndex,

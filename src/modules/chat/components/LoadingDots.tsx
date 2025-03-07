@@ -66,8 +66,7 @@ export const LoadingDots = ({
   return (
     <Row
       align="center"
-      gutter="xs"
-      valign="center">
+      gutter="xs">
       {Array.from({length: 3}).map((_dot, index) => (
         <Dot
           activeSize={dotActiveSize}
