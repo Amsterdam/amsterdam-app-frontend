@@ -1,10 +1,13 @@
 import {Screen} from '@/components/features/screen/Screen'
+import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {ParkingPermitBalance} from '@/modules/parking/components/ParkingPermitBalance'
 import {ParkingPermitDetail} from '@/modules/parking/components/ParkingPermitDetail'
+import {ParkingPermitSessions} from '@/modules/parking/components/ParkingPermitSessions'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
@@ -30,11 +33,17 @@ export const ParkingDashboardScreen = () => {
         </BottomSheet>
       }
       testID="ParkingDashboardScreen">
-      <Column gutter="md">
-        <ParkingPermitTopTaskButton />
-      </Column>
+      <BackgroundColorArea
+        color="primary"
+        height={240}
+      />
       <Box>
-        <ParkingPermitDetail />
+        <Column gutter="lg">
+          <ParkingPermitTopTaskButton />
+          <ParkingPermitSessions />
+          <ParkingPermitBalance />
+          <ParkingPermitDetail />
+        </Column>
       </Box>
     </Screen>
   )

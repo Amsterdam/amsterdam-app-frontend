@@ -1,4 +1,5 @@
 import {
+  ParkingAccountDetails,
   ParkingEndpointName,
   ParkingLoginEndpointRequest,
   ParkingLoginEndpointResponse,
@@ -26,6 +27,20 @@ const afterError: AfterBaseQueryErrorFn = async (
 
 export const parkingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    [ParkingEndpointName.accountDetails]: builder.query<
+      ParkingAccountDetails,
+      string
+    >({
+      query: (accessToken: string) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        slug: ModuleSlug.parking,
+        url: '/account-details',
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.login]: builder.mutation<
       ParkingLoginEndpointResponse,
       ParkingLoginEndpointRequest
@@ -55,5 +70,8 @@ export const parkingApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 
-export const {useLoginMutation: useLoginParkingMutation, usePermitsQuery} =
-  parkingApi
+export const {
+  useAccountDetailsQuery,
+  useLoginMutation: useLoginParkingMutation,
+  usePermitsQuery,
+} = parkingApi

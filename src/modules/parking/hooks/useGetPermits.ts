@@ -3,7 +3,6 @@ import {useEffect} from 'react'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {usePermitsQuery} from '@/modules/parking/service'
 import {useCurrentParkingPermitName} from '@/modules/parking/slice'
-import {SecureParkingAccount} from '@/modules/parking/types'
 
 export const useGetPermits = () => {
   const {currentPermitName, setCurrentPermitName} =
@@ -12,9 +11,7 @@ export const useGetPermits = () => {
     useGetSecureParkingAccount()
 
   const {data, isLoading} = usePermitsQuery(
-    secureParkingAccount
-      ? (JSON.parse(secureParkingAccount) as SecureParkingAccount).accessToken
-      : skipToken,
+    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
   )
 
   useEffect(() => {

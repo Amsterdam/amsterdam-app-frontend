@@ -1,6 +1,7 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {Title} from '@/components/ui/text/Title'
 import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/ParkingPermitDetailPermitZone'
 import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/ParkingPermitDetailTimeBalance'
 import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/ParkingPermitDetailTimeFrame'
@@ -18,7 +19,11 @@ export const ParkingPermitDetail = () => {
   }
 
   return (
-    <Column gutter="lg">
+    <Column gutter="md">
+      <Title
+        level="h2"
+        text="Uw vergunning"
+      />
       <ParkingPermitDetailTimeBalance permit={currentPermit} />
       <ParkingPermitDetailPermitZone permit={currentPermit} />
       <ParkingPermitDetailTimeFrame permit={currentPermit} />

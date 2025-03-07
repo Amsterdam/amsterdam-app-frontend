@@ -3,7 +3,10 @@ import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof ParkingState)[] = ['currentAccountType']
+const persistWhitelist: (keyof ParkingState)[] = [
+  'currentAccountType',
+  'currentPermitName',
+]
 
 export const parkingModule: ModuleClientConfig = {
   name: 'ParkingModule',
