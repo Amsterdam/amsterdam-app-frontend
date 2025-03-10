@@ -41,7 +41,7 @@ export const ParkingDashboardScreen = () => {
         height={240}
       />
       <Box>
-        <Column gutter="lg">
+        <Column gutter="xl">
           <ParkingPermitTopTaskButton />
           <ParkingPermitSessions />
           <Column gutter="md">
