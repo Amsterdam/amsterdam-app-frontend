@@ -9,7 +9,7 @@ const displayPaymentTimeFrame = (paymentZones: PaymentZone[]) =>
       .filter(day => day.day_of_week.toLowerCase() === dayjs().format('dddd'))
       .map(day => ({
         key: day.day_of_week,
-        phrase: `${day.start_time} tot ${day.end_time}`,
+        phrase: `${day.start_time.replace(/:/g, '.')} tot ${day.end_time.replace(/:/g, '.')}`,
       })),
   )
 
