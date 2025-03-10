@@ -72,7 +72,9 @@ export const AlertBase = ({
                 accessibilityLabel={accessibleText(title, text)}
                 accessibilityLanguage="nl-NL"
                 accessibilityRole="alert">
-                <Row gutter="md">
+                <Row
+                  gutter="md"
+                  valign="start">
                   {!!hasIcon && (
                     <View style={styles?.iconWrapper}>
                       <Icon
