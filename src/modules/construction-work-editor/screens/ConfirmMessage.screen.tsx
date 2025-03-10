@@ -138,9 +138,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               onPress={onSubmit}
               testID="ConstructionWorkEditorCreateMessageSubmitButton"
             />
-            <Row
-              align="between"
-              valign="center">
+            <Row align="between">
               <Link
                 label="Vorige"
                 onPress={navigation.goBack}

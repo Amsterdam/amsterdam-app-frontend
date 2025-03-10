@@ -32,9 +32,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
       <Border color="cityPass">
         <Column>
           <Box variant="city-pass">
-            <Row
-              gutter="md"
-              valign="center">
+            <Row gutter="md">
               <BalanceSvg />
               <Column shrink={1}>
                 <Phrase
@@ -54,9 +52,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
           <Box
             insetHorizontal="md"
             insetVertical="sm">
-            <Row
-              align="between"
-              valign="center">
+            <Row align="between">
               <Phrase
                 color="cityPass"
                 emphasis="strong"

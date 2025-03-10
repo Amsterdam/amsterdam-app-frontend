@@ -27,9 +27,7 @@ export const IconButton = forwardRef<View, Props>(
       (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
     return (
-      <Row
-        align="start"
-        valign="center">
+      <Row align="start">
         <Pressable
           accessibilityLanguage="nl-NL"
           accessibilityRole="button"

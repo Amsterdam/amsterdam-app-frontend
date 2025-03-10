@@ -6,8 +6,9 @@ import {SpacingTokens} from '@/themes/tokens/size'
 import {useThemable} from '@/themes/useThemable'
 
 export type BoxProps = {
-  borderColor?: keyof Theme['color']['border']
+  borderColor?: keyof Theme['color']['box']['border']
   borderStyle?: 'dashed' | 'dotted' | 'solid'
+  borderWidth?: keyof Theme['border']['width']
   children: ReactNode
   /**
    * Whether the box has a background color, setting it apart from its surroundings. In light mode, it is white.
@@ -53,6 +54,7 @@ export const Box = memo(
   ({
     borderColor,
     borderStyle,
+    borderWidth,
     children,
     distinct,
     grow,
@@ -69,6 +71,7 @@ export const Box = memo(
       createStyles({
         borderColor,
         borderStyle,
+        borderWidth,
         distinct,
         inset,
         insetHorizontal,
@@ -94,6 +97,7 @@ const createStyles =
   ({
     borderColor,
     borderStyle,
+    borderWidth,
     distinct,
     inset,
     insetHorizontal,
@@ -103,18 +107,18 @@ const createStyles =
     shrink,
     variant,
   }: Partial<BoxProps>) =>
-  ({color, size}: Theme) =>
+  ({border, color, size}: Theme) =>
     StyleSheet.create({
       box: {
         flexShrink: shrink,
         backgroundColor: distinct
-          ? color.box.distinct
+          ? color.box.background.distinct
           : variant === 'city-pass'
-            ? color.box.cityPass
+            ? color.box.background.cityPass
             : undefined,
-        borderColor: borderColor ? color.border[borderColor] : undefined,
+        borderColor: borderColor ? color.box.border[borderColor] : undefined,
         borderStyle,
-        borderWidth: borderStyle ? 1 : undefined,
+        borderWidth: borderWidth ? border.width[borderWidth] : undefined,
         padding:
           inset &&
           !insetHorizontal &&

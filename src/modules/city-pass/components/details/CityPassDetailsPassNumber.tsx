@@ -36,7 +36,6 @@ export const CityPassDetailsPassNumber = ({passNumberComplete}: Props) => {
       <Row
         align="between"
         gutter="sm"
-        valign="center"
         vgutter="sm"
         wrap>
         <HideFromAccessibility>
@@ -44,9 +43,7 @@ export const CityPassDetailsPassNumber = ({passNumberComplete}: Props) => {
             Pasnummer
           </Phrase>
         </HideFromAccessibility>
-        <Row
-          gutter="sm"
-          valign="center">
+        <Row gutter="sm">
           <Phrase
             color={isPassNumberCopied ? 'confirm' : undefined}
             emphasis="strong"

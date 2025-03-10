@@ -35,9 +35,7 @@ export const HeaderContent = ({
   })
 
   return (
-    <Row
-      gutter="lg"
-      valign="center">
+    <Row gutter="lg">
       <View
         accessible
         ref={accessibilityAutoFocusRef}

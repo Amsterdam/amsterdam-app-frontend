@@ -74,9 +74,7 @@ export const Fraction = ({fraction, testID}: Props) => {
 
   return (
     <Column gutter="md">
-      <Row
-        gutter="sm"
-        valign="center">
+      <Row gutter="sm">
         <WasteFractionIcon
           fractionCode={afvalwijzerFractieCode}
           testID={`${testID}Icon`}

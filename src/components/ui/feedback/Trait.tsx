@@ -33,9 +33,7 @@ export const Trait = ({
   label,
   testID,
 }: Props) => (
-  <Row
-    gutter="sm"
-    valign="center">
+  <Row gutter="sm">
     {iconName ? (
       <Icon
         name={iconName}

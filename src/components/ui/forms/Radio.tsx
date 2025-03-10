@@ -59,9 +59,7 @@ export const Radio = ({
     accessibilityState={{selected: isSelected}}
     onPress={onPress}
     testID={testID}>
-    <Row
-      gutter="sm"
-      valign="center">
+    <Row gutter="sm">
       <RadioIndicator checked={isSelected} />
       <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
     </Row>

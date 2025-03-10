@@ -7,8 +7,7 @@ export const HeaderForHome = () => (
   <HeaderBase>
     <Row
       align="between"
-      gutter="md"
-      valign="center">
+      gutter="md">
       <AmsterdamLogoSvg
         accessibilityLabel="Gemeente Amsterdam"
         accessibilityRole="header"

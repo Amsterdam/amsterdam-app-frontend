@@ -49,7 +49,7 @@ export const InformationButton = ({
         grow={1}
         gutter="xs"
         shrink={1}>
-        <Row valign="center">
+        <Row>
           <Title
             color={variant === 'inverse' ? 'inverse' : 'link'}
             level="h4"

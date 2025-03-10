@@ -23,9 +23,7 @@ export const ParkingPermitBalanceTime = () => {
 
   return (
     <Column gutter="xs">
-      <Row
-        align="between"
-        valign="center">
+      <Row align="between">
         <Phrase
           emphasis="strong"
           testID="ParkingPermitBalanceTimeTitlePhrase">

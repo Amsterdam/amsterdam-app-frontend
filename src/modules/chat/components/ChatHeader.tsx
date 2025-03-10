@@ -86,9 +86,7 @@ export const ChatHeader = () => {
         onPress={toggleVisibility}
         style={styles.pressableWhenMinimized}>
         <Box testID="ChatHeader">
-          <Row
-            align="between"
-            valign="center">
+          <Row align="between">
             <Animated.View style={menuIconStyle}>
               <IconButton
                 accessibilityLabel={`Chat menu ${isMenuOpen ? 'sluiten' : 'openen'}.`}
@@ -103,9 +101,7 @@ export const ChatHeader = () => {
               />
             </Animated.View>
             <View accessible>
-              <Row
-                gutter="xs"
-                valign="center">
+              <Row gutter="xs">
                 <ScreenHeaderTitle text="Chat" />
                 <NewMessageIndicator />
               </Row>

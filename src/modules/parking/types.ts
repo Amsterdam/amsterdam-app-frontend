@@ -30,6 +30,11 @@ export type ParkingAccountLogin = {
   reportCode: string
 }
 
+export type ParkingLicensePlate = {
+  vehicle_id: string
+  visitor_name?: string
+}
+
 export type RequestPinCode = {
   phoneLastFourDigits: string
   reportCode: string
@@ -39,8 +44,10 @@ export type SecureParkingAccount = ParkingAccountAuth & ParkingAccountLogin
 
 export enum ParkingEndpointName {
   accountDetails = 'accountDetails',
+  licensePlates = 'licensePlates',
   login = 'login',
   permits = 'permits',
+  removeLicensePlate = 'removeLicensePlate',
 }
 
 export enum ParkingPermitScope {
@@ -56,6 +63,24 @@ export type ParkingLoginEndpointRequest = {
 export type ParkingLoginEndpointResponse = {
   access_token: string
   scope: ParkingPermitScope
+}
+
+export type ParkingLicensePlatesEndpointRequest = {
+  accessToken: string
+  reportCode: string
+}
+
+export type ParkingLicensePlatesEndpointResponse = ParkingLicensePlate[]
+
+export type ParkingRemoveLicensePlateEndpointRequest = {
+  accessToken: string
+  report_code: string
+  vehicle_id: string
+}
+
+export type ParkingRemoveLicensePlateEndpointResponse = {
+  report_code: string
+  vehicle_id: string
 }
 
 export type PaymentZone = {

@@ -15,8 +15,8 @@ import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.s
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {useShouldShowIntroScreen} from '@/modules/parking/hooks/useShouldShowIntroScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {parkingScreenConfig} from '@/modules/parking/screenConfig'
 import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
-import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
@@ -60,11 +60,12 @@ export const ParkingStack = () => {
       ) : securePermitHolder || secureVisitor ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
-            <Stack.Screen
-              component={ParkingDashboardScreen}
-              name={ParkingRouteName.dashboard}
-              options={{headerShown: false, headerTitle: 'Aanmelden parkeren'}}
-            />
+            Object.entries(parkingScreenConfig).map(([key, route]) => (
+              <Stack.Screen
+                key={key}
+                {...route}
+              />
+            ))
           ) : attemptsLeft > 0 ? (
             <Stack.Screen
               component={AccessCodeScreen}

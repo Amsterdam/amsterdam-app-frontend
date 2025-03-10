@@ -36,7 +36,7 @@ export const WasteCardScreen = () => {
           </Column>
         </Box>
       ) : (
-        <Row valign="center">
+        <Row>
           <WasteCardSvg />
           <Box shrink={1}>
             <Column

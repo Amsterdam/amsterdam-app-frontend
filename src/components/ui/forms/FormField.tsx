@@ -24,9 +24,7 @@ export const FormField = ({
   const labelComponent = <Label>{label}</Label>
 
   return (
-    <Row
-      gutter="md"
-      valign="center">
+    <Row gutter="md">
       {labelPosition === 'start' && labelComponent}
       {children}
       {labelPosition === 'end' && labelComponent}

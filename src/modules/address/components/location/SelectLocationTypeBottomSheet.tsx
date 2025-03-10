@@ -81,9 +81,7 @@ export const SelectLocationTypeBottomSheet = ({
     <BottomSheet testID="SelectLocationTypeBottomSheet">
       <Box grow>
         <Column gutter="md">
-          <Row
-            align="between"
-            valign="center">
+          <Row align="between">
             <Title
               accessibilityHint="kies of u uw adres of huidige locatie wil gebruiken"
               level="h3"

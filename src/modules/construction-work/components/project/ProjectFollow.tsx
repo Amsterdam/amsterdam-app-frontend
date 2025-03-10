@@ -85,9 +85,7 @@ export const ProjectFollow = ({
           title=""
         />
       ) : null}
-      <Row
-        gutter="md"
-        valign="center">
+      <Row gutter="md">
         <ProductTourTipWrapper
           extraSpace="md"
           placement={Placement.below}

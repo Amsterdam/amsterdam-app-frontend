@@ -104,9 +104,7 @@ export const AddMainImageToMessageScreen = ({navigation}: Props) => {
         </Box>
       </Column>
       <Box>
-        <Row
-          align="between"
-          valign="center">
+        <Row align="between">
           <Link
             label="Vorige"
             onPress={navigation.goBack}

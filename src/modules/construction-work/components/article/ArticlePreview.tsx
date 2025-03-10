@@ -75,9 +75,7 @@ export const ArticlePreview = ({
         testID={`${testID}Button`}>
         <Column gutter="sm">
           <View style={styles.dateLine}>
-            <Row
-              gutter="sm"
-              valign="center">
+            <Row gutter="sm">
               <View style={styles.horizontalLine} />
               {!!isNewAndUnreadArticle && <Tag label="Nieuw" />}
               <Paragraph testID={`${testID}Date`}>

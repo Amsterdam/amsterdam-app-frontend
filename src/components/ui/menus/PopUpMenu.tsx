@@ -61,7 +61,7 @@ const createStyles = (
       position: 'absolute',
       [orientation]: size.spacing.sm,
       top: topInset,
-      backgroundColor: color.box.distinct,
+      backgroundColor: color.box.background.distinct,
       zIndex: z.tooltip,
       elevation: 2,
       shadowColor: color.shadow.default,

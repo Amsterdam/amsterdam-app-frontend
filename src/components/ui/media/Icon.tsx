@@ -3,7 +3,7 @@ import {View} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {SvgIconName, SvgIconsConfig} from '@/components/ui/media/svgIcons'
-import {IconSize, TestProps} from '@/components/ui/types'
+import {IconSize} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
@@ -36,7 +36,8 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
-} & TestProps
+  testID?: string
+}
 
 const DEFAULT_VIEW_BOX = '0 0 32 32'
 

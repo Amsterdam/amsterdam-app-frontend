@@ -16,8 +16,7 @@ export const ChatSystemEntry = ({icon, text, testID, timestamp}: Props) => (
   <View accessible>
     <Row
       align="center"
-      gutter="sm"
-      valign="center">
+      gutter="sm">
       <Icon
         color="secondary"
         name={icon}
