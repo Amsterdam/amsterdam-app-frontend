@@ -48,9 +48,7 @@ export const ParkingPermitBalanceMoney = () => {
   return (
     <Column gutter="md">
       <Column gutter="xs">
-        <Row
-          align="between"
-          valign="center">
+        <Row align="between">
           <Phrase
             emphasis="strong"
             testID="ParkingPermitBalanceMoneyTitlePhrase">

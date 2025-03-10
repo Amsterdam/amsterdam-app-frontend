@@ -1,8 +1,11 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {ParkingRouteName} from '@/modules/parking/routes'
 
 export const ParkingDashboardNavigationButtons = () => {
+  const {navigate} = useNavigation()
   const {currentPermit} = useGetCurrentPermit()
 
   return (
@@ -17,7 +20,7 @@ export const ParkingDashboardNavigationButtons = () => {
       <NavigationButton
         label="Mijn kentekens"
         onPress={() => {
-          //TODO: navigate to license plates
+          navigate(ParkingRouteName.myLicensePlates)
         }}
         testID="ParkingNavigationButtonLicensePlates"
       />

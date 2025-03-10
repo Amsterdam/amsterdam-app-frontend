@@ -70,8 +70,16 @@ export const lightColorTokens = {
     background: baseColor.primary.white,
   },
   box: {
-    distinct: baseColor.primary.white,
-    cityPass: baseColor.secondary.purple,
+    background: {
+      distinct: baseColor.primary.white,
+      cityPass: baseColor.secondary.purple,
+    },
+    border: {
+      default: baseColor.neutral.grey1,
+      distinct: baseColor.primary.blue,
+      onGrey: baseColor.neutral.grey2,
+      cityPass: baseColor.secondary.purple,
+    },
   },
   card: {
     pressed: {

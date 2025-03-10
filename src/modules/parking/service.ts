@@ -1,9 +1,13 @@
 import {
   ParkingAccountDetails,
   ParkingEndpointName,
+  ParkingLicensePlatesEndpointRequest,
+  ParkingLicensePlatesEndpointResponse,
   ParkingLoginEndpointRequest,
   ParkingLoginEndpointResponse,
   ParkingPermitsEndpointResponse,
+  ParkingRemoveLicensePlateEndpointRequest,
+  ParkingRemoveLicensePlateEndpointResponse,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -41,6 +45,22 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.licensePlates]: builder.query<
+      ParkingLicensePlatesEndpointResponse,
+      ParkingLicensePlatesEndpointRequest
+    >({
+      providesTags: ['LicensePlates'],
+      query: ({accessToken, reportCode}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        params: {report_code: reportCode},
+        slug: ModuleSlug.parking,
+        url: '/license-plates',
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.login]: builder.mutation<
       ParkingLoginEndpointResponse,
       ParkingLoginEndpointRequest
@@ -66,12 +86,29 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.removeLicensePlate]: builder.mutation<
+      ParkingRemoveLicensePlateEndpointResponse,
+      ParkingRemoveLicensePlateEndpointRequest
+    >({
+      invalidatesTags: ['LicensePlates'],
+      query: ({accessToken, ...body}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        body,
+        method: 'DELETE',
+        slug: ModuleSlug.parking,
+        url: '/license-plate',
+      }),
+    }),
   }),
   overrideExisting: true,
 })
 
 export const {
   useAccountDetailsQuery,
+  useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
+  useRemoveLicensePlateMutation,
   usePermitsQuery,
 } = parkingApi
