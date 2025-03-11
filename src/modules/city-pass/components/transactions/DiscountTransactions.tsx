@@ -49,7 +49,7 @@ export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
     <Column gutter="md">
       <Title text="Mijn acties" />
       <Paragraph>
-        {`In in totaal heb je ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
+        {`In totaal heb je ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
       </Paragraph>
       <TransactionHistory
         transactions={transactions}
