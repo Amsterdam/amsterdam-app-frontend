@@ -46,7 +46,7 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
     )
   }
 
-  const {budgets, dateEnd, dateEndFormatted} = cityPass
+  const {budgets} = cityPass
   const budget = budgets.find(b => b.code === budgetCode)
 
   if (!budget) {
@@ -58,7 +58,13 @@ export const Budget = ({budgetCode, passNumber}: Props) => {
     )
   }
 
-  const {budgetBalanceFormatted, budgetAssignedFormatted, title} = budget ?? {}
+  const {
+    budgetBalanceFormatted,
+    budgetAssignedFormatted,
+    dateEnd,
+    dateEndFormatted,
+    title,
+  } = budget
 
   return (
     <ScrollView>
