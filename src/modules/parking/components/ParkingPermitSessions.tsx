@@ -12,21 +12,21 @@ export const ParkingPermitSessions = () => (
         text="Parkeersessies"
       />
       <Column gutter="sm">
-        <Phrase
-          emphasis="strong"
-          testID="ParkingPermitSessionsActiveTitle">
-          Nu actief
-        </Phrase>
+        <Title
+          level="h5"
+          testID="ParkingPermitSessionsActiveTitle"
+          text="Nu actief"
+        />
         <Phrase testID="ParkingPermitSessionsActiveNotActivePhrase">
           Er zijn geen actieve parkeersessies.
         </Phrase>
       </Column>
       <Column gutter="sm">
-        <Phrase
-          emphasis="strong"
-          testID="ParkingPermitSessionsPlannedTitle">
-          Gepland
-        </Phrase>
+        <Title
+          level="h5"
+          testID="ParkingPermitSessionsPlannedTitle"
+          text="Gepland"
+        />
         <Phrase testID="ParkingPermitSessionsPlannedNoPlannedPhrase">
           Er zijn geen geplande parkeersessies.
         </Phrase>

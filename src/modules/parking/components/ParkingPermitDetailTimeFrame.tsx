@@ -1,5 +1,6 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {PaymentZone, ParkingPermit} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
@@ -26,11 +27,11 @@ export const ParkingPermitDetailTimeFrame = ({permit}: Props) => {
 
   return (
     <Column gutter="xs">
-      <Phrase
-        emphasis="strong"
-        testID="ParkingPermitDetailPaidParkingTitlePhrase">
-        Betaald parkeren
-      </Phrase>
+      <Title
+        level="h5"
+        testID="ParkingPermitDetailPaidParkingTitlePhrase"
+        text="Betaald parkeren"
+      />
       {timeFrame.map(({key, phrase}) => (
         <Phrase
           key={key}

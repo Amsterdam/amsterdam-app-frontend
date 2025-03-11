@@ -1,4 +1,5 @@
 export enum ParkingRouteName {
+  addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
   intro = 'ParkingIntro',
   login = 'ParkingLogin',
@@ -10,6 +11,7 @@ export enum ParkingRouteName {
 }
 
 export type ParkingStackParams = {
+  [ParkingRouteName.addLicensePlate]: undefined
   [ParkingRouteName.dashboard]: undefined
   [ParkingRouteName.intro]: undefined
   [ParkingRouteName.login]: undefined

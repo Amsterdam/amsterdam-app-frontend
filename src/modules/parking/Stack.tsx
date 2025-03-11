@@ -20,7 +20,7 @@ import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
-import {RestartLoginScreen} from '@/modules/parking/screens/RestartLogin.screen'
+import {ParkingRestartLoginScreen} from '@/modules/parking/screens/ParkingRestartLogin.screen'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -45,7 +45,7 @@ export const ParkingStack = () => {
     <Stack.Navigator screenOptions={screenOptions}>
       {attemptsLeft <= 0 || !!isForgotCode ? (
         <Stack.Screen
-          component={RestartLoginScreen}
+          component={ParkingRestartLoginScreen}
           name={ParkingRouteName.restartLogin}
           options={{headerTitle: 'Toegangscode vergeten'}}
         />

@@ -13,7 +13,7 @@ import {SecureItemKey} from '@/utils/secureStorage'
 
 const TEST_ID = 'ParkingRestartLoginScreen'
 
-export const RestartLoginScreen = () => {
+export const ParkingRestartLoginScreen = () => {
   const [isError, setIsError] = useState(false)
   const {resetAccessCode} = useAccessCode()
   const removeSecureItems = useRemoveSecureItems()

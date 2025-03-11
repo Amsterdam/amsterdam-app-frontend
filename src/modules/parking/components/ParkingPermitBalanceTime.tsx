@@ -2,6 +2,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
 import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -24,16 +25,16 @@ export const ParkingPermitBalanceTime = () => {
   return (
     <Column gutter="xs">
       <Row align="between">
-        <Phrase
-          emphasis="strong"
-          testID="ParkingPermitBalanceTimeTitlePhrase">
-          Tijdsaldo
-        </Phrase>
-        <Phrase
-          emphasis="strong"
-          testID="ParkingPermitBalanceTimeTitlePhrase">
-          {`${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`}
-        </Phrase>
+        <Title
+          level="h5"
+          testID="ParkingPermitBalanceTimeTitlePhrase"
+          text="Tijdsaldo"
+        />
+        <Title
+          level="h5"
+          testID="ParkingPermitBalanceTimeTitlePhrase"
+          text={`${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`}
+        />
       </Row>
       <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
         {`Tot ${dayjs(currentPermit.time_valid_until).format('D MMMM YYYY')}`}
