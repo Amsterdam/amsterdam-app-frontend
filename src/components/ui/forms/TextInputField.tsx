@@ -37,7 +37,7 @@ export const TextInputField = ({
         error?.message && accessibilityAnnounce(error.message)
 
         return (
-          <>
+          <Column gutter="sm">
             <Column gutter="xs">
               <TextInput
                 accessibilityLabel={label}
@@ -66,7 +66,7 @@ export const TextInputField = ({
                 {error.message}
               </Paragraph>
             )}
-          </>
+          </Column>
         )
       }}
       rules={rules}
