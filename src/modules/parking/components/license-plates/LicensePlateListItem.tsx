@@ -10,7 +10,7 @@ type Props = {
   onPressDelete: (vehicleId: string) => void
 }
 
-export const ParkingLicensePlateListItem = ({
+export const LicensePlateListItem = ({
   licensePlate: {vehicle_id, visitor_name},
   isRemovable,
   onPressDelete,
@@ -20,6 +20,7 @@ export const ParkingLicensePlateListItem = ({
   return (
     <Row
       align="between"
+      gutter="md"
       key={vehicle_id}>
       <Row gutter="md">
         <Icon

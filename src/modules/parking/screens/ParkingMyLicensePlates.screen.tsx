@@ -11,7 +11,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {ParkingLicensePlateListItem} from '@/modules/parking/components/license-plates/ParkingLicensePlateListItem'
+import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
@@ -93,7 +93,7 @@ export const ParkingMyLicensePlatesScreen = () => {
             />
           )}
           {licensePlates?.map(licensePlate => (
-            <ParkingLicensePlateListItem
+            <LicensePlateListItem
               isRemovable={!forced_license_plate_list}
               key={licensePlate.vehicle_id}
               licensePlate={licensePlate}

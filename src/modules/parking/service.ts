@@ -1,13 +1,15 @@
 import {
   ParkingAccountDetails,
   ParkingEndpointName,
-  ParkingLicensePlatesEndpointRequest,
-  ParkingLicensePlatesEndpointResponse,
+  LicensePlatesEndpointRequest,
+  LicensePlatesEndpointResponse,
   ParkingLoginEndpointRequest,
   ParkingLoginEndpointResponse,
   ParkingPermitsEndpointResponse,
-  ParkingRemoveLicensePlateEndpointRequest,
-  ParkingRemoveLicensePlateEndpointResponse,
+  RemoveLicensePlateEndpointRequest,
+  RemoveLicensePlateEndpointResponse,
+  AddLicensePlateEndpointRequest,
+  AddLicensePlateEndpointResponse,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -45,9 +47,24 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.addLicensePlate]: builder.mutation<
+      AddLicensePlateEndpointResponse,
+      AddLicensePlateEndpointRequest
+    >({
+      invalidatesTags: ['LicensePlates'],
+      query: ({accessToken, ...body}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        body,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/license-plate',
+      }),
+    }),
     [ParkingEndpointName.licensePlates]: builder.query<
-      ParkingLicensePlatesEndpointResponse,
-      ParkingLicensePlatesEndpointRequest
+      LicensePlatesEndpointResponse,
+      LicensePlatesEndpointRequest
     >({
       providesTags: ['LicensePlates'],
       query: ({accessToken, reportCode}) => ({
@@ -87,8 +104,8 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.removeLicensePlate]: builder.mutation<
-      ParkingRemoveLicensePlateEndpointResponse,
-      ParkingRemoveLicensePlateEndpointRequest
+      RemoveLicensePlateEndpointResponse,
+      RemoveLicensePlateEndpointRequest
     >({
       invalidatesTags: ['LicensePlates'],
       query: ({accessToken, ...body}) => ({
@@ -107,6 +124,7 @@ export const parkingApi = baseApi.injectEndpoints({
 
 export const {
   useAccountDetailsQuery,
+  useAddLicensePlateMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
   useRemoveLicensePlateMutation,
