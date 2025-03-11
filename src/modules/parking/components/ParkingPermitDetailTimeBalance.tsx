@@ -1,5 +1,6 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {ParkingPermit} from '@/modules/parking/types'
 import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
 import {formatNumber} from '@/utils/formatNumber'
@@ -25,11 +26,11 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
 
   return (
     <Column gutter="xs">
-      <Phrase
-        emphasis="strong"
-        testID="ParkingPermitDetailNamePhrase">
-        {permit_name}
-      </Phrase>
+      <Title
+        level="h5"
+        testID="ParkingPermitDetailNamePhrase"
+        text={permit_name}
+      />
       <Column>
         <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
           {`Parkeertijd: ${timeBalance}`}

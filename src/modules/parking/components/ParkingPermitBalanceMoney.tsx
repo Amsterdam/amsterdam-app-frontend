@@ -5,6 +5,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
@@ -49,16 +50,16 @@ export const ParkingPermitBalanceMoney = () => {
     <Column gutter="md">
       <Column gutter="xs">
         <Row align="between">
-          <Phrase
-            emphasis="strong"
-            testID="ParkingPermitBalanceMoneyTitlePhrase">
-            Geldsaldo
-          </Phrase>
-          <Phrase
-            emphasis="strong"
-            testID="ParkingPermitBalanceMoneyTitlePhrase">
-            {formatNumber(balance, true)}
-          </Phrase>
+          <Title
+            level="h5"
+            testID="ParkingPermitBalanceMoneyTitlePhrase"
+            text="Geldsaldo"
+          />
+          <Title
+            level="h5"
+            testID="ParkingPermitBalanceMoneyTitlePhrase"
+            text={formatNumber(balance, true)}
+          />
         </Row>
         <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
           {`Goed voor ${timeBalanceHoursMinutes[0]} uur en ${timeBalanceHoursMinutes[1]} minuten`}
