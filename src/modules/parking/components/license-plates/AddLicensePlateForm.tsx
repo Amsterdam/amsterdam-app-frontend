@@ -37,30 +37,30 @@ export const AddLicensePlateForm = () => {
 
   return (
     <FormProvider {...form}>
-      <Column gutter="xl">
-        <Column gutter="lg">
-          <TextInputField
-            autoFocus
-            label="Naam"
-            name="visitor_name"
-            rules={{
-              required: 'Vul een naam in',
-            }}
-            testID="ParkingAddLicensePlateFormNameInputField"
-          />
-          <TextInputField
-            label="Kenteken"
-            name="vehicle_id"
-            rules={{
-              required: 'Vul een kenteken in',
-              pattern: {
-                value: /^[a-zA-Z0-9]*$/,
-                message: 'Alleen cijfers en letters zijn toegestaan',
-              },
-            }}
-            testID="ParkingAddLicensePlateFormLicensePlateInputField"
-          />
-        </Column>
+      <Column gutter="lg">
+        <TextInputField
+          autoFocus
+          label="Naam"
+          name="visitor_name"
+          rules={{
+            required: 'Vul een naam in',
+          }}
+          testID="ParkingAddLicensePlateFormNameInputField"
+        />
+        <TextInputField
+          inputInstructions="Vul alleen cijfers en letters in."
+          label="Kenteken"
+          name="vehicle_id"
+          rules={{
+            required: 'Vul een kenteken in',
+            pattern: {
+              value: /^[a-zA-Z0-9]*$/,
+              message: 'Alleen cijfers en letters zijn toegestaan',
+            },
+          }}
+          testID="ParkingAddLicensePlateFormLicensePlateInputField"
+          textTransform={text => text.replace(/[^a-zA-Z0-9]/g, '')}
+        />
         <Button
           isLoading
           label="Opslaan"

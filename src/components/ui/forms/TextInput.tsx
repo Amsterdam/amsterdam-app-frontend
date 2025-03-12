@@ -10,21 +10,29 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Label} from '@/components/ui/forms/Label'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = {
+export type TextInputSharedProps = {
+  inputInstructions?: string
   label: string
   numberOfLines?: number
+  placeholder?: string
+  textTransform?: (text: string) => string
+}
+
+type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-  placeholder?: string
   warning?: boolean
-} & TextInputProps
+} & TextInputSharedProps &
+  TextInputProps
 
 export const TextInput = forwardRef<TextInputRN, Props>(
   (
     {
+      inputInstructions,
       label,
       numberOfLines,
       onChangeText,
@@ -33,6 +41,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
       warning,
       value: valueProp = '',
       testID = '',
+      textTransform,
       accessibilityLanguage = 'nl-NL',
       ...textInputProps
     }: Props,
@@ -50,7 +59,9 @@ export const TextInput = forwardRef<TextInputRN, Props>(
 
     const handleBlur = () => setHasFocus(false)
 
-    const handleChangeText = (text: string) => {
+    const handleChangeText = (textValue: string) => {
+      const text = textTransform ? textTransform(textValue) : textValue
+
       setValue(text)
       onChangeText?.(text)
     }
@@ -67,10 +78,13 @@ export const TextInput = forwardRef<TextInputRN, Props>(
 
     return (
       <Column gutter="sm">
-        <Label
-          isAccessible={!textInputProps.accessibilityLabel}
-          text={label}
-        />
+        <Column gutter="xs">
+          <Label
+            isAccessible={!textInputProps.accessibilityLabel}
+            text={label}
+          />
+          {!!inputInstructions && <Phrase>{inputInstructions}</Phrase>}
+        </Column>
         <View style={styles.frame}>
           <TextInputRN
             {...textInputProps}

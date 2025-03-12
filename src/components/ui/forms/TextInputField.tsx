@@ -1,24 +1,23 @@
 import {Controller, UseControllerProps} from 'react-hook-form'
 import {TextInputProps} from 'react-native'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
-import {TextInput} from '@/components/ui/forms/TextInput'
+import {TextInput, TextInputSharedProps} from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
 type Props = {
-  label: string
   maxCharacters?: number
-  numberOfLines?: number
-  placeholder?: string
-} & TestProps &
+} & TextInputSharedProps &
+  TestProps &
   UseControllerProps &
   Pick<TextInputProps, 'autoFocus'>
 
 export const TextInputField = ({
   autoFocus,
   defaultValue = '',
+  inputInstructions,
   label,
   maxCharacters,
   numberOfLines,
@@ -26,6 +25,7 @@ export const TextInputField = ({
   placeholder,
   rules,
   testID,
+  textTransform,
 }: Props) => {
   const accessibilityAnnounce = useAccessibilityAnnounce()
 
@@ -43,12 +43,14 @@ export const TextInputField = ({
                 accessibilityLabel={label}
                 accessibilityLanguage="nl-NL"
                 autoFocus={autoFocus}
+                inputInstructions={inputInstructions}
                 label={label}
                 multiline={!!numberOfLines}
                 numberOfLines={numberOfLines}
                 onChangeText={onChange}
                 placeholder={placeholder}
                 testID={`${testID}Input`}
+                textTransform={textTransform}
                 value={value as string}
                 warning={!!error}
               />
