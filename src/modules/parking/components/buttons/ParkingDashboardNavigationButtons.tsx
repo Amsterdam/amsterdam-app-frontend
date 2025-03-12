@@ -11,26 +11,26 @@ export const ParkingDashboardNavigationButtons = () => {
   return (
     <Column gutter="xs">
       <NavigationButton
-        label="Parkeergeschiedenis"
         onPress={() => {
           //TODO: navigate to parking history
         }}
         testID="ParkingNavigationButtonParkingHistory"
+        title="Parkeergeschiedenis"
       />
       <NavigationButton
-        label="Mijn kentekens"
         onPress={() => {
           navigate(ParkingRouteName.myLicensePlates)
         }}
         testID="ParkingNavigationButtonLicensePlates"
+        title="Mijn kentekens"
       />
       {currentPermit?.money_balance_applicable && (
         <NavigationButton
-          label="Betalingen"
           onPress={() => {
             //TODO: navigate to payment history
           }}
           testID="ParkingNavigationButtonPaymentHistory"
+          title="Betalingen"
         />
       )}
     </Column>

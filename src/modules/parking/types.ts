@@ -1,3 +1,17 @@
+import {Paginated} from '@/types/api'
+
+// Routes
+export enum ParkingEndpointName {
+  accountDetails = 'accountDetails',
+  addLicensePlate = 'addLicensePlate',
+  licensePlates = 'licensePlates',
+  login = 'login',
+  parkingSessions = 'parkingSessions',
+  permits = 'permits',
+  removeLicensePlate = 'removeLicensePlate',
+}
+
+// Account
 export type ParkingAccountDetails = {
   account_type: string
   address: {
@@ -20,6 +34,11 @@ export type ParkingAccountDetails = {
   }
 }
 
+export enum ParkingPermitScope {
+  permitHolder = 'permitHolder',
+  visitor = 'visitor',
+}
+
 type ParkingAccountAuth = {
   accessToken: string
   scope: ParkingPermitScope
@@ -30,31 +49,12 @@ export type ParkingAccountLogin = {
   reportCode: string
 }
 
-export type ParkingLicensePlate = {
-  vehicle_id: string
-  visitor_name?: string
-}
-
 export type RequestPinCode = {
   phoneLastFourDigits: string
   reportCode: string
 }
 
 export type SecureParkingAccount = ParkingAccountAuth & ParkingAccountLogin
-
-export enum ParkingEndpointName {
-  accountDetails = 'accountDetails',
-  addLicensePlate = 'addLicensePlate',
-  licensePlates = 'licensePlates',
-  login = 'login',
-  permits = 'permits',
-  removeLicensePlate = 'removeLicensePlate',
-}
-
-export enum ParkingPermitScope {
-  permitHolder = 'permitHolder',
-  visitor = 'visitor',
-}
 
 export type ParkingLoginEndpointRequest = {
   pin: string
@@ -64,6 +64,12 @@ export type ParkingLoginEndpointRequest = {
 export type ParkingLoginEndpointResponse = {
   access_token: string
   scope: ParkingPermitScope
+}
+
+// License-plate
+export type ParkingLicensePlate = {
+  vehicle_id: string
+  visitor_name?: string
 }
 
 export type LicensePlatesEndpointRequest = {
@@ -97,6 +103,7 @@ export type RemoveLicensePlateEndpointResponse = {
   vehicle_id: string
 }
 
+// Permit
 export type PaymentZone = {
   city: string
   days: {
@@ -144,3 +151,40 @@ export type ParkingPermit = {
 }
 
 export type ParkingPermitsEndpointResponse = ParkingPermit[]
+
+// Parking-session
+
+export enum ParkingSessionStatus {
+  active = 'Actief',
+  cancelled = 'Geannuleerd',
+  completed = 'Voltooid',
+  planned = 'Gepland',
+}
+
+export type ParkingSession = {
+  created_time: string
+  end_date: string
+  is_cancelled: boolean
+  is_paid: boolean
+  money_balance_applicable: boolean
+  no_endtime: boolean
+  parking_cost: {
+    currency: string
+    value: 0
+  }
+  ps_right_id: 0
+  remaining_time: 0
+  report_code: string
+  start_date: string
+  status: ParkingSessionStatus
+  time_balance_applicable: boolean
+  vehicle_id: string
+  visitor_name?: string
+}
+
+export type ParkingSessionsEndpointRequest = {
+  accessToken: string
+  report_code: string
+}
+
+export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>

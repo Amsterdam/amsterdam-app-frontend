@@ -4,6 +4,8 @@ import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
+import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
+import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 
 export const parkingScreenConfig: StackNavigationRoutes<
@@ -12,6 +14,8 @@ export const parkingScreenConfig: StackNavigationRoutes<
   | ParkingRouteName.myLicensePlates
   | ParkingRouteName.startSession
   | ParkingRouteName.addLicensePlate
+  | ParkingRouteName.parkingSession
+  | ParkingRouteName.parkingPlannedSessions
 > = {
   [ParkingRouteName.dashboard]: {
     component: ParkingDashboardScreen,
@@ -36,6 +40,20 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.addLicensePlate,
     options: {
       headerTitle: 'Nieuw kenteken',
+    },
+  },
+  [ParkingRouteName.parkingSession]: {
+    component: ParkingSessionScreen,
+    name: ParkingRouteName.parkingSession,
+    options: {
+      headerTitle: 'Parkeersessie',
+    },
+  },
+  [ParkingRouteName.parkingPlannedSessions]: {
+    component: ParkingPlannedSessionsScreen,
+    name: ParkingRouteName.parkingPlannedSessions,
+    options: {
+      headerTitle: 'Gepland',
     },
   },
 }

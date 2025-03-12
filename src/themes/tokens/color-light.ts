@@ -51,7 +51,10 @@ export const lightColorTokens = {
     primary: baseColor.primary.blue,
   },
   badge: {
-    background: baseColor.primary.red,
+    background: {
+      info: baseColor.primary.blue,
+      warning: baseColor.primary.red,
+    },
     border: baseColor.primary.white,
   },
   barcode: {

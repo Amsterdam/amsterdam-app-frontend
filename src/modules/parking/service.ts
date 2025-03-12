@@ -10,6 +10,8 @@ import {
   RemoveLicensePlateEndpointResponse,
   AddLicensePlateEndpointRequest,
   AddLicensePlateEndpointResponse,
+  ParkingSessionsEndpointResponse,
+  ParkingSessionsEndpointRequest,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -60,6 +62,7 @@ export const parkingApi = baseApi.injectEndpoints({
         method: 'POST',
         slug: ModuleSlug.parking,
         url: '/license-plate',
+        afterError,
       }),
     }),
     [ParkingEndpointName.licensePlates]: builder.query<
@@ -89,6 +92,22 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/login',
       }),
     }),
+    [ParkingEndpointName.parkingSessions]: builder.query<
+      ParkingSessionsEndpointResponse,
+      ParkingSessionsEndpointRequest
+    >({
+      providesTags: ['ParkingSessions'],
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        params,
+        slug: ModuleSlug.parking,
+        url: '/sessions',
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.permits]: builder.query<
       ParkingPermitsEndpointResponse,
       string
@@ -116,6 +135,7 @@ export const parkingApi = baseApi.injectEndpoints({
         method: 'DELETE',
         slug: ModuleSlug.parking,
         url: '/license-plate',
+        afterError,
       }),
     }),
   }),
@@ -127,6 +147,7 @@ export const {
   useAddLicensePlateMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
+  useParkingSessionsQuery,
   useRemoveLicensePlateMutation,
   usePermitsQuery,
 } = parkingApi

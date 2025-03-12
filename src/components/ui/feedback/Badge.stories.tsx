@@ -15,3 +15,9 @@ export const Small = {
     variant: 'small',
   },
 }
+
+export const Info = {
+  args: {
+    color: 'info',
+  },
+}
