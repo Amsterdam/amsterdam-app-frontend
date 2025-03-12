@@ -37,43 +37,43 @@ export const AboutScreen = ({navigation}: Props) => (
           <Column gutter="sm">
             <NavigationButton
               accessibilityRole="button"
-              label="Over deze app"
               onPress={() => navigation.navigate(AboutRouteName.appSummary)}
               testID="AboutAboutTheAppDutchButton"
+              title="Over deze app"
             />
             <NavigationButton
               accessibilityRole="button"
-              label="About this app"
               onPress={() => navigation.navigate(AboutRouteName.aboutEnglish)}
               testID="AboutAboutTheAppEnglishButton"
+              title="About this app"
             />
             <NavigationButton
               accessibilityRole="button"
-              label="Privacyverklaring"
               onPress={() =>
                 navigation.navigate(AboutRouteName.privacyStatement)
               }
               testID="AboutPrivacyStatementButton"
+              title="Privacyverklaring"
             />
             <NavigationButton
               accessibilityRole="button"
-              label="Toegankelijkheidsverklaring"
               onPress={() =>
                 navigation.navigate(AboutRouteName.accessibilityStatement)
               }
               testID="AboutAccessibilityStatementButton"
+              title="Toegankelijkheidsverklaring"
             />
             <NavigationButton
               accessibilityRole="button"
-              label="Zo werkt de app"
               onPress={() => navigation.navigate(ModuleSlug.onboarding)}
               testID="AboutOnboardingButton"
+              title="Zo werkt de app"
             />
             <NavigationButton
               accessibilityRole="button"
-              label="Uw mening"
               onPress={() => navigation.navigate(AboutRouteName.feedback)}
               testID="AboutFeedbackButton"
+              title="Uw mening"
             />
           </Column>
         </Column>

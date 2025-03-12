@@ -10,6 +10,7 @@ import {OmitUndefined} from '@/types/undefined'
 import {formatNumber} from '@/utils/formatNumber'
 
 export type BadgeProps = {
+  color?: keyof Theme['color']['badge']['background']
   /**
    * The value to display in the badge.
    */
@@ -24,12 +25,13 @@ export type BadgeProps = {
 export const Badge = ({
   accessibilityLabel,
   accessibilityLanguage = 'nl-NL',
+  color,
   testID,
   value,
   variant = 'default',
 }: BadgeProps) => {
   const {fontScale} = useDeviceContext()
-  const styles = useThemable(createStyles(fontScale, variant, value))
+  const styles = useThemable(createStyles(color, fontScale, variant, value))
 
   return (
     <Row align="start">
@@ -53,11 +55,12 @@ const MARGIN_DOUBLE_DIGIT = 1.4
 
 const createStyles =
   (
+    color: BadgeProps['color'] = 'warning',
     fontScale: Device['fontScale'],
     variant: OmitUndefined<BadgeProps['variant']>,
     value: number = 0,
   ) =>
-  ({color, text, border}: Theme) => {
+  ({color: themeColor, text, border}: Theme) => {
     const fontSize =
       text.fontSize[
         variant === 'extraSmall'
@@ -82,16 +85,16 @@ const createStyles =
         height: scaledDiameter,
         width: scaledDiameter,
         borderRadius: scaledDiameter / 2,
-        backgroundColor: color.badge.background,
-        borderWidth: border.width.sm,
-        borderColor: color.badge.border,
+        backgroundColor: themeColor.badge.background[color],
+        borderWidth: variant === 'on-icon' ? border.width.sm : 0,
+        borderColor: themeColor.badge.border,
       },
       text: {
         fontFamily: text.fontFamily.bold,
         fontSize: scaledFontSize,
         lineHeight: scaledFontSize * 1.28,
         bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
-        color: color.text.inverse,
+        color: themeColor.text.inverse,
         textAlign: 'center',
       },
     })

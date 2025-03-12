@@ -12,26 +12,35 @@ export default {
 
 export const Default: StoryObj<typeof NavigationButton> = {
   args: {
-    label: 'Label',
+    title: 'Label',
   },
 }
 
 export const Icon: StoryObj<typeof NavigationButton> = {
   args: {
     icon: 'alert',
-    label: 'Met icoon',
+    title: 'Met icoon',
   },
 }
 export const LessEmphasis: StoryObj<typeof NavigationButton> = {
   args: {
     emphasis: 'default',
-    label: 'Minder nadruk',
+    title: 'Minder nadruk',
   },
 }
 
 export const Previous: StoryObj<typeof NavigationButton> = {
   args: {
     direction: 'backward',
-    label: 'Vorige',
+    title: 'Vorige',
+  },
+}
+
+export const WithDescription: StoryObj<typeof NavigationButton> = {
+  args: {
+    direction: 'forward',
+    title: '43DNT8 - Sander',
+    description: '10.15 uur - 2 uur 15 min',
+    icon: 'parkingCar',
   },
 }

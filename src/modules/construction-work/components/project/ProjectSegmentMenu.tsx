@@ -26,7 +26,6 @@ export const ProjectSegmentMenu = ({project}: Props) => {
         return (
           <NavigationButton
             key={title}
-            label={title}
             onPress={() =>
               navigation.navigate(ConstructionWorkRouteName.projectSegment, {
                 body: option,
@@ -35,6 +34,7 @@ export const ProjectSegmentMenu = ({project}: Props) => {
               })
             }
             testID={testID}
+            title={title}
           />
         )
       })}

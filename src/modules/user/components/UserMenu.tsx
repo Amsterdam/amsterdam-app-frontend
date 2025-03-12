@@ -65,17 +65,17 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
               iconSize="md"
               key={item.icon}
               {...item}
-              label={
-                item.route === UserRouteName.userBiometrics
-                  ? `Toegang met ${biometricsLabel}`
-                  : item.label
-              }
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
                   screen: item.route,
                 })
               }
               testID={`NavigationButtonTo${item.route}`}
+              title={
+                item.route === UserRouteName.userBiometrics
+                  ? `Toegang met ${biometricsLabel}`
+                  : item.label
+              }
             />
           ),
         )}
