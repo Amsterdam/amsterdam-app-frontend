@@ -6,14 +6,15 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
+import {ParkingMaxLicensePlatesAlert} from '@/modules/parking/components/ParkingMaxLicensePlatesAlert'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useLicensePlatesQuery,
@@ -23,7 +24,7 @@ import {
 export const ParkingMyLicensePlatesScreen = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentPermit()
+    useGetCurrentParkingPermit()
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
   const {data: licensePlates, isFetching} = useLicensePlatesQuery(
@@ -90,13 +91,11 @@ export const ParkingMyLicensePlatesScreen = () => {
     <Screen testID="ParkingMyLicensePlatesScreen">
       <Box>
         <Column gutter="xl">
+          {licensePlates.length === 0 && (
+            <Phrase>U heeft nog geen favoriete kentekens opgeslagen.</Phrase>
+          )}
           {licensePlates.length >= MAX_LICENSE_PLATES && (
-            <AlertBase
-              hasIcon
-              testID="ParkingMaxLicensePlatesAlert"
-              text="Er kunnen niet meer dan 9 kentekens worden opgeslagen."
-              title="Maximum aantal kentekens"
-            />
+            <ParkingMaxLicensePlatesAlert />
           )}
           {licensePlates?.map(licensePlate => (
             <LicensePlateListItem

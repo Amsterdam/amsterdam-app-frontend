@@ -6,9 +6,11 @@ import BottomSheetOriginal, {
   type BottomSheetHandleProps,
   BottomSheetProps,
   BottomSheetScrollView,
+  BottomSheetView,
 } from '@gorhom/bottom-sheet'
 import {type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {StyleSheet, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
@@ -36,7 +38,7 @@ const Handle = (props: BottomSheetHandleProps) => (
 )
 
 const BackgroundComponent = ({style, ...props}: BottomSheetBackgroundProps) => {
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStylesBackgroundComponent)
 
   return (
     <View
@@ -47,7 +49,7 @@ const BackgroundComponent = ({style, ...props}: BottomSheetBackgroundProps) => {
   )
 }
 
-const createStyles = ({color, border}: Theme) =>
+const createStylesBackgroundComponent = ({color, border}: Theme) =>
   StyleSheet.create({
     container: {
       backgroundColor: color.bottomSheet.background,
@@ -60,7 +62,12 @@ type Props = Partial<
     BottomSheetProps,
     'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
   >
-> & {children: ReactNode; snapPoints?: (string | number)[]} & TestProps
+> & {
+  children: ReactNode
+  flex?: number
+  scroll?: boolean
+  snapPoints?: (string | number)[]
+} & TestProps
 
 const useBottomSheetHandler = () => {
   const {close, isOpen, open} = useBottomSheet()
@@ -97,12 +104,17 @@ const useBottomSheetHandler = () => {
  */
 export const BottomSheet = ({
   children,
+  flex,
   onChange,
+  scroll,
   snapPoints,
   testID,
   ...rest
 }: Props) => {
   const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
+  const {top: topInset} = useSafeAreaInsets()
+  const ViewComponent = scroll ? BottomSheetScrollView : BottomSheetView
+  const styles = createStyles(flex)
 
   return (
     <BottomSheetOriginal
@@ -119,16 +131,27 @@ export const BottomSheet = ({
       }}
       ref={ref}
       snapPoints={snapPoints}
+      topInset={topInset}
       {...rest}>
-      <BottomSheetScrollView>
+      <ViewComponent
+        style={styles.container}
+        testID={testID}>
         <SafeArea
           bottom
+          flex={flex}
           left
           right
           testID={testID}>
           {children}
         </SafeArea>
-      </BottomSheetScrollView>
+      </ViewComponent>
     </BottomSheetOriginal>
   )
 }
+
+const createStyles = (flex?: number) =>
+  StyleSheet.create({
+    container: {
+      flex,
+    },
+  })

@@ -1,6 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useParkingSessionsQuery} from '@/modules/parking/service'
 import {ParkingSessionStatus} from '@/modules/parking/types'
@@ -9,7 +9,7 @@ export const useGetParkingSessions = () => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentPermit()
+    useGetCurrentParkingPermit()
   const {data, isLoading} = useParkingSessionsQuery(
     secureParkingAccount && currentPermit
       ? {

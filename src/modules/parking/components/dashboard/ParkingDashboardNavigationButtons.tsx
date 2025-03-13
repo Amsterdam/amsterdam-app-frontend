@@ -1,12 +1,12 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 export const ParkingDashboardNavigationButtons = () => {
   const {navigate} = useNavigation()
-  const {currentPermit} = useGetCurrentPermit()
+  const {currentPermit} = useGetCurrentParkingPermit()
 
   return (
     <Column gutter="xs">

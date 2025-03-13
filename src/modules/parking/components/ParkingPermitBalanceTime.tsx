@@ -3,12 +3,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingPermitBalanceTime = () => {
-  const {currentPermit, isLoading} = useGetCurrentPermit()
+  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitBalanceTimePleaseWait" />

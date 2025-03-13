@@ -5,10 +5,10 @@ import {Title} from '@/components/ui/text/Title'
 import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/ParkingPermitDetailPermitZone'
 import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/ParkingPermitDetailTimeBalance'
 import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/ParkingPermitDetailTimeFrame'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 
 export const ParkingPermitDetail = () => {
-  const {currentPermit, isLoading} = useGetCurrentPermit()
+  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitDetailPleaseWait" />

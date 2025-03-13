@@ -3,7 +3,7 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
@@ -21,7 +21,7 @@ export const AddLicensePlateHeaderButton = () => {
       : skipToken,
   )
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentPermit()
+    useGetCurrentParkingPermit()
 
   if (
     isLoadingSecureParkingAccount ||

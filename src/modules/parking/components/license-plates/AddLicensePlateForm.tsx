@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAddLicensePlateMutation} from '@/modules/parking/service'
@@ -13,7 +13,7 @@ export const AddLicensePlateForm = () => {
   const {navigate} = useNavigation()
   const form = useForm<ParkingLicensePlate>()
   const {handleSubmit} = form
-  const {currentPermit} = useGetCurrentPermit()
+  const {currentPermit} = useGetCurrentParkingPermit()
   const {secureParkingAccount} = useGetSecureParkingAccount()
 
   const [addLicensePlate] = useAddLicensePlateMutation()
@@ -48,7 +48,7 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormNameInputField"
         />
         <TextInputField
-          inputInstructions="Vul alleen cijfers en letters in."
+          inputInstructions="Voer alleen letters en cijfers in."
           label="Kenteken"
           name="vehicle_id"
           rules={{

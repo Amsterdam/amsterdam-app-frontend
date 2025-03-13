@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useGetCurrentPermit} from '@/modules/parking/hooks/useGetCurrentPermit'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
@@ -16,7 +16,7 @@ export const ParkingPermitBalanceMoney = () => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentPermit()
+    useGetCurrentParkingPermit()
 
   const {data: account, isLoading} = useAccountDetailsQuery(
     secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
