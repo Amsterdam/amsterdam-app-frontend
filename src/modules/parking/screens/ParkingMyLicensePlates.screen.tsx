@@ -26,7 +26,7 @@ export const ParkingMyLicensePlatesScreen = () => {
     useGetCurrentPermit()
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
-  const {data: licensePlates, isLoading} = useLicensePlatesQuery(
+  const {data: licensePlates, isFetching} = useLicensePlatesQuery(
     secureParkingAccount && currentPermit
       ? {
           accessToken: secureParkingAccount.accessToken,
@@ -35,7 +35,8 @@ export const ParkingMyLicensePlatesScreen = () => {
       : skipToken,
   )
 
-  const [removeLicensePlate] = useRemoveLicensePlateMutation()
+  const [removeLicensePlate, {isLoading: isLoadingRemoveLicensePlate}] =
+    useRemoveLicensePlateMutation()
 
   const onPressDelete = useCallback(
     (vehicle_id: string) => {
@@ -68,7 +69,12 @@ export const ParkingMyLicensePlatesScreen = () => {
     [removeLicensePlate, secureParkingAccount],
   )
 
-  if (isLoadingSecureParkingAccount || isLoadingCurrentPermit || isLoading) {
+  if (
+    isLoadingSecureParkingAccount ||
+    isLoadingCurrentPermit ||
+    isFetching ||
+    isLoadingRemoveLicensePlate
+  ) {
     return <PleaseWait testID="ParkingSelectLicensePlatePleaseWait" />
   }
 
