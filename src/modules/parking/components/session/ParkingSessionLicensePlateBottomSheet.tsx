@@ -1,3 +1,4 @@
+import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,7 +9,7 @@ import {ParkingSessionLicensePlateFormProvider} from '@/modules/parking/componen
 import {ParkingSessionSelectLicensePlate} from '@/modules/parking/components/session/ParkingSessionSelectLicensePlate'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 
-export const ParkingSessionLicensePlateBottomSheet = () => {
+const ParkingSessionLicensePlateBottomSheetContent = () => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
   if (isLoading) {
@@ -32,12 +33,22 @@ export const ParkingSessionLicensePlateBottomSheet = () => {
           grow={1}
           gutter="xl">
           {!forced_license_plate_list && <ParkingSessionAddLicensePlate />}
-          <ParkingSessionSelectLicensePlate />
           {!forced_license_plate_list && (
             <ParkingSessionAddLicensePlateSubmitButton />
           )}
+          <ParkingSessionSelectLicensePlate />
         </Column>
       </ParkingSessionLicensePlateFormProvider>
     </Box>
   )
 }
+
+export const ParkingSessionLicensePlateBottomSheet = () => (
+  <BottomSheet
+    flex={1}
+    scroll
+    snapPoints={['100%']}
+    testID="ParkingSelectPermitBottomSheet">
+    <ParkingSessionLicensePlateBottomSheetContent />
+  </BottomSheet>
+)
