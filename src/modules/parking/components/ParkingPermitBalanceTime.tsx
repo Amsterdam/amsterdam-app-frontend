@@ -14,7 +14,7 @@ export const ParkingPermitBalanceTime = () => {
     return <PleaseWait testID="ParkingPermitBalanceTimePleaseWait" />
   }
 
-  if (!currentPermit || !currentPermit.time_balance_applicable) {
+  if (!currentPermit?.time_balance_applicable) {
     return null
   }
 
