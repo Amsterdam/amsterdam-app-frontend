@@ -175,6 +175,7 @@ module.exports = {
             ignoreCase: true,
           },
         ],
+        'no-extra-semi': 'off',
         'prettier/prettier': 'off',
         'react/jsx-no-explicit-spread': 'off',
         'amsterdam/jsx-no-explicit-spread': 'error',

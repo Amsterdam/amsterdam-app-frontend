@@ -48,6 +48,9 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormNameInputField"
         />
         <TextInputField
+          autoCapitalize="characters"
+          autoComplete="off"
+          autoCorrect={false}
           inputInstructions="Voer alleen letters en cijfers in."
           label="Kenteken"
           name="vehicle_id"
