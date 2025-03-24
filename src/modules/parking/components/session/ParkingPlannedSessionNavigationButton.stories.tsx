@@ -1,0 +1,36 @@
+import {ParkingSessionStatus} from '../../types'
+import {ParkingPlannedSessionNavigationButton} from './ParkingPlannedSessionNavigationButton'
+import type {Meta, StoryObj} from '@storybook/react'
+
+const meta = {
+  component: ParkingPlannedSessionNavigationButton,
+} satisfies Meta<typeof ParkingPlannedSessionNavigationButton>
+
+export default meta
+
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    parkingSession: {
+      vehicle_id: 'ABC123',
+      visitor_name: 'John Doe',
+      created_time: '2024-12-31 8:00:00 UTC',
+      end_date: '2025-12-31 16:00:00 UTC',
+      is_cancelled: false,
+      is_paid: false,
+      money_balance_applicable: false,
+      no_endtime: false,
+      parking_cost: {
+        currency: '',
+        value: 0,
+      },
+      ps_right_id: 0,
+      remaining_time: 0,
+      report_code: '',
+      start_date: '2025-12-31 8:00:00 UTC',
+      status: ParkingSessionStatus.planned,
+      time_balance_applicable: false,
+    },
+  },
+}

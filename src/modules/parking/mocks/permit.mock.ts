@@ -1,0 +1,79 @@
+import {ParkingPermit} from '@/modules/parking/types'
+
+export const permitMock: ParkingPermit = {
+  discount: 0,
+  forced_license_plate_list: false,
+  max_session_length_in_days: 0,
+  max_sessions_allowed: 0,
+  money_balance_applicable: true,
+  no_endtime: false,
+  parking_rate: {
+    currency: 'EUR',
+    value: 0.56,
+  },
+  parking_rate_original: {
+    currency: 'EUR',
+    value: 1.5,
+  },
+  payment_zones: [
+    {
+      city: 'Amsterdam',
+      days: [
+        {
+          day_of_week: 'Maandag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Dinsdag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Woensdag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Donderdag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Vrijdag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Zaterdag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+        {
+          day_of_week: 'Zondag',
+          end_time: '17:00',
+          start_time: '08:00',
+        },
+      ],
+      description: '8-17 uur',
+      id: '',
+    },
+  ],
+  permit_name: '',
+  permit_type: '',
+  permit_zone: {
+    name: 'Nieuw-West 9e',
+    permit_zone_id: 'Nieuw-West 9e',
+    show_permit_zone_url: false,
+  },
+  report_code: 0,
+  time_balance: 56000000,
+  time_balance_applicable: true,
+  time_valid_until: '31 december 2025',
+  visitor_account: {
+    minutes_remaining: 0,
+    pin: '',
+    report_code: 0,
+  },
+  visitor_account_allowed: true,
+}
