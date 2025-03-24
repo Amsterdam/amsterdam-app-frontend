@@ -31,7 +31,7 @@ const ParkingSessionLicensePlateBottomSheetContent = () => {
       <ParkingSessionLicensePlateFormProvider>
         <Column
           grow={1}
-          gutter="xl">
+          gutter="lg">
           {!forced_license_plate_list && <ParkingSessionAddLicensePlate />}
           {!forced_license_plate_list && (
             <ParkingSessionAddLicensePlateSubmitButton />
