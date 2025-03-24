@@ -1,4 +1,4 @@
-import {forwardRef, useEffect, useState} from 'react'
+import {createRef, forwardRef, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
@@ -47,6 +47,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     }: Props,
     ref,
   ) => {
+    const inputRef = createRef<TextInputRN>()
     const [hasFocus, setHasFocus] = useState(false)
     const [value, setValue] = useState(valueProp)
 
@@ -69,6 +70,11 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     const handleClearText = () => {
       setValue('')
       onChangeText?.('')
+
+      if (typeof ref !== 'function') {
+        ;(ref?.current ?? inputRef?.current)?.focus?.()
+        handleFocus()
+      }
     }
 
     const handleFocus = () => {
@@ -95,7 +101,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             onChangeText={handleChangeText}
             onFocus={handleFocus}
             placeholder={placeholder}
-            ref={ref}
+            ref={ref ?? inputRef}
             style={styles.textInput}
             testID={testID}
             textAlignVertical="top"

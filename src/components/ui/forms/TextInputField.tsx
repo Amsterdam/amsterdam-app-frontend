@@ -12,7 +12,10 @@ type Props = {
 } & TextInputSharedProps &
   TestProps &
   UseControllerProps &
-  Pick<TextInputProps, 'autoFocus'>
+  Pick<
+    TextInputProps,
+    'autoFocus' | 'autoCapitalize' | 'autoComplete' | 'autoCorrect'
+  >
 
 export const TextInputField = ({
   autoFocus,
@@ -26,6 +29,7 @@ export const TextInputField = ({
   rules,
   testID,
   textTransform,
+  ...textInputProps
 }: Props) => {
   const accessibilityAnnounce = useAccessibilityAnnounce()
 
@@ -53,6 +57,7 @@ export const TextInputField = ({
                 textTransform={textTransform}
                 value={value as string}
                 warning={!!error}
+                {...textInputProps}
               />
             </Column>
             {!!maxCharacters && (

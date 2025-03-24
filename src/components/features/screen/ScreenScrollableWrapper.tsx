@@ -38,6 +38,7 @@ export const ScreenScrollableWrapper = ({
   return (
     <CustomScrollView
       contentContainerStyle={scrollViewContentStyle}
+      keyboardShouldPersistTaps="handled"
       style={scrollViewStyle}>
       {children}
     </CustomScrollView>
