@@ -53,6 +53,7 @@ export const ParkingSessionAddLicensePlateSubmitButton = () => {
       label="Gereed"
       onPress={onSubmit}
       testID="ParkingSessionAddLicensePlateSubmitButton"
+      variant="secondary"
     />
   )
 }

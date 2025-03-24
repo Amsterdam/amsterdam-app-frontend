@@ -1,5 +1,4 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
@@ -10,14 +9,7 @@ import {ParkingSessionProvider} from '@/modules/parking/providers/ParkingSession
 export const ParkingStartSessionScreen = () => (
   <ParkingSessionProvider>
     <Screen
-      bottomSheet={
-        <BottomSheet
-          flex={1}
-          snapPoints={['100%']}
-          testID="ParkingSelectPermitBottomSheet">
-          <ParkingSessionLicensePlateBottomSheet />
-        </BottomSheet>
-      }
+      bottomSheet={<ParkingSessionLicensePlateBottomSheet />}
       testID="ParkingStartSessionScreen">
       <Box>
         <Column gutter="lg">

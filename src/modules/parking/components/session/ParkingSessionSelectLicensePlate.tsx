@@ -1,10 +1,9 @@
 import {useCallback, useContext} from 'react'
-import {StyleSheet} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
@@ -37,7 +36,7 @@ export const ParkingSessionSelectLicensePlate = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <Column gutter="sm">
         <Title
           level="h5"
@@ -56,7 +55,7 @@ export const ParkingSessionSelectLicensePlate = () => {
           />
         ))}
       </Column>
-    </ScrollView>
+    </View>
   )
 }
 
