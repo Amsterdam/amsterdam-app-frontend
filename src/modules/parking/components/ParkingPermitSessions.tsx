@@ -5,7 +5,7 @@ import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session
 import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
 
 export const ParkingPermitSessions = () => (
-  <Box distinct>
+  <Box variant="distinct">
     <Column gutter="lg">
       <Title
         level="h2"

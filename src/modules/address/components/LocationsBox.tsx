@@ -11,9 +11,9 @@ export const LocationsBox = () => {
   return (
     <Column gutter="md">
       <Box
-        distinct
         insetHorizontal="no"
-        insetVertical="md">
+        insetVertical="md"
+        variant="distinct">
         <DisplayAddress />
       </Box>
       <InlineLink

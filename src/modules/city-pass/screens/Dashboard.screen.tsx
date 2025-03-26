@@ -27,7 +27,7 @@ export const DashboardScreen = ({navigation}: Props) => {
       <Box
         insetHorizontal="md"
         insetVertical="xl"
-        variant="city-pass">
+        variant="cityPass">
         <Column gutter="lg">
           <Title
             color="inverse"

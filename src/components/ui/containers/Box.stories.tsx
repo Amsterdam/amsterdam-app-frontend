@@ -6,7 +6,6 @@ import {baseColor} from '@/themes/tokens/base-color'
 export default {
   component: Box,
   args: {
-    distinct: false,
     grow: false,
     inset: 'md',
   },

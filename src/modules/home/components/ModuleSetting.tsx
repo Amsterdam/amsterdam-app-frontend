@@ -23,8 +23,8 @@ type ModuleSettingWrapperProps = {
 
 const ModuleSettingBox = ({children, slug}: ModuleSettingWrapperProps) => (
   <Box
-    distinct
-    testID={`UserModuleSettings${pascalCase(slug)}Box`}>
+    testID={`UserModuleSettings${pascalCase(slug)}Box`}
+    variant="distinct">
     {children}
   </Box>
 )

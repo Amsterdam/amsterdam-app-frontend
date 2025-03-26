@@ -76,6 +76,8 @@ export const lightColorTokens = {
     background: {
       distinct: baseColor.primary.white,
       cityPass: baseColor.secondary.purple,
+      primary: baseColor.primary.blue,
+      default: baseColor.transparent.full,
     },
     border: {
       default: baseColor.neutral.grey1,

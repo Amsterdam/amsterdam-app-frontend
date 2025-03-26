@@ -10,11 +10,7 @@ export type BoxProps = {
   borderStyle?: 'dashed' | 'dotted' | 'solid'
   borderWidth?: keyof Theme['border']['width']
   children: ReactNode
-  /**
-   * Whether the box has a background color, setting it apart from its surroundings. In light mode, it is white.
-   * Only to be used when the box covers another color, like on light grey (settings) screens or in the navigation header.
-   */
-  distinct?: boolean
+  distinct?: never
   /**
    * Whether the box grows to fill its parent container.
    */
@@ -41,9 +37,13 @@ export type BoxProps = {
   insetVertical?: keyof SpacingTokens
   shrink?: number
   /**
-   *
+   * Whether the box has a background color, setting it apart from its surroundings.
+   * default: full transparent
+   * distinct: In light mode, it is white. Only to be used when the box covers another color, like on light grey (settings) screens or in the navigation header.
+   * cityPass: for use in city-pass module
+   * primary: for primary color boxes
    */
-  variant?: 'default' | 'city-pass'
+  variant?: keyof Theme['color']['box']['background']
 } & Omit<ViewProps, 'style'>
 
 /**
@@ -98,24 +98,19 @@ const createStyles =
     borderColor,
     borderStyle,
     borderWidth,
-    distinct,
     inset,
     insetHorizontal,
     insetTop,
     insetVertical,
     insetBottom,
     shrink,
-    variant,
+    variant = 'default',
   }: Partial<BoxProps>) =>
   ({border, color, size}: Theme) =>
     StyleSheet.create({
       box: {
         flexShrink: shrink,
-        backgroundColor: distinct
-          ? color.box.background.distinct
-          : variant === 'city-pass'
-            ? color.box.background.cityPass
-            : undefined,
+        backgroundColor: color.box.background[variant],
         borderColor: borderColor ? color.box.border[borderColor] : undefined,
         borderStyle,
         borderWidth: borderWidth ? border.width[borderWidth] : undefined,
