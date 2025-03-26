@@ -120,7 +120,7 @@ export const CityOffice = () => {
               label="Bekijk route"
               onPress={() => openWebUrl(directionsUrl)}
               testID="ContactSeeRouteButton"
-              variant={appointment ? 'secondary' : 'primary'}
+              variant="secondary"
             />
           )}
         </Column>

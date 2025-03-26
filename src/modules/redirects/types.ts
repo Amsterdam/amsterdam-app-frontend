@@ -11,6 +11,7 @@ export enum RedirectKey {
   cityPassUsage = 'cityPassUsage',
   citypass = 'citypass',
   contactForm = 'contactForm',
+  contactNewsletterSignup = 'contactNewsletterSignup',
   documents = 'documents',
   feedbackForm = 'feedbackForm',
   immigration = 'immigration',
