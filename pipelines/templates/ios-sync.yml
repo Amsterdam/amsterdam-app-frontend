@@ -2,7 +2,10 @@ steps:
   - checkout: self
     path: './s/'
     fetchDepth: 1
+    fetchTags: false
   - checkout: aapp_app_ios-certificates
+    fetchDepth: 1
+    fetchTags: false
 
   - task: DownloadSecureFile@1
     displayName: 'Download App Store Connect API Key'

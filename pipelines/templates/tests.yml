@@ -4,6 +4,10 @@ jobs:
     pool:
       vmImage: macOS-15
     steps:
+      - checkout: self
+        path: './s/'
+        fetchDepth: 1
+        fetchTags: false
       - template: ./install-node.yml
       - script: npm ci
         displayName: Install Dependencies
