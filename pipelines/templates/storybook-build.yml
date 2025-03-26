@@ -1,6 +1,7 @@
 steps:
   - checkout: self
-    fetchDepth: 0
+    fetchDepth: 1
+    fetchTags: false
   - template: ./install-node.yml
   - script: npm ci
     displayName: 'Install node dependencies'
