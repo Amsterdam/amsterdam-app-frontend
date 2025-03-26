@@ -31,7 +31,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
       testID={`CityPassBudgetBalance${code}Button`}>
       <Border color="cityPass">
         <Column>
-          <Box variant="city-pass">
+          <Box variant="cityPass">
             <Row gutter="md">
               <BalanceSvg />
               <Column shrink={1}>

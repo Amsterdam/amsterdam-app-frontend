@@ -17,7 +17,9 @@ type Props = {
   children: ReactNode
 }
 
-const SwitchWrapper = ({children}: Props) => <Box distinct>{children}</Box>
+const SwitchWrapper = ({children}: Props) => (
+  <Box variant="distinct">{children}</Box>
+)
 
 export const UserBiometricsScreen = () => {
   const {
