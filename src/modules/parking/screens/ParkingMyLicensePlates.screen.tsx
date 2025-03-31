@@ -11,9 +11,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
-import {ParkingMaxLicensePlatesAlert} from '@/modules/parking/components/ParkingMaxLicensePlatesAlert'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
-import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
@@ -88,14 +86,13 @@ export const ParkingMyLicensePlatesScreen = () => {
   const {forced_license_plate_list} = currentPermit
 
   return (
-    <Screen testID="ParkingMyLicensePlatesScreen">
+    <Screen
+      hasStickyAlert
+      testID="ParkingMyLicensePlatesScreen">
       <Box>
         <Column gutter="xl">
           {licensePlates.length === 0 && (
             <Phrase>U heeft nog geen favoriete kentekens opgeslagen.</Phrase>
-          )}
-          {licensePlates.length >= MAX_LICENSE_PLATES && (
-            <ParkingMaxLicensePlatesAlert />
           )}
           {licensePlates?.map(licensePlate => (
             <LicensePlateListItem
