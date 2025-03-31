@@ -1,12 +1,12 @@
 import {useEffect, useState} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
+import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Switch} from '@/components/ui/forms/Switch'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ParkingMaxLicensePlatesAlert} from '@/modules/parking/components/ParkingMaxLicensePlatesAlert'
+import {alerts} from '@/modules/parking/alerts'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -51,10 +51,13 @@ export const ParkingSessionAddLicensePlate = () => {
         value={isVisitorNameVisible}
       />
       {isVisitorNameVisible ? (
-        licensePlates?.length === MAX_LICENSE_PLATES ? (
+        (licensePlates?.length ?? 0) >= MAX_LICENSE_PLATES ? (
           <>
             <Gutter />
-            <ParkingMaxLicensePlatesAlert variant={AlertVariant.warning} />
+            <AlertBase
+              {...alerts.maxLicensePlatesWarning}
+              hasCloseIcon={false}
+            />
           </>
         ) : (
           <TextInputField

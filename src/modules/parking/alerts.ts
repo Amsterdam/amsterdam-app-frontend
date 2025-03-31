@@ -2,14 +2,15 @@ import {
   type AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 
 export const alerts = {
-  maxLicensePlatesInfo: {
-    variant: AlertVariant.information,
-    text: 'Er kunnen niet meer dan 9 kentekens worden opgeslagen.',
+  maxLicensePlatesWarning: {
+    variant: AlertVariant.warning,
+    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
     title: 'Maximum aantal kentekens',
     hasIcon: true,
-    hasCloseIcon: false,
+    hasCloseIcon: true,
     testID: 'ParkingMaxLicensePlatesAlert',
   },
 } as const satisfies AlertsRecord
