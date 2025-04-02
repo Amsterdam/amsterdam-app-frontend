@@ -115,6 +115,14 @@ export type PaymentZone = {
   id: string
 }
 
+export enum PermitType {
+  'GA-parkeervergunning voor bewoners (passagiers)' = 'GA-parkeervergunning voor bewoners (passagiers)',
+  bezoekersvergunning = 'Bezoekersvergunning',
+  codevergunning = 'Codevergunning',
+  kraskaartvergunning = 'Kraskaartvergunning',
+  mantelzorgvergunning = 'Mantelzorgvergunning',
+}
+
 export type ParkingPermit = {
   discount: number
   forced_license_plate_list: boolean
@@ -132,7 +140,7 @@ export type ParkingPermit = {
   }
   payment_zones: PaymentZone[]
   permit_name: string
-  permit_type: string
+  permit_type: PermitType
   permit_zone: {
     name: string
     permit_zone_id: string

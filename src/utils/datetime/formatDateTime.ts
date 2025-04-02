@@ -8,5 +8,5 @@ export const formatDateTime = (date: string | number | Dayjs) => {
     return ''
   }
 
-  return dayjs(date).format('D MMMM YYYY HH:mm:ss')
+  return dayjs(date).format('D MMMM YYYY HH.mm:ss')
 }

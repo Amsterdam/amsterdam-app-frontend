@@ -9,7 +9,7 @@ export const downloadChat = async () => {
   try {
     const {transcript, entryId} = await retrieveTranscript()
 
-    const fileName = `Chatgeschiedenis ${formatDateTime(dayjs()).replaceAll(':', ' ')}.pdf`
+    const fileName = `Chatgeschiedenis ${formatDateTime(dayjs()).replaceAll('.', ' ').replaceAll(':', ' ')}.pdf`
     const mimeType = 'application/pdf'
 
     await saveFile({base64: {data: transcript, mimeType}, fileName})

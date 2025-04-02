@@ -14,15 +14,15 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 export const ParkingSessionSelectLicensePlate = () => {
   const {close} = useBottomSheet()
   const styles = createStyles()
-  const {addLicensePlate} = useContext(ParkingSessionContext)
+  const {setLicensePlate} = useContext(ParkingSessionContext)
   const {licensePlates, isLoading} = useGetLicensePlates()
 
   const onPress = useCallback(
     (licensePlate: ParkingLicensePlate) => {
-      addLicensePlate(licensePlate)
+      setLicensePlate(licensePlate)
       close()
     },
-    [addLicensePlate, close],
+    [setLicensePlate, close],
   )
 
   if (isLoading) {
