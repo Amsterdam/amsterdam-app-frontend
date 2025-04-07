@@ -11,9 +11,7 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 export const ParkingSessionAddLicensePlateSubmitButton = () => {
   const {close} = useBottomSheet()
   const {handleSubmit, reset} = useFormContext<ParkingLicensePlate>()
-  const {addLicensePlate: addLicensePlateToContext} = useContext(
-    ParkingSessionContext,
-  )
+  const {setLicensePlate} = useContext(ParkingSessionContext)
   const {currentPermit} = useGetCurrentParkingPermit()
   const {secureParkingAccount} = useGetSecureParkingAccount()
   const [addLicensePlate] = useAddLicensePlateMutation()
@@ -34,14 +32,14 @@ export const ParkingSessionAddLicensePlateSubmitButton = () => {
       })
         .unwrap()
         .then(result => {
-          addLicensePlateToContext({
+          setLicensePlate({
             vehicle_id: result.vehicle_id,
             visitor_name: result.visitor_name,
           })
           close()
         })
     } else {
-      addLicensePlateToContext({vehicle_id: vehicle_id.toUpperCase()})
+      setLicensePlate({vehicle_id: vehicle_id.toUpperCase()})
       close()
     }
 

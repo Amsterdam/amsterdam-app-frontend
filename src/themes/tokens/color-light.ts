@@ -293,6 +293,9 @@ export const lightColorTokens = {
       background: baseColor.primary.white,
     },
   },
+  topTaskButton: {
+    border: baseColor.primary.blue,
+  },
   progressSteps: {
     primary: {
       connector: {
@@ -333,6 +336,16 @@ export const lightColorTokens = {
           border: baseColor.neutral.grey3,
           label: baseColor.neutral.grey3,
         },
+      },
+    },
+  },
+  tabs: {
+    tab: {
+      active: {
+        border: baseColor.primary.blue,
+      },
+      inactive: {
+        border: baseColor.neutral.grey2,
       },
     },
   },

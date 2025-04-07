@@ -72,6 +72,7 @@
     "react-native-block-screenshot": "file:./react-native-block-screenshot",
     "react-native-bootsplash": "^6.3.2",
     "react-native-build-config": "^0.3.2",
+    "react-native-date-picker": "5.0.10",
     "react-native-device-info": "^14.0.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-geolocation-service": "^5.3.1",

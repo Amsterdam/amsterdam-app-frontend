@@ -13,16 +13,19 @@ import {useThemable} from '@/themes/useThemable'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type TopTaskButtonProps = {
+  border?: boolean
   iconName: SvgIconName
+  iconRightName?: SvgIconName
   isError?: boolean
   text?: ReactNode
   title: string
   titleIconName?: SvgIconName
-} & Omit<PressableProps, 'children'>
+} & Omit<PressableProps, 'children' | 'style'>
 
 export const TopTaskButton = ({
   isError = false,
   iconName,
+  iconRightName,
   onPress,
   text,
   title,
@@ -87,6 +90,18 @@ export const TopTaskButton = ({
             text
           )}
         </Column>
+        {!!iconRightName && (
+          <View style={styles.height}>
+            <HideFromAccessibility>
+              <Icon
+                color="link"
+                name={iconRightName}
+                size="xl"
+                testID={`${testID}Icon`}
+              />
+            </HideFromAccessibility>
+          </View>
+        )}
       </Row>
     </Pressable>
   )

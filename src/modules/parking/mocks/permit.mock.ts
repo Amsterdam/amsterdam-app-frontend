@@ -1,4 +1,4 @@
-import {ParkingPermit} from '@/modules/parking/types'
+import {ParkingPermit, PermitType} from '@/modules/parking/types'
 
 export const permitMock: ParkingPermit = {
   discount: 0,
@@ -60,7 +60,7 @@ export const permitMock: ParkingPermit = {
     },
   ],
   permit_name: '',
-  permit_type: '',
+  permit_type: PermitType.bezoekersvergunning,
   permit_zone: {
     name: 'Nieuw-West 9e',
     permit_zone_id: 'Nieuw-West 9e',

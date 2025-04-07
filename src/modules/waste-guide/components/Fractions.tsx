@@ -32,7 +32,7 @@ export const Fractions = ({wasteGuide}: Props) => {
       renderItem={({item}) => (
         <Fraction
           fraction={item}
-          testID={`WasteGuide${pascalCase(item.afvalwijzerFractieNaam)}`}
+          testID={`WasteGuide${pascalCase(item.afvalwijzerFractieNaam ?? '')}`}
         />
       )}
       spacing={gutter}

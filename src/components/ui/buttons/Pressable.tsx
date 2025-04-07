@@ -13,6 +13,7 @@ import {useThemable} from '@/themes/useThemable'
 type PressableVariant = 'primary' | 'tertiary' | 'transparent'
 
 export type PressableProps = {
+  border?: boolean
   children: ReactNode
   'logging-label'?: string
   variant?: PressableVariant
@@ -33,6 +34,7 @@ export const Pressable = forwardRef<View, PressableProps>(
       insetHorizontal,
       insetVertical,
       variant = 'tertiary',
+      border = false,
       ...pressableProps
     },
     ref,
@@ -44,7 +46,11 @@ export const Pressable = forwardRef<View, PressableProps>(
         accessibilityLanguage="nl-NL"
         accessibilityRole="button"
         ref={ref}
-        style={({pressed}) => [styles.button, pressed && styles.pressed]}
+        style={({pressed}) => [
+          styles.button,
+          pressed && styles.pressed,
+          !!border && styles.border,
+        ]}
         {...pressableProps}>
         <Box
           inset={inset}
@@ -59,7 +65,7 @@ export const Pressable = forwardRef<View, PressableProps>(
 
 const createStyles =
   (variant: PressableVariant) =>
-  ({color}: Theme) =>
+  ({color, border}: Theme) =>
     StyleSheet.create({
       button: {
         backgroundColor:
@@ -72,5 +78,9 @@ const createStyles =
           variant !== 'transparent'
             ? color.pressable[variant].pressed.background
             : undefined,
+      },
+      border: {
+        borderWidth: border.width.md,
+        borderColor: color.topTaskButton.border,
       },
     })
