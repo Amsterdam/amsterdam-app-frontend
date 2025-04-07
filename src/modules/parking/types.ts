@@ -4,11 +4,14 @@ import {Paginated} from '@/types/api'
 export enum ParkingEndpointName {
   accountDetails = 'accountDetails',
   addLicensePlate = 'addLicensePlate',
+  addSession = 'addSession',
+  changeSession = 'changeSession',
   licensePlates = 'licensePlates',
   login = 'login',
   parkingSessions = 'parkingSessions',
   permits = 'permits',
   removeLicensePlate = 'removeLicensePlate',
+  sessionReceipt = 'sessionReceipt',
 }
 
 // Account
@@ -106,13 +109,15 @@ export type RemoveLicensePlateEndpointResponse = {
 // Permit
 export type PaymentZone = {
   city: string
-  days: {
-    day_of_week: string
-    end_time: string
-    start_time: string
-  }[]
+  days: PaymentZoneDay[]
   description: string
   id: string
+}
+
+export type PaymentZoneDay = {
+  day_of_week: string
+  end_time: string
+  start_time: string
 }
 
 export enum PermitType {
@@ -196,3 +201,52 @@ export type ParkingSessionsEndpointRequest = {
 }
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
+
+export type ParkingSessionReceiptEndpointResponse = {
+  costs: {
+    currency: string
+    value: number
+  }
+  costs_per_hour: {
+    currency: string
+    value: number
+  }
+  current_time_balance: number
+  current_wallet_balance: {
+    currency: string
+    value: number
+  }
+  end_time: string
+  parking_cost: {
+    currency: string
+    value: number
+  }
+  parking_time: number
+  payment_required: boolean
+  payment_zone_id: string
+  regime_time: [
+    {
+      end_time: string
+      id: string
+      start_time: string
+    },
+  ]
+  remaining_parking_time: number
+  remaining_time: number
+  remaining_time_balance: number
+  remaining_wallet_balance: {
+    currency: string
+    value: number
+  }
+  report_code: number
+  start_time: string
+}
+
+export type ParkingSessionReceiptEndpointRequestParams = {
+  accessToken: string
+  end_date: string
+  payment_zone_id: string
+  report_code: string
+  start_date: string
+  vehicle_id: string
+}

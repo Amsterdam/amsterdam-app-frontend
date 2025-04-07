@@ -8,9 +8,11 @@ export type ParkingSessionContextType = {
   bottomSheetVariant: ParkingSessionBottomSheetVariant
   endTime?: Dayjs
   licensePlate?: ParkingLicensePlate
+  paymentZoneId?: string
   setBottomSheetVariant: (variant: ParkingSessionBottomSheetVariant) => void
   setEndTime: (datetime: Dayjs | undefined) => void
   setLicensePlate: (licensePlate: ParkingLicensePlate) => void
+  setPaymentZoneId: (paymentZoneId: string) => void
   setStartTime: (datetime: Dayjs) => void
   startTime: Dayjs
 }
@@ -24,6 +26,8 @@ const initialValue: ParkingSessionContextType = {
   setEndTime: () => null,
   bottomSheetVariant: ParkingSessionBottomSheetVariant.licensePlate,
   setBottomSheetVariant: () => null,
+  paymentZoneId: undefined,
+  setPaymentZoneId: () => null,
 }
 
 export const ParkingSessionContext = createContext(initialValue)
@@ -36,6 +40,7 @@ export const ParkingSessionProvider = ({children}: Props) => {
   const [licensePlate, setLicensePlate] = useState<ParkingLicensePlate>()
   const [startTime, setStartTime] = useState<Dayjs>(roundDownPer5Minutes())
   const [endTime, setEndTime] = useState<Dayjs | undefined>()
+  const [paymentZoneId, setPaymentZoneId] = useState<string | undefined>()
   const [bottomSheetVariant, setBottomSheetVariant] =
     useState<ParkingSessionBottomSheetVariant>(
       ParkingSessionBottomSheetVariant.licensePlate,
@@ -51,8 +56,10 @@ export const ParkingSessionProvider = ({children}: Props) => {
       setEndTime,
       bottomSheetVariant,
       setBottomSheetVariant,
+      paymentZoneId,
+      setPaymentZoneId,
     }),
-    [bottomSheetVariant, endTime, licensePlate, startTime],
+    [bottomSheetVariant, endTime, licensePlate, paymentZoneId, startTime],
   )
 
   return (
