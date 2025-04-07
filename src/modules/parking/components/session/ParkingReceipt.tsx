@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useContext} from 'react'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -110,38 +111,46 @@ export const ParkingReceipt = () => {
       />
       <Gutter height="sm" />
       {!!currentPermit.time_balance_applicable && (
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase emphasis="strong">Parkeertijd</Phrase>
-          <Phrase emphasis="strong">{parkingTimeText}</Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase emphasis="strong">Parkeertijd</Phrase>
+            <Phrase emphasis="strong">{parkingTimeText}</Phrase>
+          </Row>
+        </SingleSelectable>
       )}
       {!!currentPermit.money_balance_applicable && (
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase emphasis="strong">Parkeerkosten</Phrase>
-          <Phrase emphasis="strong">{parkingCostText}</Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase emphasis="strong">Parkeerkosten</Phrase>
+            <Phrase emphasis="strong">{parkingCostText}</Phrase>
+          </Row>
+        </SingleSelectable>
       )}
       <Gutter height="md" />
       {!!currentPermit.time_balance_applicable && (
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Resterend tijdsaldo</Phrase>
-          <Phrase>{remainingTimeBalanceText}</Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase>Resterend tijdsaldo</Phrase>
+            <Phrase>{remainingTimeBalanceText}</Phrase>
+          </Row>
+        </SingleSelectable>
       )}
 
       {!!currentPermit.money_balance_applicable && (
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Resterend geldsaldo</Phrase>
-          <Phrase>{remainingMoneyBalanceText}</Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase>Resterend geldsaldo</Phrase>
+            <Phrase>{remainingMoneyBalanceText}</Phrase>
+          </Row>
+        </SingleSelectable>
       )}
       <Gutter height="md" />
     </Column>
