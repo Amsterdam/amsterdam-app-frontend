@@ -12,12 +12,15 @@ import {
   AddLicensePlateEndpointResponse,
   ParkingSessionsEndpointResponse,
   ParkingSessionsEndpointRequest,
+  ParkingSessionReceiptEndpointResponse,
+  ParkingSessionReceiptEndpointRequestParams,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {AfterBaseQueryErrorFn} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
+import {generateRequestUrl} from '@/utils/api'
 
 const afterError: AfterBaseQueryErrorFn = async (
   {error},
@@ -122,6 +125,20 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.sessionReceipt]: builder.query<
+      ParkingSessionReceiptEndpointResponse,
+      ParkingSessionReceiptEndpointRequestParams
+    >({
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        slug: ModuleSlug.parking,
+        url: generateRequestUrl({path: '/session/receipt', params}),
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.removeLicensePlate]: builder.mutation<
       RemoveLicensePlateEndpointResponse,
       RemoveLicensePlateEndpointRequest
@@ -150,4 +167,5 @@ export const {
   useParkingSessionsQuery,
   useRemoveLicensePlateMutation,
   usePermitsQuery,
+  useSessionReceiptQuery,
 } = parkingApi

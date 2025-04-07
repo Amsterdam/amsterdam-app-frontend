@@ -37,7 +37,7 @@ export const ParkingPermitBalanceMoney = () => {
   }
 
   const {
-    wallet: {balance},
+    wallet: {balance, currency},
   } = account
 
   const {parking_rate} = currentPermit
@@ -58,7 +58,7 @@ export const ParkingPermitBalanceMoney = () => {
           <Title
             level="h5"
             testID="ParkingPermitBalanceMoneyTitlePhrase"
-            text={formatNumber(balance, true)}
+            text={formatNumber(balance, currency)}
           />
         </Row>
         <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
