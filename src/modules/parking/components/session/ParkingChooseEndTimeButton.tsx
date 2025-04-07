@@ -41,7 +41,7 @@ export const ParkingChooseEndTimeButton = () => {
     <TopTaskButton
       border
       iconName="parkingCar"
-      iconRightName="chevron-right"
+      iconRightName="chevron-down"
       onPress={() => {
         setBottomSheetVariant(ParkingSessionBottomSheetVariant.endTime)
         toggle()

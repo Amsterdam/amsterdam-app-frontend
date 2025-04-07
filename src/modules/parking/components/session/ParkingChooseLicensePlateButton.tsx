@@ -26,7 +26,7 @@ export const ParkingChooseLicensePlateButton = () => {
     <TopTaskButton
       border
       iconName="parkingCar"
-      iconRightName="chevron-right"
+      iconRightName="chevron-down"
       onPress={() => {
         setBottomSheetVariant(ParkingSessionBottomSheetVariant.licensePlate)
         toggle()
