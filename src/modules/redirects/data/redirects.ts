@@ -54,11 +54,4 @@ export const redirects: RedirectResponse[] = [
     title: 'Hulp bij een laag inkomen',
     urlKey: RedirectKey.income_help,
   },
-  {
-    iconName: 'city-pass',
-    testID: 'RedirectsCityPassButton',
-    text: 'Voor Amsterdammers met een laag inkomen.',
-    title: 'Stadspas',
-    urlKey: RedirectKey.citypass,
-  },
 ]
