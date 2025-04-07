@@ -16,36 +16,28 @@ export const ParkingStartSessionScreen = () => (
       bottomSheet={<ParkingSessionBottomSheet />}
       testID="ParkingStartSessionScreen">
       <Box>
-        <Column gutter="lg">
-          <Column gutter="sm">
-            <Title
-              level="h2"
-              testID="ParkingChooseLicensePlateTitle"
-              text="Kenteken bezoeker"
-            />
-            <ParkingChooseLicensePlateButton />
-            <Gutter height="md" />
-            <Title
-              level="h2"
-              testID="ParkingChooseTimeTitle"
-              text="Parkeertijd"
-            />
-            <ParkingChooseStartTimeButton />
-            <ParkingChooseEndTimeButton />
-            <Gutter height="md" />
-            <Title
-              level="h2"
-              testID="ParkingChooseTimeTitle"
-              text="Begintijd en eindtijd betaald parkeren"
-            />
-            <ParkingChoosePaymentZone />
-            <Gutter height="md" />
-            <Title
-              level="h2"
-              testID="ParkingCostTitle"
-              text="Kosten"
-            />
-          </Column>
+        <Column gutter="sm">
+          <Title
+            level="h2"
+            testID="ParkingChooseLicensePlateTitle"
+            text="Kenteken bezoeker"
+          />
+          <ParkingChooseLicensePlateButton />
+          <Gutter height="md" />
+          <Title
+            level="h2"
+            testID="ParkingChooseTimeTitle"
+            text="Parkeertijd"
+          />
+          <ParkingChooseStartTimeButton />
+          <ParkingChooseEndTimeButton />
+          <ParkingChoosePaymentZone />
+          <Gutter height="md" />
+          <Title
+            level="h2"
+            testID="ParkingCostTitle"
+            text="Kosten"
+          />
         </Column>
       </Box>
     </Screen>
