@@ -1,9 +1,11 @@
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/session/ParkingChooseEndTimeButton'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/session/ParkingChooseLicensePlateButton'
+import {ParkingChoosePaymentZone} from '@/modules/parking/components/session/ParkingChoosePaymentZone'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/session/ParkingChooseStartTimeButton'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/session/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingSessionProvider} from '@/modules/parking/providers/ParkingSessionProvider'
@@ -22,6 +24,7 @@ export const ParkingStartSessionScreen = () => (
               text="Kenteken bezoeker"
             />
             <ParkingChooseLicensePlateButton />
+            <Gutter height="md" />
             <Title
               level="h2"
               testID="ParkingChooseTimeTitle"
@@ -29,6 +32,14 @@ export const ParkingStartSessionScreen = () => (
             />
             <ParkingChooseStartTimeButton />
             <ParkingChooseEndTimeButton />
+            <Gutter height="md" />
+            <Title
+              level="h2"
+              testID="ParkingChooseTimeTitle"
+              text="Begintijd en eindtijd betaald parkeren"
+            />
+            <ParkingChoosePaymentZone />
+            <Gutter height="md" />
             <Title
               level="h2"
               testID="ParkingCostTitle"
