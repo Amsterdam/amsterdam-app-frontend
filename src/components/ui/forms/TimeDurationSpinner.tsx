@@ -11,13 +11,17 @@ import Animated, {
 import Svg, {Circle, Defs, LinearGradient, Stop} from 'react-native-svg'
 
 type Props = {
+  initialHours?: number
+  initialMinutes?: number
   maxHours?: number
   maxMinutes?: number
   onChange: (hours: number, minutes: number) => void
 }
 
 const {width} = Dimensions.get('window')
-const CIRCLE_SIZE = width * 0.8
+const CIRCLE_SIZE = width * 0.7
+
+const numberOfLines = 16
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
@@ -41,30 +45,32 @@ export const TimeDurationSpinner = ({
   onChange,
   maxHours,
   maxMinutes,
+  initialHours = 0,
+  initialMinutes = 0,
 }: Props) => {
-  const rotation = useSharedValue(0)
+  const rotation = useSharedValue(
+    convertHoursAndMinutesToDegrees(initialHours, initialMinutes),
+  )
   const startAngle = useSharedValue(0)
-  const previousAngle = useSharedValue(0)
   const velocity = useSharedValue(0)
 
   const panGesture = Gesture.Pan()
     .onStart(event => {
-      const centerX = width / 2
-      const centerY = width / 2
+      const centerX = CIRCLE_SIZE / 2
+      const centerY = CIRCLE_SIZE / 2
       const dx = event.x - centerX
       const dy = event.y - centerY
 
       startAngle.value = Math.atan2(dy, dx)
     })
     .onUpdate(event => {
-      const centerX = width / 2
-      const centerY = width / 2
+      const centerX = CIRCLE_SIZE / 2
+      const centerY = CIRCLE_SIZE / 2
       const dx = event.x - centerX
       const dy = event.y - centerY
       const currentAngle = Math.atan2(dy, dx)
       const deltaAngle = currentAngle - startAngle.value
 
-      previousAngle.value = currentAngle
       const deltaDegrees = (deltaAngle * 180) / Math.PI // Convert radians to degrees
 
       const {hours: desiredHours, minutes: desiredMinutes} =
@@ -183,9 +189,9 @@ export const TimeDurationSpinner = ({
       </AnimatedSvg>
       <GestureDetector gesture={panGesture}>
         <Animated.View style={[styles.circle, animatedStyle]}>
-          {/* Render 16 lines */}
-          {Array.from({length: 16}).map((_, index) => {
-            const angle = (360 / 16) * index // Calculate angle for each line
+          {/* Render the lines */}
+          {Array.from({length: numberOfLines}).map((_, index) => {
+            const angle = (360 / numberOfLines) * index // Calculate angle for each line
 
             return (
               <View
