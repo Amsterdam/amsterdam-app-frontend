@@ -125,6 +125,10 @@ const config: StorybookConfig = {
             find: '@microsoft/applicationinsights-web',
             replacement: require.resolve('./mocks/application-insights-web'),
           },
+          {
+            find: 'react-native-date-picker',
+            replacement: require.resolve('./mocks/react-native-date-picker'),
+          },
           ...aliases,
         ],
         extensions,
