@@ -111,8 +111,8 @@
     "@react-native/typescript-config": "0.76.9",
     "@redux-devtools/cli": "^4.0.0",
     "@redux-devtools/remote": "^0.9.3",
-    "@storybook/addon-a11y": "^8.4.2",
-    "@storybook/addon-essentials": "^8.4.2",
+    "@storybook/addon-a11y": "^8.6.12",
+    "@storybook/addon-essentials": "^8.6.12",
     "@storybook/react-vite": "^8.6.12",
     "@types/base-64": "^1.0.2",
     "@types/crypto-js": "^4.2.2",
@@ -165,8 +165,8 @@
     "vite-plugin-svgr": "^4.3.0"
   },
   "optionalDependencies": {
-    "@esbuild/darwin-arm64": "0.18.20",
-    "@esbuild/darwin-x64": "0.18.20"
+    "@esbuild/darwin-arm64": "0.25.2",
+    "@esbuild/darwin-x64": "0.25.2"
   },
   "expo": {
     "autolinking": {
