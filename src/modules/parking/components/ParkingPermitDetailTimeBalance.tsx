@@ -21,7 +21,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
     ? `${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`
     : 'Onbeperkt'
   const parkingRate = parking_rate.value
-    ? `${formatNumber(parking_rate.value, true)} per uur`
+    ? `${formatNumber(parking_rate.value, parking_rate.currency)} per uur`
     : 'Gratis'
 
   return (

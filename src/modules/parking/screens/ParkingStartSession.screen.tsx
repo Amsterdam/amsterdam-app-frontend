@@ -7,6 +7,7 @@ import {ParkingChooseEndTimeButton} from '@/modules/parking/components/session/P
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/session/ParkingChooseLicensePlateButton'
 import {ParkingChoosePaymentZone} from '@/modules/parking/components/session/ParkingChoosePaymentZone'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/session/ParkingChooseStartTimeButton'
+import {ParkingReceipt} from '@/modules/parking/components/session/ParkingReceipt'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/session/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingSessionProvider} from '@/modules/parking/providers/ParkingSessionProvider'
 
@@ -33,11 +34,7 @@ export const ParkingStartSessionScreen = () => (
           <ParkingChooseEndTimeButton />
           <ParkingChoosePaymentZone />
           <Gutter height="md" />
-          <Title
-            level="h2"
-            testID="ParkingCostTitle"
-            text="Kosten"
-          />
+          <ParkingReceipt />
         </Column>
       </Box>
     </Screen>
