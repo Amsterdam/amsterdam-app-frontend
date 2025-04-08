@@ -113,7 +113,7 @@
     "@redux-devtools/remote": "^0.9.3",
     "@storybook/addon-a11y": "^8.4.2",
     "@storybook/addon-essentials": "^8.4.2",
-    "@storybook/react-vite": "^8.4.2",
+    "@storybook/react-vite": "^8.6.12",
     "@types/base-64": "^1.0.2",
     "@types/crypto-js": "^4.2.2",
     "@types/eslint": "^8.56.10",
@@ -126,7 +126,7 @@
     "@typescript-eslint/eslint-plugin": "^7.18.0",
     "@typescript-eslint/parser": "^7.18.0",
     "@typescript-eslint/utils": "^7.18.0",
-    "@vitejs/plugin-react": "^4.3.3",
+    "@vitejs/plugin-react": "^4.3.4",
     "babel-jest": "^29.7.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "eslint": "^8.57.0",
@@ -158,11 +158,11 @@
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.19.13",
     "react-test-renderer": "18.3.1",
-    "storybook": "^8.4.2",
+    "storybook": "^8.6.12",
     "ts-node": "^10.9.2",
     "tsc-files": "^1.1.4",
     "typescript": "5.5.2",
-    "vite-plugin-svgr": "^4.2.0"
+    "vite-plugin-svgr": "^4.3.0"
   },
   "optionalDependencies": {
     "@esbuild/darwin-arm64": "0.18.20",
