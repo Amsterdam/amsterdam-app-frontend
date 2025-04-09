@@ -1,5 +1,8 @@
-import {combineReducers, configureStore} from '@reduxjs/toolkit'
-import {Platform} from 'react-native'
+import {
+  combineReducers,
+  configureStore,
+  type StoreEnhancer,
+} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
 import {accessCodeSlice} from '@/modules/access-code/slice'
@@ -44,26 +47,25 @@ const reducers = getReducers([
 export const store = configureStore({
   enhancers: enhancers => {
     if (__DEV__) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore somehow required for the redux devtools
-      Symbol.asyncIterator ??= Symbol.for('Symbol.asyncIterator')
-      require('react-native-get-random-values')
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const {devToolsEnhancer} = require('@redux-devtools/remote')
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const {getDeviceNameSync} = require('react-native-device-info')
+      const devToolsEnhancer = (
+        require('redux-devtools-expo-dev-plugin') as {
+          default: (options: unknown) => StoreEnhancer
+        }
+      ).default
+      const {polyfillGlobal} =
+        require('react-native/Libraries/Utilities/PolyfillFunctions') as {
+          polyfillGlobal: (name: string, fn: () => unknown) => void
+        }
 
-      return enhancers.concat(
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        devToolsEnhancer({
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          name: `${Platform.OS} ${Platform.Version} - ${getDeviceNameSync()}`,
-          hostname: 'localhost',
-          port: 8000,
-          secure: false,
-          realtime: true,
-        }),
-      )
+      const {TextEncoder, TextDecoder} = require('text-encoding') as {
+        TextDecoder: unknown
+        TextEncoder: unknown
+      }
+
+      polyfillGlobal('TextEncoder', () => TextEncoder)
+      polyfillGlobal('TextDecoder', () => TextDecoder)
+
+      return enhancers.concat(devToolsEnhancer({}))
     }
 
     return enhancers
@@ -72,6 +74,7 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     ...reducers,
   }),
+  devTools: false,
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {

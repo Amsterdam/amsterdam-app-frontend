@@ -9,7 +9,13 @@ import mockRNDeviceInfo from 'react-native-device-info/jest/react-native-device-
 jest.mock('react-native-device-info', () => mockRNDeviceInfo)
 
 jest.mock('@react-native-firebase/messaging', () => ({}))
-jest.mock('@redux-devtools/remote', () => ({devToolsEnhancer: () => fn => fn}))
+jest.mock('redux-devtools-expo-dev-plugin', () => ({
+  default:
+    () =>
+    createStore =>
+    (...args) =>
+      createStore(...args),
+}))
 
 jest.mock('react-native-bootsplash', () => ({
   hide: jest.fn().mockResolvedValueOnce(),
