@@ -66,7 +66,7 @@ export const ParkingChoosePaymentZone = () => {
       )
     : undefined
 
-  if (allPaymentZonesAreEqual) {
+  if (!allPaymentZonesAreEqual) {
     if (currentPermit.max_session_length_in_days === 1) {
       return <Paragraph>Betaald parkeren van {timeString}.</Paragraph>
     } else {
@@ -78,13 +78,14 @@ export const ParkingChoosePaymentZone = () => {
     <Column gutter="sm">
       <Gutter height="md" />
       <Title
-        level="h2"
+        level="h5"
         testID="ParkingChooseTimeTitle"
-        text="Begintijd en eindtijd betaald parkeren"
+        text={`Gebied ${currentPermit.permit_zone.name} heeft meerdere tijden voor betaald parkeren`}
       />
+      <Gutter />
       <TopTaskButton
         border
-        iconName="parkingCar"
+        iconName="clock"
         iconRightName="chevron-down"
         onPress={() => {
           setBottomSheetVariant(ParkingSessionBottomSheetVariant.paymentZone)

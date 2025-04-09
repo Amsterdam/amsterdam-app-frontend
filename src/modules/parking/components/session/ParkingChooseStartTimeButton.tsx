@@ -23,7 +23,7 @@ export const ParkingChooseStartTimeButton = () => {
   return (
     <TopTaskButton
       border
-      iconName="parkingCar"
+      iconName="clock"
       iconRightName="chevron-down"
       onPress={() => {
         setBottomSheetVariant(ParkingSessionBottomSheetVariant.startTime)
