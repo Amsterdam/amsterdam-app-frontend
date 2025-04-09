@@ -20,13 +20,8 @@ const mapping: Record<
 /**
  * Returns numbers from 0 (Sunday) to 6 (Saturday).
  */
-export const weekdayToNumber = (day: string) => {
+export const weekdayToNumber = (day: string): number | undefined => {
   const lowerCaseDay = day.toLowerCase()
-  const number = mapping[lowerCaseDay as keyof typeof mapping]
 
-  if (number === undefined) {
-    throw new Error(`Invalid day: ${day}`)
-  }
-
-  return number
+  return mapping[lowerCaseDay as keyof typeof mapping]
 }
