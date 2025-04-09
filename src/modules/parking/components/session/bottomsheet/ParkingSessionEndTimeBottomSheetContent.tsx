@@ -1,3 +1,4 @@
+import {impactAsync, ImpactFeedbackStyle} from 'expo-haptics'
 import {useContext} from 'react'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
@@ -5,12 +6,15 @@ import {Tabs} from '@/components/ui/Tabs'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {TimeDurationSpinner} from '@/components/ui/forms/TimeDurationSpinner'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -21,15 +25,25 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
   const {startTime, endTime, setEndTime} = useContext(ParkingSessionContext)
   const {close} = useBottomSheet()
 
+  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+
+  if (isLoading) {
+    return (
+      <PleaseWait testID="ParkingSessionPaymentZoneBottomSheetContentPleaseWait" />
+    )
+  }
+
+  if (!currentPermit) {
+    return (
+      <SomethingWentWrong testID="ParkingSessionPaymentZoneBottomSheetContentSomethingWentWrong" />
+    )
+  }
+
   return (
     <Box grow>
       <Column
         gutter="lg"
         halign="center">
-        <Title
-          level="h5"
-          text="Eindtijd"
-        />
         <SingleSelectable>
           <Title
             level="h1"
@@ -54,23 +68,49 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
       <Gutter height="lg" />
       <Tabs>
         <Tabs.Tab label="Parkeertijd">
-          <Gutter height="lg" />
-          <TimeDurationSpinner
-            onChange={(hours, minutes) => {
-              const newEndTime = startTime
-                .add(hours, 'hour')
-                .add(minutes, 'minute')
+          <Column halign="center">
+            <Gutter height="lg" />
+            <TimeDurationSpinner
+              initialHours={endTime?.diff(startTime, 'hour') ?? 0}
+              initialMinutes={
+                endTime
+                  ? endTime.diff(startTime, 'minute') -
+                    endTime.diff(startTime, 'hour') * 60
+                  : 0
+              }
+              maxHours={
+                currentPermit.max_session_length_in_days === 1
+                  ? startTime.endOf('day').diff(startTime, 'hour')
+                  : undefined
+              }
+              maxMinutes={
+                currentPermit.max_session_length_in_days === 1
+                  ? startTime.endOf('day').diff(startTime, 'minutes') -
+                    startTime.endOf('day').diff(startTime, 'hour') * 60
+                  : undefined
+              }
+              onChange={(hours, minutes) => {
+                const newEndTime = startTime
+                  .add(hours, 'hour')
+                  .add(minutes, 'minute')
 
-              setEndTime(newEndTime)
-            }}
-          />
-          <Gutter height="lg" />
+                setEndTime(newEndTime)
+                void impactAsync(ImpactFeedbackStyle.Light)
+              }}
+            />
+            <Gutter height="lg" />
+          </Column>
         </Tabs.Tab>
         <Tabs.Tab label="Eindtijd">
           <DatePicker
             date={endTime?.toDate() ?? startTime.toDate()}
             is24hourSource="locale"
             locale="nl-NL"
+            maximumDate={
+              currentPermit.max_session_length_in_days === 1
+                ? startTime.endOf('day').toDate()
+                : undefined
+            }
             minimumDate={startTime.toDate()}
             mode="time"
             onDateChange={newStartTime => {

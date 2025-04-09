@@ -20,6 +20,8 @@ PODS:
     - ExpoModulesCore
   - ExpoFileSystem (18.0.6):
     - ExpoModulesCore
+  - ExpoHaptics (14.0.1):
+    - ExpoModulesCore
   - ExpoImagePicker (16.0.3):
     - ExpoModulesCore
   - ExpoLocalAuthentication (15.0.1):
@@ -2275,6 +2277,7 @@ DEPENDENCIES:
   - ExpoClipboard (from `../node_modules/expo-clipboard/ios`)
   - ExpoDocumentPicker (from `../node_modules/expo-document-picker/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
+  - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoImagePicker (from `../node_modules/expo-image-picker/ios`)
   - ExpoLocalAuthentication (from `../node_modules/expo-local-authentication/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -2424,6 +2427,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-document-picker/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
+  ExpoHaptics:
+    :path: "../node_modules/expo-haptics/ios"
   ExpoImagePicker:
     :path: "../node_modules/expo-image-picker/ios"
   ExpoLocalAuthentication:
@@ -2628,6 +2633,7 @@ SPEC CHECKSUMS:
   ExpoClipboard: 166ca8c13ca1041f5ba619a211f59427ab5da8a7
   ExpoDocumentPicker: 4a89fd8a0cb90010214a416c858d7dece1c1eb10
   ExpoFileSystem: 179a0661fd6d3c4e5d7e500a99a9cd8b295d9566
+  ExpoHaptics: e01cce0741d68c281853118eb0267f88d42c6b7a
   ExpoImagePicker: 440a560c9bfc63edae854d08b9f12f75bd11c112
   ExpoLocalAuthentication: fb519b5d39df0cc216e43fef3cc8e2db1930a01e
   ExpoModulesCore: 62e1a2b501b06602f4973cc5a5460f558099ecb4
