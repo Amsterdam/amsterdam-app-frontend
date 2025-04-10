@@ -3,6 +3,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingStartSessionButton} from '@/modules/parking/components/ParkingStartSessionButton'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/session/ParkingChooseEndTimeButton'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/session/ParkingChooseLicensePlateButton'
 import {ParkingChoosePaymentZone} from '@/modules/parking/components/session/ParkingChoosePaymentZone'
@@ -35,6 +36,7 @@ export const ParkingStartSessionScreen = () => (
           <ParkingChoosePaymentZone />
           <Gutter height="md" />
           <ParkingReceipt />
+          <ParkingStartSessionButton />
         </Column>
       </Box>
     </Screen>

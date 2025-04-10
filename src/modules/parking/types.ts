@@ -4,7 +4,6 @@ import {Paginated} from '@/types/api'
 export enum ParkingEndpointName {
   accountDetails = 'accountDetails',
   addLicensePlate = 'addLicensePlate',
-  addSession = 'addSession',
   changeSession = 'changeSession',
   licensePlates = 'licensePlates',
   login = 'login',
@@ -12,6 +11,7 @@ export enum ParkingEndpointName {
   permits = 'permits',
   removeLicensePlate = 'removeLicensePlate',
   sessionReceipt = 'sessionReceipt',
+  startSession = 'startSession',
 }
 
 // Account
@@ -249,4 +249,42 @@ export type ParkingSessionReceiptEndpointRequestParams = {
   report_code: string
   start_date: string
   vehicle_id: string
+}
+export type ParkingStartSessionEndpointRequestParams = {
+  accessToken: string
+  balance?: {
+    amount: number
+    currency: string
+  }
+  locale?: string
+  parking_session: {
+    end_date_time: string
+    payment_zone_id: string
+    report_code: string
+    start_date_time: string
+    vehicle_id: string
+  }
+  redirect?: {
+    merchant_return_url: string
+  }
+}
+
+export type ParkingAddSessionResponse = {
+  frontend_id: number
+  /**
+   * The order status can be one of the following:
+   * Initiated
+   * Processing
+   * ...?
+   */
+  order_status: string
+  /**
+   * The order type can be one of the following:
+   * Parking
+   * Payment
+   * Both
+   * ...?
+   */
+  order_type: string
+  redirect_url?: string
 }
