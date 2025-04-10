@@ -1,21 +1,18 @@
+import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionDateStartTime} from '@/modules/parking/components/session/bottomsheet/ParkingSessionDateStartTime'
+import {ParkingSessionDateTime} from '@/modules/parking/components/session/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/session/bottomsheet/ParkingSessionTodayTomorrowStartTime'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {PermitType} from '@/modules/parking/types'
+import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-
-const isPermitTypeTodayTomorrowStartTime = (permitType: PermitType) =>
-  [PermitType.bezoekersvergunning, PermitType.kraskaartvergunning].includes(
-    permitType,
-  )
 
 export const ParkingSessionStartTimeBottomSheetContent = () => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+  const {startTime, setStartTime} = useContext(ParkingSessionContext)
   const {close} = useBottomSheet()
 
   if (isLoading) {
@@ -30,7 +27,7 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
     )
   }
 
-  const {permit_type} = currentPermit
+  const {max_session_length_in_days} = currentPermit
 
   return (
     <Box grow>
@@ -39,10 +36,13 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
         text="Selecteer starttijd"
         textAlign="center"
       />
-      {isPermitTypeTodayTomorrowStartTime(permit_type) ? (
+      {max_session_length_in_days === 1 ? (
         <ParkingSessionTodayTomorrowStartTime />
       ) : (
-        <ParkingSessionDateStartTime />
+        <ParkingSessionDateTime
+          dateTime={startTime}
+          setDateTime={setStartTime}
+        />
       )}
       <Button
         label="Gereed"

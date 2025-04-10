@@ -9,7 +9,9 @@ import {isToday} from '@/utils/datetime/isToday'
 import {roundDownPer5Minutes} from '@/utils/datetime/roundDownPer5Minutes'
 
 export const ParkingSessionTodayTomorrowStartTime = () => {
-  const {startTime, setStartTime} = useContext(ParkingSessionContext)
+  const {startTime, setStartTime, endTime, setEndTime} = useContext(
+    ParkingSessionContext,
+  )
   const justNow = useMemo(roundDownPer5Minutes, [])
 
   return (
@@ -29,6 +31,15 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           }
 
           setStartTime(newStartTime)
+
+          if (endTime) {
+            const newEndTime = endTime
+              .set('date', newStartTime.date())
+              .set('month', newStartTime.month())
+              .set('year', newStartTime.year())
+
+            setEndTime(newEndTime)
+          }
         }}
         options={[
           {label: 'Vandaag', value: 'Today'},
