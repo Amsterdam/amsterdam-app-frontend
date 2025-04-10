@@ -4,20 +4,28 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/ParkingTimesAdjustedMessage'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {
   areAllPaymentZonesEqual,
-  getPaymentZoneTimeString,
+  getPaymentZone,
+  getPaymentZoneDay,
+  getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
 export const ParkingChoosePaymentZone = () => {
-  const {paymentZoneId, startTime, setPaymentZoneId, setBottomSheetVariant} =
-    useContext(ParkingSessionContext)
+  const {
+    paymentZoneId,
+    startTime,
+    setPaymentZoneId,
+    setBottomSheetVariant,
+    endTime,
+  } = useContext(ParkingSessionContext)
   const {toggle} = useBottomSheet()
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
@@ -58,17 +66,41 @@ export const ParkingChoosePaymentZone = () => {
     )
   }
 
-  const timeString = paymentZoneId
-    ? getPaymentZoneTimeString(
-        currentPermit.payment_zones,
-        paymentZoneId,
-        startTimeDayOfWeek,
-      )
+  const paymentZone = paymentZoneId
+    ? getPaymentZone(currentPermit.payment_zones, paymentZoneId)
+    : undefined
+  const startTimePaymentZoneDay = paymentZone
+    ? getPaymentZoneDay(paymentZone, startTimeDayOfWeek)
     : undefined
 
-  if (!allPaymentZonesAreEqual) {
-    if (currentPermit.max_session_length_in_days === 1) {
-      return <Paragraph>Betaald parkeren van {timeString}.</Paragraph>
+  const timeString = startTimePaymentZoneDay
+    ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
+    : undefined
+
+  const showTimeIsAdjustedMessage =
+    currentPermit?.max_session_length_in_days === 1 &&
+    paymentZoneId &&
+    startTimePaymentZoneDay &&
+    endTime &&
+    (endTime?.isAfter(
+      parseTimeToDayjs(startTimePaymentZoneDay.end_time, startTime),
+    ) ||
+      startTime?.isBefore(
+        parseTimeToDayjs(startTimePaymentZoneDay.start_time, startTime),
+      ))
+
+  if (allPaymentZonesAreEqual) {
+    if (currentPermit.max_session_length_in_days === 1 && endTime) {
+      return (
+        <Column gutter="sm">
+          <Gutter height="md" />
+          <Title
+            level="h5"
+            text={`Betaald parkeren van ${timeString}`}
+          />
+          {!!showTimeIsAdjustedMessage && <ParkingTimesAdjustedMessage />}
+        </Column>
+      )
     } else {
       return null
     }
@@ -93,10 +125,9 @@ export const ParkingChoosePaymentZone = () => {
         }}
         testID="ParkingChooseEndTimeButton"
         text={timeString}
-        title={
-          paymentZoneId ? 'Betaald parkeren' : 'Kies tijden betaald parkeren'
-        }
+        title={paymentZoneId ? 'Betaald parkeren' : 'Kies betaald parkeertijd'}
       />
+      {!!showTimeIsAdjustedMessage && <ParkingTimesAdjustedMessage />}
     </Column>
   )
 }

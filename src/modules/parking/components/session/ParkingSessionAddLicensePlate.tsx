@@ -29,7 +29,6 @@ export const ParkingSessionAddLicensePlate = () => {
   return (
     <Column gutter="md">
       <TextInputField
-        autoFocus
         inputInstructions="Voer alleen letters en cijfers in."
         label="Kenteken"
         name="vehicle_id"

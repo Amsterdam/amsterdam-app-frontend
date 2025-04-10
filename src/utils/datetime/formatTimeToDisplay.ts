@@ -1,4 +1,5 @@
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
 type Options = {hoursLabelShort?: boolean; includeHoursLabel?: boolean}
 
@@ -9,7 +10,7 @@ export const formatTimeToDisplay = (
   let parsedTime = dayjs(date)
 
   if (!parsedTime.isValid() && typeof date === 'string') {
-    parsedTime = dayjs(`${dayjs().toJSON().split('T')[0]}T${date}`)
+    parsedTime = parseTimeToDayjs(date)
   }
 
   const time = parsedTime.format('HH.mm')

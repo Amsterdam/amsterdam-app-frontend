@@ -6,7 +6,6 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
@@ -35,7 +34,7 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
     )
   }
 
-  const {permit_zone, payment_zones} = currentPermit
+  const {payment_zones} = currentPermit
   const startTimeDayOfWeek = startTime.day()
   const options = payment_zones.map(zone => ({
     label:
@@ -47,15 +46,6 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        <Title
-          level="h5"
-          text="Kies tijden betaald parkeren"
-          textAlign="center"
-        />
-        <Paragraph>
-          {permit_zone.name} heeft meerdere tijden voor betaald parkeren.
-        </Paragraph>
-        <Gutter />
         <Title
           level="h5"
           text="Wat is de betaald parkeertijd waar de auto staat?"
