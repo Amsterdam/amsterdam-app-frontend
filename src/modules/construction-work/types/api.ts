@@ -175,10 +175,7 @@ export type ProjectWarningResponse = ArticleWarning
 
 // /projects
 
-export type ProjectsQueryArgs = {
-  page?: number
-  page_size?: number
-} & AddressQueryArgs
+export type ProjectsQueryArgs = PaginationQueryArgs & AddressQueryArgs
 
 export type ProjectsItem = ProjectBase & {
   recent_articles: ArticleStub[]

@@ -8,10 +8,12 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingPlannedSessionsSummary = () => {
   const {navigate} = useNavigation()
-  const {plannedParkingSessions, isLoading} = useGetParkingSessions()
+  const {parkingSessions: plannedParkingSessions, isLoading} =
+    useGetParkingSessions(ParkingSessionStatus.planned)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitSessionsPlannedPleaseWait" />
