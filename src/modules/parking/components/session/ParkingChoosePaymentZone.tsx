@@ -89,7 +89,7 @@ export const ParkingChoosePaymentZone = () => {
         parseTimeToDayjs(startTimePaymentZoneDay.start_time, startTime),
       ))
 
-  if (!allPaymentZonesAreEqual) {
+  if (allPaymentZonesAreEqual) {
     if (currentPermit.max_session_length_in_days === 1 && endTime) {
       return (
         <Column gutter="sm">
