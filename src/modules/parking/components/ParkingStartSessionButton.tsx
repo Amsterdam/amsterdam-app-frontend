@@ -24,8 +24,8 @@ export const ParkingStartSessionButton = () => {
       currentPermit &&
       secureParkingAccount &&
       startTime &&
-      endTime &&
-      startTime.isBefore(endTime) &&
+      (currentPermit.no_endtime || endTime) &&
+      (currentPermit.no_endtime || startTime.isBefore(endTime)) &&
       paymentZoneId &&
       licensePlate?.vehicle_id
     ) {
@@ -34,7 +34,7 @@ export const ParkingStartSessionButton = () => {
         parking_session: {
           report_code: currentPermit.report_code.toString(),
           vehicle_id: licensePlate.vehicle_id,
-          end_date_time: endTime.toJSON(),
+          end_date_time: endTime?.toJSON(),
           start_date_time: startTime.toJSON(),
           payment_zone_id: paymentZoneId,
         },

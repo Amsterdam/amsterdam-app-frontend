@@ -11,7 +11,9 @@ export const useGetPermits = () => {
     useGetSecureParkingAccount()
 
   const {data, isLoading} = usePermitsQuery(
-    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
+    secureParkingAccount
+      ? {accessToken: secureParkingAccount.accessToken, status: 'ACTIVE'}
+      : skipToken,
   )
 
   useEffect(() => {

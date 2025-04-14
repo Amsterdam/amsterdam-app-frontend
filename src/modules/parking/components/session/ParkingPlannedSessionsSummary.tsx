@@ -1,6 +1,7 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -12,11 +13,20 @@ import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingPlannedSessionsSummary = () => {
   const {navigate} = useNavigation()
-  const {parkingSessions: plannedParkingSessions, isLoading} =
-    useGetParkingSessions(ParkingSessionStatus.planned)
+  const {
+    parkingSessions: plannedParkingSessions,
+    isLoading,
+    isError,
+  } = useGetParkingSessions(ParkingSessionStatus.planned)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitSessionsPlannedPleaseWait" />
+  }
+
+  if (isError) {
+    return (
+      <SomethingWentWrong testID="ParkingPlannedSessionsSummarySomethingWentWrong" />
+    )
   }
 
   if (!plannedParkingSessions?.length) {

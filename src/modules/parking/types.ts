@@ -12,6 +12,7 @@ export enum ParkingEndpointName {
   removeLicensePlate = 'removeLicensePlate',
   sessionReceipt = 'sessionReceipt',
   startSession = 'startSession',
+  stopSession = 'stopSession',
 }
 
 // Account
@@ -165,6 +166,11 @@ export type ParkingPermit = {
 
 export type ParkingPermitsEndpointResponse = ParkingPermit[]
 
+export type ParkingPermitsEndpointRequestParams = {
+  accessToken: string
+  status?: 'ACTIVE'
+}
+
 // Parking-session
 
 export enum ParkingSessionStatus {
@@ -176,7 +182,7 @@ export enum ParkingSessionStatus {
 
 export type ParkingSession = {
   created_time: string
-  end_date: string
+  end_date_time: string
   is_cancelled: boolean
   is_paid: boolean
   money_balance_applicable: boolean
@@ -185,10 +191,11 @@ export type ParkingSession = {
     currency: string
     value: 0
   }
+  payment_zone_id?: string
   ps_right_id: 0
   remaining_time: 0
   report_code: string
-  start_date: string
+  start_date_time: string
   status: ParkingSessionStatus
   time_balance_applicable: boolean
   vehicle_id: string
@@ -245,10 +252,10 @@ export type ParkingSessionReceiptEndpointResponse = {
 
 export type ParkingSessionReceiptEndpointRequestParams = {
   accessToken: string
-  end_date: string
+  end_date_time: string
   payment_zone_id: string
   report_code: string
-  start_date: string
+  start_date_time: string
   vehicle_id: string
 }
 export type ParkingStartSessionEndpointRequestParams = {
@@ -259,8 +266,26 @@ export type ParkingStartSessionEndpointRequestParams = {
   }
   locale?: string
   parking_session: {
-    end_date_time: string
+    end_date_time?: string
     payment_zone_id: string
+    report_code: string
+    start_date_time: string
+    vehicle_id: string
+  }
+  redirect?: {
+    merchant_return_url: string
+  }
+}
+
+export type ParkingChangeSessionEndpointRequestParams = {
+  accessToken: string
+  balance?: {
+    amount: number
+    currency: string
+  }
+  locale?: string
+  parking_session: {
+    end_date_time?: string
     report_code: string
     start_date_time: string
     vehicle_id: string
