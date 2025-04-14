@@ -33,9 +33,9 @@ export const ParkingReceipt = () => {
       ? {
           accessToken: secureParkingAccount.accessToken,
           report_code: secureParkingAccount.reportCode,
-          end_date: endTime.toJSON(),
+          end_date_time: endTime.toJSON(),
           payment_zone_id: paymentZoneId,
-          start_date: startTime.toJSON(),
+          start_date_time: startTime.toJSON(),
           vehicle_id: licensePlate?.vehicle_id ?? '111111',
         }
       : skipToken,

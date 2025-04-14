@@ -1,4 +1,5 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -7,11 +8,20 @@ import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessio
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingActiveSessionsSummary = () => {
-  const {parkingSessions: activeParkingSessions, isLoading} =
-    useGetParkingSessions(ParkingSessionStatus.active)
+  const {
+    parkingSessions: activeParkingSessions,
+    isLoading,
+    isError,
+  } = useGetParkingSessions(ParkingSessionStatus.active)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitSessionsActivePleaseWait" />
+  }
+
+  if (isError) {
+    return (
+      <SomethingWentWrong testID="ParkingActiveSessionsSummarySomethingWentWrong" />
+    )
   }
 
   return (

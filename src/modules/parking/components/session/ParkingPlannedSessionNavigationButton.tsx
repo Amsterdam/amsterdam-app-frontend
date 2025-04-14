@@ -15,11 +15,12 @@ export const ParkingPlannedSessionNavigationButton = ({
   parkingSession,
 }: Props) => {
   const {navigate} = useNavigation()
-  const {start_date, end_date, vehicle_id, visitor_name} = parkingSession
+  const {start_date_time, end_date_time, vehicle_id, visitor_name} =
+    parkingSession
   const title = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
-  const isStartDateToday = dayjs(start_date).isSame(dayjs(), 'day')
-  const timeDifferenceMs = dayjs(end_date).diff(
-    dayjs(start_date),
+  const isStartDateToday = dayjs(start_date_time).isSame(dayjs(), 'day')
+  const timeDifferenceMs = dayjs(end_date_time).diff(
+    dayjs(start_date_time),
     'milliseconds',
   )
   const remainingTimeInHoursAndMinutes =
@@ -33,10 +34,10 @@ export const ParkingPlannedSessionNavigationButton = ({
         testID="ParkingPlannedSessionDatePhrase">
         {isStartDateToday
           ? 'Vandaag'
-          : dayjs(start_date).format('DD MMMM YYYY')}
+          : dayjs(start_date_time).format('DD MMMM YYYY')}
       </Phrase>
       <NavigationButton
-        description={`${dayjs(start_date).format('HH.mm')} - ${remainingTimeSentence}`}
+        description={`${dayjs(start_date_time).format('HH.mm')} - ${remainingTimeSentence}`}
         icon="parkingCar"
         iconSize="lg"
         inset={false}

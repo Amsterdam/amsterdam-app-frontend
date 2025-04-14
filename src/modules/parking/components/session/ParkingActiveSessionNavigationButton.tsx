@@ -12,13 +12,13 @@ export const ParkingActiveSessionNavigationButton = ({
   parkingSession,
 }: Props) => {
   const {navigate} = useNavigation()
-  const {end_date, vehicle_id, visitor_name} = parkingSession
+  const {end_date_time, vehicle_id, visitor_name} = parkingSession
   const title = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
-  const isEndDateToday = dayjs(end_date).isSame(dayjs(), 'day')
+  const isEndDateToday = dayjs(end_date_time).isSame(dayjs(), 'day')
 
   return (
     <NavigationButton
-      description={`Tot ${dayjs(end_date).format(isEndDateToday ? 'HH.mm' : 'D MMMM, HH.mm')} uur`}
+      description={`Tot ${dayjs(end_date_time).format(isEndDateToday ? 'HH.mm' : 'D MMMM, HH.mm')} uur`}
       icon="parkingCar"
       iconSize="lg"
       inset={false}

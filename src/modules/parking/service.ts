@@ -14,8 +14,10 @@ import {
   ParkingSessionsEndpointRequest,
   ParkingSessionReceiptEndpointResponse,
   ParkingSessionReceiptEndpointRequestParams,
-  ParkingAddSessionResponse,
   ParkingStartSessionEndpointRequestParams,
+  ParkingPermitsEndpointRequestParams,
+  ParkingAddSessionResponse,
+  ParkingChangeSessionEndpointRequestParams,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -115,15 +117,15 @@ export const parkingApi = baseApi.injectEndpoints({
     }),
     [ParkingEndpointName.permits]: builder.query<
       ParkingPermitsEndpointResponse,
-      string
+      ParkingPermitsEndpointRequestParams
     >({
-      query: (accessToken: string) => ({
+      query: ({accessToken, ...params}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
         },
         method: 'GET',
         slug: ModuleSlug.parking,
-        url: '/permits',
+        url: generateRequestUrl({path: '/permits', params}),
         afterError,
       }),
     }),
@@ -152,6 +154,22 @@ export const parkingApi = baseApi.injectEndpoints({
         },
         body,
         method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/session',
+        afterError,
+      }),
+    }),
+    [ParkingEndpointName.changeSession]: builder.mutation<
+      ParkingAddSessionResponse,
+      ParkingChangeSessionEndpointRequestParams
+    >({
+      invalidatesTags: ['ParkingSessions'],
+      query: ({accessToken, ...body}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        body,
+        method: 'PATCH',
         slug: ModuleSlug.parking,
         url: '/session',
         afterError,
@@ -187,4 +205,5 @@ export const {
   usePermitsQuery,
   useSessionReceiptQuery,
   useStartSessionMutation,
+  useChangeSessionMutation,
 } = parkingApi

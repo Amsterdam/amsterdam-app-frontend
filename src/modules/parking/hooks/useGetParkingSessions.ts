@@ -9,7 +9,7 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
     useGetSecureParkingAccount()
   const {currentPermit, isLoading: isLoadingCurrentPermit} =
     useGetCurrentParkingPermit()
-  const {data, isLoading} = useParkingSessionsQuery(
+  const {data, isLoading, isError} = useParkingSessionsQuery(
     secureParkingAccount && currentPermit
       ? {
           accessToken: secureParkingAccount.accessToken,
@@ -23,6 +23,7 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
   return {
     isLoading:
       isLoadingSecureParkingAccount || isLoading || isLoadingCurrentPermit,
+    isError,
     parkingSessions: data?.result,
   }
 }
