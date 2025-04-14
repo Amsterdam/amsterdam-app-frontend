@@ -26,8 +26,7 @@ export const ParkingReceipt = () => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
 
-  const allDataEntered =
-    endTime && paymentZoneId && licensePlate && endTime.isAfter(startTime)
+  const allDataEntered = endTime && paymentZoneId && endTime.isAfter(startTime)
 
   const {data, isLoading} = useSessionReceiptQuery(
     secureParkingAccount && allDataEntered
@@ -37,7 +36,7 @@ export const ParkingReceipt = () => {
           end_date: endTime.toJSON(),
           payment_zone_id: paymentZoneId,
           start_date: startTime.toJSON(),
-          vehicle_id: licensePlate?.vehicle_id,
+          vehicle_id: licensePlate?.vehicle_id ?? '111111',
         }
       : skipToken,
   )
