@@ -4,9 +4,11 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingActiveSessionsSummary = () => {
-  const {activeParkingSessions, isLoading} = useGetParkingSessions()
+  const {parkingSessions: activeParkingSessions, isLoading} =
+    useGetParkingSessions(ParkingSessionStatus.active)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitSessionsActivePleaseWait" />

@@ -1,4 +1,4 @@
-import {Paginated} from '@/types/api'
+import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 // Routes
 export enum ParkingEndpointName {
@@ -168,10 +168,10 @@ export type ParkingPermitsEndpointResponse = ParkingPermit[]
 // Parking-session
 
 export enum ParkingSessionStatus {
-  active = 'Actief',
-  cancelled = 'Geannuleerd',
-  completed = 'Voltooid',
-  planned = 'Gepland',
+  active = 'ACTIVE',
+  cancelled = 'CANCELLED',
+  completed = 'COMPLETED',
+  planned = 'PLANNED',
 }
 
 export type ParkingSession = {
@@ -198,7 +198,8 @@ export type ParkingSession = {
 export type ParkingSessionsEndpointRequest = {
   accessToken: string
   report_code: string
-}
+  status?: ParkingSessionStatus
+} & PaginationQueryArgs
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
 

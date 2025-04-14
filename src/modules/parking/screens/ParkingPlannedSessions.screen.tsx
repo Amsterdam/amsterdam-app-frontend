@@ -5,9 +5,11 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingPlannedSessionNavigationButton} from '@/modules/parking/components/session/ParkingPlannedSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 
 export const ParkingPlannedSessionsScreen = () => {
-  const {plannedParkingSessions, isLoading} = useGetParkingSessions()
+  const {parkingSessions: plannedParkingSessions, isLoading} =
+    useGetParkingSessions(ParkingSessionStatus.planned)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPlannedSessionsPleaseWait" />
