@@ -2,7 +2,7 @@ import {createContext, ReactNode, useMemo, useState} from 'react'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {ParkingLicensePlate} from '@/modules/parking/types'
 import {Dayjs} from '@/utils/datetime/dayjs'
-import {roundDownPer5Minutes} from '@/utils/datetime/roundDownPer5Minutes'
+import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 export type ParkingSessionContextType = {
   bottomSheetVariant: ParkingSessionBottomSheetVariant
@@ -20,7 +20,7 @@ export type ParkingSessionContextType = {
 const initialValue: ParkingSessionContextType = {
   licensePlate: undefined,
   setLicensePlate: () => null,
-  startTime: roundDownPer5Minutes(),
+  startTime: roundDownToMinutes(),
   setStartTime: () => null,
   endTime: undefined,
   setEndTime: () => null,
@@ -38,7 +38,7 @@ type Props = {
 
 export const ParkingSessionProvider = ({children}: Props) => {
   const [licensePlate, setLicensePlate] = useState<ParkingLicensePlate>()
-  const [startTime, setStartTime] = useState<Dayjs>(roundDownPer5Minutes())
+  const [startTime, setStartTime] = useState<Dayjs>(roundDownToMinutes())
   const [endTime, setEndTime] = useState<Dayjs | undefined>()
   const [paymentZoneId, setPaymentZoneId] = useState<string | undefined>()
   const [bottomSheetVariant, setBottomSheetVariant] =
