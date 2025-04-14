@@ -6,13 +6,13 @@ import {Column} from '@/components/ui/layout/Column'
 import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
-import {roundDownPer5Minutes} from '@/utils/datetime/roundDownPer5Minutes'
+import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 export const ParkingSessionTodayTomorrowStartTime = () => {
   const {startTime, setStartTime, endTime, setEndTime} = useContext(
     ParkingSessionContext,
   )
-  const justNow = useMemo(roundDownPer5Minutes, [])
+  const justNow = useMemo(roundDownToMinutes, [])
 
   return (
     <Column>

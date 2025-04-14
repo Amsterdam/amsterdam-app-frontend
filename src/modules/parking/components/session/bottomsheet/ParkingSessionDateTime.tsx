@@ -6,7 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
-import {roundDownPer5Minutes} from '@/utils/datetime/roundDownPer5Minutes'
+import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 type Props = {
   dateTime: Dayjs
@@ -14,7 +14,7 @@ type Props = {
 }
 
 export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
-  const justNow = useMemo(roundDownPer5Minutes, [])
+  const justNow = useMemo(roundDownToMinutes, [])
 
   return (
     <Column grow={1}>
