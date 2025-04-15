@@ -113,10 +113,11 @@ export const baseApi = createApi({
   tagTypes: [
     'Articles',
     'FollowedProjects',
-    'LicensePlates',
     'Modules',
     'Notifications',
+    'ParkingLicensePlates',
     'ParkingSessions',
+    'ParkingAccount',
     'Projects',
   ],
 })

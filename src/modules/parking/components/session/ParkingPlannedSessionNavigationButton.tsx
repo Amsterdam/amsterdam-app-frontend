@@ -4,8 +4,9 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingSession} from '@/modules/parking/types'
-import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
+import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
   parkingSession: ParkingSession
@@ -18,26 +19,22 @@ export const ParkingPlannedSessionNavigationButton = ({
   const {start_date_time, end_date_time, vehicle_id, visitor_name} =
     parkingSession
   const title = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
-  const isStartDateToday = dayjs(start_date_time).isSame(dayjs(), 'day')
-  const timeDifferenceMs = dayjs(end_date_time).diff(
-    dayjs(start_date_time),
-    'milliseconds',
+
+  const remainingTimeString = formatTimeRangeToDisplay(
+    start_date_time,
+    end_date_time,
+    {short: true},
   )
-  const remainingTimeInHoursAndMinutes =
-    convertMillisecondsToHoursAndMinutes(timeDifferenceMs)
-  const remainingTimeSentence = `${remainingTimeInHoursAndMinutes[0]} uur ${remainingTimeInHoursAndMinutes[1] ? remainingTimeInHoursAndMinutes[1] + ' min' : ''}`
 
   return (
     <Column gutter="sm">
       <Phrase
         emphasis="strong"
         testID="ParkingPlannedSessionDatePhrase">
-        {isStartDateToday
-          ? 'Vandaag'
-          : dayjs(start_date_time).format('DD MMMM YYYY')}
+        {formatDateToDisplay(start_date_time, false)}
       </Phrase>
       <NavigationButton
-        description={`${dayjs(start_date_time).format('HH.mm')} uur - ${remainingTimeSentence}`}
+        description={`${dayjs(start_date_time).format('HH.mm')} uur - ${remainingTimeString}`}
         icon="parkingCar"
         iconSize="lg"
         inset={false}

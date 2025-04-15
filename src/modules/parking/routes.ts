@@ -4,6 +4,7 @@ export enum ParkingRouteName {
   addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
   editSession = 'ParkingEditSession',
+  increaseBalance = 'ParkingIncreaseBalance',
   intro = 'ParkingIntro',
   login = 'ParkingLogin',
   loginSteps = 'ParkingLoginSteps',
@@ -28,4 +29,5 @@ export type ParkingStackParams = {
   [ParkingRouteName.requestPinCode]: undefined
   [ParkingRouteName.restartLogin]: undefined
   [ParkingRouteName.startSession]: undefined
+  [ParkingRouteName.increaseBalance]: undefined
 }

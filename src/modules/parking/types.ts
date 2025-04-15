@@ -6,6 +6,7 @@ export enum ParkingEndpointName {
   addLicensePlate = 'addLicensePlate',
   deleteSession = 'deleteSession',
   editSession = 'editSession',
+  increaseBalance = 'increaseBalance',
   licensePlates = 'licensePlates',
   login = 'login',
   parkingSessions = 'parkingSessions',
@@ -295,7 +296,7 @@ export type ParkingEditSessionEndpointRequestParams = {
   }
 }
 
-export type ParkingAddSessionResponse = {
+export type ParkingOrderResponse = {
   frontend_id: number
   /**
    * The order status can be one of the following:
@@ -321,4 +322,16 @@ export type ParkingDeleteSessionEndpointRequestParams = {
   ps_right_id: number
   report_code: string
   start_date_time: string
+}
+
+export type RemoveIncreaseBalanceEndpointRequest = {
+  accessToken: string
+  balance: {
+    amount: number
+    currency: string
+  }
+  locale: string
+  redirect: {
+    merchant_return_url: string
+  }
 }
