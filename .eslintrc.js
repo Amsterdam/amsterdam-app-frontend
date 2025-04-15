@@ -28,6 +28,9 @@ module.exports = {
     'storybook-static',
     'coverage',
     '.git',
+    'ios',
+    '.jest',
+    '.expo',
   ],
 
   overrides: [
