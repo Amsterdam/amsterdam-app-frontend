@@ -1,5 +1,8 @@
-// eslint-disable-next-line no-restricted-imports
-import {Pressable, PressableProps, StyleSheet, View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {
+  PressableBase,
+  PressableBaseProps,
+} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
@@ -10,7 +13,7 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   iconName: SvgIconName
   label: string
-} & PressableProps
+} & PressableBaseProps
 
 export const ActionButton = ({iconName, label, ...props}: Props) => {
   const {testID} = props
@@ -24,7 +27,7 @@ export const ActionButton = ({iconName, label, ...props}: Props) => {
       <Column
         gutter="sm"
         halign="center">
-        <Pressable
+        <PressableBase
           style={styles.button}
           {...props}>
           <Icon
@@ -33,7 +36,7 @@ export const ActionButton = ({iconName, label, ...props}: Props) => {
             size="xl"
             testID={`${testID}Icon`}
           />
-        </Pressable>
+        </PressableBase>
         <Phrase
           color="link"
           emphasis="strong"

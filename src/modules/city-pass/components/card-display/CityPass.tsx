@@ -49,7 +49,7 @@ export const CityPass = ({
       style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
-          accessibilityLabel={`De stadspas van ${firstname} ${infix ? infix : ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessibilityLabel={`De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
           accessible
           ref={accessibilityAutoFocusRef}
           style={styles.pass}>
