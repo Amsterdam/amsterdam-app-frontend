@@ -20,7 +20,6 @@ export type PressableBaseProps = {
 /**
  * Used to build other interactive components, do not use on its own.
  * This is a drop in replacement of the React Native Pressable component.
- * @deprecated Use {@link Pressable} instead.
  */
 export const PressableBase = forwardRef<View, PressableBaseProps>(
   (

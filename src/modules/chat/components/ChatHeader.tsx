@@ -1,8 +1,11 @@
 import {ReactNode, useEffect} from 'react'
-// eslint-disable-next-line no-restricted-imports
-import {Keyboard, Pressable, StyleSheet, View, ViewProps} from 'react-native'
+import {Keyboard, StyleSheet, View} from 'react-native'
 import Animated, {useAnimatedStyle, withTiming} from 'react-native-reanimated'
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {
+  PressableBase,
+  PressableBaseProps,
+} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -17,7 +20,7 @@ type WrapperProps = {
   children: ReactNode
   isMaximized: boolean
   onPress: () => void
-} & ViewProps
+} & PressableBaseProps
 
 const PressableWhenMinimized = ({
   children,
@@ -29,12 +32,12 @@ const PressableWhenMinimized = ({
   isMaximized ? (
     children
   ) : (
-    <Pressable
+    <PressableBase
       {...viewProps}
       onPress={onPress}
       style={style}>
       {children}
-    </Pressable>
+    </PressableBase>
   )
 
 export const ChatHeader = () => {
@@ -84,7 +87,8 @@ export const ChatHeader = () => {
         accessibilityHint="Activeer om de chat te maximaliseren"
         isMaximized={isMaximized}
         onPress={toggleVisibility}
-        style={styles.pressableWhenMinimized}>
+        style={styles.pressableWhenMinimized}
+        testID="ChatHeaderMaximizeButton">
         <Box testID="ChatHeader">
           <Row align="between">
             <Animated.View style={menuIconStyle}>
