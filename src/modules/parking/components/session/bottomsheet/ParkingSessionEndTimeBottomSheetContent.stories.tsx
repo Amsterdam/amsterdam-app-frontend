@@ -1,7 +1,6 @@
 import {ParkingSessionEndTimeBottomSheetContent} from './ParkingSessionEndTimeBottomSheetContent'
 import type {Meta, StoryObj} from '@storybook/react'
 
-
 const meta = {
   component: ParkingSessionEndTimeBottomSheetContent,
 } satisfies Meta<typeof ParkingSessionEndTimeBottomSheetContent>
