@@ -18,7 +18,14 @@ export enum ParkingRouteName {
 
 export type ParkingStackParams = {
   [ParkingRouteName.addLicensePlate]: undefined
-  [ParkingRouteName.dashboard]: undefined
+  [ParkingRouteName.dashboard]:
+    | {
+        action: 'increase-balance'
+        order_id: string
+        signature: string
+        status: 'EXPIRED' | 'COMPLETED' | 'PENDING' | 'CANCELLED'
+      }
+    | undefined
   [ParkingRouteName.intro]: undefined
   [ParkingRouteName.login]: undefined
   [ParkingRouteName.loginSteps]: undefined
