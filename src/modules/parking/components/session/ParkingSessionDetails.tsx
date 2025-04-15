@@ -14,7 +14,11 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {useChangeSessionMutation} from '@/modules/parking/service'
+import {ParkingRouteName} from '@/modules/parking/routes'
+import {
+  useDeleteSessionMutation,
+  useEditSessionMutation,
+} from '@/modules/parking/service'
 import {ParkingSession, ParkingSessionStatus} from '@/modules/parking/types'
 import {
   getPaymentZone,
@@ -68,14 +72,14 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
     ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
     : undefined
 
-  const stopSessionText =
-    parkingSession.status === ParkingSessionStatus.active
-      ? 'Stoppen'
-      : 'Verwijderen'
-
   const {secureParkingAccount} = useGetSecureParkingAccount()
-  const [changeSession] = useChangeSessionMutation()
-  const {goBack} = useNavigation()
+  const [editSession] = useEditSessionMutation()
+  const [deleteSession] = useDeleteSessionMutation()
+  const {goBack, navigate} = useNavigation()
+
+  const onPressAdjustEndTime = useCallback(() => {
+    navigate(ParkingRouteName.editSession, {parkingSession})
+  }, [navigate, parkingSession])
 
   const onPressStop = useCallback(() => {
     Alert.alert(
@@ -84,13 +88,11 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
       [
         {text: 'Annuleren', style: 'cancel', onPress: () => null},
         {
-          text: stopSessionText,
+          text: 'Stoppen',
           style: 'destructive',
-          // If the user confirmed, then we dispatch the action we blocked earlier
-          // This will continue the action that had triggered the removal of the screen
           onPress: () => {
             if (secureParkingAccount) {
-              void changeSession({
+              void editSession({
                 accessToken: secureParkingAccount.accessToken,
                 parking_session: {
                   ...parkingSession,
@@ -110,13 +112,36 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
       ],
       {cancelable: true},
     )
-  }, [
-    changeSession,
-    goBack,
-    parkingSession,
-    secureParkingAccount,
-    stopSessionText,
-  ])
+  }, [editSession, goBack, parkingSession, secureParkingAccount])
+  const onPressDelete = useCallback(() => {
+    Alert.alert(
+      'Weet u zeker dat u deze geplande parkeersessie wilt verwijderen?',
+      'Deze actie kan niet ongedaan worden gemaakt.',
+      [
+        {text: 'Annuleren', style: 'cancel', onPress: () => null},
+        {
+          text: 'Verwijderen',
+          style: 'destructive',
+          onPress: () => {
+            if (secureParkingAccount) {
+              void deleteSession({
+                accessToken: secureParkingAccount.accessToken,
+                ps_right_id: parkingSession.ps_right_id,
+                end_date_time: parkingSession.end_date_time,
+                start_date_time: parkingSession.start_date_time,
+                report_code: parkingSession.report_code,
+              })
+                .unwrap()
+                .then(() => {
+                  goBack()
+                })
+            }
+          },
+        },
+      ],
+      {cancelable: true},
+    )
+  }, [deleteSession, goBack, parkingSession, secureParkingAccount])
 
   return (
     <Box>
@@ -194,16 +219,24 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           parkingSession.status === ParkingSessionStatus.planned) && (
           <Button
             label="Eindtijd aanpassen"
+            onPress={onPressAdjustEndTime}
             testID="ParkingSessionDetailsAdjustEndTimeButton"
             variant="secondary"
           />
         )}
-        {(parkingSession.status === ParkingSessionStatus.active ||
-          parkingSession.status === ParkingSessionStatus.planned) && (
+        {parkingSession.status === ParkingSessionStatus.active && (
           <Button
-            label={stopSessionText}
+            label="Stoppen"
             onPress={onPressStop}
-            testID="ParkingSessionDetailsAdjustEndTimeButton"
+            testID="ParkingSessionDetailsStopButton"
+            variant="secondaryDestructive"
+          />
+        )}
+        {parkingSession.status === ParkingSessionStatus.planned && (
+          <Button
+            label="Verwijderen"
+            onPress={onPressDelete}
+            testID="ParkingSessionDetailsDeleteButton"
             variant="secondaryDestructive"
           />
         )}
