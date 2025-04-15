@@ -3,13 +3,11 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
+import {formatNumber} from '@/utils/formatNumber'
 
-export const ParkingChooseStartTimeButton = () => {
-  const {startTime, setBottomSheetVariant} = useContext(ParkingSessionContext)
+export const ParkingChooseAmountButton = () => {
+  const {amount, setBottomSheetVariant} = useContext(ParkingSessionContext)
   const {toggle} = useBottomSheet()
-
-  const timeString = formatDateTimeToDisplay(startTime, false)
 
   return (
     <TopTaskButton
@@ -17,12 +15,12 @@ export const ParkingChooseStartTimeButton = () => {
       iconName="clock"
       iconRightName="chevron-down"
       onPress={() => {
-        setBottomSheetVariant(ParkingSessionBottomSheetVariant.startTime)
+        setBottomSheetVariant(ParkingSessionBottomSheetVariant.amount)
         toggle()
       }}
-      testID="ParkingChooseStartTimeButton"
-      text={timeString}
-      title="Starttijd"
+      testID="ParkingChooseAmountButton"
+      text={amount ? '+ ' + formatNumber(amount, 'EUR') : undefined}
+      title={amount ? 'Bedrag' : 'Kies een bedrag'}
     />
   )
 }
