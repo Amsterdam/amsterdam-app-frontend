@@ -17,7 +17,8 @@ import {
   ParkingStartSessionEndpointRequestParams,
   ParkingPermitsEndpointRequestParams,
   ParkingAddSessionResponse,
-  ParkingChangeSessionEndpointRequestParams,
+  ParkingEditSessionEndpointRequestParams,
+  ParkingDeleteSessionEndpointRequestParams,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -159,9 +160,9 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
-    [ParkingEndpointName.changeSession]: builder.mutation<
+    [ParkingEndpointName.editSession]: builder.mutation<
       ParkingAddSessionResponse,
-      ParkingChangeSessionEndpointRequestParams
+      ParkingEditSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
       query: ({accessToken, ...body}) => ({
@@ -172,6 +173,21 @@ export const parkingApi = baseApi.injectEndpoints({
         method: 'PATCH',
         slug: ModuleSlug.parking,
         url: '/session',
+        afterError,
+      }),
+    }),
+    [ParkingEndpointName.deleteSession]: builder.mutation<
+      ParkingAddSessionResponse,
+      ParkingDeleteSessionEndpointRequestParams
+    >({
+      invalidatesTags: ['ParkingSessions'],
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'DELETE',
+        slug: ModuleSlug.parking,
+        url: generateRequestUrl({path: '/session', params}),
         afterError,
       }),
     }),
@@ -205,5 +221,6 @@ export const {
   usePermitsQuery,
   useSessionReceiptQuery,
   useStartSessionMutation,
-  useChangeSessionMutation,
+  useEditSessionMutation,
+  useDeleteSessionMutation,
 } = parkingApi

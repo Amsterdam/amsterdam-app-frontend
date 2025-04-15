@@ -37,7 +37,7 @@ export const ParkingPlannedSessionNavigationButton = ({
           : dayjs(start_date_time).format('DD MMMM YYYY')}
       </Phrase>
       <NavigationButton
-        description={`${dayjs(start_date_time).format('HH.mm')} - ${remainingTimeSentence}`}
+        description={`${dayjs(start_date_time).format('HH.mm')} uur - ${remainingTimeSentence}`}
         icon="parkingCar"
         iconSize="lg"
         inset={false}

@@ -2,7 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {ParkingPlannedSessionNavigationButton} from '@/modules/parking/components/session/ParkingPlannedSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
@@ -31,9 +31,12 @@ export const ParkingPlannedSessionsScreen = () => {
             </Border>
           ))
         ) : (
-          <Phrase testID="ParkingPlannedSessionsNotActivePhrase">
-            U heeft geen geplande parkeersessie.
-          </Phrase>
+          <Title
+            level="h3"
+            testID="ParkingPlannedSessionsNotActiveTitle"
+            text="U heeft geen geplande parkeersessie."
+            textAlign="center"
+          />
         )}
       </Box>
     </Screen>

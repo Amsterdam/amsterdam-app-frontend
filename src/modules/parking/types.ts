@@ -4,7 +4,8 @@ import {Paginated, PaginationQueryArgs} from '@/types/api'
 export enum ParkingEndpointName {
   accountDetails = 'accountDetails',
   addLicensePlate = 'addLicensePlate',
-  changeSession = 'changeSession',
+  deleteSession = 'deleteSession',
+  editSession = 'editSession',
   licensePlates = 'licensePlates',
   login = 'login',
   parkingSessions = 'parkingSessions',
@@ -12,7 +13,6 @@ export enum ParkingEndpointName {
   removeLicensePlate = 'removeLicensePlate',
   sessionReceipt = 'sessionReceipt',
   startSession = 'startSession',
-  stopSession = 'stopSession',
 }
 
 // Account
@@ -189,11 +189,11 @@ export type ParkingSession = {
   no_endtime: boolean
   parking_cost: {
     currency: string
-    value: 0
+    value: number
   }
   payment_zone_id?: string
-  ps_right_id: 0
-  remaining_time: 0
+  ps_right_id: number
+  remaining_time: number
   report_code: string
   start_date_time: string
   status: ParkingSessionStatus
@@ -277,7 +277,7 @@ export type ParkingStartSessionEndpointRequestParams = {
   }
 }
 
-export type ParkingChangeSessionEndpointRequestParams = {
+export type ParkingEditSessionEndpointRequestParams = {
   accessToken: string
   balance?: {
     amount: number
@@ -285,10 +285,10 @@ export type ParkingChangeSessionEndpointRequestParams = {
   }
   locale?: string
   parking_session: {
-    end_date_time?: string
+    end_date_time: string
+    ps_right_id: number
     report_code: string
     start_date_time: string
-    vehicle_id: string
   }
   redirect?: {
     merchant_return_url: string
@@ -313,4 +313,12 @@ export type ParkingAddSessionResponse = {
    */
   order_type: string
   redirect_url?: string
+}
+
+export type ParkingDeleteSessionEndpointRequestParams = {
+  accessToken: string
+  end_date_time: string
+  ps_right_id: number
+  report_code: string
+  start_date_time: string
 }
