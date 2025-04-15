@@ -1,3 +1,4 @@
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
@@ -10,6 +11,9 @@ const persistWhitelist: (keyof ParkingState)[] = [
 
 export const parkingModule: ModuleClientConfig = {
   name: 'ParkingModule',
+  linking: {
+    [ParkingRouteName.dashboard]: 'parking/:action/return',
+  },
   reduxConfigs: [
     {
       key: ReduxKey.parking,

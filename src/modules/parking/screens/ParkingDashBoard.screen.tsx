@@ -1,3 +1,5 @@
+import {useEffect} from 'react'
+import {type NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
@@ -5,6 +7,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {alerts} from '@/modules/parking/alerts'
 import {ParkingPermitBalance} from '@/modules/parking/components/ParkingPermitBalance'
 import {ParkingPermitDetail} from '@/modules/parking/components/ParkingPermitDetail'
 import {ParkingPermitSessions} from '@/modules/parking/components/ParkingPermitSessions'
@@ -14,8 +17,27 @@ import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/da
 import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {ParkingRouteName} from '@/modules/parking/routes'
+import {baseApi} from '@/services/baseApi'
+import {useAlert} from '@/store/slices/alert'
 
-export const ParkingDashboardScreen = () => {
+type Props = NavigationProps<ParkingRouteName.dashboard>
+
+export const ParkingDashboardScreen = ({route}: Props) => {
+  const {params} = route
+  const {setAlert} = useAlert()
+
+  useEffect(() => {
+    if (params?.action === 'increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        baseApi.util.invalidateTags(['ParkingAccount'])
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
+    }
+  }, [params, setAlert])
+
   const {permits, isLoading} = useGetPermits()
 
   if (isLoading) {
@@ -35,6 +57,7 @@ export const ParkingDashboardScreen = () => {
           <ParkingSelectPermit />
         </BottomSheet>
       }
+      hasStickyAlert
       testID="ParkingDashboardScreen">
       <BackgroundColorArea
         color="primary"
