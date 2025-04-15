@@ -6,10 +6,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
-import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
+import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingPermitBalanceMoney = () => {
@@ -21,6 +23,11 @@ export const ParkingPermitBalanceMoney = () => {
   const {data: account, isLoading} = useAccountDetailsQuery(
     secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
   )
+  const {navigate} = useNavigation()
+
+  const onPressAddMoney = () => {
+    navigate(ParkingRouteName.increaseBalance)
+  }
 
   if (isLoadingSecureParkingAccount || isLoadingCurrentPermit || isLoading) {
     return <PleaseWait testID="ParkingPermitBalanceMoneyPleaseWait" />
@@ -40,12 +47,6 @@ export const ParkingPermitBalanceMoney = () => {
     wallet: {balance, currency},
   } = account
 
-  const {parking_rate} = currentPermit
-
-  const timeBalanceHoursMinutes = convertMillisecondsToHoursAndMinutes(
-    balance / parking_rate.value,
-  )
-
   return (
     <Column gutter="md">
       <Column gutter="xs">
@@ -62,13 +63,18 @@ export const ParkingPermitBalanceMoney = () => {
           />
         </Row>
         <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
-          {`Goed voor ${timeBalanceHoursMinutes[0]} uur en ${timeBalanceHoursMinutes[1]} minuten`}
+          Goed voor{' '}
+          {getParkingTimeForMoneyBalance(
+            balance,
+            currentPermit.parking_rate.value,
+          )}
         </Phrase>
       </Column>
       <Button
         iconName="euroCoins"
         label="Geldsaldo toevoegen"
-        testID=""
+        onPress={onPressAddMoney}
+        testID="ParkingPermitBalanceMoneyAddButton"
         variant="secondary"
       />
     </Column>

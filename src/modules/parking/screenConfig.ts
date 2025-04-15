@@ -4,6 +4,7 @@ import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
+import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
 import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
@@ -23,17 +24,26 @@ export const parkingScreenConfig: StackNavigationRoutes<
   [ParkingRouteName.dashboard]: {
     component: ParkingDashboardScreen,
     name: ParkingRouteName.dashboard,
-    options: {headerShown: false, headerTitle: 'Aanmelden parkeren'},
+    options: {
+      headerShown: false,
+      headerTitle: 'Aanmelden parkeren',
+    },
   },
   [ParkingRouteName.startSession]: {
     component: ParkingStartSessionScreen,
     name: ParkingRouteName.startSession,
-    options: {headerShown: false, headerTitle: 'Nieuwe parkeersessie'},
+    options: {
+      headerShown: false,
+      headerTitle: 'Nieuwe parkeersessie',
+    },
   },
   [ParkingRouteName.editSession]: {
     component: ParkingEditSessionScreen,
     name: ParkingRouteName.editSession,
-    options: {headerShown: false, headerTitle: 'Eindtijd wijzigen'},
+    options: {
+      headerShown: false,
+      headerTitle: 'Eindtijd wijzigen',
+    },
   },
   [ParkingRouteName.myLicensePlates]: {
     component: ParkingMyLicensePlatesScreen,
@@ -62,6 +72,14 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.parkingPlannedSessions,
     options: {
       headerTitle: 'Gepland',
+    },
+  },
+  [ParkingRouteName.increaseBalance]: {
+    component: ParkingIncreaseBalanceScreen,
+    name: ParkingRouteName.increaseBalance,
+    options: {
+      headerShown: false,
+      headerTitle: 'Geldsaldo opwaarderen',
     },
   },
 }

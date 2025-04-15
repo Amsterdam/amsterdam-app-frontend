@@ -2,7 +2,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingPermit} from '@/modules/parking/types'
-import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
+import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
@@ -15,10 +15,8 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
   }
 
   const {permit_name, time_balance, parking_rate} = permit
-  const timeBalanceHoursMinutes =
-    convertMillisecondsToHoursAndMinutes(time_balance)
   const timeBalance = time_balance
-    ? `${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`
+    ? formatTimeDurationToDisplay(time_balance, 'seconds', {short: true})
     : 'Onbeperkt'
   const parkingRate = parking_rate.value
     ? `${formatNumber(parking_rate.value, parking_rate.currency)} per uur`

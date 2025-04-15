@@ -16,9 +16,10 @@ import {
   ParkingSessionReceiptEndpointRequestParams,
   ParkingStartSessionEndpointRequestParams,
   ParkingPermitsEndpointRequestParams,
-  ParkingAddSessionResponse,
+  ParkingOrderResponse,
   ParkingEditSessionEndpointRequestParams,
   ParkingDeleteSessionEndpointRequestParams,
+  RemoveIncreaseBalanceEndpointRequest,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -47,6 +48,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingAccountDetails,
       string
     >({
+      providesTags: ['ParkingAccount'],
       query: (accessToken: string) => ({
         headers: {
           'SSP-Access-Token': accessToken,
@@ -61,7 +63,7 @@ export const parkingApi = baseApi.injectEndpoints({
       AddLicensePlateEndpointResponse,
       AddLicensePlateEndpointRequest
     >({
-      invalidatesTags: ['LicensePlates'],
+      invalidatesTags: ['ParkingLicensePlates'],
       query: ({accessToken, ...body}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
@@ -77,7 +79,7 @@ export const parkingApi = baseApi.injectEndpoints({
       LicensePlatesEndpointResponse,
       LicensePlatesEndpointRequest
     >({
-      providesTags: ['LicensePlates'],
+      providesTags: ['ParkingLicensePlates'],
       query: ({accessToken, reportCode}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
@@ -145,7 +147,7 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.startSession]: builder.mutation<
-      ParkingAddSessionResponse,
+      ParkingOrderResponse,
       ParkingStartSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
@@ -161,7 +163,7 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.editSession]: builder.mutation<
-      ParkingAddSessionResponse,
+      ParkingOrderResponse,
       ParkingEditSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
@@ -177,7 +179,7 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.deleteSession]: builder.mutation<
-      ParkingAddSessionResponse,
+      ParkingOrderResponse,
       ParkingDeleteSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
@@ -195,7 +197,7 @@ export const parkingApi = baseApi.injectEndpoints({
       RemoveLicensePlateEndpointResponse,
       RemoveLicensePlateEndpointRequest
     >({
-      invalidatesTags: ['LicensePlates'],
+      invalidatesTags: ['ParkingLicensePlates'],
       query: ({accessToken, ...body}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
@@ -204,6 +206,22 @@ export const parkingApi = baseApi.injectEndpoints({
         method: 'DELETE',
         slug: ModuleSlug.parking,
         url: '/license-plate',
+        afterError,
+      }),
+    }),
+    [ParkingEndpointName.increaseBalance]: builder.mutation<
+      ParkingOrderResponse,
+      RemoveIncreaseBalanceEndpointRequest
+    >({
+      invalidatesTags: ['ParkingAccount'],
+      query: ({accessToken, ...body}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        body,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/balance',
         afterError,
       }),
     }),
@@ -223,4 +241,5 @@ export const {
   useStartSessionMutation,
   useEditSessionMutation,
   useDeleteSessionMutation,
+  useIncreaseBalanceMutation,
 } = parkingApi

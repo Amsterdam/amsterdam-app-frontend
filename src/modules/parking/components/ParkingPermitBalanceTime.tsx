@@ -4,8 +4,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {convertMillisecondsToHoursAndMinutes} from '@/modules/parking/utils/convertMillisecondsToHoursAndMinutes'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {formatDate} from '@/utils/datetime/formatDate'
+import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 export const ParkingPermitBalanceTime = () => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
@@ -18,10 +18,6 @@ export const ParkingPermitBalanceTime = () => {
     return null
   }
 
-  const timeBalanceHoursMinutes = convertMillisecondsToHoursAndMinutes(
-    currentPermit.time_balance,
-  )
-
   return (
     <Column gutter="xs">
       <Row align="between">
@@ -33,11 +29,15 @@ export const ParkingPermitBalanceTime = () => {
         <Title
           level="h5"
           testID="ParkingPermitBalanceTimeTitlePhrase"
-          text={`${timeBalanceHoursMinutes[0]} uur ${timeBalanceHoursMinutes[1]} min`}
+          text={formatTimeDurationToDisplay(
+            currentPermit.time_balance,
+            'seconds',
+            {short: true},
+          )}
         />
       </Row>
       <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
-        {`Tot ${dayjs(currentPermit.time_valid_until).format('D MMMM YYYY')}`}
+        {`Tot ${formatDate(currentPermit.time_valid_until)}`}
       </Phrase>
     </Column>
   )
