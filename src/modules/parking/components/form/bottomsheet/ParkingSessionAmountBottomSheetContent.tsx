@@ -4,7 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatNumber} from '@/utils/formatNumber'
 

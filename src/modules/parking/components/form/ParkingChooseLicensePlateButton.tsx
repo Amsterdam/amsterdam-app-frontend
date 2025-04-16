@@ -1,8 +1,8 @@
 import {useContext} from 'react'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 

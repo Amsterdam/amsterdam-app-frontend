@@ -1,12 +1,12 @@
 import {type FC, useContext} from 'react'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
-import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/session/bottomsheet/ParkingSessionAmountBottomSheetContent'
-import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/session/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
-import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/session/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'
-import {ParkingSessionPaymentZoneBottomSheetContent} from '@/modules/parking/components/session/bottomsheet/ParkingSessionPaymentZoneBottomSheetContent'
-import {ParkingSessionStartTimeBottomSheetContent} from '@/modules/parking/components/session/bottomsheet/ParkingSessionStartTimeBottomSheetContent'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAmountBottomSheetContent'
+import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
+import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'
+import {ParkingSessionPaymentZoneBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionPaymentZoneBottomSheetContent'
+import {ParkingSessionStartTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionStartTimeBottomSheetContent'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 
 const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
   [ParkingSessionBottomSheetVariant.licensePlate]:
