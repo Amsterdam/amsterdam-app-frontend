@@ -1,17 +1,25 @@
-import {useContext, useMemo} from 'react'
+import {useMemo} from 'react'
+import {useController} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
 import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
+type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
 
 export const ParkingSessionTodayTomorrowStartTime = () => {
-  const {startTime, setStartTime, endTime, setEndTime} = useContext(
-    ParkingSessionContext,
-  )
+  const {
+    field: {value: startTime, onChange: onChangeStartTime},
+  } = useController<FieldValues, 'startTime'>({
+    name: 'startTime',
+  })
+  const {
+    field: {value: endTime, onChange: onChangeEndTime},
+  } = useController<FieldValues, 'endTime'>({
+    name: 'endTime',
+  })
   const justNow = useMemo(roundDownToMinutes, [])
 
   return (
@@ -30,7 +38,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
             newStartTime = newStartTime.add(1, 'day')
           }
 
-          setStartTime(newStartTime)
+          onChangeStartTime(newStartTime)
 
           if (endTime) {
             const newEndTime = endTime
@@ -38,7 +46,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
               .set('month', newStartTime.month())
               .set('year', newStartTime.year())
 
-            setEndTime(newEndTime)
+            onChangeEndTime(newEndTime)
           }
         }}
         options={[
@@ -55,7 +63,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
         minimumDate={justNow.toDate()}
         mode="time"
         onDateChange={newStartTime => {
-          setStartTime(dayjs(newStartTime))
+          onChangeStartTime(dayjs(newStartTime))
         }}
         style={styles.centerSelf}
       />

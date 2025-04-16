@@ -1,3 +1,4 @@
+import {useController} from 'react-hook-form'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -7,9 +8,16 @@ import {ParkingSessionLicensePlateFormProvider} from '@/modules/parking/componen
 import {ParkingSessionSelectLicensePlate} from '@/modules/parking/components/form/ParkingSessionSelectLicensePlate'
 import {ParkingSessionAddLicensePlateSubmitButton} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAddLicensePlateSubmitButton'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {ParkingLicensePlate} from '@/modules/parking/types'
 
 export const ParkingSessionLicensePlateBottomSheetContent = () => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+
+  const {
+    field: {onChange},
+  } = useController<{licensePlate?: ParkingLicensePlate}, 'licensePlate'>({
+    name: 'licensePlate',
+  })
 
   if (isLoading) {
     return (
@@ -33,9 +41,11 @@ export const ParkingSessionLicensePlateBottomSheetContent = () => {
           gutter="lg">
           {!forced_license_plate_list && <ParkingSessionAddLicensePlate />}
           {!forced_license_plate_list && (
-            <ParkingSessionAddLicensePlateSubmitButton />
+            <ParkingSessionAddLicensePlateSubmitButton
+              setLicensePlate={onChange}
+            />
           )}
-          <ParkingSessionSelectLicensePlate />
+          <ParkingSessionSelectLicensePlate setLicensePlate={onChange} />
         </Column>
       </ParkingSessionLicensePlateFormProvider>
     </Box>

@@ -1,35 +1,19 @@
-import {useContext} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {useCurrentParkingPermitName} from '@/modules/parking/slice'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {type ParkingLicensePlate} from '@/modules/parking/types'
 
-export const ParkingChooseLicensePlateButton = () => {
-  const {licensePlate} = useContext(ParkingSessionContext)
-  const title = licensePlate
-    ? `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
-    : 'Kies kenteken'
-  const {toggle} = useBottomSheet()
-  const {currentPermitName} = useCurrentParkingPermitName()
-
-  if (!currentPermitName) {
-    return (
-      <SomethingWentWrong testID="ParkingChooseLicensePlateButtonSomethingWentWrong" />
-    )
-  }
-
-  return (
-    <TopTaskButton
-      border
-      iconName="parkingCar"
-      iconRightName="chevron-down"
-      onPress={() => {
-        toggle(ParkingSessionBottomSheetVariant.licensePlate)
-      }}
-      testID="ParkingChooseLicensePlateButton"
-      title={title}
-    />
-  )
-}
+export const ParkingChooseLicensePlateButton = () => (
+  <SelectButtonControlled<{licensePlate?: ParkingLicensePlate}, 'licensePlate'>
+    bottomSheetVariant={ParkingSessionBottomSheetVariant.licensePlate}
+    iconName="parkingCar"
+    name="licensePlate"
+    rules={{required: 'Kies een kenteken'}}
+    testID="ParkingChooseStartTimeButton"
+    text={licensePlate =>
+      licensePlate
+        ? `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
+        : undefined
+    }
+    title={licensePlate => (licensePlate ? 'Kenteken' : 'Kies kenteken')}
+  />
+)

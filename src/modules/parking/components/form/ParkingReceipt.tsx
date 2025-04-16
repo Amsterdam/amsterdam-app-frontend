@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useContext} from 'react'
+import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,20 +8,25 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
 } from '@/modules/parking/service'
+import {ParkingLicensePlate} from '@/modules/parking/types'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingReceipt = () => {
-  const {startTime, endTime, licensePlate, paymentZoneId} = useContext(
-    ParkingSessionContext,
-  )
+  const {watch} = useFormContext<{
+    endTime?: Dayjs
+    licensePlate?: ParkingLicensePlate
+    paymentZoneId?: string
+    startTime: Dayjs
+  }>()
+  const {startTime, endTime, licensePlate, paymentZoneId} = watch()
 
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()

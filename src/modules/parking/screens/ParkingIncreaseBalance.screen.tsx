@@ -3,14 +3,14 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingIncreaseBalanceButton} from '@/modules/parking/components/dashboard/ParkingIncreaseBalanceButton'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
+import {ParkingIncreaseBalanceButton} from '@/modules/parking/components/form/ParkingIncreaseBalanceButton'
 import {ParkingIncreaseBalanceReceipt} from '@/modules/parking/components/form/ParkingIncreaseBalanceReceipt'
-import {ParkingSessionProvider} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 
 export const ParkingIncreaseBalanceScreen = () => (
-  <ParkingSessionProvider>
+  <ParkingSessionFormProvider>
     <Screen
       bottomSheet={<ParkingSessionBottomSheet />}
       testID="ParkingStartSessionScreen">
@@ -34,5 +34,5 @@ export const ParkingIncreaseBalanceScreen = () => (
         </Column>
       </Box>
     </Screen>
-  </ParkingSessionProvider>
+  </ParkingSessionFormProvider>
 )

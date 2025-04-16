@@ -1,12 +1,15 @@
-import {useContext} from 'react'
+import {useFormContext} from 'react-hook-form'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingShowStartTime = () => {
-  const {startTime} = useContext(ParkingSessionContext)
+  const {watch} = useFormContext<{
+    startTime: Dayjs
+  }>()
+  const startTime = watch('startTime')
 
   const timeString = formatDateTimeToDisplay(startTime, false)
 

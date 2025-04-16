@@ -1,11 +1,11 @@
-import {useContext, useEffect, useMemo} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {useEffect, useMemo} from 'react'
+import {useController, useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/ParkingTimesAdjustedMessage'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
@@ -15,14 +15,27 @@ import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {type Dayjs} from '@/utils/datetime/dayjs'
 import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
+type FieldValues = {
+  endTime?: Dayjs
+  paymentZoneId?: string
+  startTime: Dayjs
+}
+
 export const ParkingChoosePaymentZone = () => {
-  const {paymentZoneId, startTime, setPaymentZoneId, endTime} = useContext(
-    ParkingSessionContext,
-  )
-  const {toggle} = useBottomSheet()
+  const {watch} = useFormContext<FieldValues>()
+  const startTime = watch('startTime')
+  const endTime = watch('endTime')
+  const {
+    field: {value: paymentZoneId, onChange},
+  } = useController<FieldValues, 'paymentZoneId'>({
+    name: 'paymentZoneId',
+    rules: {
+      required: 'Kies tijden voor betaald parkeren',
+    },
+  })
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
 
@@ -36,19 +49,19 @@ export const ParkingChoosePaymentZone = () => {
         : false,
     [currentPermit, startTimeDayOfWeek],
   )
+  const shouldSelectFirstPaymentZone =
+    currentPermit &&
+    (allPaymentZonesAreEqual ||
+      (!currentPermit.time_balance_applicable &&
+        !currentPermit.money_balance_applicable))
 
   useEffect(() => {
     // If all payment zones are equal, set the payment zone ID to the first one
     // If the current permit has no time balance or money balance applicable, set the payment zone ID to the first one
-    if (
-      currentPermit &&
-      (allPaymentZonesAreEqual ||
-        (!currentPermit.time_balance_applicable &&
-          !currentPermit.money_balance_applicable))
-    ) {
-      setPaymentZoneId(currentPermit.payment_zones[0].id)
+    if (currentPermit && shouldSelectFirstPaymentZone) {
+      onChange(currentPermit.payment_zones[0].id)
     }
-  }, [currentPermit, allPaymentZonesAreEqual, setPaymentZoneId])
+  }, [currentPermit, onChange, shouldSelectFirstPaymentZone])
 
   if (isLoading) {
     return (
@@ -111,14 +124,11 @@ export const ParkingChoosePaymentZone = () => {
         text={`Gebied ${currentPermit.permit_zone.name} heeft meerdere tijden voor betaald parkeren`}
       />
       <Gutter />
-      <TopTaskButton
-        border
+      <SelectButtonControlled<{paymentZoneId?: string}, 'paymentZoneId'>
+        bottomSheetVariant={ParkingSessionBottomSheetVariant.paymentZone}
         iconName="clock"
-        iconRightName="chevron-down"
-        onPress={() => {
-          toggle(ParkingSessionBottomSheetVariant.paymentZone)
-        }}
-        testID="ParkingChooseEndTimeButton"
+        name="paymentZoneId"
+        testID="ParkingChooseStartTimeButton"
         text={timeString}
         title={paymentZoneId ? 'Betaald parkeren' : 'Kies betaald parkeertijd'}
       />

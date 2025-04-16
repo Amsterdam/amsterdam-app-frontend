@@ -7,7 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingSessionProvider} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -18,7 +18,7 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
   const {parkingSession} = route.params ?? {}
 
   return (
-    <ParkingSessionProvider parkingSession={parkingSession}>
+    <ParkingSessionFormProvider parkingSession={parkingSession}>
       <Screen
         bottomSheet={<ParkingSessionBottomSheet />}
         testID="ParkingStartSessionScreen">
@@ -37,6 +37,6 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
           </Column>
         </Box>
       </Screen>
-    </ParkingSessionProvider>
+    </ParkingSessionFormProvider>
   )
 }
