@@ -8,7 +8,7 @@ import BottomSheetOriginal, {
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
-import {type ReactNode, useCallback, useEffect, useRef} from 'react'
+import {FC, type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -63,14 +63,17 @@ type Props = Partial<
     'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
   >
 > & {
-  children: ReactNode
   flex?: number
   scroll?: boolean
   snapPoints?: (string | number)[]
-} & TestProps
+} & TestProps &
+  (
+    | {children: ReactNode; variants?: never}
+    | {children?: never; variants: Record<string, FC>}
+  )
 
 const useBottomSheetHandler = () => {
-  const {close, isOpen, open} = useBottomSheet()
+  const {close, isOpen, open, variant} = useBottomSheet()
   const {setHideContentFromAccessibility} = useScreen()
   const ref = useRef<BottomSheetOriginal>(null)
 
@@ -96,6 +99,7 @@ const useBottomSheetHandler = () => {
     isOpen,
     onChange,
     ref,
+    variant,
   }
 }
 
@@ -109,12 +113,17 @@ export const BottomSheet = ({
   scroll,
   snapPoints,
   testID,
+  variants,
   ...rest
 }: Props) => {
-  const {onChange: onChangeHandler, ref} = useBottomSheetHandler()
+  const {onChange: onChangeHandler, ref, variant} = useBottomSheetHandler()
   const {top: topInset} = useSafeAreaInsets()
   const ViewComponent = scroll ? BottomSheetScrollView : BottomSheetView
   const styles = createStyles(flex)
+
+  const VariantComponent: FC | undefined = variants
+    ? (variants[variant ?? ''] ?? (() => null))
+    : undefined
 
   return (
     <BottomSheetOriginal
@@ -142,7 +151,7 @@ export const BottomSheet = ({
           left
           right
           testID={testID}>
-          {children}
+          {VariantComponent ? <VariantComponent /> : children}
         </SafeArea>
       </ViewComponent>
     </BottomSheetOriginal>

@@ -19,13 +19,9 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
 export const ParkingChoosePaymentZone = () => {
-  const {
-    paymentZoneId,
-    startTime,
-    setPaymentZoneId,
-    setBottomSheetVariant,
-    endTime,
-  } = useContext(ParkingSessionContext)
+  const {paymentZoneId, startTime, setPaymentZoneId, endTime} = useContext(
+    ParkingSessionContext,
+  )
   const {toggle} = useBottomSheet()
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
@@ -120,8 +116,7 @@ export const ParkingChoosePaymentZone = () => {
         iconName="clock"
         iconRightName="chevron-down"
         onPress={() => {
-          setBottomSheetVariant(ParkingSessionBottomSheetVariant.paymentZone)
-          toggle()
+          toggle(ParkingSessionBottomSheetVariant.paymentZone)
         }}
         testID="ParkingChooseEndTimeButton"
         text={timeString}

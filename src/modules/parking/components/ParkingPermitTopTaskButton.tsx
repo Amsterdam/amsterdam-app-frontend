@@ -16,7 +16,7 @@ export const ParkingPermitTopTaskButton = () => {
   return (
     <TopTaskButton
       iconName="documentCheckmark"
-      onPress={toggle}
+      onPress={() => toggle()}
       testID="ParkingPermitTopTaskButton"
       title={currentPermitName}
       titleIconName="chevron-down"

@@ -9,7 +9,7 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseEndTimeButton = () => {
-  const {endTime, setBottomSheetVariant} = useContext(ParkingSessionContext)
+  const {endTime} = useContext(ParkingSessionContext)
   const {toggle} = useBottomSheet()
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
@@ -41,8 +41,7 @@ export const ParkingChooseEndTimeButton = () => {
       iconName="clock"
       iconRightName="chevron-down"
       onPress={() => {
-        setBottomSheetVariant(ParkingSessionBottomSheetVariant.endTime)
-        toggle()
+        toggle(ParkingSessionBottomSheetVariant.endTime)
       }}
       testID="ParkingChooseEndTimeButton"
       text={timeString}
