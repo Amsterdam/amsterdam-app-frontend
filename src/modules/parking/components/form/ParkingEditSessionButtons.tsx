@@ -2,8 +2,8 @@ import {useCallback, useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useEditSessionMutation} from '@/modules/parking/service'
 
 export const ParkingEditSessionButtons = () => {

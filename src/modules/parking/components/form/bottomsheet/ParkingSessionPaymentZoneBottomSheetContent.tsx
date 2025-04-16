@@ -7,8 +7,8 @@ import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,

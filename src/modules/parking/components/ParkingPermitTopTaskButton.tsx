@@ -19,7 +19,7 @@ export const ParkingPermitTopTaskButton = () => {
       onPress={toggle}
       testID="ParkingPermitTopTaskButton"
       title={currentPermitName}
-      titleIconName={'chevron-down'}
+      titleIconName="chevron-down"
     />
   )
 }

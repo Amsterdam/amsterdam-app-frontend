@@ -8,9 +8,9 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,

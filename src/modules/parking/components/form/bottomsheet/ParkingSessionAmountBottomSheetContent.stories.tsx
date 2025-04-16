@@ -1,6 +1,6 @@
 import {ParkingSessionAmountBottomSheetContent} from './ParkingSessionAmountBottomSheetContent'
 import type {Meta, StoryObj} from '@storybook/react'
-import {ParkingSessionProvider} from '@/modules/parking/providers/ParkingSessionProvider'
+import {ParkingSessionProvider} from '@/modules/parking/components/form/ParkingSessionProvider'
 
 const meta = {
   component: ParkingSessionAmountBottomSheetContent,

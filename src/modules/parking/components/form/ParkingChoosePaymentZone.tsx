@@ -5,10 +5,10 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/ParkingTimesAdjustedMessage'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {
   areAllPaymentZonesEqual,
   getPaymentZone,

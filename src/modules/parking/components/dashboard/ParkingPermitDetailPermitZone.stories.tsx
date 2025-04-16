@@ -1,4 +1,4 @@
-import {permitMock} from '../mocks/permit.mock'
+import {permitMock} from '../../mocks/permit.mock'
 import {ParkingPermitDetailPermitZone} from './ParkingPermitDetailPermitZone'
 import type {Meta, StoryObj} from '@storybook/react'
 

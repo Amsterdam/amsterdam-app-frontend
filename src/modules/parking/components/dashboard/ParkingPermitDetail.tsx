@@ -2,9 +2,9 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/ParkingPermitDetailPermitZone'
-import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/ParkingPermitDetailTimeBalance'
-import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/ParkingPermitDetailTimeFrame'
+import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/dashboard/ParkingPermitDetailPermitZone'
+import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeBalance'
+import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeFrame'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 
 export const ParkingPermitDetail = () => {

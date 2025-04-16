@@ -4,10 +4,10 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionDateTime} from '@/modules/parking/components/session/bottomsheet/ParkingSessionDateTime'
-import {ParkingSessionDurationTimePicker} from '@/modules/parking/components/session/bottomsheet/ParkingSessionDurationTimePicker'
+import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
+import {ParkingSessionDurationTimePicker} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDurationTimePicker'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {ParkingSessionContext} from '@/modules/parking/providers/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingSessionEndTimeBottomSheetContent = () => {
