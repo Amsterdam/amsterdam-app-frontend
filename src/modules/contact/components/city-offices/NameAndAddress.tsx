@@ -23,7 +23,7 @@ export const NameAndAddress = ({address, addressContent, title}: Props) => {
           address.city,
         )}
         iconName="city-office"
-        onPress={openBottomSheet}
+        onPress={() => openBottomSheet()}
         testID="ContactCurrentCityOfficeButton"
         text={
           <>

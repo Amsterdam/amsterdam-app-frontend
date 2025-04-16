@@ -6,7 +6,7 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingChooseAmountButton = () => {
-  const {amount, setBottomSheetVariant} = useContext(ParkingSessionContext)
+  const {amount} = useContext(ParkingSessionContext)
   const {toggle} = useBottomSheet()
 
   return (
@@ -15,8 +15,7 @@ export const ParkingChooseAmountButton = () => {
       iconName="clock"
       iconRightName="chevron-down"
       onPress={() => {
-        setBottomSheetVariant(ParkingSessionBottomSheetVariant.amount)
-        toggle()
+        toggle(ParkingSessionBottomSheetVariant.amount)
       }}
       testID="ParkingChooseAmountButton"
       text={amount ? '+ ' + formatNumber(amount, 'EUR') : undefined}

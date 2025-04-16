@@ -24,7 +24,7 @@ export const ShareLocationTopTaskButton = ({testID}: Props) => {
     <Column>
       <TopTaskButton
         hasTitleIcon
-        onPress={openBottomSheet}
+        onPress={() => openBottomSheet()}
         testID={`${testID ?? ''}RequestLocationButton`}
       />
       <Gutter height="md" />

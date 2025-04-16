@@ -1,19 +1,16 @@
 import {createContext, ReactNode, useMemo, useState} from 'react'
-import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {ParkingLicensePlate, ParkingSession} from '@/modules/parking/types'
 import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 export type ParkingSessionContextType = {
   amount?: number
-  bottomSheetVariant: ParkingSessionBottomSheetVariant
   endTime?: Dayjs
   licensePlate?: ParkingLicensePlate
   paymentZoneId?: string
   ps_right_id?: number
   report_code?: string
   setAmount: (amount: number) => void
-  setBottomSheetVariant: (variant: ParkingSessionBottomSheetVariant) => void
   setEndTime: (datetime: Dayjs | undefined) => void
   setLicensePlate: (licensePlate: ParkingLicensePlate) => void
   setPaymentZoneId: (paymentZoneId: string) => void
@@ -28,8 +25,6 @@ const initialValue: ParkingSessionContextType = {
   setStartTime: () => null,
   endTime: undefined,
   setEndTime: () => null,
-  bottomSheetVariant: ParkingSessionBottomSheetVariant.licensePlate,
-  setBottomSheetVariant: () => null,
   paymentZoneId: undefined,
   setPaymentZoneId: () => null,
   ps_right_id: undefined,
@@ -68,12 +63,6 @@ export const ParkingSessionProvider = ({children, parkingSession}: Props) => {
     parkingSession ? parkingSession.payment_zone_id : undefined,
   )
   const [amount, setAmount] = useState<number | undefined>()
-  const [bottomSheetVariant, setBottomSheetVariant] =
-    useState<ParkingSessionBottomSheetVariant>(
-      parkingSession
-        ? ParkingSessionBottomSheetVariant.endTime
-        : ParkingSessionBottomSheetVariant.licensePlate,
-    )
 
   const value = useMemo(
     () => ({
@@ -83,8 +72,6 @@ export const ParkingSessionProvider = ({children, parkingSession}: Props) => {
       setStartTime,
       endTime,
       setEndTime,
-      bottomSheetVariant,
-      setBottomSheetVariant,
       paymentZoneId,
       setPaymentZoneId,
       ps_right_id: parkingSession?.ps_right_id,
@@ -94,7 +81,6 @@ export const ParkingSessionProvider = ({children, parkingSession}: Props) => {
     }),
     [
       amount,
-      bottomSheetVariant,
       endTime,
       licensePlate,
       parkingSession?.ps_right_id,

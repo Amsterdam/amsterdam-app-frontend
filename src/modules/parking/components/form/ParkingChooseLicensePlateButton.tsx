@@ -7,9 +7,7 @@ import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingChooseLicensePlateButton = () => {
-  const {licensePlate, setBottomSheetVariant} = useContext(
-    ParkingSessionContext,
-  )
+  const {licensePlate} = useContext(ParkingSessionContext)
   const title = licensePlate
     ? `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
     : 'Kies kenteken'
@@ -28,8 +26,7 @@ export const ParkingChooseLicensePlateButton = () => {
       iconName="parkingCar"
       iconRightName="chevron-down"
       onPress={() => {
-        setBottomSheetVariant(ParkingSessionBottomSheetVariant.licensePlate)
-        toggle()
+        toggle(ParkingSessionBottomSheetVariant.licensePlate)
       }}
       testID="ParkingChooseLicensePlateButton"
       title={title}
