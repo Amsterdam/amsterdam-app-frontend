@@ -1,19 +1,19 @@
-import {useContext} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
+import {useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseEndTimeButton = () => {
-  const {endTime} = useContext(ParkingSessionContext)
-  const {toggle} = useBottomSheet()
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
   const {no_endtime = false} = currentPermit || {}
+
+  const {watch} = useFormContext<{endTime?: Dayjs; startTime: Dayjs}>()
+  const startTime = watch('startTime')
 
   if (no_endtime) {
     return null
@@ -31,21 +31,23 @@ export const ParkingChooseEndTimeButton = () => {
     )
   }
 
-  const timeString = endTime
-    ? formatDateTimeToDisplay(endTime, false)
-    : undefined
-
   return (
-    <TopTaskButton
-      border
+    <SelectButtonControlled<{endTime?: Dayjs}, 'endTime'>
+      bottomSheetVariant={ParkingSessionBottomSheetVariant.endTime}
       iconName="clock"
-      iconRightName="chevron-down"
-      onPress={() => {
-        toggle(ParkingSessionBottomSheetVariant.endTime)
+      name="endTime"
+      rules={{
+        required: no_endtime ? false : 'Kies een eindtijd',
+        validate: endTime =>
+          no_endtime ||
+          (endTime as Dayjs)?.isAfter(startTime) ||
+          'Eindtijd moet na starttijd zijn',
       }}
       testID="ParkingChooseEndTimeButton"
-      text={timeString}
-      title={endTime ? 'Eindtijd' : 'Kies eindtijd'}
+      text={endTime =>
+        endTime ? formatDateTimeToDisplay(endTime, false) : undefined
+      }
+      title={endTime => (endTime ? 'Eindtijd' : 'Kies eindtijd')}
     />
   )
 }

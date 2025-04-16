@@ -1,18 +1,22 @@
-import {useContext} from 'react'
+import {useController} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionTodayTomorrowStartTime'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {type Dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingSessionStartTimeBottomSheetContent = () => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
-  const {startTime, setStartTime} = useContext(ParkingSessionContext)
+  const {
+    field: {value: startTime, onChange},
+  } = useController<{startTime: Dayjs}, 'startTime'>({
+    name: 'startTime',
+  })
   const {close} = useBottomSheet()
 
   if (isLoading) {
@@ -41,7 +45,7 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
       ) : (
         <ParkingSessionDateTime
           dateTime={startTime}
-          setDateTime={setStartTime}
+          setDateTime={onChange}
         />
       )}
       <Button

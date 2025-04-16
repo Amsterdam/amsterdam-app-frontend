@@ -1,5 +1,5 @@
 import {impactAsync, ImpactFeedbackStyle} from 'expo-haptics'
-import {useContext} from 'react'
+import {useFormContext, useController} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {Tabs} from '@/components/ui/Tabs'
@@ -10,9 +10,8 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {ParkingPermit} from '@/modules/parking/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
@@ -20,8 +19,16 @@ type Props = {
   currentPermit: ParkingPermit
 }
 
+type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
+
 export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
-  const {startTime, endTime, setEndTime} = useContext(ParkingSessionContext)
+  const {watch} = useFormContext<FieldValues>()
+  const startTime = watch('startTime')
+  const {
+    field: {value: endTime, onChange},
+  } = useController<FieldValues, 'endTime'>({
+    name: 'endTime',
+  })
 
   return (
     <Column>
@@ -78,7 +85,7 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
                   .add(hours, 'hour')
                   .add(minutes, 'minute')
 
-                setEndTime(newEndTime)
+                onChange(newEndTime)
                 void impactAsync(ImpactFeedbackStyle.Light)
               }}
             />
@@ -98,7 +105,7 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
             minimumDate={startTime.toDate()}
             mode="time"
             onDateChange={newStartTime => {
-              setEndTime(dayjs(newStartTime))
+              onChange(dayjs(newStartTime))
             }}
             style={styles.centerSelf}
           />

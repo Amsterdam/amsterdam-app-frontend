@@ -1,4 +1,4 @@
-import {useContext} from 'react'
+import {useController, useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -7,20 +7,29 @@ import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {Dayjs} from '@/utils/datetime/dayjs'
+
+type FieldValues = {
+  paymentZoneId?: string
+  startTime: Dayjs
+}
 
 export const ParkingSessionPaymentZoneBottomSheetContent = () => {
-  const {paymentZoneId, setPaymentZoneId, startTime} = useContext(
-    ParkingSessionContext,
-  )
+  const {watch} = useFormContext<FieldValues>()
+  const startTime = watch('startTime')
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
   const {close} = useBottomSheet()
+  const {
+    field: {value: paymentZoneId, onChange},
+  } = useController<FieldValues, 'paymentZoneId'>({
+    name: 'paymentZoneId',
+  })
 
   if (isLoading) {
     return (
@@ -51,7 +60,7 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
           text="Wat is de betaald parkeertijd waar de auto staat?"
         />
         <RadioGroup
-          onChange={setPaymentZoneId}
+          onChange={onChange}
           options={options}
           testID="ParkingSessionPaymentZone"
           value={paymentZoneId}

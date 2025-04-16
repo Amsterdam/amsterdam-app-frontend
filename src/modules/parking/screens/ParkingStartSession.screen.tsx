@@ -3,17 +3,17 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/form/ParkingChooseLicensePlateButton'
 import {ParkingChoosePaymentZone} from '@/modules/parking/components/form/ParkingChoosePaymentZone'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingSessionProvider} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
+import {ParkingStartSessionButton} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 
 export const ParkingStartSessionScreen = () => (
-  <ParkingSessionProvider>
+  <ParkingSessionFormProvider>
     <Screen
       bottomSheet={<ParkingSessionBottomSheet />}
       testID="ParkingStartSessionScreen">
@@ -40,5 +40,5 @@ export const ParkingStartSessionScreen = () => (
         </Column>
       </Box>
     </Screen>
-  </ParkingSessionProvider>
+  </ParkingSessionFormProvider>
 )

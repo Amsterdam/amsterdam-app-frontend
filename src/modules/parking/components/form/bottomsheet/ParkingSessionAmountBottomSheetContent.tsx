@@ -1,10 +1,9 @@
-import {useContext} from 'react'
+import {useController} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -14,7 +13,11 @@ const options = [2.5, 5.0, 10.0, 15.0, 20, 50, 100].map(value => ({
 }))
 
 export const ParkingSessionAmountBottomSheetContent = () => {
-  const {amount, setAmount} = useContext(ParkingSessionContext)
+  const {
+    field: {value: amount, onChange},
+  } = useController<{amount?: number}>({
+    name: 'amount',
+  })
   const {close} = useBottomSheet()
 
   return (
@@ -26,7 +29,7 @@ export const ParkingSessionAmountBottomSheetContent = () => {
           textAlign="center"
         />
         <RadioGroup
-          onChange={setAmount}
+          onChange={onChange}
           options={options}
           testID="ParkingSessionAmountBottomSheetContentRadioGroup"
           value={amount}

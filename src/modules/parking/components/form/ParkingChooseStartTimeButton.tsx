@@ -1,27 +1,16 @@
-import {useContext} from 'react'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
+import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
-export const ParkingChooseStartTimeButton = () => {
-  const {startTime} = useContext(ParkingSessionContext)
-  const {toggle} = useBottomSheet()
-
-  const timeString = formatDateTimeToDisplay(startTime, false)
-
-  return (
-    <TopTaskButton
-      border
-      iconName="clock"
-      iconRightName="chevron-down"
-      onPress={() => {
-        toggle(ParkingSessionBottomSheetVariant.startTime)
-      }}
-      testID="ParkingChooseStartTimeButton"
-      text={timeString}
-      title="Starttijd"
-    />
-  )
-}
+export const ParkingChooseStartTimeButton = () => (
+  <SelectButtonControlled<{startTime: Dayjs}, 'startTime'>
+    bottomSheetVariant={ParkingSessionBottomSheetVariant.startTime}
+    iconName="clock"
+    name="startTime"
+    rules={{required: 'Kies een starttijd'}}
+    testID="ParkingChooseStartTimeButton"
+    text={startTime => formatDateTimeToDisplay(startTime, false)}
+    title="Starttijd"
+  />
+)

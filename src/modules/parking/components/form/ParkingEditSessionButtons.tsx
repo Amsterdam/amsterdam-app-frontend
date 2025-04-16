@@ -1,51 +1,52 @@
-import {useCallback, useContext} from 'react'
+import {useCallback} from 'react'
+import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {ParkingSessionContext} from '@/modules/parking/components/form/ParkingSessionProvider'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useEditSessionMutation} from '@/modules/parking/service'
+import {Dayjs} from '@/utils/datetime/dayjs'
+
+type FieldValues = {
+  endTime?: Dayjs
+  ps_right_id: number
+  report_code: string
+  startTime: Dayjs
+}
 
 export const ParkingEditSessionButtons = () => {
-  const {startTime, endTime, report_code, ps_right_id} = useContext(
-    ParkingSessionContext,
-  )
+  const {handleSubmit} = useFormContext<FieldValues>()
   const {secureParkingAccount} = useGetSecureParkingAccount()
   const [editSession] = useEditSessionMutation()
 
   const navigation = useNavigation()
 
-  const onSubmit = useCallback(() => {
-    if (secureParkingAccount && endTime && startTime.isBefore(endTime)) {
-      void editSession({
-        accessToken: secureParkingAccount.accessToken,
-        parking_session: {
-          report_code: report_code!,
-          ps_right_id: ps_right_id!,
-          end_date_time: endTime.toJSON(),
-          start_date_time: startTime.toJSON(),
-        },
-      })
-        .unwrap()
-        .then(() => {
-          navigation.pop(2)
+  const onSubmit = useCallback(
+    ({startTime, endTime, report_code, ps_right_id}: FieldValues) => {
+      if (secureParkingAccount && endTime && startTime.isBefore(endTime)) {
+        void editSession({
+          accessToken: secureParkingAccount.accessToken,
+          parking_session: {
+            report_code,
+            ps_right_id,
+            end_date_time: endTime.toJSON(),
+            start_date_time: startTime.toJSON(),
+          },
         })
-    }
-  }, [
-    secureParkingAccount,
-    startTime,
-    endTime,
-    editSession,
-    report_code,
-    ps_right_id,
-    navigation,
-  ])
+          .unwrap()
+          .then(() => {
+            navigation.pop(2)
+          })
+      }
+    },
+    [secureParkingAccount, editSession, navigation],
+  )
 
   return (
     <Column gutter="md">
       <Button
         label="Bevestig nieuwe eindtijd"
-        onPress={onSubmit}
+        onPress={handleSubmit(onSubmit)}
         testID="ParkingEditSessionButton"
         variant="primary"
       />
