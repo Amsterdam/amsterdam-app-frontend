@@ -6,7 +6,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useIncreaseBalanceMutation} from '@/modules/parking/service'
-import {devLog} from '@/processes/development'
 
 type FieldValues = {
   amount?: number
@@ -36,8 +35,6 @@ export const ParkingIncreaseBalanceButton = () => {
         })
           .unwrap()
           .then(result => {
-            devLog('Balance increased successfully:', result)
-
             if (result.redirect_url) {
               openWebUrl(result.redirect_url)
             }
