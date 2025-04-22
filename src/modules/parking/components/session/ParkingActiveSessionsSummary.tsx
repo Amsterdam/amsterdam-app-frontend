@@ -6,6 +6,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
@@ -16,6 +17,9 @@ export const ParkingActiveSessionsSummary = () => {
     isError,
     refetch,
   } = useGetParkingSessions(ParkingSessionStatus.active)
+
+  const {currentPermit, isLoading: isLoadingPermit} =
+    useGetCurrentParkingPermit()
 
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   useEffect(() => {
@@ -30,11 +34,11 @@ export const ParkingActiveSessionsSummary = () => {
     activeParkingSessions?.some(session => !session.is_paid) ? 15000 : 0,
   )
 
-  if (isLoading) {
+  if (isLoading || isLoadingPermit) {
     return <PleaseWait testID="ParkingPermitSessionsActivePleaseWait" />
   }
 
-  if (isError) {
+  if (isError || !currentPermit) {
     return (
       <SomethingWentWrong testID="ParkingActiveSessionsSummarySomethingWentWrong" />
     )
@@ -51,6 +55,7 @@ export const ParkingActiveSessionsSummary = () => {
         activeParkingSessions.map(session => (
           <ParkingActiveSessionNavigationButton
             key={session.vehicle_id}
+            noEndTime={currentPermit.no_endtime}
             parkingSession={session}
           />
         ))
