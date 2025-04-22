@@ -17,7 +17,7 @@ const NoTransactions = ({text}: {text: string}) => (
     <Box insetBottom="md">
       <Phrase
         color="secondary"
-        testID="CityPassTransactionHistoryNoTransactions">
+        testID="CityPassTransactionHistoryNoTransactionsPhrase">
         {text}{' '}
       </Phrase>
     </Box>
@@ -68,7 +68,7 @@ export const TransactionHistory = ({transactions, type}: Props) => {
                 <Column gutter="sm">
                   <Phrase
                     color="secondary"
-                    testID="CityPassTransactionHistoryDate">
+                    testID="CityPassTransactionHistoryDatePhrase">
                     {dateGroup.date}
                   </Phrase>
                   {dateGroup.data.map(transaction => (

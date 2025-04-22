@@ -31,7 +31,7 @@ const ListItem = ({navigation, project}: ListItemProps) => (
       })
     }
     subtitle={project.subtitle ?? undefined}
-    testID="ConstructionWorkEditorAuthorizedProjects"
+    testID="ConstructionWorkEditorAuthorizedProjectsCard"
     title={project.title}
   />
 )

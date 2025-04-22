@@ -21,7 +21,9 @@ export const WasteGuideFullScreenError = ({error}: Props) => {
       testID="WasteGuideErrorScreen"
       text="Probeer het later nog een keer."
       title="Helaas is de afvalwijzer nu niet beschikbaar"
-      TopComponent={<ShareLocationTopTaskButton testID="WasteGuide" />}
+      TopComponent={
+        <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+      }
     />
   )
 }

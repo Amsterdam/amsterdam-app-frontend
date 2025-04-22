@@ -26,6 +26,7 @@ export const LicensePlateListItem = ({
         <Icon
           name="parkingCar"
           size="lg"
+          testID="ParkingLicensePlateIcon"
         />
         <Phrase emphasis="strong">{licensePlate}</Phrase>
       </Row>
@@ -36,6 +37,7 @@ export const LicensePlateListItem = ({
               color="link"
               name="trash-bin"
               size="lg"
+              testID="ParkingRemoveLicensePlateIcon"
             />
           }
           onPress={() => onPressDelete(vehicle_id)}

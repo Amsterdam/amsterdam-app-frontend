@@ -95,7 +95,7 @@ export const PassOwners = ({logout}: Props) => {
                   onPressCityPassCard(cityPass.passNumber)
                 }
               }}
-              testID={`CityPassOwnerButton-${index}`}
+              testID={`CityPassOwner${index}Button`}
             />
           ))}
         </Column>

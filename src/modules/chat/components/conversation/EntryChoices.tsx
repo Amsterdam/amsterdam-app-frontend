@@ -50,7 +50,7 @@ export const EntryChoices = ({message: {choices}, isLastOfGroup}: Props) => {
               // TODO: onPress not always working correctly in this instance. Don't know why. Therefore onPressOut is used.
               onPress({optionId, title, optionValue, parentEntryId})
             }}
-            testID={`ChatHistoryChoices${title}`}
+            testID={`ChatHistoryChoices${title}Button`}
             variant="secondary"
           />
         ))}

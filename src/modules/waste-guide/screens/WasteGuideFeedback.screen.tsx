@@ -7,7 +7,7 @@ export const WasteGuideFeedbackScreen = () => (
     testID="WasteGuideFeedbackScreen">
     <WebView
       sliceFromTop={{portrait: 161, landscape: 207}}
-      testID="WasteGuideFeedbackWebview"
+      testID="WasteGuideFeedbackWebView"
       url="https://formulier.amsterdam.nl/thema/afval-grondstoffen/klopt-afvalwijzer/Reactie/"
     />
   </Screen>

@@ -18,7 +18,7 @@ export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
 
   return (
     <Column grow={1}>
-      <Tabs>
+      <Tabs testID="ParkingSessionDateTimeTabs">
         <Tabs.Tab
           label={formatTimeToDisplay(dateTime, {
             hoursLabelShort: true,

@@ -26,7 +26,7 @@ export const EntryRichLink = ({message}: Props) => {
     <ChatMessageEntry message={message}>
       <PressableBase /* TODO: replace this by InlineLink once https://github.com/facebook/react-native/issues/48387 is fixed. */
         onPressOut={onPress}
-        testID="ChatMessageRichLinkTitlePressable">
+        testID="ChatMessageRichLinkTitleLink">
         <Phrase
           color={
             message.sender.role === ConversationEntrySenderRole.user
@@ -42,14 +42,14 @@ export const EntryRichLink = ({message}: Props) => {
       {!!domain && (
         <PressableBase
           onPressOut={onPress}
-          testID="ChatMessageRichLinkUrlPressable">
+          testID="ChatMessageRichLinkUrlLink">
           <Phrase
             color={
               message.sender.role === ConversationEntrySenderRole.user
                 ? 'inverse'
                 : 'link'
             }
-            testID="ChatMessageRichLinkUrl"
+            testID="ChatMessageRichLinkUrlPhrase"
             underline>
             {domain}
           </Phrase>

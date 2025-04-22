@@ -11,7 +11,7 @@ export const parseTextToComponentsWithInlineLinks = (
     <InlineLink
       inverse={inverse}
       onPress={() => openUrl(part)}
-      testID={`InlineLink${part}`}>
+      testID={`InlineLink${part}Link`}>
       {part}
     </InlineLink>
   ))

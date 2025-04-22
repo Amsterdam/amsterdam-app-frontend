@@ -33,7 +33,7 @@ export const RestartLoginScreen = () => {
   }, [logout, removeSecureItems, resetAccessCode, setShouldShowLoginScreen])
 
   if (isError) {
-    return <SomethingWentWrong testID={TEST_ID + 'SomethingWentWrong'} />
+    return <SomethingWentWrong testID={`${TEST_ID}SomethingWentWrong`} />
   }
 
   return (
@@ -41,16 +41,16 @@ export const RestartLoginScreen = () => {
       <Box>
         <Column gutter="lg">
           <Title
-            testID={TEST_ID + 'Title'}
+            testID={`${TEST_ID}Title`}
             text="Toegangscode opnieuw instellen"
           />
-          <Paragraph testID={TEST_ID + 'Paragraph'}>
+          <Paragraph testID={`${TEST_ID}Paragraph`}>
             U moet opnieuw inloggen om een nieuwe toegangscode te kiezen.
           </Paragraph>
           <Button
             label="Inloggen met DigiD"
             onPress={onRestartLogin}
-            testID={TEST_ID + 'Button'}
+            testID={`${TEST_ID}Button`}
           />
         </Column>
       </Box>

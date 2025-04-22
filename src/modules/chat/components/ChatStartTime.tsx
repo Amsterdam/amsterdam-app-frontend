@@ -9,7 +9,7 @@ type Props = {
 export const ChatStartTime = ({firstMessage}: Props) => (
   <ChatSystemEntry
     icon="chat"
-    testID="ChatStartingTime"
+    testID="ChatStartingTimeEntry"
     text="Chat gestart"
     timestamp={firstMessage?.timestamp ?? dayjs().unix()}
   />

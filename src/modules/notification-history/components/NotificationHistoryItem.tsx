@@ -99,7 +99,7 @@ export const NotificationHistoryItem = ({
                 <Phrase
                   color="secondary"
                   numberOfLines={1}
-                  testID={`NotificationHistoryItem${id}CreationDate`}
+                  testID={`NotificationHistoryItem${id}CreationDatePhrase`}
                   variant="body">
                   {createdAt}
                 </Phrase>
@@ -111,7 +111,7 @@ export const NotificationHistoryItem = ({
                 )}
               </Row>
             </Row>
-            <Paragraph testID={`NotificationHistoryItem${id}Description`}>
+            <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
             </Paragraph>
           </Column>

@@ -30,7 +30,7 @@ export const TransactionItem = ({
         accessibilityLabel={accessibilityLabel}
         emphasis="strong"
         flexShrink={0}
-        testID="CityPassTransactionItemAmount">
+        testID="CityPassTransactionItemAmountPhrase">
         {amountFormatted}
       </Phrase>
     </Row>

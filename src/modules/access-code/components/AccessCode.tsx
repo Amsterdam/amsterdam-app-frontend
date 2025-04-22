@@ -48,7 +48,7 @@ export const AccessCode = ({
             {accessCode[index] !== undefined || isCodeEntered ? ( // Just `accessCode[index]` excludes 0 value
               <Icon
                 name="asterisk"
-                testID="AccessCodeDigitAsterisk"
+                testID="AccessCodeDigitAsteriskIcon"
               />
             ) : null}
           </View>

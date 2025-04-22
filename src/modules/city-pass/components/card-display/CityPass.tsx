@@ -69,7 +69,7 @@ export const CityPass = ({
                   halign="center">
                   <Phrase
                     emphasis="strong"
-                    testID="CityPassCityPassName">
+                    testID="CityPassCityPassNamePhrase">
                     {firstname} {infix} {lastname}
                   </Phrase>
                   <Column halign="center">

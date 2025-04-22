@@ -32,10 +32,10 @@ export const ChatAttachmentButton = forwardRef<View, Props>(
               color="link"
               name={iconName}
               size="xl"
-              testID={testID + 'Icon'}
+              testID={`${testID}Icon`}
             />
           </View>
-          <Phrase testID={testID + 'Phrase'}>{label}</Phrase>
+          <Phrase testID={`${testID}Phrase`}>{label}</Phrase>
         </Column>
       </PressableBase>
     )

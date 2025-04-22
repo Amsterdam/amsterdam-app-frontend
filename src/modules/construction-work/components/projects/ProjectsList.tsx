@@ -198,7 +198,7 @@ export const ProjectsList = ({
         error={error}
         Image={ConstructionWorkFigure}
         onPress={() => navigation.goBack()}
-        testID="ConstructionWorkError"
+        testID="ConstructionWorkFullScreenError"
         title="Er zijn geen werkzaamheden beschikbaar"
       />
     )

@@ -1,6 +1,7 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, TextProps, TextStyle} from 'react-native'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
+import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {Emphasis, ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
@@ -23,7 +24,6 @@ export type PhraseProps = {
    * Label used for logging to Piwik and AppInsights.
    */
   'logging-label'?: string
-  testID?: string
   /**
    * Defines the alignment of the text. Maps with the textAlign style prop options.
    */
@@ -36,7 +36,8 @@ export type PhraseProps = {
    * Which variation of a phrase to display.
    */
   variant?: ParagraphVariants
-} & Omit<TextProps, 'style'>
+} & Omit<TextProps, 'style'> &
+  Partial<TestProps>
 
 /**
  * Displays (very) short text phrases.

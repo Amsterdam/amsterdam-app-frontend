@@ -68,7 +68,7 @@ export const ModuleSettings = () => {
             <ModuleSetting
               key={module.slug}
               module={module}
-              testID={`UserModuleSettings${pascalCase(module.slug)}`}
+              testID={`UserModuleSettings${pascalCase(module.slug)}Card`}
             />
           ))}
         </Column>

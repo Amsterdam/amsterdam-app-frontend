@@ -87,7 +87,7 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Row>
       {showTimeBoundNotification(fraction) && (
-        <AlertWarning testID={testID + 'TimeboundNotification'}>
+        <AlertWarning testID={`${testID}TimeboundNotification`}>
           <FractionContent
             content={afvalwijzerAfvalkalenderMelding}
             testID={`${testID}Content`}
@@ -148,7 +148,7 @@ export const Fraction = ({fraction, testID}: Props) => {
         />
       </Column>
       {!!afvalwijzerAfvalkalenderOpmerking && (
-        <AlertBase testID={testID + 'Remark'}>
+        <AlertBase testID={`${testID}Remark`}>
           <FractionContent
             content={afvalwijzerAfvalkalenderOpmerking}
             testID={`${testID}RemarksContent`}

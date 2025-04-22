@@ -4,27 +4,36 @@ import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-interface TabsProps {
+type TabsProps = {
   children: ReactNode
-}
+} & TestProps
 
-interface TabProps {
+type TabProps = {
   children: ReactNode
   label: string
 }
 
-export const Tabs = ({children}: TabsProps) => {
+/**
+ * @example <Tabs>
+        <Tabs.Tab label="Parkeertijd">
+        ...
+        </Tabs.Tab>
+        <Tabs.Tab label="Parkeerlocatie">
+        ...
+        </Tabs.Tab>
+    </Tabs>
+ */
+export const Tabs = ({children, testID}: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0)
 
   const styles = useThemable(createStyles)
 
   return (
-    <Column
-      //   grow={1}
-      halign="stretch">
+    <Column halign="stretch">
       <View>
         <Row>
           {React.Children.map(children, (child, index) => {
@@ -33,7 +42,7 @@ export const Tabs = ({children}: TabsProps) => {
                 <PressableBase
                   onPress={() => setActiveTab(index)}
                   style={[styles.tab, activeTab === index && styles.tabActive]}
-                  testID="123">
+                  testID={`${testID}Tab${child.props.label}Button`}>
                   <Phrase textAlign="center">{child.props.label}</Phrase>
                 </PressableBase>
               )
@@ -43,14 +52,12 @@ export const Tabs = ({children}: TabsProps) => {
           })}
         </Row>
       </View>
-      {/* <div style={{padding: '20px'}}> */}
       {React.Children.toArray(children)[activeTab]}
-      {/* </div> */}
     </Column>
   )
 }
 
-export const Tab = ({children}: TabProps) => <>{children}</>
+const Tab = ({children}: TabProps) => <>{children}</>
 
 Tabs.Tab = Tab
 

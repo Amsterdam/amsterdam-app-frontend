@@ -86,7 +86,7 @@ export const Projects = () => {
           listHeader={
             <ProjectsListHeader>
               <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-              <ShareLocationTopTaskButton testID="ConstructionWork" />
+              <ShareLocationTopTaskButton testID="ConstructionWorkRequestLocationButton" />
             </ProjectsListHeader>
           }
           noResultsMessage="We hebben geen werkzaamheden gevonden."

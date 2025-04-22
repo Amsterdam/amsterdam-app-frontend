@@ -11,7 +11,7 @@ type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
   args: {
-    testID: 'testID',
+    testID: 'testIDMessage',
     text: 'Vul een waarde in',
   },
 }

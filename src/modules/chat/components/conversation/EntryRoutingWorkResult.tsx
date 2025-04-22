@@ -35,7 +35,7 @@ export const EntryRoutingWorkResult = ({message, isLastOfGroup}: Props) => {
     <>
       <ChatSystemEntry
         icon="chat"
-        testID="ChatEntryRoutingWorkResult"
+        testID="ChatEntryRoutingWorkResultEntry"
         text="Chat gestopt"
         timestamp={message.timestamp}
       />

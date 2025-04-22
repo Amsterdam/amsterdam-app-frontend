@@ -17,7 +17,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     iconName: 'alert',
-    testID: 'testID',
+    testID: 'testIdAlert',
     text: 'Text',
     title: 'Title',
     onPress: () => null,

@@ -153,7 +153,7 @@ export const ModuleButton = ({
       ) : (
         <SwipeToDelete
           onEvent={onDelete}
-          testID={testID ? `${testID}SwipeToDelete` : ''}>
+          testID={`${testID}SwipeToDelete`}>
           {pressable}
         </SwipeToDelete>
       )}

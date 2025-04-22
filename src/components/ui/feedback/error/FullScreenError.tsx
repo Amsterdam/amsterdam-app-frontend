@@ -31,7 +31,7 @@ export const FullScreenError = ({
         <FullScreenErrorHeader
           error={error}
           isPortrait={isPortrait}
-          testID={testID + 'Header'}
+          testID={`${testID}Header`}
           text={text}
           title={title}
           TopComponent={TopComponent}
@@ -43,7 +43,7 @@ export const FullScreenError = ({
         Image={Image}
         isImageFullSize={isImageFullSize}
         isPortrait={isPortrait}
-        testID={testID + 'Content'}
+        testID={`${testID}Content`}
         text={text}
         title={title}
         TopComponent={TopComponent}
@@ -54,7 +54,7 @@ export const FullScreenError = ({
           accessibilityLabel={buttonAccessibilityLabel}
           label={buttonLabel}
           onPress={onPress}
-          testID={testID + 'Button'}
+          testID={`${testID}Button`}
         />
       </Box>
     </Column>

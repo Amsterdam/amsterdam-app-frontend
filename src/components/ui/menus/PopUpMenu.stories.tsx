@@ -8,19 +8,19 @@ const menuItems: PopupMenuItem[] = [
     color: 'link',
     label: 'Chat downloaden',
     onPress: () => null,
-    testID: 'ChatMenuPressableDownloadChat',
+    testID: 'ChatMenuPressableDownloadChatItem',
   },
   {
     color: 'link',
     label: 'Privacy',
     onPress: () => null,
-    testID: 'ChatMenuPressableChatPrivacy',
+    testID: 'ChatMenuPressableChatPrivacyItem',
   },
   {
     color: 'warning',
     label: 'Chat stoppen',
     onPress: () => null,
-    testID: 'ChatMenuPressableStopChat',
+    testID: 'ChatMenuPressableStopChatItem',
   },
 ]
 

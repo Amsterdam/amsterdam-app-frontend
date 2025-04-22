@@ -29,7 +29,7 @@ const AddressDeleteButton = ({
       <SwipeToDelete
         onEvent={onDelete}
         showIcon={false}
-        testID="AddressDeleteSwiper">
+        testID="AddressDeleteSwipeToDelete">
         <Row>
           <Row grow={1}>{children}</Row>
           <Button

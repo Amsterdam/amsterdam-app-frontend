@@ -1,11 +1,11 @@
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
-  testID: string
   text: string
-}
+} & TestProps
 
 export const ErrorMessage = ({text, testID}: Props) => (
   <Row gutter="sm">
@@ -13,6 +13,7 @@ export const ErrorMessage = ({text, testID}: Props) => (
       color="warning"
       name="alert"
       size="md"
+      testID={`${testID}Icon`}
     />
     <Paragraph
       color="warning"

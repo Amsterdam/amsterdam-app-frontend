@@ -35,7 +35,7 @@ export const Multiple: StoryFn<typeof Accordion> = () => (
     {['Grof afval', 'Restafval', 'Containers in de buurt', 'Recyclepunten'].map(
       title => (
         <Accordion
-          testID={title}
+          testID={`${title}Accordion`}
           title={title}>
           <Paragraph>
             Informatie over {title.toLowerCase()} komt hier.

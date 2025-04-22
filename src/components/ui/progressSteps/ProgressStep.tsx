@@ -8,6 +8,7 @@ import {
   ProgressStatus,
   ProgressStepsVariant,
 } from '@/components/ui/progressSteps/types'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
   children: ReactNode
@@ -15,9 +16,8 @@ type Props = {
   numberIndicator?: number
   progressStatus: ProgressStatus
   progressStatusNextItem?: ProgressStatus
-  testID: string
   variant: ProgressStepsVariant
-}
+} & TestProps
 
 export const ProgressStep = ({
   children,

@@ -25,12 +25,12 @@ const AllIconsTemplate = ({color}: Props) => (
         <Column
           gutter="sm"
           halign="center">
-          <Phrase testID="">{iconName}</Phrase>
+          <Phrase testID="testIdPhrase">{iconName}</Phrase>
           <Icon
             color={color}
             name={iconName as SvgIconName}
             size="lg"
-            testID=""
+            testID="testIdIcon"
           />
         </Column>
       </Box>
