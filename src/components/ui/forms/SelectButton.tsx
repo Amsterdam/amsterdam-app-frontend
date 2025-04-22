@@ -3,15 +3,15 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {TestProps} from '@/components/ui/types'
 
 type Props = {
   error?: FieldError
   iconName: SvgIconName
   onPress: () => void
-  testID: string
   text?: string
   title: string
-}
+} & TestProps
 
 export const SelectButton = ({
   iconName,

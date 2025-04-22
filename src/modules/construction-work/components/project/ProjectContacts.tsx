@@ -37,7 +37,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
           <Row>
             <PhoneButton
               phoneNumber={phone}
-              testID="ConstructionWorkProjectContactPhone"
+              testID="ConstructionWorkProjectContactPhoneButton"
             />
           </Row>
         )}
@@ -47,7 +47,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
               email={email}
               numberOfLines={1}
               subject={emailSubject}
-              testID="ConstructionWorkProjectContactEmail"
+              testID="ConstructionWorkProjectContactEmailButton"
             />
           </Row>
         )}

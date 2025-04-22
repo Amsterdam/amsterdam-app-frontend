@@ -3,6 +3,7 @@ import {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import {ComponentType, ReactNode} from 'react'
 import {SvgProps} from 'react-native-svg'
 import {ColumnProps} from '@/components/ui/layout/Column'
+import {TestProps} from '@/components/ui/types'
 
 export type ErrorType = FetchBaseQueryError | SerializedError | undefined
 
@@ -15,17 +16,15 @@ export type FullScreenErrorProps = {
   error?: ErrorType
   isImageFullSize?: boolean
   onPress: () => void
-  testID: string
   text?: string
   title: string
   withFacadesBackground?: boolean
-} & Omit<ColumnProps, 'children'>
+} & Omit<ColumnProps, 'children'> &
+  TestProps
 
 export type SharedProps = {
-  TopComponent: FullScreenErrorProps['TopComponent']
-  error: FullScreenErrorProps['error']
   isPortrait: boolean
-  testID: FullScreenErrorProps['testID']
-  text: FullScreenErrorProps['text']
-  title: FullScreenErrorProps['title']
-}
+} & Pick<
+  FullScreenErrorProps,
+  'TopComponent' | 'error' | 'testID' | 'text' | 'title'
+>

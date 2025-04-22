@@ -53,7 +53,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           {label: 'Vandaag', value: 'Today'},
           {label: 'Morgen', value: 'Tomorrow'},
         ]}
-        testID="ParkingSessionTodayTomorrowStartTime"
+        testID="ParkingSessionTodayTomorrowStartTimeRadioGroup"
         value={isToday(startTime) ? 'Today' : 'Tomorrow'}
       />
       <DatePicker

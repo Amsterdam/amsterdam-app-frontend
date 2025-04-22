@@ -3,14 +3,15 @@ import {
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
+import {TestProps} from '@/components/ui/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {parseTextToComponentsWithInlineLinks} from '@/utils/parseTextToComponentsWithInlineLinks'
 
 type MessagePhraseProps = {
   children: string
   message: ConversationEntry
-  testID: string
-} & PhraseProps
+} & PhraseProps &
+  TestProps
 
 export const MessagePhrase = ({
   children,

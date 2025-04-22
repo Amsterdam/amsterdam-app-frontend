@@ -45,6 +45,7 @@ export const AddLicensePlateHeaderButton = () => {
           color="link"
           name="add"
           size="lgx"
+          testID="ParkingAddLicensePlateHeaderButtonIcon"
         />
       }
       onPress={() => {

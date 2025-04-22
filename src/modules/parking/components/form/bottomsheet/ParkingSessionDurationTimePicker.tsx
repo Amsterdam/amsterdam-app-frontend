@@ -51,13 +51,14 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
           <Icon
             name="clock"
             size="sm"
+            testID="ParkingSessionEndTimeIcon"
           />{' '}
           Eindtijd{' '}
           {formatTimeToDisplay(endTime ?? startTime, {includeHoursLabel: true})}
         </Phrase>
       </Column>
       <Gutter height="lg" />
-      <Tabs>
+      <Tabs testID="ParkingSessionDurationTimePickerTabs">
         <Tabs.Tab label="Parkeertijd">
           <Column halign="center">
             <Gutter height="lg" />

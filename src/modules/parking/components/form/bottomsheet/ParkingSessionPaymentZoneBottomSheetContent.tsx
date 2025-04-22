@@ -62,7 +62,7 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
         <RadioGroup
           onChange={onChange}
           options={options}
-          testID="ParkingSessionPaymentZone"
+          testID="ParkingSessionPaymentZoneRadioGroup"
           value={paymentZoneId}
         />
         <Gutter />

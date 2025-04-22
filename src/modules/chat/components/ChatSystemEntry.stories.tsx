@@ -13,7 +13,7 @@ export const Default: Story = {
   args: {
     icon: 'chat',
     text: 'Chat gestopt',
-    testID: 'chatEntryRoutingWorkResult',
+    testID: 'chatEntryRoutingWorkResultEntry',
     timestamp: 1630510440,
   },
 }

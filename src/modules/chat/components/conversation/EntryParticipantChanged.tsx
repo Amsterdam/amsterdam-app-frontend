@@ -39,7 +39,7 @@ export const EntryParticipantChanged = ({message, isLastOfGroup}: Props) => {
     <>
       <ChatSystemEntry
         icon="person"
-        testID={`ChatSystemMessage${message.format}`}
+        testID={`ChatSystemMessage${message.format}Entry`}
         text={
           joiningAgents
             ? `U chat nu met ${hasDisplayname(displayName) ? displayName : 'een medewerker'}`

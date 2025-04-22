@@ -17,7 +17,7 @@ export const CityPassCardSkeleton = ({isLoading}: Props) => (
   <Skeleton isLoading={isLoading}>
     <CityPassCard
       cityPass={cityPassMock}
-      testID="CityPassCardSkeletonMock"
+      testID="CityPassCardSkeletonMockCard"
     />
   </Skeleton>
 )

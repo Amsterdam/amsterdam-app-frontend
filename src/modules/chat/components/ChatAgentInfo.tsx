@@ -87,7 +87,7 @@ export const ChatAgentInfo = ({
         <View style={styles.container}>
           <Phrase
             color="secondary"
-            testID={`ChatHistoryGroupName${role}`}
+            testID={`ChatHistoryGroupName${role}Phrase`}
             variant="extraSmall">
             {getChatAgentInfo(
               senderDisplayName,

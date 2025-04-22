@@ -35,7 +35,7 @@ export const ProjectContentSections = ({sections, testID}: Props) => {
             key={label}
             label={label}
             onPress={() => openWebUrl(url)}
-            testID={`${testID}${index}Link${linkIndex}`}
+            testID={`${testID}${index}${linkIndex}Link`}
             variant="external"
           />
         ))}

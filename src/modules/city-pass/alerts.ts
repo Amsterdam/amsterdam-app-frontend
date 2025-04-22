@@ -8,7 +8,7 @@ const LOGOUT_ALERT = {
   title: 'Uitgelogd',
   hasIcon: true,
   hasCloseIcon: true,
-  testID: 'CityPassLoggedOutAlert',
+  testID: 'CityPassLoggedOutAlert' as const,
 }
 
 export const alerts = {
@@ -34,7 +34,7 @@ export const alerts = {
     title: 'Inloggen mislukt',
     hasIcon: true,
     hasCloseIcon: true,
-    testID: 'CityPassLoggedInAlertNegative',
+    testID: 'CityPassLoggedInNegativeAlert',
   },
   noPassesInfo: {
     variant: AlertVariant.information,

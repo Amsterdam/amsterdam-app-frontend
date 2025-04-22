@@ -23,7 +23,7 @@ export const FullScreenErrorHeader = ({
       gutter="md">
       <Title
         level="h3"
-        testID={testID + 'Title'}
+        testID={`${testID}Title`}
         text={title}
         textAlign="center"
       />
@@ -31,14 +31,14 @@ export const FullScreenErrorHeader = ({
         <Column>
           {!!text && (
             <Paragraph
-              testID={testID + 'Paragraph'}
+              testID={`${testID}Paragraph`}
               textAlign="center">
               {text ?? ''}
             </Paragraph>
           )}
           {!!error && (
             <Paragraph
-              testID={testID + 'Error'}
+              testID={`${testID}Error`}
               textAlign="center">
               {`Foutcode is ${getErrorCode(error)}`}
             </Paragraph>

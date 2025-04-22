@@ -28,7 +28,7 @@ export const WasteGuideNoAddress = ({
             {!isFetchingWasteGuide && !isFetchingAddress && (
               <Title text="Voor welke locatie wilt u informatie over afval?" />
             )}
-            <ShareLocationTopTaskButton testID="WasteGuide" />
+            <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
           </Column>
           {!!isFetchingWasteGuide && (
             <PleaseWait testID="WasteGuideLoadingSpinner" />

@@ -32,7 +32,7 @@ export const NotificationHistoryScreen = ({navigation}: Props) => {
         error={error}
         Image={ConstructionWorkFigure}
         onPress={() => navigation.goBack()}
-        testID="NotificationHistoryError"
+        testID="NotificationHistoryFullScreenError"
         title="Er kunnen geen meldingen worden getoond"
       />
     )

@@ -1,4 +1,5 @@
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {TestProps} from '@/components/ui/types'
 import {RedirectKey} from '@/modules/redirects/types'
 import {ApiError} from '@/types/api'
 
@@ -14,10 +15,9 @@ export enum CityPassEndpointName {
 export type AboutBlock = {
   icon: SvgIconName
   redirectKey: RedirectKey
-  testID: string
   text: string
   title: string
-}
+} & TestProps
 
 export enum TransactionType {
   budget = 'budget',

@@ -5,6 +5,7 @@ import AmsterdamFacadesImage from '@/assets/images/amsterdam-facades.svg'
 import {Box} from '@/components/ui/containers/Box'
 import {FullScreenErrorProps} from '@/components/ui/feedback/error/types'
 import {HideOnSmallSize} from '@/components/ui/layout/HideOnSmallSize'
+import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -15,9 +16,8 @@ type ImageWithBackgroundProps = {
   backgroundPosition: FullScreenErrorProps['backgroundPosition']
   isImageFullSize: FullScreenErrorProps['isImageFullSize']
   isPortrait: boolean
-  testID: string
   withFacadesBackground: FullScreenErrorProps['withFacadesBackground']
-}
+} & TestProps
 
 export const ImageWithBackground = ({
   backgroundPosition,
@@ -40,7 +40,7 @@ export const ImageWithBackground = ({
       {!!withFacadesBackground && (
         <View
           style={styles.figureBackground}
-          testID={testID + 'BackgroundImage'}>
+          testID={`${testID}BackgroundImage`}>
           <View style={styles.facade}>
             <AmsterdamFacadesImage />
           </View>
@@ -50,7 +50,7 @@ export const ImageWithBackground = ({
         <View style={styles.figureForeground}>
           <HideOnSmallSize
             minHeight={MIN_IMAGE_HEIGHT}
-            testID={testID + 'Image'}>
+            testID={`${testID}Image`}>
             <Box inset="md">
               <Image
                 height="100%"
@@ -62,7 +62,7 @@ export const ImageWithBackground = ({
       ) : (
         <View
           style={styles.figureForeground}
-          testID={testID + 'Image'}>
+          testID={`${testID}Image`}>
           <Image
             height="100%"
             width="100%"

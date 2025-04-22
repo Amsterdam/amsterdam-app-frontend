@@ -132,7 +132,7 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
                   }
                   key={getUniqueArticleId(article.meta_id)}
                   onPress={() => navigateToArticle(article)}
-                  testID={'ConstructionWorkProjectArticlePreview'}
+                  testID="ConstructionWorkProjectArticlePreview"
                 />
               ))}
             </View>

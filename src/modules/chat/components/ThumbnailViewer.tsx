@@ -76,7 +76,7 @@ export const ThumbnailViewer = ({
         {...pressableProps}
         accessibilityLabel={accessibilityLabel}
         onPress={toggleVisibility}
-        testID="ThumbnailViewerThumbnailPressable">
+        testID="ThumbnailViewerThumbnailButton">
         <Image
           source={imageSource}
           style={styles.thumbnail}

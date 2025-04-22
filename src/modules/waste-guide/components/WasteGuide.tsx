@@ -70,7 +70,7 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column gutter="md">
-              <ShareLocationTopTaskButton testID="WasteGuide" />
+              <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
               <WasteCardButton />
             </Column>
             {hasContent ? (

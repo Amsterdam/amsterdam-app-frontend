@@ -87,7 +87,7 @@ export const SecurityCode = ({id}: Props) => {
     return (
       <AlertNegative
         inset="md"
-        testID="CityPassSecurityCodeAlertNegative"
+        testID="CityPassSecurityCodeNegativeAlert"
         text="Deze pas bevat geen beveiligingscode."
       />
     )

@@ -65,17 +65,17 @@ export const UserBiometricsScreen = () => {
             <Switch
               accessibilityLabel={`Toegang met ${biometricsLabel}`}
               label={
-                <Phrase testID={TEST_ID + 'SwitchPhrase'}>
+                <Phrase testID={`${TEST_ID}SwitchPhrase`}>
                   {`Toegang met ${biometricsLabel}`}
                 </Phrase>
               }
               onChange={onChange}
-              testID={TEST_ID + 'Switch'}
+              testID={`${TEST_ID}Switch`}
               value={useBiometrics}
               wrapper={SwitchWrapper}
             />
           )}
-          <Paragraph testID={TEST_ID + 'InfoParagraph'}>
+          <Paragraph testID={`${TEST_ID}InfoParagraph`}>
             Als u dit inschakelt, dan heeft iedereen die deze telefoon kan
             ontgrendelen ook toegang tot uw gegevens in deze app.
           </Paragraph>

@@ -10,7 +10,7 @@ export const EntrySelections = ({message}: Props) => (
   <ChatMessageEntry message={message}>
     <MessagePhrase
       message={message}
-      testID="ChatEntrySelections">
+      testID="ChatEntrySelectionsPhrase">
       {message.selections?.map(selection => selection.title).join(', ')}
     </MessagePhrase>
   </ChatMessageEntry>

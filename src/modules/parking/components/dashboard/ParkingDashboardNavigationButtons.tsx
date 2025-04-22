@@ -14,14 +14,14 @@ export const ParkingDashboardNavigationButtons = () => {
         onPress={() => {
           //TODO: navigate to parking history
         }}
-        testID="ParkingNavigationButtonParkingHistory"
+        testID="ParkingParkingHistoryButton"
         title="Parkeergeschiedenis"
       />
       <NavigationButton
         onPress={() => {
           navigate(ParkingRouteName.myLicensePlates)
         }}
-        testID="ParkingNavigationButtonLicensePlates"
+        testID="ParkingLicensePlatesButton"
         title="Mijn kentekens"
       />
       {currentPermit?.money_balance_applicable && (
@@ -29,7 +29,7 @@ export const ParkingDashboardNavigationButtons = () => {
           onPress={() => {
             //TODO: navigate to payment history
           }}
-          testID="ParkingNavigationButtonPaymentHistory"
+          testID="ParkingPaymentHistoryButton"
           title="Betalingen"
         />
       )}

@@ -179,19 +179,19 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
             label="Foto"
             onPress={addPhotoFromLibrary}
             ref={setAccessibilityFocus}
-            testID="pdf"
+            testID="ChatAttachmentLibraryButton"
           />
           <ChatAttachmentButton
             iconName="camera"
             label="Camera"
             onPress={addPhotoFromCamera}
-            testID="pdf"
+            testID="ChatAttachmentCameraButton"
           />
           <ChatAttachmentButton
             iconName="document"
             label="PDF"
             onPress={addPDF}
-            testID="pdf"
+            testID="ChatAttachmentPdfButton"
           />
         </Row>
       </Box>

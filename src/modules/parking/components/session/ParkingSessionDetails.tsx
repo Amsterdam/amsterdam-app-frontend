@@ -150,6 +150,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           <Icon
             name="parkingCar"
             size="xl"
+            testID="ParkingSessionDetailsIcon"
           />
           <Title text={licensePlateString} />
         </Row>

@@ -31,7 +31,7 @@ export const useChatMenuItems = () => {
           entryId => entryId && addDownloadedTranscriptId(entryId),
         )
       },
-      testID: 'ChatMenuPressableDownloadChat',
+      testID: 'ChatMenuPressableDownloadChatMenuItem',
     })
 
     if (!isLoading && !isError) {
@@ -52,7 +52,7 @@ export const useChatMenuItems = () => {
             })
           }
         },
-        testID: 'ChatMenuPressableChatPrivacy',
+        testID: 'ChatMenuPressableChatPrivacyMenuItem',
       })
     }
 
@@ -78,7 +78,7 @@ export const useChatMenuItems = () => {
             close()
           }
         },
-        testID: 'ChatMenuPressableStopChat',
+        testID: 'ChatMenuPressableStopChatMenuItem',
       })
     }
 

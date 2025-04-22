@@ -70,7 +70,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
                   screen: item.route,
                 })
               }
-              testID={`NavigationButtonTo${item.route}`}
+              testID={`UserNavigationTo${item.route}Button`}
               title={
                 item.route === UserRouteName.userBiometrics
                   ? `Toegang met ${biometricsLabel}`
