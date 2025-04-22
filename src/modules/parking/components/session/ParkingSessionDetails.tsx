@@ -216,31 +216,34 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
         {!!parkingSession.money_balance_applicable && !!timeString && (
           <Paragraph>Betaald parkeren van {timeString}</Paragraph>
         )}
-        {(parkingSession.status === ParkingSessionStatus.active ||
-          parkingSession.status === ParkingSessionStatus.planned) && (
-          <Button
-            label="Eindtijd aanpassen"
-            onPress={onPressAdjustEndTime}
-            testID="ParkingSessionDetailsAdjustEndTimeButton"
-            variant="secondary"
-          />
-        )}
-        {parkingSession.status === ParkingSessionStatus.active && (
-          <Button
-            label="Stoppen"
-            onPress={onPressStop}
-            testID="ParkingSessionDetailsStopButton"
-            variant="secondaryDestructive"
-          />
-        )}
-        {parkingSession.status === ParkingSessionStatus.planned && (
-          <Button
-            label="Verwijderen"
-            onPress={onPressDelete}
-            testID="ParkingSessionDetailsDeleteButton"
-            variant="secondaryDestructive"
-          />
-        )}
+        {!parkingSession.no_endtime &&
+          (parkingSession.status === ParkingSessionStatus.active ||
+            parkingSession.status === ParkingSessionStatus.planned) && (
+            <Button
+              label="Eindtijd aanpassen"
+              onPress={onPressAdjustEndTime}
+              testID="ParkingSessionDetailsAdjustEndTimeButton"
+              variant="secondary"
+            />
+          )}
+        {!parkingSession.no_endtime &&
+          parkingSession.status === ParkingSessionStatus.active && (
+            <Button
+              label="Stoppen"
+              onPress={onPressStop}
+              testID="ParkingSessionDetailsStopButton"
+              variant="secondaryDestructive"
+            />
+          )}
+        {!parkingSession.no_endtime &&
+          parkingSession.status === ParkingSessionStatus.planned && (
+            <Button
+              label="Verwijderen"
+              onPress={onPressDelete}
+              testID="ParkingSessionDetailsDeleteButton"
+              variant="secondaryDestructive"
+            />
+          )}
         {!!parkingSession.money_balance_applicable &&
           !parkingSession.is_paid && (
             <AlertBase
