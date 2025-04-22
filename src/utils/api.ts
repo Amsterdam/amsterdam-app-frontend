@@ -23,7 +23,7 @@ export const generateRequestUrl = <ParamsType extends GenericParamsType>({
 
   const scalarParams = Object.entries(params)
     .filter(([, value]) => Boolean(value) && !Array.isArray(value))
-    .flatMap(([key, value]) => `${key}=${value as string}`)
+    .flatMap(([key, value]) => `${key}=${encodeURIComponent(value as string)}`)
 
   const queryParams = arrayParams.concat(scalarParams).join('&')
 
