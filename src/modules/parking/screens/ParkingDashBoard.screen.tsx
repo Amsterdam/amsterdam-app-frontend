@@ -7,6 +7,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
@@ -26,17 +27,18 @@ type Props = NavigationProps<ParkingRouteName.dashboard>
 export const ParkingDashboardScreen = ({route}: Props) => {
   const {params} = route
   const {setAlert} = useAlert()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (params?.action === 'increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.increaseBalanceSuccess)
-        baseApi.util.invalidateTags(['ParkingAccount'])
+        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
     }
-  }, [params, setAlert])
+  }, [dispatch, params, setAlert])
 
   const {permits, isLoading} = useGetPermits()
 

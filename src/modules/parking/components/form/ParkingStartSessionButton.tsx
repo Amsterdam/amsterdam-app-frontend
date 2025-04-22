@@ -5,7 +5,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useStartSessionMutation} from '@/modules/parking/service'
-import {devLog} from '@/processes/development'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {
@@ -39,9 +38,7 @@ export const ParkingStartSessionButton = () => {
           },
         })
           .unwrap()
-          .then(result => {
-            // Handle successful session creation
-            devLog('Session created successfully:', result)
+          .then(() => {
             goBack()
           })
       }
