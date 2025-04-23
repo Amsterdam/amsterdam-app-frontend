@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
@@ -8,6 +9,7 @@ import {useStartSessionMutation} from '@/modules/parking/service'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {
+  amount?: number
   endTime?: Dayjs
   licensePlate: {vehicle_id: string; visitor_name: string}
   paymentZoneId: string
@@ -21,9 +23,16 @@ export const ParkingStartSessionButton = () => {
   const [startSession] = useStartSessionMutation()
 
   const {goBack} = useNavigation()
+  const openWebUrl = useOpenWebUrl()
 
   const onSubmit = useCallback(
-    ({startTime, endTime, paymentZoneId, licensePlate}: FieldValues) => {
+    ({
+      startTime,
+      endTime,
+      paymentZoneId,
+      licensePlate,
+      amount,
+    }: FieldValues) => {
       // TODO:
       // check if the limit of current active parking sessions is not reached
       if (currentPermit && secureParkingAccount && licensePlate?.vehicle_id) {
@@ -36,14 +45,31 @@ export const ParkingStartSessionButton = () => {
             start_date_time: startTime.toJSON(),
             payment_zone_id: paymentZoneId,
           },
+          ...(amount
+            ? {
+                balance: {
+                  amount,
+                  currency: 'EUR',
+                },
+                redirect: {
+                  merchant_return_url:
+                    'amsterdam://parking/start-session-and-increase-balance/return',
+                },
+                locale: 'nl',
+              }
+            : {}),
         })
           .unwrap()
-          .then(() => {
+          .then(result => {
+            if (result.redirect_url) {
+              openWebUrl(result.redirect_url)
+            }
+
             goBack()
           })
       }
     },
-    [currentPermit, secureParkingAccount, startSession, goBack],
+    [currentPermit, secureParkingAccount, startSession, goBack, openWebUrl],
   )
 
   return (

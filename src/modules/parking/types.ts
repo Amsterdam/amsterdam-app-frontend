@@ -255,6 +255,7 @@ export type ParkingSessionReceiptEndpointRequestParams = {
   accessToken: string
   end_date_time: string
   payment_zone_id: string
+  ps_right_id?: number
   report_code: string
   start_date_time: string
   vehicle_id: string

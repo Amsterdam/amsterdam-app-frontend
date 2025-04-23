@@ -14,7 +14,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
     return null
   }
 
-  const {permit_name, time_balance, parking_rate} = permit
+  const {permit_name, time_balance, parking_rate, max_sessions_allowed} = permit
   const timeBalance = time_balance
     ? formatTimeDurationToDisplay(time_balance, 'seconds', {short: true})
     : 'Onbeperkt'
@@ -31,10 +31,13 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
       />
       <Column>
         <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-          {`Parkeertijd: ${timeBalance}`}
+          Parkeertijd: {timeBalance}
         </Phrase>
         <Phrase testID="ParkingPermitDetailParkingRatePhrase">
-          {`Parkeertarief: ${parkingRate}`}
+          Parkeertarief: {parkingRate}
+        </Phrase>
+        <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
+          Maximum aantal sessies tegelijk: {max_sessions_allowed}
         </Phrase>
       </Column>
     </Column>

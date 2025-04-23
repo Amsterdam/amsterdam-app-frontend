@@ -29,6 +29,22 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingIncreaseBalanceFailedAlert',
   },
+  notEnoughTimeBalanceFailed: {
+    variant: AlertVariant.negative,
+    text: 'Te weinig tijd om parkeersessie te starten.',
+    title: 'Niet genoeg tijdsaldo',
+    hasIcon: true,
+    hasCloseIcon: false,
+    testID: 'ParkingIncreaseBalanceFailedAlert',
+  },
+  notEnoughMoneyBalanceFailed: {
+    variant: AlertVariant.negative,
+    text: 'Te weinig geld om parkeersessie te starten.',
+    title: 'Niet genoeg geldsaldo',
+    hasIcon: true,
+    hasCloseIcon: false,
+    testID: 'ParkingIncreaseBalanceFailedAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts
