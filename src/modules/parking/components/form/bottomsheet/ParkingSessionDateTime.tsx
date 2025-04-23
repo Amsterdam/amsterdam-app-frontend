@@ -34,6 +34,7 @@ export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
               setDateTime(dayjs(newDateTime))
             }}
             style={styles.centerSelf}
+            theme="light"
           />
         </Tabs.Tab>
         <Tabs.Tab label={formatDateToDisplay(dateTime, false)}>
@@ -47,6 +48,7 @@ export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
               setDateTime(dayjs(newDateTime))
             }}
             style={styles.centerSelf}
+            theme="light"
           />
         </Tabs.Tab>
       </Tabs>

@@ -8,6 +8,7 @@ export const useKeyboardHeight = () => {
   useEffect(() => {
     const onKeyboardDidShow: KeyboardEventListener = e => {
       setHeight(e.endCoordinates.height)
+      setVisible(true)
     }
     const onKeyboardDidHide: KeyboardEventListener = () => {
       setVisible(false)

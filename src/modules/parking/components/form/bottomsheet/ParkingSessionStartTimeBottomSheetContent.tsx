@@ -1,9 +1,11 @@
 import {useController} from 'react-hook-form'
+import {View} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
+import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionTodayTomorrowStartTime'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
@@ -18,6 +20,7 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
     name: 'startTime',
   })
   const {close} = useBottomSheet()
+  const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
   if (isLoading) {
     return (
@@ -53,6 +56,7 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
         onPress={close}
         testID="ParkingSessionStartTimeBottomSheetContentDoneButton"
       />
+      {!!keyboardVisible && <View style={{height: keyboardHeight}} />}
     </Box>
   )
 }

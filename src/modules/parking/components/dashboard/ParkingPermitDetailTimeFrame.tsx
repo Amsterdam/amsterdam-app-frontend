@@ -2,17 +2,27 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {PaymentZone, ParkingPermit} from '@/modules/parking/types'
+import {
+  getPaymentZoneDay,
+  getPaymentZoneDayTimeSpan,
+} from '@/modules/parking/utils/paymentZone'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 const displayPaymentTimeFrame = (paymentZones: PaymentZone[]) =>
-  paymentZones.flatMap(zone =>
-    zone.days
-      .filter(day => day.day_of_week.toLowerCase() === dayjs().format('dddd'))
-      .map(day => ({
-        key: day.day_of_week,
-        phrase: `${day.start_time.replace(/:/g, '.')} tot ${day.end_time.replace(/:/g, '.')}`,
-      })),
-  )
+  paymentZones
+    .map(zone => {
+      const day = getPaymentZoneDay(zone, dayjs().day())
+
+      if (day) {
+        return {
+          key: `${zone.id}:${day.day_of_week}`,
+          phrase: getPaymentZoneDayTimeSpan(day),
+        }
+      }
+
+      return undefined
+    })
+    .filter(day => !!day)
 
 type Props = {
   permit: ParkingPermit
@@ -36,7 +46,7 @@ export const ParkingPermitDetailTimeFrame = ({permit}: Props) => {
         <Phrase
           key={key}
           testID="ParkingPermitDetailPaidParkingTimeFramePhrase">
-          {phrase} uur
+          {phrase}
         </Phrase>
       ))}
     </Column>
