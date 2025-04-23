@@ -18,7 +18,9 @@ export const generateRequestUrl = <ParamsType extends GenericParamsType>({
   const arrayParams = Object.entries(params)
     .filter(([, value]) => Array.isArray(value))
     .flatMap(([key, value]) =>
-      (value as string[]).flatMap((val: string) => `${key}=${val}`),
+      (value as string[]).flatMap(
+        (val: string) => `${key}=${encodeURIComponent(val)}`,
+      ),
     )
 
   const scalarParams = Object.entries(params)
