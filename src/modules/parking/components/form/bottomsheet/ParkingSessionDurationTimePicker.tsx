@@ -109,6 +109,7 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
               onChange(dayjs(newStartTime))
             }}
             style={styles.centerSelf}
+            theme="light"
           />
         </Tabs.Tab>
       </Tabs>

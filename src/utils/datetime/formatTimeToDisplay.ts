@@ -1,11 +1,19 @@
 import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {parseTimeToDayjs} from '@/utils/datetime/parseTimeToDayjs'
 
-type Options = {hoursLabelShort?: boolean; includeHoursLabel?: boolean}
+type Options = {
+  hoursLabelShort?: boolean
+  includeHoursLabel?: boolean
+  replaceMidnightBy24?: boolean
+}
 
 export const formatTimeToDisplay = (
   date: string | Dayjs,
-  {includeHoursLabel = false, hoursLabelShort = false}: Options = {},
+  {
+    includeHoursLabel = false,
+    hoursLabelShort = false,
+    replaceMidnightBy24,
+  }: Options = {},
 ) => {
   let parsedTime = dayjs(date)
 
@@ -13,7 +21,11 @@ export const formatTimeToDisplay = (
     parsedTime = parseTimeToDayjs(date)
   }
 
-  const time = parsedTime.format('HH.mm')
+  let time = parsedTime.format('HH.mm')
+
+  if (replaceMidnightBy24 && time === '00.00') {
+    time = '24.00'
+  }
 
   if (includeHoursLabel) {
     if (hoursLabelShort) {

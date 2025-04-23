@@ -15,7 +15,7 @@ export const getPaymentZoneDay = (
 
 export const getPaymentZoneDayTimeSpan = (paymentZoneDay?: PaymentZoneDay) =>
   paymentZoneDay
-    ? `${formatTimeToDisplay(paymentZoneDay.start_time)} - ${formatTimeToDisplay(paymentZoneDay.end_time, {includeHoursLabel: true})}`
+    ? `${formatTimeToDisplay(paymentZoneDay.start_time)} - ${formatTimeToDisplay(paymentZoneDay.end_time, {includeHoursLabel: true, replaceMidnightBy24: true})}`
     : undefined
 
 export const areAllPaymentZonesEqual = (

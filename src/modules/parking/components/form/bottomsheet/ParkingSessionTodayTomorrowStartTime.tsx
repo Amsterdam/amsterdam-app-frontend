@@ -7,6 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
 import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
+
 type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
 
 export const ParkingSessionTodayTomorrowStartTime = () => {
@@ -66,6 +67,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
           onChangeStartTime(dayjs(newStartTime))
         }}
         style={styles.centerSelf}
+        theme="light"
       />
     </Column>
   )
