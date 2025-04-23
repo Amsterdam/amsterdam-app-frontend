@@ -217,6 +217,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           <Paragraph>Betaald parkeren van {timeString}</Paragraph>
         )}
         {!parkingSession.no_endtime &&
+          !!parkingSession.ps_right_id &&
           (parkingSession.status === ParkingSessionStatus.active ||
             parkingSession.status === ParkingSessionStatus.planned) && (
             <Button
@@ -227,6 +228,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             />
           )}
         {!parkingSession.no_endtime &&
+          !!parkingSession.ps_right_id &&
           parkingSession.status === ParkingSessionStatus.active && (
             <Button
               label="Stoppen"
@@ -236,6 +238,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             />
           )}
         {!parkingSession.no_endtime &&
+          !!parkingSession.ps_right_id &&
           parkingSession.status === ParkingSessionStatus.planned && (
             <Button
               label="Verwijderen"

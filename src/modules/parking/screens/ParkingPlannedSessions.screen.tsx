@@ -6,6 +6,7 @@ import {Title} from '@/components/ui/text/Title'
 import {ParkingPlannedSessionNavigationButton} from '@/modules/parking/components/session/ParkingPlannedSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
+import {compareParkingSessionsByStartDateTime} from '@/modules/parking/utils/compareParkingSessionsByStartDateTime'
 
 export const ParkingPlannedSessionsScreen = () => {
   const {parkingSessions: plannedParkingSessions, isLoading} =
@@ -19,17 +20,19 @@ export const ParkingPlannedSessionsScreen = () => {
     <Screen testID="ParkingPlannedSessionsScreen">
       <Box>
         {plannedParkingSessions?.length ? (
-          plannedParkingSessions.map(session => (
-            <Border
-              key={session.created_time}
-              top>
-              <Box insetTop="md">
-                <ParkingPlannedSessionNavigationButton
-                  parkingSession={session}
-                />
-              </Box>
-            </Border>
-          ))
+          [...plannedParkingSessions]
+            .sort(compareParkingSessionsByStartDateTime)
+            .map(session => (
+              <Border
+                key={session.created_time}
+                top>
+                <Box insetTop="md">
+                  <ParkingPlannedSessionNavigationButton
+                    parkingSession={session}
+                  />
+                </Box>
+              </Border>
+            ))
         ) : (
           <Title
             level="h3"

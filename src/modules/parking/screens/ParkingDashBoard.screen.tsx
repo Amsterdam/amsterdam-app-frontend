@@ -37,6 +37,15 @@ export const ParkingDashboardScreen = ({route}: Props) => {
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
+    } else if (params?.action === 'start-session-and-increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        dispatch(
+          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
+        )
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
     }
   }, [dispatch, params, setAlert])
 

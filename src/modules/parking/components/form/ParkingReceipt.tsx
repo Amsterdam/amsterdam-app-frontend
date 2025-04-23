@@ -3,11 +3,14 @@ import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {alerts} from '@/modules/parking/alerts'
+import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
@@ -21,12 +24,21 @@ import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingReceipt = () => {
   const {watch} = useFormContext<{
+    amount?: number
     endTime?: Dayjs
     licensePlate?: ParkingLicensePlate
     paymentZoneId?: string
+    ps_right_id?: number
     startTime: Dayjs
   }>()
-  const {startTime, endTime, licensePlate, paymentZoneId} = watch()
+  const {
+    startTime,
+    endTime,
+    licensePlate,
+    paymentZoneId,
+    ps_right_id,
+    amount = 0,
+  } = watch()
 
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
@@ -42,6 +54,7 @@ export const ParkingReceipt = () => {
           payment_zone_id: paymentZoneId,
           start_date_time: startTime.toJSON(),
           vehicle_id: licensePlate?.vehicle_id ?? '111111',
+          ps_right_id,
         }
       : skipToken,
   )
@@ -91,13 +104,19 @@ export const ParkingReceipt = () => {
     },
   )
   const remainingMoneyBalanceText = formatNumber(
-    remaining_time_balance
-      ? remaining_wallet_balance?.value
+    remaining_wallet_balance
+      ? remaining_wallet_balance.value + amount
       : account?.wallet.balance,
-    remaining_time_balance
-      ? remaining_wallet_balance?.currency
+    remaining_wallet_balance
+      ? remaining_wallet_balance.currency
       : account?.wallet.currency,
   )
+  const remainingTimeBalanceError =
+    currentPermit.time_balance_applicable && (remaining_time_balance ?? 0) < 0
+  const remainingMoneyBalanceError =
+    currentPermit.money_balance_applicable &&
+    remaining_wallet_balance &&
+    remaining_wallet_balance.value + amount < 0
 
   if (
     !currentPermit.time_balance_applicable &&
@@ -108,6 +127,18 @@ export const ParkingReceipt = () => {
 
   return (
     <Column>
+      {(!!remainingMoneyBalanceError || amount > 0) && (
+        <>
+          <Title
+            level="h2"
+            testID="ParkingIncreaseBalanceTitle"
+            text="Geldsaldo toevoegen"
+          />
+          <Gutter height="md" />
+          <ParkingChooseAmountButton />
+          <Gutter height="lg" />
+        </>
+      )}
       <Title
         level="h2"
         testID="ParkingCostTitle"
@@ -140,8 +171,12 @@ export const ParkingReceipt = () => {
           <Row
             align="between"
             flex={1}>
-            <Phrase>Resterend tijdsaldo</Phrase>
-            <Phrase>{remainingTimeBalanceText}</Phrase>
+            <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+              Resterend tijdsaldo
+            </Phrase>
+            <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+              {remainingTimeBalanceText}
+            </Phrase>
           </Row>
         </SingleSelectable>
       )}
@@ -151,10 +186,26 @@ export const ParkingReceipt = () => {
           <Row
             align="between"
             flex={1}>
-            <Phrase>Resterend geldsaldo</Phrase>
-            <Phrase>{remainingMoneyBalanceText}</Phrase>
+            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+              Resterend geldsaldo
+            </Phrase>
+            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+              {remainingMoneyBalanceText}
+            </Phrase>
           </Row>
         </SingleSelectable>
+      )}
+      {!!remainingTimeBalanceError && (
+        <>
+          <Gutter height="lg" />
+          <AlertNegative {...alerts.notEnoughTimeBalanceFailed} />
+        </>
+      )}
+      {!!remainingMoneyBalanceError && (
+        <>
+          <Gutter height="lg" />
+          <AlertNegative {...alerts.notEnoughMoneyBalanceFailed} />
+        </>
       )}
       <Gutter height="md" />
     </Column>

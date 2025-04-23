@@ -4,6 +4,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useBoolean} from '@/hooks/useBoolean'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
@@ -22,11 +23,17 @@ export const ParkingActiveSessionsSummary = () => {
     useGetCurrentParkingPermit()
 
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
+  const {value: isRefetched, enable: setRefetched} = useBoolean(false)
+
   useEffect(() => {
-    if (activeParkingSessions?.some(session => !session.ps_right_id)) {
+    if (
+      !isRefetched &&
+      activeParkingSessions?.some(session => !session.ps_right_id)
+    ) {
       void refetch()
+      setRefetched()
     }
-  }, [activeParkingSessions, refetch])
+  }, [activeParkingSessions, isRefetched, refetch, setRefetched])
 
   // refetch sessions every 15 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useRefetchInterval(
