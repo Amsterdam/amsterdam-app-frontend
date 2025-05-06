@@ -24,6 +24,7 @@ import {
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 import {AfterBaseQueryErrorFn} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
 import {generateRequestUrl} from '@/utils/api'
@@ -154,6 +155,7 @@ export const parkingApi = baseApi.injectEndpoints({
       query: ({accessToken, ...body}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
+          ...deviceIdHeader,
         },
         body,
         method: 'POST',
@@ -170,6 +172,7 @@ export const parkingApi = baseApi.injectEndpoints({
       query: ({accessToken, ...body}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
+          ...deviceIdHeader,
         },
         body,
         method: 'PATCH',
@@ -186,6 +189,7 @@ export const parkingApi = baseApi.injectEndpoints({
       query: ({accessToken, ...params}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
+          ...deviceIdHeader,
         },
         method: 'DELETE',
         slug: ModuleSlug.parking,
