@@ -1,6 +1,6 @@
 import {impactAsync, ImpactFeedbackStyle} from 'expo-haptics'
 import {useFormContext, useController} from 'react-hook-form'
-import {StyleSheet} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {Tabs} from '@/components/ui/Tabs'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
@@ -87,7 +87,10 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
                   .add(minutes, 'minute')
 
                 onChange(newEndTime)
-                void impactAsync(ImpactFeedbackStyle.Light)
+
+                if (Platform.OS === 'ios') {
+                  void impactAsync(ImpactFeedbackStyle.Light)
+                }
               }}
             />
             <Gutter height="lg" />
