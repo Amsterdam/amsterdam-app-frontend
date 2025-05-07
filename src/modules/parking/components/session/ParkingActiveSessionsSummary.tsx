@@ -7,7 +7,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useBoolean} from '@/hooks/useBoolean'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
@@ -19,8 +19,7 @@ export const ParkingActiveSessionsSummary = () => {
     refetch,
   } = useGetParkingSessions(ParkingSessionStatus.active)
 
-  const {currentPermit, isLoading: isLoadingPermit} =
-    useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
@@ -41,11 +40,11 @@ export const ParkingActiveSessionsSummary = () => {
     activeParkingSessions?.some(session => !session.is_paid) ? 15000 : 0,
   )
 
-  if (isLoading || isLoadingPermit) {
+  if (isLoading) {
     return <PleaseWait testID="ParkingPermitSessionsActivePleaseWait" />
   }
 
-  if (isError || !currentPermit) {
+  if (isError) {
     return (
       <SomethingWentWrong testID="ParkingActiveSessionsSummarySomethingWentWrong" />
     )

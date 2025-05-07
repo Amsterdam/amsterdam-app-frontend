@@ -8,6 +8,7 @@ import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingInc
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
 import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
+import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/ParkingSessionTransactions.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 
 export const parkingScreenConfig: StackNavigationRoutes<
@@ -72,6 +73,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.parkingPlannedSessions,
     options: {
       headerTitle: 'Gepland',
+    },
+  },
+  [ParkingRouteName.parkingSessionTransactions]: {
+    component: ParkingSessionTransactionsScreen,
+    name: ParkingRouteName.parkingSessionTransactions,
+    options: {
+      headerTitle: 'Parkeergeschiedenis',
     },
   },
   [ParkingRouteName.increaseBalance]: {

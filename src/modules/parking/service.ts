@@ -27,6 +27,7 @@ import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {AfterBaseQueryErrorFn} from '@/services/types'
 import {RootState} from '@/store/types/rootState'
+import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
 
 const afterError: AfterBaseQueryErrorFn = async (
@@ -118,6 +119,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/sessions',
         afterError,
       }),
+      keepUnusedDataFor: CacheLifetime.hour,
     }),
     [ParkingEndpointName.permits]: builder.query<
       ParkingPermitsEndpointResponse,
@@ -202,14 +204,13 @@ export const parkingApi = baseApi.injectEndpoints({
       RemoveLicensePlateEndpointRequest
     >({
       invalidatesTags: ['ParkingLicensePlates'],
-      query: ({accessToken, ...body}) => ({
+      query: ({accessToken, ...params}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
         },
-        body,
         method: 'DELETE',
         slug: ModuleSlug.parking,
-        url: '/license-plate',
+        url: generateRequestUrl({path: '/license-plate', params}),
         afterError,
       }),
     }),

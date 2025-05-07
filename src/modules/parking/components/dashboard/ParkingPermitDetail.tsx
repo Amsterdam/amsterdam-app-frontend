@@ -1,22 +1,12 @@
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/dashboard/ParkingPermitDetailPermitZone'
 import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeBalance'
 import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeFrame'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 export const ParkingPermitDetail = () => {
-  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
-
-  if (isLoading) {
-    return <PleaseWait testID="ParkingPermitDetailPleaseWait" />
-  }
-
-  if (!currentPermit) {
-    return <SomethingWentWrong testID="ParkingPermitDetailSomethingWentWrong" />
-  }
+  const currentPermit = useCurrentParkingPermit()
 
   return (
     <Column gutter="md">

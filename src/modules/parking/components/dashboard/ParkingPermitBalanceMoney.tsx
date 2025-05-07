@@ -7,7 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
@@ -17,8 +17,7 @@ import {formatNumber} from '@/utils/formatNumber'
 export const ParkingPermitBalanceMoney = () => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
-  const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
   const {data: account, isLoading} = useAccountDetailsQuery(
     secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
@@ -29,11 +28,11 @@ export const ParkingPermitBalanceMoney = () => {
     navigate(ParkingRouteName.increaseBalance)
   }
 
-  if (isLoadingSecureParkingAccount || isLoadingCurrentPermit || isLoading) {
+  if (isLoadingSecureParkingAccount || isLoading) {
     return <PleaseWait testID="ParkingPermitBalanceMoneyPleaseWait" />
   }
 
-  if (!account || !currentPermit) {
+  if (!account) {
     return (
       <SomethingWentWrong testID="ParkingPermitBalanceMoneySomethingWentWrong" />
     )

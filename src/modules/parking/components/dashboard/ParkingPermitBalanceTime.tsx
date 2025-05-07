@@ -1,20 +1,15 @@
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 export const ParkingPermitBalanceTime = () => {
-  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
-  if (isLoading) {
-    return <PleaseWait testID="ParkingPermitBalanceTimePleaseWait" />
-  }
-
-  if (!currentPermit?.time_balance_applicable) {
+  if (!currentPermit.time_balance_applicable) {
     return null
   }
 

@@ -1,14 +1,12 @@
 import {useEffect, useMemo} from 'react'
 import {useController, useFormContext} from 'react-hook-form'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/ParkingTimesAdjustedMessage'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   areAllPaymentZonesEqual,
   getPaymentZone,
@@ -36,44 +34,26 @@ export const ParkingChoosePaymentZone = () => {
       required: 'Kies tijden voor betaald parkeren',
     },
   })
-  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
 
   const allPaymentZonesAreEqual = useMemo(
     () =>
-      currentPermit
-        ? areAllPaymentZonesEqual(
-            currentPermit?.payment_zones,
-            startTimeDayOfWeek,
-          )
-        : false,
+      areAllPaymentZonesEqual(currentPermit?.payment_zones, startTimeDayOfWeek),
     [currentPermit, startTimeDayOfWeek],
   )
   const shouldSelectFirstPaymentZone =
-    currentPermit &&
-    (allPaymentZonesAreEqual ||
-      (!currentPermit.time_balance_applicable &&
-        !currentPermit.money_balance_applicable))
+    allPaymentZonesAreEqual ||
+    (!currentPermit.time_balance_applicable &&
+      !currentPermit.money_balance_applicable)
 
   useEffect(() => {
     // If all payment zones are equal, set the payment zone ID to the first one
     // If the current permit has no time balance or money balance applicable, set the payment zone ID to the first one
-    if (currentPermit && shouldSelectFirstPaymentZone) {
+    if (shouldSelectFirstPaymentZone) {
       onChange(currentPermit.payment_zones[0].id)
     }
   }, [currentPermit, onChange, shouldSelectFirstPaymentZone])
-
-  if (isLoading) {
-    return (
-      <PleaseWait testID="ParkingSessionLicensePlateBottomSheetPleaseWait" />
-    )
-  }
-
-  if (!currentPermit) {
-    return (
-      <SomethingWentWrong testID="ParkingSessionLicensePlateBottomSheetSomethingWentWrong" />
-    )
-  }
 
   const paymentZone = paymentZoneId
     ? getPaymentZone(currentPermit.payment_zones, paymentZoneId)
@@ -87,7 +67,7 @@ export const ParkingChoosePaymentZone = () => {
     : undefined
 
   const showTimeIsAdjustedMessage =
-    currentPermit?.max_session_length_in_days === 1 &&
+    currentPermit.max_session_length_in_days === 1 &&
     paymentZoneId &&
     startTimePaymentZoneDay &&
     endTime &&

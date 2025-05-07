@@ -3,7 +3,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAddLicensePlateMutation} from '@/modules/parking/service'
@@ -13,13 +13,13 @@ export const AddLicensePlateForm = () => {
   const {navigate} = useNavigation()
   const form = useForm<ParkingLicensePlate>()
   const {handleSubmit} = form
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
   const {secureParkingAccount} = useGetSecureParkingAccount()
 
   const [addLicensePlate] = useAddLicensePlateMutation()
 
   const onSubmit = ({vehicle_id, visitor_name = ''}: ParkingLicensePlate) => {
-    if (!currentPermit || !secureParkingAccount) {
+    if (!secureParkingAccount) {
       return
     }
 

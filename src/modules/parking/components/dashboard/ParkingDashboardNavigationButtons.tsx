@@ -1,18 +1,18 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 export const ParkingDashboardNavigationButtons = () => {
   const {navigate} = useNavigation()
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
   return (
     <Column gutter="xs">
       <NavigationButton
         onPress={() => {
-          //TODO: navigate to parking history
+          navigate(ParkingRouteName.parkingSessionTransactions)
         }}
         testID="ParkingParkingHistoryButton"
         title="Parkeergeschiedenis"
@@ -24,7 +24,7 @@ export const ParkingDashboardNavigationButtons = () => {
         testID="ParkingLicensePlatesButton"
         title="Mijn kentekens"
       />
-      {currentPermit?.money_balance_applicable && (
+      {!!currentPermit.money_balance_applicable && (
         <NavigationButton
           onPress={() => {
             //TODO: navigate to payment history

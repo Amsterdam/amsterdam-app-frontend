@@ -53,7 +53,7 @@ export const useInfiniteScroller = <
   useQueryHook: UseQuery<QueryDef<Item, QueryArgs>>,
   page = config.page,
   pageSize = config.pageSize,
-  queryParams: QueryArgs = {} as QueryArgs,
+  queryParams: QueryArgs | typeof skipToken = {} as QueryArgs,
 ) => {
   const reduxApiState = useSelector(state => state.api)
   const [totalPages, setTotalPages] = useState<number>(config.totalPages)
@@ -64,7 +64,7 @@ export const useInfiniteScroller = <
     isLoading: isLoadingPreviousPage,
     error: errorPreviousPage,
   } = useQueryHook(
-    page > 1
+    page > 1 && queryParams !== skipToken
       ? {
           ...queryParams,
           page: page - 1,
@@ -78,7 +78,7 @@ export const useInfiniteScroller = <
     isLoading: isLoadingCurrentPage,
     error: errorCurrentPage,
   } = useQueryHook(
-    page <= totalPages
+    page <= totalPages && queryParams !== skipToken
       ? {
           ...queryParams,
           page,
@@ -92,7 +92,7 @@ export const useInfiniteScroller = <
     isLoading: isLoadingNextPage,
     error: errorNextPage,
   } = useQueryHook(
-    page < totalPages
+    page < totalPages && queryParams !== skipToken
       ? {
           ...queryParams,
           page: page + 1,
@@ -114,30 +114,33 @@ export const useInfiniteScroller = <
 
   return {
     // create an array of pages with data
-    data: Array(totalPages)
-      // fill the array with empty values
-      .fill({})
-      // map over the array and fill it with data
-      .reduce<unknown[]>((acc, _s, index) => {
-        const {data, status} = endpoint.select({
-          ...queryParams,
-          page: index + 1,
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-        })({api: reduxApiState})
-        // if there is no data, fill the page with empty items
-        const pageData =
-          data?.result && status === QueryStatus.fulfilled
-            ? data?.result
-            : getEmptyItems<ItemOrDummyItem>(
-                Math.min(pageSize, totalElements - index * pageSize),
-                index * pageSize,
-                defaultEmptyItem,
-                keyName,
-              )
+    data:
+      queryParams === skipToken
+        ? []
+        : (Array(totalPages)
+            // fill the array with empty values
+            .fill({})
+            // map over the array and fill it with data
+            .reduce<unknown[]>((acc, _s, index) => {
+              const {data, status} = endpoint.select({
+                ...queryParams,
+                page: index + 1,
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+              })({api: reduxApiState})
+              // if there is no data, fill the page with empty items
+              const pageData =
+                data?.result && status === QueryStatus.fulfilled
+                  ? data?.result
+                  : getEmptyItems<ItemOrDummyItem>(
+                      Math.min(pageSize, totalElements - index * pageSize),
+                      index * pageSize,
+                      defaultEmptyItem,
+                      keyName,
+                    )
 
-        return [...acc, ...pageData]
-      }, []) as ItemOrDummyItem[],
+              return [...acc, ...pageData]
+            }, []) as ItemOrDummyItem[]),
     error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:

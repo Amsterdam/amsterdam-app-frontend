@@ -1,11 +1,9 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
-import {Column} from '@/components/ui/layout/Column'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingSession} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
-import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
@@ -25,25 +23,23 @@ export const ParkingPlannedSessionNavigationButton = ({
     end_date_time,
     {short: true},
   )
+  const currentPermit = useCurrentParkingPermit()
+  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
+  const description = currentPermit.no_endtime
+    ? `${startTimeString}`
+    : `${startTimeString} - ${remainingTimeString}`
 
   return (
-    <Column gutter="sm">
-      <Phrase
-        emphasis="strong"
-        testID="ParkingPlannedSessionDatePhrase">
-        {formatDateToDisplay(start_date_time, false)}
-      </Phrase>
-      <NavigationButton
-        description={`${dayjs(start_date_time).format('HH.mm')} uur - ${remainingTimeString}`}
-        icon="parkingCar"
-        iconSize="lg"
-        inset={false}
-        onPress={() => {
-          navigate(ParkingRouteName.parkingSession, {parkingSession})
-        }}
-        testID="ParkingPlannedSessionNavigationButton"
-        title={title}
-      />
-    </Column>
+    <NavigationButton
+      description={description}
+      icon="parkingCar"
+      iconSize="lg"
+      inset={false}
+      onPress={() => {
+        navigate(ParkingRouteName.parkingSession, {parkingSession})
+      }}
+      testID="ParkingPlannedSessionNavigationButton"
+      title={title}
+    />
   )
 }

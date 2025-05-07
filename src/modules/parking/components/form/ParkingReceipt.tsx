@@ -2,7 +2,6 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -11,7 +10,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useAccountDetailsQuery,
@@ -63,22 +62,10 @@ export const ParkingReceipt = () => {
     secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
   )
 
-  const {currentPermit, isLoading: isLoadingPermit} =
-    useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
-  if (
-    isLoading ||
-    isLoadingPermit ||
-    isLoadingSecureParkingAccount ||
-    isLoadingAccount
-  ) {
+  if (isLoading || isLoadingSecureParkingAccount || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
-  }
-
-  if (!currentPermit) {
-    return (
-      <SomethingWentWrong testID="ParkingSessionReceiptSomethingWentWrong" />
-    )
   }
 
   const {

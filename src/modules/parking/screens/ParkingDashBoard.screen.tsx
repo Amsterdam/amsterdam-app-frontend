@@ -18,6 +18,7 @@ import {ParkingPermitDetail} from '@/modules/parking/components/dashboard/Parkin
 import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
@@ -62,31 +63,33 @@ export const ParkingDashboardScreen = ({route}: Props) => {
   }
 
   return (
-    <Screen
-      bottomSheet={
-        <BottomSheet testID="ParkingSelectPermitBottomSheet">
-          <ParkingSelectPermit />
-        </BottomSheet>
-      }
-      hasStickyAlert
-      testID="ParkingDashboardScreen">
-      <BackgroundColorArea
-        color="primary"
-        height={240}
-      />
-      <Box>
-        <Column gutter="xl">
-          <ParkingPermitTopTaskButton />
-          <ParkingPermitSessions />
-          <Column gutter="md">
-            <ParkingStartSessionButton />
-            <ParkingPaymentByVisitorButton />
+    <CurrentPermitProvider>
+      <Screen
+        bottomSheet={
+          <BottomSheet testID="ParkingSelectPermitBottomSheet">
+            <ParkingSelectPermit />
+          </BottomSheet>
+        }
+        hasStickyAlert
+        testID="ParkingDashboardScreen">
+        <BackgroundColorArea
+          color="primary"
+          height={240}
+        />
+        <Box>
+          <Column gutter="xl">
+            <ParkingPermitTopTaskButton />
+            <ParkingPermitSessions />
+            <Column gutter="md">
+              <ParkingStartSessionButton />
+              <ParkingPaymentByVisitorButton />
+            </Column>
+            <ParkingDashboardNavigationButtons />
+            <ParkingPermitBalance />
+            <ParkingPermitDetail />
           </Column>
-          <ParkingDashboardNavigationButtons />
-          <ParkingPermitBalance />
-          <ParkingPermitDetail />
-        </Column>
-      </Box>
-    </Screen>
+        </Box>
+      </Screen>
+    </CurrentPermitProvider>
   )
 }
