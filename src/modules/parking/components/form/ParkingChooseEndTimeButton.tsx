@@ -1,34 +1,20 @@
 import {useFormContext} from 'react-hook-form'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseEndTimeButton = () => {
-  const {currentPermit, isLoading} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
-  const {no_endtime = false} = currentPermit || {}
+  const {no_endtime = false} = currentPermit
 
   const {watch} = useFormContext<{endTime?: Dayjs; startTime: Dayjs}>()
   const startTime = watch('startTime')
 
   if (no_endtime) {
     return null
-  }
-
-  if (isLoading) {
-    return (
-      <PleaseWait testID="ParkingSessionEndTimeBottomSheetContentPleaseWait" />
-    )
-  }
-
-  if (!currentPermit) {
-    return (
-      <SomethingWentWrong testID="ParkingSessionEndTimeBottomSheetContentSomethingWentWrong" />
-    )
   }
 
   return (

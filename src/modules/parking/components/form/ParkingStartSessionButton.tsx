@@ -3,7 +3,7 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {Dayjs} from '@/utils/datetime/dayjs'
@@ -18,7 +18,7 @@ type FieldValues = {
 
 export const ParkingStartSessionButton = () => {
   const {handleSubmit} = useFormContext<FieldValues>()
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
   const {secureParkingAccount} = useGetSecureParkingAccount()
   const [startSession] = useStartSessionMutation()
 
@@ -35,7 +35,7 @@ export const ParkingStartSessionButton = () => {
     }: FieldValues) => {
       // TODO:
       // check if the limit of current active parking sessions is not reached
-      if (currentPermit && secureParkingAccount && licensePlate?.vehicle_id) {
+      if (secureParkingAccount && licensePlate?.vehicle_id) {
         void startSession({
           accessToken: secureParkingAccount.accessToken,
           parking_session: {

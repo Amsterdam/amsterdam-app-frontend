@@ -10,6 +10,7 @@ import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
+import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
@@ -18,25 +19,27 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
   const {parkingSession} = route.params ?? {}
 
   return (
-    <ParkingSessionFormProvider parkingSession={parkingSession}>
-      <Screen
-        bottomSheet={<ParkingSessionBottomSheet />}
-        testID="ParkingStartSessionScreen">
-        <Box>
-          <Column gutter="sm">
-            <Title
-              level="h2"
-              testID="ParkingChooseTimeTitle"
-              text="Parkeertijd"
-            />
-            <ParkingShowStartTime />
-            <ParkingChooseEndTimeButton />
-            <Gutter height="md" />
-            <ParkingReceipt />
-            <ParkingEditSessionButtons />
-          </Column>
-        </Box>
-      </Screen>
-    </ParkingSessionFormProvider>
+    <CurrentPermitProvider>
+      <ParkingSessionFormProvider parkingSession={parkingSession}>
+        <Screen
+          bottomSheet={<ParkingSessionBottomSheet />}
+          testID="ParkingStartSessionScreen">
+          <Box>
+            <Column gutter="sm">
+              <Title
+                level="h2"
+                testID="ParkingChooseTimeTitle"
+                text="Parkeertijd"
+              />
+              <ParkingShowStartTime />
+              <ParkingChooseEndTimeButton />
+              <Gutter height="md" />
+              <ParkingReceipt />
+              <ParkingEditSessionButtons />
+            </Column>
+          </Box>
+        </Screen>
+      </ParkingSessionFormProvider>
+    </CurrentPermitProvider>
   )
 }

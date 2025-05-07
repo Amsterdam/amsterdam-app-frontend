@@ -1,10 +1,10 @@
 import {Button} from '@/components/ui/buttons/Button'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 export const ParkingPaymentByVisitorButton = () => {
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
-  return currentPermit?.visitor_account_allowed ? (
+  return currentPermit.visitor_account_allowed ? (
     <Button
       label="Bezoeker laten betalen"
       testID="ParkingPaymentByVisitorButton"

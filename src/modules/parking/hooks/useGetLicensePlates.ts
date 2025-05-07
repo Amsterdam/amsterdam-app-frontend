@@ -1,12 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
 
 export const useGetLicensePlates = () => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
   const {data: licensePlates, isLoading} = useLicensePlatesQuery(
     secureParkingAccount && currentPermit
