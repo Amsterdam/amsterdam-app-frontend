@@ -204,14 +204,13 @@ export const parkingApi = baseApi.injectEndpoints({
       RemoveLicensePlateEndpointRequest
     >({
       invalidatesTags: ['ParkingLicensePlates'],
-      query: ({accessToken, ...body}) => ({
+      query: ({accessToken, ...params}) => ({
         headers: {
           'SSP-Access-Token': accessToken,
         },
-        body,
         method: 'DELETE',
         slug: ModuleSlug.parking,
-        url: '/license-plate',
+        url: generateRequestUrl({path: '/license-plate', params}),
         afterError,
       }),
     }),
