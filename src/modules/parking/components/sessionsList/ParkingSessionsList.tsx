@@ -142,7 +142,7 @@ export const ParkingSessionsList = ({
 
   return (
     <SectionList
-      ListEmptyComponent={ListEmptyComponent}
+      ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
