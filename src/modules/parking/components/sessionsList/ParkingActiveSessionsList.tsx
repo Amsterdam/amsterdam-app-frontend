@@ -4,20 +4,20 @@ import {ParkingSessionsList} from '@/modules/parking/components/sessionsList/Par
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
 const ListEmptyComponent = () => (
-  <Title
-    level="h3"
-    testID="ParkingActieveSessionsNoSessionsTitle"
-    text="U heeft geen actieve parkeersessie."
-    textAlign="center"
-  />
+  <Box>
+    <Title
+      level="h3"
+      testID="ParkingActieveSessionsNoSessionsTitle"
+      text="U heeft geen actieve parkeersessie."
+      textAlign="center"
+    />
+  </Box>
 )
 
 export const ParkingActiveSessionsList = () => (
-  <Box>
-    <ParkingSessionsList
-      ListEmptyComponent={ListEmptyComponent}
-      sortAscending
-      status={ParkingSessionStatus.active}
-    />
-  </Box>
+  <ParkingSessionsList
+    ListEmptyComponent={ListEmptyComponent}
+    sortAscending
+    status={ParkingSessionStatus.active}
+  />
 )

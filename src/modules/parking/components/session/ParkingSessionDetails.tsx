@@ -180,19 +180,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               )}
             />
           )}
-          {isLoading ? (
-            <PleaseWait testID="ParkingSessionPleaseWait" />
-          ) : (
-            !!parkingSession.money_balance_applicable && (
-              <DetailsRow
-                label="Tarief"
-                value={formatNumber(
-                  parking_rate?.value,
-                  parking_rate?.currency,
-                )}
-              />
-            )
-          )}
           {!!parkingSession.money_balance_applicable && (
             <DetailsRow
               label="Kosten"
@@ -201,6 +188,19 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
                 parkingSession.parking_cost.currency,
               )}
             />
+          )}
+          {isLoading ? (
+            <PleaseWait testID="ParkingSessionPleaseWait" />
+          ) : (
+            !!parkingSession.money_balance_applicable && (
+              <DetailsRow
+                label="Tarief"
+                value={`${formatNumber(
+                  parking_rate?.value,
+                  parking_rate?.currency,
+                )} per uur`}
+              />
+            )
           )}
           {isLoading ? (
             <PleaseWait testID="ParkingSessionPleaseWait" />
