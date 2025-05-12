@@ -139,8 +139,11 @@ export const useInfiniteScroller = <
                       keyName,
                     )
 
-              return [...acc, ...pageData]
-            }, []) as ItemOrDummyItem[]),
+              return [
+                ...acc,
+                ...pageData.map(item => ({...item, page: index + 1})),
+              ]
+            }, []) as Array<ItemOrDummyItem & {page: number}>),
     error: errorPreviousPage || errorCurrentPage || errorNextPage,
     isError: isErrorPreviousPage || isErrorCurrentPage || isErrorNextPage,
     isLoading:

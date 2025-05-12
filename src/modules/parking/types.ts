@@ -10,6 +10,7 @@ export enum ParkingEndpointName {
   licensePlates = 'licensePlates',
   login = 'login',
   parkingSessions = 'parkingSessions',
+  parkingTransactions = 'parkingTransactions',
   permits = 'permits',
   removeLicensePlate = 'removeLicensePlate',
   sessionReceipt = 'sessionReceipt',
@@ -182,7 +183,7 @@ export enum ParkingSessionStatus {
 }
 
 export type ParkingSession = {
-  created_time: string
+  created_date_time: string
   end_date_time: string
   is_cancelled: boolean
   is_paid: boolean
@@ -199,6 +200,7 @@ export type ParkingSession = {
   start_date_time: string
   status: ParkingSessionStatus
   time_balance_applicable: boolean
+  updated_date_time?: string
   vehicle_id: string
   visitor_name?: string
 }
@@ -210,6 +212,26 @@ export type ParkingSessionsEndpointRequest = {
 } & PaginationQueryArgs
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
+
+export type ParkingTransactionsEndpointRequest = {
+  accessToken: string
+} & PaginationQueryArgs
+
+export type ParkingTransaction = ParkingSession & {
+  amount: {
+    currency: string
+    value: number
+  }
+  order_type: ParkingOrderType
+}
+
+export enum ParkingOrderType {
+  recharge = 'RECHARGE',
+  refund = 'REFUND',
+  session = 'SESSION',
+}
+
+export type ParkingTransactionsEndpointResponse = Paginated<ParkingTransaction>
 
 export type ParkingSessionReceiptEndpointResponse = {
   costs: {
