@@ -39,26 +39,13 @@ export const ParkingIncreaseBalanceReceipt = () => {
             {formatNumber(account?.wallet.balance, account?.wallet.currency)}
           </Phrase>
         </Row>
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Goed voor</Phrase>
-          <Phrase>
-            {account
-              ? getParkingTimeForMoneyBalance(
-                  account?.wallet.balance,
-                  currentPermit.parking_rate.value,
-                )
-              : '-'}
-          </Phrase>
-        </Row>
       </SingleSelectable>
       <Gutter height="md" />
       <SingleSelectable>
         <Row
           align="between"
           flex={1}>
-          <Phrase emphasis="strong">Opwaarderen</Phrase>
+          <Phrase emphasis="strong">Bedrag toevoegen</Phrase>
           <Phrase emphasis="strong">
             {amount
               ? `+ ${formatNumber(amount, account?.wallet.currency)}`

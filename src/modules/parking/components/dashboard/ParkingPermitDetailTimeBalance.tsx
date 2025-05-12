@@ -37,7 +37,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
           Parkeertarief: {parkingRate}
         </Phrase>
         <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-          Maximum aantal sessies tegelijk: {max_sessions_allowed}
+          Maximaal aantal parkeersessies tegelijk: {max_sessions_allowed}
         </Phrase>
       </Column>
     </Column>
