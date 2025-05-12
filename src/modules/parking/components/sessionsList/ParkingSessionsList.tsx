@@ -59,6 +59,7 @@ const groupParkingSessionsByDate = (
 
 type Props = {
   ListEmptyComponent?: FC
+  ListHeaderComponent?: FC
   sortAscending?: boolean
   status: ParkingSessionStatus
 }
@@ -67,6 +68,7 @@ const pageSize = 20
 
 export const ParkingSessionsList = ({
   ListEmptyComponent,
+  ListHeaderComponent,
   sortAscending = false,
   status,
 }: Props) => {
@@ -141,9 +143,12 @@ export const ParkingSessionsList = ({
   return (
     <SectionList
       ListEmptyComponent={ListEmptyComponent}
+      ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
-        <Box insetTop="md">
+        <Box
+          insetHorizontal="md"
+          insetTop="md">
           {item.dummy ? (
             <Gutter height="lg" />
           ) : (
@@ -153,17 +158,18 @@ export const ParkingSessionsList = ({
       )}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
-        <Border
-          key={section.title}
-          top>
-          <Box insetTop="md">
+        <Box insetHorizontal="md">
+          <Border
+            key={section.title}
+            top>
+            <Gutter height="md" />
             <Phrase
               emphasis="strong"
               testID="ParkingPlannedSessionDatePhrase">
               {section.title === dummyTitle ? ' ' : section.title}
             </Phrase>
-          </Box>
-        </Border>
+          </Border>
+        </Box>
       )}
       sections={sections}
       stickySectionHeadersEnabled={false}
