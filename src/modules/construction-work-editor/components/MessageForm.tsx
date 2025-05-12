@@ -21,7 +21,7 @@ import {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/typ
 
 const maxCharacters = {
   title: 100,
-  body: 500,
+  body: 1000,
 }
 
 type FormData = {
