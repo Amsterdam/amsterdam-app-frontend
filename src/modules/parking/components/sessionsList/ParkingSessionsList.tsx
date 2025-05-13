@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {type FC, useCallback, useMemo, useState} from 'react'
+import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
@@ -58,8 +58,8 @@ const groupParkingSessionsByDate = (
     }, [])
 
 type Props = {
-  ListEmptyComponent?: FC
-  ListHeaderComponent?: FC
+  ListEmptyComponent?: ComponentType
+  ListHeaderComponent?: ComponentType
   sortAscending?: boolean
   status: ParkingSessionStatus
 }

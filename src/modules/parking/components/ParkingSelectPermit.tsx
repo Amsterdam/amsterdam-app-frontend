@@ -47,7 +47,7 @@ export const ParkingSelectPermit = () => {
               iconName="documentCheckmark"
               key={permit_name}
               onPress={() => onPress(permit_name)}
-              testID="ParkingSelectPermitTopTaskButton"
+              testID={`ParkingSelectPermit${permit_name}TopTaskButton`}
               title={permit_name}
             />
           ))}
