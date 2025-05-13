@@ -20,6 +20,8 @@ import {
   ParkingEditSessionEndpointRequestParams,
   ParkingDeleteSessionEndpointRequestParams,
   RemoveIncreaseBalanceEndpointRequest,
+  ParkingTransactionsEndpointRequest,
+  ParkingTransactionsEndpointResponse,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -117,6 +119,23 @@ export const parkingApi = baseApi.injectEndpoints({
         params,
         slug: ModuleSlug.parking,
         url: '/sessions',
+        afterError,
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
+    [ParkingEndpointName.parkingTransactions]: builder.query<
+      ParkingTransactionsEndpointResponse,
+      ParkingTransactionsEndpointRequest
+    >({
+      providesTags: ['ParkingSessions'],
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        params,
+        slug: ModuleSlug.parking,
+        url: '/transactions',
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
@@ -240,6 +259,7 @@ export const {
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
   useParkingSessionsQuery,
+  useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,
   usePermitsQuery,
   useSessionReceiptQuery,

@@ -5,6 +5,7 @@ import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.s
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
+import {ParkingMoneyTransactionsScreen} from '@/modules/parking/screens/ParkingMoneyTransactions.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
 import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
@@ -80,6 +81,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.parkingSessionTransactions,
     options: {
       headerTitle: 'Parkeergeschiedenis',
+    },
+  },
+  [ParkingRouteName.parkingMoneyTransactions]: {
+    component: ParkingMoneyTransactionsScreen,
+    name: ParkingRouteName.parkingMoneyTransactions,
+    options: {
+      headerTitle: 'Betalingen',
     },
   },
   [ParkingRouteName.increaseBalance]: {

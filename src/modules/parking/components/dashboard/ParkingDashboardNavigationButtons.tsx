@@ -27,7 +27,7 @@ export const ParkingDashboardNavigationButtons = () => {
       {!!currentPermit.money_balance_applicable && (
         <NavigationButton
           onPress={() => {
-            //TODO: navigate to payment history
+            navigate(ParkingRouteName.parkingMoneyTransactions)
           }}
           testID="ParkingPaymentHistoryButton"
           title="Betalingen"

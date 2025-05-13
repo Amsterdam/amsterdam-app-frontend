@@ -15,7 +15,7 @@ export const Default: Story = {
     parkingSession: {
       vehicle_id: 'ABC123',
       visitor_name: 'John Doe',
-      created_time: '2024-12-31 8:00:00 UTC',
+      created_date_time: '2024-12-31 8:00:00 UTC',
       end_date_time: '2025-12-31 16:00:00 UTC',
       is_cancelled: false,
       is_paid: false,
