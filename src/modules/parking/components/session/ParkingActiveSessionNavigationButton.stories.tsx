@@ -13,7 +13,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     parkingSession: {
-      created_time: '',
+      created_date_time: '',
       end_date_time: '2025-12-31 16:00:00 UTC',
       is_cancelled: false,
       is_paid: false,
