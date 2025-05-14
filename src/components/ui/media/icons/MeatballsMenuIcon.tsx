@@ -3,7 +3,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 const DIMENSION = 28
 
-export const MeatballsMenu = ({
+export const MeatballsMenuIcon = ({
   color,
   width = DIMENSION,
   height = DIMENSION,

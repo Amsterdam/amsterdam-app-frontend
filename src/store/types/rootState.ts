@@ -9,13 +9,13 @@ import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/sl
 import {ContactState} from '@/modules/contact/slice'
 import {OnboardingState} from '@/modules/onboarding/slice'
 import {ParkingState} from '@/modules/parking/slice'
-import {WasteContainerState} from '@/modules/waste-container/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
 import {baseApi} from '@/services/baseApi'
 import {AlertState} from '@/store/slices/alert'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {InternetConnectionState} from '@/store/slices/internetConnection'
+import {MenuState} from '@/store/slices/menu'
 import {ModulesState} from '@/store/slices/modules'
 import {PermissionsState} from '@/store/slices/permissions'
 import {ScreenState} from '@/store/slices/screen'
@@ -37,6 +37,7 @@ export type RootState = {
   [ReduxKey.contact]: ContactState
   [ReduxKey.environment]: EnvironmentState
   [ReduxKey.internetConnection]: InternetConnectionState
+  [ReduxKey.menu]: MenuState
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.onboarding]: OnboardingState
@@ -47,6 +48,5 @@ export type RootState = {
   [ReduxKey.theme]: ThemeState
   [ReduxKey.screen]: ScreenState
   [ReduxKey.updateApp]: UpdateState
-  [ReduxKey.wasteContainer]: WasteContainerState
   [ReduxKey.wasteGuide]: WasteGuideState
 }

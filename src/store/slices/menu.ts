@@ -2,16 +2,16 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
-export type WasteContainerState = {
+export type MenuState = {
   isMenuVisible: boolean
 }
 
-const initialState: WasteContainerState = {
+const initialState: MenuState = {
   isMenuVisible: false,
 }
 
-export const wasteContainerSlice = createSlice({
-  name: ReduxKey.wasteContainer,
+export const menuSlice = createSlice({
+  name: ReduxKey.menu,
   initialState,
   reducers: {
     setIsMenuVisible: (state, {payload}: PayloadAction<boolean>) => {
@@ -20,7 +20,7 @@ export const wasteContainerSlice = createSlice({
   },
 })
 
-export const {setIsMenuVisible} = wasteContainerSlice.actions
+export const {setIsMenuVisible} = menuSlice.actions
 
 export const selectIsMenuVisible = (state: RootState) =>
-  state[ReduxKey.wasteContainer].isMenuVisible
+  state[ReduxKey.menu].isMenuVisible

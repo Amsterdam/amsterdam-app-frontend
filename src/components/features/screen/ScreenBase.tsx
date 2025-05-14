@@ -16,6 +16,7 @@ export const ScreenBase = ({
   bottomSheet,
   children,
   hasStickyAlert,
+  headerOptions,
   isOutsideNavigation = false,
   stickyFooter,
   stickyHeader,
@@ -65,7 +66,9 @@ export const ScreenBase = ({
           hide={isHiddenFromAccessibility}
           style={styles.screen}
           testID={testID}>
-          {!isOutsideNavigation && !!bottomSheet && <ScreenHeader />}
+          {!isOutsideNavigation && !!bottomSheet && (
+            <ScreenHeader options={headerOptions} />
+          )}
           {stickyHeader}
           {!!hasStickyAlert && <AlertTopOfScreen />}
           <HideFromAccessibility

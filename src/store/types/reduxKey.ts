@@ -10,6 +10,7 @@ export enum ReduxKey {
   contact = 'contact',
   environment = 'environment',
   internetConnection = 'internetConnection',
+  menu = 'menu',
   messageDraft = 'messageDraft',
   modules = 'modules',
   onboarding = 'onboarding',
@@ -20,6 +21,5 @@ export enum ReduxKey {
   secureStorage = 'secureStorage',
   theme = 'theme',
   updateApp = 'updateApp',
-  wasteContainer = 'wasteContainer',
   wasteGuide = 'wasteGuide',
 }

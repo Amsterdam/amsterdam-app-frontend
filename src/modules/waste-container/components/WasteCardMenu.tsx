@@ -5,10 +5,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
-import {
-  selectIsMenuVisible,
-  setIsMenuVisible,
-} from '@/modules/waste-container/slice'
+import {selectIsMenuVisible, setIsMenuVisible} from '@/store/slices/menu'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const WasteCardMenu = () => {
