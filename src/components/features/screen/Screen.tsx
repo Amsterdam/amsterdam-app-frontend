@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {HeaderProps} from '@/components/features/header/types'
 import {type Tip} from '@/components/features/product-tour/types'
 import {ScreenBase} from '@/components/features/screen/ScreenBase'
 import {type TestProps} from '@/components/ui/types'
@@ -14,6 +15,7 @@ export type ScreenProps = {
   bottomSheet?: ReactNode
   children: ReactNode
   hasStickyAlert?: boolean
+  headerOptions?: HeaderProps['options']
   isOutsideNavigation?: boolean
   keyboardAware?: boolean
   scroll?: boolean

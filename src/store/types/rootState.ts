@@ -16,6 +16,7 @@ import {AlertState} from '@/store/slices/alert'
 import {BottomSheetState} from '@/store/slices/bottomSheet'
 import {EnvironmentState} from '@/store/slices/environment'
 import {InternetConnectionState} from '@/store/slices/internetConnection'
+import {MenuState} from '@/store/slices/menu'
 import {ModulesState} from '@/store/slices/modules'
 import {PermissionsState} from '@/store/slices/permissions'
 import {ScreenState} from '@/store/slices/screen'
@@ -37,6 +38,7 @@ export type RootState = {
   [ReduxKey.contact]: ContactState
   [ReduxKey.environment]: EnvironmentState
   [ReduxKey.internetConnection]: InternetConnectionState
+  [ReduxKey.menu]: MenuState
   [ReduxKey.messageDraft]: MessageDraftState
   [ReduxKey.modules]: ModulesState
   [ReduxKey.onboarding]: OnboardingState

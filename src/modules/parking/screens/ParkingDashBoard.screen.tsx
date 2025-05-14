@@ -9,6 +9,8 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
+import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
+import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
@@ -71,7 +73,11 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           </BottomSheet>
         }
         hasStickyAlert
+        headerOptions={{
+          SideComponent: DashboardHeaderButton,
+        }}
         testID="ParkingDashboardScreen">
+        <DashboardMenu />
         <BackgroundColorArea
           color="primary"
           height={240}

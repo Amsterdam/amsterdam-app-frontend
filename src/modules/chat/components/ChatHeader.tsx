@@ -9,8 +9,8 @@ import {
 import {Box} from '@/components/ui/containers/Box'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {MeatballsMenuIcon} from '@/components/ui/media/icons/MeatballsMenuIcon'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
-import {MeatballsMenu} from '@/modules/chat/assets/MeatballsMenu'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
 import {useScreen} from '@/store/slices/screen'
@@ -95,7 +95,7 @@ export const ChatHeader = () => {
               <IconButton
                 accessibilityLabel={`Chat menu ${isMenuOpen ? 'sluiten' : 'openen'}.`}
                 icon={
-                  <MeatballsMenu
+                  <MeatballsMenuIcon
                     color={color.pressable.secondary.default.icon}
                   />
                 }
