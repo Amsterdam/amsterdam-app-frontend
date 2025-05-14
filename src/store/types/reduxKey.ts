@@ -21,6 +21,5 @@ export enum ReduxKey {
   secureStorage = 'secureStorage',
   theme = 'theme',
   updateApp = 'updateApp',
-  wasteContainer = 'wasteContainer',
   wasteGuide = 'wasteGuide',
 }

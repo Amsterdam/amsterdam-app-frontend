@@ -9,7 +9,6 @@ import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/sl
 import {ContactState} from '@/modules/contact/slice'
 import {OnboardingState} from '@/modules/onboarding/slice'
 import {ParkingState} from '@/modules/parking/slice'
-import {WasteContainerState} from '@/modules/waste-container/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
 import {baseApi} from '@/services/baseApi'
 import {AlertState} from '@/store/slices/alert'
@@ -49,6 +48,5 @@ export type RootState = {
   [ReduxKey.theme]: ThemeState
   [ReduxKey.screen]: ScreenState
   [ReduxKey.updateApp]: UpdateState
-  [ReduxKey.wasteContainer]: WasteContainerState
   [ReduxKey.wasteGuide]: WasteGuideState
 }
