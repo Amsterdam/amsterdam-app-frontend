@@ -99,3 +99,6 @@ tsconfig.tsbuildinfo
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Expo
+.expo/
