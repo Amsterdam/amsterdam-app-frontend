@@ -52,9 +52,8 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
     loginResult,
     deeplinkAccessToken,
     deeplinkRefreshToken,
-    errorCode: errorCode
-      ? errorCode
-      : (route.params?.['amp;errorCode'] as RedirectErrorCodes), // TODO: remove this once fixed at Mijn Amsterdam
+    errorCode:
+      errorCode ?? (route.params?.['amp;errorCode'] as RedirectErrorCodes), // TODO: remove this once fixed at Mijn Amsterdam
     errorMessage,
   })
 
