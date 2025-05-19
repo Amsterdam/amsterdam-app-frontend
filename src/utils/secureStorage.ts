@@ -43,16 +43,22 @@ export const isSetSecureItem = (key: SecureItemKey): Promise<boolean> =>
       })
   })
 
-export const removeSecureItems = (keys: SecureItemKey[]) =>
+export const removeSecureItems = (
+  keys: SecureItemKey[],
+  exceptionOnFail = true,
+) =>
   new Promise((resolve, reject) => {
     Promise.all(
       keys.map(key => deleteItemAsync(key, {requireAuthentication: false})),
     )
       .then(res => resolve(res))
       .catch((err: Error) => {
-        appInsights.trackException({
-          exception: err,
-        })
+        if (exceptionOnFail) {
+          appInsights.trackException({
+            exception: err,
+          })
+        }
+
         reject(err)
       })
   })

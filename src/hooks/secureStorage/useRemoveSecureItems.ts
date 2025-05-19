@@ -6,8 +6,8 @@ export const useRemoveSecureItems = () => {
   const {deleteItem} = useSetSecureItemUpdatedTimestamp()
 
   return useCallback(
-    (keys: SecureItemKey[]) =>
-      removeSecureItems(keys).then(() => {
+    (keys: SecureItemKey[], exceptionOnFail = true) =>
+      removeSecureItems(keys, exceptionOnFail).then(() => {
         keys.forEach(key => {
           deleteItem(key)
         })
