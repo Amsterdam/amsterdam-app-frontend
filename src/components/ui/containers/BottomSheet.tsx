@@ -69,7 +69,13 @@ type Props = Partial<
 } & TestProps &
   (
     | {children: ReactNode; variants?: never}
-    | {children?: never; variants: Record<string, FC>}
+    | {
+        children?: never
+        /**
+         * Use instead of children to show multiple bottom sheets on a screen.
+         */
+        variants: Record<string, FC>
+      }
   )
 
 const useBottomSheetHandler = () => {
