@@ -24,10 +24,10 @@ export const LoginScreen = ({navigation: {navigate}}: Props) => {
 
   useEffect(() => {
     if (!isCityPassOwnerRegistered) {
-      void removeSecureItems([
-        SecureItemKey.cityPassAccessToken,
-        SecureItemKey.cityPassRefreshToken,
-      ])
+      void removeSecureItems(
+        [SecureItemKey.cityPassAccessToken, SecureItemKey.cityPassRefreshToken],
+        false,
+      )
     }
     // only remove secure items on first render
     // eslint-disable-next-line react-hooks/exhaustive-deps
