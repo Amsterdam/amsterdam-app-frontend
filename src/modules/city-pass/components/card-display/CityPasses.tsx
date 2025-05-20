@@ -52,6 +52,7 @@ const createStyles = ({color}: Theme) =>
   StyleSheet.create({
     container: {
       flexGrow: 1,
+      flexShrink: 1,
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: color.cityPass.overlay,

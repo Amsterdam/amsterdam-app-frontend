@@ -9,7 +9,9 @@ export const CityPassesScreen = ({route}: Props) => {
   const {index} = route.params || {}
 
   return (
-    <Screen testID="CityPassCityPassesScreen">
+    <Screen
+      scroll={false}
+      testID="CityPassCityPassesScreen">
       <CityPasses index={index} />
     </Screen>
   )

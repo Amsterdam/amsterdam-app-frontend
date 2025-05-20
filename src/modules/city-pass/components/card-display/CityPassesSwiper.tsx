@@ -53,7 +53,6 @@ export const CityPassesSwiper = () => {
       <Carousel
         data={cityPasses}
         defaultIndex={startIndex}
-        height={CITY_PASS_HEIGHT}
         loop={false}
         mode="parallax"
         modeConfig={{
@@ -71,6 +70,9 @@ export const CityPassesSwiper = () => {
           progress.value = absoluteProgress < 0 ? 0 : absoluteProgress
         }}
         pagingEnabled
+        panGestureHandlerProps={{
+          activeOffsetX: [-10, 10],
+        }}
         ref={ref}
         renderItem={({item, index}: CarouselItem) => (
           <CityPass
@@ -106,6 +108,7 @@ const createStyles = ({color, size, border}: Theme) =>
   StyleSheet.create({
     container: {
       flexBasis: CITY_PASS_HEIGHT + PAGINATION_HEIGHT,
+      flexShrink: 1,
     },
     paginationContainer: {
       height: PAGINATION_HEIGHT,
