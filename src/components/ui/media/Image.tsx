@@ -3,16 +3,12 @@ import {
   ImageErrorEventData,
   Image as ImageRN,
   ImageProps as ImageRNProps,
-  ImageURISource,
   LayoutChangeEvent,
   NativeSyntheticEvent,
   Platform,
-  StyleProp,
   StyleSheet,
   useWindowDimensions,
 } from 'react-native'
-import FastImage, {ImageStyle as FastImageStyle} from 'react-native-fast-image'
-import {getUriForWidth} from '@/components/ui/utils/image'
 import {Theme} from '@/themes/themes'
 import {ImageAspectRatio} from '@/themes/tokens/media'
 import {useThemable} from '@/themes/useThemable'
@@ -35,36 +31,6 @@ type SupportedImageRNProps = Omit<
 export type ImageProps = {
   aspectRatio?: ImageAspectRatio
 } & SupportedImageRNProps
-
-type CachedIosImageProps = {
-  uriSources?: ImageURISource | ImageURISource[]
-  width?: number
-} & Omit<SupportedImageRNProps, 'source'>
-
-const CachedIosImage = ({
-  onLayout,
-  style,
-  uriSources,
-  width = 0,
-  ...imageProps
-}: CachedIosImageProps) => {
-  const source = useMemo(
-    () => ({uri: getUriForWidth(width, uriSources)}),
-    [uriSources, width],
-  )
-
-  return (
-    <FastImage
-      accessibilityIgnoresInvertColors
-      accessibilityLanguage="nl-NL"
-      key={source?.uri} // adding a key fixes an issue that the FastImage gets stuck in an error state when onError was triggered once
-      onLayout={onLayout}
-      source={source}
-      style={style as StyleProp<FastImageStyle>}
-      {...imageProps}
-    />
-  )
-}
 
 export const Image = ({
   aspectRatio = 'wide',
@@ -94,20 +60,6 @@ export const Image = ({
     },
     [onLayout, setWidth],
   )
-
-  // RN default image caching behaviour works well on Android, but not on iOS. So for iOS we use FastImage, which has improved cacheing.
-  // The number type check filters out bundled images using require which do not need to be cached.
-  if (Platform.OS === 'ios' && typeof source !== 'number') {
-    return (
-      <CachedIosImage
-        onLayout={onLayoutChange}
-        style={[styles.image, style]}
-        uriSources={source}
-        width={width}
-        {...imageProps}
-      />
-    )
-  }
 
   return (
     <ImageRN
