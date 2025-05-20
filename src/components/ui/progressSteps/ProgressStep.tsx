@@ -29,7 +29,9 @@ export const ProgressStep = ({
   variant,
 }: Props) => (
   <View testID={testID}>
-    <Row gutter="md">
+    <Row
+      gutter="md"
+      valign="start">
       <ProgressStepIndicator
         numberIndicator={numberIndicator}
         progressStatus={progressStatus}
