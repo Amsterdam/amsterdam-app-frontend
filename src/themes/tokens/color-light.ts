@@ -312,30 +312,30 @@ export const lightColorTokens = {
   progressSteps: {
     primary: {
       connector: {
-        current: baseColor.primary.blue,
+        active: baseColor.primary.blue,
         done: baseColor.primary.blue,
-        upcoming: baseColor.neutral.grey3,
+        planned: baseColor.neutral.grey3,
       },
       indicator: {
-        current: {
+        active: {
           background: baseColor.primary.blue,
         },
         done: {
           background: baseColor.primary.blue,
         },
-        upcoming: {
+        planned: {
           background: baseColor.neutral.grey3,
         },
       },
     },
     secondary: {
       connector: {
-        current: baseColor.primary.black,
+        active: baseColor.primary.black,
         done: baseColor.secondary.darkgreen,
-        upcoming: baseColor.neutral.grey3,
+        planned: baseColor.neutral.grey3,
       },
       indicator: {
-        current: {
+        active: {
           background: baseColor.primary.black,
           border: baseColor.primary.black,
           label: baseColor.primary.white,
@@ -344,7 +344,7 @@ export const lightColorTokens = {
           background: baseColor.secondary.darkgreen,
           border: baseColor.secondary.darkgreen,
         },
-        upcoming: {
+        planned: {
           background: baseColor.primary.white,
           border: baseColor.neutral.grey3,
           label: baseColor.neutral.grey3,
