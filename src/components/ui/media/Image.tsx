@@ -41,7 +41,7 @@ type CachedIosImageProps = {
   width?: number
 } & Omit<SupportedImageRNProps, 'source'>
 
-const CachedIosImage = ({
+export const CachedIosImage = ({
   onLayout,
   style,
   uriSources,
@@ -98,15 +98,15 @@ export const Image = ({
   // RN default image caching behaviour works well on Android, but not on iOS. So for iOS we use FastImage, which has improved cacheing.
   // The number type check filters out bundled images using require which do not need to be cached.
   if (Platform.OS === 'ios' && typeof source !== 'number') {
-    return (
-      <CachedIosImage
-        onLayout={onLayoutChange}
-        style={[styles.image, style]}
-        uriSources={source}
-        width={width}
-        {...imageProps}
-      />
-    )
+    // return (
+    //   <CachedIosImage
+    //     onLayout={onLayoutChange}
+    //     style={[styles.image, style]}
+    //     uriSources={source}
+    //     width={width}
+    //     {...imageProps}
+    //   />
+    // )
   }
 
   return (
