@@ -62,7 +62,6 @@ See the folder `.storybook`, which contains:
 These mocked packages are referenced in the alias config in `main.ts`:
 
 - `env` - Mock the @env package which exposes environment vars.
-- `fast-image` - Replace the `react-native-fast-image` (cached images) with something that does nothing.
 - `image-crop-picker` - Replace the native image pick/resize functionality with something that does nothing.
 - `notifee` - Replace the push notifications with something that does nothing.
 - `application-insights` - Replace Application insights logging with something that does nothing.

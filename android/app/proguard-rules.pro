@@ -10,14 +10,4 @@
 # Add any project specific keep options here:
 
 # react-native-build-config
--keep class **.BuildConfig { *; }
-
-# react-native-fast-image
--keep public class com.dylanvann.fastimage.* {*;}
--keep public class com.dylanvann.fastimage.** {*;}
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
+-keep class **.BuildConfig { * ; }
