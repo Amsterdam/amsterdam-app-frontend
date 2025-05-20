@@ -15,7 +15,7 @@ export const tempPostProcessProjectDetails = (item: Project): Project => {
       items:
         item.timeline.items?.map(subItem => ({
           //@ts-expect-error tijdelijke oplossing
-          progress: 'Huidig',
+          progress: 'active',
           ...subItem,
         })) ?? null,
     },

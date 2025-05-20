@@ -73,9 +73,9 @@ const createStyles = (
     text: {
       alignSelf: 'center',
       color:
-        status === 'upcoming'
-          ? color.progressSteps.secondary.indicator.upcoming.label
-          : color.progressSteps.secondary.indicator.current.label,
+        status === 'planned'
+          ? color.progressSteps.secondary.indicator.planned.label
+          : color.progressSteps.secondary.indicator.active.label,
       fontFamily: text.fontFamily.bold,
       fontSize: text.fontSize.h5,
     },

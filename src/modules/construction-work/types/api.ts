@@ -1,3 +1,4 @@
+import {ProgressStatus} from '@/components/ui/progressSteps/types'
 import {
   AddressQueryArgs,
   ApiImage,
@@ -128,7 +129,7 @@ export type ProjectTimelineItem = {
   collapsed: boolean
   date: string
   items: ProjectTimelineSubItem[] | null
-  progress: 'Afgelopen' | 'Huidig' | 'Aankomend' // @TODO: not in API definition (100764)
+  progress: ProgressStatus
   title: string
 }
 

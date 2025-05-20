@@ -1,2 +1,2 @@
-export type ProgressStatus = 'current' | 'upcoming' | 'done'
+export type ProgressStatus = 'active' | 'planned' | 'done'
 export type ProgressStepsVariant = 'primary' | 'secondary'

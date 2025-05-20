@@ -30,9 +30,9 @@ export const LoginItem = ({
     accessible>
     <ProgressStep
       numberIndicator={numberIndicator}
-      progressStatus={isDone ? 'done' : isCurrent ? 'current' : 'upcoming'}
+      progressStatus={isDone ? 'done' : isCurrent ? 'active' : 'planned'}
       progressStatusNextItem={
-        isLast ? undefined : isNextDone ? 'done' : 'upcoming'
+        isLast ? undefined : isNextDone ? 'done' : 'planned'
       }
       testID="CityPassLoginProgressStep"
       variant="secondary">

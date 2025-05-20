@@ -24,7 +24,7 @@ export const Default: StoryObj<typeof ProjectTimeline> = {
             date: '',
           },
         ],
-        progress: 'Afgelopen',
+        progress: 'done',
         title: 'Titel 1',
       },
       {
@@ -38,7 +38,7 @@ export const Default: StoryObj<typeof ProjectTimeline> = {
             date: '',
           },
         ],
-        progress: 'Huidig',
+        progress: 'active',
         title: 'Titel 2',
       },
       {
@@ -57,7 +57,7 @@ export const Default: StoryObj<typeof ProjectTimeline> = {
             date: '',
           },
         ],
-        progress: 'Aankomend',
+        progress: 'planned',
         title: 'Titel 3',
       },
     ],

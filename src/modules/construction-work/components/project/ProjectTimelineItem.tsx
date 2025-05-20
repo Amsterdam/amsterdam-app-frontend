@@ -5,7 +5,6 @@ import {ProgressStatus} from '@/components/ui/progressSteps/types'
 import {HtmlContent} from '@/components/ui/text/HtmlContent'
 import {Title} from '@/components/ui/text/Title'
 import {ProjectTimelineItem as ProjectTimelineItemType} from '@/modules/construction-work/types/api'
-import {mapProgressionStatus} from '@/modules/construction-work/utils/mapTimelineProgressionStatus'
 
 type Props = {
   item: ProjectTimelineItemType
@@ -18,7 +17,7 @@ export const ProjectTimelineItem = ({item, progressStatusNextItem}: Props) => {
   return (
     <ProgressStep
       isExpanded={isExpanded}
-      progressStatus={mapProgressionStatus(item.progress)!}
+      progressStatus={item.progress}
       progressStatusNextItem={progressStatusNextItem}
       testID="ConstructionWorkProjectTimelineItem"
       variant="primary">
