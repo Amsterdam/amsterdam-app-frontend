@@ -78,10 +78,6 @@ const config: StorybookConfig = {
         // this list is ordered: higher items are matched first
         alias: [
           {
-            find: 'react-native-fast-image',
-            replacement: require.resolve('./mocks/fast-image'),
-          },
-          {
             find: 'react-native-image-crop-picker',
             replacement: require.resolve('./mocks/image-crop-picker'),
           },
