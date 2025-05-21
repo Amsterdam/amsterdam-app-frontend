@@ -30,7 +30,7 @@ export const ParkingSessionBottomSheet = () => {
         variant !== ParkingSessionBottomSheetVariant.startTime &&
         variant !== ParkingSessionBottomSheetVariant.endTime
       }
-      testID="ParkingSelectPermitBottomSheet"
+      testID="ParkingSessionBottomSheet"
       variants={variantMap}
     />
   )
