@@ -7,7 +7,8 @@
     },
     "incremental": true,
     "tsBuildInfoFile": "tsconfig.tsbuildinfo",
-    "types": ["jest", "node", "react-native"]
+    "types": ["jest", "node", "react-native"],
+    "sourceMap": true
   },
   "exclude": [
     "node_modules",

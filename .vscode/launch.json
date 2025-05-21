@@ -1,0 +1,61 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Android Dev",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "android",
+      "runArguments": ["--mode", "devDebug", "--appIdSuffix", "dev"],
+      "sourceMaps": true,
+      "trace": "verbose"
+    },
+    {
+      "name": "Debug Android Prod",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "android",
+      "runArguments": ["--mode", "prodDebug"],
+      "sourceMaps": true,
+      "trace": "verbose"
+    },
+    {
+      "name": "Debug iOS Dev",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "ios",
+      "runArguments": ["--mode", "DevDebug", "--scheme", "AmsterdamApp Test"]
+    },
+    {
+      "name": "Debug iOS Prod",
+      "request": "launch",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "ios",
+      "runArguments": ["--mode", "Debug", "--scheme", "AmsterdamApp"]
+    },
+    {
+      "name": "Attach to Android application",
+      "request": "attach",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "android",
+      "useHermesEngine": true
+    },
+    {
+      "name": "Attach to iOS application",
+      "request": "attach",
+      "type": "reactnativedirect",
+      "cwd": "${workspaceFolder}",
+      "platform": "ios",
+      "useHermesEngine": true,
+      "port": 8081
+    }
+  ]
+}
