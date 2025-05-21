@@ -1,7 +1,6 @@
 import {useCallback} from 'react'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
@@ -11,24 +10,19 @@ import {selectIsMenuVisible, setIsMenuVisible} from '@/store/slices/menu'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const DashboardMenu = () => {
-  const navigation = useNavigation()
   const dispatch = useDispatch()
   const isMenuVisible = useSelector(selectIsMenuVisible)
   const removeSecureItems = useRemoveSecureItems()
 
   const onPressLogoutAccountHolder = useCallback(() => {
     dispatch(setIsMenuVisible(false))
-    void removeSecureItems([SecureItemKey.parkingPermitHolder]).then(() => {
-      navigation.pop()
-    })
-  }, [dispatch, navigation, removeSecureItems])
+    void removeSecureItems([SecureItemKey.parkingPermitHolder])
+  }, [dispatch, removeSecureItems])
 
   const onPressLogoutVisitorAccount = useCallback(() => {
     dispatch(setIsMenuVisible(false))
-    void removeSecureItems([SecureItemKey.parkingVisitor]).then(() => {
-      navigation.pop()
-    })
-  }, [dispatch, navigation, removeSecureItems])
+    void removeSecureItems([SecureItemKey.parkingVisitor])
+  }, [dispatch, removeSecureItems])
 
   const accountType = useSelector(selectCurrentAccountType)
 
