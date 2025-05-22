@@ -10,6 +10,7 @@
     "sonarsource.sonarlint-vscode",
     "pflannery.vscode-versionlens",
     "esbenp.prettier-vscode",
-    "herisit.react-ai-helper"
+    "herisit.react-ai-helper",
+    "msjsdiag.vscode-react-native"
   ]
 }
