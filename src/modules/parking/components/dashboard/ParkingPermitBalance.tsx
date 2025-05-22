@@ -1,22 +1,18 @@
-import {skipToken} from '@reduxjs/toolkit/query'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ParkingPermitBalanceMoney} from '@/modules/parking/components/dashboard/ParkingPermitBalanceMoney'
 import {ParkingPermitBalanceTime} from '@/modules/parking/components/dashboard/ParkingPermitBalanceTime'
+import {ParkingPermitTariff} from '@/modules/parking/components/dashboard/ParkingPermitTariff'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {useAccountDetailsQuery} from '@/modules/parking/service'
+import {selectCurrentAccountType} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitBalance = () => {
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
-  const {data, isLoading} = useAccountDetailsQuery(
-    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
-  )
+  const accountType = useSelector(selectCurrentAccountType)
 
   if (
     !currentPermit.time_balance_applicable &&
@@ -25,24 +21,28 @@ export const ParkingPermitBalance = () => {
     return null
   }
 
-  if (isLoadingSecureParkingAccount || isLoading) {
-    return <PleaseWait testID="ParkingPermitBalancePleaseWait" />
-  }
-
-  if (!data) {
+  if (accountType === ParkingPermitScope.permitHolder) {
     return (
-      <SomethingWentWrong testID="ParkingPermitBalanceSomethingWentWrong" />
+      <Column gutter="md">
+        <Title
+          level="h2"
+          text="Uw saldo"
+        />
+        <ParkingPermitBalanceTime />
+        <ParkingPermitBalanceMoney />
+      </Column>
     )
   }
 
   return (
-    <Column gutter="md">
+    <Column>
       <Title
         level="h2"
-        text="Uw saldo"
+        text="Tijd en kosten"
       />
+      <Gutter height="md" />
       <ParkingPermitBalanceTime />
-      <ParkingPermitBalanceMoney />
+      <ParkingPermitTariff />
     </Column>
   )
 }

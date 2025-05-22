@@ -1,8 +1,9 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingPermit} from '@/modules/parking/types'
-import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {selectCurrentAccountType} from '@/modules/parking/slice'
+import {ParkingPermit, ParkingPermitScope} from '@/modules/parking/types'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
@@ -10,14 +11,19 @@ type Props = {
 }
 
 export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
+  const accountType = useSelector(selectCurrentAccountType)
+
   if (!permit) {
     return null
   }
 
-  const {permit_name, time_balance, parking_rate, max_sessions_allowed} = permit
-  const timeBalance = time_balance
-    ? formatTimeDurationToDisplay(time_balance, 'seconds', {short: true})
-    : 'Onbeperkt'
+  const {
+    permit_name,
+    parking_rate,
+    max_sessions_allowed,
+    time_balance_applicable,
+  } = permit
+
   const parkingRate = parking_rate.value
     ? `${formatNumber(parking_rate.value, parking_rate.currency)} per uur`
     : 'Gratis'
@@ -30,15 +36,19 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
         text={permit_name}
       />
       <Column>
-        <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-          Parkeertijd: {timeBalance}
-        </Phrase>
+        {!time_balance_applicable && (
+          <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
+            Parkeertijd: Onbeperkt
+          </Phrase>
+        )}
         <Phrase testID="ParkingPermitDetailParkingRatePhrase">
           Parkeertarief: {parkingRate}
         </Phrase>
-        <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-          Maximaal aantal parkeersessies tegelijk: {max_sessions_allowed}
-        </Phrase>
+        {accountType === ParkingPermitScope.permitHolder && (
+          <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
+            Maximaal aantal parkeersessies tegelijk: {max_sessions_allowed}
+          </Phrase>
+        )}
       </Column>
     </Column>
   )
