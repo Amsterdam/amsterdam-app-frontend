@@ -22,8 +22,6 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
-import {ParkingPermitScope} from '@/modules/parking/types'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
 
@@ -32,7 +30,6 @@ type Props = NavigationProps<ParkingRouteName.dashboard>
 export const ParkingDashboardScreen = ({route}: Props) => {
   useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()
-  const {currentAccountType} = useCurrentParkingAccount()
 
   if (isLoading) {
     return <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
@@ -68,16 +65,10 @@ export const ParkingDashboardScreen = ({route}: Props) => {
             <ParkingPermitSessions />
             <Column gutter="md">
               <ParkingStartSessionButton />
-              {currentAccountType === ParkingPermitScope.permitHolder && (
-                <ParkingPaymentByVisitorButton />
-              )}
+              <ParkingPaymentByVisitorButton />
             </Column>
-            {currentAccountType === ParkingPermitScope.permitHolder && (
-              <ParkingDashboardNavigationButtons />
-            )}
-            {currentAccountType === ParkingPermitScope.permitHolder && (
-              <ParkingPermitBalance />
-            )}
+            <ParkingDashboardNavigationButtons />
+            <ParkingPermitBalance />
             <ParkingPermitDetail />
           </Column>
         </Box>
