@@ -1,12 +1,12 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingSession} from '@/modules/parking/types'
+import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   noEndTime?: boolean
-  parkingSession: ParkingSession
+  parkingSession: ParkingSession | VisitorParkingSession
 }
 
 export const ParkingActiveSessionNavigationButton = ({

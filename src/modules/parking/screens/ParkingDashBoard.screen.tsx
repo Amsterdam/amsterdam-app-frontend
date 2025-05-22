@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {type NavigationProps} from '@/app/navigation/types'
+import {RouteProp, type NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
@@ -22,37 +22,17 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useCurrentParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<ParkingRouteName.dashboard>
 
 export const ParkingDashboardScreen = ({route}: Props) => {
-  const {params} = route
-  const {setAlert} = useAlert()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (params?.action === 'increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
-        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    } else if (params?.action === 'start-session-and-increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
-        dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
-        )
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    }
-  }, [dispatch, params, setAlert])
-
+  useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()
+  const {currentAccountType} = useCurrentParkingAccount()
 
   if (isLoading) {
     return <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
@@ -88,14 +68,46 @@ export const ParkingDashboardScreen = ({route}: Props) => {
             <ParkingPermitSessions />
             <Column gutter="md">
               <ParkingStartSessionButton />
-              <ParkingPaymentByVisitorButton />
+              {currentAccountType === ParkingPermitScope.permitHolder && (
+                <ParkingPaymentByVisitorButton />
+              )}
             </Column>
-            <ParkingDashboardNavigationButtons />
-            <ParkingPermitBalance />
+            {currentAccountType === ParkingPermitScope.permitHolder && (
+              <ParkingDashboardNavigationButtons />
+            )}
+            {currentAccountType === ParkingPermitScope.permitHolder && (
+              <ParkingPermitBalance />
+            )}
             <ParkingPermitDetail />
           </Column>
         </Box>
       </Screen>
     </CurrentPermitProvider>
   )
+}
+
+const useHandleDeeplink = (route: RouteProp<ParkingRouteName.dashboard>) => {
+  const {params} = route
+  const {setAlert} = useAlert()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (params?.action === 'increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
+    } else if (params?.action === 'start-session-and-increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        dispatch(
+          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
+        )
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
+    }
+  }, [dispatch, params, setAlert])
 }

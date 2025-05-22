@@ -23,6 +23,8 @@ import {
   ParkingTransactionsEndpointRequest,
   ParkingTransactionsEndpointResponse,
   ParkingManageVisitorChangePinCodeEndpointRequest,
+  VisitorParkingSessionsEndpointRequest,
+  VisitorParkingSessionsEndpointResponse,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -266,6 +268,22 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/visitor/pin-code',
         afterError,
       }),
+    [ParkingEndpointName.visitorParkingSessions]: builder.query<
+      VisitorParkingSessionsEndpointResponse,
+      VisitorParkingSessionsEndpointRequest
+    >({
+      providesTags: ['ParkingSessions'],
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        params,
+        slug: ModuleSlug.parking,
+        url: '/visitor/sessions',
+        afterError,
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
     }),
   }),
   overrideExisting: true,
@@ -286,4 +304,5 @@ export const {
   useDeleteSessionMutation,
   useIncreaseBalanceMutation,
   useManageVisitorChangePinCodeMutation,
+  useVisitorParkingSessionsQuery,
 } = parkingApi

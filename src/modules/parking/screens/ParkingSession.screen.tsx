@@ -1,5 +1,5 @@
 import {NavigationProps} from '@/app/navigation/types'
-import {ParkingSessionDetails} from '@/modules/parking/components/session/ParkingSessionDetails'
+import {ParkingSessionDetails} from '@/modules/parking/components/session/details/ParkingSessionDetails'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 

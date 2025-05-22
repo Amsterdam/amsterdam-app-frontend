@@ -3,6 +3,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -47,22 +48,10 @@ export const AddLicensePlateForm = () => {
           }}
           testID="ParkingAddLicensePlateFormNameInputField"
         />
-        <TextInputField
-          autoCapitalize="characters"
-          autoComplete="off"
-          autoCorrect={false}
+        <ParkingVehicleIdTextInput
           inputInstructions="Voer alleen letters en cijfers in."
           label="Kenteken"
-          name="vehicle_id"
-          rules={{
-            required: 'Vul een kenteken in',
-            pattern: {
-              value: /^[a-zA-Z0-9]*$/,
-              message: 'Alleen cijfers en letters zijn toegestaan',
-            },
-          }}
           testID="ParkingAddLicensePlateFormLicensePlateInputField"
-          textTransform={text => text.replace(/[^a-zA-Z0-9]/g, '')}
         />
         <Button
           isLoading
