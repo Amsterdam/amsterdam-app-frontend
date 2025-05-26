@@ -218,6 +218,7 @@ export type ParkingSessionsEndpointRequest = {
 
 export type VisitorParkingSessionsEndpointRequest = {
   accessToken: string
+  status?: ParkingSessionStatus
   vehicle_id: string
 }
 

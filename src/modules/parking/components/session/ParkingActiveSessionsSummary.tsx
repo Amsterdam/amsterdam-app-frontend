@@ -78,7 +78,7 @@ export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
       {activeParkingSessions?.length ? (
         activeParkingSessions.map(session => (
           <ParkingActiveSessionNavigationButton
-            key={session.vehicle_id}
+            key={session.ps_right_id ?? session.vehicle_id}
             noEndTime={currentPermit.no_endtime}
             parkingSession={session}
           />

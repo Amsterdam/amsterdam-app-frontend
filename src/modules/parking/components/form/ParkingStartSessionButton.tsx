@@ -11,9 +11,10 @@ import {Dayjs} from '@/utils/datetime/dayjs'
 type FieldValues = {
   amount?: number
   endTime?: Dayjs
-  licensePlate: {vehicle_id: string; visitor_name: string}
+  licensePlate?: {vehicle_id: string; visitor_name: string}
   paymentZoneId: string
   startTime: Dayjs
+  vehicle_id?: string
 }
 
 export const ParkingStartSessionButton = () => {
@@ -32,15 +33,18 @@ export const ParkingStartSessionButton = () => {
       paymentZoneId,
       licensePlate,
       amount,
+      vehicle_id,
     }: FieldValues) => {
+      const vehicleId = licensePlate?.vehicle_id ?? vehicle_id
+
       // TODO:
       // check if the limit of current active parking sessions is not reached
-      if (secureParkingAccount && licensePlate?.vehicle_id) {
+      if (secureParkingAccount && vehicleId) {
         void startSession({
           accessToken: secureParkingAccount.accessToken,
           parking_session: {
             report_code: currentPermit.report_code.toString(),
-            vehicle_id: licensePlate.vehicle_id,
+            vehicle_id: vehicleId,
             end_date_time: endTime?.toJSON(),
             start_date_time: startTime.toJSON(),
             payment_zone_id: paymentZoneId,

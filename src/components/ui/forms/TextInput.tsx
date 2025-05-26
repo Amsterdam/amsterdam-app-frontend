@@ -16,7 +16,7 @@ import {useThemable} from '@/themes/useThemable'
 
 export type TextInputSharedProps = {
   inputInstructions?: string
-  label: string
+  label?: string
   numberOfLines?: number
   placeholder?: string
   textTransform?: (text: string) => string
@@ -85,10 +85,12 @@ export const TextInput = forwardRef<TextInputRN, Props>(
     return (
       <Column gutter="sm">
         <Column gutter="xs">
-          <Label
-            isAccessible={!textInputProps.accessibilityLabel}
-            text={label}
-          />
+          {!!label && (
+            <Label
+              isAccessible={!textInputProps.accessibilityLabel}
+              text={label}
+            />
+          )}
           {!!inputInstructions && <Phrase>{inputInstructions}</Phrase>}
         </Column>
         <View style={styles.frame}>

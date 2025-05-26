@@ -3,7 +3,7 @@ import {TestProps} from '@/components/ui/types'
 
 type Props = {
   inputInstructions?: string
-  label: string
+  label?: string
 } & TestProps
 
 export const ParkingVehicleIdTextInput = ({

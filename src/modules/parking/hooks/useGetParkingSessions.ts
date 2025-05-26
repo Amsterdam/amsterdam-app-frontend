@@ -34,11 +34,13 @@ export const useGetParkingSessions = (
     data: visitorParkingSessions,
     isLoading: isLoadingVisitorParkingSessions,
     isError: isVisitorParkingSessionsError,
+    refetch: refetchVisitorParkingSessions,
   } = useVisitorParkingSessionsQuery(
     secureParkingAccount && visitorVehicleId
       ? {
           accessToken: secureParkingAccount.accessToken,
           vehicle_id: visitorVehicleId,
+          status,
         }
       : skipToken,
   )
@@ -52,6 +54,8 @@ export const useGetParkingSessions = (
     parkingSessions:
       parkingSessions?.result || visitorParkingSessions?.parking_session,
     page: parkingSessions?.page,
-    refetch: refetchParkingSessions,
+    refetch: visitorVehicleId
+      ? refetchVisitorParkingSessions
+      : refetchParkingSessions,
   }
 }

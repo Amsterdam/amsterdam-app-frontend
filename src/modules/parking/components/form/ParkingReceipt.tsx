@@ -1,4 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -16,13 +17,14 @@ import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
 } from '@/modules/parking/service'
-import {ParkingLicensePlate} from '@/modules/parking/types'
+import {useCurrentParkingAccount} from '@/modules/parking/slice'
+import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingReceipt = () => {
-  const {watch} = useFormContext<{
+  const {setValue, watch} = useFormContext<{
     amount?: number
     endTime?: Dayjs
     licensePlate?: ParkingLicensePlate
@@ -38,6 +40,7 @@ export const ParkingReceipt = () => {
     ps_right_id,
     amount = 0,
   } = watch()
+  const {currentAccountType} = useCurrentParkingAccount()
 
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
@@ -63,6 +66,12 @@ export const ParkingReceipt = () => {
   )
 
   const currentPermit = useCurrentParkingPermit()
+
+  useEffect(() => {
+    if (currentAccountType === ParkingPermitScope.visitor) {
+      setValue('amount', data?.parking_cost?.value)
+    }
+  }, [currentAccountType, data?.parking_cost?.value, setValue])
 
   if (isLoading || isLoadingSecureParkingAccount || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
@@ -93,10 +102,10 @@ export const ParkingReceipt = () => {
   const remainingMoneyBalanceText = formatNumber(
     remaining_wallet_balance
       ? remaining_wallet_balance.value + amount
-      : account?.wallet.balance,
+      : account?.wallet?.balance,
     remaining_wallet_balance
       ? remaining_wallet_balance.currency
-      : account?.wallet.currency,
+      : account?.wallet?.currency,
   )
   const remainingTimeBalanceError =
     currentPermit.time_balance_applicable && (remaining_time_balance ?? 0) < 0
@@ -114,7 +123,9 @@ export const ParkingReceipt = () => {
 
   return (
     <Column>
-      {(!!remainingMoneyBalanceError || amount > 0) && (
+      {(!!remainingMoneyBalanceError ||
+        (amount > 0 &&
+          currentAccountType === ParkingPermitScope.permitHolder)) && (
         <>
           <Title
             level="h2"
@@ -168,20 +179,23 @@ export const ParkingReceipt = () => {
         </SingleSelectable>
       )}
 
-      {!!currentPermit.money_balance_applicable && (
-        <SingleSelectable>
-          <Row
-            align="between"
-            flex={1}>
-            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-              Resterend geldsaldo
-            </Phrase>
-            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-              {remainingMoneyBalanceText}
-            </Phrase>
-          </Row>
-        </SingleSelectable>
-      )}
+      {!!currentPermit.money_balance_applicable &&
+        currentAccountType === ParkingPermitScope.permitHolder && (
+          <SingleSelectable>
+            <Row
+              align="between"
+              flex={1}>
+              <Phrase
+                color={remainingMoneyBalanceError ? 'warning' : undefined}>
+                Resterend geldsaldo
+              </Phrase>
+              <Phrase
+                color={remainingMoneyBalanceError ? 'warning' : undefined}>
+                {remainingMoneyBalanceText}
+              </Phrase>
+            </Row>
+          </SingleSelectable>
+        )}
       {!!remainingTimeBalanceError && (
         <>
           <Gutter height="lg" />
