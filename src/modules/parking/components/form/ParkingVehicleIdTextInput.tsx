@@ -2,11 +2,13 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
+  defaultValue?: string
   inputInstructions?: string
   label?: string
 } & TestProps
 
 export const ParkingVehicleIdTextInput = ({
+  defaultValue,
   label,
   inputInstructions,
   testID,
@@ -15,6 +17,7 @@ export const ParkingVehicleIdTextInput = ({
     autoCapitalize="characters"
     autoComplete="off"
     autoCorrect={false}
+    defaultValue={defaultValue}
     inputInstructions={inputInstructions}
     label={label}
     name="vehicle_id"

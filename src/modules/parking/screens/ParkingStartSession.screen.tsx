@@ -11,11 +11,15 @@ import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/Parki
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
+import {
+  useCurrentParkingAccount,
+  useVisitorVehicleId,
+} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingStartSessionScreen = () => {
   const {currentAccountType} = useCurrentParkingAccount()
+  const {visitorVehicleId} = useVisitorVehicleId()
 
   return (
     <CurrentPermitProvider>
@@ -44,6 +48,7 @@ export const ParkingStartSessionScreen = () => {
                     text="Uw kenteken"
                   />
                   <ParkingVehicleIdTextInput
+                    defaultValue={visitorVehicleId}
                     inputInstructions="Alleen letters en cijfers"
                     testID="ParkingVisitorLicensePlateInputField"
                   />

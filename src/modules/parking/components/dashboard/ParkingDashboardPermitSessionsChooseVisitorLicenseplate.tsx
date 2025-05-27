@@ -3,35 +3,26 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingSessionShowVisitorSessionsForm} from '@/modules/parking/components/session/ParkingSessionShowVisitorSessionsForm'
+import {useVisitorVehicleId} from '@/modules/parking/slice'
 
-type Props = {
-  onSetVehicleId: (vehicleId?: string) => void
-  vehicleId?: string
-}
-
-export const ParkingDashboardPermitSessionsChooseVisitorLicenseplate = ({
-  onSetVehicleId,
-  vehicleId,
-}: Props) => {
+export const ParkingDashboardPermitSessionsChooseVisitorLicenseplate = () => {
+  const {visitorVehicleId, setVisitorVehicleId} = useVisitorVehicleId()
   const [isFormVisible, setIsFormVisible] = useState<boolean>(false)
 
-  return !vehicleId ? (
-    <ParkingSessionShowVisitorSessionsForm
-      isFormVisible={isFormVisible}
-      onVehicleIdEntered={onSetVehicleId}
-    />
-  ) : (
+  return visitorVehicleId ? (
     <Row gutter="no">
-      <Phrase>{`Kenteken ${vehicleId}`}</Phrase>
+      <Phrase>{`Kenteken ${visitorVehicleId}`}</Phrase>
       <Button
         label="wijzigen"
         onPress={() => {
-          onSetVehicleId()
+          setVisitorVehicleId(undefined)
           setIsFormVisible(true)
         }}
         testID="ParkingSessionShowVisitorSessionsFormChangeButton"
         variant="tertiary"
       />
     </Row>
+  ) : (
+    <ParkingSessionShowVisitorSessionsForm isFormVisible={isFormVisible} />
   )
 }

@@ -4,22 +4,22 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useBoolean} from '@/hooks/useBoolean'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
+import {useVisitorVehicleId} from '@/modules/parking/slice'
 
 type Props = {
   isFormVisible?: boolean
-  onVehicleIdEntered: (vehicleId: string) => void
 }
 
 export const ParkingSessionShowVisitorSessionsForm = ({
   isFormVisible,
-  onVehicleIdEntered,
 }: Props) => {
   const form = useForm<{vehicle_id: string}>()
   const {handleSubmit} = form
   const {value: isEnabled, enable} = useBoolean(isFormVisible)
+  const {setVisitorVehicleId} = useVisitorVehicleId()
 
   const onSubmit = ({vehicle_id}: {vehicle_id: string}) => {
-    onVehicleIdEntered(vehicle_id)
+    setVisitorVehicleId(vehicle_id)
   }
 
   return (
