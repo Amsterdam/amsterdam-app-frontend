@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useEditSessionMutation} from '@/modules/parking/service'
 import {
   ParkingSession,
@@ -10,16 +11,15 @@ import {
 import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
-  goBack: () => void
   parkingSession: ParkingSession
   secureParkingAccount?: SecureParkingAccount
 }
 
 export const ParkingSessionDetailsStopButton = ({
-  goBack,
   parkingSession,
   secureParkingAccount,
 }: Props) => {
+  const {goBack} = useNavigation()
   const [editSession] = useEditSessionMutation()
 
   const onPressStop = useCallback(() => {

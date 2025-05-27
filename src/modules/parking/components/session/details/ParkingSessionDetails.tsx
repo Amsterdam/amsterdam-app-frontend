@@ -7,7 +7,6 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsAdjustEndTimeButton'
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
@@ -64,7 +63,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
     : undefined
 
   const {secureParkingAccount} = useGetSecureParkingAccount()
-  const {goBack} = useNavigation()
 
   return (
     <Box>
@@ -157,7 +155,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               !!parkingSession.ps_right_id &&
               parkingSession.status === ParkingSessionStatus.active && (
                 <ParkingSessionDetailsStopButton
-                  goBack={goBack}
                   parkingSession={parkingSession as ParkingSession}
                   secureParkingAccount={secureParkingAccount}
                 />
@@ -166,7 +163,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               !!parkingSession.ps_right_id &&
               parkingSession.status === ParkingSessionStatus.planned && (
                 <ParkingSessionDetailsDeleteButton
-                  goBack={goBack}
                   parkingSession={parkingSession as ParkingSession}
                   secureParkingAccount={secureParkingAccount}
                 />

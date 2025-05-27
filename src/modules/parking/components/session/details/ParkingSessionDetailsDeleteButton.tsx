@@ -1,21 +1,21 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeleteSessionMutation} from '@/modules/parking/service'
 import {ParkingSession, SecureParkingAccount} from '@/modules/parking/types'
 
 type Props = {
-  goBack: () => void
   parkingSession: ParkingSession
   secureParkingAccount?: SecureParkingAccount
 }
 
 export const ParkingSessionDetailsDeleteButton = ({
-  goBack,
   parkingSession,
   secureParkingAccount,
 }: Props) => {
   const [deleteSession] = useDeleteSessionMutation()
+  const {goBack} = useNavigation()
 
   const onPressDelete = useCallback(() => {
     Alert.alert(
