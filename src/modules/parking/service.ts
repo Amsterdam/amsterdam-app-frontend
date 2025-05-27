@@ -25,6 +25,7 @@ import {
   ParkingManageVisitorChangePinCodeEndpointRequest,
   VisitorParkingSessionsEndpointRequest,
   VisitorParkingSessionsEndpointResponse,
+  ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -269,7 +270,7 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     [ParkingEndpointName.visitorParkingSessions]: builder.query<
-      VisitorParkingSessionsEndpointResponse,
+      Record<ParkingSessionStatus, VisitorParkingSessionsEndpointResponse>,
       VisitorParkingSessionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
@@ -284,6 +285,26 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.hour,
+      transformResponse: (
+        response: VisitorParkingSessionsEndpointResponse,
+      ) => ({
+        [ParkingSessionStatus.active]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.active,
+          ) || [],
+        [ParkingSessionStatus.completed]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.completed,
+          ) || [],
+        [ParkingSessionStatus.cancelled]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.cancelled,
+          ) || [],
+        [ParkingSessionStatus.planned]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.planned,
+          ) || [],
+      }),
     }),
   }),
   overrideExisting: true,

@@ -2,12 +2,12 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingSession} from '@/modules/parking/types'
+import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
-  parkingSession: ParkingSession
+  parkingSession: ParkingSession | VisitorParkingSession
 }
 
 export const ParkingPlannedSessionNavigationButton = ({

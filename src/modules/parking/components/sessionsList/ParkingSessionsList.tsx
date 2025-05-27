@@ -17,45 +17,12 @@ import {
   ParkingSessionsEndpointRequest,
   ParkingSessionStatus,
 } from '@/modules/parking/types'
-import {compareParkingSessionsByStartDateTime} from '@/modules/parking/utils/compareParkingSessionsByStartDateTime'
-import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
-
-type ParkingSessionOrDummy =
-  | (ParkingSession & {dummy?: never})
-  | {dummy: true; ps_right_id: number; start_date_time: string}
-type Section = {
-  data: Array<ParkingSessionOrDummy>
-  title: string
-}
-
-const dummyTitle = 'dummy'
-
-const groupParkingSessionsByDate = (
-  parkingSessions: Array<ParkingSessionOrDummy> | undefined,
-  sortAscending: boolean,
-) =>
-  [...(parkingSessions ?? [])]
-    .sort((a, b) =>
-      a.dummy || b.dummy
-        ? 0
-        : sortAscending
-          ? compareParkingSessionsByStartDateTime(a, b)
-          : compareParkingSessionsByStartDateTime(b, a),
-    )
-    .reduce<Section[]>((result, session) => {
-      const date = session.dummy
-        ? dummyTitle
-        : formatDateToDisplay(session.start_date_time, false)
-      const section = result.find(s => s.title === date)
-
-      if (section) {
-        section.data.push(session)
-      } else {
-        result.push({title: date, data: [session]})
-      }
-
-      return result
-    }, [])
+import {
+  ParkingSessionOrDummy,
+  Section,
+  dummyTitle,
+  groupParkingSessionsByDate,
+} from '@/modules/parking/utils/groupParkingSessionsByDate'
 
 type Props = {
   ListEmptyComponent?: ComponentType

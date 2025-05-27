@@ -71,7 +71,12 @@ export const ParkingPlannedSessionsSummary = ({visitorVehicleId}: Props) => {
   return (
     <Pressable
       accessibilityLabel={`${plannedParkingSessions.length} geplande parkeersessies`}
-      onPress={() => navigate(ParkingRouteName.parkingPlannedSessions)}
+      onPress={() =>
+        navigate(
+          ParkingRouteName.parkingPlannedSessions,
+          visitorVehicleId ? {visitorVehicleId} : undefined,
+        )
+      }
       testID="ParkingPermitSessionsPlannedBadgeButton">
       <Row gutter="sm">
         <Title

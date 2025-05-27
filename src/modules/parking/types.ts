@@ -218,14 +218,11 @@ export type ParkingSessionsEndpointRequest = {
 
 export type VisitorParkingSessionsEndpointRequest = {
   accessToken: string
-  status?: ParkingSessionStatus
   vehicle_id: string
 }
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
-export type VisitorParkingSessionsEndpointResponse = {
-  parking_session: VisitorParkingSession[]
-}
+export type VisitorParkingSessionsEndpointResponse = VisitorParkingSession[]
 
 export type ParkingTransactionsEndpointRequest = {
   accessToken: string

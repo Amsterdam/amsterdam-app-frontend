@@ -40,7 +40,6 @@ export const useGetParkingSessions = (
       ? {
           accessToken: secureParkingAccount.accessToken,
           vehicle_id: visitorVehicleId,
-          status,
         }
       : skipToken,
   )
@@ -52,7 +51,7 @@ export const useGetParkingSessions = (
       isLoadingVisitorParkingSessions,
     isError: isParkingSessionsError || isVisitorParkingSessionsError,
     parkingSessions:
-      parkingSessions?.result || visitorParkingSessions?.parking_session,
+      parkingSessions?.result || visitorParkingSessions?.[status],
     page: parkingSessions?.page,
     refetch: visitorVehicleId
       ? refetchVisitorParkingSessions
