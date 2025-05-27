@@ -16,9 +16,8 @@ type ChangePinCodeFormValues = {
 
 export const ParkingManageVisitorChangePinCodeForm = () => {
   const form = useForm<ChangePinCodeFormValues>()
-  const {handleSubmit} = form
+  const {handleSubmit, watch} = form
   const {goBack} = useNavigation()
-  const {watch} = form
   const pinCode = watch('pin_code')
   const [changePinCode] = useManageVisitorChangePinCodeMutation()
   const currentPermit = useCurrentParkingPermit()
