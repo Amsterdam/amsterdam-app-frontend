@@ -269,6 +269,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/visitor/pin-code',
         afterError,
       }),
+    }),
     [ParkingEndpointName.visitorParkingSessions]: builder.query<
       Record<ParkingSessionStatus, VisitorParkingSessionsEndpointResponse>,
       VisitorParkingSessionsEndpointRequest
