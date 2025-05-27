@@ -71,7 +71,7 @@ export const permitMock: ParkingPermit = {
   time_balance_applicable: true,
   time_valid_until: '31 december 2025',
   visitor_account: {
-    minutes_remaining: 0,
+    seconds_remaining: 0,
     pin: '',
     report_code: 0,
   },

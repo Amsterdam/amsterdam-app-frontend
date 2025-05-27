@@ -159,9 +159,9 @@ export type ParkingPermit = {
   time_balance_applicable: boolean
   time_valid_until: string
   visitor_account: {
-    minutes_remaining: number
     pin: string
     report_code: number
+    seconds_remaining: number
   }
   visitor_account_allowed: boolean
 }
