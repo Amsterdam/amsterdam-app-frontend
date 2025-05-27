@@ -11,6 +11,10 @@ import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPla
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/ParkingSessionTransactions.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
+import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
+import {ParkingManageVisitorChangePinCodeScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorChangePinCode.screen'
+import {ParkingManageVisitorDecreaseTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorDecreaseTimeBalance.screen'
+import {ParkingManageVisitorIncreaseTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorIncreaseTimeBalance.screen'
 
 export const parkingScreenConfig: StackNavigationRoutes<
   ParkingStackParams,
@@ -96,6 +100,34 @@ export const parkingScreenConfig: StackNavigationRoutes<
     options: {
       headerShown: false,
       headerTitle: 'Geldsaldo opwaarderen',
+    },
+  },
+  [ParkingRouteName.manageVisitor]: {
+    component: ParkingManageVisitorScreen,
+    name: ParkingRouteName.manageVisitor,
+    options: {
+      headerTitle: 'Bezoeker laten betalen',
+    },
+  },
+  [ParkingRouteName.manageVisitorChangePinCode]: {
+    component: ParkingManageVisitorChangePinCodeScreen,
+    name: ParkingRouteName.manageVisitorChangePinCode,
+    options: {
+      headerTitle: 'Pincode wijzigen',
+    },
+  },
+  [ParkingRouteName.manageVisitorDecreaseTimeBalance]: {
+    component: ParkingManageVisitorDecreaseTimeBalanceScreen,
+    name: ParkingRouteName.manageVisitorDecreaseTimeBalance,
+    options: {
+      headerTitle: 'Tijd aftrekken',
+    },
+  },
+  [ParkingRouteName.manageVisitorIncreaseTimeBalance]: {
+    component: ParkingManageVisitorIncreaseTimeBalanceScreen,
+    name: ParkingRouteName.manageVisitorIncreaseTimeBalance,
+    options: {
+      headerTitle: 'Tijd toevoegen',
     },
   },
 }

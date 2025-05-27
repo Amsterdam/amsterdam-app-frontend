@@ -29,7 +29,11 @@ const extensions = [
 ]
 
 const config: StorybookConfig = {
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-designs',
+  ],
 
   framework: {
     name: '@storybook/react-vite',
@@ -124,6 +128,10 @@ const config: StorybookConfig = {
           {
             find: 'react-native-date-picker',
             replacement: require.resolve('./mocks/react-native-date-picker'),
+          },
+          {
+            find: 'expo-clipboard',
+            replacement: require.resolve('./mocks/expo-clipboard'),
           },
           ...aliases,
         ],

@@ -9,6 +9,7 @@ export enum ParkingEndpointName {
   increaseBalance = 'increaseBalance',
   licensePlates = 'licensePlates',
   login = 'login',
+  manageVisitorChangePinCode = 'manageVisitorChangePinCode',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
   permits = 'permits',
@@ -159,9 +160,9 @@ export type ParkingPermit = {
   time_balance_applicable: boolean
   time_valid_until: string
   visitor_account: {
-    minutes_remaining: number
     pin: string
     report_code: number
+    seconds_remaining: number
   }
   visitor_account_allowed: boolean
 }
@@ -357,4 +358,12 @@ export type RemoveIncreaseBalanceEndpointRequest = {
   redirect: {
     merchant_return_url: string
   }
+}
+
+export type ParkingManageVisitorChangePinCodeEndpointRequest = {
+  accessToken: string
+  pin_code: string
+  pin_code_check: string
+  pin_current: string
+  report_code: string
 }
