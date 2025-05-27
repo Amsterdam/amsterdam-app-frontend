@@ -9,6 +9,7 @@ export enum ParkingEndpointName {
   increaseBalance = 'increaseBalance',
   licensePlates = 'licensePlates',
   login = 'login',
+  manageVisitorChangePinCode = 'manageVisitorChangePinCode',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
   permits = 'permits',
@@ -357,4 +358,12 @@ export type RemoveIncreaseBalanceEndpointRequest = {
   redirect: {
     merchant_return_url: string
   }
+}
+
+export type ParkingManageVisitorChangePinCodeEndpointRequest = {
+  accessToken: string
+  pin_code: string
+  pin_code_check: string
+  pin_current: string
+  report_code: string
 }
