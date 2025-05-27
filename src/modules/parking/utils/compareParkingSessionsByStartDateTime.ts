@@ -1,9 +1,9 @@
-import {ParkingSession} from '@/modules/parking/types'
+import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const compareParkingSessionsByStartDateTime = (
-  a: ParkingSession,
-  b: ParkingSession,
+  a: ParkingSession | VisitorParkingSession,
+  b: ParkingSession | VisitorParkingSession,
 ) =>
   a.start_date_time === b.start_date_time
     ? 0

@@ -1,5 +1,5 @@
 import {useEffect} from 'react'
-import {type NavigationProps} from '@/app/navigation/types'
+import {RouteProp, type NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
@@ -28,30 +28,7 @@ import {useAlert} from '@/store/slices/alert'
 type Props = NavigationProps<ParkingRouteName.dashboard>
 
 export const ParkingDashboardScreen = ({route}: Props) => {
-  const {params} = route
-  const {setAlert} = useAlert()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (params?.action === 'increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
-        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    } else if (params?.action === 'start-session-and-increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
-        dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
-        )
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    }
-  }, [dispatch, params, setAlert])
-
+  useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()
 
   if (isLoading) {
@@ -98,4 +75,30 @@ export const ParkingDashboardScreen = ({route}: Props) => {
       </Screen>
     </CurrentPermitProvider>
   )
+}
+
+const useHandleDeeplink = (route: RouteProp<ParkingRouteName.dashboard>) => {
+  const {params} = route
+  const {setAlert} = useAlert()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (params?.action === 'increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
+    } else if (params?.action === 'start-session-and-increase-balance') {
+      if (params.status === 'COMPLETED') {
+        setAlert(alerts.increaseBalanceSuccess)
+        dispatch(
+          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
+        )
+      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
+        setAlert(alerts.increaseBalanceFailed)
+      }
+    }
+  }, [dispatch, params, setAlert])
 }

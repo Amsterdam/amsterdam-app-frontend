@@ -1,4 +1,4 @@
-import {ParkingSession} from '@/modules/parking/types'
+import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 
 export enum ParkingRouteName {
   addLicensePlate = 'ParkingAddLicensePlate',
@@ -36,8 +36,12 @@ export type ParkingStackParams = {
   [ParkingRouteName.login]: undefined
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
-  [ParkingRouteName.parkingPlannedSessions]: undefined
-  [ParkingRouteName.parkingSession]: {parkingSession: ParkingSession}
+  [ParkingRouteName.parkingPlannedSessions]:
+    | {visitorVehicleId: string}
+    | undefined
+  [ParkingRouteName.parkingSession]: {
+    parkingSession: ParkingSession | VisitorParkingSession
+  }
   [ParkingRouteName.parkingSessionTransactions]: undefined
   [ParkingRouteName.parkingMoneyTransactions]: undefined
   [ParkingRouteName.editSession]: {parkingSession: ParkingSession}

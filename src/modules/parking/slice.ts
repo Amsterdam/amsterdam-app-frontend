@@ -14,6 +14,7 @@ export type ParkingState = {
    */
   isLoginStepsActive: boolean
   shouldShowIntroScreen: boolean
+  visitorVehicleId?: string
 }
 
 const initialState: ParkingState = {
@@ -21,6 +22,7 @@ const initialState: ParkingState = {
   currentPermitName: undefined,
   isLoginStepsActive: false,
   shouldShowIntroScreen: true,
+  visitorVehicleId: undefined,
 }
 
 export const parkingSlice = createSlice({
@@ -42,6 +44,12 @@ export const parkingSlice = createSlice({
     setShouldShowIntroScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowIntroScreen = payload
     },
+    setVisitorVehicleId: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      state.visitorVehicleId = payload
+    },
   },
 })
 
@@ -61,6 +69,9 @@ export const selectIsLoginStepsActive = (state: RootState) =>
 
 export const selectShouldShowIntroScreen = (state: RootState) =>
   state[ReduxKey.parking].shouldShowIntroScreen
+
+export const selectVisitorVehicleId = (state: RootState) =>
+  state[ReduxKey.parking].visitorVehicleId
 
 export const useCurrentParkingAccount = () => {
   const dispatch = useDispatch()
@@ -86,4 +97,17 @@ export const useCurrentParkingPermitName = () => {
   )
 
   return {currentPermitName, setCurrentPermitName}
+}
+
+export const useVisitorVehicleId = () => {
+  const dispatch = useDispatch()
+  const visitorVehicleId = useSelector(selectVisitorVehicleId)
+
+  const setVisitorVehicleId = useCallback(
+    (vehicleId: string | undefined) =>
+      dispatch(parkingSlice.actions.setVisitorVehicleId(vehicleId)),
+    [dispatch],
+  )
+
+  return {visitorVehicleId, setVisitorVehicleId}
 }

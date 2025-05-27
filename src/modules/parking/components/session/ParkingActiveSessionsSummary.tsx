@@ -11,13 +11,17 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
-export const ParkingActiveSessionsSummary = () => {
+type Props = {
+  visitorVehicleId?: string
+}
+
+export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
   const {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.active)
+  } = useGetParkingSessions(ParkingSessionStatus.active, visitorVehicleId)
 
   const currentPermit = useCurrentParkingPermit()
 
@@ -25,6 +29,10 @@ export const ParkingActiveSessionsSummary = () => {
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
 
   useEffect(() => {
+    if (visitorVehicleId) {
+      return
+    }
+
     if (
       !isRefetched &&
       activeParkingSessions?.some(session => !session.ps_right_id)
@@ -32,12 +40,22 @@ export const ParkingActiveSessionsSummary = () => {
       void refetch()
       setRefetched()
     }
-  }, [activeParkingSessions, isRefetched, refetch, setRefetched])
+  }, [
+    activeParkingSessions,
+    isRefetched,
+    refetch,
+    setRefetched,
+    visitorVehicleId,
+  ])
 
   // refetch sessions every 15 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useRefetchInterval(
     refetch,
-    activeParkingSessions?.some(session => !session.is_paid) ? 15000 : 0,
+    activeParkingSessions?.some(
+      session => 'is_paid' in session && !session.is_paid,
+    )
+      ? 15000
+      : 0,
   )
 
   if (isLoading) {
@@ -60,7 +78,7 @@ export const ParkingActiveSessionsSummary = () => {
       {activeParkingSessions?.length ? (
         activeParkingSessions.map(session => (
           <ParkingActiveSessionNavigationButton
-            key={session.vehicle_id}
+            key={session.ps_right_id ?? session.vehicle_id}
             noEndTime={currentPermit.no_endtime}
             parkingSession={session}
           />

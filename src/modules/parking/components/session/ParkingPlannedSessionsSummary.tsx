@@ -13,14 +13,18 @@ import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessio
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
-export const ParkingPlannedSessionsSummary = () => {
+type Props = {
+  visitorVehicleId?: string
+}
+
+export const ParkingPlannedSessionsSummary = ({visitorVehicleId}: Props) => {
   const {navigate} = useNavigation()
   const {
     parkingSessions: plannedParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.planned)
+  } = useGetParkingSessions(ParkingSessionStatus.planned, visitorVehicleId)
 
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   useEffect(() => {
@@ -32,7 +36,11 @@ export const ParkingPlannedSessionsSummary = () => {
   // refetch sessions every 15 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useRefetchInterval(
     refetch,
-    plannedParkingSessions?.some(session => !session.is_paid) ? 15000 : 0,
+    plannedParkingSessions?.some(
+      session => 'is_paid' in session && !session.is_paid,
+    )
+      ? 15000
+      : 0,
   )
 
   if (isLoading) {
@@ -63,7 +71,12 @@ export const ParkingPlannedSessionsSummary = () => {
   return (
     <Pressable
       accessibilityLabel={`${plannedParkingSessions.length} geplande parkeersessies`}
-      onPress={() => navigate(ParkingRouteName.parkingPlannedSessions)}
+      onPress={() =>
+        navigate(
+          ParkingRouteName.parkingPlannedSessions,
+          visitorVehicleId ? {visitorVehicleId} : undefined,
+        )
+      }
       testID="ParkingPermitSessionsPlannedBadgeButton">
       <Row gutter="sm">
         <Title

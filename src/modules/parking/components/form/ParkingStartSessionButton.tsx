@@ -11,9 +11,10 @@ import {Dayjs} from '@/utils/datetime/dayjs'
 type FieldValues = {
   amount?: number
   endTime?: Dayjs
-  licensePlate: {vehicle_id: string; visitor_name: string}
   paymentZoneId: string
   startTime: Dayjs
+  vehicle_id?: string
+  visitor_name?: string
 }
 
 export const ParkingStartSessionButton = () => {
@@ -26,21 +27,15 @@ export const ParkingStartSessionButton = () => {
   const openWebUrl = useOpenWebUrl()
 
   const onSubmit = useCallback(
-    ({
-      startTime,
-      endTime,
-      paymentZoneId,
-      licensePlate,
-      amount,
-    }: FieldValues) => {
+    ({startTime, endTime, paymentZoneId, amount, vehicle_id}: FieldValues) => {
       // TODO:
       // check if the limit of current active parking sessions is not reached
-      if (secureParkingAccount && licensePlate?.vehicle_id) {
+      if (secureParkingAccount && vehicle_id) {
         void startSession({
           accessToken: secureParkingAccount.accessToken,
           parking_session: {
             report_code: currentPermit.report_code.toString(),
-            vehicle_id: licensePlate.vehicle_id,
+            vehicle_id,
             end_date_time: endTime?.toJSON(),
             start_date_time: startTime.toJSON(),
             payment_zone_id: paymentZoneId,

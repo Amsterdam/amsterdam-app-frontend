@@ -23,6 +23,9 @@ import {
   ParkingTransactionsEndpointRequest,
   ParkingTransactionsEndpointResponse,
   ParkingManageVisitorChangePinCodeEndpointRequest,
+  VisitorParkingSessionsEndpointRequest,
+  VisitorParkingSessionsEndpointResponse,
+  ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -267,6 +270,43 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.visitorParkingSessions]: builder.query<
+      Record<ParkingSessionStatus, VisitorParkingSessionsEndpointResponse>,
+      VisitorParkingSessionsEndpointRequest
+    >({
+      providesTags: ['ParkingSessions'],
+      query: ({accessToken, ...params}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        method: 'GET',
+        params,
+        slug: ModuleSlug.parking,
+        url: '/visitor/sessions',
+        afterError,
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+      transformResponse: (
+        response: VisitorParkingSessionsEndpointResponse,
+      ) => ({
+        [ParkingSessionStatus.active]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.active,
+          ) || [],
+        [ParkingSessionStatus.completed]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.completed,
+          ) || [],
+        [ParkingSessionStatus.cancelled]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.cancelled,
+          ) || [],
+        [ParkingSessionStatus.planned]:
+          response.filter(
+            session => session.status === ParkingSessionStatus.planned,
+          ) || [],
+      }),
+    }),
   }),
   overrideExisting: true,
 })
@@ -286,4 +326,5 @@ export const {
   useDeleteSessionMutation,
   useIncreaseBalanceMutation,
   useManageVisitorChangePinCodeMutation,
+  useVisitorParkingSessionsQuery,
 } = parkingApi

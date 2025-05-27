@@ -1,15 +1,27 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
-import {useParkingSessionsQuery} from '@/modules/parking/service'
+import {
+  useParkingSessionsQuery,
+  useVisitorParkingSessionsQuery,
+} from '@/modules/parking/service'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
-export const useGetParkingSessions = (status: ParkingSessionStatus) => {
+export const useGetParkingSessions = (
+  status: ParkingSessionStatus,
+  visitorVehicleId?: string,
+) => {
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
     useGetSecureParkingAccount()
   const currentPermit = useCurrentParkingPermit()
-  const {data, isLoading, isError, refetch} = useParkingSessionsQuery(
-    secureParkingAccount && currentPermit
+
+  const {
+    data: parkingSessions,
+    isLoading: isLoadingParkingSessions,
+    isError: isParkingSessionsError,
+    refetch: refetchParkingSessions,
+  } = useParkingSessionsQuery(
+    secureParkingAccount && currentPermit && !visitorVehicleId
       ? {
           accessToken: secureParkingAccount.accessToken,
           report_code: currentPermit.report_code.toString(),
@@ -18,12 +30,31 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
         }
       : skipToken,
   )
+  const {
+    data: visitorParkingSessions,
+    isLoading: isLoadingVisitorParkingSessions,
+    isError: isVisitorParkingSessionsError,
+    refetch: refetchVisitorParkingSessions,
+  } = useVisitorParkingSessionsQuery(
+    secureParkingAccount && visitorVehicleId
+      ? {
+          accessToken: secureParkingAccount.accessToken,
+          vehicle_id: visitorVehicleId,
+        }
+      : skipToken,
+  )
 
   return {
-    isLoading: isLoadingSecureParkingAccount || isLoading,
-    isError,
-    parkingSessions: data?.result,
-    page: data?.page,
-    refetch,
+    isLoading:
+      isLoadingSecureParkingAccount ||
+      isLoadingParkingSessions ||
+      isLoadingVisitorParkingSessions,
+    isError: isParkingSessionsError || isVisitorParkingSessionsError,
+    parkingSessions:
+      parkingSessions?.result || visitorParkingSessions?.[status],
+    page: parkingSessions?.page,
+    refetch: visitorVehicleId
+      ? refetchVisitorParkingSessions
+      : refetchParkingSessions,
   }
 }
