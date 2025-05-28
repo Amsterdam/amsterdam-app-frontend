@@ -108,7 +108,7 @@ export const ParkingChoosePaymentZone = () => {
         bottomSheetVariant={ParkingSessionBottomSheetVariant.paymentZone}
         iconName="clock"
         name="paymentZoneId"
-        testID="ParkingChooseStartTimeButton"
+        testID="ParkingChoosePaymentZoneButton"
         text={timeString}
         title={paymentZoneId ? 'Betaald parkeren' : 'Kies betaald parkeertijd'}
       />

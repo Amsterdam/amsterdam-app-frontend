@@ -20,7 +20,7 @@ export const ParkingVehicleIdTextInput = ({
     defaultValue={defaultValue}
     inputInstructions={inputInstructions}
     label={label}
-    name="vehicle_id"
+    name="visitorVehicleId"
     rules={{
       required: 'Vul een kenteken in',
       pattern: {

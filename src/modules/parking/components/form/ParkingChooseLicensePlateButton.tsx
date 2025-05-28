@@ -8,7 +8,7 @@ export const ParkingChooseLicensePlateButton = () => (
     iconName="parkingCar"
     name="licensePlate"
     rules={{required: 'Kies een kenteken'}}
-    testID="ParkingChooseStartTimeButton"
+    testID="ParkingChooseLicensePlateButton"
     text={licensePlate =>
       licensePlate
         ? `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`

@@ -13,13 +13,14 @@ type Props = {
 export const ParkingSessionShowVisitorSessionsForm = ({
   isFormVisible,
 }: Props) => {
-  const form = useForm<{vehicle_id: string}>()
+  const form = useForm<{visitorVehicleId: string}>()
   const {handleSubmit} = form
   const {value: isEnabled, enable} = useBoolean(isFormVisible)
-  const {setVisitorVehicleId} = useVisitorVehicleId()
+  const {visitorVehicleId: vehicleId, setVisitorVehicleId} =
+    useVisitorVehicleId()
 
-  const onSubmit = ({vehicle_id}: {vehicle_id: string}) => {
-    setVisitorVehicleId(vehicle_id)
+  const onSubmit = ({visitorVehicleId}: {visitorVehicleId: string}) => {
+    setVisitorVehicleId(visitorVehicleId)
   }
 
   return (
@@ -31,6 +32,7 @@ export const ParkingSessionShowVisitorSessionsForm = ({
               Voer uw kenteken in om uw actieve parkeersessie te zien.
             </Paragraph>
             <ParkingVehicleIdTextInput
+              defaultValue={vehicleId}
               inputInstructions="Alleen letters en cijfers"
               label="Uw kenteken"
               testID="ParkingSessionShowVisitorSessionsFormLicensePlateInputField"
