@@ -1,3 +1,4 @@
+import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {
   PressableBase,
@@ -12,16 +13,24 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   iconName: SvgIconName
-  label: string
+  label: string | ReactNode
 } & PressableBaseProps
 
-export const ActionButton = ({iconName, label, ...props}: Props) => {
+export const ActionButton = ({
+  accessibilityLabel,
+  iconName,
+  label,
+  ...props
+}: Props) => {
   const {testID} = props
   const styles = useThemable(createStyles)
 
   return (
     <View
-      accessibilityLabel={`Actieknop. ${label} tonen`}
+      accessibilityLabel={
+        accessibilityLabel ??
+        `Actieknop. ${typeof label === 'string' ? label : ''}`
+      }
       accessibilityRole="link"
       accessible>
       <Column
@@ -41,7 +50,9 @@ export const ActionButton = ({iconName, label, ...props}: Props) => {
           color="link"
           emphasis="strong"
           testID={`${testID}Phrase`}
-          variant="small">{`${label} tonen`}</Phrase>
+          variant="small">
+          {label}
+        </Phrase>
       </Column>
     </View>
   )

@@ -28,7 +28,7 @@ export const CityPassActionButton = () => {
     <Column>
       <ActionButton
         iconName="city-pass-pass"
-        label="Stadspas"
+        label="Stadspas tonen"
         onPress={onPress}
         testID="CityPassActionButton"
       />
