@@ -10,6 +10,7 @@ export enum ParkingEndpointName {
   licensePlates = 'licensePlates',
   login = 'login',
   manageVisitorChangePinCode = 'manageVisitorChangePinCode',
+  manageVisitorTimeBalance = 'manageVisitorTimeBalance',
   parkingPinCode = 'parkingPinCode',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
@@ -377,4 +378,10 @@ export type ParkingManageVisitorChangePinCodeEndpointRequest = {
   pin_code_check: string
   pin_current: string
   report_code: string
+}
+
+export type ParkingManageVisitorTimeBalanceEndpointRequest = {
+  accessToken: string
+  report_code: string
+  seconds_to_transfer: number
 }

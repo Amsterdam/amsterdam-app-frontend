@@ -27,6 +27,7 @@ import {
   VisitorParkingSessionsEndpointResponse,
   ParkingSessionStatus,
   RequestPinCode,
+  ParkingManageVisitorTimeBalanceEndpointRequest,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -281,6 +282,22 @@ export const parkingApi = baseApi.injectEndpoints({
         method: 'PUT',
         slug: ModuleSlug.parking,
         url: '/visitor/pin-code',
+        afterError,
+      }),
+    }),
+    [ParkingEndpointName.manageVisitorTimeBalance]: builder.mutation<
+      void,
+      ParkingManageVisitorTimeBalanceEndpointRequest
+    >({
+      invalidatesTags: ['ParkingPermits'],
+      query: ({accessToken, ...body}) => ({
+        headers: {
+          'SSP-Access-Token': accessToken,
+        },
+        body,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/visitor/time-balance',
         afterError,
       }),
     }),
