@@ -357,6 +357,7 @@ export const {
   useEditSessionMutation,
   useDeleteSessionMutation,
   useIncreaseBalanceMutation,
+  useManageVisitorTimeBalanceMutation,
   useManageVisitorChangePinCodeMutation,
   useVisitorParkingSessionsQuery,
 } = parkingApi

@@ -13,8 +13,7 @@ import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/Parkin
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorChangePinCodeScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorChangePinCode.screen'
-import {ParkingManageVisitorDecreaseTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorDecreaseTimeBalance.screen'
-import {ParkingManageVisitorIncreaseTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorIncreaseTimeBalance.screen'
+import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
 export const parkingScreenConfig: StackNavigationRoutes<
   ParkingStackParams,
@@ -116,18 +115,11 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Pincode wijzigen',
     },
   },
-  [ParkingRouteName.manageVisitorDecreaseTimeBalance]: {
-    component: ParkingManageVisitorDecreaseTimeBalanceScreen,
-    name: ParkingRouteName.manageVisitorDecreaseTimeBalance,
+  [ParkingRouteName.manageVisitorAdjustTimeBalance]: {
+    component: ParkingManageVisitorAdjustTimeBalanceScreen,
+    name: ParkingRouteName.manageVisitorAdjustTimeBalance,
     options: {
-      headerTitle: 'Tijd aftrekken',
-    },
-  },
-  [ParkingRouteName.manageVisitorIncreaseTimeBalance]: {
-    component: ParkingManageVisitorIncreaseTimeBalanceScreen,
-    name: ParkingRouteName.manageVisitorIncreaseTimeBalance,
-    options: {
-      headerTitle: 'Tijd toevoegen',
+      headerShown: false,
     },
   },
 }

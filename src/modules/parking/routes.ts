@@ -9,9 +9,8 @@ export enum ParkingRouteName {
   login = 'ParkingLogin',
   loginSteps = 'ParkingLoginSteps',
   manageVisitor = 'ParkingManageVisitor',
+  manageVisitorAdjustTimeBalance = 'ParkingManageVisitorAdjustTimeBalance',
   manageVisitorChangePinCode = 'ParkingManageVisitorChangePinCode',
-  manageVisitorDecreaseTimeBalance = 'ParkingManageVisitorDecreaseTimeBalance',
-  manageVisitorIncreaseTimeBalance = 'ParkingManageVisitorIncreaseTimeBalance',
   myLicensePlates = 'ParkingMyLicensePlates',
   parkingMoneyTransactions = 'ParkingMoneyTransactions',
   parkingPlannedSessions = 'ParkingPlannedSessions',
@@ -51,6 +50,7 @@ export type ParkingStackParams = {
   [ParkingRouteName.increaseBalance]: undefined
   [ParkingRouteName.manageVisitor]: undefined
   [ParkingRouteName.manageVisitorChangePinCode]: undefined
-  [ParkingRouteName.manageVisitorDecreaseTimeBalance]: undefined
-  [ParkingRouteName.manageVisitorIncreaseTimeBalance]: undefined
+  [ParkingRouteName.manageVisitorAdjustTimeBalance]:
+    | {subtractTime: boolean}
+    | undefined
 }
