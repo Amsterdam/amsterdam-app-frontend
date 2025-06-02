@@ -26,6 +26,7 @@ import {
   VisitorParkingSessionsEndpointRequest,
   VisitorParkingSessionsEndpointResponse,
   ParkingSessionStatus,
+  RequestPinCode,
 } from '@/modules/parking/types'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
@@ -254,6 +255,19 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.parkingPinCode]: builder.mutation<
+      void,
+      RequestPinCode
+    >({
+      invalidatesTags: ['ParkingPermits'],
+      query: ({phoneLastFourDigits, reportCode}) => ({
+        body: {report_code: reportCode, phone_number: phoneLastFourDigits},
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/pin-code',
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.manageVisitorChangePinCode]: builder.mutation<
       void,
       ParkingManageVisitorChangePinCodeEndpointRequest
@@ -316,6 +330,7 @@ export const {
   useAddLicensePlateMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
+  useParkingPinCodeMutation,
   useParkingSessionsQuery,
   useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,

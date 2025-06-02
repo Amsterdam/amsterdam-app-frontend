@@ -10,6 +10,7 @@ export enum ParkingEndpointName {
   licensePlates = 'licensePlates',
   login = 'login',
   manageVisitorChangePinCode = 'manageVisitorChangePinCode',
+  parkingPinCode = 'parkingPinCode',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
   permits = 'permits',
