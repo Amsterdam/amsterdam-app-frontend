@@ -5,6 +5,12 @@ import {
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 
 export const alerts = {
+  changePincodeSuccess: {
+    variant: AlertVariant.positive,
+    text: 'Pincode verstuurd als deze meldcode bestaat.',
+    hasIcon: true,
+    testID: 'ParkingChangePincodeSuccessAlert',
+  },
   maxLicensePlatesWarning: {
     variant: AlertVariant.warning,
     text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,

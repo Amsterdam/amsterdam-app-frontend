@@ -6,6 +6,7 @@ import {ParkingLoginForm} from '@/modules/parking/components/login/ParkingLoginF
 
 export const ParkingLoginScreen = () => (
   <Screen
+    hasStickyAlert
     keyboardAware
     testID="ParkingLoginScreen">
     <Box>

@@ -3,20 +3,24 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
 import {useParkingPinCodeMutation} from '@/modules/parking/service'
 import {RequestPinCode} from '@/modules/parking/types'
+import {useAlert} from '@/store/slices/alert'
 
 export const ParkingRequestPinCodeForm = () => {
   const form = useForm<RequestPinCode>()
   const {goBack} = useNavigation()
   const {handleSubmit} = form
   const [pincode] = useParkingPinCodeMutation()
+  const {setAlert} = useAlert()
 
   const onSubmit = handleSubmit(async ({phoneLastFourDigits, reportCode}) => {
     await pincode({phoneLastFourDigits, reportCode})
       .unwrap()
       .then(() => {
         goBack()
+        setAlert(alerts.changePincodeSuccess)
       })
   })
 
