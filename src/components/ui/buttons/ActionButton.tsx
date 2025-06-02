@@ -21,7 +21,7 @@ export const ActionButton = ({iconName, label, ...props}: Props) => {
 
   return (
     <View
-      accessibilityLabel={`Actieknop. ${label} tonen`}
+      accessibilityLabel={`Actieknop. ${label}`}
       accessibilityRole="link"
       accessible>
       <Column
@@ -41,7 +41,10 @@ export const ActionButton = ({iconName, label, ...props}: Props) => {
           color="link"
           emphasis="strong"
           testID={`${testID}Phrase`}
-          variant="small">{`${label} tonen`}</Phrase>
+          textAlign="center"
+          variant="small">
+          {label}
+        </Phrase>
       </Column>
     </View>
   )

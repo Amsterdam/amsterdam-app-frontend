@@ -28,7 +28,7 @@ export const WasteContainerActionButton = () => {
     <Column>
       <ActionButton
         iconName="wasteCard"
-        label="Afvalpas"
+        label="Afvalpas tonen"
         onPress={onPress}
         testID="WasteContainerActionButton"
       />
