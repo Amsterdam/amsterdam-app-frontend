@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
@@ -8,7 +7,6 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   parkingApi,
   useParkingTransactionsQuery,
@@ -79,8 +77,6 @@ const groupParkingSessionsByDate = (
 const pageSize = 20
 
 export const ParkingMoneyTransactionsList = () => {
-  const {secureParkingAccount} = useGetSecureParkingAccount()
-
   const [page, setPage] = useState(1)
 
   const result = useInfiniteScroller<
@@ -98,12 +94,9 @@ export const ParkingMoneyTransactionsList = () => {
     useParkingTransactionsQuery,
     page,
     pageSize,
-    secureParkingAccount
-      ? {
-          page_size: pageSize,
-          accessToken: secureParkingAccount?.accessToken,
-        }
-      : skipToken,
+    {
+      page_size: pageSize,
+    },
   )
 
   const onViewableItemsChanged = useCallback<

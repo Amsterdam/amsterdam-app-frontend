@@ -66,8 +66,17 @@ const dynamicBaseQuery: BaseQueryFn<
 
       const result = await fetchBaseQuery({
         baseUrl,
-        prepareHeaders: (headers, api) =>
-          prepareHeaders(argsPrepareHeaders(headers, api), api),
+        prepareHeaders: async (headers, api) =>
+          prepareHeaders(
+            await argsPrepareHeaders(headers, {
+              ...api,
+              dispatch: baseQueryApi.dispatch,
+            }),
+            {
+              ...api,
+              dispatch: baseQueryApi.dispatch,
+            },
+          ),
         timeout: TimeOutDuration.long,
       })(args, baseQueryApi, extraOptions)
 

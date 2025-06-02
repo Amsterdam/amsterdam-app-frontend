@@ -6,7 +6,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useManageVisitorTimeBalanceMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
@@ -22,7 +21,6 @@ type FieldValues = {
 export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
   const currentPermit = useCurrentParkingPermit()
   const {handleSubmit, watch} = useFormContext<FieldValues>()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const {goBack} = useNavigation()
   const {setAlert} = useAlert()
   const operator = isNegative ? '-' : '+'
@@ -37,7 +35,6 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
     }
 
     await updateTimeBalance({
-      accessToken: secureParkingAccount?.accessToken ?? '',
       report_code: currentPermit.report_code.toString(),
       seconds_to_transfer: isNegative ? -timeFieldValue : timeFieldValue,
     })

@@ -1,5 +1,6 @@
 import {ThunkDispatch} from '@reduxjs/toolkit'
 import {parkingApi} from '@/modules/parking/service'
+import {setAccessTokenExpiration} from '@/modules/parking/slice'
 import {
   ParkingEndpointName,
   ParkingPermitScope,
@@ -13,12 +14,16 @@ import {SecureItemKey} from '@/utils/secureStorage'
 
 const saveParkingAccount = (
   account: SecureParkingAccount,
+  accessTokenExpiration: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
   failRetry: (e: unknown) => void,
-  resolve: (value: void | PromiseLike<void>) => void,
+  resolve: (
+    value: SecureParkingAccount | PromiseLike<SecureParkingAccount>,
+  ) => void,
   reject: (reason?: unknown) => void,
 ) => {
+  dispatch(setAccessTokenExpiration(accessTokenExpiration))
   setSecureParkingAccount(account).then(
     () => {
       dispatch(
@@ -30,7 +35,7 @@ const saveParkingAccount = (
       )
       devLog('Token parking account successful refreshed')
       failRetry('New token, so old request should fail')
-      resolve()
+      resolve(account)
     },
     () => {
       devError('Token parking account save failed')
@@ -44,7 +49,7 @@ export const refreshAccessToken = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
   failRetry: (e?: unknown) => void,
-): Promise<void> =>
+): Promise<SecureParkingAccount> =>
   new Promise((resolve, reject) => {
     if (!currentAccountType) {
       devError('No account type provided')
@@ -63,9 +68,10 @@ export const refreshAccessToken = (
         )
           .unwrap()
           .then(
-            ({access_token}) =>
+            ({access_token, access_token_expiration}) =>
               saveParkingAccount(
                 {...account, accessToken: access_token},
+                access_token_expiration,
                 dispatch,
                 failRetry,
                 resolve,

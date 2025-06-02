@@ -12,7 +12,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useLicensePlatesQuery,
   useRemoveLicensePlateMutation,
@@ -21,12 +20,9 @@ import {
 export const ParkingMyLicensePlates = () => {
   const openPhoneUrl = useOpenPhoneUrl()
   const currentPermit = useCurrentParkingPermit()
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
   const {data: licensePlates, isFetching} = useLicensePlatesQuery(
-    secureParkingAccount && currentPermit
+    currentPermit
       ? {
-          accessToken: secureParkingAccount.accessToken,
           reportCode: currentPermit.report_code.toString(),
         }
       : skipToken,
@@ -37,10 +33,6 @@ export const ParkingMyLicensePlates = () => {
 
   const onPressDelete = useCallback(
     (vehicle_id: string) => {
-      if (!secureParkingAccount) {
-        return
-      }
-
       Alert.alert(
         'Weet u zeker dat u het kenteken wilt verwijderen?',
         undefined,
@@ -53,8 +45,7 @@ export const ParkingMyLicensePlates = () => {
             // This will continue the action that had triggered the removal of the screen
             onPress: () => {
               void removeLicensePlate({
-                accessToken: secureParkingAccount.accessToken,
-                report_code: secureParkingAccount.reportCode,
+                report_code: currentPermit.report_code.toString(),
                 vehicle_id,
               })
             },
@@ -63,14 +54,10 @@ export const ParkingMyLicensePlates = () => {
         {cancelable: true},
       )
     },
-    [removeLicensePlate, secureParkingAccount],
+    [currentPermit.report_code, removeLicensePlate],
   )
 
-  if (
-    isLoadingSecureParkingAccount ||
-    isFetching ||
-    isLoadingRemoveLicensePlate
-  ) {
+  if (isFetching || isLoadingRemoveLicensePlate) {
     return <PleaseWait testID="ParkingSelectLicensePlatePleaseWait" />
   }
 

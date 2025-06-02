@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -7,7 +6,6 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
 import {formatNumber} from '@/utils/formatNumber'
@@ -15,16 +13,12 @@ import {formatNumber} from '@/utils/formatNumber'
 export const ParkingIncreaseBalanceReceipt = () => {
   const {watch} = useFormContext<{amount?: number}>()
   const amount = watch('amount')
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
 
-  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery(
-    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
-  )
+  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   const currentPermit = useCurrentParkingPermit()
 
-  if (isLoadingSecureParkingAccount || isLoadingAccount) {
+  if (isLoadingAccount) {
     return <PleaseWait testID="ParkingIncreaseBalanceReceiptPleaseWait" />
   }
 

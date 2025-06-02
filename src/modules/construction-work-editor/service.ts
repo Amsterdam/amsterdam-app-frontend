@@ -78,14 +78,11 @@ export const constructionWorkEditorApi = baseApi.injectEndpoints({
           method: 'POST',
           slug: MODULE_SLUG,
           url: '/warning-image',
-          prepareHeaders: (...args) => {
-            const headers = prepareHeaders(...args)
-
-            headers.set('Content-Type', 'multipart/form-data')
-            headers.set('Accept', 'application/json')
-
-            return headers
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Accept: 'application/json',
           },
+          prepareHeaders,
           afterError,
         }),
       }),

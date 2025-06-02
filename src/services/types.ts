@@ -12,8 +12,8 @@ type RTKQueryAPI = Pick<
 
 export type PrepareHeaders = (
   headers: Headers,
-  api: Omit<RTKQueryAPI, 'dispatch'>,
-) => Headers
+  api: RTKQueryAPI,
+) => Headers | Promise<Headers>
 
 export type AfterBaseQuerySuccessFn<T = unknown> = (
   result: QueryReturnValue<T, FetchBaseQueryError, FetchBaseQueryMeta>,

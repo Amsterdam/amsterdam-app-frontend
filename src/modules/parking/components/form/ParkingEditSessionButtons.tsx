@@ -3,7 +3,6 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useEditSessionMutation} from '@/modules/parking/service'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
@@ -16,16 +15,14 @@ type FieldValues = {
 
 export const ParkingEditSessionButtons = () => {
   const {handleSubmit} = useFormContext<FieldValues>()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const [editSession] = useEditSessionMutation()
 
   const navigation = useNavigation()
 
   const onSubmit = useCallback(
     ({startTime, endTime, report_code, ps_right_id}: FieldValues) => {
-      if (secureParkingAccount && endTime && startTime.isBefore(endTime)) {
+      if (endTime && startTime.isBefore(endTime)) {
         void editSession({
-          accessToken: secureParkingAccount.accessToken,
           parking_session: {
             report_code,
             ps_right_id,
@@ -39,7 +36,7 @@ export const ParkingEditSessionButtons = () => {
           })
       }
     },
-    [secureParkingAccount, editSession, navigation],
+    [editSession, navigation],
   )
 
   return (
