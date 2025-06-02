@@ -13,37 +13,47 @@ type Props = {
   isNegative?: boolean
 }
 
-type GetOptionsParams = {
-  secondsRemaining?: number
-  timeBalance?: number
+type Option = {
+  label: string
+  value: number
 }
 
-const getOptions = ({timeBalance, secondsRemaining}: GetOptionsParams) => {
+const getOptions = (
+  timeBalance: number,
+  secondsRemaining: number,
+  isNegative?: boolean,
+) => {
   const optionsArray = [2, 4, 8, 12]
-  const options = optionsArray
-    .filter(n =>
-      timeBalance
-        ? n < timeBalance / 3600
-        : secondsRemaining && n < secondsRemaining / 3600,
-    )
-    .map(value => ({
-      label: (timeBalance ? '+ ' : '- ') + value + ' uur',
-      value: value * 3600,
-    }))
+  let options: Option[] = []
 
-  if (
-    secondsRemaining ||
-    (timeBalance && timeBalance < optionsArray[0] * 3600)
-  ) {
+  if (isNegative) {
+    options = optionsArray
+      .filter(n => n < secondsRemaining / 3600)
+      .map(value => ({
+        label: '- ' + value + ' uur',
+        value: value * 3600,
+      }))
     options.push({
       label:
-        (timeBalance ? '+ ' : '- ') +
-        formatTimeDurationToDisplay(
-          timeBalance ?? secondsRemaining ?? 0,
-          'seconds',
-          {short: true},
-        ),
-      value: timeBalance ?? secondsRemaining ?? 0,
+        '- ' +
+        formatTimeDurationToDisplay(secondsRemaining, 'seconds', {short: true}),
+      value: secondsRemaining,
+    })
+  } else {
+    options = optionsArray
+      .filter(n => n < timeBalance / 3600)
+      .map(value => ({
+        label: '+ ' + value + ' uur',
+        value: value * 3600,
+      }))
+  }
+
+  if (timeBalance < optionsArray[0] * 3600) {
+    options.push({
+      label:
+        '+ ' +
+        formatTimeDurationToDisplay(timeBalance, 'seconds', {short: true}),
+      value: timeBalance,
     })
   }
 
@@ -76,14 +86,9 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
           <RadioGroup
             onChange={onChange}
             options={getOptions(
-              isNegative
-                ? {
-                    secondsRemaining:
-                      currentPermit.visitor_account.seconds_remaining,
-                  }
-                : {
-                    timeBalance: currentPermit.time_balance,
-                  },
+              currentPermit.time_balance,
+              currentPermit.visitor_account.seconds_remaining,
+              isNegative,
             )}
             testID="ParkingSessionAmountBottomSheetContentRadioGroup"
             value={time}
