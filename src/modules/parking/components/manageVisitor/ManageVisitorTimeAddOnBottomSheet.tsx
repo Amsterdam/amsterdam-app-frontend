@@ -13,25 +13,39 @@ type Props = {
   isNegative?: boolean
 }
 
-const addOptions = [2.5, 4, 8, 12].map(value => ({
-  label: '+ ' + value + ' uur',
-  value: value * 3600,
-}))
+type GetOptionsParams = {
+  secondsRemaining?: number
+  timeBalance?: number
+}
 
-const getSubtractOptions = (secondsRemaining: number) => {
-  const options = [2, 4, 8, 12]
-    .filter(n => n < secondsRemaining / 3600)
+const getOptions = ({timeBalance, secondsRemaining}: GetOptionsParams) => {
+  const optionsArray = [2, 4, 8, 12]
+  const options = optionsArray
+    .filter(n =>
+      timeBalance
+        ? n < timeBalance / 3600
+        : secondsRemaining && n < secondsRemaining / 3600,
+    )
     .map(value => ({
-      label: '- ' + value + ' uur',
+      label: (timeBalance ? '+ ' : '- ') + value + ' uur',
       value: value * 3600,
     }))
 
-  options.push({
-    label:
-      '- ' +
-      formatTimeDurationToDisplay(secondsRemaining, 'seconds', {short: true}),
-    value: secondsRemaining,
-  })
+  if (
+    secondsRemaining ||
+    (timeBalance && timeBalance < optionsArray[0] * 3600)
+  ) {
+    options.push({
+      label:
+        (timeBalance ? '+ ' : '- ') +
+        formatTimeDurationToDisplay(
+          timeBalance ?? secondsRemaining ?? 0,
+          'seconds',
+          {short: true},
+        ),
+      value: timeBalance ?? secondsRemaining ?? 0,
+    })
+  }
 
   return options
 }
@@ -44,9 +58,6 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
     name: 'time',
   })
   const {close} = useBottomSheet()
-  const subtractOptions = getSubtractOptions(
-    currentPermit.visitor_account.seconds_remaining,
-  )
 
   return (
     <BottomSheet testID="ManageVisitorTimeAddOnBottomSheet">
@@ -64,7 +75,16 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
           </Phrase>
           <RadioGroup
             onChange={onChange}
-            options={isNegative ? subtractOptions : addOptions}
+            options={getOptions(
+              isNegative
+                ? {
+                    secondsRemaining:
+                      currentPermit.visitor_account.seconds_remaining,
+                  }
+                : {
+                    timeBalance: currentPermit.time_balance,
+                  },
+            )}
             testID="ParkingSessionAmountBottomSheetContentRadioGroup"
             value={time}
           />
