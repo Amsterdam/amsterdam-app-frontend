@@ -42,14 +42,16 @@ export const ManageVisitorTimeBalanceOverview = () => {
         <Button
           label="Tijd toevoegen"
           onPress={() =>
-            navigate(ParkingRouteName.manageVisitorIncreaseTimeBalance)
+            navigate(ParkingRouteName.manageVisitorAdjustTimeBalance)
           }
           testID="ParkingManageVisitorIncreaseTimeBalanceButton"
         />
         <Button
           label="Tijd aftrekken"
           onPress={() =>
-            navigate(ParkingRouteName.manageVisitorDecreaseTimeBalance)
+            navigate(ParkingRouteName.manageVisitorAdjustTimeBalance, {
+              subtractTime: true,
+            })
           }
           testID="ParkingManageVisitorDecreaseTimeBalanceButton"
           variant="secondary"

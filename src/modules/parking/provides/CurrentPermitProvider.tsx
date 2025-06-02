@@ -1,5 +1,4 @@
 import {createContext} from 'react'
-import {Screen} from '@/components/features/screen/Screen'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
@@ -15,22 +14,12 @@ export const CurrentPermitProvider = ({children}: Props) => {
   const {currentPermit, isLoading} = useGetCurrentParkingPermit()
 
   if (isLoading) {
-    return (
-      <Screen
-        bottomSheet
-        testID="CurrentPermitProviderScreen">
-        <PleaseWait testID="ParkingCurrentPermitProviderPleaseWait" />
-      </Screen>
-    )
+    return <PleaseWait testID="ParkingCurrentPermitProviderPleaseWait" />
   }
 
   if (!currentPermit) {
     return (
-      <Screen
-        bottomSheet
-        testID="CurrentPermitProviderScreen">
-        <SomethingWentWrong testID="ParkingCurrentPermitProviderSomethingWentWrong" />
-      </Screen>
+      <SomethingWentWrong testID="ParkingCurrentPermitProviderSomethingWentWrong" />
     )
   }
 

@@ -8,7 +8,9 @@ import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitPro
 
 export const ParkingManageVisitorScreen = () => (
   <CurrentPermitProvider>
-    <Screen testID="ParkingManageVisitorScreen">
+    <Screen
+      hasStickyAlert
+      testID="ParkingManageVisitorScreen">
       <Box>
         <Column gutter="xl">
           <ManageVisitorIntro />
