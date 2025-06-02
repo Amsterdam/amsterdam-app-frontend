@@ -15,8 +15,10 @@ export const ParkingSessionFormProvider = ({
   const form = useForm({
     defaultValues: parkingSession
       ? {
-          vehicle_id: parkingSession.vehicle_id,
-          visitor_name: parkingSession.visitor_name,
+          licensePlate: {
+            vehicle_id: parkingSession.vehicle_id,
+            visitor_name: parkingSession.visitor_name,
+          },
           startTime: dayjs(parkingSession.start_date_time),
           endTime: dayjs(parkingSession.end_date_time),
           paymentZoneId: parkingSession.payment_zone_id,

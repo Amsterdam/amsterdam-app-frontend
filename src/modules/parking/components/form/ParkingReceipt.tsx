@@ -31,7 +31,7 @@ export const ParkingReceipt = () => {
     paymentZoneId?: string
     ps_right_id?: number
     startTime: Dayjs
-    vehicle_id?: string
+    visitorVehicleId?: string
   }>()
   const {
     startTime,
@@ -40,9 +40,9 @@ export const ParkingReceipt = () => {
     paymentZoneId,
     ps_right_id,
     amount = 0,
-    vehicle_id,
+    visitorVehicleId,
   } = watch()
-  const vehicleId = vehicle_id ?? licensePlate?.vehicle_id ?? '111111'
+  const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
   const {currentAccountType} = useCurrentParkingAccount()
 
   const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
