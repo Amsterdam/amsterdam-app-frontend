@@ -99,7 +99,7 @@ export const ParkingChoosePaymentZone = () => {
     <Column gutter="sm">
       <Gutter height="md" />
       <Title
-        level="h5"
+        level="h4"
         testID="ParkingChooseTimeTitle"
         text={`Gebied ${currentPermit.permit_zone.name} heeft meerdere tijden voor betaald parkeren`}
       />
