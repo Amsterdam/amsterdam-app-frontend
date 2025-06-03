@@ -4,6 +4,7 @@ import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useAlert} from '@/store/slices/alert'
+import {isEmptyObject} from '@/utils/object'
 
 export const AlertTopOfScreen = () => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
@@ -19,7 +20,7 @@ export const AlertTopOfScreen = () => {
 
   useBlurEffect(resetAlert)
 
-  if (!alert.text) {
+  if (isEmptyObject(alert)) {
     return null
   }
 
