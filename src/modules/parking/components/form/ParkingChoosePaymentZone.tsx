@@ -8,7 +8,7 @@ import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
-  areAllPaymentZonesEqual,
+  areAllPaymentZonesEqualOnDayOfWeek,
   getPaymentZone,
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
@@ -39,7 +39,10 @@ export const ParkingChoosePaymentZone = () => {
 
   const allPaymentZonesAreEqual = useMemo(
     () =>
-      areAllPaymentZonesEqual(currentPermit?.payment_zones, startTimeDayOfWeek),
+      areAllPaymentZonesEqualOnDayOfWeek(
+        currentPermit?.payment_zones,
+        startTimeDayOfWeek,
+      ),
     [currentPermit, startTimeDayOfWeek],
   )
   const shouldSelectFirstPaymentZone =

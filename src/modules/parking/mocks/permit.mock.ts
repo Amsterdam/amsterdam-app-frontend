@@ -50,7 +50,7 @@ export const permitMock: ParkingPermit = {
           start_time: '08:00',
         },
         {
-          day_of_week: 'Zondag',
+          day_of_week: 'Vrijpark',
           end_time: '17:00',
           start_time: '08:00',
         },
