@@ -17,12 +17,13 @@ export const RedirectButton = ({
   variant,
   accessibilityHint,
 }: Props) => {
-  const {openRedirect, isLoading} = useOpenRedirect()
+  const {openRedirect, isLoading, isError} = useOpenRedirect()
 
   return (
     <Button
       accessibilityHint={accessibilityHint}
       accessibilityRole="link"
+      isError={isError}
       isLoading={isLoading}
       label={label}
       onPress={() => openRedirect(redirectKey)}
