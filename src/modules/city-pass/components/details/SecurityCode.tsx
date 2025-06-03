@@ -12,14 +12,12 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useBiometrics} from '@/hooks/useBiometrics'
 import {useBlockScreenshots} from '@/hooks/useBlockScreenshots'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {CityPass} from '@/modules/city-pass/types'
 import {pronounceCharacters} from '@/utils/accessibility/pronounceCharacters'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   id: CityPass['id']
@@ -33,17 +31,11 @@ export const SecurityCode = ({id}: Props) => {
     fallbackPromptMessage: 'Ontgrendel de beveiligingscode',
   })
 
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
-
   const {
     data: cityPasses,
     isFetching,
     isError,
-  } = useGetCityPassesQuery(
-    secureAccessToken && id ? secureAccessToken : skipToken,
-  )
+  } = useGetCityPassesQuery(id ? undefined : skipToken)
   const cityPass = cityPasses?.find(cp => cp.id === id)
   const securityCode = cityPass?.securityCode
 

@@ -1,5 +1,6 @@
 import {ThunkDispatch} from '@reduxjs/toolkit'
 import {cityPassApi} from '@/modules/city-pass/service'
+import {setTokenExpiration} from '@/modules/city-pass/slice'
 import {CityPassEndpointName} from '@/modules/city-pass/types'
 import {getSecureTokens} from '@/modules/city-pass/utils/getSecureTokens'
 import {logout} from '@/modules/city-pass/utils/logout'
@@ -8,15 +9,25 @@ import {devLog, devError} from '@/processes/development'
 import {setSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
 import {SecureItemKey} from '@/utils/secureStorage'
 
+type TokenSet = {accessToken: string; refreshToken: string}
+
 const saveTokens = (
   access_token: string,
   refresh_token: string,
+  accessTokenExpiration: string,
+  refreshTokenExpiration: string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
-  failRetry: (e: unknown) => void,
-  resolve: (value: void | PromiseLike<void>) => void,
+  resolve: (value: TokenSet | PromiseLike<TokenSet>) => void,
   reject: (reason?: unknown) => void,
+  failRetry?: (e: unknown) => void,
 ) => {
+  dispatch(
+    setTokenExpiration({
+      accessTokenExpiration,
+      refreshTokenExpiration,
+    }),
+  )
   setSecureTokens(access_token, refresh_token).then(
     () => {
       dispatch(setSecureItemUpdatedTimestamp(SecureItemKey.cityPassAccessToken))
@@ -24,8 +35,8 @@ const saveTokens = (
         setSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken),
       )
       devLog('Tokens successful refreshed')
-      failRetry('New tokens, so old request should fail')
-      resolve()
+      failRetry?.('New tokens, so old request should fail')
+      resolve({accessToken: access_token, refreshToken: refresh_token})
     },
     () => {
       devError('refresh tokens save failed')
@@ -37,8 +48,8 @@ const saveTokens = (
 export const refreshTokens = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dispatch: ThunkDispatch<unknown, unknown, any>,
-  failRetry: (e?: unknown) => void,
-): Promise<void> =>
+  failRetry?: (e?: unknown) => void,
+): Promise<TokenSet> =>
   new Promise((resolve, reject) => {
     void getSecureTokens().then(({refreshToken}) => {
       if (refreshToken) {
@@ -49,19 +60,26 @@ export const refreshTokens = (
         )
           .unwrap()
           .then(
-            ({access_token, refresh_token}) =>
+            ({
+              access_token,
+              refresh_token,
+              access_token_expiration,
+              refresh_token_expiration,
+            }) =>
               saveTokens(
                 access_token,
                 refresh_token,
+                access_token_expiration,
+                refresh_token_expiration,
                 dispatch,
-                failRetry,
                 resolve,
                 reject,
+                failRetry,
               ),
             async () => {
               devError('Token refresh failed, you are now logged out')
               await logout('logoutWarning', dispatch)
-              failRetry('Session ended')
+              failRetry?.('Session ended')
               reject(new Error('Token refresh failed'))
             },
           )

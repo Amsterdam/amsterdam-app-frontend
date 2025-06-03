@@ -3,6 +3,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type CityPassState = {
+  accessTokenExpiration?: string
   /**
    * Whether the user is been logged in and registered in the city-pass backend.
    */
@@ -11,6 +12,7 @@ export type CityPassState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  refreshTokenExpiration?: string
   shouldShowLoginScreen: boolean
   /**
    * The index of the city-passes to start displaying
@@ -23,6 +25,8 @@ const initialState: CityPassState = {
   isLoginStepsActive: false,
   shouldShowLoginScreen: true,
   startIndex: 0,
+  accessTokenExpiration: undefined,
+  refreshTokenExpiration: undefined,
 }
 
 export const cityPassSlice = createSlice({
@@ -44,6 +48,25 @@ export const cityPassSlice = createSlice({
     setStartIndex: (state, {payload}: PayloadAction<number | undefined>) => {
       state.startIndex = payload ?? 0
     },
+    setTokenExpiration: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        accessTokenExpiration?: string
+        refreshTokenExpiration?: string
+      }>,
+    ) => {
+      const {accessTokenExpiration, refreshTokenExpiration} = payload
+
+      if (accessTokenExpiration) {
+        state.accessTokenExpiration = accessTokenExpiration
+      }
+
+      if (refreshTokenExpiration) {
+        state.refreshTokenExpiration = refreshTokenExpiration
+      }
+    },
   },
 })
 
@@ -52,6 +75,7 @@ export const {
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setStartIndex,
+  setTokenExpiration,
 } = cityPassSlice.actions
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
@@ -65,3 +89,9 @@ export const selectStartIndex = (state: RootState) =>
 
 export const selectShouldShowLoginScreen = (state: RootState) =>
   state[ReduxKey.cityPass].shouldShowLoginScreen
+
+export const selectAccessTokenExpiration = (state: RootState) =>
+  state[ReduxKey.cityPass].accessTokenExpiration
+
+export const selectRefreshTokenExpiration = (state: RootState) =>
+  state[ReduxKey.cityPass].refreshTokenExpiration

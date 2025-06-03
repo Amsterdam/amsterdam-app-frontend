@@ -1,10 +1,16 @@
 import {CityPassActionButton} from '@/modules/city-pass/components/CityPassActionButton'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {cityPassSlice} from '@/modules/city-pass/slice'
+import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
+
+const persistWhitelist: (keyof CityPassState)[] = [
+  'isCityPassOwnerRegistered',
+  'accessTokenExpiration',
+  'refreshTokenExpiration',
+]
 
 export const cityPassModule: ModuleClientConfig = {
   ActionButton: CityPassActionButton,
@@ -19,7 +25,7 @@ export const cityPassModule: ModuleClientConfig = {
       key: ReduxKey.cityPass,
       slice: cityPassSlice,
       persistVersion: 0,
-      persistWhitelist: ['isCityPassOwnerRegistered'],
+      persistWhitelist,
     },
   ],
   slug: ModuleSlug['city-pass'],
