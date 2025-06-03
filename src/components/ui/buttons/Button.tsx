@@ -25,6 +25,7 @@ export type ButtonProps = {
   label?: string
   numberOfLines?: number
   small?: boolean
+  underline?: boolean
   variant?: ButtonVariant
 } & Omit<PressableBaseProps, 'style' | 'children'>
 
@@ -38,11 +39,14 @@ export const Button = ({
   numberOfLines,
   small,
   testID,
+  underline,
   variant = defaultVariant,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
-  const styles = useThemable(createStyles({small, variant}, isPressed))
+  const styles = useThemable(
+    createStyles({small, variant}, isPressed, underline),
+  )
   const {onPressIn, onPressOut} = pressableProps
 
   const mergeOnPressIn = useCallback(
@@ -112,7 +116,11 @@ const getBackgroundColor = (
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].background
 
 const createStyles =
-  ({small, variant}: Partial<ButtonProps>, isPressed: boolean) =>
+  (
+    {small, variant}: Partial<ButtonProps>,
+    isPressed: boolean,
+    underline?: boolean,
+  ) =>
   ({border, color, text, size}: Theme) => {
     const buttonHeight = config.buttonHeight
     const borderWidth =
@@ -145,6 +153,7 @@ const createStyles =
         fontFamily: text.fontFamily.regular,
         fontSize: labelFontSize,
         lineHeight: labelLineHeight,
+        textDecorationLine: underline ? 'underline' : 'none',
       },
     })
   }

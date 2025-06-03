@@ -19,7 +19,7 @@ export const AccessibleText = forwardRef<Text, AccessibleTextProps>(
     return (
       <Text
         accessibilityLabel={accessibilityLabel}
-        accessible={true}
+        accessible
         ref={ref}
         {...props}>
         {children}

@@ -19,6 +19,7 @@ export const ParkingDashboardPermitSessionsChooseVisitorLicenseplate = () => {
           setIsFormVisible(true)
         }}
         testID="ParkingSessionShowVisitorSessionsFormChangeButton"
+        underline
         variant="tertiary"
       />
     </Row>
