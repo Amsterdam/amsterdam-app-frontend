@@ -1,6 +1,6 @@
 import {useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import {TextInput} from 'react-native'
+import {Platform, TextInput} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
@@ -49,7 +49,7 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
           onSubmitEditing={() => {
             pinCodeCheckRef.current?.focus()
           }}
-          returnKeyType="next"
+          returnKeyType={Platform.OS === 'android' ? 'next' : 'default'} // TODO on iOS "next" only toggles the keyboard, implement when this is fixed
           rules={{
             required: 'Pincode is verplicht',
             minLength: {
