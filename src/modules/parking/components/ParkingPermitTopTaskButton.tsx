@@ -27,7 +27,7 @@ export const ParkingPermitTopTaskButton = () => {
       testID="ParkingPermitTopTaskButton"
       title={
         currentAccountType === ParkingPermitScope.visitor
-          ? `${report_code}, ${permit_zone.name}`
+          ? `Op bezoek ${permit_zone.name} - ${report_code}`
           : currentPermitName
       }
       titleIconName="chevron-down"
