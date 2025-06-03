@@ -4,18 +4,18 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 type Props = {
-  endTimeAsStartTime: string
+  defaultStartTime: string
 }
 
 export const ParkingSessionDetailsVisitorExtendButton = ({
-  endTimeAsStartTime,
+  defaultStartTime,
 }: Props) => {
   const {navigate} = useNavigation()
   const onPress = useCallback(() => {
     navigate(ParkingRouteName.startSession, {
-      endTimeAsStartTime,
+      defaultStartTime,
     })
-  }, [navigate, endTimeAsStartTime])
+  }, [navigate, defaultStartTime])
 
   return (
     <Button

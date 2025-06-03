@@ -5,13 +5,13 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   children: ReactNode
-  endTimeAsStartTime?: string
+  defaultStartTime?: string
   parkingSession?: ParkingSession
 }
 
 export const ParkingSessionFormProvider = ({
   children,
-  endTimeAsStartTime,
+  defaultStartTime,
   parkingSession,
 }: Props) => {
   const form = useForm({
@@ -28,8 +28,8 @@ export const ParkingSessionFormProvider = ({
           report_code: parkingSession.report_code,
         }
       : {
-          startTime: dayjs(endTimeAsStartTime).isAfter(dayjs())
-            ? dayjs(endTimeAsStartTime)
+          startTime: dayjs(defaultStartTime).isAfter(dayjs())
+            ? dayjs(defaultStartTime)
             : dayjs(),
         },
   })

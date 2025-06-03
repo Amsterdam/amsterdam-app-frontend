@@ -28,8 +28,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
 
   return (
     <CurrentPermitProvider>
-      <ParkingSessionFormProvider
-        endTimeAsStartTime={params?.endTimeAsStartTime}>
+      <ParkingSessionFormProvider defaultStartTime={params?.defaultStartTime}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           testID="ParkingStartSessionScreen">
