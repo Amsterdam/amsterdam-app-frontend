@@ -7,6 +7,7 @@ import {
   SecureParkingAccount,
 } from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
+import {logout} from '@/modules/parking/utils/logout'
 import {setSecureParkingAccount} from '@/modules/parking/utils/setSecureParkingAccount'
 import {devLog, devError} from '@/processes/development'
 import {setSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
@@ -78,6 +79,7 @@ export const refreshAccessToken = (
                 reject,
               ),
             () => {
+              void logout(currentAccountType, dispatch)
               devError('Token refresh failed, you are now logged out')
               failRetry('Session ended')
               reject(new Error('Token refresh failed'))
