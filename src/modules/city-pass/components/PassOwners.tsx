@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,7 +7,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {ShowCityPassButtonSkeleton} from '@/modules/city-pass/components/ShowCityPassButton.skeleton'
 import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPassCard'
@@ -19,7 +17,6 @@ import {useSetSecureCityPasses} from '@/modules/city-pass/hooks/useSetSecureCity
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {RedirectKey} from '@/modules/redirects/types'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   logout: () => void
@@ -29,13 +26,8 @@ export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
   const openRedirect = useOpenRedirect()
   const secureCityPasses = useGetSecureCityPasses()
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
 
-  const {data, isLoading, isError} = useGetCityPassesQuery(
-    secureAccessToken ?? skipToken,
-  )
+  const {data, isLoading, isError} = useGetCityPassesQuery()
 
   const cityPasses = data ?? secureCityPasses
 

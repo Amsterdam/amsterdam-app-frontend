@@ -6,34 +6,11 @@ import {
   BudgetTransactionsParams,
   DiscountTransactionsResponse,
   TransactionsParams,
-  CityPassApiError,
-  CityPassError401Codes,
 } from '@/modules/city-pass/types'
-import {logout} from '@/modules/city-pass/utils/logout'
-import {refreshTokens} from '@/modules/city-pass/utils/refreshTokens'
+import {afterError} from '@/modules/city-pass/utils/afterError'
+import {prepareHeaders} from '@/modules/city-pass/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
-import {AfterBaseQueryErrorFn} from '@/services/types'
-
-/**
- * Removes a token that causes the backend to return a 403 forbidden error
- */
-const afterError: AfterBaseQueryErrorFn = async (
-  {error},
-  {dispatch},
-  failRetry,
-) => {
-  if (error?.status === 401) {
-    const {code} = error.data as CityPassApiError
-
-    if (code === CityPassError401Codes.tokenExpired) {
-      return refreshTokens(dispatch, failRetry)
-    } else {
-      await logout('logoutWarning', dispatch)
-      failRetry('no access')
-    }
-  }
-}
 
 export const cityPassApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -47,23 +24,22 @@ export const cityPassApi = baseApi.injectEndpoints({
         url: '/session/init',
       }),
     }),
-    [CityPassEndpointName.getCityPasses]: builder.query<
-      CityPassResponse,
-      string
-    >({
-      query: accessToken => ({
-        headers: {'Access-Token': accessToken},
-        slug: ModuleSlug['city-pass'],
-        url: '/data/passes',
-        afterError,
-      }),
-    }),
+    [CityPassEndpointName.getCityPasses]: builder.query<CityPassResponse, void>(
+      {
+        query: () => ({
+          prepareHeaders,
+          slug: ModuleSlug['city-pass'],
+          url: '/data/passes',
+          afterError,
+        }),
+      },
+    ),
     [CityPassEndpointName.getBudgetTransactions]: builder.query<
       BudgetTransaction[],
       BudgetTransactionsParams
     >({
-      query: ({accessToken, passNumber, budgetCode}) => ({
-        headers: {'Access-Token': accessToken},
+      query: ({passNumber, budgetCode}) => ({
+        prepareHeaders,
         params: {passNumber, budgetCode},
         slug: ModuleSlug['city-pass'],
         url: '/data/budget-transactions',
@@ -74,16 +50,16 @@ export const cityPassApi = baseApi.injectEndpoints({
       DiscountTransactionsResponse,
       TransactionsParams
     >({
-      query: ({accessToken, passNumber}) => ({
-        headers: {'Access-Token': accessToken},
+      query: ({passNumber}) => ({
+        prepareHeaders,
         params: {passNumber},
         slug: ModuleSlug['city-pass'],
         url: '/data/aanbieding-transactions',
       }),
     }),
-    [CityPassEndpointName.logout]: builder.mutation<void, string>({
-      query: accessToken => ({
-        headers: {'Access-Token': accessToken},
+    [CityPassEndpointName.logout]: builder.mutation<void, void>({
+      query: () => ({
+        prepareHeaders,
         method: 'POST',
         slug: ModuleSlug['city-pass'],
         url: '/session/logout',
@@ -104,7 +80,6 @@ export const cityPassApi = baseApi.injectEndpoints({
   }),
   overrideExisting: true,
 })
-
 export const {
   useGetAccessTokenMutation,
   useGetBudgetTransactionsQuery,

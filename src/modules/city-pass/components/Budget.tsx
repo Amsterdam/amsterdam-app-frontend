@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
@@ -6,12 +5,10 @@ import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {CityPassFullScreenError} from '@/modules/city-pass/components/error/CityPassFullScreenError'
 import {BudgetTransactions} from '@/modules/city-pass/components/transactions/BudgetTransactions'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {CityPass, CityPassBudget} from '@/modules/city-pass/types'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   budgetCode: CityPassBudget['code']
@@ -19,21 +16,18 @@ type Props = {
 }
 
 export const Budget = ({budgetCode, passNumber}: Props) => {
-  const {item: secureAccessToken, isLoading: isLoadingSecureAccessToken} =
-    useGetSecureItem(SecureItemKey.cityPassAccessToken)
-
   const {
     data: cityPasses,
     error,
     isLoading,
     isError,
     refetch,
-  } = useGetCityPassesQuery(secureAccessToken ? secureAccessToken : skipToken)
+  } = useGetCityPassesQuery()
   const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
 
   useSetScreenTitle(cityPass?.owner.firstname)
 
-  if (isLoading || isLoadingSecureAccessToken) {
+  if (isLoading) {
     return <PleaseWait testID="CityPassDashboardPleaseWait" />
   }
 

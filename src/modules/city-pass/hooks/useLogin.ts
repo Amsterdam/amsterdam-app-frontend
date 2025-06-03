@@ -1,18 +1,15 @@
 import {useCallback, useEffect, useState} from 'react'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {cityPassExternalLinks} from '@/modules/city-pass/external-links'
 import {useCreateSecureAccessToken} from '@/modules/city-pass/hooks/useCreateSecureAccessToken'
-import {SecureItemKey} from '@/utils/secureStorage'
+import {useGetSecureAccessToken} from '@/modules/city-pass/hooks/useGetSecureAccessToken'
 
 export const useLogin = () => {
   const [openUrl, setOpenUrl] = useState(false)
   const openWebUrl = useOpenWebUrl()
   const loginUrl = useUrlForEnv(cityPassExternalLinks)
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
+  const {secureAccessToken} = useGetSecureAccessToken()
 
   const createSecureAccessToken = useCreateSecureAccessToken()
 

@@ -73,6 +73,7 @@ export type ParkingLoginEndpointRequest = {
 
 export type ParkingLoginEndpointResponse = {
   access_token: string
+  access_token_expiration: string
   scope: ParkingPermitScope
 }
 
@@ -83,14 +84,12 @@ export type ParkingLicensePlate = {
 }
 
 export type LicensePlatesEndpointRequest = {
-  accessToken: string
   reportCode: string
 }
 
 export type LicensePlatesEndpointResponse = ParkingLicensePlate[]
 
 export type AddLicensePlateEndpointRequest = {
-  accessToken: string
   report_code: string
   vehicle_id: string
   visitor_name: string
@@ -103,7 +102,6 @@ export type AddLicensePlateEndpointResponse = {
 }
 
 export type RemoveLicensePlateEndpointRequest = {
-  accessToken: string
   report_code: string
   vehicle_id: string
 }
@@ -173,7 +171,6 @@ export type ParkingPermit = {
 export type ParkingPermitsEndpointResponse = ParkingPermit[]
 
 export type ParkingPermitsEndpointRequestParams = {
-  accessToken: string
   status?: 'ACTIVE'
 }
 
@@ -213,22 +210,18 @@ export type ParkingSession = VisitorParkingSession & {
 }
 
 export type ParkingSessionsEndpointRequest = {
-  accessToken: string
   report_code: string
   status?: ParkingSessionStatus
 } & PaginationQueryArgs
 
 export type VisitorParkingSessionsEndpointRequest = {
-  accessToken: string
   vehicle_id: string
 }
 
 export type ParkingSessionsEndpointResponse = Paginated<ParkingSession>
 export type VisitorParkingSessionsEndpointResponse = VisitorParkingSession[]
 
-export type ParkingTransactionsEndpointRequest = {
-  accessToken: string
-} & PaginationQueryArgs
+export type ParkingTransactionsEndpointRequest = PaginationQueryArgs
 
 export type ParkingTransaction = ParkingSession & {
   amount: {
@@ -287,7 +280,6 @@ export type ParkingSessionReceiptEndpointResponse = {
 }
 
 export type ParkingSessionReceiptEndpointRequestParams = {
-  accessToken: string
   end_date_time: string
   payment_zone_id: string
   ps_right_id?: number
@@ -296,7 +288,6 @@ export type ParkingSessionReceiptEndpointRequestParams = {
   vehicle_id: string
 }
 export type ParkingStartSessionEndpointRequestParams = {
-  accessToken: string
   balance?: {
     amount: number
     currency: string
@@ -315,7 +306,6 @@ export type ParkingStartSessionEndpointRequestParams = {
 }
 
 export type ParkingEditSessionEndpointRequestParams = {
-  accessToken: string
   balance?: {
     amount: number
     currency: string
@@ -353,7 +343,6 @@ export type ParkingOrderResponse = {
 }
 
 export type ParkingDeleteSessionEndpointRequestParams = {
-  accessToken: string
   end_date_time: string
   ps_right_id: number
   report_code: string
@@ -361,7 +350,6 @@ export type ParkingDeleteSessionEndpointRequestParams = {
 }
 
 export type RemoveIncreaseBalanceEndpointRequest = {
-  accessToken: string
   balance: {
     amount: number
     currency: string
@@ -373,7 +361,6 @@ export type RemoveIncreaseBalanceEndpointRequest = {
 }
 
 export type ParkingManageVisitorChangePinCodeEndpointRequest = {
-  accessToken: string
   pin_code: string
   pin_code_check: string
   pin_current: string
@@ -381,7 +368,6 @@ export type ParkingManageVisitorChangePinCodeEndpointRequest = {
 }
 
 export type ParkingManageVisitorTimeBalanceEndpointRequest = {
-  accessToken: string
   report_code: string
   seconds_to_transfer: number
 }

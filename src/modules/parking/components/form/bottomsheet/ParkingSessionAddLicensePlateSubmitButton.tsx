@@ -2,7 +2,6 @@ import {useBottomSheet} from '@gorhom/bottom-sheet'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useAddLicensePlateMutation} from '@/modules/parking/service'
 import {ParkingLicensePlate} from '@/modules/parking/types'
 
@@ -16,19 +15,13 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
   const {close} = useBottomSheet()
   const {handleSubmit, reset} = useFormContext<ParkingLicensePlate>()
   const currentPermit = useCurrentParkingPermit()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const [addLicensePlate] = useAddLicensePlateMutation()
 
   const onSubmit = handleSubmit((licensePlate: ParkingLicensePlate) => {
     const {vehicle_id, visitor_name} = licensePlate
 
-    if (!secureParkingAccount) {
-      return
-    }
-
     if (visitor_name) {
       void addLicensePlate({
-        accessToken: secureParkingAccount.accessToken,
         report_code: currentPermit.report_code.toString(),
         vehicle_id,
         visitor_name,

@@ -13,7 +13,6 @@ import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/det
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {
   ParkingPermitScope,
@@ -62,8 +61,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
   const timeString = startTimePaymentZoneDay
     ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
     : undefined
-
-  const {secureParkingAccount} = useGetSecureParkingAccount()
 
   return (
     <Box>
@@ -157,7 +154,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               parkingSession.status === ParkingSessionStatus.active && (
                 <ParkingSessionDetailsStopButton
                   parkingSession={parkingSession as ParkingSession}
-                  secureParkingAccount={secureParkingAccount}
                 />
               )}
             {!parkingSession.no_endtime &&
@@ -165,7 +161,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               parkingSession.status === ParkingSessionStatus.planned && (
                 <ParkingSessionDetailsDeleteButton
                   parkingSession={parkingSession as ParkingSession}
-                  secureParkingAccount={secureParkingAccount}
                 />
               )}
             {!!parkingSession.money_balance_applicable &&

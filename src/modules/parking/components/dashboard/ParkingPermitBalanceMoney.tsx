@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -8,27 +7,22 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingPermitBalanceMoney = () => {
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
-  const {data: account, isLoading} = useAccountDetailsQuery(
-    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
-  )
+  const {data: account, isLoading} = useAccountDetailsQuery()
   const {navigate} = useNavigation()
 
   const onPressAddMoney = () => {
     navigate(ParkingRouteName.increaseBalance)
   }
 
-  if (isLoadingSecureParkingAccount || isLoading) {
+  if (isLoading) {
     return <PleaseWait testID="ParkingPermitBalanceMoneyPleaseWait" />
   }
 

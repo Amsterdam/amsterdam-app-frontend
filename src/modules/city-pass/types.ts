@@ -95,13 +95,14 @@ export type SecureCityPass = {
 // api
 export type CityPassTokensResponse = {
   access_token: string
+  access_token_expiration: string
   refresh_token: string
+  refresh_token_expiration: string
 }
 
 export type CityPassResponse = CityPass[]
 
 export type TransactionsParams = {
-  accessToken: CityPassTokensResponse['access_token']
   passNumber: CityPass['passNumber']
 }
 

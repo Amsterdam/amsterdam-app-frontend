@@ -4,7 +4,6 @@ import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {Dayjs} from '@/utils/datetime/dayjs'
@@ -21,7 +20,6 @@ type FieldValues = {
 export const ParkingStartSessionButton = () => {
   const {handleSubmit} = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const {setVisitorVehicleId} = useVisitorVehicleId()
 
   const [startSession] = useStartSessionMutation()
@@ -42,9 +40,8 @@ export const ParkingStartSessionButton = () => {
 
       // TODO:
       // check if the limit of current active parking sessions is not reached
-      if (secureParkingAccount && vehicleId) {
+      if (vehicleId) {
         void startSession({
-          accessToken: secureParkingAccount.accessToken,
           parking_session: {
             report_code: currentPermit.report_code.toString(),
             vehicle_id: vehicleId,
@@ -81,7 +78,6 @@ export const ParkingStartSessionButton = () => {
       }
     },
     [
-      secureParkingAccount,
       startSession,
       currentPermit.report_code,
       goBack,

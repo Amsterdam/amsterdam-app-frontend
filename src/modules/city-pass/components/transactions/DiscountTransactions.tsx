@@ -1,16 +1,13 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {TransactionHistory} from '@/modules/city-pass/components/transactions/TransactionHistory'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetDiscountTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   dateEnd: CityPass['dateEnd']
@@ -18,15 +15,9 @@ type Props = {
 }
 
 export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
-
-  const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery(
-    secureAccessToken
-      ? {accessToken: secureAccessToken, passNumber}
-      : skipToken,
-  )
+  const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery({
+    passNumber,
+  })
 
   if (isLoading) {
     return <PleaseWait testID="CityPassDiscountTransactionsPleaseWait" />

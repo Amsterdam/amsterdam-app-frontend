@@ -1,16 +1,13 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {TransactionHistory} from '@/modules/city-pass/components/transactions/TransactionHistory'
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetBudgetTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   budgetCode: string
@@ -23,20 +20,13 @@ export const BudgetTransactions = ({
   dateEnd,
   passNumber,
 }: Props) => {
-  const {item: secureAccessToken, isLoading: isLoadingSecureAccessToken} =
-    useGetSecureItem(SecureItemKey.cityPassAccessToken)
-
   const {
     data: budgetTransactions,
     isLoading,
     isError,
-  } = useGetBudgetTransactionsQuery(
-    secureAccessToken
-      ? {accessToken: secureAccessToken, passNumber, budgetCode}
-      : skipToken,
-  )
+  } = useGetBudgetTransactionsQuery({passNumber, budgetCode})
 
-  if (isLoading || isLoadingSecureAccessToken) {
+  if (isLoading) {
     return <PleaseWait testID="CityPassBudgetPleaseWait" />
   }
 

@@ -1,14 +1,11 @@
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
+import {useGetSecureAccessToken} from '@/modules/city-pass/hooks/useGetSecureAccessToken'
 import {useLogoutMutation} from '@/modules/city-pass/service'
 import {logout} from '@/modules/city-pass/utils/logout'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 export const useLogout = () => {
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
+  const {secureAccessToken} = useGetSecureAccessToken()
   const dispatch = useDispatch()
   const [logoutMutation] = useLogoutMutation()
 
@@ -18,7 +15,7 @@ export const useLogout = () => {
         if (!secureAccessToken) {
           logout('logoutSuccess', dispatch).then(resolve, reject)
         } else {
-          logoutMutation(secureAccessToken)
+          logoutMutation()
             .unwrap()
             .then(() => {
               logout('logoutSuccess', dispatch).then(resolve, reject)

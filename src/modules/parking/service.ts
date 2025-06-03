@@ -30,40 +30,23 @@ import {
   ParkingManageVisitorTimeBalanceEndpointRequest,
 } from '@/modules/parking/types'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
-import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
+import {afterError} from '@/modules/parking/utils/afterError'
+import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
-import {AfterBaseQueryErrorFn} from '@/services/types'
-import {RootState} from '@/store/types/rootState'
 import {CacheLifetime} from '@/types/api'
 import {generateRequestUrl} from '@/utils/api'
-
-const afterError: AfterBaseQueryErrorFn = async (
-  {error},
-  {dispatch, getState},
-  failRetry,
-) => {
-  if (error?.status === 403) {
-    const {currentAccountType} = (getState() as RootState).parking
-
-    return refreshAccessToken(currentAccountType, dispatch, failRetry)
-  } else {
-    failRetry('no access')
-  }
-}
 
 export const parkingApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [ParkingEndpointName.accountDetails]: builder.query<
       ParkingAccountDetails,
-      string
+      void
     >({
       providesTags: ['ParkingAccount'],
-      query: (accessToken: string) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: () => ({
+        prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
         url: '/account-details',
@@ -75,10 +58,8 @@ export const parkingApi = baseApi.injectEndpoints({
       AddLicensePlateEndpointRequest
     >({
       invalidatesTags: ['ParkingLicensePlates'],
-      query: ({accessToken, ...body}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: body => ({
+        prepareHeaders,
         body,
         method: 'POST',
         slug: ModuleSlug.parking,
@@ -91,10 +72,8 @@ export const parkingApi = baseApi.injectEndpoints({
       LicensePlatesEndpointRequest
     >({
       providesTags: ['ParkingLicensePlates'],
-      query: ({accessToken, reportCode}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({reportCode}) => ({
+        prepareHeaders,
         method: 'GET',
         params: {report_code: reportCode},
         slug: ModuleSlug.parking,
@@ -118,10 +97,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingSessionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'GET',
         params,
         slug: ModuleSlug.parking,
@@ -135,10 +112,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingTransactionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'GET',
         params,
         slug: ModuleSlug.parking,
@@ -152,10 +127,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingPermitsEndpointRequestParams
     >({
       providesTags: ['ParkingPermits'],
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
         url: generateRequestUrl({path: '/permits', params}),
@@ -167,10 +140,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingSessionReceiptEndpointResponse,
       ParkingSessionReceiptEndpointRequestParams
     >({
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
         url: generateRequestUrl({path: '/session/receipt', params}),
@@ -182,11 +153,11 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingStartSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
-      query: ({accessToken, ...body}) => ({
+      query: body => ({
         headers: {
-          'SSP-Access-Token': accessToken,
           ...deviceIdHeader,
         },
+        prepareHeaders,
         body,
         method: 'POST',
         slug: ModuleSlug.parking,
@@ -199,11 +170,11 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingEditSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
-      query: ({accessToken, ...body}) => ({
+      query: body => ({
         headers: {
-          'SSP-Access-Token': accessToken,
           ...deviceIdHeader,
         },
+        prepareHeaders,
         body,
         method: 'PATCH',
         slug: ModuleSlug.parking,
@@ -216,11 +187,11 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingDeleteSessionEndpointRequestParams
     >({
       invalidatesTags: ['ParkingSessions'],
-      query: ({accessToken, ...params}) => ({
+      query: ({...params}) => ({
         headers: {
-          'SSP-Access-Token': accessToken,
           ...deviceIdHeader,
         },
+        prepareHeaders,
         method: 'DELETE',
         slug: ModuleSlug.parking,
         url: generateRequestUrl({path: '/session', params}),
@@ -232,10 +203,8 @@ export const parkingApi = baseApi.injectEndpoints({
       RemoveLicensePlateEndpointRequest
     >({
       invalidatesTags: ['ParkingLicensePlates'],
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'DELETE',
         slug: ModuleSlug.parking,
         url: generateRequestUrl({path: '/license-plate', params}),
@@ -247,11 +216,9 @@ export const parkingApi = baseApi.injectEndpoints({
       RemoveIncreaseBalanceEndpointRequest
     >({
       invalidatesTags: ['ParkingAccount'],
-      query: ({accessToken, ...body}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: body => ({
         body,
+        prepareHeaders,
         method: 'POST',
         slug: ModuleSlug.parking,
         url: '/balance',
@@ -276,10 +243,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingManageVisitorChangePinCodeEndpointRequest
     >({
       invalidatesTags: ['ParkingPermits'],
-      query: ({accessToken, ...body}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: body => ({
+        prepareHeaders,
         body,
         method: 'PUT',
         slug: ModuleSlug.parking,
@@ -292,10 +257,8 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingManageVisitorTimeBalanceEndpointRequest
     >({
       invalidatesTags: ['ParkingPermits'],
-      query: ({accessToken, ...body}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: body => ({
+        prepareHeaders,
         body,
         method: 'POST',
         slug: ModuleSlug.parking,
@@ -308,10 +271,8 @@ export const parkingApi = baseApi.injectEndpoints({
       VisitorParkingSessionsEndpointRequest
     >({
       providesTags: ['ParkingSessions'],
-      query: ({accessToken, ...params}) => ({
-        headers: {
-          'SSP-Access-Token': accessToken,
-        },
+      query: ({...params}) => ({
+        prepareHeaders,
         method: 'GET',
         params,
         slug: ModuleSlug.parking,

@@ -6,7 +6,6 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useManageVisitorChangePinCodeMutation} from '@/modules/parking/service'
 
 type ChangePinCodeFormValues = {
@@ -21,21 +20,17 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
   const pinCode = watch('pin_code')
   const [changePinCode] = useManageVisitorChangePinCodeMutation()
   const currentPermit = useCurrentParkingPermit()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const pinCodeCheckRef = useRef<TextInput | null>(null)
 
   const onSubmit = handleSubmit(({pin_code, pin_code_check}) => {
-    if (secureParkingAccount) {
-      void changePinCode({
-        pin_code,
-        pin_code_check,
-        report_code: currentPermit.visitor_account.report_code.toString(),
-        pin_current: currentPermit.visitor_account.pin,
-        accessToken: secureParkingAccount?.accessToken,
-      })
-        .unwrap()
-        .then(goBack)
-    }
+    void changePinCode({
+      pin_code,
+      pin_code_check,
+      report_code: currentPermit.visitor_account.report_code.toString(),
+      pin_current: currentPermit.visitor_account.pin,
+    })
+      .unwrap()
+      .then(goBack)
   })
 
   return (

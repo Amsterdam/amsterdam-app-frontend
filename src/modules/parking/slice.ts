@@ -7,6 +7,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type ParkingState = {
+  accessTokenExpiration?: string
   currentAccountType?: ParkingPermitScope
   currentPermitName?: string
   /**
@@ -23,6 +24,7 @@ const initialState: ParkingState = {
   isLoginStepsActive: false,
   shouldShowIntroScreen: true,
   visitorVehicleId: undefined,
+  accessTokenExpiration: undefined,
 }
 
 export const parkingSlice = createSlice({
@@ -50,12 +52,19 @@ export const parkingSlice = createSlice({
     ) => {
       state.visitorVehicleId = payload
     },
+    setAccessTokenExpiration: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      state.accessTokenExpiration = payload
+    },
   },
 })
 
 export const {
   setLoginStepsActive,
   setShouldShowIntroScreen: setShouldShowIntroScreenAction,
+  setAccessTokenExpiration,
 } = parkingSlice.actions
 
 export const selectCurrentAccountType = (state: RootState) =>
@@ -72,6 +81,9 @@ export const selectShouldShowIntroScreen = (state: RootState) =>
 
 export const selectVisitorVehicleId = (state: RootState) =>
   state[ReduxKey.parking].visitorVehicleId
+
+export const selectAccessTokenExpiration = (state: RootState) =>
+  state[ReduxKey.parking].accessTokenExpiration
 
 export const useCurrentParkingAccount = () => {
   const dispatch = useDispatch()

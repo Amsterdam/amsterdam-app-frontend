@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
@@ -9,7 +8,6 @@ import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {ParkingPlannedSessionNavigationButton} from '@/modules/parking/components/session/ParkingPlannedSessionNavigationButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
@@ -39,7 +37,6 @@ export const ParkingSessionsList = ({
   sortAscending = false,
   status,
 }: Props) => {
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
@@ -62,14 +59,11 @@ export const ParkingSessionsList = ({
     useParkingSessionsQuery,
     page,
     pageSize,
-    secureParkingAccount
-      ? {
-          page_size: pageSize,
-          accessToken: secureParkingAccount?.accessToken,
-          report_code: currentPermit.report_code.toString(),
-          status,
-        }
-      : skipToken,
+    {
+      page_size: pageSize,
+      report_code: currentPermit.report_code.toString(),
+      status,
+    },
   )
 
   const onViewableItemsChanged = useCallback<

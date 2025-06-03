@@ -1,9 +1,7 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {BudgetBalanceButton} from '@/modules/city-pass/components/BudgetBalanceButton'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
 import {CityPassDetailsInfo} from '@/modules/city-pass/components/details/CityPassDetailsInfo'
@@ -12,28 +10,20 @@ import {DiscountTransactions} from '@/modules/city-pass/components/transactions/
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 import {CityPass} from '@/modules/city-pass/types'
-import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = {
   passNumber: CityPass['passNumber']
 }
 
 export const CityPassDetails = ({passNumber}: Props) => {
-  const {item: secureAccessToken} = useGetSecureItem(
-    SecureItemKey.cityPassAccessToken,
-  )
-  const {
-    data: cityPasses,
-    isLoading,
-    isError,
-  } = useGetCityPassesQuery(secureAccessToken ?? skipToken)
+  const {data: cityPasses, isLoading, isError} = useGetCityPassesQuery()
 
   const cityPass = cityPasses?.find(cp => cp.passNumber === passNumber)
   const cityPassIndex = cityPasses?.findIndex(
     cp => cp.passNumber === passNumber,
   )
 
-  if (isLoading || !secureAccessToken) {
+  if (isLoading) {
     return (
       <Box grow>
         <Column gutter="md">

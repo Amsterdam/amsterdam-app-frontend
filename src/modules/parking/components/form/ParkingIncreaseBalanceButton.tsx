@@ -3,7 +3,6 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useIncreaseBalanceMutation} from '@/modules/parking/service'
 
 type FieldValues = {
@@ -12,16 +11,14 @@ type FieldValues = {
 
 export const ParkingIncreaseBalanceButton = () => {
   const {handleSubmit} = useFormContext()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
   const [increaseBalance] = useIncreaseBalanceMutation()
 
   const {goBack} = useNavigation()
   const openWebUrl = useOpenWebUrl()
   const onSubmit = useCallback(
     ({amount}: FieldValues) => {
-      if (secureParkingAccount && amount) {
+      if (amount) {
         void increaseBalance({
-          accessToken: secureParkingAccount.accessToken,
           balance: {
             amount,
             currency: 'EUR',
@@ -41,7 +38,7 @@ export const ParkingIncreaseBalanceButton = () => {
           })
       }
     },
-    [secureParkingAccount, increaseBalance, goBack, openWebUrl],
+    [increaseBalance, goBack, openWebUrl],
   )
 
   return (

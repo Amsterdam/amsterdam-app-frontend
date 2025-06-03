@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useParkingSessionsQuery,
   useVisitorParkingSessionsQuery,
@@ -11,8 +10,6 @@ export const useGetParkingSessions = (
   status: ParkingSessionStatus,
   visitorVehicleId?: string,
 ) => {
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
   const {
@@ -21,9 +18,8 @@ export const useGetParkingSessions = (
     isError: isParkingSessionsError,
     refetch: refetchParkingSessions,
   } = useParkingSessionsQuery(
-    secureParkingAccount && currentPermit && !visitorVehicleId
+    currentPermit && !visitorVehicleId
       ? {
-          accessToken: secureParkingAccount.accessToken,
           report_code: currentPermit.report_code.toString(),
           status,
           page_size: 100,
@@ -36,19 +32,15 @@ export const useGetParkingSessions = (
     isError: isVisitorParkingSessionsError,
     refetch: refetchVisitorParkingSessions,
   } = useVisitorParkingSessionsQuery(
-    secureParkingAccount && visitorVehicleId
+    visitorVehicleId
       ? {
-          accessToken: secureParkingAccount.accessToken,
           vehicle_id: visitorVehicleId,
         }
       : skipToken,
   )
 
   return {
-    isLoading:
-      isLoadingSecureParkingAccount ||
-      isLoadingParkingSessions ||
-      isLoadingVisitorParkingSessions,
+    isLoading: isLoadingParkingSessions || isLoadingVisitorParkingSessions,
     isError: isParkingSessionsError || isVisitorParkingSessionsError,
     parkingSessions:
       parkingSessions?.result || visitorParkingSessions?.[status],

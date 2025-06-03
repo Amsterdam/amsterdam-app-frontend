@@ -3,17 +3,13 @@ import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeleteSessionMutation} from '@/modules/parking/service'
-import {ParkingSession, SecureParkingAccount} from '@/modules/parking/types'
+import {ParkingSession} from '@/modules/parking/types'
 
 type Props = {
   parkingSession: ParkingSession
-  secureParkingAccount?: SecureParkingAccount
 }
 
-export const ParkingSessionDetailsDeleteButton = ({
-  parkingSession,
-  secureParkingAccount,
-}: Props) => {
+export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
   const [deleteSession] = useDeleteSessionMutation()
   const {goBack} = useNavigation()
 
@@ -27,25 +23,22 @@ export const ParkingSessionDetailsDeleteButton = ({
           text: 'Verwijderen',
           style: 'destructive',
           onPress: () => {
-            if (secureParkingAccount) {
-              void deleteSession({
-                accessToken: secureParkingAccount.accessToken,
-                ps_right_id: parkingSession.ps_right_id,
-                end_date_time: parkingSession.end_date_time,
-                start_date_time: parkingSession.start_date_time,
-                report_code: parkingSession.report_code,
+            void deleteSession({
+              ps_right_id: parkingSession.ps_right_id,
+              end_date_time: parkingSession.end_date_time,
+              start_date_time: parkingSession.start_date_time,
+              report_code: parkingSession.report_code,
+            })
+              .unwrap()
+              .then(() => {
+                goBack()
               })
-                .unwrap()
-                .then(() => {
-                  goBack()
-                })
-            }
           },
         },
       ],
       {cancelable: true},
     )
-  }, [deleteSession, goBack, parkingSession, secureParkingAccount])
+  }, [deleteSession, goBack, parkingSession])
 
   return (
     <Button

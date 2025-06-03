@@ -5,7 +5,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLicensePlatesQuery} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
@@ -13,24 +12,18 @@ import {useAlert} from '@/store/slices/alert'
 export const AddLicensePlateHeaderButton = () => {
   const {setAlert} = useAlert()
   const {navigate} = useNavigation()
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
+  const {currentPermit, isLoading: isLoadingCurrentPermit} =
+    useGetCurrentParkingPermit()
   const {data: licensePlates, isLoading: isLoadingLicensePlates} =
     useLicensePlatesQuery(
-      secureParkingAccount
+      currentPermit
         ? {
-            accessToken: secureParkingAccount.accessToken,
-            reportCode: secureParkingAccount.reportCode,
+            reportCode: currentPermit?.report_code.toString(),
           }
         : skipToken,
     )
-  const {currentPermit, isLoading: isLoadingCurrentPermit} =
-    useGetCurrentParkingPermit()
 
-  const isLoading =
-    isLoadingSecureParkingAccount ||
-    isLoadingLicensePlates ||
-    isLoadingCurrentPermit
+  const isLoading = isLoadingLicensePlates || isLoadingCurrentPermit
 
   if (isLoading || currentPermit?.forced_license_plate_list) {
     return null

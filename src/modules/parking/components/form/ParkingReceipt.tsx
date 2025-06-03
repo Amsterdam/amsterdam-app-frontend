@@ -12,7 +12,6 @@ import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
@@ -45,16 +44,14 @@ export const ParkingReceipt = () => {
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
   const {currentAccountType} = useCurrentParkingAccount()
 
-  const {secureParkingAccount, isLoading: isLoadingSecureParkingAccount} =
-    useGetSecureParkingAccount()
+  const currentPermit = useCurrentParkingPermit()
 
   const allDataEntered = endTime && paymentZoneId && endTime.isAfter(startTime)
 
   const {data, isLoading} = useSessionReceiptQuery(
-    secureParkingAccount && allDataEntered
+    allDataEntered
       ? {
-          accessToken: secureParkingAccount.accessToken,
-          report_code: secureParkingAccount.reportCode,
+          report_code: currentPermit.report_code.toString(),
           end_date_time: endTime.toJSON(),
           payment_zone_id: paymentZoneId,
           start_date_time: startTime.toJSON(),
@@ -64,11 +61,7 @@ export const ParkingReceipt = () => {
       : skipToken,
   )
 
-  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery(
-    secureParkingAccount ? secureParkingAccount.accessToken : skipToken,
-  )
-
-  const currentPermit = useCurrentParkingPermit()
+  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   useEffect(() => {
     if (currentAccountType === ParkingPermitScope.visitor) {
@@ -76,7 +69,7 @@ export const ParkingReceipt = () => {
     }
   }, [currentAccountType, data?.parking_cost?.value, setValue])
 
-  if (isLoading || isLoadingSecureParkingAccount || isLoadingAccount) {
+  if (isLoading || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
   }
 
