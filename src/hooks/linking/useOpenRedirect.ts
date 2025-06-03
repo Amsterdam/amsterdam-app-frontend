@@ -8,20 +8,32 @@ import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const useOpenRedirect = () => {
   const openWebUrl = useOpenWebUrl()
-  const {data: redirectUrls} = useGetRedirectUrlsQuery()
+  const {
+    data: redirectUrls,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
 
-  return useCallback(
-    (redirectKey: RedirectKey) => {
-      if (redirectUrls?.[redirectKey]) {
+  const openRedirect = useCallback(
+    (redirectKey?: RedirectKey) => {
+      if (!redirectUrls && !isLoading) {
+        void refetch()
+      }
+
+      if (redirectKey && redirectUrls?.[redirectKey]) {
         openWebUrl(redirectUrls[redirectKey])
       } else {
         Alert.alert('Sorry, deze functie is niet beschikbaar.')
         trackException(ExceptionLogKey.redirectNotFound, 'Redirects.tsx', {
           urlKey: redirectKey,
+          redirectsAvailable: !!redirectUrls,
         })
       }
     },
-    [openWebUrl, redirectUrls, trackException],
+    [isLoading, openWebUrl, redirectUrls, refetch, trackException],
   )
+
+  return {openRedirect, isLoading, isError, refetch}
 }

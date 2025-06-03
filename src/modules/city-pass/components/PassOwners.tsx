@@ -1,12 +1,12 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
+import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
@@ -27,7 +27,6 @@ type Props = {
 
 export const PassOwners = ({logout}: Props) => {
   const {navigate} = useNavigation()
-  const openRedirect = useOpenRedirect()
   const secureCityPasses = useGetSecureCityPasses()
   const {item: secureAccessToken} = useGetSecureItem(
     SecureItemKey.cityPassAccessToken,
@@ -108,10 +107,9 @@ export const PassOwners = ({logout}: Props) => {
             vermogen. Bekijk of je recht hebt op een Stadspas.
           </Paragraph>
           <Gutter height="lg" />
-          <Button
-            accessibilityRole="link"
+          <RedirectButton
             label="Stadspas aanvragen"
-            onPress={() => openRedirect(RedirectKey.cityPassRequest)}
+            redirectKey={RedirectKey.cityPassRequest}
             testID="CityPassRequestButton"
             variant="secondary"
           />

@@ -21,6 +21,7 @@ export type ButtonVariant =
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   iconName?: SvgIconName
+  isError?: boolean
   isLoading?: boolean
   label?: string
   numberOfLines?: number
@@ -32,7 +33,8 @@ const defaultVariant = 'primary'
 
 export const Button = ({
   ellipsizeMode,
-  iconName,
+  iconName: iconNameInput,
+  isError,
   isLoading,
   label,
   numberOfLines,
@@ -61,6 +63,8 @@ export const Button = ({
     [onPressOut],
   )
 
+  const iconName = isLoading ? 'spinner' : isError ? 'alert' : iconNameInput
+
   return (
     <PressableBase
       accessibilityLanguage="nl-NL"
@@ -74,7 +78,7 @@ export const Button = ({
         {!!iconName && (
           <Icon
             color={variant === 'primary' ? 'inverse' : 'link'}
-            name={isLoading ? 'spinner' : iconName}
+            name={iconName}
             size="lg"
             testID={`${testID}Icon`}
           />

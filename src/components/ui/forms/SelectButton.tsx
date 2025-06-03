@@ -27,7 +27,7 @@ export const SelectButton = ({
       iconName={iconName}
       iconRightName="chevron-down"
       onPress={onPress}
-      testID="ParkingChooseAmountButton"
+      testID={testID}
       text={text}
       title={title}
     />

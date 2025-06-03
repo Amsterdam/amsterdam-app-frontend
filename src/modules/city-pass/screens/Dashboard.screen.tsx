@@ -19,7 +19,7 @@ export const DashboardScreen = ({navigation}: Props) => {
   const logout = useCallback(() => {
     navigation.navigate(CityPassRouteName.cityPassLogout)
   }, [navigation])
-  const openRedirect = useOpenRedirect()
+  const {openRedirect} = useOpenRedirect()
 
   return (
     <Screen testID="CityPassDashboardScreen">
