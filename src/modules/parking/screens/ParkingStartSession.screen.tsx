@@ -1,3 +1,4 @@
+import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -11,19 +12,24 @@ import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/Parki
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   useCurrentParkingAccount,
   useVisitorVehicleId,
 } from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
-export const ParkingStartSessionScreen = () => {
+type Props = NavigationProps<ParkingRouteName.startSession>
+
+export const ParkingStartSessionScreen = ({route}: Props) => {
+  const {params} = route || {}
   const {currentAccountType} = useCurrentParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
 
   return (
     <CurrentPermitProvider>
-      <ParkingSessionFormProvider>
+      <ParkingSessionFormProvider
+        endTimeAsStartTime={params?.endTimeAsStartTime}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           testID="ParkingStartSessionScreen">

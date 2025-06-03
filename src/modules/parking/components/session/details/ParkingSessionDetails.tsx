@@ -11,6 +11,7 @@ import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/compon
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
+import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
@@ -179,6 +180,12 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               )}
           </>
         )}
+        {currentAccountType === ParkingPermitScope.visitor &&
+          parkingSession.status === ParkingSessionStatus.active && (
+            <ParkingSessionDetailsVisitorExtendButton
+              endTimeAsStartTime={parkingSession.end_date_time}
+            />
+          )}
       </Column>
     </Box>
   )
