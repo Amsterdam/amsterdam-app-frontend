@@ -4,9 +4,9 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {useGetSecureParkingAccount} from '@/modules/parking/hooks/useGetSecureParkingAccount'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 
@@ -15,11 +15,12 @@ export const ParkingActionButton = () => {
   const {accessCode} = useGetSecureAccessCode()
   const {permits} = useGetPermits()
   const {isLoginStepsActive} = useLoginSteps()
-  const {secureParkingAccount} = useGetSecureParkingAccount()
+  const secureParkingAccount = useCurrentParkingAccount()
 
   if (
     !accessCode ||
-    secureParkingAccount?.scope !== ParkingPermitScope.permitHolder ||
+    secureParkingAccount?.currentAccountType !==
+      ParkingPermitScope.permitHolder ||
     isLoginStepsActive ||
     !permits ||
     permits.length !== 1 ||
