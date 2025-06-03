@@ -43,6 +43,7 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
       <Column gutter="lg">
         <TextInputField
           autoFocus
+          hasClearButton={false}
           keyboardType="number-pad"
           label="Nieuwe pincode"
           name="pin_code"
@@ -64,6 +65,7 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
           testID="ParkingManageVisitorChangePinCodeFormPinCodeInputField"
         />
         <TextInputField
+          hasClearButton={false}
           keyboardType="number-pad"
           label="Herhaal nieuwe pincode"
           name="pin_code_check"

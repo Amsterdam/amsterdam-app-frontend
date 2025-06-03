@@ -15,6 +15,7 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 export type TextInputSharedProps = {
+  hasClearButton?: boolean
   inputInstructions?: string
   label?: string
   numberOfLines?: number
@@ -32,6 +33,7 @@ type Props = {
 export const TextInput = forwardRef<TextInputRN, Props>(
   (
     {
+      hasClearButton = true,
       inputInstructions,
       label,
       numberOfLines,
@@ -109,7 +111,7 @@ export const TextInput = forwardRef<TextInputRN, Props>(
             textAlignVertical="top"
             value={value}
           />
-          {value ? (
+          {value && hasClearButton ? (
             <View>
               <IconButton
                 accessibilityHint="Maak dit tekstveld leeg"
