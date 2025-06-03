@@ -29,8 +29,8 @@ import {
   RequestPinCode,
   ParkingManageVisitorTimeBalanceEndpointRequest,
 } from '@/modules/parking/types'
-import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 import {afterError} from '@/modules/parking/utils/afterError'
+import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -80,6 +80,8 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/license-plates',
         afterError,
       }),
+      transformResponse: (response: LicensePlatesEndpointResponse) =>
+        response.reverse(),
     }),
     [ParkingEndpointName.login]: builder.mutation<
       ParkingLoginEndpointResponse,
