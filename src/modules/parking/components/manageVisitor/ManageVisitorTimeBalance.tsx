@@ -41,19 +41,9 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
       .unwrap()
       .then(() => {
         goBack()
-        setAlert(
-          isNegative
-            ? alerts.decreaseTimeBalanceSuccess
-            : alerts.increaseTimeBalanceSuccess,
-        )
+        setAlert(alerts.adjustTimeBalanceSuccess)
       })
-      .catch(() =>
-        setAlert(
-          isNegative
-            ? alerts.decreaseTimeBalanceFailed
-            : alerts.increaseTimeBalanceFailed,
-        ),
-      )
+      .catch(() => setAlert(alerts.adjustTimeBalanceFailed))
   })
 
   return (

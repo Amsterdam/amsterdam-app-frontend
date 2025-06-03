@@ -41,19 +41,19 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingIncreaseBalanceFailedAlert',
   },
-  increaseTimeBalanceSuccess: {
+  adjustTimeBalanceSuccess: {
     variant: AlertVariant.positive,
-    text: 'Tijdsaldo is succesvol verhoogd.',
+    text: 'Tijdsaldo is aangepast.',
     title: 'Gelukt',
     hasIcon: true,
-    testID: 'ParkingManageVisitorIncreaseTimeBalanceSuccessAlert',
+    testID: 'ParkingManageVisitorAdjustTimeBalanceSuccessAlert',
   },
-  increaseTimeBalanceFailed: {
+  adjustTimeBalanceFailed: {
     variant: AlertVariant.negative,
-    text: 'Tijdsaldo verhogen is mislukt, probeer het nog een keer.',
+    text: 'We konden het tijdsaldo niet aanpassen.',
     title: 'Mislukt',
     hasIcon: true,
-    testID: 'ParkingManageVisitorIncreaseTimeBalanceFailedAlert',
+    testID: 'ParkingManageVisitorAdjustTimeBalanceFailedAlert',
   },
   maxLicensePlatesWarning: {
     variant: AlertVariant.warning,
