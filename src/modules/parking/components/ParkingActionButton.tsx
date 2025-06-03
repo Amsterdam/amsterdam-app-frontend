@@ -10,18 +10,11 @@ import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 
-export const ParkingActionButton = () => {
+const ParkingActionButtonContent = () => {
   const {navigate} = useNavigation()
-  const {accessCode} = useGetSecureAccessCode()
   const {permits} = useGetPermits()
-  const {isLoginStepsActive} = useLoginSteps()
-  const secureParkingAccount = useCurrentParkingAccount()
 
   if (
-    !accessCode ||
-    secureParkingAccount?.currentAccountType !==
-      ParkingPermitScope.permitHolder ||
-    isLoginStepsActive ||
     !permits ||
     permits.length !== 1 ||
     permits[0].permit_type !== PermitType.bezoekersvergunning
@@ -42,4 +35,21 @@ export const ParkingActionButton = () => {
       <Gutter height="lg" />
     </Column>
   )
+}
+
+export const ParkingActionButton = () => {
+  const {accessCode} = useGetSecureAccessCode()
+  const {isLoginStepsActive} = useLoginSteps()
+  const secureParkingAccount = useCurrentParkingAccount()
+
+  if (
+    !accessCode ||
+    secureParkingAccount?.currentAccountType !==
+      ParkingPermitScope.permitHolder ||
+    isLoginStepsActive
+  ) {
+    return null
+  }
+
+  return <ParkingActionButtonContent />
 }
