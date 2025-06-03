@@ -24,7 +24,7 @@ export const allowList = {
   [ExceptionLogKey.piwikTrackOutlink]: ['url'],
   [ExceptionLogKey.piwikTrackScreen]: ['path'],
   [ExceptionLogKey.piwikTrackSearch]: [],
-  [ExceptionLogKey.redirectNotFound]: ['urlKey'],
+  [ExceptionLogKey.redirectNotFound]: ['urlKey', 'redirectsAvailable'],
   [ExceptionLogKey.registerDevice]: ['error'],
   [ExceptionLogKey.requestLocationPermission]: ['error'],
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
