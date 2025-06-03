@@ -36,6 +36,12 @@ const config: Config = {
     '!**/node_modules/**',
     '!**/*.stories.{ts,tsx}',
     '!src/processes/piwik/init.ts',
+    '!**/*.screen.{ts,tsx}',
+    '!**/*.d.ts',
+    '!**/*.mock.ts',
+    '!**/slice.ts',
+    '!**/types.ts',
+    '!**/alerts.ts',
   ],
   reporters: [
     'default',
