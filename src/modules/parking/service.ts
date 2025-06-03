@@ -29,6 +29,7 @@ import {
   RequestPinCode,
   ParkingManageVisitorTimeBalanceEndpointRequest,
 } from '@/modules/parking/types'
+import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
@@ -160,6 +161,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: generateRequestUrl({path: '/permits', params}),
         afterError,
       }),
+      transformResponse: fixPermitNames,
     }),
     [ParkingEndpointName.sessionReceipt]: builder.query<
       ParkingSessionReceiptEndpointResponse,
