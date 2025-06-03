@@ -202,13 +202,13 @@ export const ParkingReceipt = () => {
       {!!remainingTimeBalanceError && (
         <>
           <Gutter height="lg" />
-          <AlertNegative {...alerts.notEnoughTimeBalanceFailed} />
+          <AlertNegative {...alerts.insufficientTimeBalanceFailed} />
         </>
       )}
       {!!remainingMoneyBalanceError && (
         <>
           <Gutter height="lg" />
-          <AlertNegative {...alerts.notEnoughMoneyBalanceFailed} />
+          <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />
         </>
       )}
       <Gutter height="md" />

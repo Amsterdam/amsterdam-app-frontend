@@ -67,7 +67,9 @@ export const AlertBase = ({
           style={styles?.view}
           testID={testID}>
           {children ?? (
-            <Row valign="start">
+            <Row
+              align="between"
+              valign="start">
               <SingleSelectable
                 accessibilityLabel={accessibleText(title, text)}
                 accessibilityLanguage="nl-NL"
@@ -91,7 +93,7 @@ export const AlertBase = ({
                         text={title}
                       />
                     )}
-                    <Paragraph>{text}</Paragraph>
+                    {!!text && <Paragraph>{text}</Paragraph>}
                   </Column>
                 </Row>
               </SingleSelectable>

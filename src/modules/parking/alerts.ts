@@ -11,13 +11,19 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingChangePincodeSuccessAlert',
   },
-  maxLicensePlatesWarning: {
-    variant: AlertVariant.warning,
-    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
-    title: 'Maximum aantal kentekens',
+  decreaseTimeBalanceSuccess: {
+    variant: AlertVariant.positive,
+    text: 'Tijdsaldo is succesvol verlaagd.',
+    title: 'Gelukt',
     hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'ParkingMaxLicensePlatesAlert',
+    testID: 'ParkingManageVisitorDecreaseTimeBalanceSuccessAlert',
+  },
+  decreaseTimeBalanceFailed: {
+    variant: AlertVariant.negative,
+    text: 'Tijdsaldo verlagen is mislukt, probeer het nog een keer.',
+    title: 'Mislukt',
+    hasIcon: true,
+    testID: 'ParkingManageVisitorDecreaseTimeBalanceFailedAlert',
   },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
@@ -35,20 +41,6 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingIncreaseBalanceFailedAlert',
   },
-  decreaseTimeBalanceSuccess: {
-    variant: AlertVariant.positive,
-    text: 'Tijdsaldo is succesvol verlaagd.',
-    title: 'Gelukt',
-    hasIcon: true,
-    testID: 'ParkingManageVisitorIncreaseTimeBalanceSuccessAlert',
-  },
-  decreaseTimeBalanceFailed: {
-    variant: AlertVariant.negative,
-    text: 'Tijdsaldo verlagen is mislukt, probeer het nog een keer.',
-    title: 'Mislukt',
-    hasIcon: true,
-    testID: 'ParkingManageVisitorIncreaseTimeBalanceFailedAlert',
-  },
   increaseTimeBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Tijdsaldo is succesvol verhoogd.',
@@ -63,21 +55,36 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingManageVisitorIncreaseTimeBalanceFailedAlert',
   },
-  notEnoughTimeBalanceFailed: {
+  maxLicensePlatesWarning: {
+    variant: AlertVariant.warning,
+    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
+    title: 'Maximum aantal kentekens',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingMaxLicensePlatesAlert',
+  },
+  insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
     text: 'Te weinig tijd om parkeersessie te starten.',
     title: 'Niet genoeg tijdsaldo',
     hasIcon: true,
     hasCloseIcon: false,
-    testID: 'ParkingIncreaseBalanceFailedAlert',
+    testID: 'ParkingInsufficientTimeBalanceFailedAlert',
   },
-  notEnoughMoneyBalanceFailed: {
+  insufficientMoneyBalanceFailed: {
     variant: AlertVariant.negative,
     text: 'Te weinig geld om parkeersessie te starten.',
     title: 'Niet genoeg geldsaldo',
     hasIcon: true,
     hasCloseIcon: false,
-    testID: 'ParkingIncreaseBalanceFailedAlert',
+    testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
+  },
+  startSessionSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Uw parkeersessie is opgeslagen',
+    hasCloseIcon: true,
+    hasIcon: true,
+    testID: 'ParkingStartSessionSuccessAlert',
   },
 } as const satisfies AlertsRecord
 

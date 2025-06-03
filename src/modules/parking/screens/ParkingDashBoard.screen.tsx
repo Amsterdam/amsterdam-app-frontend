@@ -92,7 +92,7 @@ const useHandleDeeplink = (route: RouteProp<ParkingRouteName.dashboard>) => {
       }
     } else if (params?.action === 'start-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
+        setAlert(alerts.startSessionSuccess)
         dispatch(
           baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
         )
