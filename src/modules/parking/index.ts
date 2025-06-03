@@ -8,6 +8,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 const persistWhitelist: (keyof ParkingState)[] = [
   'currentAccountType',
   'currentPermitName',
+  'accessTokenExpiration',
 ]
 
 export const parkingModule: ModuleClientConfig = {
