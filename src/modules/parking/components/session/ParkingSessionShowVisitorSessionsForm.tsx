@@ -39,7 +39,6 @@ export const ParkingSessionShowVisitorSessionsForm = ({
           </Column>
         )}
         <Button
-          isLoading
           label="Bekijk parkeersessies"
           onPress={isEnabled ? handleSubmit(onSubmit) : enable}
           testID="ParkingSessionShowVisitorSessionsFormSubmitButton"
