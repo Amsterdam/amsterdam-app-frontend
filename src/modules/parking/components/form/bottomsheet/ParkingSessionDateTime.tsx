@@ -10,10 +10,15 @@ import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
 
 type Props = {
   dateTime: Dayjs
+  maxDateTime?: Dayjs
   setDateTime: (time: Dayjs) => void
 }
 
-export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
+export const ParkingSessionDateTime = ({
+  dateTime,
+  setDateTime,
+  maxDateTime,
+}: Props) => {
   const justNow = useMemo(roundDownToMinutes, [])
 
   return (
@@ -28,6 +33,7 @@ export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
             date={dateTime.toDate()}
             is24hourSource="locale"
             locale="nl-NL"
+            maximumDate={maxDateTime?.toDate()}
             minimumDate={justNow.toDate()}
             mode="time"
             onDateChange={newDateTime => {
@@ -42,6 +48,11 @@ export const ParkingSessionDateTime = ({dateTime, setDateTime}: Props) => {
             date={dateTime.toDate()}
             is24hourSource="locale"
             locale="nl-NL"
+            maximumDate={maxDateTime
+              ?.set('hours', dateTime.hour())
+              .set('minute', dateTime.minute())
+              .set('second', dateTime.second())
+              .toDate()}
             minimumDate={justNow.toDate()}
             mode="date"
             onDateChange={newDateTime => {

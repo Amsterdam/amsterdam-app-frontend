@@ -8,7 +8,7 @@ import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsh
 import {ParkingSessionTodayTomorrowStartTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionTodayTomorrowStartTime'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {type Dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingSessionStartTimeBottomSheetContent = () => {
   const currentPermit = useCurrentParkingPermit()
@@ -34,6 +34,9 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
       ) : (
         <ParkingSessionDateTime
           dateTime={startTime}
+          maxDateTime={dayjs()
+            .add(max_session_length_in_days, 'day')
+            .endOf('day')}
           setDateTime={onChange}
         />
       )}

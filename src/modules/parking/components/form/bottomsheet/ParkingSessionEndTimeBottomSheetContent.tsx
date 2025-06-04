@@ -41,6 +41,9 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
           />
           <ParkingSessionDateTime
             dateTime={endTime ?? startTime}
+            maxDateTime={startTime
+              .add(max_session_length_in_days, 'day')
+              .endOf('day')}
             setDateTime={onChange}
           />
         </>
