@@ -22,7 +22,11 @@ export const ManageVisitorIntro = () => {
         label="Bezoeker uitnodigen"
         onPress={() =>
           Share.share({
-            message: `Je kunt voor parkeren gebruik maken van mijn bezoekersaccount. Meldcode: ${currentPermit.visitor_account.report_code}, Pincode: ${currentPermit.visitor_account.pin}`,
+            message: `Je kunt voor parkeren gebruik maken van mijn bezoekersaccount. 
+Meldcode: ${currentPermit.visitor_account.report_code}, 
+Pincode: ${currentPermit.visitor_account.pin}. 
+Met deze link kun je direct inloggen in de app: 
+https://app.amsterdam.nl/parkeren/bezoeker/?r=${currentPermit.visitor_account.report_code}&p=${currentPermit.visitor_account.pin}`,
           })
         }
         testID="ParkingManageVisitorInviteVisitorButton"

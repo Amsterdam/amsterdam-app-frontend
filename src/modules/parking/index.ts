@@ -16,6 +16,7 @@ export const parkingModule: ModuleClientConfig = {
   name: 'ParkingModule',
   linking: {
     [ParkingRouteName.dashboard]: 'parking/:action/return',
+    [ParkingRouteName.login]: 'parking/visitor/:reportCode/:pin',
   },
   reduxConfigs: [
     {
