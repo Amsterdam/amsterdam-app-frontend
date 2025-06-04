@@ -8,7 +8,7 @@ import BottomSheetOriginal, {
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
-import {FC, type ReactNode, useCallback, useEffect, useRef} from 'react'
+import {type FC, type ReactNode, useCallback, useEffect, useRef} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -109,6 +109,8 @@ const useBottomSheetHandler = () => {
   }
 }
 
+const ScrollWrapper = ({children}: {children: ReactNode}) => <>{children}</>
+
 /**
  * To autofocus on an element within the bottom sheet, use the `useSetBottomSheetElementFocus` hook.
  */
@@ -124,7 +126,7 @@ export const BottomSheet = ({
 }: Props) => {
   const {onChange: onChangeHandler, ref, variant} = useBottomSheetHandler()
   const {top: topInset} = useSafeAreaInsets()
-  const ViewComponent = scroll ? BottomSheetScrollView : BottomSheetView
+  const ViewComponent = scroll ? ScrollWrapper : BottomSheetView
   const styles = createStyles(flex)
 
   const VariantComponent: FC | undefined = variants
@@ -148,18 +150,20 @@ export const BottomSheet = ({
       snapPoints={snapPoints}
       topInset={topInset}
       {...rest}>
-      <ViewComponent
-        style={styles.container}
-        testID={testID}>
-        <SafeArea
-          bottom
-          flex={flex}
-          left
-          right
+      <BottomSheetScrollView>
+        <ViewComponent
+          style={styles.container}
           testID={testID}>
-          {VariantComponent ? <VariantComponent /> : children}
-        </SafeArea>
-      </ViewComponent>
+          <SafeArea
+            bottom
+            flex={flex}
+            left
+            right
+            testID={testID}>
+            {VariantComponent ? <VariantComponent /> : children}
+          </SafeArea>
+        </ViewComponent>
+      </BottomSheetScrollView>
     </BottomSheetOriginal>
   )
 }
@@ -168,5 +172,6 @@ const createStyles = (flex?: number) =>
   StyleSheet.create({
     container: {
       flex,
+      flexGrow: 1,
     },
   })
