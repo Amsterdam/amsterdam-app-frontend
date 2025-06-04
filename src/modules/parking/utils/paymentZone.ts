@@ -1,6 +1,9 @@
 import {PaymentZone, PaymentZoneDay} from '@/modules/parking/types'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
-import {weekdayToNumber} from '@/utils/datetime/weekdayToNumber'
+import {
+  type WeekdayNumber,
+  weekdayToNumber,
+} from '@/utils/datetime/weekdayToNumber'
 
 export const getPaymentZone = (
   paymentZones: PaymentZone[],
@@ -9,7 +12,7 @@ export const getPaymentZone = (
 
 export const getPaymentZoneDay = (
   paymentZone: PaymentZone,
-  dayOfWeek: number,
+  dayOfWeek: WeekdayNumber,
 ) =>
   paymentZone?.days.find(day => weekdayToNumber(day.day_of_week) === dayOfWeek)
 
@@ -18,9 +21,9 @@ export const getPaymentZoneDayTimeSpan = (paymentZoneDay?: PaymentZoneDay) =>
     ? `${formatTimeToDisplay(paymentZoneDay.start_time)} - ${formatTimeToDisplay(paymentZoneDay.end_time, {includeHoursLabel: true, replaceMidnightBy24: true})}`
     : undefined
 
-export const areAllPaymentZonesEqual = (
+export const areAllPaymentZonesEqualOnDayOfWeek = (
   paymentZones: PaymentZone[],
-  startTimeDayOfWeek: number,
+  startTimeDayOfWeek: WeekdayNumber,
 ) =>
   paymentZones.length === 1 ||
   paymentZones.every(
@@ -29,4 +32,9 @@ export const areAllPaymentZonesEqual = (
       getPaymentZoneDayTimeSpan(
         getPaymentZoneDay(paymentZones[0], startTimeDayOfWeek),
       ),
+  )
+
+export const areAllPaymentZonesEqual = (paymentZones: PaymentZone[]) =>
+  ([0, 1, 2, 3, 4, 5, 6] as WeekdayNumber[]).every(dayOfWeek =>
+    areAllPaymentZonesEqualOnDayOfWeek(paymentZones, dayOfWeek),
   )

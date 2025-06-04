@@ -1,37 +1,19 @@
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {PaymentZone, ParkingPermit} from '@/modules/parking/types'
-import {
-  getPaymentZoneDay,
-  getPaymentZoneDayTimeSpan,
-} from '@/modules/parking/utils/paymentZone'
-import {dayjs} from '@/utils/datetime/dayjs'
-
-const displayPaymentTimeFrame = (paymentZones: PaymentZone[]) =>
-  paymentZones
-    .map(zone => {
-      const day = getPaymentZoneDay(zone, dayjs().day())
-
-      if (day) {
-        return {
-          key: `${zone.id}:${day.day_of_week}`,
-          phrase: getPaymentZoneDayTimeSpan(day),
-        }
-      }
-
-      return undefined
-    })
-    .filter(day => !!day)
+import {ParkingPaymentTimes} from '@/modules/parking/components/dashboard/ParkingPaymentTimes'
+import {ParkingPermit} from '@/modules/parking/types'
+import {areAllPaymentZonesEqual} from '@/modules/parking/utils/paymentZone'
 
 type Props = {
   permit: ParkingPermit
 }
 
 export const ParkingPermitDetailTimeFrame = ({permit}: Props) => {
-  const timeFrame = permit ? displayPaymentTimeFrame(permit.payment_zones) : []
+  const allPaymentZonesEqual = areAllPaymentZonesEqual(permit.payment_zones)
 
-  if (!timeFrame.length) {
+  if (permit.payment_zones.length === 0) {
     return null
   }
 
@@ -42,13 +24,14 @@ export const ParkingPermitDetailTimeFrame = ({permit}: Props) => {
         testID="ParkingPermitDetailPaidParkingTitlePhrase"
         text="Betaald parkeren"
       />
-      {timeFrame.map(({key, phrase}) => (
-        <Phrase
-          key={key}
-          testID="ParkingPermitDetailPaidParkingTimeFramePhrase">
-          {phrase}
-        </Phrase>
-      ))}
+      <ParkingPaymentTimes paymentZone={permit.payment_zones[0]} />
+      {!allPaymentZonesEqual && (
+        <Column>
+          <Gutter height="lg" />
+          <Phrase>In een deel van het gebied zijn andere tijden:</Phrase>
+          <ParkingPaymentTimes paymentZone={permit.payment_zones[1]} />
+        </Column>
+      )}
     </Column>
   )
 }

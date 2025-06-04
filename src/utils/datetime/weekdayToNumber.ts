@@ -1,4 +1,4 @@
-const mapping: Record<
+export const weekDayMapping: Record<
   | 'zondag'
   | 'maandag'
   | 'dinsdag'
@@ -6,7 +6,7 @@ const mapping: Record<
   | 'donderdag'
   | 'vrijdag'
   | 'zaterdag',
-  number
+  WeekdayNumber
 > = {
   zondag: 0,
   maandag: 1,
@@ -20,8 +20,24 @@ const mapping: Record<
 /**
  * Returns numbers from 0 (Sunday) to 6 (Saturday).
  */
-export const weekdayToNumber = (day: string): number | undefined => {
+export const weekdayToNumber = (day: string): WeekdayNumber | undefined => {
   const lowerCaseDay = day.toLowerCase()
 
-  return mapping[lowerCaseDay as keyof typeof mapping]
+  return weekDayMapping[lowerCaseDay as keyof typeof weekDayMapping]
+}
+
+export type WeekdayNumber = 0 | 1 | 2 | 3 | 4 | 5 | 6
+
+export const weekdayNumberToString = (dayNumber: WeekdayNumber): string => {
+  const daysOfWeek = [
+    'zondag',
+    'maandag',
+    'dinsdag',
+    'woensdag',
+    'donderdag',
+    'vrijdag',
+    'zaterdag',
+  ]
+
+  return daysOfWeek[dayNumber]
 }
