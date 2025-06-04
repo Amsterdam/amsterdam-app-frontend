@@ -7,6 +7,7 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLoginParkingMutation} from '@/modules/parking/service'
@@ -17,10 +18,11 @@ import {
 } from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
+  const {params} = useRoute<ParkingRouteName.login>()
   const pincodeRef = useRef<TextInput | null>(null)
   const {navigate} = useNavigation()
   const {setCurrentAccountType} = useCurrentParkingAccount()
-  const form = useForm<ParkingAccountLogin>()
+  const form = useForm<ParkingAccountLogin>({defaultValues: params})
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
