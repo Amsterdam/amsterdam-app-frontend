@@ -6,7 +6,7 @@ import {useCurrentParkingPermitName} from '@/modules/parking/slice'
  * @deprecated use useCurrentParkingPermit instead, unless you need to get the current permit outside of the provider
  */
 export const useGetCurrentParkingPermit = () => {
-  const {permits, isLoading} = useGetPermits()
+  const {permits, isLoading, refetch} = useGetPermits()
   const {currentPermitName, setCurrentPermitName} =
     useCurrentParkingPermitName()
 
@@ -21,5 +21,5 @@ export const useGetCurrentParkingPermit = () => {
     }
   }, [currentPermit, permits, setCurrentPermitName])
 
-  return {currentPermit, isLoading}
+  return {currentPermit, isLoading, refetch}
 }
