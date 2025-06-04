@@ -2,8 +2,14 @@ import renderer from 'react-test-renderer'
 import {parseTextToComponentsForLinks} from '@/utils/parseTextToComponentsForLinks'
 
 describe('parseTextToComponentsForLinks', () => {
-  const renderLink = (part: string) => <a href={part}>{part}</a>
-  const renderText = (part: string) => <span>{part}</span>
+  const renderLink = (part: string) => (
+    <a
+      href={part}
+      key={part}>
+      {part}
+    </a>
+  )
+  const renderText = (part: string) => <span key={part}>{part}</span>
 
   it('should return plain text when there are no URLs', () => {
     const text = 'This is a test message without URLs.'
