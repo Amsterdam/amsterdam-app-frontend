@@ -33,7 +33,7 @@ export const parkingSlice = createSlice({
   reducers: {
     setCurrentAccountType: (
       state,
-      {payload}: PayloadAction<ParkingPermitScope>,
+      {payload}: PayloadAction<ParkingPermitScope | undefined>,
     ) => {
       state.currentAccountType = payload
     },

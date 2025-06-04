@@ -26,6 +26,7 @@ export const cityPassApi = baseApi.injectEndpoints({
     }),
     [CityPassEndpointName.getCityPasses]: builder.query<CityPassResponse, void>(
       {
+        providesTags: ['CityPass'],
         query: () => ({
           prepareHeaders,
           slug: ModuleSlug['city-pass'],
@@ -38,6 +39,7 @@ export const cityPassApi = baseApi.injectEndpoints({
       BudgetTransaction[],
       BudgetTransactionsParams
     >({
+      providesTags: ['CityPass'],
       query: ({passNumber, budgetCode}) => ({
         prepareHeaders,
         params: {passNumber, budgetCode},
@@ -50,6 +52,7 @@ export const cityPassApi = baseApi.injectEndpoints({
       DiscountTransactionsResponse,
       TransactionsParams
     >({
+      providesTags: ['CityPass'],
       query: ({passNumber}) => ({
         prepareHeaders,
         params: {passNumber},
