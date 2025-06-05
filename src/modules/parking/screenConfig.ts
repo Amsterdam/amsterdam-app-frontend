@@ -23,7 +23,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     | ParkingRouteName.login
     | ParkingRouteName.loginSteps
     | ParkingRouteName.requestPinCode
-    | ParkingRouteName.restartLogin
+    | ParkingRouteName.forgotAccessCode
   >
 > = {
   [ParkingRouteName.dashboard]: {

@@ -13,14 +13,14 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
-import {useShouldShowIntroScreen} from '@/modules/parking/hooks/useShouldShowIntroScreen'
+import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingScreenConfig} from '@/modules/parking/screenConfig'
 import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
+import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
-import {ParkingRestartLoginScreen} from '@/modules/parking/screens/ParkingRestartLogin.screen'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -30,7 +30,7 @@ export const ParkingStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {isLoginStepsActive} = useLoginSteps()
-  const {shouldShowIntroScreen} = useShouldShowIntroScreen()
+  const {shouldShowLoginScreen} = useShouldShowLoginScreen()
   const {item: securePermitHolder, isLoading: isLoadingSecurePermitHolder} =
     useGetSecureItem(SecureItemKey.parkingPermitHolder)
   const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
@@ -43,10 +43,10 @@ export const ParkingStack = () => {
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
-      {attemptsLeft <= 0 || !!isForgotCode ? (
+      {isForgotCode ? (
         <Stack.Screen
-          component={ParkingRestartLoginScreen}
-          name={ParkingRouteName.restartLogin}
+          component={ParkingForgotAccessCodeScreen}
+          name={ParkingRouteName.forgotAccessCode}
           options={{headerTitle: 'Toegangscode vergeten'}}
         />
       ) : useBiometrics === undefined && isEnrolled && isCodeValid ? (
@@ -102,26 +102,19 @@ export const ParkingStack = () => {
         )
       ) : (
         <>
-          {shouldShowIntroScreen ? (
-            <>
-              <Stack.Screen
-                component={ParkingIntroScreen}
-                name={ParkingRouteName.intro}
-                options={{headerTitle: 'Aanmelden parkeren'}}
-              />
-              <Stack.Screen
-                component={ParkingLoginScreen}
-                name={ParkingRouteName.login}
-                options={{headerTitle: 'Inloggen'}}
-              />
-            </>
-          ) : (
+          {!shouldShowLoginScreen && (
             <Stack.Screen
-              component={ParkingLoginScreen}
-              name={ParkingRouteName.login}
-              options={{headerTitle: 'Inloggen'}}
+              component={ParkingIntroScreen}
+              name={ParkingRouteName.intro}
+              options={{headerTitle: 'Aanmelden parkeren'}}
             />
           )}
+          <Stack.Screen
+            component={ParkingLoginScreen}
+            name={ParkingRouteName.login}
+            options={{headerTitle: 'Inloggen'}}
+          />
+
           <Stack.Screen
             component={ParkingRequestPinCodeScreen}
             name={ParkingRouteName.requestPinCode}
