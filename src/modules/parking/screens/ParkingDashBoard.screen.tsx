@@ -59,17 +59,22 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           color="primary"
           height={240}
         />
-        <Box>
-          <Column gutter="xl">
+        <Box
+          insetBottom="md"
+          insetHorizontal="md"
+          insetTop="lg">
+          <Column gutter="lg">
             <ParkingPermitTopTaskButton />
-            <ParkingPermitSessions />
-            <Column gutter="md">
-              <ParkingStartSessionButton />
-              <ParkingPaymentByVisitorButton />
+            <Column gutter="xl">
+              <ParkingPermitSessions />
+              <Column gutter="md">
+                <ParkingStartSessionButton />
+                <ParkingPaymentByVisitorButton />
+              </Column>
+              <ParkingDashboardNavigationButtons />
+              <ParkingPermitBalance />
+              <ParkingPermitDetail />
             </Column>
-            <ParkingDashboardNavigationButtons />
-            <ParkingPermitBalance />
-            <ParkingPermitDetail />
           </Column>
         </Box>
       </Screen>
