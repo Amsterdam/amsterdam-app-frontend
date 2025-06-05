@@ -38,6 +38,7 @@ export enum ExceptionLogKey {
   redirectNotFound = 'Redirect not found',
   registerDevice = 'Register device for push notifications failed',
   requestLocationPermission = 'Request location permission failed',
+  resetLoginsAfterInvalidAccessCode = 'Reset logins after invalid access code failed',
   takingPhotoFailed = 'Taking photo failed',
   tokenInvalid = 'Access token invalid',
   updatePermission = 'Update permission failed',
