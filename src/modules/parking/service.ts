@@ -44,7 +44,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingAccountDetails,
       void
     >({
-      providesTags: ['ParkingAccount', 'Parking'],
+      providesTags: ['ParkingAccount'],
       query: () => ({
         prepareHeaders,
         method: 'GET',
@@ -71,7 +71,7 @@ export const parkingApi = baseApi.injectEndpoints({
       LicensePlatesEndpointResponse,
       LicensePlatesEndpointRequest
     >({
-      providesTags: ['ParkingLicensePlates', 'Parking'],
+      providesTags: ['ParkingLicensePlates'],
       query: ({reportCode}) => ({
         prepareHeaders,
         method: 'GET',
@@ -98,7 +98,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingSessionsEndpointResponse,
       ParkingSessionsEndpointRequest
     >({
-      providesTags: ['ParkingSessions', 'Parking'],
+      providesTags: ['ParkingSessions'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
@@ -113,7 +113,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingTransactionsEndpointResponse,
       ParkingTransactionsEndpointRequest
     >({
-      providesTags: ['ParkingSessions', 'Parking'],
+      providesTags: ['ParkingSessions'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
@@ -128,7 +128,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingPermitsEndpointResponse,
       ParkingPermitsEndpointRequestParams
     >({
-      providesTags: ['ParkingPermits', 'Parking'],
+      providesTags: ['ParkingPermits'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
@@ -142,7 +142,6 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingSessionReceiptEndpointResponse,
       ParkingSessionReceiptEndpointRequestParams
     >({
-      providesTags: ['Parking'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
@@ -273,7 +272,7 @@ export const parkingApi = baseApi.injectEndpoints({
       Record<ParkingSessionStatus, VisitorParkingSessionsEndpointResponse>,
       VisitorParkingSessionsEndpointRequest
     >({
-      providesTags: ['ParkingSessions', 'Parking'],
+      providesTags: ['ParkingSessions'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
