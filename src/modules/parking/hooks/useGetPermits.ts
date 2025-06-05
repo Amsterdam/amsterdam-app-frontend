@@ -6,7 +6,7 @@ export const useGetPermits = () => {
   const {currentPermitName, setCurrentPermitName} =
     useCurrentParkingPermitName()
 
-  const {data, isLoading} = usePermitsQuery({status: 'ACTIVE'})
+  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'})
 
   useEffect(() => {
     if (data && !currentPermitName) {
@@ -17,5 +17,6 @@ export const useGetPermits = () => {
   return {
     permits: data,
     isLoading,
+    refetch,
   }
 }
