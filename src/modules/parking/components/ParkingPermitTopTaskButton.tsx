@@ -22,7 +22,12 @@ export const ParkingPermitTopTaskButton = () => {
 
   return (
     <TopTaskButton
-      iconName="documentCheckmark"
+      iconName={
+        currentAccountType === ParkingPermitScope.visitor
+          ? 'person'
+          : 'documentCheckmark'
+      }
+      iconSize="lg"
       onPress={() => toggle()}
       testID="ParkingPermitTopTaskButton"
       title={

@@ -4,7 +4,7 @@ import {HideFromAccessibility} from '@/components/features/accessibility/HideFro
 import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
+import {Icon, IconProps} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -16,6 +16,7 @@ export type TopTaskButtonProps = {
   border?: boolean
   iconName: SvgIconName
   iconRightName?: SvgIconName
+  iconSize?: IconProps['size']
   isError?: boolean
   text?: ReactNode
   title: string
@@ -26,6 +27,7 @@ export const TopTaskButton = ({
   isError = false,
   iconName,
   iconRightName,
+  iconSize = 'xl',
   onPress,
   text,
   title,
@@ -55,7 +57,7 @@ export const TopTaskButton = ({
             <Icon
               color="link"
               name={iconName}
-              size="xl"
+              size={iconSize}
               testID={`${testID}Icon`}
             />
           </HideFromAccessibility>

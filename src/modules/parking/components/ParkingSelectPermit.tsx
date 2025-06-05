@@ -49,7 +49,12 @@ export const ParkingSelectPermit = () => {
         <Column>
           {permits.map(({permit_name, report_code, permit_zone}) => (
             <TopTaskButton
-              iconName="documentCheckmark"
+              iconName={
+                currentAccountType === ParkingPermitScope.visitor
+                  ? 'person'
+                  : 'documentCheckmark'
+              }
+              iconSize="lg"
               key={permit_name}
               onPress={() => onPress(permit_name)}
               testID={`ParkingSelectPermit${permit_name}TopTaskButton`}
