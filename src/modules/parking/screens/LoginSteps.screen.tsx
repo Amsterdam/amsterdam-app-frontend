@@ -13,7 +13,6 @@ import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAc
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
-import {useShouldShowIntroScreen} from '@/modules/parking/hooks/useShouldShowIntroScreen'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {UserRouteName} from '@/modules/user/routes'
 import {SecureItemKey} from '@/utils/secureStorage'
@@ -30,7 +29,6 @@ export const LoginStepsScreen = ({navigation}: Props) => {
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isLoggedIn && accessCode
   const {setIsLoginStepsActive} = useLoginSteps()
-  const {setShouldShowIntroScreen} = useShouldShowIntroScreen()
   const isUserRoute = navigation
     .getParent()
     ?.getState()
@@ -49,7 +47,6 @@ export const LoginStepsScreen = ({navigation}: Props) => {
 
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
-      setShouldShowIntroScreen(true)
       isUserRoute && navigate(UserRouteName.user)
     }
   }, [
@@ -58,7 +55,6 @@ export const LoginStepsScreen = ({navigation}: Props) => {
     isUserRoute,
     navigate,
     setIsLoginStepsActive,
-    setShouldShowIntroScreen,
   ])
 
   if (isLoadingSecureVisitor || isLoadingSecurePermitHolder) {

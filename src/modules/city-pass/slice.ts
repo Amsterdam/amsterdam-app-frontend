@@ -23,7 +23,7 @@ export type CityPassState = {
 const initialState: CityPassState = {
   isCityPassOwnerRegistered: false,
   isLoginStepsActive: false,
-  shouldShowLoginScreen: true,
+  shouldShowLoginScreen: false,
   startIndex: 0,
   accessTokenExpiration: undefined,
   refreshTokenExpiration: undefined,
