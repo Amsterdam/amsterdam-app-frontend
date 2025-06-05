@@ -1,19 +1,34 @@
-import {ThunkDispatch} from '@reduxjs/toolkit'
 import {alerts} from '@/modules/city-pass/alerts'
 import {cityPassApi} from '@/modules/city-pass/service'
 import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {setAlertAction} from '@/store/slices/alert'
 import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
-import {removeSecureItems, SecureItemKey} from '@/utils/secureStorage'
+import {store} from '@/store/store'
+import {
+  getSecureItem,
+  removeSecureItems,
+  SecureItemKey,
+} from '@/utils/secureStorage'
 
 export const logout = async (
   /**
    * show alert after logout
    */
   alert: keyof typeof alerts | false,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<unknown, unknown, any>,
+  shouldLogoutMutation = false,
 ) => {
+  const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
+
+  if (!accessToken) {
+    return
+  }
+
+  const dispatch = store.dispatch
+
+  if (shouldLogoutMutation) {
+    void dispatch(cityPassApi.endpoints.logout.initiate())
+  }
+
   await removeSecureItems([
     SecureItemKey.cityPassAccessToken,
     SecureItemKey.cityPassRefreshToken,

@@ -79,7 +79,7 @@ export const refreshAccessToken = (
                 reject,
               ),
             () => {
-              void logout(currentAccountType, dispatch)
+              void logout()
               devError('Token refresh failed, you are now logged out')
               failRetry('Session ended')
               reject(new Error('Token refresh failed'))
