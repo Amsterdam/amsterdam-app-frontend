@@ -1,13 +1,16 @@
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
 import {useAccessCodeError} from '@/modules/access-code/hooks/useAccessCodeError'
 import {accessCodeSlice} from '@/modules/access-code/slice'
 import {AccessCodeType} from '@/modules/access-code/types'
+import {SecureItemKey} from '@/utils/secureStorage'
 
 const CODE_LENGTH = 5
 
 export const useAccessCode = () => {
   const dispatch = useDispatch()
+  const removeSecureItems = useRemoveSecureItems()
   const {error, resetError} = useAccessCodeError()
 
   const codeLength = CODE_LENGTH
@@ -32,9 +35,10 @@ export const useAccessCode = () => {
     [dispatch],
   )
 
-  const resetAccessCode = useCallback(() => {
+  const resetAccessCode = useCallback(async () => {
     dispatch(accessCodeSlice.actions.reset())
-  }, [dispatch])
+    await removeSecureItems([SecureItemKey.accessCode])
+  }, [dispatch, removeSecureItems])
 
   const setCode = useCallback(
     ({code, type}: {code: number[]; type: AccessCodeType}) =>
