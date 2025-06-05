@@ -14,7 +14,7 @@ type FieldValues = {
   licensePlate?: {vehicle_id: string; visitor_name: string}
   paymentZoneId: string
   startTime: Dayjs
-  visitorVehicleId?: string
+  vehicle_id?: string
 }
 
 export const ParkingStartSessionButton = () => {
@@ -34,7 +34,7 @@ export const ParkingStartSessionButton = () => {
       paymentZoneId,
       amount,
       licensePlate,
-      visitorVehicleId,
+      vehicle_id: visitorVehicleId,
     }: FieldValues) => {
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
 
