@@ -12,10 +12,9 @@ import {
 
 export const logout = async (
   /**
-   * show alert after logout
+   * show alert after successfully logging out
    */
-  alert: keyof typeof alerts | false,
-  shouldLogoutMutation = false,
+  successAlert: keyof typeof alerts | false,
 ) => {
   const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
@@ -25,9 +24,7 @@ export const logout = async (
 
   const dispatch = store.dispatch
 
-  if (shouldLogoutMutation) {
-    void dispatch(cityPassApi.endpoints.logout.initiate())
-  }
+  void dispatch(cityPassApi.endpoints.logout.initiate())
 
   await removeSecureItems([
     SecureItemKey.cityPassAccessToken,
@@ -38,8 +35,8 @@ export const logout = async (
   dispatch(deleteSecureItemUpdatedTimestamp(SecureItemKey.cityPassRefreshToken))
   dispatch(setIsCityPassOwnerRegistered(false))
 
-  if (alert) {
-    setTimeout(() => dispatch(setAlertAction(alerts[alert])), 100)
+  if (successAlert) {
+    setTimeout(() => dispatch(setAlertAction(alerts[successAlert])), 100)
   }
 
   // invalidate the city pass data cache after logout with a delay to make sure all queries are unmounted, otherwise they will try to refetch and that will result in useless 401 errors

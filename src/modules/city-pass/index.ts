@@ -20,7 +20,7 @@ export const cityPassModule: ModuleClientConfig = {
       'stadspas/:loginResult/:accessToken?/:refreshToken?/:errorMessage?/:errorCode?',
   },
   logDimension: PiwikSessionDimension.cityPassModule,
-  logout: () => logout(false, true),
+  logout: () => logout(false),
   name: 'CityPassModule',
   reduxConfigs: [
     {

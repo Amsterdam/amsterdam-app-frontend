@@ -13,6 +13,7 @@ export const useRestartLogin = () => {
 
   const onRestartLogin = useCallback(async () => {
     try {
+      setIsError(false)
       await Promise.all(clientModules.map(module => module.logout?.()))
       await resetAccessCode()
     } catch (e) {
