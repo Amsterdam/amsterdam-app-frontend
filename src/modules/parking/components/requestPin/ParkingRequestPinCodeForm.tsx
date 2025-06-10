@@ -29,7 +29,6 @@ export const ParkingRequestPinCodeForm = () => {
       <Column gutter="lg">
         <Column gutter="md">
           <TextInputField
-            autoFocus
             keyboardType="number-pad"
             label="Meldcode"
             name="reportCode"
