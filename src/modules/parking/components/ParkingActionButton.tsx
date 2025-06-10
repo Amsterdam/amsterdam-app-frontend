@@ -10,14 +10,19 @@ import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 
+const ALLOWED_PERMIT_TYPES = [
+  PermitType.kraskaartvergunning,
+  PermitType.bezoekersvergunning,
+  PermitType['GA-bezoekerskaart'],
+]
+
 const ParkingActionButtonContent = () => {
   const {navigate} = useNavigation()
   const {permits} = useGetPermits()
 
   return (
     permits?.length === 1 &&
-    (permits[0].permit_type === PermitType.bezoekersvergunning ||
-      permits[0].permit_type === PermitType?.['GA-bezoekerskaart']) && (
+    ALLOWED_PERMIT_TYPES.includes(permits[0].permit_type) && (
       <Column>
         <ActionButton
           iconName="parkingSession"
