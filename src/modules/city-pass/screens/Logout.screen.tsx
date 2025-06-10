@@ -7,24 +7,19 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/city-pass/alerts'
-import {useLogout} from '@/modules/city-pass/hooks/useLogout'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {logout} from '@/modules/city-pass/utils/logout'
 import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<CityPassRouteName.cityPassLogout>
 
 export const LogoutScreen = ({navigation}: Props) => {
   const {setAlert} = useAlert()
-  const logout = useLogout()
   const onLogout = useCallback(() => {
-    logout()
-      .then(() => {
-        // Do nothing
-      })
-      .catch(() => {
-        setAlert(alerts.logoutFailed)
-      })
-  }, [logout, setAlert])
+    logout('logoutSuccess').catch(() => {
+      setAlert(alerts.logoutFailed)
+    })
+  }, [setAlert])
 
   const cancel = useCallback(() => {
     navigation.goBack()

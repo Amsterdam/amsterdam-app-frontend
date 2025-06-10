@@ -1,6 +1,7 @@
 import {CityPassActionButton} from '@/modules/city-pass/components/CityPassActionButton'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
+import {logout} from '@/modules/city-pass/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
@@ -19,6 +20,7 @@ export const cityPassModule: ModuleClientConfig = {
       'stadspas/:loginResult/:accessToken?/:refreshToken?/:errorMessage?/:errorCode?',
   },
   logDimension: PiwikSessionDimension.cityPassModule,
+  logout: () => logout(false),
   name: 'CityPassModule',
   reduxConfigs: [
     {

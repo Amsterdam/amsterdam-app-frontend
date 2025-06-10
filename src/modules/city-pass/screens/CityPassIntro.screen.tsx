@@ -18,7 +18,7 @@ import {SecureItemKey} from '@/utils/secureStorage'
 
 type Props = NavigationProps<CityPassRouteName.login>
 
-export const LoginScreen = ({navigation: {navigate}}: Props) => {
+export const CityPassIntroScreen = ({navigation: {navigate}}: Props) => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const removeSecureItems = useRemoveSecureItems()
 

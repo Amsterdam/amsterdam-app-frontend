@@ -15,15 +15,10 @@ export const DashboardMenu = () => {
   const accountType =
     useSelector(selectCurrentAccountType) ?? ParkingPermitScope.permitHolder
 
-  const onPressLogoutAccountHolder = useCallback(() => {
+  const onPressLogout = useCallback(() => {
     dispatch(setIsMenuVisible(false))
-    void logout(accountType, dispatch)
-  }, [dispatch, accountType])
-
-  const onPressLogoutVisitorAccount = useCallback(() => {
-    dispatch(setIsMenuVisible(false))
-    void logout(accountType, dispatch)
-  }, [dispatch, accountType])
+    void logout()
+  }, [dispatch])
 
   const menuItemsAccountHolder: PopupMenuItem[] = [
     {
@@ -35,7 +30,7 @@ export const DashboardMenu = () => {
     {
       color: 'warning',
       label: 'Uitloggen',
-      onPress: onPressLogoutAccountHolder,
+      onPress: onPressLogout,
       testID: 'ParkingDashboardMenuAccountHolderLogoutButton',
     },
   ]
@@ -44,7 +39,7 @@ export const DashboardMenu = () => {
     {
       color: 'warning',
       label: 'Uitloggen als bezoeker',
-      onPress: onPressLogoutVisitorAccount,
+      onPress: onPressLogout,
       testID: 'ParkingDashboardMenuVisitorLogoutButton',
     },
   ]

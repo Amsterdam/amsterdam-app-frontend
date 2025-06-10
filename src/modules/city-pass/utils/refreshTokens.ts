@@ -78,7 +78,7 @@ export const refreshTokens = (
               ),
             async () => {
               devError('Token refresh failed, you are now logged out')
-              await logout('logoutWarning', dispatch)
+              await logout('logoutWarning')
               failRetry?.('Session ended')
               reject(new Error('Token refresh failed'))
             },

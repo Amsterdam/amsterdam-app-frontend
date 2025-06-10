@@ -14,7 +14,10 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
-  shouldShowIntroScreen: boolean
+  /**
+   * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
+   */
+  shouldShowLoginScreen: boolean
   visitorVehicleId?: string
 }
 
@@ -22,7 +25,7 @@ const initialState: ParkingState = {
   currentAccountType: undefined,
   currentPermitName: undefined,
   isLoginStepsActive: false,
-  shouldShowIntroScreen: true,
+  shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   accessTokenExpiration: undefined,
 }
@@ -43,8 +46,8 @@ export const parkingSlice = createSlice({
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
-    setShouldShowIntroScreen: (state, {payload}: PayloadAction<boolean>) => {
-      state.shouldShowIntroScreen = payload
+    setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
+      state.shouldShowLoginScreen = payload
     },
     setVisitorVehicleId: (
       state,
@@ -63,7 +66,7 @@ export const parkingSlice = createSlice({
 
 export const {
   setLoginStepsActive,
-  setShouldShowIntroScreen: setShouldShowIntroScreenAction,
+  setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setAccessTokenExpiration,
 } = parkingSlice.actions
 
@@ -76,8 +79,8 @@ export const selectCurrentPermitName = (state: RootState) =>
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
 
-export const selectShouldShowIntroScreen = (state: RootState) =>
-  state[ReduxKey.parking].shouldShowIntroScreen
+export const selectShouldShowLoginScreen = (state: RootState) =>
+  state[ReduxKey.parking].shouldShowLoginScreen
 
 export const selectVisitorVehicleId = (state: RootState) =>
   state[ReduxKey.parking].visitorVehicleId

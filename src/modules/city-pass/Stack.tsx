@@ -16,9 +16,9 @@ import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassScreenConfig} from '@/modules/city-pass/screenConfig'
-import {LoginScreen} from '@/modules/city-pass/screens/Login.screen'
+import {CityPassForgotAccessCodeScreen} from '@/modules/city-pass/screens/CityPassForgotAccessCode.screen'
+import {CityPassIntroScreen} from '@/modules/city-pass/screens/CityPassIntro.screen'
 import {LoginStepsScreen} from '@/modules/city-pass/screens/LoginSteps.screen'
-import {RestartLoginScreen} from '@/modules/city-pass/screens/RestartLogin.screen'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -50,10 +50,10 @@ export const CityPassStack = () => {
           : CityPassRouteName.login
       }
       screenOptions={screenOptions}>
-      {attemptsLeft <= 0 || !!isForgotCode ? (
+      {isForgotCode ? (
         <Stack.Screen
-          component={RestartLoginScreen}
-          name={CityPassRouteName.restartLogin}
+          component={CityPassForgotAccessCodeScreen}
+          name={CityPassRouteName.forgotAccessCode}
           options={{headerTitle: 'Toegangscode vergeten'}}
         />
       ) : useBiometrics === undefined && isEnrolled && isCodeValid ? (
@@ -109,9 +109,9 @@ export const CityPassStack = () => {
         )
       ) : (
         <>
-          {!!shouldShowLoginScreen && (
+          {!shouldShowLoginScreen && (
             <Stack.Screen
-              component={LoginScreen}
+              component={CityPassIntroScreen}
               name={CityPassRouteName.login}
               options={{headerTitle: 'Stadspas'}}
             />

@@ -83,6 +83,10 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   linking?: PathConfigMap<RootStackParams>
   /**
+   * Function to call the logout logic of the module.
+   */
+  logout?: () => Promise<void>
+  /**
    * Module specific logic for handling notification events
    * @param type Interaction type with the notification, for example Press or Delivered
    * @param detail details of the event
