@@ -13,6 +13,9 @@ export type CityPassState = {
    */
   isLoginStepsActive: boolean
   refreshTokenExpiration?: string
+  /**
+   * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
+   */
   shouldShowLoginScreen: boolean
   /**
    * The index of the city-passes to start displaying

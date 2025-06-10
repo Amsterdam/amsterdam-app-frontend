@@ -14,6 +14,9 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  /**
+   * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
+   */
   shouldShowLoginScreen: boolean
   visitorVehicleId?: string
 }
