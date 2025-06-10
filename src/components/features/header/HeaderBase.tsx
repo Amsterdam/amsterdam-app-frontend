@@ -4,8 +4,9 @@ import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {HideFromAccessibility} from '@/components/features/accessibility/HideFromAccessibility'
 import {HeaderProps} from '@/components/features/header/types'
 import {Box} from '@/components/ui/containers/Box'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
-import {useScreen} from '@/store/slices/screen'
+import {setHeaderHeight, useScreen} from '@/store/slices/screen'
 
 type BackgroundColorProp = {
   backgroundColor?: HeaderProps['backgroundColor']
@@ -23,10 +24,14 @@ export const HeaderBase = ({backgroundColor, children}: Props) => {
     () => createStyles({backgroundColor, top, left, right}),
     [backgroundColor, top, left, right],
   )
+  const dispatch = useDispatch()
 
   return (
     <HideFromAccessibility
       hide={isContentHiddenFromAccessibility || isHiddenFromAccessibility}
+      onLayout={layout =>
+        dispatch(setHeaderHeight(layout.nativeEvent.layout.height))
+      }
       style={styles.header}>
       <ExtendAccessCodeValidityOnTap>
         <Box>{children}</Box>

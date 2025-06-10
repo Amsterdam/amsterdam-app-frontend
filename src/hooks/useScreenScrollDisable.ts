@@ -1,8 +1,8 @@
 import {useContext, useEffect} from 'react'
-import {DisableScrollContext} from '@/providers/disableScroll.provider'
+import {ScreenContext} from '@/providers/screen.provider'
 
 export const useScreenScrollDisable = (hasError: boolean) => {
-  const screenContext = useContext(DisableScrollContext)
+  const screenContext = useContext(ScreenContext)
 
   useEffect(() => {
     screenContext.setScrollDisabled(hasError)
@@ -10,4 +10,4 @@ export const useScreenScrollDisable = (hasError: boolean) => {
 }
 
 export const useIsScreenScrollDisabled = () =>
-  useContext(DisableScrollContext).scrollDisabled
+  useContext(ScreenContext).scrollDisabled

@@ -6,6 +6,7 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {RootState} from '@/store/types/rootState'
 
 export type ScreenState = {
+  headerHeight: number
   /**
    * Used to hide screen content when overlay is open. Header is still shown.
    * This is used to prevent screen readers from reading the content behind the overlay.
@@ -23,6 +24,7 @@ const initialState = {
   spaceBottom: 0,
   isContentHiddenFromAccessibility: false,
   isHiddenFromAccessibility: false,
+  headerHeight: 0,
 }
 
 export const screenSlice = createSlice({
@@ -45,6 +47,9 @@ export const screenSlice = createSlice({
     setExtraSpaceBottom: (state, {payload}: PayloadAction<number>) => {
       state.spaceBottom = payload
     },
+    setHeaderHeight: (state, {payload}: PayloadAction<number>) => {
+      state.headerHeight = payload
+    },
   },
 })
 
@@ -52,6 +57,7 @@ export const {
   setExtraSpaceBottom,
   setHideScreenFromAccessibility,
   setHideScreenContentFromAccessibility,
+  setHeaderHeight,
 } = screenSlice.actions
 
 export const selectScreenBottomExtraSpace = (state: RootState) =>
@@ -62,6 +68,9 @@ export const selectIsHiddenFromAccessibility = (state: RootState) =>
 
 export const selectIsContentHiddenFromAccessibility = (state: RootState) =>
   state[ReduxKey.screen].isContentHiddenFromAccessibility
+
+export const selectHeaderHeight = (state: RootState) =>
+  state[ReduxKey.screen].headerHeight
 
 export const useScreen = () => {
   const dispatch = useDispatch()
