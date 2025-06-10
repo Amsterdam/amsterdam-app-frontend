@@ -14,26 +14,24 @@ const ParkingActionButtonContent = () => {
   const {navigate} = useNavigation()
   const {permits} = useGetPermits()
 
-  if (
-    !permits ||
-    permits.length !== 1 ||
-    permits[0].permit_type !== PermitType.bezoekersvergunning
-  ) {
-    return null
-  }
-
   return (
-    <Column>
-      <ActionButton
-        iconName="parkingSession"
-        label={'Parkeersessie\nstarten'}
-        onPress={() => {
-          navigate(ModuleSlug.parking, {screen: ParkingRouteName.startSession})
-        }}
-        testID="ParkingActionButton"
-      />
-      <Gutter height="lg" />
-    </Column>
+    permits?.length === 1 &&
+    (permits[0].permit_type === PermitType.bezoekersvergunning ||
+      permits[0].permit_type === PermitType?.['GA-bezoekerskaart']) && (
+      <Column>
+        <ActionButton
+          iconName="parkingSession"
+          label={'Parkeersessie\nstarten'}
+          onPress={() => {
+            navigate(ModuleSlug.parking, {
+              screen: ParkingRouteName.startSession,
+            })
+          }}
+          testID="ParkingActionButton"
+        />
+        <Gutter height="lg" />
+      </Column>
+    )
   )
 }
 

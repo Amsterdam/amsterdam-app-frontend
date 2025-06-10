@@ -126,8 +126,10 @@ export type PaymentZoneDay = {
 }
 
 export enum PermitType {
+  'GA-bezoekerskaart' = 'GA-bezoekerskaart',
   'GA-parkeervergunning voor bewoners (passagiers)' = 'GA-parkeervergunning voor bewoners (passagiers)',
   bezoekersvergunning = 'Bezoekersvergunning',
+
   codevergunning = 'Codevergunning',
   kraskaartvergunning = 'Kraskaartvergunning',
   mantelzorgvergunning = 'Mantelzorgvergunning',
