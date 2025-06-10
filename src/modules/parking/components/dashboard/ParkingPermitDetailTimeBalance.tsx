@@ -17,12 +17,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
     return null
   }
 
-  const {
-    permit_name,
-    parking_rate,
-    max_sessions_allowed,
-    time_balance_applicable,
-  } = permit
+  const {parking_rate, max_sessions_allowed, time_balance_applicable} = permit
 
   const parkingRate = parking_rate.value
     ? `${formatNumber(parking_rate.value, parking_rate.currency)} per uur`
@@ -33,7 +28,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
       <Title
         level="h5"
         testID="ParkingPermitDetailNamePhrase"
-        text={permit_name}
+        text="Tarief"
       />
       <Column>
         {!time_balance_applicable && (
