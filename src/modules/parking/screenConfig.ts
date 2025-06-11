@@ -2,6 +2,7 @@ import {StackNavigationRoutes} from '@/app/navigation/types'
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
 import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
+import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActiveSessions.screen'
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
@@ -70,6 +71,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.parkingSession,
     options: {
       headerTitle: 'Parkeersessie',
+    },
+  },
+  [ParkingRouteName.parkingActiveSessions]: {
+    component: ParkingActiveSessionsScreen,
+    name: ParkingRouteName.parkingActiveSessions,
+    options: {
+      headerTitle: 'Actief',
     },
   },
   [ParkingRouteName.parkingPlannedSessions]: {
