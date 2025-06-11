@@ -5,16 +5,14 @@ import {ParkingDashboardPermitSessionsChooseVisitorLicenseplate} from '@/modules
 import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
 import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  useCurrentParkingAccount,
-  useVisitorVehicleId,
-} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitSessions = () => {
   const {visitorVehicleId} = useVisitorVehicleId()
   const currentPermit = useCurrentParkingPermit()
-  const {currentAccountType} = useCurrentParkingAccount()
+  const {parkingAccount} = useParkingAccount()
 
   return (
     <Box variant="distinct">
@@ -24,10 +22,10 @@ export const ParkingPermitSessions = () => {
           testID="ParkingPermitSessionsTitle"
           text="Parkeersessies"
         />
-        {currentAccountType === ParkingPermitScope.visitor && (
+        {parkingAccount?.scope === ParkingPermitScope.visitor && (
           <ParkingDashboardPermitSessionsChooseVisitorLicenseplate />
         )}
-        {(currentAccountType === ParkingPermitScope.permitHolder ||
+        {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
           !!visitorVehicleId) && (
           <>
             <ParkingActiveSessionsSummary visitorVehicleId={visitorVehicleId} />

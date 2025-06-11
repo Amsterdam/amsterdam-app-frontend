@@ -1,6 +1,7 @@
 import {useFormContext} from 'react-hook-form'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
@@ -20,6 +21,12 @@ export const ParkingIncreaseBalanceReceipt = () => {
 
   if (isLoadingAccount) {
     return <PleaseWait testID="ParkingIncreaseBalanceReceiptPleaseWait" />
+  }
+
+  if (!account?.wallet) {
+    return (
+      <SomethingWentWrong testID="ParkingIncreaseBalanceReceiptSomethingWentWrong" />
+    )
   }
 
   return (

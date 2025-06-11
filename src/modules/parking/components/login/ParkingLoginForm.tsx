@@ -8,21 +8,19 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLoginParkingMutation} from '@/modules/parking/service'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
-import {
-  ParkingAccountLogin,
-  ParkingLoginEndpointRequest,
-} from '@/modules/parking/types'
+import {parkingSlice} from '@/modules/parking/slice'
+import {ParkingAccountLogin} from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const pincodeRef = useRef<TextInput | null>(null)
   const {navigate} = useNavigation()
-  const {setCurrentAccountType} = useCurrentParkingAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
+  const pincodeRef = useRef<TextInput | null>(null)
+  const dispatch = useDispatch()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -37,16 +35,17 @@ export const ParkingLoginForm = () => {
     void loginParking({
       pin,
       report_code: reportCode,
-    } as ParkingLoginEndpointRequest)
+    })
       .unwrap()
-      .then(({access_token, scope}) => {
-        setCurrentAccountType(scope)
-        void setSecureParkingAccount({
-          accessToken: access_token,
-          pin,
-          reportCode,
-          scope,
-        })
+      .then(async ({access_token, access_token_expiration, scope}) => {
+        await setSecureParkingAccount({pin, reportCode}, scope)
+        dispatch(parkingSlice.actions.updateParkingAccount({reportCode, scope}))
+        dispatch(parkingSlice.actions.setAccessToken(access_token))
+        dispatch(
+          parkingSlice.actions.setAccessTokenExpiration(
+            access_token_expiration,
+          ),
+        )
       })
   })
 

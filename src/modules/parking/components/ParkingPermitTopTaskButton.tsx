@@ -1,17 +1,15 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  useCurrentParkingAccount,
-  useCurrentParkingPermitName,
-} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingPermitTopTaskButton = () => {
   const {toggle} = useBottomSheet()
   const {currentPermitName} = useCurrentParkingPermitName()
-  const {currentAccountType} = useCurrentParkingAccount()
+  const {parkingAccount} = useParkingAccount()
   const {report_code, permit_zone} = useCurrentParkingPermit()
 
   if (!currentPermitName) {
@@ -23,7 +21,7 @@ export const ParkingPermitTopTaskButton = () => {
   return (
     <TopTaskButton
       iconName={
-        currentAccountType === ParkingPermitScope.visitor
+        parkingAccount?.scope === ParkingPermitScope.visitor
           ? 'person'
           : 'documentCheckmark'
       }
@@ -31,7 +29,7 @@ export const ParkingPermitTopTaskButton = () => {
       onPress={() => toggle()}
       testID="ParkingPermitTopTaskButton"
       title={
-        currentAccountType === ParkingPermitScope.visitor
+        parkingAccount?.scope === ParkingPermitScope.visitor
           ? `Op bezoek ${permit_zone.name} - ${report_code}`
           : currentPermitName
       }

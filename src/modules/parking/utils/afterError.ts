@@ -8,15 +8,11 @@ export const afterError: AfterBaseQueryErrorFn = async (
   failRetry,
 ) => {
   if (error?.status === 403) {
-    const state = getState() as RootState
-    const {currentAccountType} = state.parking
+    const {parkingAccount} = (getState() as RootState).parking
 
-    return refreshAccessToken(
-      currentAccountType,
-      dispatch,
-      state,
-      failRetry,
-    ).then(() => Promise.resolve())
+    return refreshAccessToken(parkingAccount, dispatch, failRetry).then(() =>
+      Promise.resolve(),
+    )
   } else {
     failRetry('no access')
   }

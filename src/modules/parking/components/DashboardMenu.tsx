@@ -4,7 +4,7 @@ import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
-import {selectCurrentAccountType} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {logout} from '@/modules/parking/utils/logout'
 import {selectIsMenuVisible, setIsMenuVisible} from '@/store/slices/menu'
@@ -14,8 +14,7 @@ export const DashboardMenu = () => {
   const isMenuVisible = useSelector(selectIsMenuVisible)
   const store = useStore()
 
-  const accountType =
-    useSelector(selectCurrentAccountType) ?? ParkingPermitScope.permitHolder
+  const {parkingAccount} = useParkingAccount()
 
   const onPressLogout = useCallback(() => {
     dispatch(setIsMenuVisible(false))
@@ -46,9 +45,9 @@ export const DashboardMenu = () => {
     },
   ]
   const menuItems: PopupMenuItem[] =
-    accountType === ParkingPermitScope.permitHolder
-      ? menuItemsAccountHolder
-      : menuItemsVisitorAccount
+    parkingAccount?.scope === ParkingPermitScope.visitor
+      ? menuItemsVisitorAccount
+      : menuItemsAccountHolder
 
   return (
     <PopUpMenu

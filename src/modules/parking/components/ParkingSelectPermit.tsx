@@ -7,10 +7,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {
-  useCurrentParkingAccount,
-  useCurrentParkingPermitName,
-} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
@@ -19,7 +17,7 @@ export const ParkingSelectPermit = () => {
   const focusRef = useSetBottomSheetElementFocus()
   const {isLoading, permits} = useGetPermits()
   const {setCurrentPermitName} = useCurrentParkingPermitName()
-  const {currentAccountType} = useCurrentParkingAccount()
+  const {parkingAccount} = useParkingAccount()
 
   const onPress = useCallback(
     (permitName: string) => {
@@ -50,7 +48,7 @@ export const ParkingSelectPermit = () => {
           {permits.map(({permit_name, report_code, permit_zone}) => (
             <TopTaskButton
               iconName={
-                currentAccountType === ParkingPermitScope.visitor
+                parkingAccount?.scope === ParkingPermitScope.visitor
                   ? 'person'
                   : 'documentCheckmark'
               }
@@ -59,7 +57,7 @@ export const ParkingSelectPermit = () => {
               onPress={() => onPress(permit_name)}
               testID={`ParkingSelectPermit${permit_name}TopTaskButton`}
               title={
-                currentAccountType === ParkingPermitScope.visitor
+                parkingAccount?.scope === ParkingPermitScope.visitor
                   ? `Op bezoek ${permit_zone.name} - ${report_code}`
                   : permit_name
               }

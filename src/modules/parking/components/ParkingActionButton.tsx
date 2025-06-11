@@ -5,8 +5,8 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 
@@ -43,12 +43,11 @@ const ParkingActionButtonContent = () => {
 export const ParkingActionButton = () => {
   const {accessCode} = useGetSecureAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
-  const secureParkingAccount = useCurrentParkingAccount()
+  const {parkingAccount} = useParkingAccount()
 
   if (
     !accessCode ||
-    secureParkingAccount?.currentAccountType !==
-      ParkingPermitScope.permitHolder ||
+    parkingAccount?.scope !== ParkingPermitScope.permitHolder ||
     isLoginStepsActive
   ) {
     return null

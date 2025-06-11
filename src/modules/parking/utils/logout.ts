@@ -15,12 +15,12 @@ export const logout = async (
   state: RootState,
 ) => {
   const key =
-    state.parking.currentAccountType === ParkingPermitScope.permitHolder
-      ? SecureItemKey.parkingPermitHolder
-      : SecureItemKey.parkingVisitor
+    state.parking.parkingAccount?.scope === ParkingPermitScope.visitor
+      ? SecureItemKey.parkingVisitor
+      : SecureItemKey.parkingPermitHolder
 
   await removeSecureItems([key])
-  dispatch(parkingSlice.actions.setCurrentAccountType(undefined))
+  dispatch(parkingSlice.actions.updateParkingAccount(undefined))
   dispatch(deleteSecureItemUpdatedTimestamp(key))
   shouldShowLoginScreen && dispatch(setShouldShowLoginScreenAction(true))
 

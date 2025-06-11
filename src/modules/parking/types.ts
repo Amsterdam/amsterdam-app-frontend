@@ -38,7 +38,7 @@ export type ParkingAccountDetails = {
   initials: string
   last_name: string
   phone_number: string
-  wallet: {
+  wallet?: {
     balance: number
     currency: string
   }
@@ -47,11 +47,6 @@ export type ParkingAccountDetails = {
 export enum ParkingPermitScope {
   permitHolder = 'permitHolder',
   visitor = 'visitor',
-}
-
-type ParkingAccountAuth = {
-  accessToken: string
-  scope: ParkingPermitScope
 }
 
 export type ParkingAccountLogin = {
@@ -64,7 +59,12 @@ export type RequestPinCode = {
   reportCode: string
 }
 
-export type SecureParkingAccount = ParkingAccountAuth & ParkingAccountLogin
+export type SecureParkingAccount = ParkingAccountLogin
+
+export type ParkingStateCurrentAccount = {
+  reportCode: string
+  scope: ParkingPermitScope
+}
 
 export type ParkingLoginEndpointRequest = {
   pin: string

@@ -2,18 +2,19 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingStateCurrentAccount} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
 export type ParkingState = {
+  accessToken?: string
   accessTokenExpiration?: string
-  currentAccountType?: ParkingPermitScope
   currentPermitName?: string
   /**
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  parkingAccount: ParkingStateCurrentAccount | undefined
   /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
@@ -22,9 +23,10 @@ export type ParkingState = {
 }
 
 const initialState: ParkingState = {
-  currentAccountType: undefined,
+  accessToken: undefined,
   currentPermitName: undefined,
   isLoginStepsActive: false,
+  parkingAccount: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   accessTokenExpiration: undefined,
@@ -34,11 +36,14 @@ export const parkingSlice = createSlice({
   name: ReduxKey.parking,
   initialState,
   reducers: {
-    setCurrentAccountType: (
+    setAccessToken: (state, {payload}: PayloadAction<string | undefined>) => {
+      state.accessToken = payload
+    },
+    setAccessTokenExpiration: (
       state,
-      {payload}: PayloadAction<ParkingPermitScope | undefined>,
+      {payload}: PayloadAction<string | undefined>,
     ) => {
-      state.currentAccountType = payload
+      state.accessTokenExpiration = payload
     },
     setCurrentPermitName: (state, {payload}: PayloadAction<string>) => {
       state.currentPermitName = payload
@@ -55,23 +60,26 @@ export const parkingSlice = createSlice({
     ) => {
       state.visitorVehicleId = payload
     },
-    setAccessTokenExpiration: (
+    updateParkingAccount: (
       state,
-      {payload}: PayloadAction<string | undefined>,
+      {payload}: PayloadAction<ParkingState['parkingAccount']>,
     ) => {
-      state.accessTokenExpiration = payload
+      state.parkingAccount = payload
     },
   },
 })
 
 export const {
+  setAccessTokenExpiration,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
-  setAccessTokenExpiration,
 } = parkingSlice.actions
 
-export const selectCurrentAccountType = (state: RootState) =>
-  state[ReduxKey.parking].currentAccountType
+export const selectAccessToken = (state: RootState) =>
+  state[ReduxKey.parking].accessToken
+
+export const selectAccessTokenExpiration = (state: RootState) =>
+  state[ReduxKey.parking].accessTokenExpiration
 
 export const selectCurrentPermitName = (state: RootState) =>
   state[ReduxKey.parking].currentPermitName
@@ -85,20 +93,17 @@ export const selectShouldShowLoginScreen = (state: RootState) =>
 export const selectVisitorVehicleId = (state: RootState) =>
   state[ReduxKey.parking].visitorVehicleId
 
-export const selectAccessTokenExpiration = (state: RootState) =>
-  state[ReduxKey.parking].accessTokenExpiration
-
-export const useCurrentParkingAccount = () => {
+export const useParkingAccessToken = () => {
   const dispatch = useDispatch()
-  const currentAccountType = useSelector(selectCurrentAccountType)
+  const accessToken = useSelector(selectAccessToken)
 
-  const setCurrentAccountType = useCallback(
-    (accountType: ParkingPermitScope) =>
-      dispatch(parkingSlice.actions.setCurrentAccountType(accountType)),
+  const setAccessToken = useCallback(
+    (token: string | undefined) =>
+      dispatch(parkingSlice.actions.setAccessToken(token)),
     [dispatch],
   )
 
-  return {currentAccountType, setCurrentAccountType}
+  return {accessToken, setAccessToken}
 }
 
 export const useCurrentParkingPermitName = () => {
