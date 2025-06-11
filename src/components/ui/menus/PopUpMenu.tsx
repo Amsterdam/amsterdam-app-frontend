@@ -1,8 +1,12 @@
+import {useContext} from 'react'
 import {StyleSheet, View} from 'react-native'
 import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {PopUpMenuItem} from '@/components/ui/menus/PopUpMenuItem'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {ScreenContext} from '@/providers/screen.provider'
+import {selectHeaderHeight} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 import {Duration} from '@/types/duration'
@@ -11,7 +15,10 @@ type Props = {
   isVisible: boolean
   menuItems: PopupMenuItem[]
   orientation: PopupMenuOrientation
-  topInset: number
+  /**
+   * only set this if you want to override the automatic top inset
+   */
+  topInset?: number
 }
 
 export const PopUpMenu = ({
@@ -22,7 +29,13 @@ export const PopUpMenu = ({
 }: Props) => {
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
-  const sheetStyles = createStyles(theme, orientation, topInset)
+  const {nativeScreenHeader} = useContext(ScreenContext)
+  const headerHeight = useSelector(selectHeaderHeight)
+  const sheetStyles = createStyles(
+    theme,
+    orientation,
+    topInset ?? (nativeScreenHeader ? 0 : headerHeight),
+  )
 
   return isVisible ? (
     <Animated.View

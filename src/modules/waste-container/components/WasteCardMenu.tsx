@@ -35,7 +35,6 @@ export const WasteCardMenu = () => {
       isVisible={isMenuVisible}
       menuItems={menuItems}
       orientation={PopupMenuOrientation.right}
-      topInset={0}
     />
   )
 }

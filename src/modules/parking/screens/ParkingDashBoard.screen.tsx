@@ -53,8 +53,8 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         headerOptions={{
           SideComponent: DashboardHeaderButton,
         }}
+        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
-        <DashboardMenu />
         <BackgroundColorArea
           color="primary"
           height={240}

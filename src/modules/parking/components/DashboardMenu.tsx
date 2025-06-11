@@ -53,7 +53,6 @@ export const DashboardMenu = () => {
       isVisible={isMenuVisible}
       menuItems={menuItems}
       orientation={PopupMenuOrientation.right}
-      topInset={0}
     />
   )
 }

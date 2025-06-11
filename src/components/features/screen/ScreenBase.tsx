@@ -9,7 +9,7 @@ import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
-import {DisableScrollProvider} from '@/providers/disableScroll.provider'
+import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
 export const ScreenBase = ({
@@ -59,16 +59,16 @@ export const ScreenBase = ({
     ],
   )
 
+  const customScreenHeader = !isOutsideNavigation && !!bottomSheet
+
   return (
-    <DisableScrollProvider>
+    <ScreenProvider nativeScreenHeader={!customScreenHeader}>
       <ExtendAccessCodeValidityOnTap>
         <HideFromAccessibility
           hide={isHiddenFromAccessibility}
           style={styles.screen}
           testID={testID}>
-          {!isOutsideNavigation && !!bottomSheet && (
-            <ScreenHeader options={headerOptions} />
-          )}
+          {!!customScreenHeader && <ScreenHeader options={headerOptions} />}
           {stickyHeader}
           {!!hasStickyAlert && <AlertTopOfScreen />}
           <HideFromAccessibility
@@ -94,7 +94,7 @@ export const ScreenBase = ({
           {!!spaceBottom && <View style={{height: spaceBottom}} />}
         </HideFromAccessibility>
       </ExtendAccessCodeValidityOnTap>
-    </DisableScrollProvider>
+    </ScreenProvider>
   )
 }
 
