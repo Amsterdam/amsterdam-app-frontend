@@ -1,4 +1,5 @@
 import {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {ParkingSessionDetails} from '@/modules/parking/components/session/details/ParkingSessionDetails'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -10,7 +11,9 @@ export const ParkingSessionScreen = ({route}: Props) => {
 
   return (
     <CurrentPermitProvider>
-      <ParkingSessionDetails parkingSession={parkingSession} />
+      <Screen testID="ParkingSessionScreen">
+        <ParkingSessionDetails parkingSession={parkingSession} />
+      </Screen>
     </CurrentPermitProvider>
   )
 }
