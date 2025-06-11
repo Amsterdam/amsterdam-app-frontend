@@ -1,9 +1,9 @@
+import {type ReduxDispatch} from '@/hooks/redux/types'
 import {alerts} from '@/modules/city-pass/alerts'
 import {cityPassApi} from '@/modules/city-pass/service'
 import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {setAlertAction} from '@/store/slices/alert'
 import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
-import {store} from '@/store/store'
 import {
   getSecureItem,
   removeSecureItems,
@@ -15,14 +15,13 @@ export const logout = async (
    * show alert after successfully logging out
    */
   successAlert: keyof typeof alerts | false,
+  dispatch: ReduxDispatch,
 ) => {
   const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
   if (!accessToken) {
     return
   }
-
-  const dispatch = store.dispatch
 
   void dispatch(cityPassApi.endpoints.logout.initiate())
 

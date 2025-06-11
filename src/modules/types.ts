@@ -1,12 +1,14 @@
-import {EventDetail, EventType} from '@notifee/react-native'
+import {type EventDetail, type EventType} from '@notifee/react-native'
 import {type PathConfigMap} from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
-import {Dispatch, type ComponentType} from 'react'
+import {type ComponentType} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {type SvgIconName} from '@/components/ui/media/svgIcons'
+import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
+import {type RootState} from '@/store/types/rootState'
 
 /**
  * The config properties that are shared between core and non-core modules.
@@ -85,7 +87,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
   /**
    * Function to call the logout logic of the module.
    */
-  logout?: () => Promise<void>
+  logout?: (dispatch: ReduxDispatch, state: RootState) => Promise<void>
   /**
    * Module specific logic for handling notification events
    * @param type Interaction type with the notification, for example Press or Delivered
@@ -95,7 +97,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
   onNotificationEvent?: (
     type: EventType,
     detail: EventDetail,
-    dispatch: Dispatch<unknown>,
+    dispatch: ReduxDispatch,
   ) => void
   /**
    * Determines whether the module requires authorization to be accessed.
