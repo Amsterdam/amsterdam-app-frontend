@@ -47,7 +47,6 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormLicensePlateInputField"
         />
         <Button
-          isLoading
           label="Opslaan"
           onPress={handleSubmit(onSubmit)}
           testID="ParkingAddLicensePlateFormSubmitButton"
