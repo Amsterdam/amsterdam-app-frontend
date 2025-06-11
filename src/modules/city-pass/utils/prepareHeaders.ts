@@ -4,7 +4,7 @@ import {
 } from '@/modules/city-pass/slice'
 import {refreshTokens} from '@/modules/city-pass/utils/refreshTokens'
 import {PrepareHeaders} from '@/services/types'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {getSecureItem, SecureItemKey} from '@/utils/secureStorage'
 

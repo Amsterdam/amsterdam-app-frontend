@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export type SecureStorageState = Record<SecureItemKey, number | undefined>

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {Permissions} from '@/types/permissions'
 
 export type PermissionsState = Partial<Record<Permissions, boolean>>

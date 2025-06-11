@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {Environment, getApi, ApiSlug, customDefaultUrls} from '@/environment'
 import {isDevApp} from '@/processes/development'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 
 export type EnvironmentState = {
   custom: typeof customDefaultUrls

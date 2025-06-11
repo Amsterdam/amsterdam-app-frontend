@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
-import {Theme, lightTheme} from '@/themes/themes'
+import {type RootState} from '@/store/types/rootState'
+import {type Theme, lightTheme} from '@/themes/themes'
 
 export type ThemeState = {theme: Theme}
 
