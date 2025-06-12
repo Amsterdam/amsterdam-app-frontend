@@ -44,7 +44,7 @@ export const ParkingLoginForm = () => {
       .unwrap()
       .then(async ({access_token, access_token_expiration, scope}) => {
         await setSecureParkingAccount({pin, reportCode}, scope)
-        dispatch(parkingSlice.actions.updateParkingAccount({reportCode, scope}))
+        dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
         dispatch(parkingSlice.actions.setAccessToken(access_token))
         dispatch(
           parkingSlice.actions.setAccessTokenExpiration(

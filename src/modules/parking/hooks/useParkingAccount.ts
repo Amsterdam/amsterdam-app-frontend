@@ -13,7 +13,7 @@ export const useParkingAccount = () => {
   )
   const updateParkingAccount = useCallback(
     (data: ParkingStateCurrentAccount) => {
-      dispatch(parkingSlice.actions.updateParkingAccount(data))
+      dispatch(parkingSlice.actions.setParkingAccount(data))
     },
     [dispatch],
   )

@@ -2,7 +2,10 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ParkingStateCurrentAccount} from '@/modules/parking/types'
+import {
+  ParkingPermit,
+  ParkingStateCurrentAccount,
+} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -16,6 +19,7 @@ export type ParkingState = {
    */
   isLoginStepsActive: boolean
   parkingAccount: ParkingStateCurrentAccount | undefined
+  permits: ParkingPermit[]
   /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
@@ -29,6 +33,7 @@ const initialState: ParkingState = {
   isLoggingInAdditionalAccount: false,
   isLoginStepsActive: false,
   parkingAccount: undefined,
+  permits: [],
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   accessTokenExpiration: undefined,
@@ -68,7 +73,7 @@ export const parkingSlice = createSlice({
     ) => {
       state.visitorVehicleId = payload
     },
-    updateParkingAccount: (
+    setParkingAccount: (
       state,
       {payload}: PayloadAction<ParkingState['parkingAccount']>,
     ) => {

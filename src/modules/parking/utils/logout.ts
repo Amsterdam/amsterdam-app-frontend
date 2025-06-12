@@ -20,7 +20,7 @@ export const logout = async (
       : SecureItemKey.parkingPermitHolder
 
   await removeSecureItems([key])
-  dispatch(parkingSlice.actions.updateParkingAccount(undefined))
+  dispatch(parkingSlice.actions.setParkingAccount(undefined))
   dispatch(deleteSecureItemUpdatedTimestamp(key))
   shouldShowLoginScreen && dispatch(setShouldShowLoginScreenAction(true))
 
