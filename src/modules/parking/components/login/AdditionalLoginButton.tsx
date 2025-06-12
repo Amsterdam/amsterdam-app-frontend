@@ -4,18 +4,18 @@ import {
   TopTaskButtonProps,
 } from '@/components/ui/buttons/TopTaskButton'
 import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
-import {useIsLoggingInAdditional} from '@/modules/parking/slice'
+import {useIsLoggingInAdditionalAccount} from '@/modules/parking/slice'
 
 type Props = Omit<TopTaskButtonProps, 'onPress' | 'iconName' | 'iconSize'>
 
 export const AdditionalLoginButton = (props: Props) => {
-  const {setIsLoggingInAdditional} = useIsLoggingInAdditional()
+  const {setIsLoggingInAdditionalAccount} = useIsLoggingInAdditionalAccount()
   const {setShouldShowLoginScreen} = useShouldShowLoginScreen()
 
   const onPress = useCallback(() => {
-    setIsLoggingInAdditional(true)
+    setIsLoggingInAdditionalAccount(true)
     setShouldShowLoginScreen(true)
-  }, [setIsLoggingInAdditional, setShouldShowLoginScreen])
+  }, [setIsLoggingInAdditionalAccount, setShouldShowLoginScreen])
 
   return (
     <TopTaskButton

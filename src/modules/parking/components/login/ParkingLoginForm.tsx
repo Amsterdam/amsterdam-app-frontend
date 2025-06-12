@@ -12,7 +12,10 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useLoginParkingMutation} from '@/modules/parking/service'
-import {parkingSlice, useIsLoggingInAdditional} from '@/modules/parking/slice'
+import {
+  parkingSlice,
+  useIsLoggingInAdditionalAccount,
+} from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
@@ -26,8 +29,8 @@ export const ParkingLoginForm = () => {
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
   const setSecureParkingAccount = useSetSecureParkingAccount()
-  const {isLoggingInAdditional, setIsLoggingInAdditional} =
-    useIsLoggingInAdditional()
+  const {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount} =
+    useIsLoggingInAdditionalAccount()
 
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
@@ -48,7 +51,7 @@ export const ParkingLoginForm = () => {
             access_token_expiration,
           ),
         )
-        isLoggingInAdditional && setIsLoggingInAdditional(false)
+        isLoggingInAdditionalAccount && setIsLoggingInAdditionalAccount(false)
       })
   })
 

@@ -10,7 +10,7 @@ export type ParkingState = {
   accessToken?: string
   accessTokenExpiration?: string
   currentPermitName?: string
-  isLoggingInAdditional: boolean
+  isLoggingInAdditionalAccount: boolean
   /**
    * Whether the user is still completing the login steps
    */
@@ -26,7 +26,7 @@ export type ParkingState = {
 const initialState: ParkingState = {
   accessToken: undefined,
   currentPermitName: undefined,
-  isLoggingInAdditional: false,
+  isLoggingInAdditionalAccount: false,
   isLoginStepsActive: false,
   parkingAccount: undefined,
   shouldShowLoginScreen: false,
@@ -50,8 +50,11 @@ export const parkingSlice = createSlice({
     setCurrentPermitName: (state, {payload}: PayloadAction<string>) => {
       state.currentPermitName = payload
     },
-    setIsLoggingInAdditional: (state, {payload}: PayloadAction<boolean>) => {
-      state.isLoggingInAdditional = payload
+    setIsLoggingInAdditionalAccount: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isLoggingInAdditionalAccount = payload
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
@@ -92,8 +95,8 @@ export const selectCurrentPermitName = (state: RootState) =>
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
 
-export const selectIsLoggingInAdditional = (state: RootState) =>
-  state[ReduxKey.parking].isLoggingInAdditional
+export const selectIsLoggingInAdditionalAccount = (state: RootState) =>
+  state[ReduxKey.parking].isLoggingInAdditionalAccount
 
 export const selectShouldShowLoginScreen = (state: RootState) =>
   state[ReduxKey.parking].shouldShowLoginScreen
@@ -140,15 +143,17 @@ export const useVisitorVehicleId = () => {
   return {visitorVehicleId, setVisitorVehicleId}
 }
 
-export const useIsLoggingInAdditional = () => {
+export const useIsLoggingInAdditionalAccount = () => {
   const dispatch = useDispatch()
-  const isLoggingInAdditional = useSelector(selectIsLoggingInAdditional)
+  const isLoggingInAdditionalAccount = useSelector(
+    selectIsLoggingInAdditionalAccount,
+  )
 
-  const setIsLoggingInAdditional = useCallback(
+  const setIsLoggingInAdditionalAccount = useCallback(
     (isLogging: boolean) =>
-      dispatch(parkingSlice.actions.setIsLoggingInAdditional(isLogging)),
+      dispatch(parkingSlice.actions.setIsLoggingInAdditionalAccount(isLogging)),
     [dispatch],
   )
 
-  return {isLoggingInAdditional, setIsLoggingInAdditional}
+  return {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount}
 }

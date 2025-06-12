@@ -21,7 +21,7 @@ import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingFo
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
-import {useIsLoggingInAdditional} from '@/modules/parking/slice'
+import {useIsLoggingInAdditionalAccount} from '@/modules/parking/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -36,7 +36,7 @@ export const ParkingStack = () => {
     useGetSecureItem(SecureItemKey.parkingPermitHolder)
   const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
     useGetSecureItem(SecureItemKey.parkingVisitor)
-  const {isLoggingInAdditional} = useIsLoggingInAdditional()
+  const {isLoggingInAdditionalAccount} = useIsLoggingInAdditionalAccount()
   const screenOptions = useScreenOptions()
 
   if (isLoading || isLoadingSecurePermitHolder || isLoadingSecureVisitor) {
@@ -59,7 +59,8 @@ export const ParkingStack = () => {
             headerTitle: 'Sneller toegang',
           }}
         />
-      ) : (securePermitHolder || secureVisitor) && !isLoggingInAdditional ? (
+      ) : (securePermitHolder || secureVisitor) &&
+        !isLoggingInAdditionalAccount ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
             Object.entries(parkingScreenConfig).map(([key, route]) => (
