@@ -10,6 +10,7 @@ export type ParkingState = {
   accessToken?: string
   accessTokenExpiration?: string
   currentPermitName?: string
+  isLoggingInAdditional: boolean
   /**
    * Whether the user is still completing the login steps
    */
@@ -25,6 +26,7 @@ export type ParkingState = {
 const initialState: ParkingState = {
   accessToken: undefined,
   currentPermitName: undefined,
+  isLoggingInAdditional: false,
   isLoginStepsActive: false,
   parkingAccount: undefined,
   shouldShowLoginScreen: false,
@@ -47,6 +49,9 @@ export const parkingSlice = createSlice({
     },
     setCurrentPermitName: (state, {payload}: PayloadAction<string>) => {
       state.currentPermitName = payload
+    },
+    setIsLoggingInAdditional: (state, {payload}: PayloadAction<boolean>) => {
+      state.isLoggingInAdditional = payload
     },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
@@ -86,6 +91,9 @@ export const selectCurrentPermitName = (state: RootState) =>
 
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
+
+export const selectIsLoggingInAdditional = (state: RootState) =>
+  state[ReduxKey.parking].isLoggingInAdditional
 
 export const selectShouldShowLoginScreen = (state: RootState) =>
   state[ReduxKey.parking].shouldShowLoginScreen
@@ -130,4 +138,17 @@ export const useVisitorVehicleId = () => {
   )
 
   return {visitorVehicleId, setVisitorVehicleId}
+}
+
+export const useIsLoggingInAdditional = () => {
+  const dispatch = useDispatch()
+  const isLoggingInAdditional = useSelector(selectIsLoggingInAdditional)
+
+  const setIsLoggingInAdditional = useCallback(
+    (isLogging: boolean) =>
+      dispatch(parkingSlice.actions.setIsLoggingInAdditional(isLogging)),
+    [dispatch],
+  )
+
+  return {isLoggingInAdditional, setIsLoggingInAdditional}
 }
