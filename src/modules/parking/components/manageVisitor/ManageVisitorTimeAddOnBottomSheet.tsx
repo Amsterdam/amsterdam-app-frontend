@@ -48,7 +48,7 @@ const getOptions = (
       }))
   }
 
-  if (timeBalance < optionsArray[0] * 3600) {
+  if (optionsArray[0] && timeBalance < optionsArray[0] * 3600) {
     options.push({
       label:
         '+ ' +

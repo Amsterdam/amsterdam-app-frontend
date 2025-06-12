@@ -9,8 +9,12 @@ import {formatWeekdayNumberToDisplay} from '@/utils/datetime/formatWeekdayNumber
 export const ParkingPaymentTimes = ({
   paymentZone,
 }: {
-  paymentZone: PaymentZone
+  paymentZone: PaymentZone | undefined
 }) => {
+  if (!paymentZone) {
+    return null
+  }
+
   const days = getDaysForPaymentTimeFrame(paymentZone)
   const freeParkingDays = getFreeParkingDays(paymentZone)
 

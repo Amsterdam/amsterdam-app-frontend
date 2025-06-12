@@ -9,7 +9,7 @@ export const useGetPermits = () => {
   const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'})
 
   useEffect(() => {
-    if (data && !currentPermitName) {
+    if (data?.length && !currentPermitName) {
       setCurrentPermitName(data[0].permit_name)
     }
   }, [currentPermitName, data, setCurrentPermitName])

@@ -31,7 +31,7 @@ export const getTransactionsByDate = (transactions: TransactionByDate[]) => {
     if (section) {
       section.data.push(transaction)
     } else {
-      datePublished > result[result.length - 1]?.data[0].datePublished
+      datePublished > result[result.length - 1]?.data[0]?.datePublished
         ? result.unshift({date: dateOrToday, data: [transaction]})
         : result.push({date: dateOrToday, data: [transaction]})
     }

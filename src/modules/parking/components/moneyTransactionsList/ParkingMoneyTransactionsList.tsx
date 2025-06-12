@@ -118,9 +118,9 @@ export const ParkingMoneyTransactionsList = () => {
         }
 
         const lastViewableItems = items[items.length - 1]
-        let newPage = lastViewableItems.page
+        let newPage = lastViewableItems?.page
 
-        if (lastViewableItems.dummy) {
+        if (lastViewableItems?.dummy && newPage) {
           const firstDummy = result.data.find(item => !!item.dummy)
 
           if (firstDummy && firstDummy.page < newPage) {
@@ -128,7 +128,7 @@ export const ParkingMoneyTransactionsList = () => {
           }
         }
 
-        setPage(newPage)
+        newPage && setPage(newPage)
       }
     },
     [result.data],
