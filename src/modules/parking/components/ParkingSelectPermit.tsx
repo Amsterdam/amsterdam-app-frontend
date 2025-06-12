@@ -6,18 +6,25 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useSecurePermitHolders} from '@/modules/parking/hooks/useSecurePermitHolders'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useCurrentParkingPermitName} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingSelectPermit = () => {
+  const {navigate} = useNavigation()
   const {close} = useBottomSheet()
   const focusRef = useSetBottomSheetElementFocus()
   const {isLoading, permits} = useGetPermits()
   const {setCurrentPermitName} = useCurrentParkingPermitName()
   const {parkingAccount} = useParkingAccount()
+  const {permitHolders, isLoading: isLoadingPermitHolders} =
+    useSecurePermitHolders()
+  const hasPermitHolderAccount = permitHolders.length > 0
 
   const onPress = useCallback(
     (permitName: string) => {
@@ -63,6 +70,22 @@ export const ParkingSelectPermit = () => {
               }
             />
           ))}
+          {!isLoadingPermitHolders && !hasPermitHolderAccount && (
+            <TopTaskButton
+              iconName="login"
+              iconSize="lg"
+              onPress={() => navigate(ParkingRouteName.login)}
+              testID="ParkingSelectPermitLoginPermitHolderTopTaskButton"
+              title="Inloggen als vergunninghouder"
+            />
+          )}
+          <TopTaskButton
+            iconName="login"
+            iconSize="lg"
+            onPress={() => navigate(ParkingRouteName.login)}
+            testID="ParkingSelectPermitLoginVisitorTopTaskButton"
+            title="Inloggen als bezoeker"
+          />
         </Column>
       </Column>
     </Box>
