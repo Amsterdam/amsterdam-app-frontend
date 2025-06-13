@@ -13,19 +13,14 @@ export const getReduxConfigs = <
   T extends CoreModuleConfig | ModuleClientConfig,
 >(
   modules: T[],
-): ReduxConfig[] => {
-  if (!Array.isArray(modules)) {
-    return []
-  }
-
-  return modules.reduce((result: ReduxConfig[], {reduxConfigs}: T) => {
+): ReduxConfig[] =>
+  modules.reduce((result: ReduxConfig[], {reduxConfigs}: T) => {
     if (!reduxConfigs) {
       return result
     }
 
     return [...result, ...reduxConfigs]
   }, [])
-}
 
 /**
  * Get the reducers object to pass to Redux's configureStore

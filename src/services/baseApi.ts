@@ -14,7 +14,7 @@ import {
   AfterBaseQuerySuccessFn,
 } from '@/services/types'
 import {selectApi, selectEnvironment} from '@/store/slices/environment'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {TimeOutDuration} from '@/types/api'
 import {sleep} from '@/utils/sleep'
 import {VERSION_NUMBER} from '@/utils/version'

@@ -6,6 +6,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/city-pass/alerts'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {logout} from '@/modules/city-pass/utils/logout'
@@ -15,11 +16,12 @@ type Props = NavigationProps<CityPassRouteName.cityPassLogout>
 
 export const LogoutScreen = ({navigation}: Props) => {
   const {setAlert} = useAlert()
+  const dispatch = useDispatch()
   const onLogout = useCallback(() => {
-    logout('logoutSuccess').catch(() => {
+    logout('logoutSuccess', dispatch).catch(() => {
       setAlert(alerts.logoutFailed)
     })
-  }, [setAlert])
+  }, [setAlert, dispatch])
 
   const cancel = useCallback(() => {
     navigation.goBack()

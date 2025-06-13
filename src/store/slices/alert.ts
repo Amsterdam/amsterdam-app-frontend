@@ -6,7 +6,7 @@ import {isReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnab
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 
 export type AlertState = AlertProps
 

@@ -14,7 +14,7 @@ const persistWhitelist: (keyof ParkingState)[] = [
 
 export const parkingModule: ModuleClientConfig = {
   ActionButton: ParkingActionButton,
-  logout: () => logout(true),
+  logout: (dispatch, state) => logout(true, dispatch, state),
   name: 'ParkingModule',
   linking: {
     [ParkingRouteName.dashboard]: 'parking/:action/return',

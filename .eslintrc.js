@@ -131,7 +131,7 @@ module.exports = {
               },
               {
                 name: 'react-redux',
-                importNames: ['useDispatch', 'useSelector'],
+                importNames: ['useDispatch', 'useSelector', 'useStore'],
                 message:
                   'Import useDispatch and useSelector from @/hooks/redux.',
               },

@@ -1,3 +1,4 @@
+import {type ReduxDispatch} from '@/hooks/redux/types'
 import {parkingApi} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -5,14 +6,14 @@ import {
 } from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {deleteSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
-import {store} from '@/store/store'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {removeSecureItems, SecureItemKey} from '@/utils/secureStorage'
 
-export const logout = async (shouldShowLoginScreen = false) => {
-  const state = store.getState() as RootState
-  const dispatch = store.dispatch
-
+export const logout = async (
+  shouldShowLoginScreen: boolean,
+  dispatch: ReduxDispatch,
+  state: RootState,
+) => {
   const key =
     state.parking.currentAccountType === ParkingPermitScope.permitHolder
       ? SecureItemKey.parkingPermitHolder

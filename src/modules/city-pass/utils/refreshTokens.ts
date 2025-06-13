@@ -1,4 +1,4 @@
-import {ThunkDispatch} from '@reduxjs/toolkit'
+import {type ReduxDispatch} from '@/hooks/redux/types'
 import {cityPassApi} from '@/modules/city-pass/service'
 import {setTokenExpiration} from '@/modules/city-pass/slice'
 import {CityPassEndpointName} from '@/modules/city-pass/types'
@@ -16,8 +16,7 @@ const saveTokens = (
   refresh_token: string,
   accessTokenExpiration: string,
   refreshTokenExpiration: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<unknown, unknown, any>,
+  dispatch: ReduxDispatch,
   resolve: (value: TokenSet | PromiseLike<TokenSet>) => void,
   reject: (reason?: unknown) => void,
   failRetry?: (e: unknown) => void,
@@ -46,8 +45,7 @@ const saveTokens = (
 }
 
 export const refreshTokens = (
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<unknown, unknown, any>,
+  dispatch: ReduxDispatch,
   failRetry?: (e?: unknown) => void,
 ): Promise<TokenSet> =>
   new Promise((resolve, reject) => {
@@ -78,7 +76,7 @@ export const refreshTokens = (
               ),
             async () => {
               devError('Token refresh failed, you are now logged out')
-              await logout('logoutWarning')
+              await logout('logoutWarning', dispatch)
               failRetry?.('Session ended')
               reject(new Error('Token refresh failed'))
             },

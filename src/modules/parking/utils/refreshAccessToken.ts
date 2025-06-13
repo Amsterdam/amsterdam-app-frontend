@@ -1,4 +1,4 @@
-import {ThunkDispatch} from '@reduxjs/toolkit'
+import {type ReduxDispatch} from '@/hooks/redux/types'
 import {parkingApi} from '@/modules/parking/service'
 import {setAccessTokenExpiration} from '@/modules/parking/slice'
 import {
@@ -11,13 +11,13 @@ import {logout} from '@/modules/parking/utils/logout'
 import {setSecureParkingAccount} from '@/modules/parking/utils/setSecureParkingAccount'
 import {devLog, devError} from '@/processes/development'
 import {setSecureItemUpdatedTimestamp} from '@/store/slices/secureStorage'
+import {type RootState} from '@/store/types/rootState'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const saveParkingAccount = (
   account: SecureParkingAccount,
   accessTokenExpiration: string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<unknown, unknown, any>,
+  dispatch: ReduxDispatch,
   failRetry: (e: unknown) => void,
   resolve: (
     value: SecureParkingAccount | PromiseLike<SecureParkingAccount>,
@@ -47,8 +47,8 @@ const saveParkingAccount = (
 
 export const refreshAccessToken = (
   currentAccountType: ParkingPermitScope | undefined,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dispatch: ThunkDispatch<unknown, unknown, any>,
+  dispatch: ReduxDispatch,
+  state: RootState,
   failRetry: (e?: unknown) => void,
 ): Promise<SecureParkingAccount> =>
   new Promise((resolve, reject) => {
@@ -79,7 +79,7 @@ export const refreshAccessToken = (
                 reject,
               ),
             () => {
-              void logout()
+              void logout(false, dispatch, state)
               devError('Token refresh failed, you are now logged out')
               failRetry('Session ended')
               reject(new Error('Token refresh failed'))
