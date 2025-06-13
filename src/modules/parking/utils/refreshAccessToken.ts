@@ -8,10 +8,12 @@ import {
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
+import {type RootState} from '@/store/types/rootState'
 
 export const refreshAccessToken = (
   account: ParkingStateCurrentAccount | undefined,
   dispatch: ReduxDispatch,
+  state: RootState,
   failRetry: (e?: unknown) => void,
 ): Promise<string> =>
   new Promise(async (resolve, reject) => {
@@ -51,7 +53,7 @@ export const refreshAccessToken = (
           resolve(access_token)
         },
         () => {
-          void logout()
+          void logout(false, dispatch, state)
           devError('Token refresh failed, you are now logged out')
           failRetry('Session ended')
           reject(new Error('Token refresh failed'))
