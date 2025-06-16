@@ -54,7 +54,7 @@ export const ParkingChoosePaymentZone = () => {
     // If all payment zones are equal, set the payment zone ID to the first one
     // If the current permit has no time balance or money balance applicable, set the payment zone ID to the first one
     if (shouldSelectFirstPaymentZone) {
-      onChange(currentPermit.payment_zones[0].id)
+      onChange(currentPermit.payment_zones[0]?.id)
     }
   }, [currentPermit, onChange, shouldSelectFirstPaymentZone])
 

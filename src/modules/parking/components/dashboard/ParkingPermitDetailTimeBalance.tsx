@@ -1,8 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectCurrentAccountType} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingPermit, ParkingPermitScope} from '@/modules/parking/types'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -11,7 +10,7 @@ type Props = {
 }
 
 export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
-  const accountType = useSelector(selectCurrentAccountType)
+  const parkingAccount = useParkingAccount()
 
   if (!permit) {
     return null
@@ -39,7 +38,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
         <Phrase testID="ParkingPermitDetailParkingRatePhrase">
           Parkeertarief: {parkingRate}
         </Phrase>
-        {accountType === ParkingPermitScope.permitHolder && (
+        {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
             Maximaal aantal parkeersessies tegelijk: {max_sessions_allowed}
           </Phrase>

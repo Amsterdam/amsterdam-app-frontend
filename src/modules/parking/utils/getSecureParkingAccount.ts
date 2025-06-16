@@ -3,16 +3,40 @@ import {devLog} from '@/processes/development'
 import {getSecureItem, SecureItemKey} from '@/utils/secureStorage'
 
 export const getSecureParkingAccount = async (
-  accountType: ParkingPermitScope,
-) => {
+  accountReportCode: string,
+  scope: ParkingPermitScope,
+): Promise<SecureParkingAccount | undefined> => {
   try {
-    const account = await getSecureItem(
-      accountType === ParkingPermitScope.permitHolder
+    const scopeAccounts = await getSecureItem(
+      scope === ParkingPermitScope.permitHolder
         ? SecureItemKey.parkingPermitHolder
         : SecureItemKey.parkingVisitor,
     )
 
-    return account ? (JSON.parse(account) as SecureParkingAccount) : undefined
+    if (!scopeAccounts) {
+      return undefined
+    }
+
+    let parsed: unknown
+
+    try {
+      parsed = JSON.parse(scopeAccounts)
+    } catch {
+      parsed = []
+    }
+
+    if (Array.isArray(parsed)) {
+      // Find the account with the matching reportCode
+      return (parsed as SecureParkingAccount[]).find(
+        item =>
+          typeof item === 'object' &&
+          item !== null &&
+          'reportCode' in item &&
+          item.reportCode === accountReportCode,
+      )
+    }
+
+    return undefined
   } catch (e) {
     devLog(e)
 

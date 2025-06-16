@@ -32,7 +32,7 @@ export const ParkingPermitBalanceMoney = () => {
     )
   }
 
-  if (!currentPermit.money_balance_applicable) {
+  if (!currentPermit.money_balance_applicable || !account.wallet) {
     return null
   }
 

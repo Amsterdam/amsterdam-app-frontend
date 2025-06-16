@@ -13,7 +13,7 @@ import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/det
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {
   ParkingPermitScope,
   ParkingSession,
@@ -35,7 +35,7 @@ type Props = {
 }
 
 export const ParkingSessionDetails = ({parkingSession}: Props) => {
-  const {currentAccountType} = useCurrentParkingAccount()
+  const parkingAccount = useParkingAccount()
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
   const {permits, isLoading} = useGetPermits()
@@ -142,7 +142,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
         {!!parkingSession.money_balance_applicable && !!timeString && (
           <Paragraph>Betaald parkeren van {timeString}</Paragraph>
         )}
-        {currentAccountType === ParkingPermitScope.permitHolder && (
+        {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <>
             {!parkingSession.no_endtime &&
               !!parkingSession.ps_right_id &&
@@ -178,7 +178,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               )}
           </>
         )}
-        {currentAccountType === ParkingPermitScope.visitor &&
+        {parkingAccount?.scope === ParkingPermitScope.visitor &&
           parkingSession.status === ParkingSessionStatus.active && (
             <ParkingSessionDetailsVisitorExtendButton
               defaultStartTime={parkingSession.end_date_time}

@@ -8,27 +8,31 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
-import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useLoginParkingMutation} from '@/modules/parking/service'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
+import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
-  ParkingAccountLogin,
-  ParkingLoginEndpointRequest,
-} from '@/modules/parking/types'
+  parkingSlice,
+  useIsLoggingInAdditionalAccount,
+  useParkingAccessToken,
+} from '@/modules/parking/slice'
+import {ParkingAccountLogin} from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const pincodeRef = useRef<TextInput | null>(null)
   const {navigate} = useNavigation()
-  const {setCurrentAccountType} = useCurrentParkingAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
+  const pincodeRef = useRef<TextInput | null>(null)
+  const {setAccessToken} = useParkingAccessToken()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
-  const setSecureParkingAccount = useSetSecureParkingAccount()
-
+  const setSecureParkingAccount = useAddSecureParkingAccount()
+  const {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount} =
+    useIsLoggingInAdditionalAccount()
+  const dispatch = useDispatch()
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
@@ -37,16 +41,16 @@ export const ParkingLoginForm = () => {
     void loginParking({
       pin,
       report_code: reportCode,
-    } as ParkingLoginEndpointRequest)
+    })
       .unwrap()
-      .then(({access_token, scope}) => {
-        setCurrentAccountType(scope)
-        void setSecureParkingAccount({
-          accessToken: access_token,
-          pin,
-          reportCode,
-          scope,
-        })
+      .then(async ({access_token, access_token_expiration, scope}) => {
+        await setSecureParkingAccount({pin, reportCode}, scope)
+        setAccessToken(reportCode, access_token, access_token_expiration)
+        dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
+        dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
+        dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
+        isLoggingInAdditionalAccount && setIsLoggingInAdditionalAccount(false)
+        dispatch(parkingApi.util.resetApiState())
       })
   })
 

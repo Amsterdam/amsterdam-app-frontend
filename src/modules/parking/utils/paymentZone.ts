@@ -30,7 +30,8 @@ export const areAllPaymentZonesEqualOnDayOfWeek = (
     zone =>
       getPaymentZoneDayTimeSpan(getPaymentZoneDay(zone, startTimeDayOfWeek)) ===
       getPaymentZoneDayTimeSpan(
-        getPaymentZoneDay(paymentZones[0], startTimeDayOfWeek),
+        paymentZones[0] &&
+          getPaymentZoneDay(paymentZones[0], startTimeDayOfWeek),
       ),
   )
 

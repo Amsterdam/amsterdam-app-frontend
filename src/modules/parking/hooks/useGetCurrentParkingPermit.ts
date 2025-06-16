@@ -1,25 +1,33 @@
 import {useEffect, useMemo} from 'react'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {useCurrentParkingPermitName} from '@/modules/parking/slice'
+import {
+  parkingSlice,
+  useCurrentParkingPermitReportCode,
+} from '@/modules/parking/slice'
 
 /**
  * @deprecated use useCurrentParkingPermit instead, unless you need to get the current permit outside of the provider
  */
 export const useGetCurrentParkingPermit = () => {
-  const {permits, isLoading, refetch} = useGetPermits()
-  const {currentPermitName, setCurrentPermitName} =
-    useCurrentParkingPermitName()
+  const dispatch = useDispatch()
+  const {isLoading, permits, refetch} = useGetPermits()
+  const currentPermitReportCode = useCurrentParkingPermitReportCode()
+  const {setCurrentPermitReportCode} = parkingSlice.actions
 
   const currentPermit = useMemo(
-    () => permits?.find(permit => permit.permit_name === currentPermitName),
-    [currentPermitName, permits],
+    () =>
+      permits?.find(
+        permit => permit.report_code === Number(currentPermitReportCode),
+      ),
+    [currentPermitReportCode, permits],
   )
 
   useEffect(() => {
     if (!currentPermit && permits?.[0]) {
-      setCurrentPermitName(permits[0].permit_name)
+      dispatch(setCurrentPermitReportCode(String(permits[0].report_code)))
     }
-  }, [currentPermit, permits, setCurrentPermitName])
+  }, [currentPermit, dispatch, permits, setCurrentPermitReportCode])
 
   return {currentPermit, isLoading, refetch}
 }

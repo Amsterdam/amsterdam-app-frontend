@@ -1,16 +1,15 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {selectCurrentAccountType} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPaymentByVisitorButton = () => {
   const currentPermit = useCurrentParkingPermit()
 
-  const accountType = useSelector(selectCurrentAccountType)
+  const parkingAccount = useParkingAccount()
   const {navigate} = useNavigation()
 
   const onPress = useCallback(() => {
@@ -18,7 +17,7 @@ export const ParkingPaymentByVisitorButton = () => {
   }, [navigate])
 
   return currentPermit.visitor_account_allowed &&
-    accountType === ParkingPermitScope.permitHolder ? (
+    parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
     <Button
       label="Bezoeker laten betalen"
       onPress={onPress}

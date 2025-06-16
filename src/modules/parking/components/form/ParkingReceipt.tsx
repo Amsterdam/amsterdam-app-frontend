@@ -12,11 +12,11 @@ import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
 } from '@/modules/parking/service'
-import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
@@ -42,7 +42,7 @@ export const ParkingReceipt = () => {
     visitorVehicleId,
   } = watch()
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
-  const {currentAccountType} = useCurrentParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   const currentPermit = useCurrentParkingPermit()
 
@@ -64,10 +64,10 @@ export const ParkingReceipt = () => {
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   useEffect(() => {
-    if (currentAccountType === ParkingPermitScope.visitor) {
+    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
       setValue('amount', data?.parking_cost?.value)
     }
-  }, [currentAccountType, data?.parking_cost?.value, setValue])
+  }, [parkingAccount?.scope, data?.parking_cost?.value, setValue])
 
   if (isLoading || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
@@ -121,7 +121,7 @@ export const ParkingReceipt = () => {
     <Column>
       {(!!remainingMoneyBalanceError ||
         (amount > 0 &&
-          currentAccountType === ParkingPermitScope.permitHolder)) && (
+          parkingAccount?.scope === ParkingPermitScope.permitHolder)) && (
         <>
           <Title
             level="h2"
@@ -176,7 +176,7 @@ export const ParkingReceipt = () => {
       )}
 
       {!!currentPermit.money_balance_applicable &&
-        currentAccountType === ParkingPermitScope.permitHolder && (
+        parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <SingleSelectable>
             <Row
               align="between"

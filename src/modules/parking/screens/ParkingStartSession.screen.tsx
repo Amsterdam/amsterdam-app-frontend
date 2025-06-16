@@ -11,19 +11,17 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/form/Parki
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {
-  useCurrentParkingAccount,
-  useVisitorVehicleId,
-} from '@/modules/parking/slice'
+import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = NavigationProps<ParkingRouteName.startSession>
 
 export const ParkingStartSessionScreen = ({route}: Props) => {
   const {params} = route || {}
-  const {currentAccountType} = useCurrentParkingAccount()
+  const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
 
   return (
@@ -34,7 +32,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
           testID="ParkingStartSessionScreen">
           <Box>
             <Column gutter="lg">
-              {currentAccountType === ParkingPermitScope.permitHolder ? (
+              {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
                 <Title
                   level="h2"
                   testID="ParkingChooseLicensePlateTitle"
@@ -43,7 +41,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
               ) : (
                 <ParkingStartSessionVisitorPermitZone />
               )}
-              {currentAccountType === ParkingPermitScope.permitHolder ? (
+              {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
                 <ParkingChooseLicensePlateButton />
               ) : (
                 <Column gutter="sm">

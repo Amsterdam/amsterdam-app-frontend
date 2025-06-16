@@ -25,9 +25,9 @@ describe('fixPermitNames', () => {
     ]
     const result = fixPermitNames(permits)
 
-    expect(result[0].permit_name).toBe('Parkeerbewijs (123)')
-    expect(result[1].permit_name).toBe('Parkeerbewijs (456)')
-    expect(result[2].permit_name).toBe('Ander bewijs')
+    expect(result[0]?.permit_name).toBe('Parkeerbewijs (123)')
+    expect(result[1]?.permit_name).toBe('Parkeerbewijs (456)')
+    expect(result[2]?.permit_name).toBe('Ander bewijs')
   })
 
   it('laat permit_name ongemoeid als het type uniek is', () => {
@@ -47,7 +47,7 @@ describe('fixPermitNames', () => {
     ]
     const result = fixPermitNames(permits)
 
-    expect(result[0].permit_name).toBe('Parkeerbewijs')
-    expect(result[1].permit_name).toBe('Ander parkeerbewijs')
+    expect(result[0]?.permit_name).toBe('Parkeerbewijs')
+    expect(result[1]?.permit_name).toBe('Ander parkeerbewijs')
   })
 })

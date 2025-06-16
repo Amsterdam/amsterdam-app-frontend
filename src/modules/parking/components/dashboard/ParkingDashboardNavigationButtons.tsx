@@ -1,18 +1,17 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {selectCurrentAccountType} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingDashboardNavigationButtons = () => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
-  const accountType = useSelector(selectCurrentAccountType)
+  const parkingAccount = useParkingAccount()
 
-  if (accountType !== ParkingPermitScope.permitHolder) {
+  if (parkingAccount?.scope !== ParkingPermitScope.permitHolder) {
     return null
   }
 

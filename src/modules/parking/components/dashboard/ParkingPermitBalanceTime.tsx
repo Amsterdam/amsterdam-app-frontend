@@ -2,16 +2,15 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {selectCurrentAccountType} from '@/modules/parking/slice'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {formatDate} from '@/utils/datetime/formatDate'
 import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationToDisplay'
 
 export const ParkingPermitBalanceTime = () => {
   const currentPermit = useCurrentParkingPermit()
-  const accountType = useSelector(selectCurrentAccountType)
+  const parkingAccount = useParkingAccount()
 
   if (!currentPermit.time_balance_applicable) {
     return null
@@ -20,7 +19,7 @@ export const ParkingPermitBalanceTime = () => {
   return (
     <Column gutter="xs">
       <Row align="between">
-        {accountType === ParkingPermitScope.permitHolder ? (
+        {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
           <Title
             level="h5"
             testID="ParkingPermitBalanceTimeTitlePhrase"
@@ -41,7 +40,7 @@ export const ParkingPermitBalanceTime = () => {
           )}
         />
       </Row>
-      {accountType === ParkingPermitScope.permitHolder && (
+      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
         <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
           {`Tot ${formatDate(currentPermit.time_valid_until)}`}
         </Phrase>

@@ -82,10 +82,10 @@ export const ParkingSessionsList = ({
         }
 
         const firstIndex = result.data.findIndex(
-          item => item.ps_right_id === items[0].ps_right_id,
+          item => item.ps_right_id === items[0]?.ps_right_id,
         )
         const lastIndex = result.data.findIndex(
-          item => item.ps_right_id === items[items.length - 1].ps_right_id,
+          item => item.ps_right_id === items[items.length - 1]?.ps_right_id,
         )
 
         if (firstIndex && lastIndex) {
