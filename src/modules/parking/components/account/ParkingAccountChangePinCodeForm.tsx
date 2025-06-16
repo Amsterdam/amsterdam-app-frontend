@@ -6,6 +6,7 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useParkingAccountChangePinCodeMutation} from '@/modules/parking/service'
+import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {devError} from '@/processes/development'
@@ -32,12 +33,20 @@ export const ParkingAccountChangePinCodeForm = () => {
   const [changePinCode] = useParkingAccountChangePinCodeMutation()
   const pinCodeRef = useRef<TextInput | null>(null)
   const pinCodeCheckRef = useRef<TextInput | null>(null)
+  const currentAccount = useCurrentParkingAccount()
 
   const onSubmit = handleSubmit(
     async ({pin_code, pin_code_check, pin_current}) => {
       // should be replaced by a selector on the current account
       // TODO: PBI #146543 to implement this
-      const t = await getSecureParkingAccount(ParkingPermitScope.permitHolder)
+      if (!currentAccount) {
+        return
+      }
+
+      const t = await getSecureParkingAccount(
+        currentAccount,
+        ParkingPermitScope.permitHolder,
+      )
 
       if (!t) {
         devError('No parking account found for change pin code')
