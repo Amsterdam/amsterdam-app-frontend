@@ -1,4 +1,8 @@
-import {selectAccessTokenExpiration} from '@/modules/parking/slice'
+import {
+  selectAccessToken,
+  selectAccessTokenExpiration,
+  selectParkingAccount,
+} from '@/modules/parking/slice'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {PrepareHeaders} from '@/services/types'
 import {type RootState} from '@/store/types/rootState'
@@ -10,14 +14,20 @@ export const prepareHeaders: PrepareHeaders = async (
 ) => {
   const state = getState() as RootState
   const accessTokenExpiration = dayjs(selectAccessTokenExpiration(state))
-  const {parkingAccount} = state.parking
-  let {accessToken} = state.parking
+  const account = selectParkingAccount(state)
+
+  if (!account) {
+    return headers
+  }
+
+  let accessToken = selectAccessToken(state)
 
   const nowPlusMinute = dayjs().add(1, 'minute')
 
   if (accessTokenExpiration.isBefore(nowPlusMinute)) {
     const newAccessToken = await refreshAccessToken(
-      parkingAccount,
+      account.reportCode,
+      account.scope,
       dispatch,
       state,
       () => null,

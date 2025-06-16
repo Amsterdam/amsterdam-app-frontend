@@ -9,12 +9,13 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSetSecureParkingAccount} from '@/modules/parking/hooks/useSetSecureParkingAccount'
+import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useLoginParkingMutation} from '@/modules/parking/service'
+import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
   useIsLoggingInAdditionalAccount,
+  useParkingAccessToken,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 
@@ -23,15 +24,15 @@ export const ParkingLoginForm = () => {
   const {navigate} = useNavigation()
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
-  const dispatch = useDispatch()
+  const {setAccessToken} = useParkingAccessToken()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
-  const setSecureParkingAccount = useSetSecureParkingAccount()
+  const setSecureParkingAccount = useAddSecureParkingAccount()
   const {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount} =
     useIsLoggingInAdditionalAccount()
-
+  const dispatch = useDispatch()
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
@@ -44,14 +45,12 @@ export const ParkingLoginForm = () => {
       .unwrap()
       .then(async ({access_token, access_token_expiration, scope}) => {
         await setSecureParkingAccount({pin, reportCode}, scope)
+        setAccessToken(reportCode, access_token, access_token_expiration)
+        dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
+        dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
         dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
-        dispatch(parkingSlice.actions.setAccessToken(access_token))
-        dispatch(
-          parkingSlice.actions.setAccessTokenExpiration(
-            access_token_expiration,
-          ),
-        )
         isLoggingInAdditionalAccount && setIsLoggingInAdditionalAccount(false)
+        dispatch(parkingApi.util.resetApiState())
       })
   })
 

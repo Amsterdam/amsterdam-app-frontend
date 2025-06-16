@@ -9,7 +9,7 @@ import {ParkingPermitScope} from '@/modules/parking/types'
 export const ParkingDashboardNavigationButtons = () => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   if (parkingAccount?.scope !== ParkingPermitScope.permitHolder) {
     return null

@@ -9,7 +9,7 @@ import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitDetail = () => {
   const currentPermit = useCurrentParkingPermit()
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   return (
     <Column gutter="md">

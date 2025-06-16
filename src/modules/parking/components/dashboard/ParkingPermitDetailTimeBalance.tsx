@@ -10,7 +10,7 @@ type Props = {
 }
 
 export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   if (!permit) {
     return null

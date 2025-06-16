@@ -1,30 +1,28 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {parkingApi} from '@/modules/parking/service'
 import {parkingSlice} from '@/modules/parking/slice'
-import {
-  ParkingEndpointName,
-  ParkingStateCurrentAccount,
-} from '@/modules/parking/types'
+import {ParkingEndpointName, ParkingPermitScope} from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
 
 export const refreshAccessToken = (
-  account: ParkingStateCurrentAccount | undefined,
+  reportCode: string,
+  scope: ParkingPermitScope,
   dispatch: ReduxDispatch,
   state: RootState,
   failRetry: (e?: unknown) => void,
 ): Promise<string> =>
   new Promise(async (resolve, reject) => {
-    if (!account) {
+    if (!reportCode) {
       devError('No account provided')
       reject(new Error('No account provided'))
 
       return
     }
 
-    const secureAccount = await getSecureParkingAccount(account)
+    const secureAccount = await getSecureParkingAccount(reportCode, scope)
 
     if (!secureAccount) {
       devError('No pin found for account')
@@ -42,11 +40,12 @@ export const refreshAccessToken = (
       .unwrap()
       .then(
         ({access_token, access_token_expiration}) => {
-          dispatch(parkingSlice.actions.setAccessToken(access_token))
           dispatch(
-            parkingSlice.actions.setAccessTokenExpiration(
-              access_token_expiration,
-            ),
+            parkingSlice.actions.setAccessToken({
+              accessToken: access_token,
+              accessTokenExpiration: access_token_expiration,
+              reportCode: secureAccount.reportCode,
+            }),
           )
           devLog('Token parking account successful refreshed')
           failRetry('New token, so old request should fail')

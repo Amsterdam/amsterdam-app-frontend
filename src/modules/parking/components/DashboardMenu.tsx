@@ -14,7 +14,7 @@ export const DashboardMenu = () => {
   const isMenuVisible = useSelector(selectIsMenuVisible)
   const store = useStore()
 
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   const onPressLogout = useCallback(() => {
     dispatch(setIsMenuVisible(false))

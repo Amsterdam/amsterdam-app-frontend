@@ -2,17 +2,17 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
-import {useCurrentParkingPermitName} from '@/modules/parking/slice'
+import {useCurrentParkingPermitReportCode} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const ParkingPermitTopTaskButton = () => {
   const {toggle} = useBottomSheet()
-  const {currentPermitName} = useCurrentParkingPermitName()
-  const {parkingAccount} = useParkingAccount()
-  const {report_code, permit_zone} = useCurrentParkingPermit()
+  const currentPermitReportCode = useCurrentParkingPermitReportCode()
+  const parkingAccount = useParkingAccount()
+  const {permit_name, report_code, permit_zone} = useCurrentParkingPermit()
 
-  if (!currentPermitName) {
+  if (!currentPermitReportCode) {
     return (
       <SomethingWentWrong testID="ParkingPermitTopTaskButtonSomethingWentWrong" />
     )
@@ -31,7 +31,7 @@ export const ParkingPermitTopTaskButton = () => {
       title={
         parkingAccount?.scope === ParkingPermitScope.visitor
           ? `Op bezoek ${permit_zone.name} - ${report_code}`
-          : currentPermitName
+          : permit_name
       }
       titleIconName="chevron-down"
     />

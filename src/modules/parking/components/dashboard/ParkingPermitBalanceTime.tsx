@@ -10,7 +10,7 @@ import {formatTimeDurationToDisplay} from '@/utils/datetime/formatTimeDurationTo
 
 export const ParkingPermitBalanceTime = () => {
   const currentPermit = useCurrentParkingPermit()
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   if (!currentPermit.time_balance_applicable) {
     return null

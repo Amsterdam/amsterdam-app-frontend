@@ -43,6 +43,10 @@ export const ParkingStack = () => {
     return null
   }
 
+  const hasSecureAccount =
+    (securePermitHolder && securePermitHolder !== '[]') ||
+    (secureVisitor && secureVisitor !== '[]')
+
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       {isForgotCode ? (
@@ -59,8 +63,7 @@ export const ParkingStack = () => {
             headerTitle: 'Sneller toegang',
           }}
         />
-      ) : (securePermitHolder || secureVisitor) &&
-        !isLoggingInAdditionalAccount ? (
+      ) : hasSecureAccount && !isLoggingInAdditionalAccount ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
             Object.entries(parkingScreenConfig).map(([key, route]) => (

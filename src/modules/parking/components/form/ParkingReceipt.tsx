@@ -42,7 +42,7 @@ export const ParkingReceipt = () => {
     visitorVehicleId,
   } = watch()
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   const currentPermit = useCurrentParkingPermit()
 

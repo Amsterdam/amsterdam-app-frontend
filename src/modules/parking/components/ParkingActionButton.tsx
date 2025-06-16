@@ -43,7 +43,7 @@ const ParkingActionButtonContent = () => {
 export const ParkingActionButton = () => {
   const {accessCode} = useGetSecureAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   if (
     !accessCode ||

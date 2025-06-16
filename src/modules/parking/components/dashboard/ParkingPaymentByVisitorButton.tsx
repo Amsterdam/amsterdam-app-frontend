@@ -9,7 +9,7 @@ import {ParkingPermitScope} from '@/modules/parking/types'
 export const ParkingPaymentByVisitorButton = () => {
   const currentPermit = useCurrentParkingPermit()
 
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
   const {navigate} = useNavigation()
 
   const onPress = useCallback(() => {

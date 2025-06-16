@@ -1,3 +1,4 @@
+import {selectParkingAccount} from '@/modules/parking/slice'
 import {refreshAccessToken} from '@/modules/parking/utils/refreshAccessToken'
 import {AfterBaseQueryErrorFn} from '@/services/types'
 import {type RootState} from '@/store/types/rootState'
@@ -9,11 +10,21 @@ export const afterError: AfterBaseQueryErrorFn = async (
 ) => {
   if (error?.status === 403) {
     const state = getState() as RootState
-    const {parkingAccount} = state.parking
+    const account = selectParkingAccount(state)
 
-    return refreshAccessToken(parkingAccount, dispatch, state, failRetry).then(
-      () => Promise.resolve(),
-    )
+    if (!account) {
+      failRetry('no account')
+
+      return
+    }
+
+    return refreshAccessToken(
+      account?.reportCode,
+      account?.scope,
+      dispatch,
+      state,
+      failRetry,
+    ).then(() => Promise.resolve())
   } else {
     failRetry('no access')
   }

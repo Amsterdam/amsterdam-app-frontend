@@ -11,7 +11,7 @@ import {ParkingPermitScope} from '@/modules/parking/types'
 export const ParkingPermitBalance = () => {
   const currentPermit = useCurrentParkingPermit()
 
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   if (
     !currentPermit.time_balance_applicable &&

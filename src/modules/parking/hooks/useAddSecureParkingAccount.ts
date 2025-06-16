@@ -7,7 +7,7 @@ const getKey = (scope: ParkingPermitScope) =>
     ? SecureItemKey.parkingPermitHolder
     : SecureItemKey.parkingVisitor
 
-export const useSetSecureParkingAccount = () => {
+export const useAddSecureParkingAccount = () => {
   const setSecureItem = useSetSecureItem()
 
   return useCallback(
@@ -41,6 +41,10 @@ export const useSetSecureParkingAccount = () => {
         currentArr = []
       }
 
+      // Remove any existing item with the same reportCode
+      currentArr = currentArr.filter(
+        item => item.reportCode !== data.reportCode,
+      )
       currentArr.push(data)
 
       await setSecureItem(key, JSON.stringify(currentArr))

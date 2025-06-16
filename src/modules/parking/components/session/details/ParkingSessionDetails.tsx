@@ -35,7 +35,7 @@ type Props = {
 }
 
 export const ParkingSessionDetails = ({parkingSession}: Props) => {
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
   const {permits, isLoading} = useGetPermits()

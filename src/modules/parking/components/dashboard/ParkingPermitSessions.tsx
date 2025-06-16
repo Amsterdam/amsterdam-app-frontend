@@ -12,7 +12,7 @@ import {ParkingPermitScope} from '@/modules/parking/types'
 export const ParkingPermitSessions = () => {
   const {visitorVehicleId} = useVisitorVehicleId()
   const currentPermit = useCurrentParkingPermit()
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
 
   return (
     <Box variant="distinct">

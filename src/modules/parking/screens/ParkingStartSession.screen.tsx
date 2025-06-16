@@ -21,7 +21,7 @@ type Props = NavigationProps<ParkingRouteName.startSession>
 
 export const ParkingStartSessionScreen = ({route}: Props) => {
   const {params} = route || {}
-  const {parkingAccount} = useParkingAccount()
+  const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
 
   return (

@@ -1,17 +1,14 @@
-import {
-  ParkingPermitScope,
-  ParkingStateCurrentAccount,
-  SecureParkingAccount,
-} from '@/modules/parking/types'
+import {ParkingPermitScope, SecureParkingAccount} from '@/modules/parking/types'
 import {devLog} from '@/processes/development'
 import {getSecureItem, SecureItemKey} from '@/utils/secureStorage'
 
 export const getSecureParkingAccount = async (
-  account: ParkingStateCurrentAccount,
+  accountReportCode: string,
+  scope: ParkingPermitScope,
 ): Promise<SecureParkingAccount | undefined> => {
   try {
     const scopeAccounts = await getSecureItem(
-      account.scope === ParkingPermitScope.permitHolder
+      scope === ParkingPermitScope.permitHolder
         ? SecureItemKey.parkingPermitHolder
         : SecureItemKey.parkingVisitor,
     )
@@ -35,7 +32,7 @@ export const getSecureParkingAccount = async (
           typeof item === 'object' &&
           item !== null &&
           'reportCode' in item &&
-          item.reportCode === account.reportCode,
+          item.reportCode === accountReportCode,
       )
     }
 
