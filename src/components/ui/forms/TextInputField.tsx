@@ -24,6 +24,7 @@ type Props = {
     | 'onSubmitEditing'
     | 'submitBehavior'
     | 'returnKeyType'
+    | 'maxLength'
   >
 
 export const TextInputField = forwardRef<TextInputRN, Props>(

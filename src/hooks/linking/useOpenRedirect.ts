@@ -35,5 +35,5 @@ export const useOpenRedirect = () => {
     [isLoading, openWebUrl, redirectUrls, refetch, trackException],
   )
 
-  return {openRedirect, isLoading, isError}
+  return {openRedirect, isLoading, isError, redirectUrls}
 }

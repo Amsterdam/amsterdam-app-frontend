@@ -1,6 +1,8 @@
 import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 
 export enum ParkingRouteName {
+  accountChangePinCode = 'ParkingAccountChangePinCode',
+  accountDetails = 'ParkingAccountDetails',
   addLicensePlate = 'ParkingAddLicensePlate',
   dashboard = 'ParkingDashboard',
   editSession = 'ParkingEditSession',
@@ -55,4 +57,6 @@ export type ParkingStackParams = {
   [ParkingRouteName.manageVisitorAdjustTimeBalance]:
     | {subtractTime: boolean}
     | undefined
+  [ParkingRouteName.accountDetails]: undefined
+  [ParkingRouteName.accountChangePinCode]: undefined
 }

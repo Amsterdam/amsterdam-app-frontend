@@ -1,10 +1,12 @@
 import {useCallback} from 'react'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {logout} from '@/modules/parking/utils/logout'
 import {selectIsMenuVisible, setIsMenuVisible} from '@/store/slices/menu'
@@ -21,11 +23,16 @@ export const DashboardMenu = () => {
     void logout(false, dispatch, store.getState())
   }, [dispatch, store])
 
+  const {navigate} = useNavigation()
+
   const menuItemsAccountHolder: PopupMenuItem[] = [
     {
       color: 'link',
       label: 'Accountgegevens',
-      onPress: () => null,
+      onPress: () => {
+        dispatch(setIsMenuVisible(!isMenuVisible))
+        navigate(ParkingRouteName.accountDetails)
+      },
       testID: 'ParkingDashboardMenuAccountDetailsButton',
     },
     {
