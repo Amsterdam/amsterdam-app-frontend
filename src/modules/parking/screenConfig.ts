@@ -12,6 +12,8 @@ import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPla
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/ParkingSessionTransactions.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
+import {ParkingAccountChangePinCodeScreen} from '@/modules/parking/screens/account/AccountChangePinCode.screen'
+import {ParkingAccountDetailsScreen} from '@/modules/parking/screens/account/AccountDetails.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
 import {ParkingManageVisitorChangePinCodeScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorChangePinCode.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
@@ -128,6 +130,20 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.manageVisitorAdjustTimeBalance,
     options: {
       headerShown: false,
+    },
+  },
+  [ParkingRouteName.accountDetails]: {
+    component: ParkingAccountDetailsScreen,
+    name: ParkingRouteName.accountDetails,
+    options: {
+      headerTitle: 'Accountgegevens',
+    },
+  },
+  [ParkingRouteName.accountChangePinCode]: {
+    component: ParkingAccountChangePinCodeScreen,
+    name: ParkingRouteName.accountChangePinCode,
+    options: {
+      headerTitle: 'Pincode wijzigen',
     },
   },
 }

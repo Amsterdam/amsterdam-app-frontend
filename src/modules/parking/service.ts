@@ -53,6 +53,30 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.accountChangePinCode]: builder.mutation<
+      void,
+      ParkingManageVisitorChangePinCodeEndpointRequest
+    >({
+      query: body => ({
+        prepareHeaders,
+        body,
+        method: 'PUT',
+        slug: ModuleSlug.parking,
+        url: '/pin-code',
+        afterError: (result, api, failRetry) => {
+          if (
+            result.error?.status === 403 &&
+            (result.error.data as {detail?: string})?.detail?.includes(
+              'Invalid pin',
+            )
+          ) {
+            failRetry('Invalid pin')
+          } else {
+            return afterError(result, api, failRetry)
+          }
+        },
+      }),
+    }),
     [ParkingEndpointName.addLicensePlate]: builder.mutation<
       AddLicensePlateEndpointResponse,
       AddLicensePlateEndpointRequest
@@ -308,6 +332,7 @@ export const parkingApi = baseApi.injectEndpoints({
 })
 
 export const {
+  useParkingAccountChangePinCodeMutation,
   useAccountDetailsQuery,
   useAddLicensePlateMutation,
   useLicensePlatesQuery,

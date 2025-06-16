@@ -8,7 +8,7 @@ import {
 } from '@/modules/address/types'
 import {selectIsPermissionGranted} from '@/store/slices/permissions'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {RootState} from '@/store/types/rootState'
+import {type RootState} from '@/store/types/rootState'
 import {Permissions} from '@/types/permissions'
 
 const initialState: AddressState = {

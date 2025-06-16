@@ -2,6 +2,7 @@ import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 // Routes
 export enum ParkingEndpointName {
+  accountChangePinCode = 'parkingAccountChangePinCode',
   accountDetails = 'accountDetails',
   addLicensePlate = 'addLicensePlate',
   deleteSession = 'deleteSession',
