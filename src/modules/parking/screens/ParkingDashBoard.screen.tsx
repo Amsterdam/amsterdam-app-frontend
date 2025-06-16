@@ -1,4 +1,5 @@
 import {useEffect} from 'react'
+import {navigationRef} from '@/app/navigation/navigationRef'
 import {RouteProp, type NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
@@ -30,14 +31,26 @@ type Props = NavigationProps<ParkingRouteName.dashboard>
 export const ParkingDashboardScreen = ({route}: Props) => {
   useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()
+  const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
+    {}) as {headerShown?: boolean}
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
+    return (
+      <Screen
+        bottomSheet={!headerShown}
+        testID="ParkingDashboardScreen">
+        <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
+      </Screen>
+    )
   }
 
   if (!permits) {
     return (
-      <SomethingWentWrong testID="ParkingDashboardScreenSomethingWentWrong" />
+      <Screen
+        bottomSheet={!headerShown}
+        testID="ParkingDashboardScreen">
+        <SomethingWentWrong testID="ParkingDashboardScreenSomethingWentWrong" />
+      </Screen>
     )
   }
 
