@@ -8,7 +8,7 @@ import {
   useAccountDetailsQuery,
   useIncreaseBalanceMutation,
 } from '@/modules/parking/service'
-import {setWalletBalance} from '@/modules/parking/slice'
+import {setWalletBalanceIncreaseStartBalance} from '@/modules/parking/slice'
 
 type FieldValues = {
   amount?: number
@@ -25,7 +25,7 @@ export const ParkingIncreaseBalanceButton = () => {
   const onSubmit = useCallback(
     ({amount}: FieldValues) => {
       if (amount) {
-        dispatch(setWalletBalance(data?.wallet?.balance))
+        dispatch(setWalletBalanceIncreaseStartBalance(data?.wallet?.balance))
         void increaseBalance({
           balance: {
             amount,

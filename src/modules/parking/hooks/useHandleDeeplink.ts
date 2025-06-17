@@ -3,9 +3,10 @@ import {RouteProp} from '@/app/navigation/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {setIsWaitingForWalletBalanceIncrease} from '@/modules/parking/slice'
+import {setWalletBalanceIncreaseStartedAt} from '@/modules/parking/slice'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export const useHandleDeeplink = (
   route: RouteProp<ParkingRouteName.dashboard>,
@@ -18,7 +19,7 @@ export const useHandleDeeplink = (
     if (params?.action === 'increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.increaseBalanceSuccess)
-        dispatch(setIsWaitingForWalletBalanceIncrease(true))
+        dispatch(setWalletBalanceIncreaseStartedAt(dayjs()))
         dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)

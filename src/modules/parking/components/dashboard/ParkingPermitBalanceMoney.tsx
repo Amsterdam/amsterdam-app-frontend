@@ -13,22 +13,22 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {
-  setIsWaitingForWalletBalanceIncrease,
-  useIsWaitingForWalletBalanceIncrease,
-  useWalletBalance,
+  setWalletBalanceIncreaseStartedAt,
+  useWalletBalanceIncreaseStartedAt,
+  useWalletBalanceIncreaseStartBalance,
 } from '@/modules/parking/slice'
 import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
+import {dayjs} from '@/utils/datetime/dayjs'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingPermitBalanceMoney = () => {
   const dispatch = useDispatch()
   const currentPermit = useCurrentParkingPermit()
-  const walletBalance = useWalletBalance()
+  const walletBalance = useWalletBalanceIncreaseStartBalance()
   const {data: account, isLoading, refetch} = useAccountDetailsQuery()
   const accountWalletBalance = account?.wallet?.balance
   const {navigate} = useNavigation()
-  const isWaitingForMoneyBalanceIncrease =
-    useIsWaitingForWalletBalanceIncrease()
+  const walletBalanceIncreaseStartedAt = useWalletBalanceIncreaseStartedAt()
 
   const onPressAddMoney = () => {
     navigate(ParkingRouteName.increaseBalance)
@@ -40,14 +40,15 @@ export const ParkingPermitBalanceMoney = () => {
       accountWalletBalance &&
       accountWalletBalance > walletBalance
     ) {
-      dispatch(setIsWaitingForWalletBalanceIncrease(false))
+      dispatch(setWalletBalanceIncreaseStartedAt(undefined))
     }
   }, [dispatch, walletBalance, accountWalletBalance])
 
   // refetch account details every 5 seconds if the wallet balance hasn't updated yet, it can take a bit before the payment is processed
   useRefetchInterval(
     refetch,
-    isWaitingForMoneyBalanceIncrease &&
+    walletBalanceIncreaseStartedAt &&
+      dayjs().diff(walletBalanceIncreaseStartedAt, 'minutes') < 15 &&
       typeof walletBalance === 'number' &&
       walletBalance === accountWalletBalance
       ? 5000
