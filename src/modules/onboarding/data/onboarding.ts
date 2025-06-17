@@ -1,5 +1,6 @@
 import Afvalwijzer from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.png'
 import Melding from '@/modules/onboarding/assets/images/screenshot-melding.png'
+import Parkeren from '@/modules/onboarding/assets/images/screenshot-parkeren.png'
 import Persoonlijk from '@/modules/onboarding/assets/images/screenshot-persoonlijk.png'
 import Relevant from '@/modules/onboarding/assets/images/screenshot-relevant.png'
 import Stadspas from '@/modules/onboarding/assets/images/screenshot-stadspas.png'
@@ -43,5 +44,10 @@ export const onboardingData: CarouselSlideItem[] = [
     title: 'Stadspas',
     description: 'Uw Stadspas altijd mee en inzicht in uw saldo.',
     image: Stadspas,
+  },
+  {
+    title: 'Aanmelden parkeren',
+    description: 'Laat uw bezoek met korting parkeren.',
+    image: Parkeren,
   },
 ]
