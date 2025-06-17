@@ -14,6 +14,7 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
+  useCurrentParkingAccount,
   useIsLoggingInAdditionalAccount,
   useParkingAccessToken,
 } from '@/modules/parking/slice'
@@ -21,7 +22,8 @@ import {ParkingAccountLogin} from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const {navigate} = useNavigation()
+  // eslint-disable-next-line @typescript-eslint/unbound-method
+  const {navigate, replace} = useNavigation()
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
@@ -36,6 +38,7 @@ export const ParkingLoginForm = () => {
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
+  const currentAccount = useCurrentParkingAccount()
 
   const onSubmit = handleSubmit(({pin, reportCode}) => {
     void loginParking({
@@ -51,6 +54,12 @@ export const ParkingLoginForm = () => {
         dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
         isLoggingInAdditionalAccount && setIsLoggingInAdditionalAccount(false)
         dispatch(parkingApi.util.resetApiState())
+
+        if (currentAccount) {
+          setTimeout(() => {
+            replace(ParkingRouteName.dashboard)
+          }, 500)
+        }
       })
   })
 

@@ -66,12 +66,25 @@ export const ParkingStack = () => {
       ) : hasSecureAccount && !isLoggingInAdditionalAccount ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
-            Object.entries(parkingScreenConfig).map(([key, route]) => (
+            <>
+              {Object.entries(parkingScreenConfig).map(([key, route]) => (
+                <Stack.Screen
+                  key={key}
+                  {...route}
+                />
+              ))}
+
               <Stack.Screen
-                key={key}
-                {...route}
+                component={ParkingLoginScreen}
+                name={ParkingRouteName.login}
+                options={{headerTitle: 'Inloggen'}}
               />
-            ))
+              <Stack.Screen
+                component={ParkingRequestPinCodeScreen}
+                name={ParkingRouteName.requestPinCode}
+                options={{headerTitle: 'Pincode vergeten'}}
+              />
+            </>
           ) : attemptsLeft > 0 ? (
             <Stack.Screen
               component={AccessCodeScreen}
