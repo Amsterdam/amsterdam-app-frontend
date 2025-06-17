@@ -12,6 +12,10 @@ export const ManageVisitorCredentialsOverview = () => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
 
+  if (!currentPermit.visitor_account) {
+    return null
+  }
+
   return (
     <Column gutter="lg">
       <Title text="Inloggegevens" />

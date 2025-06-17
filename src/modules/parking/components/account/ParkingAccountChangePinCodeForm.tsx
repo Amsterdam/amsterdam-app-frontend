@@ -22,7 +22,7 @@ const textTransform = (value: string) => value.replace(/\D/g, '')
 
 export const ParkingAccountChangePinCodeForm = () => {
   const form = useForm<ChangePinCodeFormValues>()
-  const {handleSubmit, watch} = form
+  const {handleSubmit, watch, formState} = form
   const {goBack} = useNavigation()
   const pinCode = watch('pin_code')
   const [changePinCode] = useParkingAccountChangePinCodeMutation()
@@ -37,7 +37,7 @@ export const ParkingAccountChangePinCodeForm = () => {
       return
     }
 
-    void changePinCode({
+    return changePinCode({
       pin_current,
       pin_code,
       pin_code_check,
@@ -127,6 +127,7 @@ export const ParkingAccountChangePinCodeForm = () => {
         />
         <Column gutter="md">
           <Button
+            disabled={formState.isSubmitting}
             label="Pincode wijzigen"
             onPress={onSubmit}
             testID="ParkingAccountChangePinCodeFormSubmitButton"

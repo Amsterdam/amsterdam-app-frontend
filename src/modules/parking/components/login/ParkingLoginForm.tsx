@@ -18,6 +18,7 @@ import {
   useParkingAccessToken,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
+import {devError} from '@/processes/development'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
@@ -36,34 +37,37 @@ export const ParkingLoginForm = () => {
     : 'Er is iets misgegaan. Probeer het opnieuw.'
   const currentAccount = useCurrentParkingAccount()
 
-  const onSubmit = handleSubmit(({pin, reportCode}) => {
-    void loginParking({
-      pin,
-      report_code: reportCode,
-    })
-      .unwrap()
-      .then(async ({access_token, access_token_expiration, scope}) => {
-        await setSecureParkingAccount({pin, reportCode}, scope)
-        setAccessToken(reportCode, access_token, access_token_expiration)
-        dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
-        dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
-        dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
-        dispatch(parkingApi.util.resetApiState())
+  const onSubmit = handleSubmit(async ({pin, reportCode}) => {
+    try {
+      const {access_token, access_token_expiration, scope} = await loginParking(
+        {
+          pin,
+          report_code: reportCode,
+        },
+      ).unwrap()
 
-        if (currentAccount) {
-          setTimeout(() => {
-            reset({
-              index: 0,
-              routes: [
-                {
-                  name: ParkingRouteName.dashboard,
-                },
-              ],
-            })
-            // replace(ParkingRouteName.dashboard)
-          }, 500)
-        }
-      })
+      await setSecureParkingAccount({pin, reportCode}, scope)
+      setAccessToken(reportCode, access_token, access_token_expiration)
+      dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
+      dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
+      dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
+      dispatch(parkingApi.util.resetApiState())
+
+      if (currentAccount) {
+        setTimeout(() => {
+          reset({
+            index: 0,
+            routes: [
+              {
+                name: ParkingRouteName.dashboard,
+              },
+            ],
+          })
+        }, 1000)
+      }
+    } catch (err) {
+      devError('ParkingLoginForm onSubmit error:', err)
+    }
   })
 
   return (
@@ -113,6 +117,7 @@ export const ParkingLoginForm = () => {
           variant="tertiary"
         />
         <Button
+          disabled={form.formState.isSubmitting}
           label="Inloggen"
           onPress={onSubmit}
           testID="ParkingLoginFormSubmitButton"

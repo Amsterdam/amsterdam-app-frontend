@@ -23,7 +23,11 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
   const pinCodeCheckRef = useRef<TextInput | null>(null)
 
   const onSubmit = handleSubmit(({pin_code, pin_code_check}) => {
-    void changePinCode({
+    if (!currentPermit.visitor_account) {
+      return
+    }
+
+    return changePinCode({
       pin_code,
       pin_code_check,
       report_code: currentPermit.visitor_account.report_code.toString(),
@@ -32,6 +36,10 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
       .unwrap()
       .then(goBack)
   })
+
+  if (!currentPermit.visitor_account) {
+    return null
+  }
 
   return (
     <FormProvider {...form}>
