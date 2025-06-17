@@ -4,6 +4,7 @@ import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
+import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof ParkingState)[] = [
@@ -20,6 +21,7 @@ export const parkingModule: ModuleClientConfig = {
     [ParkingRouteName.dashboard]: 'parking/:action/return',
     [ParkingRouteName.login]: 'parking/visitor/:reportCode/:pin',
   },
+  logDimension: PiwikSessionDimension.parkingModule,
   reduxConfigs: [
     {
       key: ReduxKey.parking,
