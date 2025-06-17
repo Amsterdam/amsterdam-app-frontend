@@ -5,11 +5,11 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 export const ParkingAccountCredentials = () => {
-  // TODO: PBI #146543 to implement this report code
-  const reportCode = '123321'
+  const {reportCode} = useParkingAccount() ?? {}
   const {navigate} = useNavigation()
 
   return (
