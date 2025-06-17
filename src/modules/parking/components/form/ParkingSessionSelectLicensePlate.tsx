@@ -45,7 +45,7 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
           text="Mijn kentekens"
         />
         {licensePlates.length === 0 && (
-          <Phrase>U heeft nog geen favoriete kentekens opgeslagen.</Phrase>
+          <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
         {licensePlates?.map(licensePlate => (
           <TopTaskButton
