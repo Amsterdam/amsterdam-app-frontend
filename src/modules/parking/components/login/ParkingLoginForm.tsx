@@ -73,7 +73,6 @@ export const ParkingLoginForm = () => {
           testID="ParkingLoginFormReportCodeInputField"
         />
         <TextInputField
-          enterKeyHint="send"
           keyboardType="number-pad"
           label="Pincode"
           name="pin"

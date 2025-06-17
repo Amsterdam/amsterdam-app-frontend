@@ -73,7 +73,7 @@ export const ParkingMyLicensePlates = () => {
     <Box>
       <Column gutter="xl">
         {licensePlates.length === 0 && (
-          <Phrase>U heeft nog geen favoriete kentekens opgeslagen.</Phrase>
+          <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
         {licensePlates?.map(licensePlate => (
           <LicensePlateListItem
