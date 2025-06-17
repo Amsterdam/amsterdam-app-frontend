@@ -14,6 +14,10 @@ export const ManageVisitorTimeBalanceOverview = () => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
 
+  if (!currentPermit.visitor_account) {
+    return null
+  }
+
   return (
     <Column gutter="lg">
       <Title text="Tijdsaldo bezoeker" />
@@ -24,7 +28,7 @@ export const ManageVisitorTimeBalanceOverview = () => {
           <Phrase>Tijdsaldo</Phrase>
           <Phrase emphasis="strong">
             {formatTimeDurationToDisplay(
-              currentPermit.visitor_account.seconds_remaining,
+              currentPermit.visitor_account?.seconds_remaining,
               'seconds',
               {short: true},
             )}

@@ -5,7 +5,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {ParkingAccount} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
-import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export type ParkingState = {
   accessTokens: Record<
@@ -114,11 +114,9 @@ export const parkingSlice = createSlice({
     },
     setWalletBalanceIncreaseStartedAt: (
       state,
-      {payload}: PayloadAction<Dayjs | undefined>,
+      {payload}: PayloadAction<string | undefined>,
     ) => {
       state.walletBalanceIncreaseStartedAt = payload
-        ? payload.toISOString()
-        : undefined
     },
     setWalletBalanceIncreaseStartBalance: (
       state,

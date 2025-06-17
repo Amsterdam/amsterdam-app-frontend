@@ -69,6 +69,10 @@ export const ManageVisitorTimeAddOnBottomSheet = ({isNegative}: Props) => {
   })
   const {close} = useBottomSheet()
 
+  if (!currentPermit.visitor_account) {
+    return null
+  }
+
   return (
     <BottomSheet testID="ManageVisitorTimeAddOnBottomSheet">
       <Box grow>

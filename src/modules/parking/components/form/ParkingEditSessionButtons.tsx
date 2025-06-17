@@ -14,7 +14,7 @@ type FieldValues = {
 }
 
 export const ParkingEditSessionButtons = () => {
-  const {handleSubmit} = useFormContext<FieldValues>()
+  const {handleSubmit, formState} = useFormContext<FieldValues>()
   const [editSession] = useEditSessionMutation()
 
   const navigation = useNavigation()
@@ -22,7 +22,7 @@ export const ParkingEditSessionButtons = () => {
   const onSubmit = useCallback(
     ({startTime, endTime, report_code, ps_right_id}: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
-        void editSession({
+        return editSession({
           parking_session: {
             report_code,
             ps_right_id,
@@ -42,6 +42,7 @@ export const ParkingEditSessionButtons = () => {
   return (
     <Column gutter="md">
       <Button
+        disabled={formState.isSubmitting}
         label="Bevestig nieuwe eindtijd"
         onPress={handleSubmit(onSubmit)}
         testID="ParkingEditSessionButton"

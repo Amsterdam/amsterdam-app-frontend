@@ -9,6 +9,10 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 export const ManageVisitorIntro = () => {
   const currentPermit = useCurrentParkingPermit()
 
+  if (!currentPermit.visitor_account) {
+    return null
+  }
+
   return (
     <Column>
       <Title text="Bezoekersaccount" />
@@ -20,15 +24,19 @@ export const ManageVisitorIntro = () => {
       <Gutter height="lg" />
       <Button
         label="Bezoeker uitnodigen"
-        onPress={() =>
-          Share.share({
+        onPress={() => {
+          if (!currentPermit.visitor_account) {
+            return
+          }
+
+          void Share.share({
             message: `Je kunt voor parkeren gebruik maken van mijn bezoekersaccount. 
 Meldcode: ${currentPermit.visitor_account.report_code}, 
 Pincode: ${currentPermit.visitor_account.pin}. 
 Met deze link kun je direct inloggen in de app: 
 https://app.amsterdam.nl/parkeren/bezoeker/?r=${currentPermit.visitor_account.report_code}&p=${currentPermit.visitor_account.pin}`,
           })
-        }
+        }}
         testID="ParkingManageVisitorInviteVisitorButton"
       />
     </Column>

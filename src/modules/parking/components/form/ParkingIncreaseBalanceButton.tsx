@@ -16,7 +16,7 @@ type FieldValues = {
 
 export const ParkingIncreaseBalanceButton = () => {
   const dispatch = useDispatch()
-  const {handleSubmit} = useFormContext()
+  const {handleSubmit, formState} = useFormContext()
   const [increaseBalance] = useIncreaseBalanceMutation()
   const {data} = useAccountDetailsQuery()
 
@@ -26,7 +26,8 @@ export const ParkingIncreaseBalanceButton = () => {
     ({amount}: FieldValues) => {
       if (amount) {
         dispatch(setWalletBalanceIncreaseStartBalance(data?.wallet?.balance))
-        void increaseBalance({
+
+        return increaseBalance({
           balance: {
             amount,
             currency: 'EUR',
@@ -51,6 +52,7 @@ export const ParkingIncreaseBalanceButton = () => {
 
   return (
     <Button
+      disabled={formState.isSubmitting}
       label="Nu betalen"
       onPress={handleSubmit(onSubmit)}
       testID="ParkingIncreaseBalanceButton"

@@ -20,7 +20,7 @@ type FieldValues = {
 }
 
 export const ParkingStartSessionButton = () => {
-  const {handleSubmit} = useFormContext<FieldValues>()
+  const {handleSubmit, formState} = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
@@ -44,7 +44,7 @@ export const ParkingStartSessionButton = () => {
       // TODO:
       // check if the limit of current active parking sessions is not reached
       if (vehicleId) {
-        void startSession({
+        return startSession({
           parking_session: {
             report_code: currentPermit.report_code.toString(),
             vehicle_id: vehicleId,
@@ -94,6 +94,7 @@ export const ParkingStartSessionButton = () => {
 
   return (
     <Button
+      disabled={formState.isSubmitting}
       iconName="parkingSession"
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}

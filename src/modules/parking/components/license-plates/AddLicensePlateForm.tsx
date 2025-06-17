@@ -12,13 +12,13 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 export const AddLicensePlateForm = () => {
   const {navigate} = useNavigation()
   const form = useForm<ParkingLicensePlate>()
-  const {handleSubmit} = form
+  const {handleSubmit, formState} = form
   const currentPermit = useCurrentParkingPermit()
 
   const [addLicensePlate] = useAddLicensePlateMutation()
 
-  const onSubmit = ({vehicle_id, visitor_name = ''}: ParkingLicensePlate) => {
-    void addLicensePlate({
+  const onSubmit = ({vehicle_id, visitor_name = ''}: ParkingLicensePlate) =>
+    addLicensePlate({
       report_code: currentPermit.report_code.toString(),
       vehicle_id,
       visitor_name,
@@ -27,7 +27,6 @@ export const AddLicensePlateForm = () => {
       .then(() => {
         navigate(ParkingRouteName.myLicensePlates)
       })
-  }
 
   return (
     <FormProvider {...form}>
@@ -47,6 +46,7 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormLicensePlateInputField"
         />
         <Button
+          disabled={formState.isSubmitting}
           label="Opslaan"
           onPress={handleSubmit(onSubmit)}
           testID="ParkingAddLicensePlateFormSubmitButton"

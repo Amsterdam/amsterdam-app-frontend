@@ -19,7 +19,7 @@ export const useHandleDeeplink = (
     if (params?.action === 'increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.increaseBalanceSuccess)
-        dispatch(setWalletBalanceIncreaseStartedAt(dayjs()))
+        dispatch(setWalletBalanceIncreaseStartedAt(dayjs().toISOString()))
         dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
