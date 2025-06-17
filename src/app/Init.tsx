@@ -8,7 +8,6 @@ import {HandleNotificationEvent} from '@/app/init/HandleNotificationEvent'
 import {LogGeneralAnalytics} from '@/app/init/LogGeneralAnalytics'
 import {PostRenderComponents} from '@/app/init/PostRenderComponents'
 import {PreRenderComponents} from '@/app/init/PreRenderComponents'
-import {NoInternet} from '@/components/features/NoInternet'
 import {useModules} from '@/hooks/useModules'
 
 type Props = {children: ReactNode}
@@ -25,11 +24,11 @@ export const Init = ({children}: Props) => {
       <LogGeneralAnalytics />
       <DeviceRegistration enabledModules={enabledModules} />
       <GetLocation />
-
       <PreRenderComponents enabledModules={enabledModules} />
       {children}
       <PostRenderComponents enabledModules={enabledModules} />
-      <NoInternet />
+      {/* temporarily hide this component, until the issue that makes it appear too often is fixed */}
+      {/* <NoInternet /> */}
     </>
   )
 }
