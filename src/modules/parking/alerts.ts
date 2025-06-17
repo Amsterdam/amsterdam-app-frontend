@@ -86,6 +86,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingStartSessionSuccessAlert',
   },
+  accountPinCodeChangeSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Uw pincode is gewijzigd.',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingAccountPinCodeChangeSuccessAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

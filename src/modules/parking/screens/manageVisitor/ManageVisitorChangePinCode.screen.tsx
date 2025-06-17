@@ -5,7 +5,9 @@ import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitPro
 
 export const ParkingManageVisitorChangePinCodeScreen = () => (
   <CurrentPermitProvider>
-    <Screen testID="ParkingManageVisitorChangePinCodeScreen">
+    <Screen
+      keyboardAware
+      testID="ParkingManageVisitorChangePinCodeScreen">
       <Box>
         <ParkingManageVisitorChangePinCodeForm />
       </Box>

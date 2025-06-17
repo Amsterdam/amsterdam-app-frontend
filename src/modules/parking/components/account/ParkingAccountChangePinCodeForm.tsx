@@ -5,11 +5,12 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
+import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {useParkingAccountChangePinCodeMutation} from '@/modules/parking/service'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
-import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
-import {devError} from '@/processes/development'
+import {useAlert} from '@/store/slices/alert'
 
 type ChangePinCodeFormValues = {
   pin_code: string
@@ -20,62 +21,47 @@ type ChangePinCodeFormValues = {
 const textTransform = (value: string) => value.replace(/\D/g, '')
 
 export const ParkingAccountChangePinCodeForm = () => {
-  const form = useForm<ChangePinCodeFormValues>({
-    defaultValues: {
-      pin_code: '1234',
-      pin_code_check: '1234',
-      pin_current: '1232',
-    },
-  })
+  const form = useForm<ChangePinCodeFormValues>()
   const {handleSubmit, watch} = form
   const {goBack} = useNavigation()
   const pinCode = watch('pin_code')
   const [changePinCode] = useParkingAccountChangePinCodeMutation()
   const pinCodeRef = useRef<TextInput | null>(null)
   const pinCodeCheckRef = useRef<TextInput | null>(null)
-  const currentAccount = useCurrentParkingAccount()
+  const reportCode = useCurrentParkingAccount()
+  const updateSecureParkingAccount = useAddSecureParkingAccount()
+  const {setAlert} = useAlert()
 
-  const onSubmit = handleSubmit(
-    async ({pin_code, pin_code_check, pin_current}) => {
-      // should be replaced by a selector on the current account
-      // TODO: PBI #146543 to implement this
-      if (!currentAccount) {
-        return
-      }
+  const onSubmit = handleSubmit(({pin_code, pin_code_check, pin_current}) => {
+    if (!reportCode) {
+      return
+    }
 
-      const t = await getSecureParkingAccount(
-        currentAccount,
-        ParkingPermitScope.permitHolder,
+    void changePinCode({
+      pin_current,
+      pin_code,
+      pin_code_check,
+      report_code: reportCode,
+    })
+      .unwrap()
+      .then(
+        () => {
+          setAlert(alerts.accountPinCodeChangeSuccess)
+          void updateSecureParkingAccount(
+            {reportCode, pin: pin_code},
+            ParkingPermitScope.permitHolder,
+          ).then(goBack)
+        },
+        (error: {data?: {detail?: string}}) => {
+          if (error.data?.detail?.includes('Invalid pin')) {
+            form.setError('pin_current', {
+              type: 'manual',
+              message: 'Pincode klopt niet. Probeer het opnieuw.',
+            })
+          }
+        },
       )
-
-      if (!t) {
-        devError('No parking account found for change pin code')
-
-        return
-      }
-
-      void changePinCode({
-        pin_current,
-        pin_code,
-        pin_code_check,
-        report_code: t?.reportCode.toString(),
-      })
-        .unwrap()
-        .then(
-          () => {
-            goBack()
-          },
-          (error: {data?: {detail?: string}}) => {
-            if (error.data?.detail?.includes('Invalid pin')) {
-              form.setError('pin_current', {
-                type: 'manual',
-                message: 'Pincode klopt niet. Probeer het opnieuw.',
-              })
-            }
-          },
-        )
-    },
-  )
+  })
 
   return (
     <FormProvider {...form}>
