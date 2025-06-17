@@ -5,11 +5,13 @@ import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
 import {useParkingAccountChangePinCodeMutation} from '@/modules/parking/service'
 import {useCurrentParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {devError} from '@/processes/development'
+import {useAlert} from '@/store/slices/alert'
 
 type ChangePinCodeFormValues = {
   pin_code: string
@@ -28,6 +30,7 @@ export const ParkingAccountChangePinCodeForm = () => {
   const pinCodeRef = useRef<TextInput | null>(null)
   const pinCodeCheckRef = useRef<TextInput | null>(null)
   const currentAccount = useCurrentParkingAccount()
+  const {setAlert} = useAlert()
 
   const onSubmit = handleSubmit(
     async ({pin_code, pin_code_check, pin_current}) => {
@@ -57,6 +60,7 @@ export const ParkingAccountChangePinCodeForm = () => {
         .unwrap()
         .then(
           () => {
+            setAlert(alerts.accountPinCodeChangeSuccess)
             goBack()
           },
           (error: {data?: {detail?: string}}) => {
