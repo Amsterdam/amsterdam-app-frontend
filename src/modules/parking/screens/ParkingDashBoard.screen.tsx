@@ -23,6 +23,7 @@ import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useParkingAccountIsLoggingOut} from '@/modules/parking/slice'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
 
@@ -33,8 +34,9 @@ export const ParkingDashboardScreen = ({route}: Props) => {
   const {permits, isLoading} = useGetPermits()
   const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
     {}) as {headerShown?: boolean}
+  const isLoggingOut = useParkingAccountIsLoggingOut()
 
-  if (isLoading) {
+  if (isLoading || isLoggingOut) {
     return (
       <Screen
         bottomSheet={!headerShown}

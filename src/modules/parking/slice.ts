@@ -15,6 +15,7 @@ export type ParkingState = {
   currentAccount?: string
   currentPermitReportCode?: string
   isLoggingInAdditionalAccount: boolean
+  isLoggingOut: boolean
   /**
    * Whether the user is still completing the login steps
    */
@@ -31,6 +32,7 @@ const initialState: ParkingState = {
   accounts: {},
   currentPermitReportCode: undefined,
   isLoggingInAdditionalAccount: false,
+  isLoggingOut: false,
   isLoginStepsActive: false,
   currentAccount: undefined,
   shouldShowLoginScreen: false,
@@ -79,6 +81,9 @@ export const parkingSlice = createSlice({
     ) => {
       state.isLoggingInAdditionalAccount = payload
     },
+    setIsLoggingOut: (state, {payload}: PayloadAction<boolean>) => {
+      state.isLoggingOut = payload
+    },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
@@ -114,6 +119,7 @@ export const parkingSlice = createSlice({
 })
 
 export const {
+  setIsLoggingOut,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
 } = parkingSlice.actions
@@ -140,6 +146,9 @@ export const selectIsLoginStepsActive = (state: RootState) =>
 
 export const selectIsLoggingInAdditionalAccount = (state: RootState) =>
   state[ReduxKey.parking].isLoggingInAdditionalAccount
+
+export const selectIsLoggingOut = (state: RootState) =>
+  state[ReduxKey.parking].isLoggingOut
 
 export const selectShouldShowLoginScreen = (state: RootState) =>
   state[ReduxKey.parking].shouldShowLoginScreen
@@ -184,6 +193,9 @@ export const useParkingAccessToken = () => {
 }
 
 export const useParkingAccounts = () => useSelector(selectParkingAccounts)
+
+export const useParkingAccountIsLoggingOut = () =>
+  useSelector(selectIsLoggingOut)
 
 export const useCurrentParkingPermitReportCode = () =>
   useSelector(selectCurrentPermitReportCode)
