@@ -45,6 +45,21 @@ export const ParkingStack = () => {
     (securePermitHolder && securePermitHolder !== '[]') ||
     (secureVisitor && secureVisitor !== '[]')
 
+  const LoginAndRequestPinCodeScreens = (
+    <>
+      <Stack.Screen
+        component={ParkingLoginScreen}
+        name={ParkingRouteName.login}
+        options={{headerTitle: 'Inloggen'}}
+      />
+      <Stack.Screen
+        component={ParkingRequestPinCodeScreen}
+        name={ParkingRouteName.requestPinCode}
+        options={{headerTitle: 'Pincode vergeten'}}
+      />
+    </>
+  )
+
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       {isForgotCode ? (
@@ -72,16 +87,7 @@ export const ParkingStack = () => {
                 />
               ))}
 
-              <Stack.Screen
-                component={ParkingLoginScreen}
-                name={ParkingRouteName.login}
-                options={{headerTitle: 'Inloggen'}}
-              />
-              <Stack.Screen
-                component={ParkingRequestPinCodeScreen}
-                name={ParkingRouteName.requestPinCode}
-                options={{headerTitle: 'Pincode vergeten'}}
-              />
+              {LoginAndRequestPinCodeScreens}
             </>
           ) : attemptsLeft > 0 ? (
             <Stack.Screen
@@ -126,17 +132,7 @@ export const ParkingStack = () => {
               options={{headerTitle: 'Aanmelden parkeren'}}
             />
           )}
-          <Stack.Screen
-            component={ParkingLoginScreen}
-            name={ParkingRouteName.login}
-            options={{headerTitle: 'Inloggen'}}
-          />
-
-          <Stack.Screen
-            component={ParkingRequestPinCodeScreen}
-            name={ParkingRouteName.requestPinCode}
-            options={{headerTitle: 'Pincode vergeten'}}
-          />
+          {LoginAndRequestPinCodeScreens}
         </>
       )}
     </Stack.Navigator>
