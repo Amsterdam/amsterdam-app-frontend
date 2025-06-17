@@ -3,9 +3,11 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
+import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {
@@ -21,6 +23,7 @@ export const ParkingStartSessionButton = () => {
   const {handleSubmit} = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const {setVisitorVehicleId} = useVisitorVehicleId()
+  const {setAlert} = useAlert()
 
   const [startSession] = useStartSessionMutation()
 
@@ -71,6 +74,8 @@ export const ParkingStartSessionButton = () => {
 
             if (result.redirect_url) {
               openWebUrl(result.redirect_url)
+            } else {
+              setAlert(alerts.startSessionSuccess)
             }
 
             goBack()
@@ -80,6 +85,7 @@ export const ParkingStartSessionButton = () => {
     [
       startSession,
       currentPermit.report_code,
+      setAlert,
       goBack,
       setVisitorVehicleId,
       openWebUrl,
