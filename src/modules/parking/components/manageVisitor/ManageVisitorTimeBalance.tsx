@@ -59,7 +59,7 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
             level="h5"
             testID="ManageVisitorTimeBalanceAmountTitle"
             text={formatTimeDurationToDisplay(
-              currentPermit.visitor_account.seconds_remaining,
+              currentPermit.visitor_account?.seconds_remaining,
               'seconds',
               {short: true},
             )}

@@ -14,14 +14,14 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
-  useIsLoggingInAdditionalAccount,
+  useCurrentParkingAccount,
   useParkingAccessToken,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const {navigate} = useNavigation()
+  const {navigate, reset} = useNavigation()
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
@@ -30,12 +30,11 @@ export const ParkingLoginForm = () => {
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
   const setSecureParkingAccount = useAddSecureParkingAccount()
-  const {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount} =
-    useIsLoggingInAdditionalAccount()
   const dispatch = useDispatch()
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
+  const currentAccount = useCurrentParkingAccount()
 
   const onSubmit = handleSubmit(({pin, reportCode}) => {
     void loginParking({
@@ -49,8 +48,21 @@ export const ParkingLoginForm = () => {
         dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
         dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
         dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
-        isLoggingInAdditionalAccount && setIsLoggingInAdditionalAccount(false)
         dispatch(parkingApi.util.resetApiState())
+
+        if (currentAccount) {
+          setTimeout(() => {
+            reset({
+              index: 0,
+              routes: [
+                {
+                  name: ParkingRouteName.dashboard,
+                },
+              ],
+            })
+            // replace(ParkingRouteName.dashboard)
+          }, 500)
+        }
       })
   })
 

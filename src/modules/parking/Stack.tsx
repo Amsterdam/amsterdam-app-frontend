@@ -21,7 +21,6 @@ import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingFo
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
-import {useIsLoggingInAdditionalAccount} from '@/modules/parking/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -36,7 +35,6 @@ export const ParkingStack = () => {
     useGetSecureItem(SecureItemKey.parkingPermitHolder)
   const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
     useGetSecureItem(SecureItemKey.parkingVisitor)
-  const {isLoggingInAdditionalAccount} = useIsLoggingInAdditionalAccount()
   const screenOptions = useScreenOptions()
 
   if (isLoading || isLoadingSecurePermitHolder || isLoadingSecureVisitor) {
@@ -46,6 +44,21 @@ export const ParkingStack = () => {
   const hasSecureAccount =
     (securePermitHolder && securePermitHolder !== '[]') ||
     (secureVisitor && secureVisitor !== '[]')
+
+  const LoginAndRequestPinCodeScreens = (
+    <>
+      <Stack.Screen
+        component={ParkingLoginScreen}
+        name={ParkingRouteName.login}
+        options={{headerTitle: 'Inloggen'}}
+      />
+      <Stack.Screen
+        component={ParkingRequestPinCodeScreen}
+        name={ParkingRouteName.requestPinCode}
+        options={{headerTitle: 'Pincode vergeten'}}
+      />
+    </>
+  )
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
@@ -63,15 +76,19 @@ export const ParkingStack = () => {
             headerTitle: 'Sneller toegang',
           }}
         />
-      ) : hasSecureAccount && !isLoggingInAdditionalAccount ? (
+      ) : hasSecureAccount ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
-            Object.entries(parkingScreenConfig).map(([key, route]) => (
-              <Stack.Screen
-                key={key}
-                {...route}
-              />
-            ))
+            <>
+              {Object.entries(parkingScreenConfig).map(([key, route]) => (
+                <Stack.Screen
+                  key={key}
+                  {...route}
+                />
+              ))}
+
+              {LoginAndRequestPinCodeScreens}
+            </>
           ) : attemptsLeft > 0 ? (
             <Stack.Screen
               component={AccessCodeScreen}
@@ -115,17 +132,7 @@ export const ParkingStack = () => {
               options={{headerTitle: 'Aanmelden parkeren'}}
             />
           )}
-          <Stack.Screen
-            component={ParkingLoginScreen}
-            name={ParkingRouteName.login}
-            options={{headerTitle: 'Inloggen'}}
-          />
-
-          <Stack.Screen
-            component={ParkingRequestPinCodeScreen}
-            name={ParkingRouteName.requestPinCode}
-            options={{headerTitle: 'Pincode vergeten'}}
-          />
+          {LoginAndRequestPinCodeScreens}
         </>
       )}
     </Stack.Navigator>
