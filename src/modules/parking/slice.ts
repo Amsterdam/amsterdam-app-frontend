@@ -5,6 +5,7 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {ParkingAccount} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
+import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 export type ParkingState = {
   accessTokens: Record<
@@ -24,6 +25,8 @@ export type ParkingState = {
    */
   shouldShowLoginScreen: boolean
   visitorVehicleId?: string
+  walletBalanceIncreaseStartBalance?: number
+  walletBalanceIncreaseStartedAt?: string
 }
 
 const initialState: ParkingState = {
@@ -35,6 +38,8 @@ const initialState: ParkingState = {
   currentAccount: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
+  walletBalanceIncreaseStartBalance: undefined,
+  walletBalanceIncreaseStartedAt: undefined,
 }
 
 export const parkingSlice = createSlice({
@@ -107,6 +112,20 @@ export const parkingSlice = createSlice({
     ) => {
       state.currentAccount = payload
     },
+    setWalletBalanceIncreaseStartedAt: (
+      state,
+      {payload}: PayloadAction<Dayjs | undefined>,
+    ) => {
+      state.walletBalanceIncreaseStartedAt = payload
+        ? payload.toISOString()
+        : undefined
+    },
+    setWalletBalanceIncreaseStartBalance: (
+      state,
+      {payload}: PayloadAction<number | undefined>,
+    ) => {
+      state.walletBalanceIncreaseStartBalance = payload
+    },
   },
 })
 
@@ -114,6 +133,8 @@ export const {
   setIsLoggingOut,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
+  setWalletBalanceIncreaseStartBalance,
+  setWalletBalanceIncreaseStartedAt,
 } = parkingSlice.actions
 
 export const selectAccessToken = (state: RootState) =>
@@ -156,6 +177,12 @@ export const selectParkingAccount = (state: RootState) =>
 export const selectCurrentParkingAccount = (state: RootState) =>
   state[ReduxKey.parking].currentAccount
 
+export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
+  state[ReduxKey.parking].walletBalanceIncreaseStartedAt
+
+export const selectWalletBalanceIncreaseStartBalance = (state: RootState) =>
+  state[ReduxKey.parking].walletBalanceIncreaseStartBalance
+
 // split selectors and dispatch
 export const useParkingAccessToken = () => {
   const dispatch = useDispatch()
@@ -181,6 +208,7 @@ export const useParkingAccessToken = () => {
   }
 }
 
+export const useParkingAccount = () => useSelector(selectParkingAccount)
 export const useParkingAccounts = () => useSelector(selectParkingAccounts)
 
 export const useParkingAccountIsLoggingOut = () =>
@@ -191,6 +219,15 @@ export const useCurrentParkingPermitReportCode = () =>
 
 export const useCurrentParkingAccount = () =>
   useSelector(selectCurrentParkingAccount)
+
+export const useWalletBalanceIncreaseStartedAt = () => {
+  const value = useSelector(selectWalletBalanceIncreaseStartedAt)
+
+  return value ? dayjs(value) : undefined
+}
+
+export const useWalletBalanceIncreaseStartBalance = () =>
+  useSelector(selectWalletBalanceIncreaseStartBalance)
 
 export const useVisitorVehicleId = () => {
   const dispatch = useDispatch()

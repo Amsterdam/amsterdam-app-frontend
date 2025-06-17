@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -6,21 +7,53 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
+import {
+  setWalletBalanceIncreaseStartedAt,
+  useWalletBalanceIncreaseStartedAt,
+  useWalletBalanceIncreaseStartBalance,
+} from '@/modules/parking/slice'
 import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
+import {dayjs} from '@/utils/datetime/dayjs'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingPermitBalanceMoney = () => {
+  const dispatch = useDispatch()
   const currentPermit = useCurrentParkingPermit()
-
-  const {data: account, isLoading} = useAccountDetailsQuery()
+  const walletBalance = useWalletBalanceIncreaseStartBalance()
+  const {data: account, isLoading, refetch} = useAccountDetailsQuery()
+  const accountWalletBalance = account?.wallet?.balance
   const {navigate} = useNavigation()
+  const walletBalanceIncreaseStartedAt = useWalletBalanceIncreaseStartedAt()
 
   const onPressAddMoney = () => {
     navigate(ParkingRouteName.increaseBalance)
   }
+
+  useEffect(() => {
+    if (
+      walletBalance &&
+      accountWalletBalance &&
+      accountWalletBalance > walletBalance
+    ) {
+      dispatch(setWalletBalanceIncreaseStartedAt(undefined))
+    }
+  }, [dispatch, walletBalance, accountWalletBalance])
+
+  // refetch account details every 5 seconds if the wallet balance hasn't updated yet, it can take a bit before the payment is processed
+  useRefetchInterval(
+    refetch,
+    walletBalanceIncreaseStartedAt &&
+      dayjs().diff(walletBalanceIncreaseStartedAt, 'minutes') < 15 &&
+      typeof walletBalance === 'number' &&
+      walletBalance === accountWalletBalance
+      ? 5000
+      : 0,
+  )
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitBalanceMoneyPleaseWait" />

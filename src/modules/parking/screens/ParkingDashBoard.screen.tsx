@@ -1,6 +1,5 @@
-import {useEffect} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
-import {RouteProp, type NavigationProps} from '@/app/navigation/types'
+import {type NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
@@ -8,8 +7,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {useDispatch} from '@/hooks/redux/useDispatch'
-import {alerts} from '@/modules/parking/alerts'
 import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
@@ -21,11 +18,10 @@ import {ParkingPermitDetail} from '@/modules/parking/components/dashboard/Parkin
 import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccountIsLoggingOut} from '@/modules/parking/slice'
-import {baseApi} from '@/services/baseApi'
-import {useAlert} from '@/store/slices/alert'
 
 type Props = NavigationProps<ParkingRouteName.dashboard>
 
@@ -95,30 +91,4 @@ export const ParkingDashboardScreen = ({route}: Props) => {
       </Screen>
     </CurrentPermitProvider>
   )
-}
-
-const useHandleDeeplink = (route: RouteProp<ParkingRouteName.dashboard>) => {
-  const {params} = route
-  const {setAlert} = useAlert()
-  const dispatch = useDispatch()
-
-  useEffect(() => {
-    if (params?.action === 'increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.increaseBalanceSuccess)
-        dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    } else if (params?.action === 'start-session-and-increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.startSessionSuccess)
-        dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
-        )
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
-    }
-  }, [dispatch, params, setAlert])
 }
