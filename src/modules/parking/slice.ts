@@ -14,7 +14,6 @@ export type ParkingState = {
   accounts: Record<string, ParkingAccount>
   currentAccount?: string
   currentPermitReportCode?: string
-  isLoggingInAdditionalAccount: boolean
   isLoggingOut: boolean
   /**
    * Whether the user is still completing the login steps
@@ -31,7 +30,6 @@ const initialState: ParkingState = {
   accessTokens: {},
   accounts: {},
   currentPermitReportCode: undefined,
-  isLoggingInAdditionalAccount: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
   currentAccount: undefined,
@@ -74,12 +72,6 @@ export const parkingSlice = createSlice({
       {payload}: PayloadAction<string | undefined>,
     ) => {
       state.currentPermitReportCode = payload
-    },
-    setIsLoggingInAdditionalAccount: (
-      state,
-      {payload}: PayloadAction<boolean>,
-    ) => {
-      state.isLoggingInAdditionalAccount = payload
     },
     setIsLoggingOut: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoggingOut = payload
@@ -143,9 +135,6 @@ export const selectCurrentPermitReportCode = (state: RootState) =>
 
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
-
-export const selectIsLoggingInAdditionalAccount = (state: RootState) =>
-  state[ReduxKey.parking].isLoggingInAdditionalAccount
 
 export const selectIsLoggingOut = (state: RootState) =>
   state[ReduxKey.parking].isLoggingOut
@@ -214,19 +203,4 @@ export const useVisitorVehicleId = () => {
   )
 
   return {visitorVehicleId, setVisitorVehicleId}
-}
-
-export const useIsLoggingInAdditionalAccount = () => {
-  const dispatch = useDispatch()
-  const isLoggingInAdditionalAccount = useSelector(
-    selectIsLoggingInAdditionalAccount,
-  )
-
-  const setIsLoggingInAdditionalAccount = useCallback(
-    (isLogging: boolean) =>
-      dispatch(parkingSlice.actions.setIsLoggingInAdditionalAccount(isLogging)),
-    [dispatch],
-  )
-
-  return {isLoggingInAdditionalAccount, setIsLoggingInAdditionalAccount}
 }
