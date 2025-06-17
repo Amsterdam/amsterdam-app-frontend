@@ -54,13 +54,13 @@ export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
     visitorVehicleId,
   ])
 
-  // refetch sessions every 15 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
+  // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
   useRefetchInterval(
     refetch,
     activeParkingSessions?.some(
       session => 'is_paid' in session && !session.is_paid,
     )
-      ? 15000
+      ? 5000
       : 0,
   )
 

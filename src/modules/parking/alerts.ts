@@ -27,7 +27,7 @@ export const alerts = {
   },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
-    text: 'Geldsaldo is succesvol verhoogd.',
+    text: 'Geldsaldo is verhoogd. Het kan even duren voordat het saldo is bijgewerkt.',
     title: 'Gelukt',
     hasIcon: true,
     hasCloseIcon: true,

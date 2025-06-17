@@ -20,11 +20,13 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  isWaitingForWalletBalanceIncrease: boolean
   /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
   shouldShowLoginScreen: boolean
   visitorVehicleId?: string
+  walletBalance?: number
 }
 
 const initialState: ParkingState = {
@@ -34,9 +36,11 @@ const initialState: ParkingState = {
   isLoggingInAdditionalAccount: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
+  isWaitingForWalletBalanceIncrease: false,
   currentAccount: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
+  walletBalance: undefined,
 }
 
 export const parkingSlice = createSlice({
@@ -84,6 +88,12 @@ export const parkingSlice = createSlice({
     setIsLoggingOut: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoggingOut = payload
     },
+    setIsWaitingForWalletBalanceIncrease: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isWaitingForWalletBalanceIncrease = payload
+    },
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
@@ -115,6 +125,9 @@ export const parkingSlice = createSlice({
     ) => {
       state.currentAccount = payload
     },
+    setWalletBalance: (state, {payload}: PayloadAction<number | undefined>) => {
+      state.walletBalance = payload
+    },
   },
 })
 
@@ -122,6 +135,8 @@ export const {
   setIsLoggingOut,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
+  setWalletBalance,
+  setIsWaitingForWalletBalanceIncrease,
 } = parkingSlice.actions
 
 export const selectAccessToken = (state: RootState) =>
@@ -150,6 +165,9 @@ export const selectIsLoggingInAdditionalAccount = (state: RootState) =>
 export const selectIsLoggingOut = (state: RootState) =>
   state[ReduxKey.parking].isLoggingOut
 
+export const selectIsWaitingForWalletBalanceIncrease = (state: RootState) =>
+  state[ReduxKey.parking].isWaitingForWalletBalanceIncrease
+
 export const selectShouldShowLoginScreen = (state: RootState) =>
   state[ReduxKey.parking].shouldShowLoginScreen
 
@@ -166,6 +184,9 @@ export const selectParkingAccount = (state: RootState) =>
 
 export const selectCurrentParkingAccount = (state: RootState) =>
   state[ReduxKey.parking].currentAccount
+
+export const selectWalletBalance = (state: RootState) =>
+  state[ReduxKey.parking].walletBalance
 
 // split selectors and dispatch
 export const useParkingAccessToken = () => {
@@ -192,16 +213,22 @@ export const useParkingAccessToken = () => {
   }
 }
 
+export const useParkingAccount = () => useSelector(selectParkingAccount)
 export const useParkingAccounts = () => useSelector(selectParkingAccounts)
 
 export const useParkingAccountIsLoggingOut = () =>
   useSelector(selectIsLoggingOut)
+
+export const useIsWaitingForWalletBalanceIncrease = () =>
+  useSelector(selectIsWaitingForWalletBalanceIncrease)
 
 export const useCurrentParkingPermitReportCode = () =>
   useSelector(selectCurrentPermitReportCode)
 
 export const useCurrentParkingAccount = () =>
   useSelector(selectCurrentParkingAccount)
+
+export const useWalletBalance = () => useSelector(selectWalletBalance)
 
 export const useVisitorVehicleId = () => {
   const dispatch = useDispatch()
