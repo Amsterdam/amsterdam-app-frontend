@@ -111,6 +111,7 @@ export enum PiwikSessionDimension {
   constructionWorkModule = 41,
   constructionWorkEditorModule = 42,
   cityPassModule = 46,
+  parkingModule = 49,
 }
 
 export type CustomDimensionKeys = PiwikDimension | PiwikSessionDimension
