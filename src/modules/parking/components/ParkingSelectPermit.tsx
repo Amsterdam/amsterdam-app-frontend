@@ -45,36 +45,45 @@ export const ParkingSelectPermit = () => {
           text="Parkeeraccount kiezen"
         />
         <Column>
-          {Object.keys(parkingAccounts).map(reportCodeParkingAccount => {
-            const scope = parkingAccounts[reportCodeParkingAccount].scope
-
-            return parkingAccounts[reportCodeParkingAccount].permits?.map(
-              ({permit_name, report_code, permit_zone}) => (
-                <TopTaskButton
-                  iconName={
-                    scope === ParkingPermitScope.visitor
-                      ? 'person'
-                      : 'documentCheckmark'
-                  }
-                  iconSize="lg"
-                  key={
-                    scope === ParkingPermitScope.visitor
-                      ? `visitor-${permit_name}`
-                      : `holder-${permit_name}`
-                  }
-                  onPress={() =>
-                    onPress(reportCodeParkingAccount, report_code.toString())
-                  }
-                  testID={`ParkingSelectPermit${permit_name}TopTaskButton`}
-                  title={
-                    scope === ParkingPermitScope.visitor
-                      ? `Op bezoek ${permit_zone.name} - ${report_code}`
-                      : permit_name
-                  }
-                />
-              ),
+          {Object.keys(parkingAccounts)
+            .sort(a =>
+              parkingAccounts[a].scope === ParkingPermitScope.permitHolder
+                ? -1
+                : 1,
             )
-          })}
+            .map((reportCodeParkingAccount, accountIndex) => {
+              const scope = parkingAccounts[reportCodeParkingAccount].scope
+
+              return parkingAccounts[reportCodeParkingAccount].permits?.map(
+                (
+                  {permit_name, report_code, permit_zone, permit_type},
+                  permitIndex,
+                ) => (
+                  <TopTaskButton
+                    iconName={
+                      scope === ParkingPermitScope.visitor
+                        ? 'person'
+                        : 'documentCheckmark'
+                    }
+                    iconSize="lg"
+                    key={
+                      scope === ParkingPermitScope.visitor
+                        ? `visitor-${permit_name}`
+                        : `holder-${permit_name}`
+                    }
+                    onPress={() =>
+                      onPress(reportCodeParkingAccount, report_code.toString())
+                    }
+                    testID={`ParkingSelectPermit${permit_type}-${accountIndex}-${permitIndex}TopTaskButton`}
+                    title={
+                      scope === ParkingPermitScope.visitor
+                        ? `Op bezoek ${permit_zone.name} - ${report_code}`
+                        : permit_name
+                    }
+                  />
+                ),
+              )
+            })}
           {!isLoadingPermitHolders && !hasPermitHolderAccount && (
             <AdditionalLoginButton
               testID="ParkingSelectPermitLoginPermitHolderTopTaskButton"
