@@ -104,7 +104,9 @@ export const ParkingSessionsList = ({
   return (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
-      ListHeaderComponent={ListHeaderComponent}
+      ListHeaderComponent={
+        currentPermit.no_endtime ? null : ListHeaderComponent
+      }
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
         <Box
