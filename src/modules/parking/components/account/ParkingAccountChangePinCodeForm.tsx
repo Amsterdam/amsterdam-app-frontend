@@ -20,13 +20,7 @@ type ChangePinCodeFormValues = {
 const textTransform = (value: string) => value.replace(/\D/g, '')
 
 export const ParkingAccountChangePinCodeForm = () => {
-  const form = useForm<ChangePinCodeFormValues>({
-    defaultValues: {
-      pin_code: '1234',
-      pin_code_check: '1234',
-      pin_current: '1232',
-    },
-  })
+  const form = useForm<ChangePinCodeFormValues>()
   const {handleSubmit, watch} = form
   const {goBack} = useNavigation()
   const pinCode = watch('pin_code')
