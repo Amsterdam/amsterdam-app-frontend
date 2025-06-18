@@ -1,4 +1,5 @@
 import {FieldError} from 'react-hook-form'
+import {AccessibilityProps} from 'react-native'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {Column} from '@/components/ui/layout/Column'
@@ -11,7 +12,11 @@ type Props = {
   onPress: () => void
   text?: string
   title: string
-} & TestProps
+} & TestProps &
+  Pick<
+    AccessibilityProps,
+    'accessibilityLabel' | 'accessibilityHint' | 'accessibilityValue'
+  >
 
 export const SelectButton = ({
   iconName,
@@ -20,9 +25,16 @@ export const SelectButton = ({
   title,
   error,
   onPress,
+  accessibilityLabel,
+  accessibilityHint,
+  accessibilityValue,
 }: Props) => (
   <Column gutter="md">
     <TopTaskButton
+      accessibilityHint={accessibilityHint}
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="combobox"
+      accessibilityValue={accessibilityValue}
       border
       iconName={iconName}
       iconRightName="chevron-down"

@@ -32,10 +32,10 @@ export const ParkingMyLicensePlates = () => {
     useRemoveLicensePlateMutation()
 
   const onPressDelete = useCallback(
-    (vehicle_id: string) => {
+    (vehicle_id: string, visitor_name?: string) => {
       Alert.alert(
         'Weet u zeker dat u het kenteken wilt verwijderen?',
-        undefined,
+        `Kenteken: ${vehicle_id}${visitor_name ? '\nNaam: ' + visitor_name : ''}`,
         [
           {text: 'Annuleren', style: 'cancel', onPress: () => null},
           {

@@ -5,7 +5,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingSessionShowVisitorSessionsForm} from '@/modules/parking/components/session/ParkingSessionShowVisitorSessionsForm'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
 
-export const ParkingDashboardPermitSessionsChooseVisitorLicenseplate = () => {
+export const ParkingDashboardPermitSessionsChooseVisitorLicensePlate = () => {
   const {visitorVehicleId, setVisitorVehicleId} = useVisitorVehicleId()
   const [isFormVisible, setIsFormVisible] = useState<boolean>(false)
 

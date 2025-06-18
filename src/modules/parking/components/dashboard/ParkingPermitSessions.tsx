@@ -1,7 +1,7 @@
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingDashboardPermitSessionsChooseVisitorLicenseplate} from '@/modules/parking/components/dashboard/ParkingDashboardPermitSessionsChooseVisitorLicenseplate'
+import {ParkingDashboardPermitSessionsChooseVisitorLicensePlate} from '@/modules/parking/components/dashboard/ParkingDashboardPermitSessionsChooseVisitorLicensePlate'
 import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
 import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -23,7 +23,7 @@ export const ParkingPermitSessions = () => {
           text="Parkeersessies"
         />
         {parkingAccount?.scope === ParkingPermitScope.visitor && (
-          <ParkingDashboardPermitSessionsChooseVisitorLicenseplate />
+          <ParkingDashboardPermitSessionsChooseVisitorLicensePlate />
         )}
         {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
           !!visitorVehicleId) && (

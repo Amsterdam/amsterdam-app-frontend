@@ -1,4 +1,5 @@
 import {IconButton} from '@/components/ui/buttons/IconButton'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -7,7 +8,7 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 type Props = {
   isRemovable: boolean
   licensePlate: ParkingLicensePlate
-  onPressDelete: (vehicleId: string) => void
+  onPressDelete: (vehicleId: string, visitor_name?: string) => void
 }
 
 export const LicensePlateListItem = ({
@@ -22,16 +23,19 @@ export const LicensePlateListItem = ({
       align="between"
       gutter="md"
       key={vehicle_id}>
-      <Row gutter="md">
-        <Icon
-          name="parkingCar"
-          size="lg"
-          testID="ParkingLicensePlateIcon"
-        />
-        <Phrase emphasis="strong">{licensePlate}</Phrase>
-      </Row>
+      <SingleSelectable accessibilityLabel={`Kenteken ${licensePlate}`}>
+        <Row gutter="md">
+          <Icon
+            name="parkingCar"
+            size="lg"
+            testID="ParkingLicensePlateIcon"
+          />
+          <Phrase emphasis="strong">{licensePlate}</Phrase>
+        </Row>
+      </SingleSelectable>
       {!!isRemovable && (
         <IconButton
+          accessibilityLabel={`Verwijder kenteken ${vehicle_id}${visitor_name ? ', ' + visitor_name : ''}`}
           icon={
             <Icon
               color="link"
@@ -40,7 +44,7 @@ export const LicensePlateListItem = ({
               testID="ParkingRemoveLicensePlateIcon"
             />
           }
-          onPress={() => onPressDelete(vehicle_id)}
+          onPress={() => onPressDelete(vehicle_id, visitor_name)}
           testID="ParkingRemoveLicensePlateButton"
         />
       )}

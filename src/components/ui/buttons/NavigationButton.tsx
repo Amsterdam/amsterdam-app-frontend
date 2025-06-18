@@ -9,6 +9,7 @@ import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessibilityLabel?: string
   accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
   description?: string
@@ -33,8 +34,10 @@ export const NavigationButton = ({
   testID,
   accessibilityRole = 'link',
   accessibilityLanguage = 'nl-NL',
+  accessibilityLabel,
 }: Props) => (
   <Pressable
+    accessibilityLabel={accessibilityLabel}
     accessibilityLanguage={accessibilityLanguage}
     accessibilityRole={accessibilityRole}
     onPress={onPress}
