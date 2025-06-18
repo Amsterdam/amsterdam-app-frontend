@@ -11,6 +11,7 @@ import {Image} from '@/components/ui/media/Image'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
@@ -27,6 +28,7 @@ export const NotificationHistoryItem = ({
   item: {body, context, created_at, id, image, is_read, module_slug, title},
   enabledModules = [],
 }: Props) => {
+  const {navigate} = useNavigation()
   const module = enabledModules.find(({slug}) => slug === module_slug)
   const styles = useThemable(createStyles)
 
@@ -59,6 +61,8 @@ export const NotificationHistoryItem = ({
 
         if (deeplinkUrl) {
           linkTo(deeplinkUrl)
+        } else if (module_slug) {
+          navigate(module_slug)
         }
       }}
       testID={`NotificationHistoryItem${id}Button`}>
