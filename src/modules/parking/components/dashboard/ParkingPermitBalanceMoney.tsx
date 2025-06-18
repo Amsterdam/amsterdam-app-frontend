@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -75,27 +76,29 @@ export const ParkingPermitBalanceMoney = () => {
 
   return (
     <Column gutter="md">
-      <Column gutter="xs">
-        <Row align="between">
-          <Title
-            level="h5"
-            testID="ParkingPermitBalanceMoneyTitlePhrase"
-            text="Geldsaldo"
-          />
-          <Title
-            level="h5"
-            testID="ParkingPermitBalanceMoneyTitlePhrase"
-            text={formatNumber(balance, currency)}
-          />
-        </Row>
-        <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
-          Goed voor{' '}
-          {getParkingTimeForMoneyBalance(
-            balance,
-            currentPermit.parking_rate.value,
-          )}
-        </Phrase>
-      </Column>
+      <SingleSelectable>
+        <Column gutter="xs">
+          <Row align="between">
+            <Title
+              level="h5"
+              testID="ParkingPermitBalanceMoneyTitlePhrase"
+              text="Geldsaldo"
+            />
+            <Title
+              level="h5"
+              testID="ParkingPermitBalanceMoneyTitlePhrase"
+              text={formatNumber(balance, currency)}
+            />
+          </Row>
+          <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
+            Goed voor{' '}
+            {getParkingTimeForMoneyBalance(
+              balance,
+              currentPermit.parking_rate.value,
+            )}
+          </Phrase>
+        </Column>
+      </SingleSelectable>
       <Button
         iconName="euroCoins"
         label="Geldsaldo toevoegen"

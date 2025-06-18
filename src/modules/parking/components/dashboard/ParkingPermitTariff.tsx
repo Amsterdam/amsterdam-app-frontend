@@ -1,3 +1,4 @@
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
@@ -16,15 +17,17 @@ export const ParkingPermitTariff = () => {
   } = currentPermit
 
   return (
-    <Row align="between">
-      <Phrase testID="ParkingPermitBalanceMoneyTitlePhrase">
-        Parkeertarief
-      </Phrase>
-      <Title
-        level="h5"
-        testID="ParkingPermitBalanceMoneyTitlePhrase"
-        text={formatNumber(value, currency)}
-      />
-    </Row>
+    <SingleSelectable>
+      <Row align="between">
+        <Phrase testID="ParkingPermitBalanceMoneyTitlePhrase">
+          Parkeertarief
+        </Phrase>
+        <Title
+          level="h5"
+          testID="ParkingPermitBalanceMoneyTitlePhrase"
+          text={formatNumber(value, currency)}
+        />
+      </Row>
+    </SingleSelectable>
   )
 }
