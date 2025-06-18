@@ -37,10 +37,14 @@ export const ParkingMyLicensePlates = () => {
         'Weet u zeker dat u het kenteken wilt verwijderen?',
         `Kenteken: ${vehicle_id}${visitor_name ? '\nNaam: ' + visitor_name : ''}`,
         [
-          {text: 'Annuleren', style: 'cancel', onPress: () => null},
+          {
+            text: 'Annuleren',
+            style: 'cancel',
+            onPress: () => null,
+          },
           {
             text: 'Verwijderen',
-            style: 'default',
+            style: 'destructive',
             // If the user confirmed, then we dispatch the action we blocked earlier
             // This will continue the action that had triggered the removal of the screen
             onPress: () => {
