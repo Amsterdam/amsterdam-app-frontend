@@ -17,18 +17,14 @@ import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
-type Props = {
-  visitorVehicleId?: string
-}
-
-export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
+export const ParkingActiveSessionsSummary = () => {
   const {navigate} = useNavigation()
   const {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.active, visitorVehicleId)
+  } = useGetParkingSessions(ParkingSessionStatus.active)
   const parkingAccount = useParkingAccount()
 
   const currentPermit = useCurrentParkingPermit()

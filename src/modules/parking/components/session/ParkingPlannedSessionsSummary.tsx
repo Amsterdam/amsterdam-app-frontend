@@ -13,18 +13,14 @@ import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessio
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 
-type Props = {
-  visitorVehicleId?: string
-}
-
-export const ParkingPlannedSessionsSummary = ({visitorVehicleId}: Props) => {
+export const ParkingPlannedSessionsSummary = () => {
   const {navigate} = useNavigation()
   const {
     parkingSessions: plannedParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.planned, visitorVehicleId)
+  } = useGetParkingSessions(ParkingSessionStatus.planned)
 
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   useEffect(() => {
@@ -71,12 +67,7 @@ export const ParkingPlannedSessionsSummary = ({visitorVehicleId}: Props) => {
   return (
     <Pressable
       accessibilityLabel={`${plannedParkingSessions.length} geplande parkeersessies`}
-      onPress={() =>
-        navigate(
-          ParkingRouteName.parkingPlannedSessions,
-          visitorVehicleId ? {visitorVehicleId} : undefined,
-        )
-      }
+      onPress={() => navigate(ParkingRouteName.parkingPlannedSessions)}
       testID="ParkingPermitSessionsPlannedBadgeButton">
       <Row gutter="sm">
         <Title
