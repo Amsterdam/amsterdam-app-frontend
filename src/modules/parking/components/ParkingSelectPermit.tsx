@@ -39,10 +39,9 @@ export const ParkingSelectPermit = () => {
     <Box grow>
       <Column gutter="md">
         <Title
-          accessibilityHint="Parkeeraccount kiezen"
           level="h3"
           ref={focusRef}
-          text="Parkeeraccount kiezen"
+          text="Parkeervergunningen"
         />
         <Column>
           {Object.keys(parkingAccounts)

@@ -18,8 +18,15 @@ export const ParkingPermitTopTaskButton = () => {
     )
   }
 
+  const title =
+    parkingAccount?.scope === ParkingPermitScope.visitor
+      ? `Op bezoek ${permit_zone.name} - ${report_code}`
+      : permit_name
+
   return (
     <TopTaskButton
+      accessibilityHint="Tik om een andere vergunning te selecteren."
+      accessibilityLabel={`De huidige vergunning is ${title}.`}
       iconName={
         parkingAccount?.scope === ParkingPermitScope.visitor
           ? 'person'
@@ -28,11 +35,7 @@ export const ParkingPermitTopTaskButton = () => {
       iconSize="lg"
       onPress={() => toggle()}
       testID="ParkingPermitTopTaskButton"
-      title={
-        parkingAccount?.scope === ParkingPermitScope.visitor
-          ? `Op bezoek ${permit_zone.name} - ${report_code}`
-          : permit_name
-      }
+      title={title}
       titleIconName="chevron-down"
     />
   )
