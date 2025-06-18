@@ -63,6 +63,13 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingMaxLicensePlatesAlert',
   },
+  maximumSessionsWarning: {
+    variant: AlertVariant.warning,
+    text: 'Pas de parkeertijd aan.',
+    title: 'Maximum aantal parkeersessies bereikt',
+    hasIcon: true,
+    testID: 'ParkingMaximumSessionsWarningAlert',
+  },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
     text: 'Te weinig tijd om parkeersessie te starten.',

@@ -23,7 +23,11 @@ import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTim
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingReceipt = () => {
-  const {setValue, watch} = useFormContext<{
+  const {
+    setValue,
+    watch,
+    formState: {errors},
+  } = useFormContext<{
     amount?: number
     endTime?: Dayjs
     licensePlate?: ParkingLicensePlate
@@ -89,6 +93,7 @@ export const ParkingReceipt = () => {
   const parkingCostText = parking_cost
     ? formatNumber(data?.parking_cost.value, data?.parking_cost.currency)
     : '-'
+
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
     remaining_time_balance ?? time_balance,
     {
@@ -169,7 +174,7 @@ export const ParkingReceipt = () => {
               Resterend tijdsaldo
             </Phrase>
             <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-              {remainingTimeBalanceText}
+              {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
             </Phrase>
           </Row>
         </SingleSelectable>
@@ -192,13 +197,17 @@ export const ParkingReceipt = () => {
             </Row>
           </SingleSelectable>
         )}
-      {!!remainingTimeBalanceError && (
+      {(!!remainingTimeBalanceError ||
+        errors.root?.serverError.message?.includes(
+          'Timebalance insufficient',
+        )) && (
         <>
           <Gutter height="lg" />
           <AlertNegative {...alerts.insufficientTimeBalanceFailed} />
         </>
       )}
-      {!!remainingMoneyBalanceError && (
+      {(!!remainingMoneyBalanceError ||
+        errors.root?.serverError.message === 'SSP_BALANCE_TOO_LOW') && (
         <>
           <Gutter height="lg" />
           <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />

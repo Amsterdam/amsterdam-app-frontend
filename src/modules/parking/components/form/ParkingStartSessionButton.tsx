@@ -20,7 +20,7 @@ type FieldValues = {
 }
 
 export const ParkingStartSessionButton = () => {
-  const {handleSubmit, formState} = useFormContext<FieldValues>()
+  const {handleSubmit, formState, setError} = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
@@ -67,28 +67,49 @@ export const ParkingStartSessionButton = () => {
             : {}),
         })
           .unwrap()
-          .then(result => {
-            if (visitorVehicleId) {
-              setVisitorVehicleId(visitorVehicleId)
-            }
+          .then(
+            result => {
+              if (visitorVehicleId) {
+                setVisitorVehicleId(visitorVehicleId)
+              }
 
-            if (result.redirect_url) {
-              openWebUrl(result.redirect_url)
-            } else {
-              setAlert(alerts.startSessionSuccess)
-            }
+              if (result.redirect_url) {
+                openWebUrl(result.redirect_url)
+              } else {
+                setAlert(alerts.startSessionSuccess)
+              }
 
-            goBack()
-          })
+              goBack()
+            },
+            (error: {
+              data?: {code?: string; detail?: {error?: {content?: string}}}
+              status?: string
+            }) => {
+              if (error.data?.detail?.error?.content === 'Start time in past') {
+                setError('startTime', {
+                  type: 'manual',
+                  message: 'Starttijd mag niet in het verleden liggen.',
+                })
+
+                return
+              }
+
+              setError('root.serverError', {
+                type: error?.status,
+                message: error.data?.code ?? error.data?.detail?.error?.content,
+              })
+            },
+          )
       }
     },
     [
       startSession,
       currentPermit.report_code,
-      setAlert,
       goBack,
       setVisitorVehicleId,
       openWebUrl,
+      setAlert,
+      setError,
     ],
   )
 
