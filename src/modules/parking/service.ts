@@ -183,7 +183,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingOrderResponse,
       ParkingStartSessionEndpointRequestParams
     >({
-      invalidatesTags: ['ParkingSessions'],
+      invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: body => ({
         headers: {
           ...deviceIdHeader,
@@ -200,7 +200,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingOrderResponse,
       ParkingEditSessionEndpointRequestParams
     >({
-      invalidatesTags: ['ParkingSessions'],
+      invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: body => ({
         headers: {
           ...deviceIdHeader,
@@ -217,7 +217,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingOrderResponse,
       ParkingDeleteSessionEndpointRequestParams
     >({
-      invalidatesTags: ['ParkingSessions'],
+      invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: ({...params}) => ({
         headers: {
           ...deviceIdHeader,
