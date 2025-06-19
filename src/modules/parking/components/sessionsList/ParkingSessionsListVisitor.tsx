@@ -17,20 +17,15 @@ type Props = {
   ListHeaderComponent?: ComponentType
   sortAscending?: boolean
   status: ParkingSessionStatus
-  visitorVehicleId?: string
 }
 
 export const ParkingSessionsListVisitor = ({
   ListEmptyComponent,
   ListHeaderComponent,
   sortAscending = false,
-  visitorVehicleId,
   status,
 }: Props) => {
-  const {parkingSessions, isLoading} = useGetParkingSessions(
-    status,
-    visitorVehicleId,
-  )
+  const {parkingSessions, isLoading} = useGetParkingSessions(status)
   const sections = useMemo(
     () => groupParkingSessionsByDate(parkingSessions, sortAscending),
     [parkingSessions, sortAscending],

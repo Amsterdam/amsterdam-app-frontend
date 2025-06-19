@@ -39,9 +39,7 @@ export type ParkingStackParams = {
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
   [ParkingRouteName.parkingActiveSessions]: undefined
-  [ParkingRouteName.parkingPlannedSessions]:
-    | {visitorVehicleId: string}
-    | undefined
+  [ParkingRouteName.parkingPlannedSessions]: undefined
   [ParkingRouteName.parkingSession]: {
     parkingSession: ParkingSession | VisitorParkingSession
   }

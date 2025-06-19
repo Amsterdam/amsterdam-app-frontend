@@ -2,7 +2,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingSessionsList} from '@/modules/parking/components/sessionsList/ParkingSessionsList'
 import {ParkingSessionsListVisitor} from '@/modules/parking/components/sessionsList/ParkingSessionsListVisitor'
-import {ParkingSessionStatus} from '@/modules/parking/types'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
 const ListEmptyComponent = () => (
   <Box>
@@ -15,21 +16,18 @@ const ListEmptyComponent = () => (
   </Box>
 )
 
-type Props = {
-  visitorVehicleId?: string
-}
-
-export const ParkingPlannedSessionsList = ({visitorVehicleId}: Props) => {
-  const Component = visitorVehicleId
-    ? ParkingSessionsListVisitor
-    : ParkingSessionsList
+export const ParkingPlannedSessionsList = () => {
+  const parkingAccount = useParkingAccount()
+  const Component =
+    parkingAccount?.scope === ParkingPermitScope.visitor
+      ? ParkingSessionsListVisitor
+      : ParkingSessionsList
 
   return (
     <Component
       ListEmptyComponent={ListEmptyComponent}
       sortAscending
       status={ParkingSessionStatus.planned}
-      visitorVehicleId={visitorVehicleId}
     />
   )
 }

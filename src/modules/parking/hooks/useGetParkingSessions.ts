@@ -4,13 +4,13 @@ import {
   useParkingSessionsQuery,
   useVisitorParkingSessionsQuery,
 } from '@/modules/parking/service'
-import {ParkingSessionStatus} from '@/modules/parking/types'
+import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
+import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
-export const useGetParkingSessions = (
-  status: ParkingSessionStatus,
-  visitorVehicleId?: string,
-) => {
+export const useGetParkingSessions = (status: ParkingSessionStatus) => {
   const currentPermit = useCurrentParkingPermit()
+  const parkingAccount = useParkingAccount()
+  const {visitorVehicleId} = useVisitorVehicleId()
 
   const {
     data: parkingSessions,
@@ -18,7 +18,7 @@ export const useGetParkingSessions = (
     isError: isParkingSessionsError,
     refetch: refetchParkingSessions,
   } = useParkingSessionsQuery(
-    currentPermit && !visitorVehicleId
+    currentPermit && parkingAccount?.scope === ParkingPermitScope.permitHolder
       ? {
           report_code: currentPermit.report_code.toString(),
           status,
@@ -32,7 +32,7 @@ export const useGetParkingSessions = (
     isError: isVisitorParkingSessionsError,
     refetch: refetchVisitorParkingSessions,
   } = useVisitorParkingSessionsQuery(
-    visitorVehicleId
+    parkingAccount?.scope === ParkingPermitScope.visitor && visitorVehicleId
       ? {
           vehicle_id: visitorVehicleId,
         }

@@ -28,12 +28,8 @@ export const ParkingPermitSessions = () => {
         {(parkingAccount?.scope === ParkingPermitScope.permitHolder ||
           !!visitorVehicleId) && (
           <>
-            <ParkingActiveSessionsSummary visitorVehicleId={visitorVehicleId} />
-            {!currentPermit.no_endtime && (
-              <ParkingPlannedSessionsSummary
-                visitorVehicleId={visitorVehicleId}
-              />
-            )}
+            <ParkingActiveSessionsSummary />
+            {!currentPermit.no_endtime && <ParkingPlannedSessionsSummary />}
           </>
         )}
       </Column>

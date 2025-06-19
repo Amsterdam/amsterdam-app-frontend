@@ -14,20 +14,18 @@ import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingSessionStatus} from '@/modules/parking/types'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
-type Props = {
-  visitorVehicleId?: string
-}
-
-export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
+export const ParkingActiveSessionsSummary = () => {
   const {navigate} = useNavigation()
   const {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
     refetch,
-  } = useGetParkingSessions(ParkingSessionStatus.active, visitorVehicleId)
+  } = useGetParkingSessions(ParkingSessionStatus.active)
+  const parkingAccount = useParkingAccount()
 
   const currentPermit = useCurrentParkingPermit()
 
@@ -35,7 +33,7 @@ export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
 
   useEffect(() => {
-    if (visitorVehicleId) {
+    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
       return
     }
 
@@ -49,9 +47,9 @@ export const ParkingActiveSessionsSummary = ({visitorVehicleId}: Props) => {
   }, [
     activeParkingSessions,
     isRefetched,
+    parkingAccount?.scope,
     refetch,
     setRefetched,
-    visitorVehicleId,
   ])
 
   // refetch sessions every 5 seconds if there are sessions that are not yet paid, it can take a bit before the payment is processed
