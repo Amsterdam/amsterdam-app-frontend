@@ -55,6 +55,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingManageVisitorAdjustTimeBalanceFailedAlert',
   },
+  freeParkingSuccess: {
+    variant: AlertVariant.positive,
+    text: 'U hoeft geen parkeersessie te starten.',
+    title: 'Parkeren in deze periode is gratis',
+    hasIcon: true,
+    testID: 'ParkingFreeParkingSuccessAlert',
+  },
   maxLicensePlatesWarning: {
     variant: AlertVariant.warning,
     text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
