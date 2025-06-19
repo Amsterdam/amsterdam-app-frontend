@@ -9,14 +9,11 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
-import {
-  parkingSlice,
-  useCurrentParkingAccount,
-  useParkingAccessToken,
-} from '@/modules/parking/slice'
+import {parkingSlice, useParkingAccessToken} from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
 
@@ -35,7 +32,7 @@ export const ParkingLoginForm = () => {
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
-  const currentAccount = useCurrentParkingAccount()
+  const {accessCode} = useGetSecureAccessCode()
 
   const onSubmit = handleSubmit(async ({pin, reportCode}) => {
     try {
@@ -53,7 +50,8 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
       dispatch(parkingApi.util.resetApiState())
 
-      if (currentAccount) {
+      if (accessCode) {
+        // If access code is set, it means the dashboard will be available in the stack
         setTimeout(() => {
           reset({
             index: 0,
