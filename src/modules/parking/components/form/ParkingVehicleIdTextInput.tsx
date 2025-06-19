@@ -1,3 +1,4 @@
+import {TextInputProps} from 'react-native'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {TestProps} from '@/components/ui/types'
 
@@ -5,13 +6,15 @@ type Props = {
   defaultValue?: string
   inputInstructions?: string
   label?: string
-} & TestProps
+} & TextInputProps &
+  TestProps
 
 export const ParkingVehicleIdTextInput = ({
   defaultValue,
   label,
   inputInstructions,
   testID,
+  ...textInputProps
 }: Props) => (
   <TextInputField
     autoCapitalize="characters"
@@ -30,5 +33,6 @@ export const ParkingVehicleIdTextInput = ({
     }}
     testID={testID}
     textTransform={text => text.replace(/[^a-zA-Z0-9]/g, '')}
+    {...textInputProps}
   />
 )
