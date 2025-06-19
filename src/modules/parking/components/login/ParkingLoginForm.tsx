@@ -9,7 +9,6 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
@@ -19,7 +18,8 @@ import {devError} from '@/processes/development'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const {navigate, reset} = useNavigation()
+  const navigation = useNavigation()
+  const {navigate, reset} = navigation
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
@@ -32,7 +32,6 @@ export const ParkingLoginForm = () => {
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
-  const {accessCode} = useGetSecureAccessCode()
 
   const onSubmit = handleSubmit(async ({pin, reportCode}) => {
     try {
@@ -50,9 +49,10 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
       dispatch(parkingApi.util.resetApiState())
 
-      if (accessCode) {
-        // If access code is set, it means the dashboard will be available in the stack
-        setTimeout(() => {
+      setTimeout(() => {
+        if (
+          navigation.getState().routeNames.includes(ParkingRouteName.dashboard)
+        ) {
           reset({
             index: 0,
             routes: [
@@ -61,8 +61,8 @@ export const ParkingLoginForm = () => {
               },
             ],
           })
-        }, 1000)
-      }
+        }
+      }, 1000)
     } catch (err) {
       devError('ParkingLoginForm onSubmit error:', err)
     }
@@ -98,7 +98,7 @@ export const ParkingLoginForm = () => {
           testID="ParkingLoginFormPinCodeInputField"
         />
 
-        {!!isError && !isLoading && (
+        {!isLoading && !!isError && (
           <>
             <SomethingWentWrong
               testID="ParkingLoginFormSomethingWentWrong"
