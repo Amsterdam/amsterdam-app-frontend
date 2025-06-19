@@ -13,6 +13,7 @@ export const ParkingDashboardPermitSessionsChooseVisitorLicenseplate = () => {
     <Row gutter="no">
       <Phrase>{`Kenteken ${visitorVehicleId}`}</Phrase>
       <Button
+        accessibilityLabel="Kenteken wijzigen"
         label="wijzigen"
         onPress={() => {
           setVisitorVehicleId(undefined)

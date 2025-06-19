@@ -1,3 +1,4 @@
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -17,34 +18,36 @@ export const ParkingPermitBalanceTime = () => {
   }
 
   return (
-    <Column gutter="xs">
-      <Row align="between">
-        {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
+    <SingleSelectable>
+      <Column gutter="xs">
+        <Row align="between">
+          {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
+            <Title
+              level="h5"
+              testID="ParkingPermitBalanceTimeTitlePhrase"
+              text="Tijdsaldo"
+            />
+          ) : (
+            <Phrase testID="ParkingPermitBalanceTimeTitlePhrase">
+              Tijdsaldo
+            </Phrase>
+          )}
           <Title
             level="h5"
             testID="ParkingPermitBalanceTimeTitlePhrase"
-            text="Tijdsaldo"
+            text={formatTimeDurationToDisplay(
+              currentPermit.time_balance,
+              'seconds',
+              {short: true},
+            )}
           />
-        ) : (
-          <Phrase testID="ParkingPermitBalanceTimeTitlePhrase">
-            Tijdsaldo
+        </Row>
+        {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+          <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
+            {`Tot ${formatDate(currentPermit.time_valid_until)}`}
           </Phrase>
         )}
-        <Title
-          level="h5"
-          testID="ParkingPermitBalanceTimeTitlePhrase"
-          text={formatTimeDurationToDisplay(
-            currentPermit.time_balance,
-            'seconds',
-            {short: true},
-          )}
-        />
-      </Row>
-      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
-        <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
-          {`Tot ${formatDate(currentPermit.time_valid_until)}`}
-        </Phrase>
-      )}
-    </Column>
+      </Column>
+    </SingleSelectable>
   )
 }
