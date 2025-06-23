@@ -6,7 +6,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {AdditionalLoginButton} from '@/modules/parking/components/login/AdditionalLoginButton'
-import {useSecurePermitHolders} from '@/modules/parking/hooks/useSecurePermitHolders'
 import {useSwitchPermit} from '@/modules/parking/hooks/useSwitchPermit'
 import {useParkingAccounts} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -16,9 +15,6 @@ import {isEmptyObject} from '@/utils/object'
 export const ParkingSelectPermit = () => {
   const {close} = useBottomSheet()
   const focusRef = useSetBottomSheetElementFocus()
-  const {permitHolders, isLoading: isLoadingPermitHolders} =
-    useSecurePermitHolders()
-  const hasPermitHolderAccount = permitHolders.length > 0
   const switchPermit = useSwitchPermit()
   const parkingAccounts = useParkingAccounts()
 
@@ -83,15 +79,9 @@ export const ParkingSelectPermit = () => {
                 ),
               )
             })}
-          {!isLoadingPermitHolders && !hasPermitHolderAccount && (
-            <AdditionalLoginButton
-              testID="ParkingSelectPermitLoginPermitHolderTopTaskButton"
-              title="Inloggen als vergunninghouder"
-            />
-          )}
           <AdditionalLoginButton
-            testID="ParkingSelectPermitLoginVisitorTopTaskButton"
-            title="Inloggen als bezoeker"
+            testID="ParkingSelectPermitLoginTopTaskButton"
+            title="Inloggen"
           />
         </Column>
       </Column>
