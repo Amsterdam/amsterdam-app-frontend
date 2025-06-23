@@ -20,8 +20,8 @@ export const AddLicensePlateForm = () => {
   const [addLicensePlate] = useAddLicensePlateMutation()
 
   const saveLicensePlate = useCallback(
-    (vehicle_id: string, visitor_name: string) => {
-      void addLicensePlate({
+    (vehicle_id: string, visitor_name: string) =>
+      addLicensePlate({
         report_code: currentPermit.report_code.toString(),
         vehicle_id,
         visitor_name,
@@ -29,8 +29,7 @@ export const AddLicensePlateForm = () => {
         .unwrap()
         .then(() => {
           navigate(ParkingRouteName.myLicensePlates)
-        })
-    },
+        }),
     [addLicensePlate, currentPermit.report_code, navigate],
   )
 
@@ -50,7 +49,7 @@ export const AddLicensePlateForm = () => {
         ],
       )
     } else {
-      saveLicensePlate(vehicle_id, visitor_name)
+      return saveLicensePlate(vehicle_id, visitor_name)
     }
   }
 
