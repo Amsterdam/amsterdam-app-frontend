@@ -9,7 +9,9 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
+import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {parkingSlice, useParkingAccessToken} from '@/modules/parking/slice'
@@ -23,6 +25,8 @@ export const ParkingLoginForm = () => {
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
+  const {accessCode} = useGetSecureAccessCode()
+  const {isLoginStepsActive} = useLoginSteps()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -50,9 +54,8 @@ export const ParkingLoginForm = () => {
       dispatch(parkingApi.util.resetApiState())
 
       setTimeout(() => {
-        if (
-          navigation.getState().routeNames.includes(ParkingRouteName.dashboard)
-        ) {
+        if (accessCode && !isLoginStepsActive) {
+          // These should be the same conditions that the stack uses to include the dashboard screen
           reset({
             index: 0,
             routes: [
