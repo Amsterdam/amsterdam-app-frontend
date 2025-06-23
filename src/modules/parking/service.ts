@@ -70,7 +70,7 @@ export const parkingApi = baseApi.injectEndpoints({
               'Invalid pin',
             )
           ) {
-            failRetry('Invalid pin')
+            failRetry(result.error)
           } else {
             return afterError(result, api, failRetry)
           }
