@@ -3,9 +3,11 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {ParkingIntroFigure} from '@/modules/parking/components/ParkingIntroFigure'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 
@@ -17,22 +19,23 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => {
 
   return (
     <Screen testID="ParkingHomeScreen">
+      <Row align="center">
+        <ParkingIntroFigure />
+      </Row>
       <Box>
         <Column gutter="xl">
           <Column gutter="md">
             <Title
               level="h2"
-              text="Voor vergunninghouders"
+              text="Voor vergunninghouders en bezoekers"
             />
             <Column gutter="lg">
-              <Paragraph>
-                Regel het parkeren voor uzelf en uw bezoekers met uw
-                parkeervergunning. Log in om een parkeersessie te starten, te
-                beheren en te betalen. Uw bezoek kan ook zelf betalen voor het
-                parkeren.
+              <Paragraph variant="intro">
+                U kunt een parkeersessie starten en betalen voor uw bezoeker.
+                Bezoekers kunnen ook zelf een parkeersessie starten en betalen.
               </Paragraph>
               <Button
-                label="Inloggen vergunninghouder"
+                label="Inloggen"
                 onPress={() => navigate(ParkingRouteName.login)}
                 testID="ParkingHomeLoginButton"
               />
@@ -41,35 +44,17 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => {
           <Column gutter="md">
             <Title
               level="h2"
-              text="Bent u op bezoek?"
+              text="Alles over parkeren"
             />
             <Column gutter="lg">
-              <Paragraph>
-                Bent u op bezoek bij een persoon met een bezoekersvergunning
-                vraag de persoon om de meldcode en pincode. Zo kunt u inloggen
-                en en zelf de parkeersessie starten en betalen.
+              <Paragraph variant="intro">
+                In de app regelt u parkeersessies. Op de website staat meer
+                informatie, zoals over vergunningen, zones, boetes en tarieven.
               </Paragraph>
               <Button
-                label="Inloggen bezoek"
-                onPress={() => navigate(ParkingRouteName.login)}
-                testID="ParkingHomeLoginVisitorButton"
-                variant="secondary"
-              />
-            </Column>
-          </Column>
-          <Column gutter="md">
-            <Title
-              level="h2"
-              text="Over parkeren"
-            />
-            <Column gutter="lg">
-              <Paragraph>
-                Voor informatie over parkeren voor bewoners, bedrijven, boetes
-                en parkeertarieven, kijk op de website van de gemeente
-                Amsterdam.
-              </Paragraph>
-              <Button
-                label="Parkeren informatie"
+                iconName="external-link"
+                iconSize="md"
+                label="Lees meer over parkeren"
                 onPress={() => {
                   redirectUrls && openWebUrl(redirectUrls?.parking)
                 }}

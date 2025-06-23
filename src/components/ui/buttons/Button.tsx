@@ -9,6 +9,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
+import {IconSize} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -21,6 +22,7 @@ export type ButtonVariant =
 export type ButtonProps = {
   ellipsizeMode?: 'head' | 'tail' | 'middle' | 'clip'
   iconName?: SvgIconName
+  iconSize?: keyof typeof IconSize
   isError?: boolean
   isLoading?: boolean
   label?: string
@@ -35,6 +37,7 @@ const defaultVariant = 'primary'
 export const Button = ({
   ellipsizeMode,
   iconName: iconNameInput,
+  iconSize = 'lg',
   isError,
   isLoading,
   label,
@@ -83,7 +86,7 @@ export const Button = ({
           <Icon
             color={variant === 'primary' ? 'inverse' : 'link'}
             name={iconName}
-            size="lg"
+            size={iconSize}
             testID={`${testID}Icon`}
           />
         )}
