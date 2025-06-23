@@ -9,23 +9,24 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
+import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
-import {
-  parkingSlice,
-  useCurrentParkingAccount,
-  useParkingAccessToken,
-} from '@/modules/parking/slice'
+import {parkingSlice, useParkingAccessToken} from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
 
 export const ParkingLoginForm = () => {
   const {params} = useRoute<ParkingRouteName.login>()
-  const {navigate, reset} = useNavigation()
+  const navigation = useNavigation()
+  const {navigate, reset} = navigation
   const form = useForm<ParkingAccountLogin>({defaultValues: params})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
+  const {accessCode} = useGetSecureAccessCode()
+  const {isLoginStepsActive} = useLoginSteps()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -35,7 +36,6 @@ export const ParkingLoginForm = () => {
   const errorSentence = isForbiddenError
     ? 'Controleer uw meldcode en pincode en probeer het opnieuw.'
     : 'Er is iets misgegaan. Probeer het opnieuw.'
-  const currentAccount = useCurrentParkingAccount()
 
   const onSubmit = handleSubmit(async ({pin, reportCode}) => {
     try {
@@ -53,8 +53,9 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
       dispatch(parkingApi.util.resetApiState())
 
-      if (currentAccount) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (accessCode && !isLoginStepsActive) {
+          // These should be the same conditions that the stack uses to include the dashboard screen
           reset({
             index: 0,
             routes: [
@@ -63,8 +64,8 @@ export const ParkingLoginForm = () => {
               },
             ],
           })
-        }, 1000)
-      }
+        }
+      }, 1000)
     } catch (err) {
       devError('ParkingLoginForm onSubmit error:', err)
     }
@@ -100,7 +101,7 @@ export const ParkingLoginForm = () => {
           testID="ParkingLoginFormPinCodeInputField"
         />
 
-        {!!isError && !isLoading && (
+        {!isLoading && !!isError && (
           <>
             <SomethingWentWrong
               testID="ParkingLoginFormSomethingWentWrong"
