@@ -1,9 +1,11 @@
 import {useEffect, useMemo} from 'react'
 import {useController, useFormContext} from 'react-hook-form'
+import {AlertPositive} from '@/components/ui/feedback/alert/AlertPositive'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
+import {alerts} from '@/modules/parking/alerts'
 import {ParkingTimesAdjustedMessage} from '@/modules/parking/components/session/ParkingTimesAdjustedMessage'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -23,7 +25,10 @@ type FieldValues = {
 }
 
 export const ParkingChoosePaymentZone = () => {
-  const {watch} = useFormContext<FieldValues>()
+  const {
+    watch,
+    formState: {errors},
+  } = useFormContext<FieldValues>()
   const startTime = watch('startTime')
   const endTime = watch('endTime')
   const {
@@ -36,6 +41,11 @@ export const ParkingChoosePaymentZone = () => {
   })
   const currentPermit = useCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
+
+  const isParkingOutsideRegimeError =
+    errors.root?.serverError.message?.includes(
+      'Parking time outside available regime times',
+    )
 
   const allPaymentZonesAreEqual = useMemo(
     () =>
@@ -116,6 +126,12 @@ export const ParkingChoosePaymentZone = () => {
         title={paymentZoneId ? 'Betaald parkeren' : 'Kies betaald parkeertijd'}
       />
       {!!showTimeIsAdjustedMessage && <ParkingTimesAdjustedMessage />}
+      {!!isParkingOutsideRegimeError && (
+        <>
+          <Gutter height="sm" />
+          <AlertPositive {...alerts.freeParkingSuccess} />
+        </>
+      )}
     </Column>
   )
 }

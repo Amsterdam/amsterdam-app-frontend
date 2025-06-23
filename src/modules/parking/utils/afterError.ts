@@ -26,6 +26,6 @@ export const afterError: AfterBaseQueryErrorFn = async (
       failRetry,
     ).then(() => Promise.resolve())
   } else {
-    failRetry('no access')
+    failRetry(error)
   }
 }

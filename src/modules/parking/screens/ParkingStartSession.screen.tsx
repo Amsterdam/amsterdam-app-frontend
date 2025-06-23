@@ -10,6 +10,7 @@ import {ParkingSessionFormProvider} from '@/modules/parking/components/form/Park
 import {ParkingStartSessionButton} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
+import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
@@ -58,6 +59,8 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 </Column>
               )}
               <ParkingSessionChooseTime />
+
+              <ParkingMaxSessionsWarning />
               <ParkingReceipt />
               <ParkingStartSessionButton />
             </Column>
