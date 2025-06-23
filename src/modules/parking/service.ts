@@ -142,7 +142,7 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingTransactionsEndpointResponse,
       ParkingTransactionsEndpointRequest
     >({
-      providesTags: ['ParkingSessions'],
+      providesTags: ['ParkingTransactions'],
       query: ({...params}) => ({
         prepareHeaders,
         method: 'GET',
