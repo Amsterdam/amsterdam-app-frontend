@@ -10,15 +10,20 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
+type ValueFunctionOrString<
+  TFieldValues extends FieldValues,
+  TName extends FieldPath<TFieldValues>,
+> = string | ((value: PathValue<TFieldValues, TName>) => string | undefined)
+
 type Props<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
+  accessibilityHint?: ValueFunctionOrString<TFieldValues, TName>
+  accessibilityLabel?: ValueFunctionOrString<TFieldValues, TName>
   bottomSheetVariant?: string
   iconName: SvgIconName
-  text?:
-    | string
-    | ((value: PathValue<TFieldValues, TName>) => string | undefined)
+  text?: ValueFunctionOrString<TFieldValues, TName>
   title: string | ((value: PathValue<TFieldValues, TName>) => string)
 } & TestProps &
   UseControllerProps<TFieldValues, TName>
@@ -32,6 +37,8 @@ export const SelectButtonControlled = <
   title,
   text,
   iconName,
+  accessibilityLabel,
+  accessibilityHint,
   ...controllerProps
 }: Props<TFieldValues, TName>) => {
   const {toggle} = useBottomSheet()
@@ -42,6 +49,16 @@ export const SelectButtonControlled = <
 
   return (
     <SelectButton
+      accessibilityHint={
+        typeof accessibilityHint === 'string'
+          ? accessibilityHint
+          : accessibilityHint?.(value)
+      }
+      accessibilityLabel={
+        typeof accessibilityLabel === 'string'
+          ? accessibilityLabel
+          : accessibilityLabel?.(value)
+      }
       error={error}
       iconName={iconName}
       onPress={(): void => {

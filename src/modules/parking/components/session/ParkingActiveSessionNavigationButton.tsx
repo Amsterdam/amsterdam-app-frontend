@@ -21,6 +21,7 @@ export const ParkingActiveSessionNavigationButton = ({
 
   return (
     <NavigationButton
+      accessibilityLabel={`Kenteken ${title}`}
       description={
         noEndTime
           ? `Actief sinds ${dayjs(start_date_time).format(isEndDateToday ? 'HH.mm' : 'D MMMM, HH.mm')} uur`

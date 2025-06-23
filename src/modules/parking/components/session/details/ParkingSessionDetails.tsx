@@ -72,6 +72,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             testID="ParkingSessionDetailsIcon"
           />
           <Title
+            accessibilityLabel={`Kenteken ${licensePlateString}`}
             level="h2"
             text={licensePlateString}
           />

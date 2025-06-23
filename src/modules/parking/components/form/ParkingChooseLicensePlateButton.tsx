@@ -4,6 +4,11 @@ import {type ParkingLicensePlate} from '@/modules/parking/types'
 
 export const ParkingChooseLicensePlateButton = () => (
   <SelectButtonControlled<{licensePlate?: ParkingLicensePlate}, 'licensePlate'>
+    accessibilityLabel={licensePlate =>
+      licensePlate
+        ? `Kenteken ${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
+        : 'Kies kenteken'
+    }
     bottomSheetVariant={ParkingSessionBottomSheetVariant.licensePlate}
     iconName="parkingCar"
     name="licensePlate"

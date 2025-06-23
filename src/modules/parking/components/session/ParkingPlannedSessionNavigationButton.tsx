@@ -31,6 +31,7 @@ export const ParkingPlannedSessionNavigationButton = ({
 
   return (
     <NavigationButton
+      accessibilityLabel={`Kenteken ${title}`}
       description={description}
       icon="parkingCar"
       iconSize="lg"

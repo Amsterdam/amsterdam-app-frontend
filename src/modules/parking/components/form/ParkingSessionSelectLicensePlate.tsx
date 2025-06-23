@@ -47,15 +47,20 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
         {licensePlates.length === 0 && (
           <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
-        {licensePlates?.map(licensePlate => (
-          <TopTaskButton
-            iconName="parkingCar"
-            key={licensePlate.vehicle_id}
-            onPress={() => onPress(licensePlate)}
-            testID="ParkingSessionSelectLicensePlateTopTaskButton"
-            title={`${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`}
-          />
-        ))}
+        {licensePlates?.map(licensePlate => {
+          const title = `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
+
+          return (
+            <TopTaskButton
+              accessibilityLabel={`Kenteken ${title}`}
+              iconName="parkingCar"
+              key={licensePlate.vehicle_id}
+              onPress={() => onPress(licensePlate)}
+              testID="ParkingSessionSelectLicensePlateTopTaskButton"
+              title={title}
+            />
+          )
+        })}
       </Column>
     </View>
   )
