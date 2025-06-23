@@ -120,7 +120,7 @@ export const ParkingAccountChangePinCodeForm = () => {
           rules={{
             required: 'Herhaal de nieuwe pincode',
             validate: value =>
-              value === pinCode || 'De pincodes komen niet overeen',
+              value === pinCode || 'De pincodes zijn niet hetzelfde.',
           }}
           testID="ParkingAccountChangePinCodeFormPinCodeCheckInputField"
           textTransform={textTransform}
