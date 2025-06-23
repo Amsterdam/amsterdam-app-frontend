@@ -4,6 +4,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
@@ -41,10 +42,15 @@ export const ParkingSessionPaymentZoneBottomSheetContent = () => {
   return (
     <Box grow>
       <Column gutter="md">
-        <Title
-          level="h5"
-          text="Wat is de betaald parkeertijd waar de auto staat?"
-        />
+        <Column gutter="sm">
+          <Title
+            level="h5"
+            text="Wat is de betaald parkeertijd waar de auto staat?"
+          />
+          <Paragraph>
+            Controleer de parkeermeter bij uw auto voor de juiste parkeertijd.
+          </Paragraph>
+        </Column>
         <RadioGroup
           onChange={onChange}
           options={options}
