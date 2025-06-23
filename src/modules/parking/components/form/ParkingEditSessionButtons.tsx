@@ -8,6 +8,10 @@ import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {
   endTime?: Dayjs
+  licensePlate: {
+    vehicle_id: string
+    visitor_name?: string
+  }
   ps_right_id: number
   report_code: string
   startTime: Dayjs
@@ -20,12 +24,19 @@ export const ParkingEditSessionButtons = () => {
   const navigation = useNavigation()
 
   const onSubmit = useCallback(
-    ({startTime, endTime, report_code, ps_right_id}: FieldValues) => {
+    ({
+      startTime,
+      endTime,
+      report_code,
+      ps_right_id,
+      licensePlate: {vehicle_id},
+    }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
         return editSession({
           parking_session: {
             report_code,
             ps_right_id,
+            vehicle_id,
             end_date_time: endTime.toJSON(),
             start_date_time: startTime.toJSON(),
           },
