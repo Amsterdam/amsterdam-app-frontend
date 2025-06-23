@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useEditSessionMutation} from '@/modules/parking/service'
@@ -15,7 +16,7 @@ type FieldValues = {
 
 export const ParkingEditSessionButtons = () => {
   const {handleSubmit, formState} = useFormContext<FieldValues>()
-  const [editSession] = useEditSessionMutation()
+  const [editSession, {isError}] = useEditSessionMutation()
 
   const navigation = useNavigation()
 
@@ -41,6 +42,9 @@ export const ParkingEditSessionButtons = () => {
 
   return (
     <Column gutter="md">
+      {!!isError && (
+        <SomethingWentWrong testID="ParkingEditSessionButtonsSomethingWentWrong" />
+      )}
       <Button
         disabled={formState.isSubmitting}
         label="Bevestig nieuwe eindtijd"

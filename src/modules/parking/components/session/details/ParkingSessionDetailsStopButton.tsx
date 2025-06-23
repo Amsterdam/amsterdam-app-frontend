@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useEditSessionMutation} from '@/modules/parking/service'
 import {ParkingSession, ParkingSessionStatus} from '@/modules/parking/types'
@@ -12,7 +13,7 @@ type Props = {
 
 export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
   const {goBack} = useNavigation()
-  const [editSession] = useEditSessionMutation()
+  const [editSession, {isError}] = useEditSessionMutation()
 
   const onPressStop = useCallback(() => {
     Alert.alert(
@@ -45,11 +46,16 @@ export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
   }, [editSession, goBack, parkingSession])
 
   return (
-    <Button
-      label="Stoppen"
-      onPress={onPressStop}
-      testID="ParkingSessionDetailsStopButton"
-      variant="secondaryDestructive"
-    />
+    <>
+      {!!isError && (
+        <SomethingWentWrong testID="ParkingSessionDetailsStopButtonSomethingWentWrong" />
+      )}
+      <Button
+        label="Stoppen"
+        onPress={onPressStop}
+        testID="ParkingSessionDetailsStopButton"
+        variant="secondaryDestructive"
+      />
+    </>
   )
 }
