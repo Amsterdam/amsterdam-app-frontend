@@ -160,7 +160,7 @@ export type ParkingPermit = {
     permit_zone_id: string
     show_permit_zone_url: boolean
   }
-  report_code: number
+  report_code: string
   time_balance: number
   time_balance_applicable: boolean
   time_valid_until: string
