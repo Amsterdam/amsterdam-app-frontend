@@ -9,6 +9,8 @@ import Animated, {
   useAnimatedProps,
 } from 'react-native-reanimated'
 import Svg, {Circle, Defs, LinearGradient, Stop} from 'react-native-svg'
+import {Rotator} from '@/components/ui/animations/Rotator'
+import {TimeDurationSpinnerDirectionArrowFigure} from '@/components/ui/forms/TimeDurationSpinnerDirectionArrowFigure'
 
 type Props = {
   initialHours?: number
@@ -240,6 +242,11 @@ export const TimeDurationSpinner = ({
               />
             )
           })}
+          {rotation.value === 0 && (
+            <Rotator duration={5000}>
+              <TimeDurationSpinnerDirectionArrowFigure />
+            </Rotator>
+          )}
         </Animated.View>
       </GestureDetector>
     </View>
