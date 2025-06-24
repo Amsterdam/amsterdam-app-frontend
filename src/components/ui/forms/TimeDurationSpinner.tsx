@@ -15,6 +15,8 @@ type Props = {
   initialMinutes?: number
   maxHours?: number
   maxMinutes?: number
+  minHours?: number
+  minMinutes?: number
   onChange: (hours: number, minutes: number) => void
 }
 
@@ -41,10 +43,39 @@ const convertHoursAndMinutesToDegrees = (hours: number, minutes: number) => {
   return hours * 360 + minutes * 6
 }
 
+const clampHoursAndMinutes = (
+  desiredHours: number,
+  desiredMinutes: number,
+  minHours: number,
+  minMinutes: number,
+  maxHours: number,
+  maxMinutes: number,
+) => {
+  'worklet'
+
+  if (
+    desiredHours < minHours ||
+    (desiredHours === minHours && desiredMinutes < minMinutes)
+  ) {
+    return {hours: minHours, minutes: minMinutes}
+  }
+
+  if (
+    desiredHours > maxHours ||
+    (desiredHours === maxHours && desiredMinutes > maxMinutes)
+  ) {
+    return {hours: maxHours, minutes: maxMinutes}
+  }
+
+  return {hours: desiredHours, minutes: desiredMinutes}
+}
+
 export const TimeDurationSpinner = ({
   onChange,
   maxHours,
   maxMinutes,
+  minHours = 0,
+  minMinutes = 0,
   initialHours = 0,
   initialMinutes = 0,
 }: Props) => {
@@ -76,22 +107,18 @@ export const TimeDurationSpinner = ({
       const {hours: desiredHours, minutes: desiredMinutes} =
         convertDegreesToHoursAndMinutes(rotation.value + deltaDegrees)
 
-      if (rotation.value + deltaDegrees < 0) {
-        rotation.value = 0
-      } else if (
-        maxHours &&
-        maxMinutes &&
-        (desiredHours > maxHours ||
-          (desiredHours === maxHours && desiredMinutes > maxMinutes))
-      ) {
-        rotation.value = convertHoursAndMinutesToDegrees(maxHours, maxMinutes)
-      } else {
-        rotation.value += deltaDegrees
-      }
+      const {hours, minutes} = clampHoursAndMinutes(
+        desiredHours,
+        desiredMinutes,
+        minHours,
+        minMinutes,
+        maxHours ?? Infinity,
+        maxMinutes ?? Infinity,
+      )
+
+      rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
 
       velocity.value = deltaDegrees // Calculate velocity
-
-      const {hours, minutes} = convertDegreesToHoursAndMinutes(rotation.value)
 
       runOnJS(onChange)(hours, minutes)
     })
@@ -104,8 +131,19 @@ export const TimeDurationSpinner = ({
         }) // Apply inertia to rotation
       }
 
-      const {hours, minutes} = convertDegreesToHoursAndMinutes(rotation.value)
+      const {hours: desiredHours, minutes: desiredMinutes} =
+        convertDegreesToHoursAndMinutes(rotation.value)
 
+      const {hours, minutes} = clampHoursAndMinutes(
+        desiredHours,
+        desiredMinutes,
+        minHours,
+        minMinutes,
+        maxHours ?? Infinity,
+        maxMinutes ?? Infinity,
+      )
+
+      rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
       runOnJS(onChange)(hours, minutes)
     })
 
@@ -120,17 +158,10 @@ export const TimeDurationSpinner = ({
 
   const animatedProps = useAnimatedProps(() => ({
     strokeDashoffset: borderProgress.value,
-    // transform: [{rotate: '-90deg'}], // Rotate the progress bar to start from the top
   }))
-  const borderRotationProgress = useDerivedValue(
-    () =>
-      // rotation.value >= 360
-      //   ? 0
-      rotation.value - 90,
-  )
+  const borderRotationProgress = useDerivedValue(() => rotation.value - 90)
 
   const borderAnimatedProps = useAnimatedProps(() => ({
-    // strokeDashoffset: borderProgress.value,
     transform: [{rotate: `${borderRotationProgress.value}deg`}], // Rotate the progress bar to start from the top
   }))
 
@@ -140,6 +171,7 @@ export const TimeDurationSpinner = ({
         animatedProps={borderAnimatedProps}
         height={CIRCLE_SIZE + 20}
         style={styles.progressBar}
+        testID="TimeDurationSpinner"
         width={CIRCLE_SIZE + 20}>
         {/* Gradient Definition */}
         <Defs>
