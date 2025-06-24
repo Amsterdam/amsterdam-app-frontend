@@ -1,6 +1,7 @@
 import {useCallback} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDeleteSessionMutation} from '@/modules/parking/service'
 import {ParkingSession} from '@/modules/parking/types'
@@ -10,7 +11,7 @@ type Props = {
 }
 
 export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
-  const [deleteSession] = useDeleteSessionMutation()
+  const [deleteSession, {isError}] = useDeleteSessionMutation()
   const {goBack} = useNavigation()
 
   const onPressDelete = useCallback(() => {
@@ -42,11 +43,16 @@ export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
   }, [deleteSession, goBack, parkingSession])
 
   return (
-    <Button
-      label="Verwijderen"
-      onPress={onPressDelete}
-      testID="ParkingSessionDetailsDeleteButton"
-      variant="secondaryDestructive"
-    />
+    <>
+      {!!isError && (
+        <SomethingWentWrong testID="ParkingSessionDetailsDeleteButtonSomethingWentWrong" />
+      )}
+      <Button
+        label="Verwijderen"
+        onPress={onPressDelete}
+        testID="ParkingSessionDetailsDeleteButton"
+        variant="secondaryDestructive"
+      />
+    </>
   )
 }
