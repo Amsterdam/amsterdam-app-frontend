@@ -143,6 +143,7 @@ export const TimeDurationSpinner = ({
         maxMinutes ?? Infinity,
       )
 
+      rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
       runOnJS(onChange)(hours, minutes)
     })
 
