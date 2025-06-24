@@ -23,5 +23,5 @@ export const formatDateTimeToDisplay = (
           position: 'end',
         })
       : dateToDisplay
-  } ${time}`
+  }, ${time}`
 }
