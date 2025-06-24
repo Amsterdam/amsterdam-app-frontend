@@ -8,14 +8,18 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useBoolean} from '@/hooks/useBoolean'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
 import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {parkingApi} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingActiveSessionsSummary = () => {
   const {navigate} = useNavigation()
@@ -59,6 +63,28 @@ export const ParkingActiveSessionsSummary = () => {
       session => 'is_paid' in session && !session.is_paid,
     )
       ? 5000
+      : 0,
+  )
+
+  const firstEndDateTime = activeParkingSessions?.length
+    ? activeParkingSessions.reduce((min, session) => {
+        const candidateDateTime = dayjs(session.end_date_time)
+
+        return candidateDateTime.isAfter(min) ? min : candidateDateTime
+      }, dayjs(activeParkingSessions[0].end_date_time))
+    : undefined
+
+  const dispatch = useDispatch()
+
+  useRefetchTimeout(
+    () => {
+      dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
+    },
+    activeParkingSessions?.length
+      ? Math.max(
+          firstEndDateTime?.endOf('minute').diff(dayjs(), 'milliseconds') ?? 0,
+          30000,
+        )
       : 0,
   )
 

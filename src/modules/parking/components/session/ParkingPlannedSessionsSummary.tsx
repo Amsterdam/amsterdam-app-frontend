@@ -8,10 +8,14 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {parkingApi} from '@/modules/parking/service'
 import {ParkingSessionStatus} from '@/modules/parking/types'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingPlannedSessionsSummary = () => {
   const {navigate} = useNavigation()
@@ -36,6 +40,29 @@ export const ParkingPlannedSessionsSummary = () => {
       session => 'is_paid' in session && !session.is_paid,
     )
       ? 15000
+      : 0,
+  )
+
+  const firstStartDateTime = plannedParkingSessions?.length
+    ? plannedParkingSessions.reduce((min, session) => {
+        const candidateDateTime = dayjs(session.start_date_time)
+
+        return candidateDateTime.isAfter(min) ? min : candidateDateTime
+      }, dayjs(plannedParkingSessions[0].start_date_time))
+    : undefined
+
+  const dispatch = useDispatch()
+
+  useRefetchTimeout(
+    () => {
+      dispatch(parkingApi.util.invalidateTags(['ParkingSessions']))
+    },
+    plannedParkingSessions?.length
+      ? Math.max(
+          firstStartDateTime?.endOf('minute').diff(dayjs(), 'milliseconds') ??
+            0,
+          30000,
+        )
       : 0,
   )
 
