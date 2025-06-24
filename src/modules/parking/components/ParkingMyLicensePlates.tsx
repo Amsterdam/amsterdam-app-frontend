@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback} from 'react'
+import {useCallback, useMemo} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -9,16 +9,23 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useLicensePlatesQuery,
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
+import {PermitType} from '@/modules/parking/types'
+import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {useTrackException} from '@/processes/logging/hooks/useTrackException'
+import {ExceptionLogKey} from '@/processes/logging/types'
 
 export const ParkingMyLicensePlates = () => {
-  const openPhoneUrl = useOpenPhoneUrl()
+  const openWebUrl = useOpenWebUrl()
+  const trackException = useTrackException()
+
+  const {data: redirectUrls} = useGetRedirectUrlsQuery()
   const currentPermit = useCurrentParkingPermit()
   const {data: licensePlates, isFetching} = useLicensePlatesQuery(
     currentPermit
@@ -27,6 +34,24 @@ export const ParkingMyLicensePlates = () => {
         }
       : skipToken,
   )
+
+  const redirectUrl = useMemo(() => {
+    if (currentPermit.permit_type.includes(PermitType.mantelzorgvergunning)) {
+      return redirectUrls?.parking_request_license_plate_mantelzorgers
+    }
+
+    if (
+      currentPermit.permit_type.includes(
+        PermitType['GA-parkeervergunning voor bewoners (passagiers)'],
+      )
+    ) {
+      return redirectUrls?.parking_request_license_plate_ga_bewoners
+    }
+
+    if (currentPermit.permit_type.includes(PermitType['GA-bezoekerskaart'])) {
+      return redirectUrls?.parking_request_license_plate_ga_bezoekers
+    }
+  }, [currentPermit.permit_type, redirectUrls])
 
   const [removeLicensePlate, {isLoading: isLoadingRemoveLicensePlate}] =
     useRemoveLicensePlateMutation()
@@ -94,19 +119,32 @@ export const ParkingMyLicensePlates = () => {
               <Title
                 level="h2"
                 testID="ParkingMyLicensePlatesForceLicensePlatesTitle"
-                text="Kenteken toevoegen"
+                text="Kenteken toevoegen of vervangen"
               />
               <Paragraph>
-                Wilt u een ander kenteken toevoegen of vervangen? Neem dan
-                contact met ons op. Bel het telefoonnummer 14 020 maandag tot en
-                met vrijdag van 08.00 tot 18.00 uur
+                U kunt online een kenteken toevoegen of vervangen. Op een
+                vergunning met wisselend kenteken mogen 3 kentekens staan.
               </Paragraph>
             </Column>
             <Button
-              accessibilityLabel="Bel veertien nul twintig"
-              label="Bel 14 020"
+              accessibilityLabel="Mijn parkeren"
+              iconName="external-link"
+              iconSize="md"
+              label="Mijn parkeren"
               onPress={() => {
-                openPhoneUrl('14020')
+                if (redirectUrl) {
+                  openWebUrl(redirectUrl)
+                } else {
+                  Alert.alert(
+                    'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
+                  )
+
+                  trackException(
+                    ExceptionLogKey.getRedirectsUrl,
+                    'ParkingMyLicensePlates.ts',
+                    {redirectsKey: 'parking_request_license_plate'},
+                  )
+                }
               }}
               testID="ParkingMyLicensePlatesForceLicensePlatesPhoneButton"
               variant="secondary"
