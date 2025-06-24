@@ -21,6 +21,7 @@ export const ParkingVehicleIdTextInput = ({
     autoComplete="off"
     autoCorrect={false}
     defaultValue={defaultValue}
+    hasClearButton={false}
     inputInstructions={inputInstructions}
     label={label}
     name="vehicle_id"

@@ -76,6 +76,7 @@ export const ParkingLoginForm = () => {
       <Column gutter="md">
         <TextInputField
           autoFocus
+          hasClearButton={false}
           keyboardType="number-pad"
           label="Meldcode"
           name="reportCode"
@@ -90,6 +91,7 @@ export const ParkingLoginForm = () => {
           testID="ParkingLoginFormReportCodeInputField"
         />
         <TextInputField
+          hasClearButton={false}
           keyboardType="number-pad"
           label="Pincode"
           name="pin"
