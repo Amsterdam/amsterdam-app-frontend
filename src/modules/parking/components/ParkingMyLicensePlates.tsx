@@ -79,11 +79,12 @@ export const ParkingMyLicensePlates = () => {
         {licensePlates.length === 0 && (
           <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
-        {licensePlates?.map(licensePlate => (
+        {licensePlates?.map((licensePlate, index) => (
           <LicensePlateListItem
             isRemovable={!forced_license_plate_list}
             key={licensePlate.vehicle_id}
             licensePlate={licensePlate}
+            number={String(index + 1)}
             onPressDelete={onPressDelete}
           />
         ))}
