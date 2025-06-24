@@ -63,6 +63,7 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormLicensePlateInputField"
         />
         <TextInputField
+          hasClearButton={false}
           label="Naam"
           name="visitor_name"
           rules={{

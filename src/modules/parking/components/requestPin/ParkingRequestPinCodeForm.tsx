@@ -29,6 +29,7 @@ export const ParkingRequestPinCodeForm = () => {
       <Column gutter="lg">
         <Column gutter="md">
           <TextInputField
+            hasClearButton={false}
             keyboardType="number-pad"
             label="Meldcode"
             name="reportCode"
@@ -38,6 +39,7 @@ export const ParkingRequestPinCodeForm = () => {
             testID="ParkingRequestPinCodeFormReportCodeInputField"
           />
           <TextInputField
+            hasClearButton={false}
             keyboardType="number-pad"
             label="Laatste 4 cijfers van uw telefoonnummer"
             name="phoneLastFourDigits"
