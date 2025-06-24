@@ -2,20 +2,21 @@ import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {ParkingSession} from '@/modules/parking/types'
 
 type Props = {
-  defaultStartTime: string
+  parkingSession: ParkingSession
 }
 
 export const ParkingSessionDetailsVisitorExtendButton = ({
-  defaultStartTime,
+  parkingSession,
 }: Props) => {
   const {navigate} = useNavigation()
   const onPress = useCallback(() => {
-    navigate(ParkingRouteName.startSession, {
-      defaultStartTime,
+    navigate(ParkingRouteName.editSession, {
+      parkingSession,
     })
-  }, [navigate, defaultStartTime])
+  }, [navigate, parkingSession])
 
   return (
     <Button

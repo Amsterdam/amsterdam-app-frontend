@@ -182,7 +182,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
         {parkingAccount?.scope === ParkingPermitScope.visitor &&
           parkingSession.status === ParkingSessionStatus.active && (
             <ParkingSessionDetailsVisitorExtendButton
-              defaultStartTime={parkingSession.end_date_time}
+              parkingSession={parkingSession as ParkingSession}
             />
           )}
       </Column>

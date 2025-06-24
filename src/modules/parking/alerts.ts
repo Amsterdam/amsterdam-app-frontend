@@ -100,6 +100,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingStartSessionSuccessAlert',
   },
+  adjustSessionSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Uw parkeersessie is aangepast',
+    hasCloseIcon: true,
+    hasIcon: true,
+    testID: 'ParkingAdjustSessionSuccessAlert',
+  },
   accountPinCodeChangeSuccess: {
     variant: AlertVariant.positive,
     title: 'Uw pincode is gewijzigd.',

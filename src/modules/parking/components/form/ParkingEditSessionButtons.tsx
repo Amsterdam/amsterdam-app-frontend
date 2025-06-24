@@ -3,11 +3,15 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {alerts} from '@/modules/parking/alerts'
 import {useEditSessionMutation} from '@/modules/parking/service'
+import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 type FieldValues = {
+  amount?: number
   endTime?: Dayjs
   licensePlate: {
     vehicle_id: string
@@ -23,6 +27,8 @@ export const ParkingEditSessionButtons = () => {
   const [editSession, {isError}] = useEditSessionMutation()
 
   const navigation = useNavigation()
+  const openWebUrl = useOpenWebUrl()
+  const {setAlert} = useAlert()
 
   const onSubmit = useCallback(
     ({
@@ -30,6 +36,7 @@ export const ParkingEditSessionButtons = () => {
       endTime,
       report_code,
       ps_right_id,
+      amount,
       licensePlate: {vehicle_id},
     }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
@@ -41,14 +48,33 @@ export const ParkingEditSessionButtons = () => {
             end_date_time: endTime.toJSON(),
             start_date_time: startTime.toJSON(),
           },
+          ...(amount
+            ? {
+                balance: {
+                  amount,
+                  currency: 'EUR',
+                },
+                redirect: {
+                  merchant_return_url:
+                    'amsterdam://parking/adjust-session-and-increase-balance/return',
+                },
+                locale: 'nl',
+              }
+            : {}),
         })
           .unwrap()
-          .then(() => {
+          .then(result => {
+            if (result.redirect_url) {
+              openWebUrl(result.redirect_url)
+            } else {
+              setAlert(alerts.adjustSessionSuccess)
+            }
+
             navigation.pop(2)
           })
       }
     },
-    [editSession, navigation],
+    [editSession, navigation, openWebUrl, setAlert],
   )
 
   return (
