@@ -4,20 +4,21 @@ import {Row} from '@/components/ui/layout/Row'
 
 type Props = {
   children?: ReactNode
+  duration?: number
 }
 
 /**
  * Indicates activity, often while performing network tasks.
  * Best used through `PleaseWait` rather than by itself.
  */
-export const Rotator = ({children}: Props) => {
+export const Rotator = ({children, duration = 1000}: Props) => {
   const rotationRef = useRef(new Animated.Value(0))
 
   useEffect(() => {
     const {start, stop} = Animated.loop(
       Animated.timing(rotationRef.current, {
         toValue: 360,
-        duration: 1000,
+        duration,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
@@ -26,7 +27,7 @@ export const Rotator = ({children}: Props) => {
     start()
 
     return stop
-  }, [])
+  }, [duration])
 
   return (
     <Row align="center">
