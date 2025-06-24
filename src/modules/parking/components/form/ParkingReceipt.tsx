@@ -69,9 +69,9 @@ export const ParkingReceipt = () => {
 
   useEffect(() => {
     if (parkingAccount?.scope === ParkingPermitScope.visitor) {
-      setValue('amount', data?.parking_cost?.value)
+      setValue('amount', data?.costs?.value)
     }
-  }, [parkingAccount?.scope, data?.parking_cost?.value, setValue])
+  }, [parkingAccount?.scope, data?.costs?.value, setValue])
 
   if (isLoading || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
@@ -91,7 +91,7 @@ export const ParkingReceipt = () => {
       })
     : '-'
   const parkingCostText = parking_cost
-    ? formatNumber(data?.parking_cost.value, data?.parking_cost.currency)
+    ? formatNumber(data?.costs.value, data?.costs.currency)
     : '-'
 
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
