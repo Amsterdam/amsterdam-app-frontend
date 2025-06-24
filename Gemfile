@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
-gem "fastlane", "2.226.0"
+gem "fastlane", "2.228.0"
 
 group :iosAppBuildDependencies do
   # Exclude problematic versions of cocoapods and activesupport that causes build failures.
