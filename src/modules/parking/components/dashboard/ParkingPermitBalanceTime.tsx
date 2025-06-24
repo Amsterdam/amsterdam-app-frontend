@@ -44,7 +44,7 @@ export const ParkingPermitBalanceTime = () => {
         </Row>
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
-            {`Tot ${formatDate(currentPermit.time_valid_until)}`}
+            {`Geldig tot ${formatDate(currentPermit.time_valid_until)}`}
           </Phrase>
         )}
       </Column>
