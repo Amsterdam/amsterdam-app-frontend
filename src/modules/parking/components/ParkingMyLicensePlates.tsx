@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback} from 'react'
+import {useCallback, useMemo} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -16,6 +16,7 @@ import {
   useLicensePlatesQuery,
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
+import {PermitType} from '@/modules/parking/types'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
@@ -33,6 +34,24 @@ export const ParkingMyLicensePlates = () => {
         }
       : skipToken,
   )
+
+  const redirectUrl = useMemo(() => {
+    if (currentPermit.permit_type.includes(PermitType.mantelzorgvergunning)) {
+      return redirectUrls?.parking_request_license_plate_mantelzorgers
+    }
+
+    if (
+      currentPermit.permit_type.includes(
+        PermitType['GA-parkeervergunning voor bewoners (passagiers)'],
+      )
+    ) {
+      return redirectUrls?.parking_request_license_plate_ga_bewoners
+    }
+
+    if (currentPermit.permit_type.includes(PermitType['GA-bezoekerskaart'])) {
+      return redirectUrls?.parking_request_license_plate_ga_bezoekers
+    }
+  }, [currentPermit.permit_type, redirectUrls])
 
   const [removeLicensePlate, {isLoading: isLoadingRemoveLicensePlate}] =
     useRemoveLicensePlateMutation()
@@ -113,8 +132,8 @@ export const ParkingMyLicensePlates = () => {
               iconSize="md"
               label="Mijn parkeren"
               onPress={() => {
-                if (redirectUrls?.parking_request_license_plate) {
-                  openWebUrl(redirectUrls.parking_request_license_plate)
+                if (redirectUrl) {
+                  openWebUrl(redirectUrl)
                 } else {
                   Alert.alert(
                     'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
