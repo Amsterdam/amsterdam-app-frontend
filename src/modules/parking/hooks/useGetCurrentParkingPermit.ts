@@ -17,15 +17,13 @@ export const useGetCurrentParkingPermit = () => {
 
   const currentPermit = useMemo(
     () =>
-      permits?.find(
-        permit => permit.report_code === Number(currentPermitReportCode),
-      ),
+      permits?.find(permit => permit.report_code === currentPermitReportCode),
     [currentPermitReportCode, permits],
   )
 
   useEffect(() => {
     if (!currentPermit && permits?.[0]) {
-      dispatch(setCurrentPermitReportCode(String(permits[0].report_code)))
+      dispatch(setCurrentPermitReportCode(permits[0].report_code))
     }
   }, [currentPermit, dispatch, permits, setCurrentPermitReportCode])
 

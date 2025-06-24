@@ -8,12 +8,14 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 type Props = {
   isRemovable: boolean
   licensePlate: ParkingLicensePlate
+  number: string
   onPressDelete: (vehicleId: string, visitor_name?: string) => void
 }
 
 export const LicensePlateListItem = ({
   licensePlate: {vehicle_id, visitor_name},
   isRemovable,
+  number,
   onPressDelete,
 }: Props) => {
   const licensePlate = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
@@ -25,11 +27,7 @@ export const LicensePlateListItem = ({
       key={vehicle_id}>
       <SingleSelectable accessibilityLabel={`Kenteken ${licensePlate}`}>
         <Row gutter="md">
-          <Icon
-            name="parkingCar"
-            size="lg"
-            testID="ParkingLicensePlateIcon"
-          />
+          <Phrase emphasis="strong">{number}.</Phrase>
           <Phrase emphasis="strong">{licensePlate}</Phrase>
         </Row>
       </SingleSelectable>

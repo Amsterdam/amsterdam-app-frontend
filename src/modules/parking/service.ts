@@ -104,8 +104,6 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/license-plates',
         afterError,
       }),
-      transformResponse: (response: LicensePlatesEndpointResponse) =>
-        response.reverse(),
     }),
     [ParkingEndpointName.login]: builder.mutation<
       ParkingLoginEndpointResponse,

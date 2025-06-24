@@ -66,7 +66,7 @@ export const permitMock: ParkingPermit = {
     permit_zone_id: 'Nieuw-West 9e',
     show_permit_zone_url: false,
   },
-  report_code: 0,
+  report_code: '123456789',
   time_balance: 56000000,
   time_balance_applicable: true,
   time_valid_until: '31 december 2025',
