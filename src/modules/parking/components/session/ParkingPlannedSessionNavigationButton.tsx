@@ -23,6 +23,11 @@ export const ParkingPlannedSessionNavigationButton = ({
     end_date_time,
     {short: true},
   )
+  const remainingTimeStringLong = formatTimeRangeToDisplay(
+    start_date_time,
+    end_date_time,
+    {short: false},
+  )
   const currentPermit = useCurrentParkingPermit()
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
   const description = currentPermit.no_endtime
@@ -31,7 +36,7 @@ export const ParkingPlannedSessionNavigationButton = ({
 
   return (
     <NavigationButton
-      accessibilityLabel={`Kenteken ${title}`}
+      accessibilityLabel={`Kenteken ${title}. Starttijd ${startTimeString} ${!currentPermit.no_endtime ? 'Parkeertijd ' + remainingTimeStringLong : ''}`}
       description={description}
       icon="parkingCar"
       iconSize="lg"

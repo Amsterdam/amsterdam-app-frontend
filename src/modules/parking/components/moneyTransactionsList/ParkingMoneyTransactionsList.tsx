@@ -2,6 +2,7 @@ import {useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -154,27 +155,29 @@ export const ParkingMoneyTransactionsList = () => {
           item.dummy ? (
             <Gutter height="xxs" />
           ) : (
-            <Box
-              insetBottom="md"
-              insetHorizontal="md"
-              insetTop="md">
-              <Row
-                align="between"
-                flex={1}>
-                <Phrase emphasis="strong">
-                  {item.order_type === ParkingOrderType.recharge
-                    ? 'Geldsaldo opwaarderen'
-                    : 'Geldsaldo teruggevorderd'}
-                </Phrase>
-                <Phrase emphasis="strong">
-                  {item.amount.value > 0 ? '+' : '-'}{' '}
-                  {formatNumber(
-                    Math.abs(item.amount.value),
-                    item.amount.currency,
-                  )}
-                </Phrase>
-              </Row>
-            </Box>
+            <SingleSelectable>
+              <Box
+                insetBottom="md"
+                insetHorizontal="md"
+                insetTop="md">
+                <Row
+                  align="between"
+                  flex={1}>
+                  <Phrase emphasis="strong">
+                    {item.order_type === ParkingOrderType.recharge
+                      ? 'Geldsaldo opwaarderen'
+                      : 'Geldsaldo teruggevorderd'}
+                  </Phrase>
+                  <Phrase emphasis="strong">
+                    {item.amount.value > 0 ? '+' : '-'}{' '}
+                    {formatNumber(
+                      Math.abs(item.amount.value),
+                      item.amount.currency,
+                    )}
+                  </Phrase>
+                </Row>
+              </Box>
+            </SingleSelectable>
           )
         }
         renderSectionFooter={() => <Gutter height="md" />}
