@@ -36,7 +36,7 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
         <>
           <Title
             level="h5"
-            text="Selecteer eindtijd"
+            text="Kies eindtijd en datum"
             textAlign="center"
           />
           <ParkingSessionDateTime

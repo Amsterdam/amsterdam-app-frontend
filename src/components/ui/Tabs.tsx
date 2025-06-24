@@ -43,7 +43,12 @@ export const Tabs = ({children, testID}: TabsProps) => {
                   onPress={() => setActiveTab(index)}
                   style={[styles.tab, activeTab === index && styles.tabActive]}
                   testID={`${testID}Tab${child.props.label}Button`}>
-                  <Phrase textAlign="center">{child.props.label}</Phrase>
+                  <Phrase
+                    color="link"
+                    emphasis={activeTab === index ? 'strong' : 'default'}
+                    textAlign="center">
+                    {child.props.label}
+                  </Phrase>
                 </PressableBase>
               )
             }

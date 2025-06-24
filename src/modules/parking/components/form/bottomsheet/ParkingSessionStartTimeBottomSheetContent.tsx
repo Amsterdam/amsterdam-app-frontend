@@ -26,7 +26,11 @@ export const ParkingSessionStartTimeBottomSheetContent = () => {
     <Box grow>
       <Title
         level="h5"
-        text="Selecteer starttijd"
+        text={
+          max_session_length_in_days === 1
+            ? 'Kies starttijd'
+            : 'Kies starttijd en datum'
+        }
         textAlign="center"
       />
       {max_session_length_in_days === 1 ? (
