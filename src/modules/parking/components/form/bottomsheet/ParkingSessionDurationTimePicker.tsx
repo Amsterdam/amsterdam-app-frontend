@@ -19,11 +19,15 @@ import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 type Props = {
   currentPermit: ParkingPermit
+  minimumEndTime?: Dayjs
 }
 
 type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
 
-export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
+export const ParkingSessionDurationTimePicker = ({
+  currentPermit,
+  minimumEndTime,
+}: Props) => {
   const {watch} = useFormContext<FieldValues>()
   const startTime = watch('startTime')
   const {
@@ -36,7 +40,13 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
     currentPermit.max_session_length_in_days === 1
       ? startTime.endOf('day')
       : undefined
-  const minimumDateTime = startTime
+  const minimumDateTime = minimumEndTime ?? startTime
+
+  const minHours = minimumDateTime.diff(startTime, 'hour')
+  const minMinutes = minimumDateTime.diff(
+    startTime.add(minHours, 'hours'),
+    'minute',
+  )
 
   return (
     <Column>
@@ -89,6 +99,8 @@ export const ParkingSessionDurationTimePicker = ({currentPermit}: Props) => {
                     startTime.endOf('day').diff(startTime, 'hour') * 60
                   : undefined
               }
+              minHours={minHours}
+              minMinutes={minMinutes}
               onChange={(hours, minutes) => {
                 const newEndTime = startTime
                   .add(hours, 'hour')

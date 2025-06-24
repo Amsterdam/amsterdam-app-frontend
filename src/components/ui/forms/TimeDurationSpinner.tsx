@@ -242,7 +242,7 @@ export const TimeDurationSpinner = ({
               />
             )
           })}
-          {rotation.value === 0 && (
+          {initialHours === 0 && initialMinutes === 0 && (
             <Rotator duration={5000}>
               <TimeDurationSpinnerDirectionArrowFigure />
             </Rotator>

@@ -7,10 +7,12 @@ import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ParkingSessionDateTime} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDateTime'
 import {ParkingSessionDurationTimePicker} from '@/modules/parking/components/form/bottomsheet/ParkingSessionDurationTimePicker'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useParkingAccount} from '@/modules/parking/slice'
+import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-import {type Dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
-type FieldValues = {endTime?: Dayjs; startTime: Dayjs}
+type FieldValues = {endTime?: Dayjs; originalEndTime?: Dayjs; startTime: Dayjs}
 
 export const ParkingSessionEndTimeBottomSheetContent = () => {
   const {watch} = useFormContext<FieldValues>()
@@ -23,15 +25,24 @@ export const ParkingSessionEndTimeBottomSheetContent = () => {
   const {close} = useBottomSheet()
 
   const currentPermit = useCurrentParkingPermit()
+  const parkingAccount = useParkingAccount()
 
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
   const {max_session_length_in_days} = currentPermit
 
+  const minimumEndTime =
+    parkingAccount?.scope === ParkingPermitScope.visitor
+      ? dayjs(watch('originalEndTime'))
+      : undefined
+
   return (
     <Box grow>
       {max_session_length_in_days === 1 ? (
-        <ParkingSessionDurationTimePicker currentPermit={currentPermit} />
+        <ParkingSessionDurationTimePicker
+          currentPermit={currentPermit}
+          minimumEndTime={minimumEndTime}
+        />
       ) : (
         <>
           <Title
