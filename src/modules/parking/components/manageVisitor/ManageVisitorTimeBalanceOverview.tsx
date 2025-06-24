@@ -1,4 +1,5 @@
 import {Button} from '@/components/ui/buttons/Button'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -21,23 +22,25 @@ export const ManageVisitorTimeBalanceOverview = () => {
   return (
     <Column gutter="lg">
       <Title text="Tijdsaldo bezoeker" />
-      <Column gutter="no">
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Tijdsaldo</Phrase>
-          <Phrase emphasis="strong">
-            {formatTimeDurationToDisplay(
-              currentPermit.visitor_account?.seconds_remaining,
-              'seconds',
-              {short: true},
-            )}
+      <SingleSelectable>
+        <Column gutter="no">
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase>Tijdsaldo</Phrase>
+            <Phrase emphasis="strong">
+              {formatTimeDurationToDisplay(
+                currentPermit.visitor_account?.seconds_remaining,
+                'seconds',
+                {short: true},
+              )}
+            </Phrase>
+          </Row>
+          <Phrase>
+            Tot {formatDateToDisplay(currentPermit.time_valid_until, false)}
           </Phrase>
-        </Row>
-        <Phrase>
-          Tot {formatDateToDisplay(currentPermit.time_valid_until, false)}
-        </Phrase>
-      </Column>
+        </Column>
+      </SingleSelectable>
       <Paragraph variant="small">
         Beheer de tijd van uw bezoekersaccount. De aangepaste tijd wordt
         verrekend met het saldo van uw bezoekersvergunning.

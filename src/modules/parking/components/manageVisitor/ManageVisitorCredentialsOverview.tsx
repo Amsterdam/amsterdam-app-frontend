@@ -1,5 +1,6 @@
 import {Button} from '@/components/ui/buttons/Button'
 import {CopyButton} from '@/components/ui/buttons/CopyButton'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -20,20 +21,26 @@ export const ManageVisitorCredentialsOverview = () => {
     <Column gutter="lg">
       <Title text="Inloggegevens" />
       <Column gutter="no">
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Meldcode</Phrase>
-          <Phrase emphasis="strong">
-            {currentPermit.visitor_account.report_code}
-          </Phrase>
-        </Row>
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Pincode</Phrase>
-          <Phrase emphasis="strong">{currentPermit.visitor_account.pin}</Phrase>
-        </Row>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase>Meldcode</Phrase>
+            <Phrase emphasis="strong">
+              {currentPermit.visitor_account.report_code}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase>Pincode</Phrase>
+            <Phrase emphasis="strong">
+              {currentPermit.visitor_account.pin}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
       </Column>
       <CopyButton
         label="Inloggegevens kopiëren"
