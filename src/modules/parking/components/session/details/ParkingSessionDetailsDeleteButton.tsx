@@ -28,6 +28,7 @@ export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
               end_date_time: parkingSession.end_date_time,
               start_date_time: parkingSession.start_date_time,
               report_code: parkingSession.report_code,
+              vehicle_id: parkingSession.vehicle_id,
             })
               .unwrap()
               .then(() => {

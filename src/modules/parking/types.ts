@@ -320,6 +320,7 @@ export type ParkingEditSessionEndpointRequestParams = {
     ps_right_id: number
     report_code: string
     start_date_time: string
+    vehicle_id: string
   }
   redirect?: {
     merchant_return_url: string
@@ -351,6 +352,7 @@ export type ParkingDeleteSessionEndpointRequestParams = {
   ps_right_id: number
   report_code: string
   start_date_time: string
+  vehicle_id: string
 }
 
 export type RemoveIncreaseBalanceEndpointRequest = {
