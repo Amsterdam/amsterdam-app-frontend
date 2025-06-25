@@ -85,15 +85,10 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               false,
             )}
           />
-          {!parkingSession.no_endtime && (
-            <ParkingSessionDetailsRow
-              label="Tot"
-              value={formatDateTimeToDisplay(
-                parkingSession.end_date_time,
-                false,
-              )}
-            />
-          )}
+          <ParkingSessionDetailsRow
+            label="Tot"
+            value={formatDateTimeToDisplay(parkingSession.end_date_time, false)}
+          />
           {!parkingSession.no_endtime && (
             <ParkingSessionDetailsRow
               label="Parkeertijd"
