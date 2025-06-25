@@ -1,5 +1,5 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
-import {SectionList, SectionListProps} from 'react-native'
+import {FlatList, SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -101,7 +101,24 @@ export const ParkingSessionsList = ({
     [result, sortAscending],
   )
 
-  return (
+  return currentPermit.no_endtime ? (
+    <FlatList
+      data={result.data}
+      ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
+      ListFooterComponent={<Gutter height="md" />}
+      ListHeaderComponent={
+        currentPermit.no_endtime ? null : ListHeaderComponent
+      }
+      onViewableItemsChanged={onViewableItemsChanged}
+      renderItem={({item}) => (
+        <Box
+          insetHorizontal="md"
+          insetTop="md">
+          <ParkingPlannedSessionNavigationButton parkingSession={item} />
+        </Box>
+      )}
+    />
+  ) : (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={

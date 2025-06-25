@@ -2,7 +2,7 @@ import {ForgotAccessCodeScreen} from '@/modules/access-code/screens/ForgotAccess
 
 export const ParkingForgotAccessCodeScreen = () => (
   <ForgotAccessCodeScreen
-    buttonLabel="Inloggen Aanmelden Parkeren"
+    buttonLabel="Inloggen"
     testID="ParkingForgotAccessCodeScreen"
   />
 )

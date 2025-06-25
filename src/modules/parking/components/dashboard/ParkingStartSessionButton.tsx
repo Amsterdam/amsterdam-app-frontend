@@ -12,7 +12,7 @@ export const ParkingStartSessionButton = () => {
     <Button
       iconName="parkingSession"
       label={
-        currentPermit.no_endtime ? 'Wijzig kenteken' : 'Start parkeersessie'
+        currentPermit.no_endtime ? 'Kies ander kenteken' : 'Start parkeersessie'
       }
       onPress={() => {
         navigate(ParkingRouteName.startSession)

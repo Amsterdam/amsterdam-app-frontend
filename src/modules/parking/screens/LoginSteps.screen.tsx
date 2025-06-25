@@ -99,7 +99,7 @@ export const LoginStepsScreen = ({navigation}: Props) => {
               isNextDone={!!accessCode}
               numberIndicator={1}
               text="Met uw meldcode en pincode."
-              title="Inloggen Aanmelden Parkeren"
+              title="Inloggen"
             />
             <LoginItem
               isCurrent={!!isLoggedIn}

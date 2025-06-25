@@ -13,7 +13,7 @@ type Props = {
 export const ParkingPermitDetailTimeFrame = ({permit}: Props) => {
   const allPaymentZonesEqual = areAllPaymentZonesEqual(permit.payment_zones)
 
-  if (permit.payment_zones.length === 0) {
+  if (permit.payment_zones.length === 0 || !permit.time_balance_applicable) {
     return null
   }
 
