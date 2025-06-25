@@ -35,7 +35,12 @@ export type ParkingStackParams = {
       }
     | undefined
   [ParkingRouteName.intro]: undefined
-  [ParkingRouteName.login]: undefined
+  [ParkingRouteName.login]:
+    | {
+        pin: string
+        reportCode: string
+      }
+    | undefined
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
   [ParkingRouteName.parkingActiveSessions]: undefined
