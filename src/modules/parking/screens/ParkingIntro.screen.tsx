@@ -27,12 +27,12 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => {
           <Column gutter="md">
             <Title
               level="h2"
-              text="Voor vergunninghouders en bezoekers"
+              text="Start parkeersessie"
             />
             <Column gutter="lg">
               <Paragraph variant="intro">
-                U kunt een parkeersessie starten en betalen voor uw bezoeker.
-                Bezoekers kunnen ook zelf een parkeersessie starten en betalen.
+                Log in als vergunninghouder of bezoeker om de parkeersessie te
+                starten en te betalen.
               </Paragraph>
               <Button
                 label="Inloggen"
