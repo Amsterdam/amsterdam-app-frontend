@@ -18,11 +18,6 @@ export const ParkingPlannedSessionNavigationButton = ({
     parkingSession
   const title = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
 
-  const remainingTimeString = formatTimeRangeToDisplay(
-    start_date_time,
-    end_date_time,
-    {short: true},
-  )
   const remainingTimeStringLong = formatTimeRangeToDisplay(
     start_date_time,
     end_date_time,
@@ -30,9 +25,10 @@ export const ParkingPlannedSessionNavigationButton = ({
   )
   const currentPermit = useCurrentParkingPermit()
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
+  const endTimeString = `${dayjs(end_date_time).format('HH.mm')} uur`
   const description = currentPermit.no_endtime
     ? `${startTimeString}`
-    : `${startTimeString} - ${remainingTimeString}`
+    : `Van ${startTimeString} tot ${endTimeString}`
 
   return (
     <NavigationButton
