@@ -38,6 +38,7 @@ export const SelectButton = ({
       border
       iconName={iconName}
       iconRightName="chevron-down"
+      iconRightSize="lg"
       onPress={onPress}
       testID={testID}
       text={text}

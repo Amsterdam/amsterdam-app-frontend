@@ -16,6 +16,7 @@ export type TopTaskButtonProps = {
   border?: boolean
   iconName: SvgIconName
   iconRightName?: SvgIconName
+  iconRightSize?: IconProps['size']
   iconSize?: IconProps['size']
   isError?: boolean
   text?: ReactNode
@@ -27,6 +28,7 @@ export const TopTaskButton = ({
   isError = false,
   iconName,
   iconRightName,
+  iconRightSize = 'xl',
   iconSize = 'xl',
   onPress,
   text,
@@ -98,7 +100,7 @@ export const TopTaskButton = ({
               <Icon
                 color="link"
                 name={iconRightName}
-                size="xl"
+                size={iconRightSize}
                 testID={`${testID}Icon`}
               />
             </HideFromAccessibility>
