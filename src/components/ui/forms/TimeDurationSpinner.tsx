@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {View, StyleSheet, Dimensions} from 'react-native'
 import {Gesture, GestureDetector} from 'react-native-gesture-handler'
 import Animated, {
@@ -11,6 +12,7 @@ import Animated, {
 import Svg, {Circle, Defs, LinearGradient, Stop} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
 import {TimeDurationSpinnerDirectionArrowFigure} from '@/components/ui/forms/TimeDurationSpinnerDirectionArrowFigure'
+import {useBoolean} from '@/hooks/useBoolean'
 
 type Props = {
   initialHours?: number
@@ -59,17 +61,17 @@ const clampHoursAndMinutes = (
     desiredHours < minHours ||
     (desiredHours === minHours && desiredMinutes < minMinutes)
   ) {
-    return {hours: minHours, minutes: minMinutes}
+    return {hours: minHours, minutes: minMinutes, clamped: true}
   }
 
   if (
     desiredHours > maxHours ||
     (desiredHours === maxHours && desiredMinutes > maxMinutes)
   ) {
-    return {hours: maxHours, minutes: maxMinutes}
+    return {hours: maxHours, minutes: maxMinutes, clamped: true}
   }
 
-  return {hours: desiredHours, minutes: desiredMinutes}
+  return {hours: desiredHours, minutes: desiredMinutes, clamped: false}
 }
 
 export const TimeDurationSpinner = ({
@@ -84,6 +86,25 @@ export const TimeDurationSpinner = ({
   const rotation = useSharedValue(
     convertHoursAndMinutesToDegrees(initialHours, initialMinutes),
   )
+  const {
+    value: isPanActive,
+    enable: enablePanActive,
+    disable: disablePanActive,
+  } = useBoolean(false)
+
+  useEffect(() => {
+    if (!isPanActive) {
+      rotation.value = withSpring(
+        convertHoursAndMinutesToDegrees(initialHours, initialMinutes),
+        {
+          damping: 10,
+          stiffness: 90,
+          overshootClamping: true,
+        },
+      )
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialHours, initialMinutes, rotation])
   const startAngle = useSharedValue(0)
   const velocity = useSharedValue(0)
 
@@ -95,6 +116,7 @@ export const TimeDurationSpinner = ({
       const dy = event.y - centerY
 
       startAngle.value = Math.atan2(dy, dx)
+      runOnJS(enablePanActive)()
     })
     .onUpdate(event => {
       const centerX = CIRCLE_SIZE / 2
@@ -109,7 +131,7 @@ export const TimeDurationSpinner = ({
       const {hours: desiredHours, minutes: desiredMinutes} =
         convertDegreesToHoursAndMinutes(rotation.value + deltaDegrees)
 
-      const {hours, minutes} = clampHoursAndMinutes(
+      const {hours, minutes, clamped} = clampHoursAndMinutes(
         desiredHours,
         desiredMinutes,
         minHours,
@@ -118,7 +140,11 @@ export const TimeDurationSpinner = ({
         maxMinutes ?? Infinity,
       )
 
-      rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
+      if (clamped) {
+        rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
+      } else {
+        rotation.value += deltaDegrees // Update rotation value
+      }
 
       velocity.value = deltaDegrees // Calculate velocity
 
@@ -147,6 +173,7 @@ export const TimeDurationSpinner = ({
 
       rotation.value = convertHoursAndMinutesToDegrees(hours, minutes)
       runOnJS(onChange)(hours, minutes)
+      runOnJS(disablePanActive)()
     })
 
   const animatedStyle = useAnimatedStyle(() => ({
