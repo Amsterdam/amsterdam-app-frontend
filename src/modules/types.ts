@@ -113,8 +113,8 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   postProcessLinking?: (
     state: PartialState<NavigationState>,
-    dispatch: ReduxDispatch,
-    storeState: () => RootState,
+    dispatch?: ReduxDispatch,
+    storeState?: () => RootState,
   ) => PartialState<NavigationState>
   /**
    * Determines whether the module requires authorization to be accessed.

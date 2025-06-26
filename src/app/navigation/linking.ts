@@ -109,7 +109,11 @@ export const createLinking = (
     if (state) {
       clientModules.forEach((module: ModuleClientConfig) => {
         if (typeof module.postProcessLinking === 'function') {
-          const result = module.postProcessLinking(state, dispatch, getState)
+          // Support both signatures: (state) and (state, dispatch, getState)
+          const result =
+            module.postProcessLinking.length >= 3
+              ? module.postProcessLinking(state, dispatch, getState)
+              : module.postProcessLinking(state)
 
           if (result) {
             Object.assign(state, result)

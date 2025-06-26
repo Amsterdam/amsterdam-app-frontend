@@ -7,10 +7,13 @@ import {type RootState} from '@/store/types/rootState'
 
 export const postProcessLinking = (
   state: PartialState<NavigationState>,
-  dispatch: ReduxDispatch,
-  getState: () => RootState,
+  dispatch?: ReduxDispatch,
+  getState?: () => RootState,
 ) => {
-  // Dispatch setIsLoggingIn if ParkingLogin is in the routes
+  if (!state || !dispatch || !getState) {
+    return state
+  }
+
   if (
     state?.routes?.some(
       (route: {
