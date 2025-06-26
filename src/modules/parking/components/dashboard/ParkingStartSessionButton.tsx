@@ -17,7 +17,7 @@ export const ParkingStartSessionButton = () => {
       onPress={() => {
         navigate(ParkingRouteName.startSession)
       }}
-      testID="ParkingStartSessionButton"
+      testID={`ParkingGoToStartSession${currentPermit.permit_type}Button`}
     />
   )
 }
