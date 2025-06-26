@@ -122,8 +122,7 @@ export const ParkingMyLicensePlates = () => {
                 text="Kenteken toevoegen of vervangen"
               />
               <Paragraph>
-                U kunt online een kenteken toevoegen of vervangen. Op een
-                vergunning met wisselend kenteken mogen 3 kentekens staan.
+                U kunt online een kenteken toevoegen of wijzigen.
               </Paragraph>
             </Column>
             <Button
