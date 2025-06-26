@@ -3,17 +3,17 @@ import {
   TopTaskButton,
   TopTaskButtonProps,
 } from '@/components/ui/buttons/TopTaskButton'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {ParkingRouteName} from '@/modules/parking/routes'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {setIsLoggingIn} from '@/modules/parking/slice'
 
 type Props = Omit<TopTaskButtonProps, 'onPress' | 'iconName' | 'iconSize'>
 
 export const AdditionalLoginButton = (props: Props) => {
-  const {navigate} = useNavigation()
+  const dispatch = useDispatch()
 
   const onPress = useCallback(() => {
-    navigate(ParkingRouteName.login)
-  }, [navigate])
+    dispatch(setIsLoggingIn(true))
+  }, [dispatch])
 
   return (
     <TopTaskButton

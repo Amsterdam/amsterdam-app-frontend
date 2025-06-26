@@ -7,26 +7,26 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
-import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
-import {parkingSlice, useParkingAccessToken} from '@/modules/parking/slice'
+import {
+  parkingSlice,
+  setIsLoggingIn,
+  useParkingAccessToken,
+  useParkingDeeplinkAccount,
+} from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
 
 export const ParkingLoginForm = () => {
-  const {params} = useRoute<ParkingRouteName.login>()
   const navigation = useNavigation()
-  const {navigate, reset} = navigation
-  const form = useForm<ParkingAccountLogin>({defaultValues: params})
+  const {navigate} = navigation
+  const deeplinkAccount = useParkingDeeplinkAccount()
+  const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
-  const {accessCode} = useGetSecureAccessCode()
-  const {isLoginStepsActive} = useLoginSteps()
 
   const {handleSubmit} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -52,20 +52,7 @@ export const ParkingLoginForm = () => {
       dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))
       dispatch(parkingSlice.actions.setParkingAccount({reportCode, scope}))
       dispatch(parkingApi.util.resetApiState())
-
-      setTimeout(() => {
-        if (accessCode && !isLoginStepsActive) {
-          // These should be the same conditions that the stack uses to include the dashboard screen
-          reset({
-            index: 0,
-            routes: [
-              {
-                name: ParkingRouteName.dashboard,
-              },
-            ],
-          })
-        }
-      }, 1000)
+      dispatch(setIsLoggingIn(false))
     } catch (err) {
       devError('ParkingLoginForm onSubmit error:', err)
     }

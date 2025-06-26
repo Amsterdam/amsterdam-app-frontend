@@ -2,6 +2,7 @@ import {ParkingActionButton} from '@/modules/parking/components/ParkingActionBut
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
+import {postProcessLinking} from '@/modules/parking/utils/postProcessLinking'
 import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleClientConfig} from '@/modules/types'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
@@ -22,6 +23,7 @@ export const parkingModule: ModuleClientConfig = {
     [ParkingRouteName.dashboard]: 'parking/:action/return',
     [ParkingRouteName.login]: 'parking/visitor/:reportCode/:pin',
   },
+  postProcessLinking,
   logDimension: PiwikSessionDimension.parkingModule,
   reduxConfigs: [
     {

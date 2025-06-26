@@ -1,5 +1,9 @@
 import {type EventDetail, type EventType} from '@notifee/react-native'
-import {type PathConfigMap} from '@react-navigation/core'
+import {
+  NavigationState,
+  PartialState,
+  type PathConfigMap,
+} from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
@@ -99,6 +103,11 @@ export type ModuleClientConfig = BaseModuleConfig & {
     detail: EventDetail,
     dispatch: ReduxDispatch,
   ) => void
+  postProcessLinking?: (
+    state: PartialState<NavigationState>,
+    dispatch: ReduxDispatch,
+    storeState: () => RootState,
+  ) => PartialState<NavigationState>
   /**
    * Determines whether the module requires authorization to be accessed.
    */

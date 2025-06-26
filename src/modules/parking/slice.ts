@@ -2,7 +2,7 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ParkingAccount} from '@/modules/parking/types'
+import {ParkingAccount, ParkingAccountLogin} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -15,6 +15,8 @@ export type ParkingState = {
   accounts: Record<string, ParkingAccount>
   currentAccount?: string
   currentPermitReportCode?: string
+  deeplinkAccount?: ParkingAccountLogin
+  isLoggingIn: boolean
   isLoggingOut: boolean
   /**
    * Whether the user is still completing the login steps
@@ -33,6 +35,8 @@ const initialState: ParkingState = {
   accessTokens: {},
   accounts: {},
   currentPermitReportCode: undefined,
+  deeplinkAccount: undefined,
+  isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
   currentAccount: undefined,
@@ -77,6 +81,15 @@ export const parkingSlice = createSlice({
       {payload}: PayloadAction<string | undefined>,
     ) => {
       state.currentPermitReportCode = payload
+    },
+    setDeeplinkAccount: (
+      state,
+      {payload}: PayloadAction<ParkingAccountLogin | undefined>,
+    ) => {
+      state.deeplinkAccount = payload
+    },
+    setIsLoggingIn: (state, {payload}: PayloadAction<boolean>) => {
+      state.isLoggingIn = payload
     },
     setIsLoggingOut: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoggingOut = payload
@@ -128,6 +141,8 @@ export const parkingSlice = createSlice({
 })
 
 export const {
+  setDeeplinkAccount,
+  setIsLoggingIn,
   setIsLoggingOut,
   setLoginStepsActive,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
@@ -152,8 +167,14 @@ export const selectAccessTokenExpiration = (state: RootState) =>
 export const selectCurrentPermitReportCode = (state: RootState) =>
   state[ReduxKey.parking].currentPermitReportCode
 
+export const selectDeeplinkAccount = (state: RootState) =>
+  state[ReduxKey.parking].deeplinkAccount
+
 export const selectIsLoginStepsActive = (state: RootState) =>
   state[ReduxKey.parking].isLoginStepsActive
+
+export const selectIsLoggingIn = (state: RootState) =>
+  state[ReduxKey.parking].isLoggingIn
 
 export const selectIsLoggingOut = (state: RootState) =>
   state[ReduxKey.parking].isLoggingOut
@@ -206,8 +227,12 @@ export const useParkingAccessToken = () => {
   }
 }
 
+export const useParkingDeeplinkAccount = () =>
+  useSelector(selectDeeplinkAccount)
 export const useParkingAccount = () => useSelector(selectParkingAccount)
 export const useParkingAccounts = () => useSelector(selectParkingAccounts)
+
+export const useParkingAccountIsLoggingIn = () => useSelector(selectIsLoggingIn)
 
 export const useParkingAccountIsLoggingOut = () =>
   useSelector(selectIsLoggingOut)
