@@ -103,6 +103,14 @@ export type ModuleClientConfig = BaseModuleConfig & {
     detail: EventDetail,
     dispatch: ReduxDispatch,
   ) => void
+  /**
+   * Function to post-process the linking state after it has been created.
+   * This can be used to run side-effects and modify the state before it is used by the navigation container.
+   * @param state The current navigation state
+   * @param dispatch The Redux dispatch function
+   * @param storeState A function to get the current Redux store state
+   * @returns The modified navigation state
+   */
   postProcessLinking?: (
     state: PartialState<NavigationState>,
     dispatch: ReduxDispatch,
