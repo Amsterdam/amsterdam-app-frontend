@@ -119,17 +119,17 @@ export const ParkingMyLicensePlates = () => {
               <Title
                 level="h2"
                 testID="ParkingMyLicensePlatesForceLicensePlatesTitle"
-                text="Kenteken toevoegen of vervangen"
+                text="Kenteken toevoegen of wijzigen"
               />
               <Paragraph>
                 U kunt online een kenteken toevoegen of wijzigen.
               </Paragraph>
             </Column>
             <Button
-              accessibilityLabel="Mijn parkeren"
+              accessibilityLabel="Kenteken wijzigen"
               iconName="external-link"
               iconSize="md"
-              label="Mijn parkeren"
+              label="Kenteken wijzigen"
               onPress={() => {
                 if (redirectUrl) {
                   openWebUrl(redirectUrl)
