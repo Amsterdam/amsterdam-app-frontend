@@ -9,6 +9,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
+import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
@@ -86,6 +87,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
               <ParkingPermitBalance />
               <ParkingPermitDetail />
             </Column>
+            <ParkingInfoSection />
           </Column>
         </Box>
       </Screen>
