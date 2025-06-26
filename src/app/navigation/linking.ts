@@ -1,4 +1,7 @@
-import messaging from '@react-native-firebase/messaging'
+import notifee, {EventType} from '@notifee/react-native'
+import messaging, {
+  FirebaseMessagingTypes,
+} from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {navigationRef} from '@/app/navigation/navigationRef'
@@ -116,5 +119,65 @@ export const createLinking = (
     }
 
     return state
+  },
+
+  subscribe: (listener: (deeplink: string) => void) => {
+    // First, you may want to do the default deep link handling
+    const onReceiveURL = ({url}: {url: string}) => listener(url)
+
+    // Listen to incoming links from deep linking
+    const subscription = Linking.addEventListener('url', onReceiveURL)
+
+    const onMessageReceived = (
+      message: FirebaseMessagingTypes.RemoteMessage,
+    ) => {
+      if (!message.data) {
+        return
+      }
+
+      const routeWithPrefix = createPathFromNotification({
+        data: message.data,
+        title: message.notification?.title,
+        body: message.notification?.body,
+      })
+
+      if (!routeWithPrefix) {
+        return
+      }
+
+      listener(routeWithPrefix)
+    }
+
+    // navigate from push when app is in background-state
+    messaging().onNotificationOpenedApp(onMessageReceived)
+
+    const navigateToUrlFromNotification = (notification?: PushNotification) => {
+      if (!notification?.data) {
+        return
+      }
+
+      const url = createPathFromNotification(notification)
+
+      if (!url) {
+        return
+      }
+
+      listener(url)
+    }
+
+    const removeListener = notifee.onForegroundEvent(({type, detail}) => {
+      if (type === EventType.PRESS) {
+        navigateToUrlFromNotification(detail.notification)
+        // trackCustomEvent('push-notification', PiwikAction.pushNotificationTap, {
+        //   [PiwikDimension.pushTitle]: detail.notification?.title,
+        //   [PiwikDimension.pushContent]: detail.notification?.body,
+        // })
+      }
+    })
+
+    return () => {
+      subscription.remove()
+      removeListener()
+    }
   },
 })
