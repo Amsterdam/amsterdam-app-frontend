@@ -138,6 +138,7 @@ export const BottomSheet = ({
       accessible={false}
       backdropComponent={Backdrop}
       backgroundComponent={BackgroundComponent}
+      enableContentPanningGesture={false}
       enableDynamicSizing
       enablePanDownToClose
       handleComponent={Handle}
