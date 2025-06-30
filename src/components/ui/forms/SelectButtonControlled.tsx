@@ -8,6 +8,7 @@ import {
 import {SelectButton} from '@/components/ui/forms/SelectButton'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
+import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type ValueFunctionOrString<
@@ -46,6 +47,8 @@ export const SelectButtonControlled = <
     field: {value},
     fieldState: {error},
   } = useController<TFieldValues, TName>(controllerProps)
+
+  useAccessibilityAnnounceEffect(error?.message)
 
   return (
     <SelectButton

@@ -77,7 +77,9 @@ export const ParkingSessionDurationTimePicker = ({
       </Column>
       <Gutter height="lg" />
       <Tabs testID="ParkingSessionDurationTimePickerTabs">
-        <Tabs.Tab label="Parkeertijd">
+        <Tabs.Tab
+          accessibilityLabel="Parkeertijd kiezen"
+          label="Parkeertijd">
           <Column halign="center">
             <Gutter height="xl" />
             <TimeDurationSpinner
@@ -160,7 +162,9 @@ export const ParkingSessionDurationTimePicker = ({
             <Gutter height="lg" />
           </Column>
         </Tabs.Tab>
-        <Tabs.Tab label="Eindtijd">
+        <Tabs.Tab
+          accessibilityLabel="Eindtijd kiezen"
+          label="Eindtijd">
           <DatePicker
             date={endTime?.toDate() ?? startTime.toDate()}
             is24hourSource="locale"

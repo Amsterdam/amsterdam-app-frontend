@@ -13,6 +13,7 @@ type TabsProps = {
 } & TestProps
 
 type TabProps = {
+  accessibilityLabel?: string
   children: ReactNode
   label: string
 }
@@ -22,7 +23,7 @@ type TabProps = {
         <Tabs.Tab label="Parkeertijd">
         ...
         </Tabs.Tab>
-        <Tabs.Tab label="Parkeerlocatie">
+        <Tabs.Tab label="Parkeerlocatie" accessibilityLabel="Parkeerlocatie kiezen">
         ...
         </Tabs.Tab>
     </Tabs>
@@ -44,6 +45,7 @@ export const Tabs = ({children, testID}: TabsProps) => {
                   style={[styles.tab, activeTab === index && styles.tabActive]}
                   testID={`${testID}Tab${child.props.label}Button`}>
                   <Phrase
+                    accessibilityLabel={child.props.accessibilityLabel}
                     color="link"
                     emphasis={activeTab === index ? 'strong' : 'default'}
                     textAlign="center">
