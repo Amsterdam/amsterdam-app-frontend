@@ -123,7 +123,7 @@ export const ParkingStartSessionButton = () => {
       iconName="parkingSession"
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}
-      testID="ParkingStartSessionButton"
+      testID={`ParkingStartSession${currentPermit.permit_type}Button`}
       variant="primary"
     />
   )
