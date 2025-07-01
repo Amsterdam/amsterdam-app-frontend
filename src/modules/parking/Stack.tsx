@@ -41,9 +41,30 @@ export const ParkingStack = () => {
     return null
   }
 
+  let isSecurePermitHolderArray = false
+  let isSecureVisitorArray = false
+
+  try {
+    isSecurePermitHolderArray = securePermitHolder
+      ? Array.isArray(JSON.parse(securePermitHolder))
+      : false
+  } catch {
+    isSecurePermitHolderArray = false
+  }
+
+  try {
+    isSecureVisitorArray = secureVisitor
+      ? Array.isArray(JSON.parse(secureVisitor))
+      : false
+  } catch {
+    isSecureVisitorArray = false
+  }
+
   const hasSecureAccount =
-    (securePermitHolder && securePermitHolder !== '[]') ||
-    (secureVisitor && secureVisitor !== '[]')
+    (securePermitHolder &&
+      securePermitHolder !== '[]' &&
+      isSecurePermitHolderArray) ||
+    (secureVisitor && secureVisitor !== '[]' && isSecureVisitorArray)
 
   const LoginAndRequestPinCodeScreens = (
     <>
