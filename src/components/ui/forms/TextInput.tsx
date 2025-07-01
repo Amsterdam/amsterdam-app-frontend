@@ -10,7 +10,6 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Label} from '@/components/ui/forms/Label'
 import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -93,7 +92,13 @@ export const TextInput = forwardRef<TextInputRN, Props>(
               text={label}
             />
           )}
-          {!!inputInstructions && <Phrase>{inputInstructions}</Phrase>}
+          {!!inputInstructions && (
+            <Label
+              emphasis="default"
+              isAccessible={!textInputProps.accessibilityHint}
+              text={inputInstructions}
+            />
+          )}
         </Column>
         <View style={styles.frame}>
           <TextInputRN
