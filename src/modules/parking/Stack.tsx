@@ -63,9 +63,7 @@ export const ParkingStack = () => {
   )
 
   return (
-    <Stack.Navigator
-      initialRouteName={ParkingRouteName.intro}
-      screenOptions={screenOptions}>
+    <Stack.Navigator screenOptions={screenOptions}>
       {isForgotCode ? (
         <Stack.Screen
           component={ParkingForgotAccessCodeScreen}
@@ -135,16 +133,7 @@ export const ParkingStack = () => {
               options={{headerTitle: 'Aanmelden parkeren'}}
             />
           )}
-          <Stack.Screen
-            component={ParkingLoginScreen}
-            name={ParkingRouteName.login}
-            options={{headerTitle: 'Inloggen'}}
-          />
-          <Stack.Screen
-            component={ParkingRequestPinCodeScreen}
-            name={ParkingRouteName.requestPinCode}
-            options={{headerTitle: 'Pincode vergeten'}}
-          />
+          {LoginAndRequestPinCodeScreens}
         </>
       )}
     </Stack.Navigator>
