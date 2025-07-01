@@ -108,7 +108,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.increaseBalance,
     options: {
       headerShown: false,
-      headerTitle: 'Geldsaldo opwaarderen',
+      headerTitle: 'Geld toevoegen',
     },
   },
   [ParkingRouteName.manageVisitor]: {

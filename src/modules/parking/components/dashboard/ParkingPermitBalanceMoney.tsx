@@ -101,7 +101,7 @@ export const ParkingPermitBalanceMoney = () => {
       </SingleSelectable>
       <Button
         iconName="euroCoins"
-        label="Geldsaldo toevoegen"
+        label="Geld toevoegen"
         onPress={onPressAddMoney}
         testID="ParkingPermitBalanceMoneyAddButton"
         variant="secondary"
