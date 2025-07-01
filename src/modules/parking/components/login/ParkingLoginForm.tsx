@@ -1,4 +1,4 @@
-import {useRef} from 'react'
+import {useEffect, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import {Platform, TextInput} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
@@ -28,7 +28,7 @@ export const ParkingLoginForm = () => {
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
 
-  const {handleSubmit} = form
+  const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
   const isForbiddenError = error && 'status' in error && error.status === 403
   const setSecureParkingAccount = useAddSecureParkingAccount()
@@ -57,6 +57,13 @@ export const ParkingLoginForm = () => {
       devError('ParkingLoginForm onSubmit error:', err)
     }
   })
+
+  useEffect(() => {
+    if (deeplinkAccount) {
+      setValue('reportCode', deeplinkAccount.reportCode)
+      setValue('pin', deeplinkAccount.pin)
+    }
+  }, [deeplinkAccount, setValue])
 
   return (
     <FormProvider {...form}>
