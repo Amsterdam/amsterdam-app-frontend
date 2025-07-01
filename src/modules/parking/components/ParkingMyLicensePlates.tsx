@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {Alert} from 'react-native'
-import {Button} from '@/components/ui/buttons/Button'
+import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -9,7 +9,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {LicensePlateListItem} from '@/modules/parking/components/license-plates/LicensePlateListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
@@ -17,15 +16,9 @@ import {
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
 import {PermitType} from '@/modules/parking/types'
-import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
-import {useTrackException} from '@/processes/logging/hooks/useTrackException'
-import {ExceptionLogKey} from '@/processes/logging/types'
+import {RedirectKey} from '@/modules/redirects/types'
 
 export const ParkingMyLicensePlates = () => {
-  const openWebUrl = useOpenWebUrl()
-  const trackException = useTrackException()
-
-  const {data: redirectUrls} = useGetRedirectUrlsQuery()
   const currentPermit = useCurrentParkingPermit()
   const {data: licensePlates, isFetching} = useLicensePlatesQuery(
     currentPermit
@@ -35,9 +28,9 @@ export const ParkingMyLicensePlates = () => {
       : skipToken,
   )
 
-  const redirectUrl = useMemo(() => {
+  const redirectKey = useMemo(() => {
     if (currentPermit.permit_type.includes(PermitType.mantelzorgvergunning)) {
-      return redirectUrls?.parking_request_license_plate_mantelzorgers
+      return RedirectKey.parking_request_license_plate_mantelzorgers
     }
 
     if (
@@ -45,13 +38,13 @@ export const ParkingMyLicensePlates = () => {
         PermitType['GA-parkeervergunning voor bewoners (passagiers)'],
       )
     ) {
-      return redirectUrls?.parking_request_license_plate_ga_bewoners
+      return RedirectKey.parking_request_license_plate_ga_bewoners
     }
 
     if (currentPermit.permit_type.includes(PermitType['GA-bezoekerskaart'])) {
-      return redirectUrls?.parking_request_license_plate_ga_bezoekers
+      return RedirectKey.parking_request_license_plate_ga_bezoekers
     }
-  }, [currentPermit.permit_type, redirectUrls])
+  }, [currentPermit.permit_type])
 
   const [removeLicensePlate, {isLoading: isLoadingRemoveLicensePlate}] =
     useRemoveLicensePlateMutation()
@@ -113,39 +106,21 @@ export const ParkingMyLicensePlates = () => {
             onPressDelete={onPressDelete}
           />
         ))}
-        {!!forced_license_plate_list && (
+        {!!forced_license_plate_list && !!redirectKey && (
           <Column gutter="lg">
             <Column gutter="sm">
               <Title
                 level="h2"
                 testID="ParkingMyLicensePlatesForceLicensePlatesTitle"
-                text="Kenteken toevoegen of vervangen"
+                text="Kenteken toevoegen of wijzigen"
               />
               <Paragraph>
-                U kunt online een kenteken toevoegen of vervangen. Op een
-                vergunning met wisselend kenteken mogen 3 kentekens staan.
+                U kunt online een kenteken toevoegen of wijzigen.
               </Paragraph>
             </Column>
-            <Button
-              accessibilityLabel="Mijn parkeren"
-              iconName="external-link"
-              iconSize="md"
-              label="Mijn parkeren"
-              onPress={() => {
-                if (redirectUrl) {
-                  openWebUrl(redirectUrl)
-                } else {
-                  Alert.alert(
-                    'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
-                  )
-
-                  trackException(
-                    ExceptionLogKey.getRedirectsUrl,
-                    'ParkingMyLicensePlates.ts',
-                    {redirectsKey: 'parking_request_license_plate'},
-                  )
-                }
-              }}
+            <RedirectButton
+              label="Kenteken wijzigen"
+              redirectKey={redirectKey}
               testID="ParkingMyLicensePlatesForceLicensePlatesPhoneButton"
               variant="secondary"
             />
