@@ -116,6 +116,15 @@ def getBuildNumber() {
     }
 }
 
+def getGoogleMapsApiKey() {
+    def key = System.getenv("GOOGLE_MAPS_API_KEY_ANDROID")
+    if (key != null) {
+        return key
+    } else {
+        return "YOUR_DEFAULT_OR_EMPTY_KEY"
+    }
+}
+
 android {
     ndkVersion rootProject.ext.ndkVersion
 
@@ -129,6 +138,10 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode getBuildNumber()        
         versionName getVersionFromPackagejson()
+
+        manifestPlaceholders = [
+            GOOGLE_MAPS_API_KEY: getGoogleMapsApiKey()
+        ]
     }
 
     splits {

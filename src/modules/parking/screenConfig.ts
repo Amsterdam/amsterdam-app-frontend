@@ -8,6 +8,7 @@ import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSes
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {ParkingMoneyTransactionsScreen} from '@/modules/parking/screens/ParkingMoneyTransactions.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
+import {ParkingPermitZonesScreen} from '@/modules/parking/screens/ParkingPermitZones.screen'
 import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/ParkingSessionTransactions.screen'
@@ -67,6 +68,10 @@ export const parkingScreenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Nieuw kenteken',
     },
+  },
+  [ParkingRouteName.parkingPermitZones]: {
+    component: ParkingPermitZonesScreen,
+    name: ParkingRouteName.parkingPermitZones,
   },
   [ParkingRouteName.parkingSession]: {
     component: ParkingSessionScreen,

@@ -36,6 +36,7 @@ import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
+import {FeatureCollection} from '@/types/geojson'
 import {generateRequestUrl} from '@/utils/api'
 
 export const parkingApi = baseApi.injectEndpoints({
@@ -165,6 +166,21 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
       transformResponse: fixPermitNames,
     }),
+    [ParkingEndpointName.permitZones]: builder.query<FeatureCollection, string>(
+      {
+        providesTags: ['ParkingPermits'],
+        query: permit_zone => ({
+          prepareHeaders,
+          method: 'GET',
+          slug: ModuleSlug.parking,
+          url: generateRequestUrl({
+            path: '/permit-zones',
+            params: {permit_zone},
+          }),
+          afterError,
+        }),
+      },
+    ),
     [ParkingEndpointName.sessionReceipt]: builder.query<
       ParkingSessionReceiptEndpointResponse,
       ParkingSessionReceiptEndpointRequestParams
@@ -345,6 +361,7 @@ export const {
   useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,
   usePermitsQuery,
+  usePermitZonesQuery,
   useSessionReceiptQuery,
   useStartSessionMutation,
   useEditSessionMutation,
