@@ -12,7 +12,9 @@ import {capitalizeString} from '@/utils/capitalizeString'
 
 export const ParkingAccountDetails = () => {
   const {data, isLoading} = useAccountDetailsQuery()
-  const name = data ? `${data?.initials} ${data?.last_name}`.trim() : ' '
+  const name = data
+    ? `${data?.initials ?? ''} ${data?.last_name ?? ''}`.trim()
+    : ' '
   const address = data?.address
     ? `${data.address.street} ${data.address.house_number}${data.address.house_letter}\n${data.address.zip_code} ${capitalizeString(data.address.city.toLowerCase())}`
     : '\n'
