@@ -6,13 +6,17 @@ import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {RootStackParams} from '@/app/navigation/types'
+import {type ReduxDispatch} from '@/hooks/redux/types'
+import {clientModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
+import {type ModuleClientConfig} from '@/modules/types'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 import {devLog} from '@/processes/development'
+import {type RootState} from '@/store/types/rootState'
 import {
-  PushNotification,
-  PushNotificationRouteConfig,
-  PushNotificationType,
+  type PushNotification,
+  type PushNotificationType,
+  type PushNotificationRouteConfig,
 } from '@/types/notification'
 
 const appPrefix = 'amsterdam://'
@@ -54,7 +58,10 @@ export const createPathFromNotification = (
   }
 }
 
-export const linking: LinkingOptions<RootStackParams> = {
+export const createLinking = (
+  dispatch: ReduxDispatch,
+  getState: () => RootState,
+): LinkingOptions<RootStackParams> => ({
   prefixes: [appPrefix],
   config: {
     screens: moduleLinkings,
@@ -99,8 +106,21 @@ export const linking: LinkingOptions<RootStackParams> = {
       }
     }
 
+    if (state) {
+      clientModules.forEach((module: ModuleClientConfig) => {
+        if (typeof module.postProcessLinking === 'function') {
+          const result = module.postProcessLinking(state, dispatch, getState)
+
+          if (result) {
+            Object.assign(state, result)
+          }
+        }
+      })
+    }
+
     return state
   },
+
   subscribe: (listener: (deeplink: string) => void) => {
     // First, you may want to do the default deep link handling
     const onReceiveURL = ({url}: {url: string}) => listener(url)
@@ -160,4 +180,4 @@ export const linking: LinkingOptions<RootStackParams> = {
       removeListener()
     }
   },
-}
+})

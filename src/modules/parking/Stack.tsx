@@ -21,6 +21,7 @@ import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingFo
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
 import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
+import {useParkingAccountIsLoggingIn} from '@/modules/parking/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 const Stack = createStackNavigator<RootStackParams>()
@@ -36,6 +37,7 @@ export const ParkingStack = () => {
   const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
     useGetSecureItem(SecureItemKey.parkingVisitor)
   const screenOptions = useScreenOptions()
+  const isLoggingIn = useParkingAccountIsLoggingIn()
 
   if (isLoading || isLoadingSecurePermitHolder || isLoadingSecureVisitor) {
     return null
@@ -80,14 +82,13 @@ export const ParkingStack = () => {
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
             <>
+              {!!isLoggingIn && LoginAndRequestPinCodeScreens}
               {Object.entries(parkingScreenConfig).map(([key, route]) => (
                 <Stack.Screen
                   key={key}
                   {...route}
                 />
               ))}
-
-              {LoginAndRequestPinCodeScreens}
             </>
           ) : attemptsLeft > 0 ? (
             <Stack.Screen

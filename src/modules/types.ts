@@ -1,5 +1,9 @@
 import {type EventDetail, type EventType} from '@notifee/react-native'
-import {type PathConfigMap} from '@react-navigation/core'
+import {
+  NavigationState,
+  PartialState,
+  type PathConfigMap,
+} from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
@@ -99,6 +103,19 @@ export type ModuleClientConfig = BaseModuleConfig & {
     detail: EventDetail,
     dispatch: ReduxDispatch,
   ) => void
+  /**
+   * Function to post-process the linking state after it has been created.
+   * This can be used to run side-effects and modify the state before it is used by the navigation container.
+   * @param state The current navigation state
+   * @param dispatch The Redux dispatch function
+   * @param storeState A function to get the current Redux store state
+   * @returns The modified navigation state
+   */
+  postProcessLinking?: (
+    state: PartialState<NavigationState>,
+    dispatch?: ReduxDispatch,
+    storeState?: () => RootState,
+  ) => PartialState<NavigationState>
   /**
    * Determines whether the module requires authorization to be accessed.
    */
