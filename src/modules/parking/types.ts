@@ -36,8 +36,8 @@ export type ParkingAccountDetails = {
   }
   client_id: number
   email: string
-  initials: string
-  last_name: string
+  initials?: string
+  last_name?: string
   phone_number: string
   wallet?: {
     balance: number
