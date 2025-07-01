@@ -56,6 +56,7 @@ export const postProcessLinking = (
         dispatch(parkingApi.util.resetApiState())
 
         dispatch(parkingSlice.actions.setIsLoggingIn(false))
+        dispatch(parkingSlice.actions.setDeeplinkAccount(undefined))
       }
     }
   }
