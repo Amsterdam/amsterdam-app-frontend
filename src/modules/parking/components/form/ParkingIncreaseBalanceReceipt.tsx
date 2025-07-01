@@ -41,7 +41,6 @@ export const ParkingIncreaseBalanceReceipt = () => {
           </Phrase>
         </Row>
       </SingleSelectable>
-      <Gutter height="md" />
       <SingleSelectable>
         <Row
           align="between"
