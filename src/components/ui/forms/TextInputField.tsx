@@ -58,6 +58,7 @@ export const TextInputField = forwardRef<TextInputRN, Props>(
             <Column gutter="sm">
               <Column gutter="xs">
                 <TextInput
+                  accessibilityHint={inputInstructions}
                   accessibilityLabel={label}
                   accessibilityLanguage="nl-NL"
                   autoFocus={autoFocus}

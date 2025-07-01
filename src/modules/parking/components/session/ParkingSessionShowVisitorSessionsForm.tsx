@@ -24,8 +24,8 @@ export const ParkingSessionShowVisitorSessionsForm = ({
 
   return (
     <FormProvider {...form}>
-      <Column gutter="lg">
-        {!!isEnabled && (
+      {isEnabled ? (
+        <Column gutter="lg">
           <Column gutter="md">
             <Paragraph variant="intro">
               Voer uw kenteken in om uw actieve parkeersessie te zien.
@@ -37,14 +37,21 @@ export const ParkingSessionShowVisitorSessionsForm = ({
               testID="ParkingSessionShowVisitorSessionsFormLicensePlateInputField"
             />
           </Column>
-        )}
+          <Button
+            label="Bekijk parkeersessies"
+            onPress={handleSubmit(onSubmit)}
+            testID="ParkingSessionShowVisitorSessionsFormSubmitButton"
+            variant="secondary"
+          />
+        </Column>
+      ) : (
         <Button
           label="Bekijk parkeersessies"
-          onPress={isEnabled ? handleSubmit(onSubmit) : enable}
-          testID="ParkingSessionShowVisitorSessionsFormSubmitButton"
+          onPress={enable}
+          testID="ParkingSessionShowVisitorSessionsButton"
           variant="secondary"
         />
-      </Column>
+      )}
     </FormProvider>
   )
 }
