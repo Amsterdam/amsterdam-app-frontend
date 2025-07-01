@@ -27,6 +27,7 @@ export const refreshAccessToken = (
     if (!secureAccount) {
       devError('No pin found for account')
       reject(new Error('No pin found for account'))
+      void logout(true, dispatch, state)
 
       return
     }
