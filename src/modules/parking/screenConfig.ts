@@ -50,7 +50,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.editSession,
     options: {
       headerShown: false,
-      headerTitle: 'Eindtijd wijzigen',
+      headerTitle: 'Parkeersessie aanpassen',
     },
   },
   [ParkingRouteName.myLicensePlates]: {

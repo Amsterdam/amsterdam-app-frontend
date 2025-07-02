@@ -70,7 +70,7 @@ export const ParkingEditSessionButtons = () => {
               setAlert(alerts.adjustSessionSuccess)
             }
 
-            navigation.pop(2)
+            navigation.popToTop()
           })
       }
     },
