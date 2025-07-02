@@ -4,7 +4,7 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingLoginForm} from '@/modules/parking/components/login/ParkingLoginForm'
 import {useShouldShowLoginScreen} from '@/modules/parking/hooks/useShouldShowLoginScreen'
-import {setDeeplinkAccount, setIsLoggingIn} from '@/modules/parking/slice'
+import {setDeeplinkAccount} from '@/modules/parking/slice'
 
 export const ParkingLoginScreen = () => {
   const dispatch = useDispatch()
@@ -14,7 +14,6 @@ export const ParkingLoginScreen = () => {
   useBlurEffect(() => {
     shouldShowLoginScreen && setShouldShowLoginScreen(false)
     dispatch(setDeeplinkAccount(undefined))
-    dispatch(setIsLoggingIn(false))
   })
 
   return (
