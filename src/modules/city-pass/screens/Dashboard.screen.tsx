@@ -11,6 +11,7 @@ import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
+import {useAutomaticLogoutAlert} from '@/modules/city-pass/hooks/useAutomaticLogoutAlert'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
@@ -21,8 +22,12 @@ export const DashboardScreen = ({navigation}: Props) => {
   }, [navigation])
   const {openRedirect} = useOpenRedirect()
 
+  useAutomaticLogoutAlert()
+
   return (
-    <Screen testID="CityPassDashboardScreen">
+    <Screen
+      hasStickyAlert
+      testID="CityPassDashboardScreen">
       <PassOwners logout={logout} />
       <Box
         insetHorizontal="md"

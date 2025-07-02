@@ -11,6 +11,7 @@ const persistWhitelist: (keyof CityPassState)[] = [
   'isCityPassOwnerRegistered',
   'accessTokenExpiration',
   'refreshTokenExpiration',
+  'automaticLogoutAlertDismissed',
 ]
 
 export const cityPassModule: ModuleClientConfig = {

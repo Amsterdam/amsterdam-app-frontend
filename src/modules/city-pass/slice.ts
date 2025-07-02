@@ -5,6 +5,10 @@ import {type RootState} from '@/store/types/rootState'
 export type CityPassState = {
   accessTokenExpiration?: string
   /**
+   * Whether the automatic logout alert has been dismissed by the user
+   */
+  automaticLogoutAlertDismissed?: boolean
+  /**
    * Whether the user is been logged in and registered in the city-pass backend.
    */
   isCityPassOwnerRegistered: boolean
@@ -30,6 +34,7 @@ const initialState: CityPassState = {
   startIndex: 0,
   accessTokenExpiration: undefined,
   refreshTokenExpiration: undefined,
+  automaticLogoutAlertDismissed: false,
 }
 
 export const cityPassSlice = createSlice({
@@ -70,6 +75,12 @@ export const cityPassSlice = createSlice({
         state.refreshTokenExpiration = refreshTokenExpiration
       }
     },
+    setAutomaticLogoutAlertDismissed: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.automaticLogoutAlertDismissed = payload
+    },
   },
 })
 
@@ -79,6 +90,7 @@ export const {
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setStartIndex,
   setTokenExpiration,
+  setAutomaticLogoutAlertDismissed,
 } = cityPassSlice.actions
 
 export const selectIsCityPassOwnerRegistered = (state: RootState) =>
@@ -98,3 +110,6 @@ export const selectAccessTokenExpiration = (state: RootState) =>
 
 export const selectRefreshTokenExpiration = (state: RootState) =>
   state[ReduxKey.cityPass].refreshTokenExpiration
+
+export const selectAutomaticLogoutAlertDismissed = (state: RootState) =>
+  state[ReduxKey.cityPass].automaticLogoutAlertDismissed
