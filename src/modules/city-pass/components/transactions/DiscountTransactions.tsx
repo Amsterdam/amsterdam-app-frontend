@@ -9,12 +9,7 @@ import {useGetDiscountTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
 
-type Props = {
-  dateEnd: CityPass['dateEnd']
-  passNumber: CityPass['passNumber']
-}
-
-export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
+const DiscountTransactionsContent = ({dateEnd, passNumber}: Props) => {
   const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery({
     passNumber,
   })
@@ -37,8 +32,7 @@ export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
   const {discountAmountTotalFormatted, transactions} = data
 
   return (
-    <Column gutter="md">
-      <Title text="Mijn acties" />
+    <>
       <Paragraph>
         {`In totaal heb je ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
       </Paragraph>
@@ -49,6 +43,21 @@ export const DiscountTransactions = ({dateEnd, passNumber}: Props) => {
       <Paragraph textAlign="center">
         Dit waren jouw acties vanaf {getPreviousYear(dateEnd)}
       </Paragraph>
-    </Column>
+    </>
   )
 }
+
+type Props = {
+  dateEnd: CityPass['dateEnd']
+  passNumber: CityPass['passNumber']
+}
+
+export const DiscountTransactions = ({dateEnd, passNumber}: Props) => (
+  <Column gutter="md">
+    <Title text="Mijn acties" />
+    <DiscountTransactionsContent
+      dateEnd={dateEnd}
+      passNumber={passNumber}
+    />
+  </Column>
+)
