@@ -19,12 +19,24 @@ const alert: AlertProps = {
   hasIcon: true,
 }
 
-const LOGOUT_DATE = dayjs('2025-07-31T00:00:00Z')
+const getNextLogoutDate = () => {
+  const now = dayjs()
+  let year = now.year()
+  const july31 = dayjs(`${year}-07-31T00:00:00Z`)
+
+  if (now.isAfter(july31)) {
+    year += 1
+  }
+
+  return dayjs(`${year}-07-31T00:00:00Z`)
+}
+
 const SHOW_ALERT_DAYS_BEFORE = 21
 
 const shouldShowAlert = () => {
   const now = dayjs()
-  const diff = LOGOUT_DATE.diff(now, 'day')
+  const logoutDate = getNextLogoutDate()
+  const diff = logoutDate.diff(now, 'day')
 
   return diff <= SHOW_ALERT_DAYS_BEFORE && diff > 0
 }
