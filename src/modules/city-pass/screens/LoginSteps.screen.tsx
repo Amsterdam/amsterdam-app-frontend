@@ -59,7 +59,7 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
 
   const onPress = useCallback(() => {
     if (!isCityPassOwnerRegistered) {
-      login()
+      void login()
 
       return
     }

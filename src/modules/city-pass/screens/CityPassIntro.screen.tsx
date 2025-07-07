@@ -1,5 +1,4 @@
 import {useEffect} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -12,15 +11,14 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
-import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-type Props = NavigationProps<CityPassRouteName.login>
-
-export const CityPassIntroScreen = ({navigation: {navigate}}: Props) => {
+export const CityPassIntroScreen = () => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const removeSecureItems = useRemoveSecureItems()
+  const login = useLogin()
 
   useEffect(() => {
     if (!isCityPassOwnerRegistered) {
@@ -54,7 +52,7 @@ export const CityPassIntroScreen = ({navigation: {navigate}}: Props) => {
           halign="stretch">
           <Button
             label="Inloggen met DigiD"
-            onPress={() => navigate(CityPassRouteName.loginSteps)}
+            onPress={login}
             testID="CityPassLoginButton"
           />
         </Column>
