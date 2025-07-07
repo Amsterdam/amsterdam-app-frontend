@@ -1,3 +1,4 @@
+import {setIsAutomaticLogoutAlertDismissed} from '@/modules/city-pass/slice'
 import {
   CityPassTokensResponse,
   CityPassEndpointName,
@@ -19,6 +20,9 @@ export const cityPassApi = baseApi.injectEndpoints({
       void
     >({
       query: () => ({
+        afterSuccess: (_r, {dispatch}) => {
+          dispatch(setIsAutomaticLogoutAlertDismissed(false))
+        },
         method: 'POST',
         slug: ModuleSlug['city-pass'],
         url: '/session/init',
