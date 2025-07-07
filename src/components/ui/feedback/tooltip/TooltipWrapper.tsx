@@ -74,18 +74,11 @@ const createStyles =
       right?: number
       top?: number
     } => {
-      if (!productTourTipTargetLayout) {
-        return {position: 'relative'} // Default position, when no productTourTipTargetLayout is set
-      }
-
       const verticalPosition =
         productTourTipTargetLayout.height +
         (extraSpace ? size.spacing[extraSpace] : 0)
 
       return {
-        left: -leftPosition,
-        right: 0,
-        position: 'absolute',
         ...(placement === Placement.above
           ? {bottom: verticalPosition}
           : {top: verticalPosition}),
@@ -96,6 +89,8 @@ const createStyles =
       tooltipWrapper: {
         display: isPositioned ? 'flex' : 'none',
         width: productTourTipTargetLayout ? windowWidth : undefined,
+        left: -leftPosition,
+        position: 'absolute',
         paddingHorizontal: productTourTipTargetLayout
           ? size.spacing.xl
           : undefined,

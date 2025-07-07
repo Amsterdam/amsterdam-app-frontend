@@ -1,5 +1,7 @@
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type NavigationProps} from '@/app/navigation/types'
+import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
+import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {BackgroundColorArea} from '@/components/ui/containers/BackgroundColorArea'
 import {BottomSheet} from '@/components/ui/containers/BottomSheet'
@@ -7,6 +9,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
+import {Placement} from '@/components/ui/types'
 import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
@@ -76,7 +79,12 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           insetHorizontal="md"
           insetTop="lg">
           <Column gutter="lg">
-            <ParkingPermitTopTaskButton />
+            <ProductTourTipWrapper
+              placement={Placement.below}
+              testID="ParkingPermitTopTaskButtonTooltip"
+              tipSlug={Tip.parkingPermitTopTaskButtonTooltip}>
+              <ParkingPermitTopTaskButton />
+            </ProductTourTipWrapper>
             <Column gutter="xl">
               <ParkingPermitSessions />
               <Column gutter="md">

@@ -52,8 +52,7 @@ export const useMeasureTarget = (targetRef: TargetRef) => {
 
   useEffect(() => {
     setLayout(undefined)
-    measureTarget()
-    setTimeout(measureTarget, 200)
+    setTimeout(measureTarget, 1000)
   }, [isPortrait, measureTarget, isFocused, windowDimensions])
 
   return {layout, measureTarget}

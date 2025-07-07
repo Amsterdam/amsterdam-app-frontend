@@ -1,6 +1,5 @@
-import {ElementRef, ReactNode} from 'react'
+import {ReactNode} from 'react'
 import {LayoutRectangle, AccessibilityProps} from 'react-native'
-import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
 import {SpacingTokens} from '@/themes/tokens/size'
 
@@ -21,7 +20,7 @@ export type WrapperProps = {
   isPositioned: boolean
   leftPosition: number
   placement: Placement
-  productTourTipTargetLayout?: LayoutRectangle
+  productTourTipTargetLayout: LayoutRectangle
   startFadeIn?: boolean
 }
 
@@ -31,8 +30,6 @@ export type TooltipProps = {
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   Omit<WrapperProps, 'children' | 'leftPosition' | 'isPositioned'> &
   TestProps
-
-export type Tooltip = ElementRef<typeof Tooltip>
 
 export enum PointerDimension {
   height = 16,
