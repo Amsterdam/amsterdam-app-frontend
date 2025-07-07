@@ -12,6 +12,13 @@ const LOGOUT_ALERT = {
 }
 
 export const alerts = {
+  automaticLogoutInfo: {
+    variant: AlertVariant.information,
+    title: 'Automatisch uitgelogd',
+    text: 'Op 31 juli loggen we je automatisch uit. Dit is nodig om je gegevens veilig te houden.',
+    hasCloseIcon: true,
+    testID: 'CityPassAutomaticLogoutAlert',
+  },
   logoutWarning: {
     variant: AlertVariant.warning,
     ...LOGOUT_ALERT,

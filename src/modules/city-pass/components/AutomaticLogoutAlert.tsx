@@ -1,34 +1,31 @@
 import {LayoutAnimation} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
-import {AlertProps} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {alerts} from '@/modules/city-pass/alerts'
 import {
   selectIsAutomaticLogoutAlertDismissed,
   setIsAutomaticLogoutAlertDismissed,
 } from '@/modules/city-pass/slice'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-const alert: AlertProps = {
-  title: 'Automatisch uitgelogd',
-  text: 'Op 31 juli loggen we je automatisch uit. Dit is nodig om je gegevens veilig te houden.',
-  testID: 'CityPassAutomaticLogoutAlert',
-  hasCloseIcon: true,
-  hasIcon: true,
-}
-
 const getNextLogoutDate = () => {
   const now = dayjs()
   let year = now.year()
-  const july31 = dayjs(`${year}-07-31T00:00:00Z`)
+  const july31 = dayjs()
+    .set('month', 7)
+    .set('date', 1)
+    .set('hour', 0)
+    .set('minute', 0)
+    .set('second', 0)
 
   if (now.isAfter(july31)) {
     year += 1
   }
 
-  return dayjs(`${year}-07-31T00:00:00Z`)
+  return july31.set('year', year)
 }
 
 const SHOW_ALERT_DAYS_BEFORE = 21
@@ -45,6 +42,7 @@ export const AutomaticLogoutAlert = () => {
   const dispatch = useDispatch()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
   const isDismissed = useSelector(selectIsAutomaticLogoutAlertDismissed)
+  const alert = alerts.automaticLogoutInfo
 
   const onPress = () => {
     if (!isReduceMotionEnabled) {
