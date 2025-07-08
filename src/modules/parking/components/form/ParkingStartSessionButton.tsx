@@ -119,10 +119,11 @@ export const ParkingStartSessionButton = () => {
 
               setError('root.serverError', {
                 type: error?.status,
-                message:
-                  (typeof detail === 'object'
+                message: detail
+                  ? typeof detail === 'object'
                     ? detail.error?.content
-                    : detail) ?? error.data?.code,
+                    : detail
+                  : error.data?.code,
               })
             },
           )
