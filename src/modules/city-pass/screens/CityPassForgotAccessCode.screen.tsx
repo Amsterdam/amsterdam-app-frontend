@@ -1,8 +1,14 @@
 import {ForgotAccessCodeScreen} from '@/modules/access-code/screens/ForgotAccessCodeScreen'
+import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 
-export const CityPassForgotAccessCodeScreen = () => (
-  <ForgotAccessCodeScreen
-    buttonLabel="Inloggen met DigiD"
-    testID="CityPassForgotAccessCodeScreen"
-  />
-)
+export const CityPassForgotAccessCodeScreen = () => {
+  const login = useLogin()
+
+  return (
+    <ForgotAccessCodeScreen
+      buttonLabel="Inloggen met DigiD"
+      onAfterRestart={login}
+      testID="CityPassForgotAccessCodeScreen"
+    />
+  )
+}

@@ -39,15 +39,17 @@ export const CityPassStack = () => {
   return (
     <Stack.Navigator
       initialRouteName={
-        isCityPassOwnerRegistered
-          ? accessCode
-            ? isCodeValid
-              ? CityPassRouteName.dashboard
-              : attemptsLeft > 0
-                ? AccessCodeRouteName.accessCode
-                : AccessCodeRouteName.accessCodeInvalid
-            : CityPassRouteName.loginSteps
-          : CityPassRouteName.login
+        isForgotCode
+          ? CityPassRouteName.forgotAccessCode
+          : isCityPassOwnerRegistered
+            ? accessCode
+              ? isCodeValid
+                ? CityPassRouteName.dashboard
+                : attemptsLeft > 0
+                  ? AccessCodeRouteName.accessCode
+                  : AccessCodeRouteName.accessCodeInvalid
+              : CityPassRouteName.loginSteps
+            : CityPassRouteName.login
       }
       screenOptions={screenOptions}>
       {isForgotCode ? (
@@ -110,11 +112,18 @@ export const CityPassStack = () => {
       ) : (
         <>
           {!shouldShowLoginScreen && (
-            <Stack.Screen
-              component={CityPassIntroScreen}
-              name={CityPassRouteName.login}
-              options={{headerTitle: 'Stadspas'}}
-            />
+            <>
+              <Stack.Screen
+                component={CityPassIntroScreen}
+                name={CityPassRouteName.login}
+                options={{headerTitle: 'Stadspas'}}
+              />
+              <Stack.Screen
+                component={CityPassForgotAccessCodeScreen}
+                name={CityPassRouteName.forgotAccessCode}
+                options={{headerTitle: 'Toegangscode vergeten'}}
+              />
+            </>
           )}
           <Stack.Screen
             component={LoginStepsScreen}

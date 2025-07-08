@@ -1,10 +1,12 @@
 import {useEffect} from 'react'
-import {NavigationProps} from '@/app/navigation/types'
+import DigiD from '@/assets/icons/digid.svg'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
+import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -12,15 +14,14 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {useRemoveSecureItems} from '@/hooks/secureStorage/useRemoveSecureItems'
 import CityPassImage from '@/modules/city-pass/assets/city-pass.svg'
 import {RequestCityPass} from '@/modules/city-pass/components/RequestCityPass'
-import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-type Props = NavigationProps<CityPassRouteName.login>
-
-export const CityPassIntroScreen = ({navigation: {navigate}}: Props) => {
+export const CityPassIntroScreen = () => {
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
   const removeSecureItems = useRemoveSecureItems()
+  const login = useLogin()
 
   useEffect(() => {
     if (!isCityPassOwnerRegistered) {
@@ -52,11 +53,19 @@ export const CityPassIntroScreen = ({navigation: {navigate}}: Props) => {
           grow={1}
           gutter="md"
           halign="stretch">
-          <Button
-            label="Inloggen met DigiD"
-            onPress={() => navigate(CityPassRouteName.loginSteps)}
-            testID="CityPassLoginButton"
-          />
+          <Row gutter="sm">
+            <Pressable
+              onPress={login}
+              testID="CityPassLoginDigiDButton">
+              <DigiD />
+            </Pressable>
+            <Button
+              flex={1}
+              label="Inloggen met DigiD"
+              onPress={login}
+              testID="CityPassLoginButton"
+            />
+          </Row>
         </Column>
         <Gutter height="xl" />
         <RequestCityPass />

@@ -12,9 +12,14 @@ import {useRestartLogin} from '@/modules/access-code/hooks/useRestartLogin'
 
 type Props = {
   buttonLabel: string
+  onAfterRestart?: () => void
 } & TestProps
 
-export const ForgotAccessCodeScreen = ({buttonLabel, testID}: Props) => {
+export const ForgotAccessCodeScreen = ({
+  buttonLabel,
+  onAfterRestart,
+  testID,
+}: Props) => {
   const {setIsForgotCode} = useEnterAccessCode()
   const {isError, onRestartLogin} = useRestartLogin()
 
@@ -41,7 +46,10 @@ export const ForgotAccessCodeScreen = ({buttonLabel, testID}: Props) => {
           )}
           <Button
             label={buttonLabel}
-            onPress={onRestartLogin}
+            onPress={async () => {
+              await onRestartLogin()
+              onAfterRestart?.()
+            }}
             testID={`${testID}Button`}
           />
         </Column>
