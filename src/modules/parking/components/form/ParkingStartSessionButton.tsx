@@ -26,10 +26,11 @@ export const ParkingStartSessionButton = () => {
     setError,
   } = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
+  const {report_code} = currentPermit
 
-  const isTimebalanceInsufficient = errors.root?.serverError.message?.includes(
-    'Timebalance insufficient',
-  )
+  const isTimebalanceInsufficient =
+    errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
+    errors.root?.localError?.type === 'isTimeBalanceInsufficient'
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
@@ -54,7 +55,7 @@ export const ParkingStartSessionButton = () => {
       if (vehicleId) {
         return startSession({
           parking_session: {
-            report_code: currentPermit.report_code.toString(),
+            report_code: report_code.toString(),
             vehicle_id: vehicleId,
             end_date_time: endTime?.toJSON(),
             start_date_time: startTime.toJSON(),
@@ -131,7 +132,7 @@ export const ParkingStartSessionButton = () => {
     },
     [
       startSession,
-      currentPermit.report_code,
+      report_code,
       goBack,
       setVisitorVehicleId,
       openWebUrl,

@@ -43,7 +43,7 @@ export const ParkingChoosePaymentZone = () => {
   const startTimeDayOfWeek = startTime.day()
 
   const isParkingOutsideRegimeError =
-    errors.root?.serverError.message?.includes(
+    errors.root?.serverError?.message?.includes(
       'Parking time outside available regime times',
     )
 
@@ -92,7 +92,11 @@ export const ParkingChoosePaymentZone = () => {
       ))
 
   if (allPaymentZonesAreEqual) {
-    if (currentPermit.max_session_length_in_days === 1 && endTime) {
+    if (
+      currentPermit.max_session_length_in_days === 1 &&
+      endTime &&
+      timeString
+    ) {
       return (
         <Column gutter="sm">
           <Gutter height="md" />

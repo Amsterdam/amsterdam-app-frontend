@@ -24,6 +24,7 @@ import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingReceipt = () => {
   const {
+    setError,
     setValue,
     watch,
     formState: {errors},
@@ -76,10 +77,6 @@ export const ParkingReceipt = () => {
     }
   }, [isVisitor, data?.costs?.value, setValue])
 
-  if (isLoading || isLoadingAccount) {
-    return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
-  }
-
   const {
     remaining_wallet_balance,
     remaining_time_balance,
@@ -117,6 +114,18 @@ export const ParkingReceipt = () => {
     currentPermit.money_balance_applicable &&
     remaining_wallet_balance &&
     remaining_wallet_balance.value + amount < 0
+
+  useEffect(() => {
+    if (remainingTimeBalanceError) {
+      setError('root.localError', {
+        type: 'isTimeBalanceInsufficient',
+      })
+    }
+  }, [remainingTimeBalanceError, setError])
+
+  if (isLoading || isLoadingAccount) {
+    return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
+  }
 
   if (
     !currentPermit.time_balance_applicable &&
@@ -196,7 +205,7 @@ export const ParkingReceipt = () => {
         </SingleSelectable>
       )}
       {(!!remainingTimeBalanceError ||
-        errors.root?.serverError.message?.includes(
+        errors.root?.serverError?.message?.includes(
           'Timebalance insufficient',
         )) && (
         <>
@@ -211,7 +220,7 @@ export const ParkingReceipt = () => {
         </>
       )}
       {(!!remainingMoneyBalanceError ||
-        errors.root?.serverError.message === 'SSP_BALANCE_TOO_LOW') && (
+        errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
         <>
           <Gutter height="lg" />
           <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />

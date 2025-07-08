@@ -8,7 +8,7 @@ export const ParkingMaxSessionsWarning = () => {
   } = useFormContext()
 
   return (
-    errors.root?.serverError.message === 'SSP_MAX_SESSIONS_REACHED' && (
+    errors.root?.serverError?.message === 'SSP_MAX_SESSIONS_REACHED' && (
       <AlertNegative
         {...alerts.maximumSessionsWarning}
         testID="ParkingMaxSessionsWarningAlert"
