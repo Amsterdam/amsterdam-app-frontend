@@ -3,6 +3,7 @@ import {
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
+import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
 
 export const alerts = {
   changePincodeSuccess: {
@@ -79,7 +80,7 @@ export const alerts = {
   },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
-    text: 'Op 1 oktober ontvangt u nieuw tijdsaldo. Probeer eventueel een kortere parkeertijd te kiezen.',
+    text: `Op 1 ${getFirstMonthOfNextQuarter().format('MMMM')} ontvangt u nieuw tijdsaldo. Probeer eventueel een kortere parkeertijd te kiezen.`,
     title: 'Niet genoeg tijdsaldo',
     hasIcon: true,
     hasCloseIcon: false,
