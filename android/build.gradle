@@ -5,10 +5,10 @@ buildscript {
         buildToolsVersion = "35.0.0"
         minSdkVersion = 28
         compileSdkVersion = 35
-        targetSdkVersion = 34
+        targetSdkVersion = 35
         enableHermes = true
-        ndkVersion = "26.1.10909125"
-        kotlinVersion = "1.9.25"
+        ndkVersion = "27.1.12297006"
+        kotlinVersion = "2.0.21"
         playServicesLocationVersion = "21.0.1" // Fix for geo-location crash in combination with react-native maps: https://stackoverflow.com/questions/77274148/could-not-invoke-rnfusedlocation-getcurrentposition-react-native-geolocation-s
     }
     repositories {

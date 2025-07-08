@@ -1,4 +1,4 @@
-import {QueryReturnValue} from '@reduxjs/toolkit/dist/query/baseQueryTypes'
+import {QueryReturnValue} from '@reduxjs/toolkit/query'
 import {
   BaseQueryApi,
   FetchBaseQueryError,
