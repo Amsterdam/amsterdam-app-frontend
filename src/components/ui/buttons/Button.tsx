@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {GestureResponderEvent, StyleSheet} from 'react-native'
+import {FlexStyle, GestureResponderEvent, StyleSheet} from 'react-native'
 import {
   PressableBaseProps,
   PressableBase,
@@ -30,7 +30,8 @@ export type ButtonProps = {
   small?: boolean
   underline?: boolean
   variant?: ButtonVariant
-} & Omit<PressableBaseProps, 'style' | 'children'>
+} & Omit<PressableBaseProps, 'style' | 'children'> &
+  FlexStyle
 
 const defaultVariant = 'primary'
 
