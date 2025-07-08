@@ -67,39 +67,25 @@ const createStyles =
     'extraSpace' | 'placement' | 'productTourTipTargetLayout'
   > & {isPositioned: boolean; leftPosition: number; windowWidth: number}) =>
   ({size, z}: Theme) => {
-    const getPosition = (): {
-      bottom?: number
-      left?: number
-      position?: 'absolute' | 'relative'
-      right?: number
-      top?: number
-    } => {
-      if (!productTourTipTargetLayout) {
-        return {position: 'relative'} // Default position, when no productTourTipTargetLayout is set
-      }
+    const verticalPosition =
+      productTourTipTargetLayout.height +
+      (extraSpace ? size.spacing[extraSpace] : 0)
 
-      const verticalPosition =
-        productTourTipTargetLayout.height +
-        (extraSpace ? size.spacing[extraSpace] : 0)
-
-      return {
-        left: -leftPosition,
-        right: 0,
-        position: 'absolute',
-        ...(placement === Placement.above
-          ? {bottom: verticalPosition}
-          : {top: verticalPosition}),
-      }
-    }
+    const tooltipPositionProps =
+      placement === Placement.above
+        ? {bottom: verticalPosition}
+        : {top: verticalPosition}
 
     return StyleSheet.create({
       tooltipWrapper: {
         display: isPositioned ? 'flex' : 'none',
         width: productTourTipTargetLayout ? windowWidth : undefined,
+        left: -leftPosition,
+        position: 'absolute',
         paddingHorizontal: productTourTipTargetLayout
           ? size.spacing.xl
           : undefined,
-        ...getPosition(),
+        ...tooltipPositionProps,
         zIndex: z.tooltip, // Set zIndex higher in component tree as well when not working as expected on iOS
       },
     })
