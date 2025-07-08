@@ -47,6 +47,9 @@ export const ParkingReceipt = () => {
   } = watch()
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
   const parkingAccount = useParkingAccount()
+  const isPermitHolder =
+    parkingAccount?.scope === ParkingPermitScope.permitHolder
+  const isVisitor = parkingAccount?.scope === ParkingPermitScope.visitor
 
   const currentPermit = useCurrentParkingPermit()
 
@@ -68,10 +71,10 @@ export const ParkingReceipt = () => {
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   useEffect(() => {
-    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
+    if (isVisitor) {
       setValue('amount', data?.costs?.value)
     }
-  }, [parkingAccount?.scope, data?.costs?.value, setValue])
+  }, [isVisitor, data?.costs?.value, setValue])
 
   if (isLoading || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
@@ -124,9 +127,7 @@ export const ParkingReceipt = () => {
 
   return (
     <Column>
-      {(!!remainingMoneyBalanceError ||
-        (amount > 0 &&
-          parkingAccount?.scope === ParkingPermitScope.permitHolder)) && (
+      {(!!remainingMoneyBalanceError || (amount > 0 && isPermitHolder)) && (
         <>
           <Title
             level="h2"
@@ -180,30 +181,33 @@ export const ParkingReceipt = () => {
         </SingleSelectable>
       )}
 
-      {!!currentPermit.money_balance_applicable &&
-        parkingAccount?.scope === ParkingPermitScope.permitHolder && (
-          <SingleSelectable>
-            <Row
-              align="between"
-              flex={1}>
-              <Phrase
-                color={remainingMoneyBalanceError ? 'warning' : undefined}>
-                Resterend geldsaldo
-              </Phrase>
-              <Phrase
-                color={remainingMoneyBalanceError ? 'warning' : undefined}>
-                {remainingMoneyBalanceText}
-              </Phrase>
-            </Row>
-          </SingleSelectable>
-        )}
+      {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
+        <SingleSelectable>
+          <Row
+            align="between"
+            flex={1}>
+            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+              Resterend geldsaldo
+            </Phrase>
+            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+              {remainingMoneyBalanceText}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
+      )}
       {(!!remainingTimeBalanceError ||
         errors.root?.serverError.message?.includes(
           'Timebalance insufficient',
         )) && (
         <>
           <Gutter height="lg" />
-          <AlertNegative {...alerts.insufficientTimeBalanceFailed} />
+          <AlertNegative
+            {...alerts[
+              isPermitHolder
+                ? 'insufficientTimeBalanceFailed'
+                : 'insufficientTimeBalanceVisitorFailed'
+            ]}
+          />
         </>
       )}
       {(!!remainingMoneyBalanceError ||

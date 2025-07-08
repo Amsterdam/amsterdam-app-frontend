@@ -79,7 +79,15 @@ export const alerts = {
   },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
-    text: 'Te weinig tijd om parkeersessie te starten.',
+    text: 'Op 1 oktober ontvangt u nieuw tijdsaldo. Probeer eventueel een kortere parkeertijd te kiezen.',
+    title: 'Niet genoeg tijdsaldo',
+    hasIcon: true,
+    hasCloseIcon: false,
+    testID: 'ParkingInsufficientTimeBalanceFailedAlert',
+  },
+  insufficientTimeBalanceVisitorFailed: {
+    variant: AlertVariant.negative,
+    text: 'Vraag aan de persoon die u bezoekt om het tijdsaldo te verhogen.',
     title: 'Niet genoeg tijdsaldo',
     hasIcon: true,
     hasCloseIcon: false,

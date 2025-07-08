@@ -20,8 +20,16 @@ type FieldValues = {
 }
 
 export const ParkingStartSessionButton = () => {
-  const {handleSubmit, formState, setError} = useFormContext<FieldValues>()
+  const {
+    handleSubmit,
+    formState: {isSubmitting, errors},
+    setError,
+  } = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
+
+  const isTimebalanceInsufficient = errors.root?.serverError.message?.includes(
+    'Timebalance insufficient',
+  )
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
@@ -85,11 +93,22 @@ export const ParkingStartSessionButton = () => {
               data?: {code?: string; detail?: string}
               status?: string
             }) => {
-              const parsedDetail = ((error.data?.detail &&
-                JSON.parse(error.data?.detail)) ??
-                {}) as {error?: {content?: string}}
+              let detail: {error?: {content?: string}} | string = ''
 
-              if (parsedDetail.error?.content === 'Start time in past') {
+              if (error.data?.detail) {
+                try {
+                  detail = JSON.parse(error.data.detail) as {
+                    error?: {content?: string}
+                  }
+                } catch {
+                  detail = error.data.detail
+                }
+              }
+
+              if (
+                typeof detail === 'object' &&
+                detail.error?.content === 'Start time in past'
+              ) {
                 setError('startTime', {
                   type: 'manual',
                   message: 'Starttijd mag niet in het verleden liggen.',
@@ -100,7 +119,10 @@ export const ParkingStartSessionButton = () => {
 
               setError('root.serverError', {
                 type: error?.status,
-                message: parsedDetail.error?.content ?? error.data?.code,
+                message:
+                  (typeof detail === 'object'
+                    ? detail.error?.content
+                    : detail) ?? error.data?.code,
               })
             },
           )
@@ -117,9 +139,15 @@ export const ParkingStartSessionButton = () => {
     ],
   )
 
-  return (
+  return isTimebalanceInsufficient ? (
     <Button
-      disabled={formState.isSubmitting}
+      label="Sluiten"
+      onPress={goBack}
+      testID="ParkingStartSessionCloseButton"
+    />
+  ) : (
+    <Button
+      disabled={isSubmitting}
       iconName="parkingSession"
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}
