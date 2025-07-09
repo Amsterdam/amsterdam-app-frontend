@@ -1,9 +1,9 @@
-import {createRef, forwardRef, useEffect, useState} from 'react'
+import {createRef, type Ref, useEffect, useState} from 'react'
 import {
   Platform,
   StyleSheet,
   TextInput as TextInputRN,
-  TextInputProps,
+  type TextInputProps,
   View,
 } from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -26,118 +26,115 @@ type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
   warning?: boolean
+  ref?: Ref<TextInputRN | null>
 } & TextInputSharedProps &
   TextInputProps
 
-export const TextInput = forwardRef<TextInputRN, Props>(
-  (
-    {
-      hasClearButton = true,
-      inputInstructions,
-      label,
-      numberOfLines,
-      onChangeText,
-      onFocus,
-      placeholder = '',
-      warning,
-      value: valueProp = '',
-      testID = '',
-      textTransform,
-      accessibilityLanguage = 'nl-NL',
-      ...textInputProps
-    }: Props,
-    ref,
-  ) => {
-    const inputRef = createRef<TextInputRN>()
-    const [hasFocus, setHasFocus] = useState(false)
-    const [value, setValue] = useState(valueProp)
+export const TextInput = ({
+  ref,
+  hasClearButton = true,
+  inputInstructions,
+  label,
+  numberOfLines,
+  onChangeText,
+  onFocus,
+  placeholder = '',
+  warning,
+  value: valueProp = '',
+  testID = '',
+  textTransform,
+  accessibilityLanguage = 'nl-NL',
+  ...textInputProps
+}: Props) => {
+  const inputRef = createRef<TextInputRN>()
+  const [hasFocus, setHasFocus] = useState(false)
+  const [value, setValue] = useState(valueProp)
 
-    const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
-    const themedTextInputProps = useThemable(createTextInputProps)
+  const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
+  const themedTextInputProps = useThemable(createTextInputProps)
 
-    useEffect(() => {
-      setValue(valueProp)
-    }, [valueProp])
+  useEffect(() => {
+    setValue(valueProp)
+  }, [valueProp])
 
-    const handleBlur = () => setHasFocus(false)
+  const handleBlur = () => setHasFocus(false)
 
-    const handleChangeText = (textValue: string) => {
-      const text = textTransform ? textTransform(textValue) : textValue
+  const handleChangeText = (textValue: string) => {
+    const text = textTransform ? textTransform(textValue) : textValue
 
-      setValue(text)
-      onChangeText?.(text)
+    setValue(text)
+    onChangeText?.(text)
+  }
+
+  const handleClearText = () => {
+    setValue('')
+    onChangeText?.('')
+
+    if (typeof ref !== 'function') {
+      ;(ref?.current ?? inputRef?.current)?.focus?.()
+      handleFocus()
     }
+  }
 
-    const handleClearText = () => {
-      setValue('')
-      onChangeText?.('')
+  const handleFocus = () => {
+    setHasFocus(true)
+    onFocus?.()
+  }
 
-      if (typeof ref !== 'function') {
-        ;(ref?.current ?? inputRef?.current)?.focus?.()
-        handleFocus()
-      }
-    }
-
-    const handleFocus = () => {
-      setHasFocus(true)
-      onFocus?.()
-    }
-
-    return (
-      <Column gutter="sm">
-        <Column gutter="xs">
-          {!!label && (
-            <Label
-              isAccessible={!textInputProps.accessibilityLabel}
-              text={label}
-            />
-          )}
-          {!!inputInstructions && (
-            <Label
-              emphasis="default"
-              isAccessible={!textInputProps.accessibilityHint}
-              text={inputInstructions}
-            />
-          )}
-        </Column>
-        <View style={styles.frame}>
-          <TextInputRN
-            {...textInputProps}
-            {...themedTextInputProps}
-            accessibilityLanguage={accessibilityLanguage}
-            numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
-            onBlur={handleBlur}
-            onChangeText={handleChangeText}
-            onFocus={handleFocus}
-            placeholder={placeholder}
-            ref={ref ?? inputRef}
-            style={styles.textInput}
-            testID={testID}
-            textAlignVertical="top"
-            value={value}
+  return (
+    <Column gutter="sm">
+      <Column gutter="xs">
+        {!!label && (
+          <Label
+            isAccessible={!textInputProps.accessibilityLabel}
+            text={label}
           />
-          {value && hasClearButton ? (
-            <View>
-              <IconButton
-                accessibilityHint="Maak dit tekstveld leeg"
-                accessibilityLanguage={accessibilityLanguage}
-                icon={
-                  <Icon
-                    name="close"
-                    size="lg"
-                    testID={`${testID}ClearIcon`}
-                  />
-                }
-                onPress={handleClearText}
-                testID={`${testID}ClearButton`}
-              />
-            </View>
-          ) : null}
-        </View>
+        )}
+        {!!inputInstructions && (
+          <Label
+            emphasis="default"
+            isAccessible={!textInputProps.accessibilityHint}
+            text={inputInstructions}
+          />
+        )}
       </Column>
-    )
-  },
-)
+      <View style={styles.frame}>
+        <TextInputRN
+          {...textInputProps}
+          {...themedTextInputProps}
+          accessibilityLanguage={accessibilityLanguage}
+          numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
+          onBlur={handleBlur}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
+          placeholder={placeholder}
+          ref={ref ?? inputRef}
+          style={styles.textInput}
+          testID={testID}
+          textAlignVertical="top"
+          value={value}
+        />
+        {value && hasClearButton ? (
+          <View>
+            <IconButton
+              accessibilityHint="Maak dit tekstveld leeg"
+              accessibilityLanguage={accessibilityLanguage}
+              icon={
+                <Icon
+                  name="close"
+                  size="lg"
+                  testID={`${testID}ClearIcon`}
+                />
+              }
+              onPress={handleClearText}
+              testID={`${testID}ClearButton`}
+            />
+          </View>
+        ) : null}
+      </View>
+    </Column>
+  )
+}
 
 const createStyles =
   ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>

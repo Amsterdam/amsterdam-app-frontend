@@ -51,7 +51,11 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
               key={testID}
               label={label}
               onPress={onPress}
-              ref={ref => index === 0 && setAccessibilityFocus(ref)}
+              ref={ref => {
+                if (index === 0) {
+                  setAccessibilityFocus(ref)
+                }
+              }}
               testID={testID}
             />
           )

@@ -1,5 +1,5 @@
-import {forwardRef, useMemo} from 'react'
-import {StyleSheet, Text, TextProps, TextStyle} from 'react-native'
+import {type Ref, useMemo} from 'react'
+import {StyleSheet, Text, type TextProps, type TextStyle} from 'react-native'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {Theme} from '@/themes/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
@@ -14,38 +14,35 @@ type Props = {
    */
   textAlign?: TextStyle['textAlign']
   underline?: boolean
+  ref?: Ref<Text | null>
 } & Omit<TextProps, 'style'>
 
-export const Title = forwardRef<Text, Props>(
-  (
-    {
-      color = 'default',
-      level = 'h1',
-      text,
-      textAlign = 'left',
-      underline = false,
-      ...textProps
-    },
-    ref,
-  ) => {
-    const createdStyles = useMemo(
-      () => createStyles({color, level, textAlign, underline}),
-      [color, level, textAlign, underline],
-    )
-    const styles = useThemable(createdStyles)
+export const Title = ({
+  ref,
+  color = 'default',
+  level = 'h1',
+  text,
+  textAlign = 'left',
+  underline = false,
+  ...textProps
+}: Props) => {
+  const createdStyles = useMemo(
+    () => createStyles({color, level, textAlign, underline}),
+    [color, level, textAlign, underline],
+  )
+  const styles = useThemable(createdStyles)
 
-    return (
-      <AccessibleText
-        accessibilityLanguage="nl-NL"
-        {...textProps}
-        accessibilityRole="header"
-        ref={ref}
-        style={styles.title}>
-        {text}
-      </AccessibleText>
-    )
-  },
-)
+  return (
+    <AccessibleText
+      accessibilityLanguage="nl-NL"
+      {...textProps}
+      accessibilityRole="header"
+      ref={ref}
+      style={styles.title}>
+      {text}
+    </AccessibleText>
+  )
+}
 
 // TODO Transition text color
 const createStyles =

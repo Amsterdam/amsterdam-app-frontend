@@ -12,6 +12,7 @@ import {useEffect, useState} from 'react'
 import type {ApiSlug} from '@/environment'
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 
 const getEmptyItems = <DummyItem>(
   length: number,

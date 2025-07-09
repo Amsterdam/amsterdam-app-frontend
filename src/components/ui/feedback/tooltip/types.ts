@@ -1,6 +1,6 @@
-import {ReactNode} from 'react'
-import {LayoutRectangle, AccessibilityProps} from 'react-native'
-import {Placement, TestProps} from '@/components/ui/types'
+import {LayoutRectangle, type AccessibilityProps, View} from 'react-native'
+import type {ReactNode, Ref} from 'react'
+import {Placement, type TestProps} from '@/components/ui/types'
 import {SpacingTokens} from '@/themes/tokens/size'
 
 export type WrapperProps = {
@@ -21,11 +21,13 @@ export type WrapperProps = {
   leftPosition: number
   placement: Placement
   productTourTipTargetLayout: LayoutRectangle
+  ref?: Ref<View | null>
   startFadeIn?: boolean
 }
 
 export type TooltipProps = {
   onPress: () => void
+  ref?: Ref<View | null>
   text: string | string[]
 } & Pick<AccessibilityProps, 'accessibilityLabel' | 'accessibilityLanguage'> &
   Omit<WrapperProps, 'children' | 'leftPosition' | 'isPositioned'> &

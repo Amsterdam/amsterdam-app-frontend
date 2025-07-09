@@ -1,13 +1,13 @@
-import {ReactNode, forwardRef} from 'react'
+import type {ReactNode, Ref} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {
   PressableBase,
-  PressableBaseProps,
+  type PressableBaseProps,
 } from '@/components/ui/buttons/PressableBase'
-import {Box, BoxProps} from '@/components/ui/containers/Box'
+import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {type TestProps} from '@/components/ui/types'
-import {LogProps} from '@/processes/piwik/types'
-import {Theme} from '@/themes/themes'
+import type {LogProps} from '@/processes/piwik/types'
+import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type PressableVariant = 'primary' | 'tertiary' | 'transparent'
@@ -17,6 +17,7 @@ export type PressableProps = {
   children: ReactNode
   'logging-label'?: string
   variant?: PressableVariant
+  ref?: Ref<View>
 } & PressableBaseProps &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
   LogProps &
@@ -26,42 +27,38 @@ export type PressableProps = {
  * Used to build other interactive components, do not use on its own.
  * This is a replacement for the React Native Pressable component, with added Box properties.
  */
-export const Pressable = forwardRef<View, PressableProps>(
-  (
-    {
-      children,
-      inset = 'no',
-      insetHorizontal,
-      insetVertical,
-      variant = 'tertiary',
-      border = false,
-      ...pressableProps
-    },
-    ref,
-  ) => {
-    const styles = useThemable(createStyles(variant))
+export const Pressable = ({
+  ref,
+  children,
+  inset = 'no',
+  insetHorizontal,
+  insetVertical,
+  variant = 'tertiary',
+  border = false,
+  ...pressableProps
+}: PressableProps) => {
+  const styles = useThemable(createStyles(variant))
 
-    return (
-      <PressableBase
-        accessibilityLanguage="nl-NL"
-        accessibilityRole="button"
-        ref={ref}
-        style={({pressed}) => [
-          styles.button,
-          pressed && styles.pressed,
-          !!border && styles.border,
-        ]}
-        {...pressableProps}>
-        <Box
-          inset={inset}
-          insetHorizontal={insetHorizontal}
-          insetVertical={insetVertical}>
-          {children}
-        </Box>
-      </PressableBase>
-    )
-  },
-)
+  return (
+    <PressableBase
+      accessibilityLanguage="nl-NL"
+      accessibilityRole="button"
+      ref={ref}
+      style={({pressed}) => [
+        styles.button,
+        pressed && styles.pressed,
+        !!border && styles.border,
+      ]}
+      {...pressableProps}>
+      <Box
+        inset={inset}
+        insetHorizontal={insetHorizontal}
+        insetVertical={insetVertical}>
+        {children}
+      </Box>
+    </PressableBase>
+  )
+}
 
 const createStyles =
   (variant: PressableVariant) =>

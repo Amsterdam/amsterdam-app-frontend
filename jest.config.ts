@@ -42,6 +42,8 @@ const config: Config = {
     '!**/slice.ts',
     '!**/types.ts',
     '!**/alerts.ts',
+    '!**/constants.ts',
+    '!**/index.ts',
   ],
   reporters: [
     'default',

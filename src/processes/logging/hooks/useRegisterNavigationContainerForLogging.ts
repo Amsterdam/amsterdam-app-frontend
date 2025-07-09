@@ -17,11 +17,12 @@ import {PiwikContext} from '@/providers/piwik.provider'
 const MAX_RECENT_ROUTE_LENGTH = 200
 
 export const useRegisterNavigationContainerForLogging = () => {
-  const navigationContainer =
-    useRef<NavigationContainerRefWithCurrent<RootStackParams>>()
-  const navigationStartTime = useRef<number>()
+  const navigationContainer = useRef<
+    NavigationContainerRefWithCurrent<RootStackParams> | undefined
+  >(undefined)
+  const navigationStartTime = useRef<number | undefined>(undefined)
   const recentRouteKeys = useRef<string[]>([])
-  const latestRoute = useRef<Route<string>>()
+  const latestRoute = useRef<Route<string> | undefined>(undefined)
   const trackException = useTrackException()
   const appInsights = useAppInsights()
 

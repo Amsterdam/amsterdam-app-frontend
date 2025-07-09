@@ -1,3 +1,4 @@
+import Expo
 import Firebase  // added for Firebase
 import RNBootSplash  // Added for react-native-bootsplash
 import React
@@ -7,13 +8,13 @@ import TrustKit  // added for certificate pinning
 import UIKit
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: ExpoAppDelegate {
     var window: UIWindow?
 
     var reactNativeDelegate: ReactNativeDelegate?
     var reactNativeFactory: RCTReactNativeFactory?
 
-    func application(
+    override func application(
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
@@ -70,11 +71,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         TrustKit.initSharedInstance(withConfiguration: trustKitConfig)
 
         let delegate = ReactNativeDelegate()
-        let factory = RCTReactNativeFactory(delegate: delegate)
+        let factory = ExpoReactNativeFactory(delegate: delegate)
         delegate.dependencyProvider = RCTAppDependencyProvider()
 
         reactNativeDelegate = delegate
         reactNativeFactory = factory
+        bindReactNativeFactory(factory)
 
         window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -87,13 +89,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             launchOptions: launchOptions
         )
 
-        return true
+        return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+    }
+
+    //added for deeplinking
+    override func application(
+        _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
+    ) -> Bool {
+        return RCTLinkingManager.application(app, open: url, options: options)
     }
 }
 
-class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
+class ReactNativeDelegate: ExpoReactNativeFactoryDelegate {
     override func sourceURL(for bridge: RCTBridge) -> URL? {
-        self.bundleURL()
+        bridge.bundleURL ?? bundleURL()
     }
 
     override func bundleURL() -> URL? {
@@ -109,11 +118,4 @@ class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
         super.customize(rootView)
         RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView)  // ⬅️ initialize the splash screen
     }
-
-//    //added for deeplinking
-//    override func application(
-//        _ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]
-//    ) -> Bool {
-//        return RCTLinkingManager.application(app, open: url, options: options)
-//    }
 }

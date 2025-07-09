@@ -2,7 +2,6 @@ import {
   ComponentType,
   ForwardedRef,
   createContext,
-  forwardRef,
   useCallback,
   useEffect,
   useMemo,
@@ -24,7 +23,7 @@ export type ScrollViewRef = ScrollView | KeyboardAwareScrollView
 
 type ScrollViewWrapperProps = ScrollViewProps & {
   childRef?: ForwardedRef<ScrollViewRef> | null
-  ref: ForwardedRef<ScrollViewRef> | null
+  ref?: ForwardedRef<ScrollViewRef> | null
 }
 
 type ScrollContext = {
@@ -86,13 +85,12 @@ const withTrackScroll = (
     )
   }
 
-  return forwardRef<ScrollViewRef, ScrollViewWrapperProps>((props, ref) => (
-    // @ts-expect-error this needs to be improved
+  return ({ref, ...props}: ScrollViewWrapperProps) => (
     <ScrollViewWrapper
       {...props}
       childRef={ref}
     />
-  ))
+  )
 }
 
 export const KeyboardAwareTrackScrollView = withTrackScroll(

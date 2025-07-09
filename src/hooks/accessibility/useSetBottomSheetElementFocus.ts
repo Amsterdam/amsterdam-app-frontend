@@ -11,7 +11,7 @@ export const useSetBottomSheetElementFocus = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
   const {isOpen} = useBottomSheet()
-  const ref = useRef(null)
+  const ref = useRef<any>(null)
 
   useEffect(() => {
     if (isOpen && ref.current) {

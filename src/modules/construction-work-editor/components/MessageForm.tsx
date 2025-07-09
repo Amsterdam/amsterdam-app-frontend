@@ -1,4 +1,4 @@
-import {forwardRef, useCallback, useEffect, useImperativeHandle} from 'react'
+import {type Ref, useCallback, useEffect, useImperativeHandle} from 'react'
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
@@ -17,7 +17,7 @@ import {
   setMainImageDescription,
   setMessage,
 } from '@/modules/construction-work-editor/messageDraftSlice'
-import {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
+import type {AddProjectWarningQueryArgs} from '@/modules/construction-work-editor/types'
 
 const maxCharacters = {
   title: 100,
@@ -31,9 +31,10 @@ type FormData = {
 
 type Props = {
   onMainImageSelected: () => void
+  ref?: Ref<unknown>
 }
 
-export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
+export const MessageForm = ({ref, onMainImageSelected}: Props) => {
   const dispatch = useDispatch()
 
   const currentProjectId = useSelector(selectCurrentProjectId)
@@ -194,4 +195,4 @@ export const MessageForm = forwardRef(({onMainImageSelected}: Props, ref) => {
       </Column>
     </FormProvider>
   )
-})
+}
