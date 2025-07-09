@@ -5,6 +5,7 @@ import {SecureItemKey} from '@/utils/secureStorage'
 
 const transformResponse = (cityPasses: SecureCityPass[]) =>
   cityPasses.map(cityPass => ({
+    actief: cityPass.a,
     dateEndFormatted: cityPass.d,
     firstname: cityPass.f,
     infix: cityPass.i,

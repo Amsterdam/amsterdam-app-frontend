@@ -4,6 +4,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {BudgetBalanceButton} from '@/modules/city-pass/components/BudgetBalanceButton'
 import {ShowCityPassButton} from '@/modules/city-pass/components/ShowCityPassButton'
+import {CityPassDetailsBlockedAlert} from '@/modules/city-pass/components/details/CityPassDetailsBlockedAlert'
 import {CityPassDetailsInfo} from '@/modules/city-pass/components/details/CityPassDetailsInfo'
 import {CityPassDetailsName} from '@/modules/city-pass/components/details/CityPassDetailsName'
 import {DiscountTransactions} from '@/modules/city-pass/components/transactions/DiscountTransactions'
@@ -49,6 +50,7 @@ export const CityPassDetails = ({passNumber}: Props) => {
           <Column gutter="xl">
             <Column gutter="lg">
               <CityPassDetailsInfo cityPass={cityPass} />
+              {cityPass.actief === false && <CityPassDetailsBlockedAlert />}
               {cityPass.budgets?.map(budget => (
                 <BudgetBalanceButton
                   budget={budget}

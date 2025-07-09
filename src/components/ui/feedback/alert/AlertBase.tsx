@@ -20,6 +20,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 const TEXT_ALIGN_CORRECTION = 3
 
 export type AlertBaseProps = {
+  accessibilityLabel?: string
   inset?: keyof SpacingTokens
 } & AlertProps
 
@@ -37,6 +38,7 @@ const Wrapper = ({children, inset}: WrapperProps) => {
 }
 
 export const AlertBase = ({
+  accessibilityLabel,
   children,
   hasCloseIcon = false,
   inset,
@@ -71,7 +73,12 @@ export const AlertBase = ({
               align="between"
               valign="start">
               <SingleSelectable
-                accessibilityLabel={accessibleText(title, text)}
+                accessibilityLabel={
+                  accessibilityLabel ??
+                  (typeof text === 'string'
+                    ? accessibleText(title, text)
+                    : undefined)
+                }
                 accessibilityLanguage="nl-NL"
                 accessibilityRole="alert">
                 <Row
@@ -93,7 +100,11 @@ export const AlertBase = ({
                         text={title}
                       />
                     )}
-                    {!!text && <Paragraph>{text}</Paragraph>}
+                    {!!text && typeof text === 'string' ? (
+                      <Paragraph>{text}</Paragraph>
+                    ) : (
+                      text
+                    )}
                   </Column>
                 </Row>
               </SingleSelectable>
