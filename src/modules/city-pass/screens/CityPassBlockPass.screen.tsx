@@ -1,4 +1,5 @@
 import {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -28,40 +29,42 @@ export const CityPassBlockPassScreen = ({
   }
 
   return (
-    <Box>
-      <Column gutter="lg">
-        <List
-          items={[
-            'Is je pas gestolen of kwijt? Blokkeer de pas om misbruik te voorkomen.',
-            <Phrase>
-              Pas teruggevonden? Bel naar{' '}
-              <Phrase
-                color="link"
-                onPress={() => openPhoneUrl('0202526000')}
-                underline>
-                020 252 6000
-              </Phrase>
-              . Daarna kun je de pas meteen weer gebruiken.
-            </Phrase>,
-          ]}
-          testID="CityPassBlockPassInfoList"
-        />
-        <Column gutter="md">
-          <Button
-            isError={isError}
-            isLoading={isLoading}
-            label="Ja, blokkeer mijn pas"
-            onPress={handleBlockPass}
-            testID="CityPassBlockPassButton"
+    <Screen testID="CityPassBlockPassScreen">
+      <Box>
+        <Column gutter="lg">
+          <List
+            items={[
+              'Is je pas gestolen of kwijt? Blokkeer de pas om misbruik te voorkomen.',
+              <Phrase>
+                Pas teruggevonden? Bel naar{' '}
+                <Phrase
+                  color="link"
+                  onPress={() => openPhoneUrl('0202526000')}
+                  underline>
+                  020 252 6000
+                </Phrase>
+                . Daarna kun je de pas meteen weer gebruiken.
+              </Phrase>,
+            ]}
+            testID="CityPassBlockPassInfoList"
           />
-          <Button
-            label="Nee, blokkeer mijn pas niet"
-            onPress={goBack}
-            testID="CityPassBlockPassRejectedButton"
-            variant="secondary"
-          />
+          <Column gutter="md">
+            <Button
+              isError={isError}
+              isLoading={isLoading}
+              label="Ja, blokkeer mijn pas"
+              onPress={handleBlockPass}
+              testID="CityPassBlockPassButton"
+            />
+            <Button
+              label="Nee, blokkeer mijn pas niet"
+              onPress={goBack}
+              testID="CityPassBlockPassRejectedButton"
+              variant="secondary"
+            />
+          </Column>
         </Column>
-      </Column>
-    </Box>
+      </Box>
+    </Screen>
   )
 }
