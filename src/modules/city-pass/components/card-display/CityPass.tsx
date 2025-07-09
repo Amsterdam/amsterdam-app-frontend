@@ -8,6 +8,7 @@ import {HideFromAccessibility} from '@/components/features/accessibility/HideFro
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Delay} from '@/components/ui/layout/Delay'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -50,6 +51,7 @@ export const CityPass = ({
     isActive: isCurrentIndex,
   })
   const styles = useThemable(theme => createStyles(theme, passWidth))
+
   const accessibilityLabel =
     actief === false
       ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel ${accessibleText('020 252 6000')} om te deblokkeren.`
@@ -86,12 +88,16 @@ export const CityPass = ({
                   </Phrase>
                   <Column halign="center">
                     {actief === false ? (
-                      <Phrase
-                        color="warning"
-                        emphasis="strong"
-                        testID="CityPassCityPassBlockedPhrase">
-                        Geblokkeerd
-                      </Phrase>
+                      <>
+                        <Gutter height="md" />
+                        <Phrase
+                          color="warning"
+                          emphasis="strong"
+                          testID="CityPassCityPassBlockedPhrase">
+                          Geblokkeerd
+                        </Phrase>
+                        <Gutter height="xl" />
+                      </>
                     ) : (
                       <Delay>
                         <BarCode
