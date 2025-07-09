@@ -4,6 +4,7 @@ import {RedirectKey} from '@/modules/redirects/types'
 import {ApiError} from '@/types/api'
 
 export enum CityPassEndpointName {
+  blockPass = 'blockPass',
   getAccessToken = 'getAccessToken',
   getBudgetTransactions = 'getBudgetTransactions',
   getCityPasses = 'getCityPasses',
@@ -67,6 +68,7 @@ export type CityPassOwner = {
 }
 
 export type CityPass = {
+  actief: boolean
   balanceFormatted: string
   budgets: CityPassBudget[]
   dateEnd: string

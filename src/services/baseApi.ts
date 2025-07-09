@@ -121,6 +121,7 @@ export const baseApi = createApi({
   reducerPath: 'api',
   tagTypes: [
     'Articles',
+    'CityPass',
     'FollowedProjects',
     'Modules',
     'Notifications',
