@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android:connect:device": "adb reverse tcp:8081 tcp:8081 && adb reverse tcp:8000 tcp:8000",
-    "android:phone:dev": "source .env &&react-native run-android --mode=devDebug --appIdSuffix=dev",
+    "android:phone:dev": "react-native run-android --mode=devDebug --appIdSuffix=dev",
     "android:phone:prod": "react-native run-android --mode=prodDebug",
     "android:tablet": "emulator @Pixel_C_API_30 & react-native run-android --deviceId='Pixel_C_API_30' --mode=devDebug --appIdSuffix=dev",
     "android:deeplink:construction-work-editor": "adb shell am start -a android.intent.action.VIEW -d \"amsterdam://construction-work-editor\"",
@@ -80,7 +80,7 @@
     "react-native-image-crop-picker": "^0.41.4",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
-    "react-native-maps": "^1.24.3",
+    "react-native-maps": "^1.24.5",
     "react-native-permissions": "^5.2.1",
     "react-native-reanimated": "3.17.1",
     "react-native-reanimated-carousel": "^3.5.1",

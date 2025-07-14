@@ -8,6 +8,24 @@ import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
 
 /**
+ * Load environment variables from a .env file into the Gradle project
+ */
+def loadEnv() {
+    def envFile = file("$rootDir/../.env")
+    if (envFile.exists()) {
+        envFile.eachLine { line ->
+            def matcher = line =~ /^\s*([\w.-]+)\s*=\s*(.*)\s*$/
+            if (matcher.matches()) {
+                def key = matcher[0][1]
+                def value = matcher[0][2]
+                ext[key] = value
+            }
+        }
+    }
+}
+loadEnv()
+
+/**
  * This is the configuration block to customize your React Native Android app.
  * By default you don't need to apply any configuration, just uncomment the lines you need.
  */
@@ -117,12 +135,15 @@ def getBuildNumber() {
 }
 
 def getGoogleMapsApiKey() {
-    def key = System.getenv("GOOGLE_MAPS_API_KEY_ANDROID")
-    if (key != null) {
-        return key
-    } else {
-        return "YOUR_DEFAULT_OR_EMPTY_KEY"
+    // Try ext first (from .env), then fallback to env, then default
+    if (ext.has("GOOGLE_MAPS_API_KEY_ANDROID") && ext.GOOGLE_MAPS_API_KEY_ANDROID) {
+        return ext.GOOGLE_MAPS_API_KEY_ANDROID
     }
+    def key = System.getenv("GOOGLE_MAPS_API_KEY_ANDROID")
+    if (key != null && key != "") {
+        return key
+    }
+    return "YOUR_DEFAULT_OR_EMPTY_KEY"
 }
 
 android {
@@ -213,6 +234,9 @@ dependencies {
 
     // Firebase
     implementation 'com.google.firebase:firebase-core:9.6.1'
+
+    // Google Play Services Location (required for react-native-maps and geolocation)
+    implementation "com.google.android.gms:play-services-location:${rootProject.ext.playServicesLocationVersion}"
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")

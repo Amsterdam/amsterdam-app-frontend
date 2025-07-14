@@ -9,15 +9,16 @@ buildscript {
         enableHermes = true
         ndkVersion = "26.1.10909125"
         kotlinVersion = "1.9.25"
+        playServicesLocationVersion = "21.0.1" // Fix for geo-location crash in combination with react-native maps: https://stackoverflow.com/questions/77274148/could-not-invoke-rnfusedlocation-getcurrentposition-react-native-geolocation-s
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
-        classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath 'com.android.tools.build:gradle'
+        classpath 'com.facebook.react:react-native-gradle-plugin'
+        classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin'
         // Firebase
         classpath 'com.google.gms:google-services:4.3.2'
         // NOTE: Do not place your application dependencies here; they belong in the individual module build.gradle files

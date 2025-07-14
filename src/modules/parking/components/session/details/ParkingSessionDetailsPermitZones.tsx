@@ -1,3 +1,4 @@
+import {useState} from 'react'
 import {Platform} from 'react-native'
 import MapView, {Polygon} from 'react-native-maps'
 import type {Feature} from '@/types/geojson'
@@ -7,12 +8,17 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {usePermitZonesQuery} from '@/modules/parking/service'
 
 export const ParkingSessionDetailsPermitZones = () => {
+  const [isMapReady, setIsMapReady] = useState(false)
   const currentPermit = useCurrentParkingPermit()
 
   useSetScreenTitle(currentPermit.permit_zone.name)
   const {data, isLoading} = usePermitZonesQuery(
     currentPermit.permit_zone.permit_zone_id,
   )
+
+  const handleOnMapReady = () => {
+    setIsMapReady(true)
+  }
 
   if (!data || isLoading) {
     return null
@@ -26,8 +32,9 @@ export const ParkingSessionDetailsPermitZones = () => {
     <Box grow>
       <MapView
         initialRegion={initialRegion}
+        onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
-        showsUserLocation
+        showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
         // eslint-disable-next-line react-native/no-inline-styles
         style={{flex: 1}}>
         {featureCollection.features.map((feature: Feature) => {
