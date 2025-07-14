@@ -18,7 +18,7 @@ export const cityPassApi = baseApi.injectEndpoints({
     [CityPassEndpointName.blockPass]: builder.mutation<void, number>({
       query: pass_number => ({
         prepareHeaders,
-        method: 'PATCH',
+        method: 'PUT',
         slug: ModuleSlug['city-pass'],
         url: `/passes/${pass_number}/block`,
         afterError,
