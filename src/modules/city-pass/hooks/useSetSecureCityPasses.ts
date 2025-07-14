@@ -6,6 +6,7 @@ import {SecureItemKey} from '@/utils/secureStorage'
 const transformResponse = (data: CityPassResponse) =>
   data.reduce((acc: SecureCityPass[], item) => {
     const newItem = {
+      a: item.actief,
       d: item.dateEndFormatted,
       f: item.owner.firstname,
       ...(item.owner.infix && {i: item.owner.infix}),

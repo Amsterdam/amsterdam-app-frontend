@@ -2,6 +2,7 @@ import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {CityPassCard} from '@/modules/city-pass/components/card-display/CityPassCard'
 
 const cityPassMock = {
+  actief: true,
   firstname: 'John',
   infix: 'van',
   lastname: 'Doe',

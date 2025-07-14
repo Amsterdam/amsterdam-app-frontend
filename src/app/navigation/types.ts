@@ -1,4 +1,5 @@
 import {
+  Route,
   // eslint-disable-next-line no-restricted-imports
   type NavigationProp as NavigationPropOriginal,
   type ParamListBase,
@@ -64,7 +65,7 @@ export type NavigationProps<RouteName extends keyof RootStackParams> = {
 }
 
 export type HeaderContentOptions = {
-  SideComponent?: ComponentType
+  SideComponent?: ComponentType<{route: Route<string>}>
   accessibilityLanguage?: string
   preventInitialFocus?: boolean
 }

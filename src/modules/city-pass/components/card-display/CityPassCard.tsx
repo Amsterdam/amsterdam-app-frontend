@@ -5,6 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {CityPass, CityPassPass} from '@/modules/city-pass/types'
 import {Theme} from '@/themes/themes'
@@ -71,12 +72,20 @@ export const CityPassCard = ({
             testID={`${testID}Name`}
             text={firstname}
           />
-          {!!budgets.length && (
-            <Paragraph
-              testID={`${testID}Text`}
+          {cityPass.actief === false ? (
+            <Phrase
+              testID={`${testID}BlockedPhrase`}
               variant="small">
-              {budgetsBalanceSentence}
-            </Paragraph>
+              Geblokkeerd
+            </Phrase>
+          ) : (
+            !!budgets.length && (
+              <Paragraph
+                testID={`${testID}Text`}
+                variant="small">
+                {budgetsBalanceSentence}
+              </Paragraph>
+            )
           )}
         </Column>
         <Row>

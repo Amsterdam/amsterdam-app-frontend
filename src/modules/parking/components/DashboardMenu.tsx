@@ -3,25 +3,25 @@ import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {useStore} from '@/hooks/redux/useStore'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {logout} from '@/modules/parking/utils/logout'
-import {selectIsMenuVisible, setIsMenuVisible} from '@/store/slices/menu'
+import {useMenu} from '@/store/slices/menu'
 
 export const DashboardMenu = () => {
   const dispatch = useDispatch()
-  const isMenuVisible = useSelector(selectIsMenuVisible)
   const store = useStore()
 
   const parkingAccount = useParkingAccount()
 
+  const {close} = useMenu()
+
   const onPressLogout = useCallback(() => {
-    dispatch(setIsMenuVisible(false))
+    close()
     void logout(false, dispatch, store.getState())
-  }, [dispatch, store])
+  }, [dispatch, close, store])
 
   const {navigate} = useNavigation()
 
@@ -30,7 +30,7 @@ export const DashboardMenu = () => {
       color: 'link',
       label: 'Accountgegevens',
       onPress: () => {
-        dispatch(setIsMenuVisible(!isMenuVisible))
+        close()
         navigate(ParkingRouteName.accountDetails)
       },
       testID: 'ParkingDashboardMenuAccountDetailsButton',
@@ -58,7 +58,6 @@ export const DashboardMenu = () => {
 
   return (
     <PopUpMenu
-      isVisible={isMenuVisible}
       menuItems={menuItems}
       orientation={PopupMenuOrientation.right}
     />

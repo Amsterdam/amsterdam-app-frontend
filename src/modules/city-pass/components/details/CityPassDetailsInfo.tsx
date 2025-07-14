@@ -43,20 +43,22 @@ export const CityPassDetailsInfo = ({cityPass}: Props) => {
           />
         </Row>
       )}
-      <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
-        <Row
-          align="between"
-          gutter="md">
-          <Phrase testID="CityPassCityPassDetailsExpiryDateLabel">
-            Geldig tot en met
-          </Phrase>
-          <Phrase
-            emphasis="strong"
-            testID="CityPassCityPassDetailsExpiryDateValue">
-            {dateEndFormatted}
-          </Phrase>
-        </Row>
-      </SingleSelectable>
+      {!!cityPass.actief && (
+        <SingleSelectable testID="CityPassCityPassDetailsExpiryDate">
+          <Row
+            align="between"
+            gutter="md">
+            <Phrase testID="CityPassCityPassDetailsExpiryDateLabel">
+              Geldig tot en met
+            </Phrase>
+            <Phrase
+              emphasis="strong"
+              testID="CityPassCityPassDetailsExpiryDateValue">
+              {dateEndFormatted}
+            </Phrase>
+          </Row>
+        </SingleSelectable>
+      )}
     </Column>
   )
 }

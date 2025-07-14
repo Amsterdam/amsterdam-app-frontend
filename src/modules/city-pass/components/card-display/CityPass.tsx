@@ -8,6 +8,7 @@ import {HideFromAccessibility} from '@/components/features/accessibility/HideFro
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Delay} from '@/components/ui/layout/Delay'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -19,6 +20,7 @@ import {CityPassPass} from '@/modules/city-pass/types'
 import {getPassWidth} from '@/modules/city-pass/utils/getPassWidth'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
+import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {stringGroupInto} from '@/utils/stringGroupInto'
 
 const PASS_BORDER_RADIUS = 10
@@ -34,7 +36,14 @@ export const CityPass = ({
   index,
   isCurrentIndex,
   itemCount,
-  cityPass: {firstname, infix, lastname, passNumberComplete, dateEndFormatted},
+  cityPass: {
+    actief,
+    firstname,
+    infix,
+    lastname,
+    passNumberComplete,
+    dateEndFormatted,
+  },
 }: Props) => {
   const {width: windowWidth} = useWindowDimensions()
   const passWidth = getPassWidth(windowWidth)
@@ -43,13 +52,18 @@ export const CityPass = ({
   })
   const styles = useThemable(theme => createStyles(theme, passWidth))
 
+  const accessibilityLabel =
+    actief === false
+      ? `De stadspas van ${firstname} ${infix ?? ''} ${lastname} is geblokkeerd. Bel ${accessibleText('020 252 6000')} om te deblokkeren.`
+      : `De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`
+
   return (
     <HideFromAccessibility
       hide={!isCurrentIndex}
       style={styles.container}>
       <View style={styles.containerInner}>
         <ScrollView
-          accessibilityLabel={`De stadspas van ${firstname} ${infix ?? ''} ${lastname} kan nu gescand worden. Stadspas ${stringGroupInto(passNumberComplete, 4)}. Geldig tot en met ${dateEndFormatted}. Pas ${index + 1} van ${itemCount}. Swipe naar links of rechts om door de passen te navigeren.`}
+          accessibilityLabel={accessibilityLabel}
           accessible
           ref={accessibilityAutoFocusRef}
           style={styles.pass}>
@@ -73,13 +87,26 @@ export const CityPass = ({
                     {firstname} {infix} {lastname}
                   </Phrase>
                   <Column halign="center">
-                    <Delay>
-                      <BarCode
-                        format="CODE128"
-                        value={passNumberComplete}
-                        width={passWidth}
-                      />
-                    </Delay>
+                    {actief === false ? (
+                      <>
+                        <Gutter height="md" />
+                        <Phrase
+                          color="warning"
+                          emphasis="strong"
+                          testID="CityPassCityPassBlockedPhrase">
+                          Geblokkeerd
+                        </Phrase>
+                        <Gutter height="xl" />
+                      </>
+                    ) : (
+                      <Delay>
+                        <BarCode
+                          format="CODE128"
+                          value={passNumberComplete}
+                          width={passWidth}
+                        />
+                      </Delay>
+                    )}
                     <View style={styles.passNumber}>
                       <Phrase
                         emphasis="strong"
@@ -88,15 +115,19 @@ export const CityPass = ({
                       </Phrase>
                     </View>
                   </Column>
-                  <Delay>
-                    <BarCode
-                      format="QR"
-                      value={passNumberComplete}
-                    />
-                  </Delay>
-                  <Paragraph textAlign="center">
-                    Geldig tot en met {dateEndFormatted}
-                  </Paragraph>
+                  {actief !== false && (
+                    <>
+                      <Delay>
+                        <BarCode
+                          format="QR"
+                          value={passNumberComplete}
+                        />
+                      </Delay>
+                      <Paragraph textAlign="center">
+                        Geldig tot en met {dateEndFormatted}
+                      </Paragraph>
+                    </>
+                  )}
                 </Column>
               </View>
             </Column>

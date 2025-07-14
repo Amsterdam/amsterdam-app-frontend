@@ -5,13 +5,12 @@ import {useChatMenuItems} from '@/modules/chat/hooks/useChatMenuItems'
 import {useChat} from '@/modules/chat/slice'
 
 export const ChatMenu = () => {
-  const {headerHeight, isMenuOpen} = useChat()
+  const {headerHeight} = useChat()
   const chatMenuItems = useChatMenuItems()
   const safeAreaInsets = useSafeAreaInsets()
 
   return (
     <PopUpMenu
-      isVisible={isMenuOpen}
       menuItems={chatMenuItems}
       orientation={PopupMenuOrientation.left}
       topInset={headerHeight + safeAreaInsets.top}

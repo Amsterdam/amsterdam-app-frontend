@@ -4,15 +4,16 @@ import Animated, {FadeIn, FadeOut} from 'react-native-reanimated'
 import {PopUpMenuItem} from '@/components/ui/menus/PopUpMenuItem'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ScreenContext} from '@/providers/screen.provider'
+import {useMenu} from '@/store/slices/menu'
 import {selectHeaderHeight} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 import {Duration} from '@/types/duration'
 
 type Props = {
-  isVisible: boolean
   menuItems: PopupMenuItem[]
   orientation: PopupMenuOrientation
   /**
@@ -21,12 +22,8 @@ type Props = {
   topInset?: number
 }
 
-export const PopUpMenu = ({
-  isVisible,
-  menuItems,
-  orientation,
-  topInset,
-}: Props) => {
+export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
+  const {close, isOpen} = useMenu()
   const theme = useTheme()
   const setAccessibilityFocus = useAccessibilityFocus(Duration.normal)
   const {nativeScreenHeader} = useContext(ScreenContext)
@@ -37,7 +34,9 @@ export const PopUpMenu = ({
     topInset ?? (nativeScreenHeader ? 0 : headerHeight),
   )
 
-  return isVisible ? (
+  useBlurEffect(() => close())
+
+  return isOpen ? (
     <Animated.View
       entering={FadeIn.duration(theme.duration.transition.short)}
       exiting={FadeOut.duration(theme.duration.transition.short)}

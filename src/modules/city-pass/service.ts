@@ -12,6 +12,7 @@ import {afterError} from '@/modules/city-pass/utils/afterError'
 import {prepareHeaders} from '@/modules/city-pass/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
+import {deviceIdHeader} from '@/services/headers'
 
 export const cityPassApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -34,6 +35,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         afterSuccess: (_r, {dispatch}) => {
           dispatch(setIsAutomaticLogoutAlertDismissed(false))
         },
+        headers: deviceIdHeader,
         method: 'POST',
         slug: ModuleSlug['city-pass'],
         url: '/session/init',

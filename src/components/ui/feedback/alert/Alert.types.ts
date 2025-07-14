@@ -12,7 +12,7 @@ export type AlertProps = {
   children?: ReactNode
   hasCloseIcon?: boolean
   hasIcon?: boolean
-  text?: string
+  text?: string | ReactNode
   title?: string
   variant?: AlertVariant
 } & TestProps

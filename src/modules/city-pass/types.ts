@@ -82,11 +82,12 @@ export type CityPass = {
 
 export type CityPassPass = Pick<
   CityPass,
-  'dateEndFormatted' | 'passNumberComplete'
+  'actief' | 'dateEndFormatted' | 'passNumberComplete'
 > &
   Pick<CityPassOwner, 'firstname' | 'infix' | 'lastname'>
 
 export type SecureCityPass = {
+  a: CityPassPass['actief']
   d: CityPassPass['dateEndFormatted']
   f: CityPassPass['firstname']
   i?: CityPassPass['infix']

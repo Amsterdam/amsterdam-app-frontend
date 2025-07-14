@@ -10,9 +10,11 @@ import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
+import {useMenu} from '@/store/slices/menu'
 
 export const useChatMenuItems = () => {
-  const {setIsMenuOpen, close} = useChat()
+  const {close} = useChat()
+  const {close: closeMenu} = useMenu()
   const {addDownloadedTranscriptId, endChat, ready, isEnded} =
     useContext(ChatContext)
   const openWebUrl = useOpenWebUrl()
@@ -26,7 +28,7 @@ export const useChatMenuItems = () => {
       color: 'link',
       label: 'Chat downloaden',
       onPress: () => {
-        setIsMenuOpen(false)
+        closeMenu()
         void downloadChat().then(
           entryId => entryId && addDownloadedTranscriptId(entryId),
         )
@@ -40,7 +42,7 @@ export const useChatMenuItems = () => {
         label: 'Privacy',
         onPress: () => {
           if (redirectUrls?.chatPrivacy) {
-            setIsMenuOpen(false)
+            closeMenu()
             openWebUrl(redirectUrls.chatPrivacy)
           } else {
             Alert.alert(
@@ -61,7 +63,7 @@ export const useChatMenuItems = () => {
         color: 'warning',
         label: 'Chat stoppen',
         onPress: () => {
-          setIsMenuOpen(false)
+          closeMenu()
 
           if (ready) {
             void sendMessage(CLOSE_CHAT_MESSAGE).catch(error =>
@@ -86,6 +88,7 @@ export const useChatMenuItems = () => {
   }, [
     addDownloadedTranscriptId,
     close,
+    closeMenu,
     endChat,
     isEnded,
     isError,
@@ -93,7 +96,6 @@ export const useChatMenuItems = () => {
     openWebUrl,
     ready,
     redirectUrls?.chatPrivacy,
-    setIsMenuOpen,
     trackException,
   ])
 }
