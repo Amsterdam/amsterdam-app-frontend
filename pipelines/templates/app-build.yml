@@ -84,6 +84,8 @@ steps:
       CHAT_URL_TEST: $(CHAT_URL_TEST)
       CHAT_URL_ACC: $(CHAT_URL_ACC)
       CHAT_URL_PROD: $(CHAT_URL_PROD)
+      GOOGLE_MAPS_API_KEY_ANDROID: $(GOOGLE_MAPS_API_KEY_ANDROID)
+      GOOGLE_MAPS_API_KEY_IOS: $(GOOGLE_MAPS_API_KEY_IOS)
 
   # Handle artifacts
   - template: ./copy-generic-artifacts.yml
