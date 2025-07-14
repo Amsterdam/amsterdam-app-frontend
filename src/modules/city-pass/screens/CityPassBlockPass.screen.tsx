@@ -11,10 +11,7 @@ import {useBlockPassMutation} from '@/modules/city-pass/service'
 
 type Props = NavigationProps<CityPassRouteName.cityPassBlockPass>
 
-export const CityPassBlockPassScreen = ({
-  navigation: {goBack},
-  route,
-}: Props) => {
+export const CityPassBlockPassScreen = ({navigation, route}: Props) => {
   const {params} = route
   const {passNumber} = params || {}
   const openPhoneUrl = useOpenPhoneUrl()
@@ -24,7 +21,7 @@ export const CityPassBlockPassScreen = ({
     void blockPass(passNumber)
       .unwrap()
       .then(() => {
-        goBack()
+        navigation.pop(2)
       })
   }
 
@@ -58,7 +55,7 @@ export const CityPassBlockPassScreen = ({
             />
             <Button
               label="Nee, blokkeer mijn pas niet"
-              onPress={goBack}
+              onPress={() => navigation.pop(2)}
               testID="CityPassBlockPassRejectedButton"
               variant="secondary"
             />

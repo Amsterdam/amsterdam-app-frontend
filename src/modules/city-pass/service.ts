@@ -20,7 +20,7 @@ export const cityPassApi = baseApi.injectEndpoints({
         prepareHeaders,
         method: 'PUT',
         slug: ModuleSlug['city-pass'],
-        url: `/passes/${pass_number}/block`,
+        url: `/data/passes/${pass_number}/block`,
         afterError,
       }),
       invalidatesTags: ['CityPass'],
