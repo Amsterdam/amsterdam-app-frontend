@@ -14,6 +14,7 @@ export const HeaderContent = ({
   back,
   navigation,
   options = {},
+  route,
 }: HeaderProps) => {
   const title = getHeaderTitle(
     options,
@@ -54,7 +55,7 @@ export const HeaderContent = ({
         />
       </View>
       <View style={styles.sideColumn}>
-        {!!SideComponent && <SideComponent />}
+        {!!SideComponent && <SideComponent route={route} />}
       </View>
     </Row>
   )
