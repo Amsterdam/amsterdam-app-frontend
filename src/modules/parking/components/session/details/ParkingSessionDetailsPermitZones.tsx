@@ -27,6 +27,7 @@ export const ParkingSessionDetailsPermitZones = () => {
       <MapView
         initialRegion={initialRegion}
         provider={Platform.OS === 'android' ? 'google' : undefined}
+        showsUserLocation
         // eslint-disable-next-line react-native/no-inline-styles
         style={{flex: 1}}>
         {featureCollection.features.map((feature: Feature) => {
