@@ -5,7 +5,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {List} from '@/components/ui/text/list/List'
-import {useOpenPhoneUrl} from '@/hooks/linking/useOpenPhoneUrl'
+import {CityPassContactPhoneInlineLink} from '@/modules/city-pass/components/CityPassContactPhoneInlineLink'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {useBlockPassMutation} from '@/modules/city-pass/service'
 
@@ -14,7 +14,6 @@ type Props = NavigationProps<CityPassRouteName.cityPassBlockPass>
 export const CityPassBlockPassScreen = ({navigation, route}: Props) => {
   const {params} = route
   const {passNumber} = params || {}
-  const openPhoneUrl = useOpenPhoneUrl()
   const [blockPass, {isLoading, isError}] = useBlockPassMutation()
 
   const handleBlockPass = () => {
@@ -34,12 +33,7 @@ export const CityPassBlockPassScreen = ({navigation, route}: Props) => {
               'Is je pas gestolen of kwijt? Blokkeer de pas om misbruik te voorkomen.',
               <Phrase>
                 Pas teruggevonden? Bel naar{' '}
-                <Phrase
-                  color="link"
-                  onPress={() => openPhoneUrl('0202526000')}
-                  underline>
-                  020 252 6000
-                </Phrase>
+                <CityPassContactPhoneInlineLink testID="CityPassContactPhoneInlineLink" />
                 . Daarna kun je de pas meteen weer gebruiken.
               </Phrase>,
             ]}
