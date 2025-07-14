@@ -15,6 +15,17 @@ import {baseApi} from '@/services/baseApi'
 
 export const cityPassApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    [CityPassEndpointName.blockPass]: builder.mutation<void, number>({
+      query: pass_number => ({
+        prepareHeaders,
+        method: 'PUT',
+        slug: ModuleSlug['city-pass'],
+        url: `/data/passes/${pass_number}/block`,
+        afterError,
+      }),
+      invalidatesTags: ['CityPass'],
+    }),
+
     [CityPassEndpointName.getAccessToken]: builder.mutation<
       CityPassTokensResponse,
       void
@@ -30,6 +41,7 @@ export const cityPassApi = baseApi.injectEndpoints({
     }),
     [CityPassEndpointName.getCityPasses]: builder.query<CityPassResponse, void>(
       {
+        providesTags: ['CityPass'],
         query: () => ({
           prepareHeaders,
           slug: ModuleSlug['city-pass'],
@@ -85,6 +97,7 @@ export const cityPassApi = baseApi.injectEndpoints({
   overrideExisting: true,
 })
 export const {
+  useBlockPassMutation,
   useGetAccessTokenMutation,
   useGetBudgetTransactionsQuery,
   useGetDiscountTransactionsQuery,

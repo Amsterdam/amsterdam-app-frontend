@@ -13,6 +13,7 @@ export default {
 export const Default: StoryObj<typeof CityPassCard> = {
   args: {
     cityPass: {
+      actief: true,
       id: '1',
       dateEnd: '2022-12-31T00:00:00.000Z',
       dateEndFormatted: '2022-12-31',

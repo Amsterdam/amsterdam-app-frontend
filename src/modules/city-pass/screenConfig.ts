@@ -1,10 +1,12 @@
 import {TransitionPresets} from '@react-navigation/stack'
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {CityPassDetailsHeaderButton} from '@/modules/city-pass/components/CityPassDetailsHeaderButton'
 import {
   CityPassRouteName,
   CityPassStackParams,
 } from '@/modules/city-pass/routes'
 import {BudgetScreen} from '@/modules/city-pass/screens/Budget.screen'
+import {CityPassBlockPassScreen} from '@/modules/city-pass/screens/CityPassBlockPass.screen'
 import {CityPassDetailsScreen} from '@/modules/city-pass/screens/CityPassDetails.screen'
 import {CityPassesScreen} from '@/modules/city-pass/screens/CityPasses.screen'
 import {DashboardScreen} from '@/modules/city-pass/screens/Dashboard.screen'
@@ -13,6 +15,7 @@ import {SecurityCodeScreen} from '@/modules/city-pass/screens/SecurityCode.scree
 
 export const cityPassScreenConfig: StackNavigationRoutes<
   CityPassStackParams,
+  | CityPassRouteName.cityPassBlockPass
   | CityPassRouteName.budget
   | CityPassRouteName.dashboard
   | CityPassRouteName.cityPassDetails
@@ -32,6 +35,7 @@ export const cityPassScreenConfig: StackNavigationRoutes<
     name: CityPassRouteName.cityPassDetails,
     options: {
       headerTitle: 'Stadspas',
+      SideComponent: CityPassDetailsHeaderButton,
     },
   },
   [CityPassRouteName.budget]: {
@@ -57,5 +61,12 @@ export const cityPassScreenConfig: StackNavigationRoutes<
   [CityPassRouteName.securityCode]: {
     component: SecurityCodeScreen,
     name: CityPassRouteName.securityCode,
+  },
+  [CityPassRouteName.cityPassBlockPass]: {
+    component: CityPassBlockPassScreen,
+    name: CityPassRouteName.cityPassBlockPass,
+    options: {
+      headerTitle: 'Pas blokkeren',
+    },
   },
 }

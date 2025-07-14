@@ -37,21 +37,7 @@ export const CityPassStack = () => {
   }
 
   return (
-    <Stack.Navigator
-      initialRouteName={
-        isForgotCode
-          ? CityPassRouteName.forgotAccessCode
-          : isCityPassOwnerRegistered
-            ? accessCode
-              ? isCodeValid
-                ? CityPassRouteName.dashboard
-                : attemptsLeft > 0
-                  ? AccessCodeRouteName.accessCode
-                  : AccessCodeRouteName.accessCodeInvalid
-              : CityPassRouteName.loginSteps
-            : CityPassRouteName.login
-      }
-      screenOptions={screenOptions}>
+    <Stack.Navigator screenOptions={screenOptions}>
       {isForgotCode ? (
         <Stack.Screen
           component={CityPassForgotAccessCodeScreen}

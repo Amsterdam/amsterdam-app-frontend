@@ -6,6 +6,7 @@ import {
 
 export enum CityPassRouteName {
   budget = 'Budget',
+  cityPassBlockPass = 'CityPassBlockPass',
   cityPassDetails = 'CityPassDetails',
   cityPassLogout = 'CityPassLogout',
   cityPasses = 'CityPasses',
@@ -38,6 +39,7 @@ export type CityPassStackParams = {
     | undefined
   [CityPassRouteName.forgotAccessCode]: undefined
   [CityPassRouteName.securityCode]: {id: CityPass['id']}
+  [CityPassRouteName.cityPassBlockPass]: {passNumber: CityPass['passNumber']}
 }
 
 export enum CityPassModalName {}
