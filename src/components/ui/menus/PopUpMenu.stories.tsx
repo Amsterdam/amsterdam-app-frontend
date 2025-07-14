@@ -32,7 +32,6 @@ export default {
 export const Default: StoryObj<typeof PopUpMenu> = {
   args: {
     menuItems,
-    isVisible: true,
     orientation: PopupMenuOrientation.left,
     topInset: 10,
   },

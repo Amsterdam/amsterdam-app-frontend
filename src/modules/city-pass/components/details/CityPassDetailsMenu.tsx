@@ -1,9 +1,7 @@
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {selectIsMenuVisible} from '@/store/slices/menu'
 
 type Props = {
   passNumber: number
@@ -11,7 +9,6 @@ type Props = {
 
 export const CityPassDetailsMenu = ({passNumber}: Props) => {
   const {navigate} = useNavigation()
-  const isMenuVisible = useSelector(selectIsMenuVisible)
 
   const menuItems: PopupMenuItem[] = [
     {
@@ -25,7 +22,6 @@ export const CityPassDetailsMenu = ({passNumber}: Props) => {
 
   return (
     <PopUpMenu
-      isVisible={isMenuVisible}
       menuItems={menuItems}
       orientation={PopupMenuOrientation.right}
     />

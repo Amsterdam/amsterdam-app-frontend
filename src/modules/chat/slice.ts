@@ -9,7 +9,6 @@ import {type RootState} from '@/store/types/rootState'
 export type ChatState = {
   conversationId: string | undefined
   headerHeight: number
-  isMenuOpen: boolean
   isOpen: boolean
   minimizedHeight: number
   visibility: ChatVisibility
@@ -17,7 +16,6 @@ export type ChatState = {
 
 const initialState: ChatState = {
   headerHeight: 0,
-  isMenuOpen: false,
   isOpen: false,
   minimizedHeight: 0,
   visibility: ChatVisibility.maximized,
@@ -98,7 +96,6 @@ const {
   toggleChatVisibility,
   setChatConversationId,
   setChatHeaderHeight,
-  setIsChatMenuOpen,
 } = chatSlice.actions
 
 export const {maximizeChat} = chatSlice.actions
@@ -117,11 +114,8 @@ const selectChatConversationId = (state: RootState) =>
 const selectChatHeaderHeight = (state: RootState) =>
   state[ReduxKey.chat].headerHeight
 
-const selectIsMenuOpen = (state: RootState) => state[ReduxKey.chat].isMenuOpen
-
 export const useChat = () => {
   const isOpen = useSelector(selectChatIsOpen)
-  const isMenuOpen = useSelector(selectIsMenuOpen)
   const headerHeight = useSelector(selectChatHeaderHeight)
   const conversationId = useSelector(selectChatConversationId)
   const visibility = useSelector(selectChatVisibility)
@@ -143,10 +137,7 @@ export const useChat = () => {
     (height: number) => dispatch(setChatHeaderHeight(height)),
     [dispatch],
   )
-  const setIsMenuOpen = useCallback(
-    (value: boolean) => dispatch(setIsChatMenuOpen(value)),
-    [dispatch],
-  )
+
   const setMinimizedHeight = useCallback(
     (height: number) => dispatch(setHeightMinimized(height)),
     [dispatch],
@@ -165,7 +156,6 @@ export const useChat = () => {
     conversationId,
     headerHeight,
     isMaximized,
-    isMenuOpen,
     isMinimized,
     isOpen,
     open,
@@ -175,7 +165,6 @@ export const useChat = () => {
     setConversationId,
     setMinimizedHeight,
     setHeaderHeight,
-    setIsMenuOpen,
     toggleIsOpen,
     toggleVisibility,
     visibility,

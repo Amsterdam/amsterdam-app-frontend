@@ -13,6 +13,7 @@ import {MeatballsMenuIcon} from '@/components/ui/media/icons/MeatballsMenuIcon'
 import {ScreenHeaderTitle} from '@/components/ui/text/ScreenHeaderTitle'
 import {NewMessageIndicator} from '@/modules/chat/components/NewMessageIndicator'
 import {useChat} from '@/modules/chat/slice'
+import {useMenu} from '@/store/slices/menu'
 import {useScreen} from '@/store/slices/screen'
 import {useTheme} from '@/themes/useTheme'
 
@@ -41,13 +42,9 @@ const PressableWhenMinimized = ({
   )
 
 export const ChatHeader = () => {
-  const {
-    isMaximized,
-    isMenuOpen,
-    setHeaderHeight,
-    setIsMenuOpen,
-    toggleVisibility,
-  } = useChat()
+  const {isMaximized, setHeaderHeight, toggleVisibility} = useChat()
+
+  const {close: closeMenu, isOpen: isMenuOpen, toggle: toggleMenu} = useMenu()
 
   const {setHideFromAccessibility} = useScreen()
 
@@ -68,7 +65,7 @@ export const ChatHeader = () => {
   const onPressToggleVisibility = () => {
     toggleVisibility()
     Keyboard.dismiss()
-    setIsMenuOpen(false)
+    closeMenu()
   }
 
   useEffect(() => {
@@ -99,7 +96,7 @@ export const ChatHeader = () => {
                     color={color.pressable.secondary.default.icon}
                   />
                 }
-                onPress={() => setIsMenuOpen(!isMenuOpen)}
+                onPress={toggleMenu}
                 pointerEvents={isMaximized ? 'auto' : 'none'}
                 testID="ChatHeaderMeatballsMenuButton"
               />

@@ -1,26 +1,35 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
-import {type RootState} from '@/store/types/rootState'
 
 export type MenuState = {
-  isMenuVisible: boolean
+  isOpen: boolean
 }
 
 const initialState: MenuState = {
-  isMenuVisible: false,
+  isOpen: false,
 }
 
 export const menuSlice = createSlice({
   name: ReduxKey.menu,
   initialState,
   reducers: {
-    setIsMenuVisible: (state, {payload}: PayloadAction<boolean>) => {
-      state.isMenuVisible = payload
+    setIsOpen: (state, {payload}: PayloadAction<boolean>) => {
+      state.isOpen = payload
     },
   },
 })
 
-export const {setIsMenuVisible} = menuSlice.actions
+export const useMenu = () => {
+  const dispatch = useDispatch()
+  const isOpen = useSelector(state => state[ReduxKey.menu].isOpen)
 
-export const selectIsMenuVisible = (state: RootState) =>
-  state[ReduxKey.menu].isMenuVisible
+  const close = () => dispatch(menuSlice.actions.setIsOpen(false))
+
+  const open = () => dispatch(menuSlice.actions.setIsOpen(true))
+
+  const toggle = () => dispatch(menuSlice.actions.setIsOpen(!isOpen))
+
+  return {isOpen, close, open, toggle}
+}
