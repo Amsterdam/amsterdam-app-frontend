@@ -57,7 +57,7 @@ export const PassOwners = ({logout}: Props) => {
     )
   }
 
-  if (!secureCityPasses && (isError || !cityPasses)) {
+  if (isError) {
     return (
       <SomethingWentWrong
         inset="md"
