@@ -1,8 +1,6 @@
-import ReactTestRenderer from 'react-test-renderer'
+import {render} from '@testing-library/react-native'
 import {App} from '@/app/App'
 
-test('renders correctly', async () => {
-  await ReactTestRenderer.act(() => {
-    ReactTestRenderer.create(<App />)
-  })
+test('renders correctly', () => {
+  render(<App />)
 })

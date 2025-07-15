@@ -1,13 +1,13 @@
-import type {ReactNode, Ref} from 'react'
 import {View, StyleSheet} from 'react-native'
+import type {LogProps} from '@/processes/piwik/types'
+import type {Theme} from '@/themes/themes'
+import type {ReactNode, Ref} from 'react'
 import {
   PressableBase,
   type PressableBaseProps,
 } from '@/components/ui/buttons/PressableBase'
 import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {type TestProps} from '@/components/ui/types'
-import type {LogProps} from '@/processes/piwik/types'
-import type {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type PressableVariant = 'primary' | 'tertiary' | 'transparent'
@@ -16,8 +16,8 @@ export type PressableProps = {
   border?: boolean
   children: ReactNode
   'logging-label'?: string
-  variant?: PressableVariant
   ref?: Ref<View>
+  variant?: PressableVariant
 } & PressableBaseProps &
   Pick<BoxProps, 'inset' | 'insetHorizontal' | 'insetVertical'> &
   LogProps &

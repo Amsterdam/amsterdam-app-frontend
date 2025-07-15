@@ -18,7 +18,6 @@ const config: Config = {
     '<rootDir>/node_modules/react-native/jest/setup.js',
   ],
   testPathIgnorePatterns: [
-    '<rootDir>/__tests__/App-test.tsx',
     'node_modules',
     'android',
     'ios',

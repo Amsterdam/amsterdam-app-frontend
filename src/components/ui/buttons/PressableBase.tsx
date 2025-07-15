@@ -6,10 +6,10 @@ import {
   View,
   type GestureResponderEvent,
 } from 'react-native'
+import type {Ref} from 'react'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {type LogProps, PiwikAction} from '@/processes/piwik/types'
-import type {Ref} from 'react'
 
 export type PressableBaseProps = {
   'logging-label'?: string
