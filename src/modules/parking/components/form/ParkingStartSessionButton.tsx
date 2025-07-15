@@ -3,6 +3,7 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useStartSessionMutation} from '@/modules/parking/service'
@@ -38,6 +39,7 @@ export const ParkingStartSessionButton = () => {
 
   const {goBack} = useNavigation()
   const openWebUrl = useOpenWebUrl()
+  const {registerDeviceIfPermitted} = useRegisterDevice()
 
   const onSubmit = useCallback(
     ({
@@ -88,6 +90,7 @@ export const ParkingStartSessionButton = () => {
                 setAlert(alerts.startSessionSuccess)
               }
 
+              void registerDeviceIfPermitted(true)
               goBack()
             },
             (error: {
@@ -133,6 +136,7 @@ export const ParkingStartSessionButton = () => {
     [
       startSession,
       report_code,
+      registerDeviceIfPermitted,
       goBack,
       setVisitorVehicleId,
       openWebUrl,
