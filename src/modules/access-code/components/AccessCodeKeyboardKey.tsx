@@ -26,13 +26,14 @@ export const AccessCodeKeyBoardKey = ({
   return (
     <Pressable
       accessibilityLabel={accessibilityLabel}
+      logName="AccessCodeKeyBoardKeyButton"
       onPress={onPress}
       style={({pressed}) => [
         styles.button,
         iconName && styles.transparent,
         pressed && !iconName && styles.pressed,
       ]}
-      testID="AccessCodeKeyBoardKeyButton">
+      testID={`AccessCodeKeyBoardKey${keyNumber ?? iconName}Button`}>
       {!!iconName && (
         <Icon
           name={iconName}
