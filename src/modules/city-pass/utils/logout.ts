@@ -19,11 +19,9 @@ export const logout = async (
 ) => {
   const accessToken = await getSecureItem(SecureItemKey.cityPassAccessToken)
 
-  if (!accessToken) {
-    return
+  if (accessToken) {
+    void dispatch(cityPassApi.endpoints.logout.initiate())
   }
-
-  void dispatch(cityPassApi.endpoints.logout.initiate())
 
   await removeSecureItems([
     SecureItemKey.cityPassAccessToken,
