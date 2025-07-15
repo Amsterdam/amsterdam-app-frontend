@@ -15,7 +15,6 @@ import {LoginItem} from '@/modules/city-pass/components/LoginItem'
 import {useLogin} from '@/modules/city-pass/hooks/useLogin'
 import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
 import {useRegisterCityPassOwner} from '@/modules/city-pass/hooks/useRegisterCityPassOwner'
-import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {RedirectErrorCodes} from '@/modules/city-pass/types'
@@ -37,7 +36,6 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
   const {accessCode} = useGetSecureAccessCode()
   const isStepsComplete = isCityPassOwnerRegistered && accessCode
   const {setIsLoginStepsActive} = useLoginSteps()
-  const {setShouldShowLoginScreen} = useShouldShowLoginScreen()
   const login = useLogin()
   const isUserRoute = navigation
     .getParent()
@@ -72,7 +70,6 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
 
     if (isStepsComplete) {
       setIsLoginStepsActive(false)
-      setShouldShowLoginScreen(true)
       isUserRoute && navigate(UserRouteName.user)
     }
   }, [
@@ -83,7 +80,6 @@ export const LoginStepsScreen = ({navigation, route}: Props) => {
     login,
     navigate,
     setIsLoginStepsActive,
-    setShouldShowLoginScreen,
   ])
 
   return (
