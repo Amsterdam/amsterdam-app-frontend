@@ -32,7 +32,7 @@ export const AccessCodeKeyBoardKey = ({
         iconName && styles.transparent,
         pressed && !iconName && styles.pressed,
       ]}
-      testID={`AccessCodeKeyBoardKey${keyNumber ?? iconName}Button`}>
+      testID="AccessCodeKeyBoardKeyButton">
       {!!iconName && (
         <Icon
           name={iconName}
