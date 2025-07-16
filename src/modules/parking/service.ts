@@ -1,3 +1,4 @@
+import type {FeatureCollection} from 'geojson'
 import {
   ParkingAccountDetails,
   ParkingEndpointName,
@@ -165,6 +166,21 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
       transformResponse: fixPermitNames,
     }),
+    [ParkingEndpointName.permitZones]: builder.query<FeatureCollection, string>(
+      {
+        providesTags: ['ParkingPermits'],
+        query: permit_zone => ({
+          prepareHeaders,
+          method: 'GET',
+          slug: ModuleSlug.parking,
+          url: generateRequestUrl({
+            path: '/permit-zones',
+            params: {permit_zone},
+          }),
+          afterError,
+        }),
+      },
+    ),
     [ParkingEndpointName.sessionReceipt]: builder.query<
       ParkingSessionReceiptEndpointResponse,
       ParkingSessionReceiptEndpointRequestParams
@@ -345,6 +361,7 @@ export const {
   useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,
   usePermitsQuery,
+  usePermitZonesQuery,
   useSessionReceiptQuery,
   useStartSessionMutation,
   useEditSessionMutation,

@@ -17,6 +17,7 @@ export enum ParkingRouteName {
   myLicensePlates = 'ParkingMyLicensePlates',
   parkingActiveSessions = 'ParkingActiveSessions',
   parkingMoneyTransactions = 'ParkingMoneyTransactions',
+  parkingPermitZones = 'ParkingPermitZones',
   parkingPlannedSessions = 'ParkingPlannedSessions',
   parkingSession = 'ParkingSession',
   parkingSessionTransactions = 'ParkingSessionTransactions',
@@ -44,6 +45,7 @@ export type ParkingStackParams = {
   [ParkingRouteName.loginSteps]: undefined
   [ParkingRouteName.myLicensePlates]: undefined
   [ParkingRouteName.parkingActiveSessions]: undefined
+  [ParkingRouteName.parkingPermitZones]: undefined
   [ParkingRouteName.parkingPlannedSessions]: undefined
   [ParkingRouteName.parkingSession]: {
     parkingSession: ParkingSession | VisitorParkingSession

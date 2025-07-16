@@ -15,6 +15,7 @@ type Props = {
   LogProps
 
 export const InlineLink = ({
+  accessibilityRole = 'link',
   children,
   emphasis,
   inverse,
@@ -31,7 +32,7 @@ export const InlineLink = ({
 
   return (
     <Phrase
-      accessibilityRole="link"
+      accessibilityRole={accessibilityRole}
       color={inverse ? 'inverse' : 'link'}
       emphasis={emphasis}
       onPress={onEvent}

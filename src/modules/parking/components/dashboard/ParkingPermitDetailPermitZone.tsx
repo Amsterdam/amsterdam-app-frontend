@@ -1,6 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {ParkingPermitZonesLink} from '@/modules/parking/components/ParkingPermitZonesLink'
 import {ParkingPermit} from '@/modules/parking/types'
 
 type Props = {
@@ -19,10 +20,14 @@ export const ParkingPermitDetailPermitZone = ({permit}: Props) => {
         testID="ParkingPermitDetailPermitZoneTitlePhrase"
         text="Vergunninggebied"
       />
-      <Column>
+      <Column halign="start">
         <Phrase testID="ParkingPermitDetailPermitZoneNamePhrase">
           {permit.permit_zone.name}
         </Phrase>
+        <ParkingPermitZonesLink
+          testID="ParkingPermitDetailPermitZonesLink"
+          text="Bekijk gebied"
+        />
       </Column>
     </Column>
   )
