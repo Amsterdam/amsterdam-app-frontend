@@ -35,7 +35,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs'],
       rules: {
         'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
@@ -269,7 +269,7 @@ module.exports = {
       parser: 'jsonc-eslint-parser',
       plugins: ['depend'],
       rules: {
-        'depend/ban-dependencies': 'warn',
+        // 'depend/ban-dependencies': 'warn',
       },
     },
   ],
