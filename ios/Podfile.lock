@@ -1531,9 +1531,9 @@ PODS:
     - React
   - react-native-get-random-values (1.11.0):
     - React-Core
-  - react-native-maps (1.24.3):
-    - react-native-maps/Maps (= 1.24.3)
-  - react-native-maps/Generated (1.24.3):
+  - react-native-maps (1.24.5):
+    - react-native-maps/Maps (= 1.24.5)
+  - react-native-maps/Generated (1.24.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1554,7 +1554,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-maps/Maps (1.24.3):
+  - react-native-maps/Maps (1.24.5):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2714,7 +2714,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 2c58cba8a230bf08c41c701ac2a41b234db0d080
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
-  react-native-maps: c8bca9993cd9068c21b4b478ed313cd19366d5c2
+  react-native-maps: bcdb38ac41a2b3fb97a7350c6f0f723a93485ec0
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-piwik-pro-sdk: 21d69f9e0aa4d9a1a898bae62db33af358a480d7
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
