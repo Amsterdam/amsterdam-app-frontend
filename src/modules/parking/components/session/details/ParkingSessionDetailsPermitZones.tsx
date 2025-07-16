@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {Platform} from 'react-native'
-import MapView, {Polygon} from 'react-native-maps'
-import type {Feature} from '@/types/geojson'
+import MapView, {Geojson} from 'react-native-maps'
+import type {Feature} from 'geojson'
 import {Box} from '@/components/ui/containers/Box'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -25,6 +25,7 @@ export const ParkingSessionDetailsPermitZones = () => {
   }
 
   const featureCollection = data
+  const properties = featureCollection.features[0]?.properties
   const allCoords = getAllPolygonCoords(featureCollection.features)
   const initialRegion = getInitialRegion(allCoords)
 
@@ -37,34 +38,13 @@ export const ParkingSessionDetailsPermitZones = () => {
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
         // eslint-disable-next-line react-native/no-inline-styles
         style={{flex: 1}}>
-        {featureCollection.features.map((feature: Feature) => {
-          if (feature.geometry?.type !== 'Polygon') {
-            return null
-          }
-
-          const geometry = feature.geometry
-          const properties = feature.properties ?? {}
-
-          return (
-            <Polygon
-              coordinates={geometry.coordinates[0].map(coord => ({
-                latitude: coord[1],
-                longitude: coord[0],
-              }))}
-              fillColor={getFillColor(
-                String(properties.fill ?? 'blue'),
-                Number(properties['fill-opacity'] ?? 1),
-              )}
-              key={
-                properties.popupContent
-                  ? String(properties.popupContent)
-                  : `${geometry.coordinates[0][0][1]},${geometry.coordinates[0][0][0]}`
-              }
-              strokeColor={String(properties.stroke ?? 'blue')}
-              strokeWidth={Number(properties['stroke-width'] ?? 1)}
-            />
-          )
-        })}
+        <Geojson
+          fillColor={getFillColor(
+            String(properties?.fill ?? 'blue'),
+            Number(properties?.['fill-opacity'] ?? 0.5),
+          )}
+          geojson={featureCollection}
+        />
       </MapView>
     </Box>
   )
