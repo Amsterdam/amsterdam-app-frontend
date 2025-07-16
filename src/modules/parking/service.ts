@@ -1,3 +1,4 @@
+import type {FeatureCollection} from 'geojson'
 import {
   ParkingAccountDetails,
   ParkingEndpointName,
@@ -36,7 +37,6 @@ import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
-import {FeatureCollection} from '@/types/geojson'
 import {generateRequestUrl} from '@/utils/api'
 
 export const parkingApi = baseApi.injectEndpoints({
