@@ -9,7 +9,9 @@ import {ContactOptions} from '@/modules/contact/components/contact-options/Conta
 export const ContactScreen = () => (
   <Screen
     bottomSheet={
-      <BottomSheet testID="ContactSelectCityOfficeBottomSheet">
+      <BottomSheet
+        scroll
+        testID="ContactSelectCityOfficeBottomSheet">
         <SelectCityOffice />
       </BottomSheet>
     }
