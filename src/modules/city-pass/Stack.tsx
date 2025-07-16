@@ -13,7 +13,6 @@ import {BiometricsPermissionScreen} from '@/modules/access-code/screens/Biometri
 import {ConfirmAccessCodeScreen} from '@/modules/access-code/screens/ConfirmAccessCode.screen'
 import {SetAccessCodeScreen} from '@/modules/access-code/screens/SetAccessCode.screen'
 import {useLoginSteps} from '@/modules/city-pass/hooks/useLoginSteps'
-import {useShouldShowLoginScreen} from '@/modules/city-pass/hooks/useShouldShowLoginScreen'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassScreenConfig} from '@/modules/city-pass/screenConfig'
 import {CityPassForgotAccessCodeScreen} from '@/modules/city-pass/screens/CityPassForgotAccessCode.screen'
@@ -30,7 +29,6 @@ export const CityPassStack = () => {
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
-  const {shouldShowLoginScreen} = useShouldShowLoginScreen()
 
   if (isLoading) {
     return null
@@ -97,20 +95,16 @@ export const CityPassStack = () => {
         )
       ) : (
         <>
-          {!shouldShowLoginScreen && (
-            <>
-              <Stack.Screen
-                component={CityPassIntroScreen}
-                name={CityPassRouteName.login}
-                options={{headerTitle: 'Stadspas'}}
-              />
-              <Stack.Screen
-                component={CityPassForgotAccessCodeScreen}
-                name={CityPassRouteName.forgotAccessCode}
-                options={{headerTitle: 'Toegangscode vergeten'}}
-              />
-            </>
-          )}
+          <Stack.Screen
+            component={CityPassIntroScreen}
+            name={CityPassRouteName.login}
+            options={{headerTitle: 'Stadspas'}}
+          />
+          <Stack.Screen
+            component={CityPassForgotAccessCodeScreen}
+            name={CityPassRouteName.forgotAccessCode}
+            options={{headerTitle: 'Toegangscode vergeten'}}
+          />
           <Stack.Screen
             component={LoginStepsScreen}
             name={CityPassRouteName.loginSteps}

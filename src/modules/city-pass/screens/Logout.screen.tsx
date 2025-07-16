@@ -18,10 +18,14 @@ export const LogoutScreen = ({navigation}: Props) => {
   const {setAlert} = useAlert()
   const dispatch = useDispatch()
   const onLogout = useCallback(() => {
-    logout('logoutSuccess', dispatch).catch(() => {
-      setAlert(alerts.logoutFailed)
-    })
-  }, [setAlert, dispatch])
+    logout('logoutSuccess', dispatch)
+      .then(() => {
+        navigation.navigate(CityPassRouteName.login)
+      })
+      .catch(() => {
+        setAlert(alerts.logoutFailed)
+      })
+  }, [dispatch, navigation, setAlert])
 
   const cancel = useCallback(() => {
     navigation.goBack()
