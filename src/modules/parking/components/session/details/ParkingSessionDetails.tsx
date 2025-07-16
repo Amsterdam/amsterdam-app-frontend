@@ -6,9 +6,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ParkingPermitZonesLink} from '@/modules/parking/components/ParkingPermitZonesLink'
 import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsAdjustEndTimeButton'
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
@@ -16,7 +15,6 @@ import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/sess
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
-import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   ParkingPermitScope,
   ParkingSession,
@@ -38,7 +36,6 @@ type Props = {
 }
 
 export const ParkingSessionDetails = ({parkingSession}: Props) => {
-  const {navigate} = useNavigation()
   const parkingAccount = useParkingAccount()
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
@@ -135,15 +132,10 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               <ParkingSessionDetailsRow
                 label="Gebied"
                 value={
-                  <Phrase
-                    color="link"
-                    onPress={() =>
-                      navigate(ParkingRouteName.parkingPermitZones)
-                    }
-                    testID="ParkingSessionDetailsPermitZoneLink"
-                    underline>
-                    {permit_zone.name}
-                  </Phrase>
+                  <ParkingPermitZonesLink
+                    testID="ParkingSessionDetailsPermitZonesLink"
+                    text={permit_zone.name}
+                  />
                 }
               />
             )
