@@ -24,6 +24,7 @@ export const allowList = {
   [ExceptionLogKey.openPhoneUrl]: [],
   [ExceptionLogKey.openStore]: ['error'],
   [ExceptionLogKey.openWebUrl]: ['url'],
+  [ExceptionLogKey.parkingAccessTokenHeader]: ['error'],
   [ExceptionLogKey.pickingImageFailed]: ['error', 'code', 'viaCamera'],
   [ExceptionLogKey.piwikInitialization]: ['error'],
   [ExceptionLogKey.piwikTrackCustomEvent]: [
