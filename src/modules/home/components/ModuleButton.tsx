@@ -2,7 +2,6 @@ import {useCallback, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
-import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -132,17 +131,6 @@ export const ModuleButton = ({
     ),
     [button, navigation, slug, testID, variant],
   )
-
-  if (disabled) {
-    return (
-      <Box
-        borderColor="onGrey"
-        borderStyle="dashed"
-        grow>
-        {button}
-      </Box>
-    )
-  }
 
   return (
     <View
