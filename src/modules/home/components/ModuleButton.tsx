@@ -2,7 +2,7 @@ import {useCallback, useMemo} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
-import {Column} from '@/components/ui/layout/Column'
+import {Badge} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
@@ -10,7 +10,6 @@ import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {InactiveModuleMessage} from '@/modules/home/components/InactiveModuleMessage'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {toggleModule} from '@/store/slices/modules'
@@ -44,7 +43,7 @@ const ModuleButtonContent = ({
   }, [disabled, variant])
 
   return (
-    <Column gutter="sm">
+    <Row gutter="sm">
       <Row gutter="md">
         {/* TODO Remove fallback after updating icon name in database. */}
         {iconName === 'projects' ? (
@@ -70,8 +69,15 @@ const ModuleButtonContent = ({
           text={label}
         />
       </Row>
-      {!!disabled && <InactiveModuleMessage />}
-    </Column>
+      {!!disabled && (
+        <Badge
+          color="disabled"
+          testID={`${testID}Badge`}
+          value="!"
+          variant="small"
+        />
+      )}
+    </Row>
   )
 }
 

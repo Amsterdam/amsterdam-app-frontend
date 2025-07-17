@@ -14,7 +14,7 @@ export type BadgeProps = {
   /**
    * The value to display in the badge.
    */
-  value?: number
+  value?: number | string
   /**
    * Which variant of the badge to display.
    */
@@ -43,7 +43,7 @@ export const Badge = ({
           numberOfLines={1}
           style={styles.text}
           testID={testID}>
-          {!!value && formatNumber(value)}
+          {!!value && typeof value === 'number' ? formatNumber(value) : value}
         </AccessibleText>
       </View>
     </Row>
@@ -58,7 +58,7 @@ const createStyles =
     color: BadgeProps['color'] = 'warning',
     fontScale: Device['fontScale'],
     variant: OmitUndefined<BadgeProps['variant']>,
-    value: number = 0,
+    value: number | string = 0,
   ) =>
   ({color: themeColor, text, border}: Theme) => {
     const fontSize =
@@ -71,7 +71,7 @@ const createStyles =
       ]
     const scaleFactor =
       variant === 'on-icon' ? 1 + (fontScale - 1) / 2 : fontScale
-    const isDoubleDigitValue = value > 9
+    const isDoubleDigitValue = typeof value === 'number' ? value > 9 : false
     const marginFactor = isDoubleDigitValue
       ? MARGIN_DOUBLE_DIGIT
       : MARGIN_SINGLE_DIGIT
@@ -91,7 +91,7 @@ const createStyles =
       },
       text: {
         fontFamily: text.fontFamily.bold,
-        fontSize: scaledFontSize,
+        fontSize: value === '!' ? scaledFontSize * 0.8 : scaledFontSize,
         lineHeight: scaledFontSize * 1.28,
         bottom: isDoubleDigitValue ? 0 : fontScale, // for some reason vertical correction is needed only for single digit
         color: themeColor.text.inverse,

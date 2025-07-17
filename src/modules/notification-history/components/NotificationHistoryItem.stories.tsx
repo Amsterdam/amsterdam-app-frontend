@@ -17,6 +17,10 @@ export const Default: Story = {
     enabledModules: [
       {
         moduleSlug: slug,
+        moduleAppReason: null,
+        moduleFallbackUrl: null,
+        releaseFallbackUrl: null,
+        releaseAppReason: null,
         title: 'Werkzaamheden',
         icon: 'announcement',
         slug,
