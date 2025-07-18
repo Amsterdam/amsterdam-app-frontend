@@ -6,16 +6,13 @@ import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {IconSize} from '@/components/ui/types'
-import {ModuleSlug} from '@/modules/slugs'
-import {ModuleStatus} from '@/modules/types'
-import {useGetCachedServerModule} from '@/store/slices/modules'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   iconName: SvgIconName
+  isModuleInactive: boolean
   label: string
-  moduleSlug: ModuleSlug
 } & PressableBaseProps
 
 const BUTTON_SIZE = 60
@@ -24,12 +21,11 @@ const ICON_SIZE = 'xl'
 export const ActionButton = ({
   iconName,
   label,
-  moduleSlug,
+  isModuleInactive,
   ...props
 }: Props) => {
   const {testID} = props
-  const cachedServerModule = useGetCachedServerModule(moduleSlug)
-  const isModuleInactive = cachedServerModule?.status === ModuleStatus.inactive
+
   const styles = useThemable(createStyles(isModuleInactive))
 
   return (
@@ -47,7 +43,6 @@ export const ActionButton = ({
             right: -(BUTTON_SIZE - IconSize[ICON_SIZE]) / 2.5,
           }}
           badgeValue={isModuleInactive ? '!' : undefined}
-          disabled={isModuleInactive}
           style={styles.button}
           {...props}
           icon={

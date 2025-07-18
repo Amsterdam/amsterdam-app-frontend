@@ -9,9 +9,13 @@ import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCity
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
+import {ModuleStatus} from '@/modules/types'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const CityPassActionButton = () => {
   const {navigate} = useNavigation()
+  const cachedServerModule = useGetCachedServerModule(cityPassModule.slug)
+  const isModuleInactive = cachedServerModule?.status === ModuleStatus.inactive
   const secureCityPasses = useGetSecureCityPasses()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
 
@@ -29,8 +33,8 @@ export const CityPassActionButton = () => {
     <Column>
       <ActionButton
         iconName="city-pass-pass"
+        isModuleInactive={isModuleInactive}
         label="Stadspas tonen"
-        moduleSlug={cityPassModule.slug}
         onPress={onPress}
         testID="CityPassActionButton"
       />

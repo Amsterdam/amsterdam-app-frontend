@@ -5,12 +5,16 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {ModuleSlug} from '@/modules/slugs'
+import {ModuleStatus} from '@/modules/types'
 import {wasteContainerModule} from '@/modules/waste-container'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const WasteContainerActionButton = () => {
   const {navigate} = useNavigation()
+  const cachedServerModule = useGetCachedServerModule(wasteContainerModule.slug)
+  const isModuleInactive = cachedServerModule?.status === ModuleStatus.inactive
   const {item: secureWasteCardNumber, isLoading} = useGetSecureItem(
     SecureItemKey.wasteCardNumber,
   )
@@ -29,8 +33,8 @@ export const WasteContainerActionButton = () => {
     <Column>
       <ActionButton
         iconName="wasteCard"
+        isModuleInactive={isModuleInactive}
         label="Afvalpas tonen"
-        moduleSlug={wasteContainerModule.slug}
         onPress={onPress}
         testID="WasteContainerActionButton"
       />

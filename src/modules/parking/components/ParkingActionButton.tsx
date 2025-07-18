@@ -10,6 +10,8 @@ import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
+import {ModuleStatus} from '@/modules/types'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 
 const ALLOWED_PERMIT_TYPES = [
   PermitType.kraskaartvergunning,
@@ -19,7 +21,9 @@ const ALLOWED_PERMIT_TYPES = [
 
 const ParkingActionButtonContent = () => {
   const {navigate} = useNavigation()
-  const {permits} = useGetPermits()
+  const cachedServerModule = useGetCachedServerModule(parkingModule.slug)
+  const isModuleInactive = cachedServerModule?.status === ModuleStatus.inactive
+  const {permits} = useGetPermits(isModuleInactive)
 
   return (
     permits?.length === 1 &&
@@ -27,8 +31,8 @@ const ParkingActionButtonContent = () => {
       <Column>
         <ActionButton
           iconName="parkingSession"
+          isModuleInactive={isModuleInactive}
           label={'Parkeersessie\nstarten'}
-          moduleSlug={parkingModule.slug}
           onPress={() => {
             navigate(ModuleSlug.parking, {
               screen: ParkingRouteName.startSession,
