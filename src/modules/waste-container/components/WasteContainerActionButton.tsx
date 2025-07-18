@@ -5,6 +5,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {ModuleSlug} from '@/modules/slugs'
+import {wasteContainerModule} from '@/modules/waste-container'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 import {SecureItemKey} from '@/utils/secureStorage'
 
@@ -29,6 +30,7 @@ export const WasteContainerActionButton = () => {
       <ActionButton
         iconName="wasteCard"
         label="Afvalpas tonen"
+        moduleSlug={wasteContainerModule.slug}
         onPress={onPress}
         testID="WasteContainerActionButton"
       />

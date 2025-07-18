@@ -1,4 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useSelector} from '@/hooks/redux/useSelector'
+import {ModuleSlug} from '@/modules/slugs'
 import {type ModuleServerConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
@@ -79,3 +81,9 @@ export const selectAuthorizedModules = (state: RootState) =>
 
 export const selectCachedServerModules = (state: RootState) =>
   state[ReduxKey.modules].cachedServerModules
+
+export const useGetCachedServerModule = (slug: ModuleSlug) => {
+  const cachedModules = useSelector(selectCachedServerModules)
+
+  return cachedModules?.find(module => module.moduleSlug === slug)
+}

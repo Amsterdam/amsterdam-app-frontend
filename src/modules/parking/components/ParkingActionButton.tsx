@@ -3,6 +3,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {parkingModule} from '@/modules/parking'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
@@ -27,6 +28,7 @@ const ParkingActionButtonContent = () => {
         <ActionButton
           iconName="parkingSession"
           label={'Parkeersessie\nstarten'}
+          moduleSlug={parkingModule.slug}
           onPress={() => {
             navigate(ModuleSlug.parking, {
               screen: ParkingRouteName.startSession,

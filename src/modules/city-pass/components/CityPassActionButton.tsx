@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {cityPassModule} from '@/modules/city-pass'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
@@ -29,6 +30,7 @@ export const CityPassActionButton = () => {
       <ActionButton
         iconName="city-pass-pass"
         label="Stadspas tonen"
+        moduleSlug={cityPassModule.slug}
         onPress={onPress}
         testID="CityPassActionButton"
       />

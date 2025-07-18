@@ -10,6 +10,13 @@ import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
+  badgeColor?: BadgeProps['color']
+  badgeInsetsExtra?: {
+    bottom?: number
+    left?: number
+    right?: number
+    top?: number
+  }
   /**
    * The value for a badge to be displayed on top of the icon.
    */
@@ -21,8 +28,11 @@ type Props = {
 } & Omit<PressableProps, 'style' | 'children'>
 
 export const IconButton = forwardRef<View, Props>(
-  ({badgeValue, icon, ...pressableProps}, ref) => {
-    const styles = useThemable(createStyles)
+  (
+    {badgeColor, badgeInsetsExtra, badgeValue, icon, ...pressableProps},
+    ref,
+  ) => {
+    const styles = useThemable(createStyles(badgeInsetsExtra))
     const hitSlop =
       (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
@@ -39,6 +49,7 @@ export const IconButton = forwardRef<View, Props>(
           {badgeValue ? (
             <View style={styles.badgePosition}>
               <Badge
+                color={badgeColor}
                 testID={`${pressableProps.testID}Badge`}
                 value={badgeValue}
                 variant="on-icon"
@@ -51,16 +62,19 @@ export const IconButton = forwardRef<View, Props>(
   },
 )
 
-const createStyles = ({size}: Theme) => {
-  const hitSlopSize = size.spacing.sm
+const createStyles =
+  (badgeInsetsExtra?: Props['badgeInsetsExtra']) =>
+  ({size}: Theme) => {
+    const hitSlopSize = size.spacing.sm
+    const {top, right, left} = badgeInsetsExtra ?? {}
 
-  return StyleSheet.create({
-    badgePosition: {
-      position: 'absolute',
-      top: -hitSlopSize,
-      right: -hitSlopSize,
-      left: -hitSlopSize,
-      alignItems: 'flex-end',
-    },
-  })
-}
+    return StyleSheet.create({
+      badgePosition: {
+        position: 'absolute',
+        top: -hitSlopSize + (top ?? 0),
+        right: -hitSlopSize + (right ?? 0),
+        left: -hitSlopSize + (left ?? 0),
+        alignItems: 'flex-end',
+      },
+    })
+  }
