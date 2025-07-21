@@ -6,17 +6,13 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleStatus} from '@/modules/types'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const HeaderComponent = () => {
   const navigation = useNavigation()
-  const cachedServerModule = useGetCachedServerModule(
-    notificationHistoryModule.slug,
-  )
-  const isModuleInactive = cachedServerModule?.status === ModuleStatus.inactive
-  const {data} = useGetNotificationsQuery(undefined, {skip: isModuleInactive})
-  const styles = createStyles(isModuleInactive ? 0.7 : undefined)
+  const {isInactive} = useGetCachedServerModule(notificationHistoryModule.slug)
+  const {data} = useGetNotificationsQuery(undefined, {skip: isInactive})
+  const styles = createStyles(isInactive ? 0.7 : undefined)
 
   const unreadNotifications = data?.filter(({is_read}) => !is_read).length ?? 0
   const accessibilityLabel = unreadNotifications
@@ -29,9 +25,9 @@ export const HeaderComponent = () => {
     <View style={styles.container}>
       <IconButton
         accessibilityLabel={accessibilityLabel}
-        badgeColor={isModuleInactive ? 'info' : undefined}
+        badgeColor={isInactive ? 'info' : undefined}
         badgeValue={
-          isModuleInactive
+          isInactive
             ? '!'
             : unreadNotifications > 0
               ? unreadNotifications

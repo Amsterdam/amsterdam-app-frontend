@@ -9,10 +9,9 @@ import {UnderConstructionFigure} from '@/components/ui/media/errors/UnderConstru
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleStatus} from '@/modules/types'
-import {selectCachedServerModules} from '@/store/slices/modules'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 
 type Props = {
   component: ComponentType
@@ -27,21 +26,23 @@ export const InactiveModuleGuard = ({
   ...props
 }: Props) => {
   const {cardStyle} = useScreenOptions()
-  const cachedServerModules = useSelector(selectCachedServerModules)
-  const module = cachedServerModules?.find(m => m.moduleSlug === slug)
+  const {cachedServerModule} = useGetCachedServerModule(slug)
   const openWebUrl = useOpenWebUrl()
-  const fallbackUrl = module?.moduleFallbackUrl ?? module?.releaseFallbackUrl
-  const reason = module?.moduleAppReason ?? module?.releaseAppReason
+  const fallbackUrl =
+    cachedServerModule?.moduleFallbackUrl ??
+    cachedServerModule?.releaseFallbackUrl
+  const reason =
+    cachedServerModule?.moduleAppReason ?? cachedServerModule?.releaseAppReason
 
   useLayoutEffect(() => {
     navigation.setOptions({cardStyle})
   }, [cardStyle, navigation])
 
-  if (module?.status === ModuleStatus.inactive) {
+  if (cachedServerModule?.status === ModuleStatus.inactive) {
     return (
       <Screen
         bottomSheet
-        headerOptions={{headerTitle: module.title}}
+        headerOptions={{headerTitle: cachedServerModule.title}}
         testID="InactiveModuleGuardScreen">
         <Box>
           <Column gutter="xxl">
