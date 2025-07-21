@@ -12,7 +12,7 @@ import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/cre
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
-import {PiwikContext} from '@/providers/piwik.provider'
+import {PiwikContext} from '@/providers/piwik.context'
 
 const MAX_RECENT_ROUTE_LENGTH = 200
 

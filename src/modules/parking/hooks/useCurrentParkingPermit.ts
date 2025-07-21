@@ -1,5 +1,5 @@
 import {useContext} from 'react'
-import {CurrentPermitContext} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitContext} from '@/modules/parking/provides/CurrentPermit.context'
 
 export const useCurrentParkingPermit = () => {
   const context = useContext(CurrentPermitContext)

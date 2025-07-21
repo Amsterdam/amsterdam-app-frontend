@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'react'
+import {type Component, useEffect, useRef} from 'react'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Duration} from '@/types/duration'
@@ -11,11 +11,12 @@ export const useSetBottomSheetElementFocus = () => {
   const setAccessibilityFocus = useAccessibilityFocus(Duration.long)
 
   const {isOpen} = useBottomSheet()
-  const ref = useRef<any>(null)
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents, @typescript-eslint/no-explicit-any
+  const ref = useRef<any | Component | null>(null)
 
   useEffect(() => {
     if (isOpen && ref.current) {
-      setAccessibilityFocus(ref.current)
+      setAccessibilityFocus(ref.current as Component)
     }
   }, [isOpen, setAccessibilityFocus])
 

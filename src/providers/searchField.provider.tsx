@@ -1,28 +1,5 @@
-import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useState,
-} from 'react'
-
-type SearchFieldContextType = {
-  amount: number
-  setSearchFieldValue: Dispatch<SetStateAction<string>>
-  type: string
-  value: string
-}
-
-const initialValue: SearchFieldContextType = {
-  amount: 0,
-  type: '',
-  value: '',
-  setSearchFieldValue: () => null,
-}
-
-export const SearchFieldContext =
-  createContext<SearchFieldContextType>(initialValue)
+import {type ReactNode, useEffect, useState} from 'react'
+import {initialValue, SearchFieldContext} from '@/providers/searchField.context'
 
 type Props = {
   amount?: number

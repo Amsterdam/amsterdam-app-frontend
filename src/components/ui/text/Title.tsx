@@ -1,20 +1,20 @@
 import {type Ref, useMemo} from 'react'
 import {StyleSheet, Text, type TextProps, type TextStyle} from 'react-native'
+import type {Theme} from '@/themes/themes'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
-import {Theme} from '@/themes/themes'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   color?: keyof Theme['color']['text']
   level?: keyof TitleTokensPerLevel
+  ref?: Ref<Text | null>
   text: string
   /**
    * Defines the alignment of the text. Maps with the textAlign style prop options.
    */
   textAlign?: TextStyle['textAlign']
   underline?: boolean
-  ref?: Ref<Text | null>
 } & Omit<TextProps, 'style'>
 
 export const Title = ({

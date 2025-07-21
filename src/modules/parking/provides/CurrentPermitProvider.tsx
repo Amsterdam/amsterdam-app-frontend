@@ -1,4 +1,4 @@
-import {createContext} from 'react'
+import type {ReactNode} from 'react'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
@@ -8,15 +8,13 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit'
-import {ParkingPermit} from '@/modules/parking/types'
+import {CurrentPermitContext} from '@/modules/parking/provides/CurrentPermit.context'
 import {logout} from '@/modules/parking/utils/logout'
 import {store} from '@/store/store'
 import {RootState} from '@/store/types/rootState'
 
-export const CurrentPermitContext = createContext<ParkingPermit | null>(null)
-
 type Props = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export const CurrentPermitProvider = ({children}: Props) => {

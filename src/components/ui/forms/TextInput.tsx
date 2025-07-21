@@ -25,8 +25,8 @@ export type TextInputSharedProps = {
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-  warning?: boolean
   ref?: Ref<TextInputRN | null>
+  warning?: boolean
 } & TextInputSharedProps &
   TextInputProps
 

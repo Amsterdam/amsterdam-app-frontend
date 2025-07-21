@@ -1,5 +1,5 @@
-const {getDefaultConfig} = require('expo/metro-config')
 const {mergeConfig} = require('@react-native/metro-config')
+const {getDefaultConfig} = require('expo/metro-config')
 
 const defaultSourceExts =
   require('metro-config/src/defaults/defaults').sourceExts

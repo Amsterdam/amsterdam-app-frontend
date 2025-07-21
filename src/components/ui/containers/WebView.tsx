@@ -3,26 +3,27 @@ import {
   WebView as WebViewRN,
   type WebViewProps as WebViewRNProps,
 } from 'react-native-webview'
+import type {Ref} from 'react'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import type {Ref} from 'react'
 
 type Props = {
   grow?: boolean
+  ref?: Ref<WebViewRN | null>
   sliceFromTop?: {
     landscape: number
     portrait: number
   }
   url: string
   urlParams?: Record<string, string>
-  ref?: Ref<WebViewRN | null>
 } & Omit<
   WebViewRNProps,
   'renderLoading' | 'source' | 'startInLoadingState' | 'style'
 > &
   TestProps
+
 const webViewInjection = (fontScale: number, injectedJavaScript?: string) => {
   const iosFontScaleScript = `
       document.getElementsByTagName("html")[0].style.fontSize = "${

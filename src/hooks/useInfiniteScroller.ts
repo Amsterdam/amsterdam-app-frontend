@@ -1,5 +1,5 @@
 import {
-  ApiEndpointQuery,
+  type ApiEndpointQuery,
   type BaseQueryFn,
   type EndpointDefinitions,
   type FetchArgs,
@@ -11,8 +11,8 @@ import {
 import {useEffect, useState} from 'react'
 import type {ApiSlug} from '@/environment'
 import type {Paginated, PaginationQueryArgs} from '@/types/api'
+import type {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {UseQuery} from '@reduxjs/toolkit/dist/query/react/buildHooks'
 
 const getEmptyItems = <DummyItem>(
   length: number,

@@ -1,5 +1,6 @@
-import {Controller, UseControllerProps} from 'react-hook-form'
-import {TextInputProps, TextInput as TextInputRN} from 'react-native'
+import {Controller, type UseControllerProps} from 'react-hook-form'
+import {type TextInputProps, TextInput as TextInputRN} from 'react-native'
+import type {Ref} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {
   TextInput,
@@ -9,7 +10,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
-import type {Ref} from 'react'
 
 type Props = {
   maxCharacters?: number

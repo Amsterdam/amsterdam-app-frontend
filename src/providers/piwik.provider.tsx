@@ -1,19 +1,13 @@
 import PiwikProSdk from '@piwikpro/react-native-piwik-pro-sdk'
-import {PiwikProSdkType} from '@piwikpro/react-native-piwik-pro-sdk/lib/typescript/types'
-import {createContext, ReactNode, useEffect, useState} from 'react'
+import {ReactNode, useEffect, useState} from 'react'
 import {
   ExceptionLogKey,
   useTrackException,
 } from '@/processes/logging/hooks/useTrackException'
 import {initPiwik} from '@/processes/piwik/init'
 import {PiwikError} from '@/processes/piwik/types'
-
-type PiwikContextType = PiwikProSdkType | null | undefined
-
-/**
- * The PiwikContext contains the object with all methods, to be used via the usePiwik hook only.
- */
-export const PiwikContext = createContext<PiwikContextType>(undefined)
+// eslint-disable-next-line no-restricted-imports
+import {type PiwikContextType, PiwikContext} from '@/providers/piwik.context'
 
 type Props = {
   children?: ReactNode

@@ -13,9 +13,9 @@ type Props = {
   children: ReactNode
   duration?: number
   fadeOut?: boolean
+  ref?: Ref<View>
   shouldAnimate?: boolean
   style?: StyleProp<ViewStyle>
-  ref?: Ref<View>
 }
 
 export const AnimatedFader = ({

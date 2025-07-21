@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCoordinatesForLocation} from '@/modules/address/hooks/useGetCoordinatesForLocation'
@@ -7,7 +8,6 @@ import {
   setGetLocationIsError,
   setIsGettingLocation,
 } from '@/modules/address/slice'
-import {skipToken} from '@reduxjs/toolkit/query'
 
 const NUM_OF_RESULTS = 1
 

@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {
   ConversationEntryRoutingWorkType,
   ConversationEntryRoutingWorkResult,
@@ -6,7 +5,7 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {ChatSystemEntry} from '@/modules/chat/components/ChatSystemEntry'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 
 type Props = {
   isLast: boolean
@@ -15,7 +14,7 @@ type Props = {
 }
 
 export const EntryRoutingWorkResult = ({message, isLastOfGroup}: Props) => {
-  const {messages, isEnded} = useContext(ChatContext)
+  const {messages, isEnded} = useChatContext()
 
   const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
   const isNotLastRoutingWorkResultEntry =

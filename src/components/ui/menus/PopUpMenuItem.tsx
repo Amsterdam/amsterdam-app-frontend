@@ -1,9 +1,9 @@
 import {View} from 'react-native'
+import type {Ref} from 'react'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {Phrase} from '@/components/ui/text/Phrase'
-import type {Ref} from 'react'
 
 export const PopUpMenuItem = ({
   ref,
