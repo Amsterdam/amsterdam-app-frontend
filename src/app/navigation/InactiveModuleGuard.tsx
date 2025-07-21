@@ -31,6 +31,7 @@ export const InactiveModuleGuard = ({
   const module = cachedServerModules?.find(m => m.moduleSlug === slug)
   const openWebUrl = useOpenWebUrl()
   const fallbackUrl = module?.moduleFallbackUrl ?? module?.releaseFallbackUrl
+  const reason = module?.moduleAppReason ?? module?.releaseAppReason
 
   useLayoutEffect(() => {
     navigation.setOptions({cardStyle})
@@ -51,6 +52,7 @@ export const InactiveModuleGuard = ({
                   text="Dit onderdeel is nu niet beschikbaar"
                   textAlign="center"
                 />
+                {!!reason && <Paragraph textAlign="center">{reason}</Paragraph>}
                 <Paragraph textAlign="center">
                   Probeer het later nog eens.
                 </Paragraph>
