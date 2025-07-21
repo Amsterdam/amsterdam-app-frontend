@@ -6,7 +6,7 @@ import {
   useCurrentParkingPermitReportCode,
 } from '@/modules/parking/slice'
 
-export const useGetPermits = (skip: boolean) => {
+export const useGetPermits = (skip?: boolean) => {
   if (skip) {
     return {permits: undefined, isLoading: false, refetch: () => {}}
   }
