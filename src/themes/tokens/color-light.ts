@@ -53,6 +53,7 @@ export const lightColorTokens = {
   badge: {
     background: {
       info: baseColor.primary.blue,
+      disabled: baseColor.neutral.grey3,
       warning: baseColor.primary.red,
     },
     border: baseColor.primary.white,

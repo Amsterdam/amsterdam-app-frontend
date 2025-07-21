@@ -4,13 +4,18 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {cityPassModule} from '@/modules/city-pass'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 
 export const CityPassActionButton = () => {
   const {navigate} = useNavigation()
+  const {isInactive: isModuleInactive} = useGetCachedServerModule(
+    cityPassModule.slug,
+  )
   const secureCityPasses = useGetSecureCityPasses()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)
 
@@ -28,6 +33,7 @@ export const CityPassActionButton = () => {
     <Column>
       <ActionButton
         iconName="city-pass-pass"
+        isModuleInactive={isModuleInactive}
         label="Stadspas tonen"
         onPress={onPress}
         testID="CityPassActionButton"

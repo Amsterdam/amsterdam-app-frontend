@@ -6,9 +6,9 @@ import {
   useCurrentParkingPermitReportCode,
 } from '@/modules/parking/slice'
 
-export const useGetPermits = () => {
+export const useGetPermits = (skip?: boolean) => {
   const dispatch = useDispatch()
-  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'})
+  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
     parkingSlice.actions

@@ -3,12 +3,14 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
+import {parkingModule} from '@/modules/parking'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 
 const ALLOWED_PERMIT_TYPES = [
   PermitType.kraskaartvergunning,
@@ -18,7 +20,8 @@ const ALLOWED_PERMIT_TYPES = [
 
 const ParkingActionButtonContent = () => {
   const {navigate} = useNavigation()
-  const {permits} = useGetPermits()
+  const {isInactive} = useGetCachedServerModule(parkingModule.slug)
+  const {permits} = useGetPermits(isInactive)
 
   return (
     permits?.length === 1 &&
@@ -26,6 +29,7 @@ const ParkingActionButtonContent = () => {
       <Column>
         <ActionButton
           iconName="parkingSession"
+          isModuleInactive={isInactive}
           label={'Parkeersessie\nstarten'}
           onPress={() => {
             navigate(ModuleSlug.parking, {

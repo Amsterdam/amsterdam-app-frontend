@@ -24,6 +24,7 @@ export type PhraseProps = {
    * Label used for logging to Piwik and AppInsights.
    */
   'logging-label'?: string
+  opacity?: number
   /**
    * Defines the alignment of the text. Maps with the textAlign style prop options.
    */
@@ -49,6 +50,7 @@ export const Phrase = ({
   color = 'default',
   emphasis = 'default',
   flexShrink = 1,
+  opacity = 1,
   underline = false,
   variant = 'body',
   testID,
@@ -62,11 +64,12 @@ export const Phrase = ({
         color,
         emphasis,
         flexShrink,
+        opacity,
         underline,
         variant,
         textAlign,
       }),
-    [color, emphasis, flexShrink, underline, variant, textAlign],
+    [color, emphasis, flexShrink, opacity, underline, variant, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -87,6 +90,7 @@ const createStyles =
     color: textColor,
     emphasis,
     flexShrink,
+    opacity,
     underline,
     variant,
     textAlign,
@@ -96,6 +100,7 @@ const createStyles =
       | 'color'
       | 'emphasis'
       | 'flexShrink'
+      | 'opacity'
       | 'underline'
       | 'variant'
       | 'textAlign'
@@ -110,6 +115,7 @@ const createStyles =
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],
         fontSize: text.fontSize[variant],
         lineHeight: text.lineHeight[variant],
+        opacity,
         textDecorationLine: underline ? 'underline' : 'none',
         textAlign,
       },

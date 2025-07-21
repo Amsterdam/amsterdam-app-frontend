@@ -1,5 +1,6 @@
 import {CardStyleInterpolators} from '@react-navigation/stack'
 import {Platform} from 'react-native'
+import {InactiveModuleGuard} from '@/app/navigation/InactiveModuleGuard'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
@@ -20,7 +21,13 @@ const moduleStacks = [...coreModules, ...clientModules].map(
 
     return (
       <Stack.Screen
-        component={stack}
+        children={props => (
+          <InactiveModuleGuard
+            component={stack}
+            slug={slug}
+            {...props}
+          />
+        )}
         key={slug}
         name={slug}
         options={options}

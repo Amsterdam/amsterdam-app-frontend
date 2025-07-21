@@ -132,7 +132,17 @@ export type ModuleClientConfig = BaseModuleConfig & {
 export type ModuleServerConfig = {
   description: string
   icon: SvgIconName
+  /**
+   * The reason why the module is not available in all app versions.
+   */
+  moduleAppReason: string | null
+  moduleFallbackUrl: string | null
   moduleSlug: ModuleSlug
+  /**
+   * The reason why the module is not available in the current app version.
+   */
+  releaseAppReason: string | null
+  releaseFallbackUrl: string | null
   status: ModuleStatus
   title: string
   version: string
