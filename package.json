@@ -80,7 +80,7 @@
     "react-native-image-crop-picker": "^0.50.1",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-linear-gradient": "^2.8.3",
-    "react-native-maps": "^1.24.5",
+    "react-native-maps": "^1.24.8",
     "react-native-permissions": "^5.2.1",
     "react-native-reanimated": "3.18.0",
     "react-native-reanimated-carousel": "^3.5.1",
