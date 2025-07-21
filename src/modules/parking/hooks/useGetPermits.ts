@@ -7,12 +7,8 @@ import {
 } from '@/modules/parking/slice'
 
 export const useGetPermits = (skip?: boolean) => {
-  if (skip) {
-    return {permits: undefined, isLoading: false, refetch: () => {}}
-  }
-
   const dispatch = useDispatch()
-  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'})
+  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
     parkingSlice.actions
