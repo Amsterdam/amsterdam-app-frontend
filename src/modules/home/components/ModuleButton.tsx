@@ -71,6 +71,7 @@ const ModuleButtonContent = ({
       </Row>
       {!!disabled && (
         <Badge
+          accessibilityLabel="Dit onderdeel is nu niet beschikbaar."
           color="disabled"
           testID={`${testID}Badge`}
           value="!"
