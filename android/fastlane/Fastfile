@@ -45,6 +45,23 @@ apps = [
     },
   },
   {
+    :name => "amsterdam-test",
+    :task => "assemble",
+    :app_identifier => "nl.amsterdam.app.dev",
+    :build_type => "Release",
+    :flavor => "dev",
+    :distribute_to_stakeholders => false,
+    :distribute_to_production => false,
+    :apk_path => "/apk/dev/release/app-dev-release.apk", 
+    :aab_path => "/bundle/devRelease/app-dev-release.aab",
+    :env => {
+      "API_KEY_DEV" => ENV["FILTER_API_KEY_DEV"],
+      "API_KEY_TEST" => ENV["FILTER_API_KEY_TEST"],
+      "API_KEY_ACC" => ENV["FILTER_API_KEY_ACC"],
+      "API_KEY_PROD" => ENV["FILTER_API_KEY_PROD"],
+    },
+  },
+  {
     :name => "amsterdam",
     :task => "bundle",
     :app_identifier => "nl.amsterdam.app",
