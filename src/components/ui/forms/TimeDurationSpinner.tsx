@@ -266,6 +266,7 @@ export const TimeDurationSpinner = ({
                     ],
                   },
                 ]}
+                testID={`TimeDurationSpinnerLine${index}`}
               />
             )
           })}
