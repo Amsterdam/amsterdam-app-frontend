@@ -36,35 +36,33 @@ export const IconButton = ({
   icon,
   ...pressableProps
 }: Props) => {
-    const styles = useThemable(createStyles(badgeInsetsExtra))
-    const hitSlop =
-      (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
+  const styles = useThemable(createStyles(badgeInsetsExtra))
+  const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
-    return (
-      <Row align="start">
-        <Pressable
-          accessibilityLanguage="nl-NL"
-          accessibilityRole="button"
-          hitSlop={hitSlop}
-          ref={ref}
-          variant="transparent"
-          {...pressableProps}>
-          {icon}
-          {badgeValue ? (
-            <View style={styles.badgePosition}>
-              <Badge
-                color={badgeColor}
-                testID={`${pressableProps.testID}Badge`}
-                value={badgeValue}
-                variant="on-icon"
-              />
-            </View>
-          ) : null}
-        </Pressable>
-      </Row>
-    )
-  },
-)
+  return (
+    <Row align="start">
+      <Pressable
+        accessibilityLanguage="nl-NL"
+        accessibilityRole="button"
+        hitSlop={hitSlop}
+        ref={ref}
+        variant="transparent"
+        {...pressableProps}>
+        {icon}
+        {badgeValue ? (
+          <View style={styles.badgePosition}>
+            <Badge
+              color={badgeColor}
+              testID={`${pressableProps.testID}Badge`}
+              value={badgeValue}
+              variant="on-icon"
+            />
+          </View>
+        ) : null}
+      </Pressable>
+    </Row>
+  )
+}
 
 const createStyles =
   (badgeInsetsExtra?: Props['badgeInsetsExtra']) =>
