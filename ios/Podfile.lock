@@ -1613,13 +1613,13 @@ PODS:
     - React
   - react-native-get-random-values (1.11.0):
     - React-Core
-  - react-native-maps (1.24.5):
-    - react-native-maps/Maps (= 1.24.5)
-  - react-native-maps/Generated (1.24.5):
+  - react-native-maps (1.24.8):
+    - react-native-maps/Maps (= 1.24.8)
+  - react-native-maps/Generated (1.24.8):
     - DoubleConversion
     - glog
     - hermes-engine
-    - RCT-Folly (= 2024.10.14.00)
+    - RCT-Folly (= 2024.11.18.00)
     - RCTRequired
     - RCTTypeSafety
     - React-Core
@@ -1627,20 +1627,23 @@ PODS:
     - React-Fabric
     - React-featureflags
     - React-graphics
+    - React-hermes
     - React-ImageManager
+    - React-jsi
     - React-NativeModulesApple
     - React-RCTFabric
+    - React-renderercss
     - React-rendererdebug
     - React-utils
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - react-native-maps/Maps (1.24.5):
+  - react-native-maps/Maps (1.24.8):
     - DoubleConversion
     - glog
     - hermes-engine
-    - RCT-Folly (= 2024.10.14.00)
+    - RCT-Folly (= 2024.11.18.00)
     - RCTRequired
     - RCTTypeSafety
     - React-Core
@@ -1648,10 +1651,13 @@ PODS:
     - React-Fabric
     - React-featureflags
     - React-graphics
+    - React-hermes
     - React-ImageManager
+    - React-jsi
     - react-native-maps/Generated
     - React-NativeModulesApple
     - React-RCTFabric
+    - React-renderercss
     - React-rendererdebug
     - React-utils
     - ReactCodegen
@@ -2954,7 +2960,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 3f997d3f1313adc1cd2bd8bc21d872cf012a2322
   react-native-geolocation-service: 608e1da71a1ac31b4de64d9ef2815f697978c55b
   react-native-get-random-values: 21325b2244dfa6b58878f51f9aa42821e7ba3d06
-  react-native-maps: bcdb38ac41a2b3fb97a7350c6f0f723a93485ec0
+  react-native-maps: 6d6d544c6f7ea77eec006c1e889dabfca7fd28b3
   react-native-netinfo: f0a9899081c185db1de5bb2fdc1c88c202a059ac
   react-native-piwik-pro-sdk: 21d69f9e0aa4d9a1a898bae62db33af358a480d7
   react-native-render-html: 984dfe2294163d04bf5fe25d7c9f122e60e05ebe
