@@ -18,6 +18,7 @@ export const constructionWorkModule: ModuleClientConfig = {
       'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
     [ConstructionWorkRouteName.projectWarning]:
       'warning/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',
+    [ConstructionWorkRouteName.project]: 'construction-work/project/:id',
   },
   logDimension: PiwikSessionDimension.constructionWorkModule,
   name: 'ConstructionWorkModule',
