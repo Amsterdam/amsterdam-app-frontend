@@ -7,11 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		16E64D5303EDA3A3C3754E93 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */; };
 		315F40D329098DCA009B5A4A /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 315F40D229098DCA009B5A4A /* BootSplash.storyboard */; };
+		3862AE132E1D10D700BC8924 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3862AE122E1D10D700BC8924 /* AppDelegate.swift */; };
 		6A19800B395FA72D9E5D77B7 /* libPods-AmsterdamApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */; };
 		BFEC3A0229826EB500C469AA /* AmsterdamSans-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC39FF29826EB400C469AA /* AmsterdamSans-Regular.otf */; };
 		BFEC3A0329826EB500C469AA /* AmsterdamSans-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = BFEC3A0029826EB400C469AA /* AmsterdamSans-Bold.otf */; };
@@ -22,13 +21,11 @@
 
 /* Begin PBXFileReference section */
 		13B07F961A680F5B00A75B9A /* Amsterdam.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amsterdam.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = AmsterdamApp/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = AmsterdamApp/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = AmsterdamApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = AmsterdamApp/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = AmsterdamApp/main.m; sourceTree = "<group>"; };
 		2F69FEEA62C39F6CD7DB1371 /* Pods-AmsterdamApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.debug.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.debug.xcconfig"; sourceTree = "<group>"; };
 		315F40D229098DCA009B5A4A /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = AmsterdamApp/BootSplash.storyboard; sourceTree = "<group>"; };
+		3862AE122E1D10D700BC8924 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = AmsterdamApp/AppDelegate.swift; sourceTree = "<group>"; };
 		6DDA178AA6481C1B77F62BDC /* libPods-AmsterdamApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AmsterdamApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3830F9D08EB4C084763DC88 /* Pods-AmsterdamApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.release.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.release.xcconfig"; sourceTree = "<group>"; };
 		B12AB5ECD661CF7F7D25E413 /* Pods-AmsterdamApp.devrelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmsterdamApp.devrelease.xcconfig"; path = "Target Support Files/Pods-AmsterdamApp/Pods-AmsterdamApp.devrelease.xcconfig"; sourceTree = "<group>"; };
@@ -65,12 +62,10 @@
 		13B07FAE1A68108700A75B9A /* AmsterdamApp */ = {
 			isa = PBXGroup;
 			children = (
-				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				3862AE122E1D10D700BC8924 /* AppDelegate.swift */,
 				315F40D229098DCA009B5A4A /* BootSplash.storyboard */,
-				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
-				13B07FB71A68108700A75B9A /* main.m */,
 				D71BAD6726FA2FE7001B5972 /* File.swift */,
 				E6F5517E541BA96138764AFE /* PrivacyInfo.xcprivacy */,
 			);
@@ -370,9 +365,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				3862AE132E1D10D700BC8924 /* AppDelegate.swift in Sources */,
 				D71BAD6826FA2FE7001B5972 /* File.swift in Sources */,
-				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				E799C6585E4E37E592D6AA0A /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -659,6 +653,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				USE_HERMES = true;
 			};
 			name = DevDebug;

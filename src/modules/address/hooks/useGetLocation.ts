@@ -1,4 +1,4 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetCoordinatesForLocation} from '@/modules/address/hooks/useGetCoordinatesForLocation'

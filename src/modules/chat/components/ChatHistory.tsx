@@ -1,4 +1,4 @@
-import {useContext, useRef} from 'react'
+import {useRef} from 'react'
 import {Keyboard, ScrollView, StyleSheet} from 'react-native'
 import {
   ConversationEntry,
@@ -9,7 +9,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {ChatStartTime} from '@/modules/chat/components/ChatStartTime'
 import {Entry} from '@/modules/chat/components/conversation/Entry'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 /**
@@ -32,7 +32,7 @@ const checkIsMessageLastOfGroup = (
 export const ChatHistory = () => {
   const scrollRef = useRef<ScrollView>(null)
   const styles = createStyles()
-  const {messages} = useContext(ChatContext)
+  const {messages} = useChatContext()
 
   return (
     <ScrollView

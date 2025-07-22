@@ -1,4 +1,4 @@
-import {ReactNode, useContext, useEffect, useState} from 'react'
+import {ReactNode, useEffect, useState} from 'react'
 import {StyleSheet} from 'react-native'
 import Animated, {
   interpolate,
@@ -15,7 +15,7 @@ import Animated, {
 import {EdgeInsets, useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ChatMenu} from '@/modules/chat/components/ChatMenu'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {useScreen} from '@/store/slices/screen'
@@ -41,7 +41,7 @@ export const ChatAnimatedWrapper = ({children}: Props) => {
   const maximized = useSharedValue(isMaximized ? 1 : 0)
   const insets = useSafeAreaInsets()
   const {fontScale} = useDeviceContext()
-  const {newMessagesCount} = useContext(ChatContext)
+  const {newMessagesCount} = useChatContext()
 
   const {setSpaceBottom: setScreenSpaceBottom} = useScreen()
   const styles = createStyles(theme, insets)

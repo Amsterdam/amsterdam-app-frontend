@@ -1,12 +1,12 @@
 import {ReactNode, useCallback, useContext, useRef} from 'react'
 import {View} from 'react-native'
+import {ScrollContext} from '@/components/features/product-tour/ScrollContext'
 import {
   selectSeenTips,
   addSeenTip,
 } from '@/components/features/product-tour/slice'
 import {Tip, TipText} from '@/components/features/product-tour/types'
 import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
-import {ScrollContext} from '@/components/features/product-tour/withTrackScroll'
 import {Tooltip} from '@/components/ui/feedback/tooltip/Tooltip'
 import {Placement, TestProps} from '@/components/ui/types'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'

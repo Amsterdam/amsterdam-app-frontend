@@ -109,7 +109,9 @@ const useBottomSheetHandler = () => {
   }
 }
 
-const ScrollWrapper = ({children}: {children: ReactNode}) => <>{children}</>
+const ScrollWrapper = ({children}: {children: ReactNode}) => (
+  <BottomSheetScrollView>{children}</BottomSheetScrollView>
+)
 
 /**
  * To autofocus on an element within the bottom sheet, use the `useSetBottomSheetElementFocus` hook.
@@ -151,20 +153,18 @@ export const BottomSheet = ({
       snapPoints={snapPoints}
       topInset={topInset}
       {...rest}>
-      <BottomSheetScrollView>
-        <ViewComponent
-          style={styles.container}
+      <ViewComponent
+        style={styles.container}
+        testID={testID}>
+        <SafeArea
+          bottom
+          flex={flex}
+          left
+          right
           testID={testID}>
-          <SafeArea
-            bottom
-            flex={flex}
-            left
-            right
-            testID={testID}>
-            {VariantComponent ? <VariantComponent /> : children}
-          </SafeArea>
-        </ViewComponent>
-      </BottomSheetScrollView>
+          {VariantComponent ? <VariantComponent /> : children}
+        </SafeArea>
+      </ViewComponent>
     </BottomSheetOriginal>
   )
 }

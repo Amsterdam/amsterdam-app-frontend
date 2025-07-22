@@ -6,7 +6,7 @@ import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ScreenContext} from '@/providers/screen.provider'
+import {ScreenContext} from '@/providers/screen.context'
 import {useMenu} from '@/store/slices/menu'
 import {selectHeaderHeight} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
@@ -51,7 +51,11 @@ export const PopUpMenu = ({menuItems, orientation, topInset}: Props) => {
               key={testID}
               label={label}
               onPress={onPress}
-              ref={ref => index === 0 && setAccessibilityFocus(ref)}
+              ref={ref => {
+                if (index === 0) {
+                  setAccessibilityFocus(ref)
+                }
+              }}
               testID={testID}
             />
           )

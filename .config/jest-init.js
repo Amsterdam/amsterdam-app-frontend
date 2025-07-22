@@ -88,3 +88,14 @@ jest.mock('expo-document-picker', () => ({}))
 jest.mock('expo-image-picker', () => ({}))
 jest.mock('expo-file-system', () => ({}))
 jest.mock('expo-sharing', () => ({}))
+jest.mock('expo-clipboard', () => ({}))
+jest.mock('expo-brightness', () => ({}))
+jest.mock('expo-haptics', () => ({}))
+jest.mock('react-native-block-screenshot', () => ({}))
+jest.mock('react-native-webview', () => ({}))
+jest.mock('react-native-maps', () => ({}))
+
+jest.mock('react-native-geolocation-service', () => ({
+  __esModule: true,
+  default: jest.fn(() => ({})),
+}))

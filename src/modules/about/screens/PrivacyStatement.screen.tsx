@@ -117,7 +117,8 @@ export const PrivacyStatementScreen = () => (
             Voor het tonen van stadspasinformatie worden het cliëntnummer en de
             persoonlijke productdetails maximaal 1 jaar opgeslagen. De gebruiker
             heeft de mogelijkheid om op elk gewenst moment deze gegevens te
-            verwijderen. Financiële Stadspasgegevens worden niet opgeslagen.{' '}
+            verwijderen. Financiële Stadspasgegevens worden niet
+            opgeslagen.{' '}
           </Paragraph>
         </Column>
       </Column>

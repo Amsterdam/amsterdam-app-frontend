@@ -1,4 +1,4 @@
-import {ReactNode, useContext, useEffect, useState} from 'react'
+import {ReactNode, useEffect, useState} from 'react'
 import {ConnectionState} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {Center} from '@/components/ui/layout/Center'
@@ -6,7 +6,7 @@ import {ErrorFigure} from '@/components/ui/media/errors/ErrorFigure'
 import {Title} from '@/components/ui/text/Title'
 import {ChatAnimatedContentWrapper} from '@/modules/chat/components/ChatAnimatedContentWrapper'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {isDevApp} from '@/processes/development'
 
@@ -16,7 +16,7 @@ type Props = {
 
 export const ChatWaitToStart = ({children}: Props) => {
   const [isWaitingTimeExceeded, setIsWaitingTimeExceeded] = useState(false)
-  const {ready, connectionStatus} = useContext(ChatContext)
+  const {ready, connectionStatus} = useChatContext()
   const {close} = useChat()
 
   useEffect(() => {

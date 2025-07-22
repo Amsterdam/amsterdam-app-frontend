@@ -1,12 +1,12 @@
-import {ReactElement, forwardRef} from 'react'
 import {StyleSheet, View} from 'react-native'
-import {Pressable, PressableProps} from '@/components/ui/buttons/Pressable'
+import type {IconProps} from '@/components/ui/media/Icon'
+import type {Theme} from '@/themes/themes'
+import type {ReactElement, Ref} from 'react'
+import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
 import {config} from '@/components/ui/config'
-import {Badge, BadgeProps} from '@/components/ui/feedback/Badge'
+import {Badge, type BadgeProps} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
-import {IconProps} from '@/components/ui/media/Icon'
 import {IconSize} from '@/components/ui/types'
-import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -25,42 +25,44 @@ type Props = {
    * The icon component to use for the button.
    */
   icon: ReactElement<IconProps>
+  ref?: Ref<View>
 } & Omit<PressableProps, 'style' | 'children'>
 
-export const IconButton = forwardRef<View, Props>(
-  (
-    {badgeColor, badgeInsetsExtra, badgeValue, icon, ...pressableProps},
-    ref,
-  ) => {
-    const styles = useThemable(createStyles(badgeInsetsExtra))
-    const hitSlop =
-      (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
+export const IconButton = ({
+  ref,
+  badgeColor,
+  badgeInsetsExtra,
+  badgeValue,
+  icon,
+  ...pressableProps
+}: Props) => {
+  const styles = useThemable(createStyles(badgeInsetsExtra))
+  const hitSlop = (config.minTouchSize - IconSize[icon.props.size ?? 'md']) / 2
 
-    return (
-      <Row align="start">
-        <Pressable
-          accessibilityLanguage="nl-NL"
-          accessibilityRole="button"
-          hitSlop={hitSlop}
-          ref={ref}
-          variant="transparent"
-          {...pressableProps}>
-          {icon}
-          {badgeValue ? (
-            <View style={styles.badgePosition}>
-              <Badge
-                color={badgeColor}
-                testID={`${pressableProps.testID}Badge`}
-                value={badgeValue}
-                variant="on-icon"
-              />
-            </View>
-          ) : null}
-        </Pressable>
-      </Row>
-    )
-  },
-)
+  return (
+    <Row align="start">
+      <Pressable
+        accessibilityLanguage="nl-NL"
+        accessibilityRole="button"
+        hitSlop={hitSlop}
+        ref={ref}
+        variant="transparent"
+        {...pressableProps}>
+        {icon}
+        {badgeValue ? (
+          <View style={styles.badgePosition}>
+            <Badge
+              color={badgeColor}
+              testID={`${pressableProps.testID}Badge`}
+              value={badgeValue}
+              variant="on-icon"
+            />
+          </View>
+        ) : null}
+      </Pressable>
+    </Row>
+  )
+}
 
 const createStyles =
   (badgeInsetsExtra?: Props['badgeInsetsExtra']) =>

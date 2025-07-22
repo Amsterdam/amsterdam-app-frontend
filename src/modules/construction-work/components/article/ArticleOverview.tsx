@@ -1,4 +1,4 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {type VariableContentParams} from '@/app/navigation/types'

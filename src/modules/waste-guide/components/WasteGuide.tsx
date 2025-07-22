@@ -1,4 +1,4 @@
-import {skipToken} from '@reduxjs/toolkit/dist/query'
+import {skipToken} from '@reduxjs/toolkit/query'
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'

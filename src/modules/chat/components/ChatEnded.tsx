@@ -1,14 +1,13 @@
-import {useContext} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
 
 export const ChatEnded = () => {
   const {close} = useChat()
-  const {addDownloadedTranscriptId} = useContext(ChatContext)
+  const {addDownloadedTranscriptId} = useChatContext()
 
   return (
     <Box>

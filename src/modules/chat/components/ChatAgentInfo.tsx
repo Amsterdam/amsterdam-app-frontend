@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {View, StyleSheet} from 'react-native'
 import {
   ConversationEntry,
@@ -7,7 +6,7 @@ import {
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 import {dayjsFromUnix} from '@/utils/datetime/dayjs'
@@ -74,7 +73,7 @@ export const ChatAgentInfo = ({
     createStyles(theme, role === ConversationEntrySenderRole.user),
   )
 
-  const {agentInChat} = useContext(ChatContext)
+  const {agentInChat} = useChatContext()
 
   if (role === ConversationEntrySenderRole.system) {
     return null

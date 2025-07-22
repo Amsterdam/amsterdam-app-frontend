@@ -1,7 +1,7 @@
 import {useRef, useCallback, useEffect} from 'react'
 
 export const useTimeout = () => {
-  const timeoutRef = useRef<NodeJS.Timeout | undefined>()
+  const timeoutRef = useRef<NodeJS.Timeout | undefined>(undefined)
 
   useEffect(
     () => () => {

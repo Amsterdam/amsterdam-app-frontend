@@ -1,23 +1,5 @@
-import {
-  type Dispatch,
-  type ReactNode,
-  createContext,
-  useMemo,
-  useState,
-} from 'react'
-
-type ScreenContextType = {
-  nativeScreenHeader: boolean
-
-  scrollDisabled: boolean
-  setScrollDisabled: Dispatch<React.SetStateAction<boolean>>
-}
-
-export const ScreenContext = createContext<ScreenContextType>({
-  nativeScreenHeader: false,
-  scrollDisabled: false,
-  setScrollDisabled: () => null,
-})
+import {type ReactNode, useMemo, useState} from 'react'
+import {ScreenContext} from '@/providers/screen.context'
 
 type Props = {
   children: ReactNode

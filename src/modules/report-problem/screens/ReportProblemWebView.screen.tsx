@@ -95,10 +95,13 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      BackHandler.addEventListener('hardwareBackPress', onHandleBackPress)
+      const listener = BackHandler.addEventListener(
+        'hardwareBackPress',
+        onHandleBackPress,
+      )
 
       return () => {
-        BackHandler.removeEventListener('hardwareBackPress', onHandleBackPress)
+        listener.remove()
       }
     }
   }, [onHandleBackPress])

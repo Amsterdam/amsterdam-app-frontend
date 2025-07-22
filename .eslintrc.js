@@ -35,7 +35,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.js', '*.jsx'],
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs'],
       rules: {
         'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
@@ -89,7 +89,7 @@ module.exports = {
           {
             paths: [
               {
-                name: '@/providers/piwik.provider',
+                name: '@/providers/piwik.context',
                 importNames: ['PiwikContext'],
                 message:
                   'Do not use PiwikContext directly. The logging methods are exposed via the usePiwik hook.',
@@ -269,7 +269,7 @@ module.exports = {
       parser: 'jsonc-eslint-parser',
       plugins: ['depend'],
       rules: {
-        'depend/ban-dependencies': 'warn',
+        // 'depend/ban-dependencies': 'warn',
       },
     },
   ],

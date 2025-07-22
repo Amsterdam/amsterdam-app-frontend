@@ -20,7 +20,7 @@ export const ParkingManageVisitorChangePinCodeForm = () => {
   const pinCode = watch('pin_code')
   const [changePinCode] = useManageVisitorChangePinCodeMutation()
   const currentPermit = useCurrentParkingPermit()
-  const pinCodeCheckRef = useRef<TextInput | null>(null)
+  const pinCodeCheckRef = useRef<TextInput>(null)
 
   const onSubmit = handleSubmit(({pin_code, pin_code_check}) => {
     if (!currentPermit.visitor_account) {

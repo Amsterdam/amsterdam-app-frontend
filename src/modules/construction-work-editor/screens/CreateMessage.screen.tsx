@@ -30,9 +30,12 @@ export const CreateMessageScreen = ({navigation, route}: Props) => {
 
   const mainImage = useSelector(selectMainImage(projectId.toString()))
 
-  const formRef = useRef<{
-    handleSubmit: (onSuccess?: () => void) => Promise<void>
-  }>()
+  const formRef = useRef<
+    | {
+        handleSubmit: (onSuccess?: () => void) => Promise<void>
+      }
+    | undefined
+  >(undefined)
 
   useEffect(() => {
     dispatch(

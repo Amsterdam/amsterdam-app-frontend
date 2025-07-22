@@ -1,4 +1,4 @@
-import {forwardRef, useEffect, useRef, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {InteractionManager, StyleSheet, View} from 'react-native'
 import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
@@ -14,93 +14,89 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const Tooltip = forwardRef<View | null, TooltipProps>(
-  (
-    {
-      accessibilityLabel,
-      accessibilityLanguage = 'nl-NL',
-      extraSpace,
-      fadeIn,
-      fadeInDuration,
-      placement,
-      productTourTipTargetLayout,
-      onPress,
-      startFadeIn,
-      testID,
-      text,
-    },
-    ref,
-  ) => {
-    const setAccessibilityFocus = useAccessibilityFocus()
-    const [leftPosition, setLeftPosition] = useState(0) // Start off-screen to avoid jump
-    const [isPositioned, setIsPositioned] = useState(false)
-    const styles = useThemable(createStyles(!!productTourTipTargetLayout))
-    const tooltipRef = useRef<View | null>(null)
-    const {layout, measureTarget} = useMeasureTarget(tooltipRef)
+export const Tooltip = ({
+  ref,
+  accessibilityLabel,
+  accessibilityLanguage = 'nl-NL',
+  extraSpace,
+  fadeIn,
+  fadeInDuration,
+  placement,
+  productTourTipTargetLayout,
+  onPress,
+  startFadeIn,
+  testID,
+  text,
+}: TooltipProps) => {
+  const setAccessibilityFocus = useAccessibilityFocus()
+  const [leftPosition, setLeftPosition] = useState(0) // Start off-screen to avoid jump
+  const [isPositioned, setIsPositioned] = useState(false)
+  const styles = useThemable(createStyles(!!productTourTipTargetLayout))
+  const tooltipRef = useRef<View | null>(null)
+  const {layout, measureTarget} = useMeasureTarget(tooltipRef)
 
-    useEffect(() => {
-      if (!layout) {
-        return
-      }
+  useEffect(() => {
+    if (!layout) {
+      return
+    }
 
-      void InteractionManager.runAfterInteractions(() => {
-        setLeftPosition(layout.x)
-        setIsPositioned(true)
-      })
-    }, [layout])
+    void InteractionManager.runAfterInteractions(() => {
+      setLeftPosition(layout.x)
+      setIsPositioned(true)
+    })
+  }, [layout])
 
-    useBlurEffect(() => setIsPositioned(false))
+  useBlurEffect(() => setIsPositioned(false))
 
-    const PointerComponent = (
-      <Pointer
-        placement={placement}
-        productTourTipTargetLayout={productTourTipTargetLayout}
-      />
-    )
+  const PointerComponent = (
+    <Pointer
+      placement={placement}
+      productTourTipTargetLayout={productTourTipTargetLayout}
+    />
+  )
 
-    return (
-      <View
-        collapsable={false}
-        onLayout={measureTarget}
-        ref={tooltipRef}
-        style={styles.container}>
-        {!!layout && (
-          <TooltipWrapper
-            extraSpace={extraSpace}
-            fadeIn={fadeIn}
-            fadeInDuration={fadeInDuration}
-            isPositioned={isPositioned}
-            leftPosition={leftPosition}
-            placement={placement}
-            productTourTipTargetLayout={productTourTipTargetLayout}
-            ref={ref}
-            startFadeIn={startFadeIn}>
-            <PressableBase
-              accessibilityLabel={accessibilityLabel}
-              accessibilityLanguage={accessibilityLanguage}
-              accessibilityRole="alert"
-              onPress={onPress}
-              ref={setAccessibilityFocus}
-              testID={testID}>
-              <Row>
-                {placement === Placement.after && PointerComponent}
-                <Column grow={1}>
-                  {placement === Placement.below && PointerComponent}
-                  <TooltipContent
-                    testID={testID}
-                    text={text}
-                  />
-                  {placement === Placement.above && PointerComponent}
-                </Column>
-                {placement === Placement.before && PointerComponent}
-              </Row>
-            </PressableBase>
-          </TooltipWrapper>
-        )}
-      </View>
-    )
-  },
-)
+  return (
+    <View
+      collapsable={false}
+      onLayout={measureTarget}
+      ref={tooltipRef}
+      style={styles.container}>
+      {!!layout && (
+        <TooltipWrapper
+          extraSpace={extraSpace}
+          fadeIn={fadeIn}
+          fadeInDuration={fadeInDuration}
+          isPositioned={isPositioned}
+          leftPosition={leftPosition}
+          placement={placement}
+          productTourTipTargetLayout={productTourTipTargetLayout}
+          ref={ref}
+          startFadeIn={startFadeIn}>
+          <PressableBase
+            accessibilityLabel={accessibilityLabel}
+            accessibilityLanguage={accessibilityLanguage}
+            accessibilityRole="alert"
+            onPress={onPress}
+            ref={setAccessibilityFocus}
+            testID={testID}>
+            <Row>
+              {placement === Placement.after && PointerComponent}
+              <Column grow={1}>
+                {placement === Placement.below && PointerComponent}
+                <TooltipContent
+                  testID={testID}
+                  text={text}
+                />
+                {placement === Placement.above && PointerComponent}
+              </Column>
+              {placement === Placement.before && PointerComponent}
+            </Row>
+          </PressableBase>
+        </TooltipWrapper>
+      )}
+    </View>
+  )
+}
 
 const createStyles =
   (isAbsolute: boolean) =>

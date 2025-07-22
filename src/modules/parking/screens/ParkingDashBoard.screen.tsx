@@ -60,7 +60,9 @@ export const ParkingDashboardScreen = ({route}: Props) => {
     <CurrentPermitProvider>
       <Screen
         bottomSheet={
-          <BottomSheet testID="ParkingSelectPermitBottomSheet">
+          <BottomSheet
+            scroll
+            testID="ParkingSelectPermitBottomSheet">
             <ParkingSelectPermit />
           </BottomSheet>
         }

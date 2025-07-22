@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {
   ConversationEntryFormat,
   ConversationEntryRoutingResult,
@@ -8,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {LoadingDots} from '@/modules/chat/components/LoadingDots'
 import {EntryGutter} from '@/modules/chat/components/conversation/EntryGutter'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {getWaitingTimePhrase} from '@/modules/chat/utils/getWaitingTimePhrase'
 
 type Props = {
@@ -18,7 +17,7 @@ type Props = {
 
 export const EntryRoutingResult = ({message, isLastOfGroup}: Props) => {
   const {isEWTAvailable, estimatedWaitTime, routingType} = message
-  const {isWaitingForAgent, messages} = useContext(ChatContext)
+  const {isWaitingForAgent, messages} = useChatContext()
 
   const messagesAfterCurrent = messages.slice(messages.indexOf(message) + 1)
   const hasTextMessageAfterCurrentMessage =

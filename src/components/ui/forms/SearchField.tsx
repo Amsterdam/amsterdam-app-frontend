@@ -1,4 +1,4 @@
-import {forwardRef, useState} from 'react'
+import {type Ref, useState} from 'react'
 import {
   type GestureResponderEvent,
   type NativeSyntheticEvent,
@@ -22,125 +22,120 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
+  ref?: Ref<TextInput | null>
 } & TestProps &
   TextInputProps
 
-export const SearchField = forwardRef<TextInput, Props>(
-  (
-    {
-      onChangeText,
-      onFocus,
-      testID,
-      value = '',
-      accessibilityLanguage = 'nl-NL',
-      ...textInputProps
-    }: Props,
-    ref,
-  ) => {
-    const [hasFocus, setHasFocus] = useState(false)
-    const styles = useThemable(createStyles({hasFocus}))
-    const themedTextInputProps = useThemable(createTextInputProps)
-    const {
-      type: searchType,
-      amount: searchResultAmount,
-      setSearchFieldValue,
-    } = useSearchField()
+export const SearchField = ({
+  ref,
+  onChangeText,
+  onFocus,
+  testID,
+  value = '',
+  accessibilityLanguage = 'nl-NL',
+  ...textInputProps
+}: Props) => {
+  const [hasFocus, setHasFocus] = useState(false)
+  const styles = useThemable(createStyles({hasFocus}))
+  const themedTextInputProps = useThemable(createTextInputProps)
+  const {
+    type: searchType,
+    amount: searchResultAmount,
+    setSearchFieldValue,
+  } = useSearchField()
 
-    const onEvent = usePiwikTrackSearchFromProps({
-      keyword: value,
-      options: {
-        customDimensions: {
-          [PiwikDimension.searchTerm]: value,
-          [PiwikDimension.searchType]: searchType,
-          [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
-        },
-        category: searchType,
-        count: searchResultAmount,
+  const onEvent = usePiwikTrackSearchFromProps({
+    keyword: value,
+    options: {
+      customDimensions: {
+        [PiwikDimension.searchTerm]: value,
+        [PiwikDimension.searchType]: searchType,
+        [PiwikDimension.searchResultAmount]: searchResultAmount.toString(),
       },
-    })
+      category: searchType,
+      count: searchResultAmount,
+    },
+  })
 
-    const handleBlur = (
-      event: NativeSyntheticEvent<TextInputFocusEventData>,
-    ) => {
-      setHasFocus(false)
+  const handleBlur = (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+    setHasFocus(false)
+    onEvent(event)
+  }
+
+  const handleChangeText = (text: string) => {
+    setSearchFieldValue(text)
+    onChangeText?.(text)
+  }
+
+  const handleClearText = (event: GestureResponderEvent) => {
+    setSearchFieldValue('')
+    onChangeText?.('')
+    onEvent(event)
+  }
+
+  const handleFocus = () => {
+    setHasFocus(true)
+    onFocus?.()
+  }
+
+  const handleBackspaceKeyPress = (
+    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+  ) => {
+    if (event.nativeEvent.key === 'Backspace') {
       onEvent(event)
     }
+  }
 
-    const handleChangeText = (text: string) => {
-      setSearchFieldValue(text)
-      onChangeText?.(text)
-    }
-
-    const handleClearText = (event: GestureResponderEvent) => {
-      setSearchFieldValue('')
-      onChangeText?.('')
-      onEvent(event)
-    }
-
-    const handleFocus = () => {
-      setHasFocus(true)
-      onFocus?.()
-    }
-
-    const handleBackspaceKeyPress = (
-      event: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    ) => {
-      if (event.nativeEvent.key === 'Backspace') {
-        onEvent(event)
-      }
-    }
-
-    return (
-      <View style={styles.frame}>
-        <TextInput
-          {...textInputProps}
-          {...themedTextInputProps}
-          accessibilityLanguage={accessibilityLanguage}
-          multiline
-          onBlur={handleBlur}
-          onChangeText={handleChangeText}
-          onFocus={handleFocus}
-          onKeyPress={handleBackspaceKeyPress}
-          ref={ref}
-          style={styles.textInput}
-          testID={testID}
-          textAlignVertical="top"
-          value={value}
-        />
-        {value ? (
-          <View>
-            <IconButton
-              accessibilityHint="Maak dit zoekveld leeg"
-              accessibilityLanguage={accessibilityLanguage}
-              icon={
-                <Icon
-                  name="close"
-                  testID={`${testID}Icon`}
-                />
-              }
-              onPress={handleClearText}
-              testID={`${testID}ClearButton`}
-            />
-          </View>
-        ) : (
+  return (
+    <View style={styles.frame}>
+      <TextInput
+        {...textInputProps}
+        {...themedTextInputProps}
+        accessibilityLanguage={accessibilityLanguage}
+        multiline
+        onBlur={handleBlur}
+        onChangeText={handleChangeText}
+        onFocus={handleFocus}
+        onKeyPress={handleBackspaceKeyPress}
+        ref={ref}
+        style={styles.textInput}
+        testID={testID}
+        textAlignVertical="top"
+        value={value}
+      />
+      {value ? (
+        <View>
           <IconButton
-            accessibilityHint="Activeer dit zoekveld"
+            accessibilityHint="Maak dit zoekveld leeg"
             accessibilityLanguage={accessibilityLanguage}
             icon={
               <Icon
-                name="search"
-                size="lg"
+                name="close"
                 testID={`${testID}Icon`}
               />
             }
-            onPress={handleFocus}
-            testID={`${testID}SubmitButton`}
+            onPress={handleClearText}
+            testID={`${testID}ClearButton`}
           />
-        )}
-      </View>
-    )
-  },
-)
+        </View>
+      ) : (
+        <IconButton
+          accessibilityHint="Activeer dit zoekveld"
+          accessibilityLanguage={accessibilityLanguage}
+          icon={
+            <Icon
+              name="search"
+              size="lg"
+              testID={`${testID}Icon`}
+            />
+          }
+          onPress={handleFocus}
+          testID={`${testID}SubmitButton`}
+        />
+      )}
+    </View>
+  )
+}
 
 type StylisticSearchFieldProps = {
   label: string

@@ -1,18 +1,19 @@
-import {forwardRef} from 'react'
 import {
   // eslint-disable-next-line no-restricted-imports
   Pressable as PressableRN,
   // eslint-disable-next-line no-restricted-imports
-  PressableProps as PressableRNProps,
+  type PressableProps as PressableRNProps,
   View,
-  GestureResponderEvent,
+  type GestureResponderEvent,
 } from 'react-native'
+import type {Ref} from 'react'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
-import {LogProps, PiwikAction} from '@/processes/piwik/types'
+import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 
 export type PressableBaseProps = {
   'logging-label'?: string
+  ref?: Ref<View>
 } & PressableRNProps &
   LogProps &
   TestProps
@@ -21,41 +22,37 @@ export type PressableBaseProps = {
  * Used to build other interactive components, do not use on its own.
  * This is a drop in replacement of the React Native Pressable component.
  */
-export const PressableBase = forwardRef<View, PressableBaseProps>(
-  (
-    {
-      children,
-      onPress = () => null,
-      logAction = PiwikAction.buttonPress,
-      onAccessibilityAction,
-      ...pressableProps
-    },
-    ref,
-  ) => {
-    const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
-      ...pressableProps,
-      logAction,
-    })
+export const PressableBase = ({
+  ref,
+  children,
+  onPress = () => null,
+  logAction = PiwikAction.buttonPress,
+  onAccessibilityAction,
+  ...pressableProps
+}: PressableBaseProps) => {
+  const onEvent = usePiwikTrackCustomEventFromProps<unknown>({
+    ...pressableProps,
+    logAction,
+  })
 
-    return (
-      <PressableRN
-        accessibilityLanguage="nl-NL"
-        accessibilityRole="button"
-        onAccessibilityAction={event => {
-          onAccessibilityAction?.(event)
-          onEvent(event, {
-            nameSuffix: event.nativeEvent.actionName,
-            action: PiwikAction.accessibilityAction,
-          })
-        }}
-        onPress={(event: GestureResponderEvent) => {
-          onPress?.(event)
-          onEvent(event)
-        }}
-        ref={ref}
-        {...pressableProps}>
-        {children}
-      </PressableRN>
-    )
-  },
-)
+  return (
+    <PressableRN
+      accessibilityLanguage="nl-NL"
+      accessibilityRole="button"
+      onAccessibilityAction={event => {
+        onAccessibilityAction?.(event)
+        onEvent(event, {
+          nameSuffix: event.nativeEvent.actionName,
+          action: PiwikAction.accessibilityAction,
+        })
+      }}
+      onPress={(event: GestureResponderEvent) => {
+        onPress?.(event)
+        onEvent(event)
+      }}
+      ref={ref}
+      {...pressableProps}>
+      {children}
+    </PressableRN>
+  )
+}

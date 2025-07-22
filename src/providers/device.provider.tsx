@@ -1,26 +1,7 @@
-import {createContext, ReactNode, useEffect, useState} from 'react'
-import {ScaledSize, useWindowDimensions} from 'react-native'
+import {ReactNode, useEffect, useState} from 'react'
+import {useWindowDimensions} from 'react-native'
 import {isTablet} from 'react-native-device-info'
-
-export type Device = {
-  isLandscape: boolean
-  isPortrait: boolean
-  isTablet: boolean
-  isTallPhone: boolean
-} & ScaledSize
-
-const initialValue: Device = {
-  fontScale: 1,
-  height: 640,
-  isLandscape: false,
-  isPortrait: true,
-  isTablet: false,
-  isTallPhone: true,
-  scale: 1,
-  width: 360,
-}
-
-export const DeviceContext = createContext(initialValue)
+import {DeviceContext, initialValue} from '@/providers/device.context'
 
 type Props = {
   children: ReactNode

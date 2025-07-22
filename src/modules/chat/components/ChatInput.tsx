@@ -1,4 +1,4 @@
-import {useCallback, useContext, useRef, useState} from 'react'
+import {useCallback, useRef, useState} from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -20,7 +20,7 @@ import {useBoolean} from '@/hooks/useBoolean'
 import {useKeyboardHeight} from '@/hooks/useKeyboardHeight'
 import {ChatAttachment} from '@/modules/chat/components/ChatAttachment'
 import {ChatEnded} from '@/modules/chat/components/ChatEnded'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {Theme} from '@/themes/themes'
@@ -67,7 +67,7 @@ export const ChatInput = ({onSubmit}: Props) => {
   )
   const {height: keyboardHeight, visible: keyboardVisible} = useKeyboardHeight()
 
-  const {agentInChat, isEnded} = useContext(ChatContext)
+  const {agentInChat, isEnded} = useChatContext()
 
   if (isEnded) {
     return <ChatEnded />

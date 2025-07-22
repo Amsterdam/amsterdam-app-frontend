@@ -12,16 +12,17 @@ import {createCustomDimensionsFromRouteParams} from '@/processes/piwik/utils/cre
 import {getTitleFromParams} from '@/processes/piwik/utils/getTitleFromParams'
 import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
-import {PiwikContext} from '@/providers/piwik.provider'
+import {PiwikContext} from '@/providers/piwik.context'
 
 const MAX_RECENT_ROUTE_LENGTH = 200
 
 export const useRegisterNavigationContainerForLogging = () => {
-  const navigationContainer =
-    useRef<NavigationContainerRefWithCurrent<RootStackParams>>()
-  const navigationStartTime = useRef<number>()
+  const navigationContainer = useRef<
+    NavigationContainerRefWithCurrent<RootStackParams> | undefined
+  >(undefined)
+  const navigationStartTime = useRef<number | undefined>(undefined)
   const recentRouteKeys = useRef<string[]>([])
-  const latestRoute = useRef<Route<string>>()
+  const latestRoute = useRef<Route<string> | undefined>(undefined)
   const trackException = useTrackException()
   const appInsights = useAppInsights()
 

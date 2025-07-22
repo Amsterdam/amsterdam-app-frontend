@@ -1,10 +1,10 @@
 import {useIsFocused} from '@react-navigation/core'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {type RefObject, useCallback, useEffect, useRef, useState} from 'react'
 import {LayoutRectangle, useWindowDimensions, View} from 'react-native'
 import {measureElement} from '@/components/features/product-tour/utils'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
-type TargetRef = React.RefObject<View | null>
+type TargetRef = RefObject<View | null>
 
 export const useMeasureTarget = (targetRef: TargetRef) => {
   const isFocused = useIsFocused()

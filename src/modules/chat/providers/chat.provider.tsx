@@ -1,17 +1,7 @@
-import {
-  createContext,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react'
+import {ReactNode, useCallback, useEffect, useMemo, useState} from 'react'
 import {useCreateChat} from 'react-native-salesforce-messaging-in-app/src'
 import {
-  ConversationEntry,
   ConversationEntryFormat,
-  ConnectionState,
-  RemoteConfiguration,
   RetrieveTranscriptResponse,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
@@ -19,42 +9,11 @@ import {useIsChatEnded} from '@/modules/chat/hooks/useIsChatEnded'
 import {useMarkAsRead} from '@/modules/chat/hooks/useMarkAsRead'
 import {useSendNotificationWhenInBackground} from '@/modules/chat/hooks/useSendNotificationWhenInBackground'
 import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
+import {ChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
-
-type ChatContextType = {
-  addDownloadedTranscriptId: (
-    entryId: RetrieveTranscriptResponse['entryId'],
-  ) => void
-  agentInChat: boolean
-  connectionStatus: ConnectionState | null
-  downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
-  endChat: () => void
-  isEnded: boolean
-  isWaitingForAgent: boolean
-  messages: ConversationEntry[]
-  newMessagesCount: number
-  ready: boolean
-  remoteConfiguration: RemoteConfiguration | undefined
-}
-
-const initialValue: ChatContextType = {
-  addDownloadedTranscriptId: () => null,
-  agentInChat: false,
-  downloadedTranscriptIds: [],
-  connectionStatus: null,
-  endChat: () => null,
-  isEnded: false,
-  isWaitingForAgent: false,
-  messages: [],
-  newMessagesCount: 0,
-  ready: false,
-  remoteConfiguration: undefined,
-}
-
-export const ChatContext = createContext<ChatContextType>(initialValue)
 
 type Props = {
   children: ReactNode

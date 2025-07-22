@@ -4,7 +4,7 @@ import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {getTrackEvents} from '@/processes/logging/utils/getTrackEvents'
 import {useAppInsights} from '@/providers/appinsights.provider'
 // eslint-disable-next-line no-restricted-imports
-import {PiwikContext} from '@/providers/piwik.provider'
+import {PiwikContext} from '@/providers/piwik.context'
 import {getCurrentModuleSlugFromNavigationRootState} from '@/utils/getCurrentModuleSlugFromNavigationRootState'
 
 export {

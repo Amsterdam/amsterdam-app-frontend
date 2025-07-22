@@ -1,8 +1,6 @@
 import {
   ComponentType,
   ForwardedRef,
-  createContext,
-  forwardRef,
   useCallback,
   useEffect,
   useMemo,
@@ -14,6 +12,7 @@ import {
   KeyboardAwareScrollView,
   type KeyboardAwareScrollViewProps,
 } from 'react-native-keyboard-aware-scroll-view'
+import {ScrollContext} from '@/components/features/product-tour/ScrollContext'
 import {
   computeIsElementVisible,
   measureElement,
@@ -24,15 +23,8 @@ export type ScrollViewRef = ScrollView | KeyboardAwareScrollView
 
 type ScrollViewWrapperProps = ScrollViewProps & {
   childRef?: ForwardedRef<ScrollViewRef> | null
-  ref: ForwardedRef<ScrollViewRef> | null
+  ref?: ForwardedRef<ScrollViewRef> | null
 }
-
-type ScrollContext = {
-  isElementVisible: boolean
-  setElementRef: (node: View) => void
-}
-
-export const ScrollContext = createContext<ScrollContext | null>(null)
 
 const withTrackScroll = (
   ScrollViewComp:
@@ -86,13 +78,12 @@ const withTrackScroll = (
     )
   }
 
-  return forwardRef<ScrollViewRef, ScrollViewWrapperProps>((props, ref) => (
-    // @ts-expect-error this needs to be improved
+  return ({ref, ...props}: ScrollViewWrapperProps) => (
     <ScrollViewWrapper
       {...props}
       childRef={ref}
     />
-  ))
+  )
 }
 
 export const KeyboardAwareTrackScrollView = withTrackScroll(

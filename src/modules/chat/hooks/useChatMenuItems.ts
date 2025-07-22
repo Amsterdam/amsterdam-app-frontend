@@ -1,10 +1,10 @@
-import {useContext, useMemo} from 'react'
+import {useMemo} from 'react'
 import {Alert} from 'react-native'
 import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {CLOSE_CHAT_MESSAGE} from '@/modules/chat/constants'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
@@ -15,8 +15,7 @@ import {useMenu} from '@/store/slices/menu'
 export const useChatMenuItems = () => {
   const {close} = useChat()
   const {close: closeMenu} = useMenu()
-  const {addDownloadedTranscriptId, endChat, ready, isEnded} =
-    useContext(ChatContext)
+  const {addDownloadedTranscriptId, endChat, ready, isEnded} = useChatContext()
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()

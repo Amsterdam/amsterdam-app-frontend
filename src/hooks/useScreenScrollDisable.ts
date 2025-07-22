@@ -1,5 +1,5 @@
 import {useContext, useEffect} from 'react'
-import {ScreenContext} from '@/providers/screen.provider'
+import {ScreenContext} from '@/providers/screen.context'
 
 export const useScreenScrollDisable = (hasError: boolean) => {
   const screenContext = useContext(ScreenContext)

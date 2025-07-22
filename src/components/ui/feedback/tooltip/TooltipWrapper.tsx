@@ -1,4 +1,3 @@
-import {forwardRef} from 'react'
 import {StyleSheet, useWindowDimensions, View, ViewProps} from 'react-native'
 import {Fader} from '@/components/ui/animations/Fader'
 import {
@@ -9,50 +8,46 @@ import {Placement} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-export const TooltipWrapper = forwardRef<View, WrapperProps & ViewProps>(
-  (
-    {
+export const TooltipWrapper = ({
+  ref,
+  extraSpace,
+  isPositioned,
+  leftPosition,
+  placement,
+  productTourTipTargetLayout,
+  fadeIn,
+  fadeInDuration,
+  startFadeIn,
+  ...props
+}: WrapperProps & ViewProps) => {
+  const {width: windowWidth} = useWindowDimensions()
+  const styles = useThemable(
+    createStyles({
       extraSpace,
       isPositioned,
       leftPosition,
       placement,
       productTourTipTargetLayout,
-      fadeIn,
-      fadeInDuration,
-      startFadeIn,
-      ...props
-    },
-    ref,
-  ) => {
-    const {width: windowWidth} = useWindowDimensions()
-    const styles = useThemable(
-      createStyles({
-        extraSpace,
-        isPositioned,
-        leftPosition,
-        placement,
-        productTourTipTargetLayout,
-        windowWidth,
-      }),
-    )
+      windowWidth,
+    }),
+  )
 
-    return fadeIn ? (
-      <Fader
-        {...props}
-        duration={fadeInDuration}
-        ref={ref}
-        shouldAnimate={startFadeIn}
-        style={styles.tooltipWrapper}
-      />
-    ) : (
-      <View
-        {...props}
-        ref={ref}
-        style={styles.tooltipWrapper}
-      />
-    )
-  },
-)
+  return fadeIn ? (
+    <Fader
+      {...props}
+      duration={fadeInDuration}
+      ref={ref}
+      shouldAnimate={startFadeIn}
+      style={styles.tooltipWrapper}
+    />
+  ) : (
+    <View
+      {...props}
+      ref={ref}
+      style={styles.tooltipWrapper}
+    />
+  )
+}
 
 const createStyles =
   ({

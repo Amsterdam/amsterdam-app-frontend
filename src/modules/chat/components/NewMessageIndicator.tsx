@@ -1,10 +1,9 @@
-import {useContext} from 'react'
 import simplur from 'simplur'
 import {Badge} from '@/components/ui/feedback/Badge'
-import {ChatContext} from '@/modules/chat/providers/chat.provider'
+import {useChatContext} from '@/modules/chat/providers/chat.context'
 
 export const NewMessageIndicator = () => {
-  const {newMessagesCount} = useContext(ChatContext)
+  const {newMessagesCount} = useChatContext()
 
   return newMessagesCount ? (
     <Badge

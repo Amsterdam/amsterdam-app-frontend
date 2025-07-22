@@ -45,6 +45,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+.kotlin/
 
 # IntelliJ
 .idea
