@@ -1,7 +1,5 @@
-import {useCallback, useMemo} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {useMemo} from 'react'
 import {Pressable} from '@/components/ui/buttons/Pressable'
-import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
@@ -9,12 +7,8 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {HomeRouteName} from '@/modules/home/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {toggleModule} from '@/store/slices/modules'
-import {Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
@@ -94,7 +88,6 @@ type ModuleButtonProps = {
 } & TestProps
 
 export const ModuleButton = ({
-  alwaysEnabled = false,
   disabled,
   iconName,
   label,
@@ -102,14 +95,7 @@ export const ModuleButton = ({
   testID,
   variant = 'tertiary',
 }: ModuleButtonProps) => {
-  const dispatch = useDispatch()
   const navigation = useNavigation<HomeRouteName>()
-
-  const styles = useThemable(createStyles)
-
-  const onDelete = useCallback(() => {
-    dispatch(toggleModule(slug))
-  }, [slug, dispatch])
 
   const button = useMemo(
     () => (
@@ -124,41 +110,15 @@ export const ModuleButton = ({
     [disabled, iconName, label, testID, variant],
   )
 
-  const pressable = useMemo(
-    () => (
-      <Pressable
-        inset="md"
-        onPress={() => {
-          navigation.navigate(slug)
-        }}
-        testID={`${testID}Button`}
-        variant={variant}>
-        {button}
-      </Pressable>
-    ),
-    [button, navigation, slug, testID, variant],
-  )
-
   return (
-    <View
-      style={styles.swipeToDeleteContainer}
-      testID={testID}>
-      {alwaysEnabled ? (
-        pressable
-      ) : (
-        <SwipeToDelete
-          onEvent={onDelete}
-          testID={`${testID}SwipeToDelete`}>
-          {pressable}
-        </SwipeToDelete>
-      )}
-    </View>
+    <Pressable
+      inset="md"
+      onPress={() => {
+        navigation.navigate(slug)
+      }}
+      testID={`${testID}Button`}
+      variant={variant}>
+      {button}
+    </Pressable>
   )
 }
-
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    swipeToDeleteContainer: {
-      backgroundColor: color.swipeToDelete.background,
-    },
-  })
