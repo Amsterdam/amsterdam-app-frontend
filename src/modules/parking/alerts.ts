@@ -6,6 +6,34 @@ import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
 
 export const alerts = {
+  accountPinCodeChangeSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Uw pincode is gewijzigd.',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingAccountPinCodeChangeSuccessAlert',
+  },
+  adjustSessionSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Uw parkeersessie is aangepast',
+    hasCloseIcon: true,
+    hasIcon: true,
+    testID: 'ParkingAdjustSessionSuccessAlert',
+  },
+  adjustTimeBalanceFailed: {
+    variant: AlertVariant.negative,
+    text: 'We konden het tijdsaldo niet aanpassen.',
+    title: 'Mislukt',
+    hasIcon: true,
+    testID: 'ParkingManageVisitorAdjustTimeBalanceFailedAlert',
+  },
+  adjustTimeBalanceSuccess: {
+    variant: AlertVariant.positive,
+    text: 'Tijdsaldo is aangepast.',
+    title: 'Gelukt',
+    hasIcon: true,
+    testID: 'ParkingManageVisitorAdjustTimeBalanceSuccessAlert',
+  },
   changePincodeSuccess: {
     variant: AlertVariant.positive,
     text: 'Pincode verstuurd als deze meldcode bestaat.',
@@ -26,6 +54,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingManageVisitorDecreaseTimeBalanceFailedAlert',
   },
+  freeParkingSuccess: {
+    variant: AlertVariant.positive,
+    text: 'U hoeft geen parkeersessie te starten.',
+    title: 'Parkeren in deze periode is gratis',
+    hasIcon: true,
+    testID: 'ParkingFreeParkingSuccessAlert',
+  },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Geldsaldo is verhoogd. Het kan even duren voordat het saldo is bijgewerkt.',
@@ -42,41 +77,13 @@ export const alerts = {
     hasCloseIcon: true,
     testID: 'ParkingIncreaseBalanceFailedAlert',
   },
-  adjustTimeBalanceSuccess: {
-    variant: AlertVariant.positive,
-    text: 'Tijdsaldo is aangepast.',
-    title: 'Gelukt',
-    hasIcon: true,
-    testID: 'ParkingManageVisitorAdjustTimeBalanceSuccessAlert',
-  },
-  adjustTimeBalanceFailed: {
+  insufficientMoneyBalanceFailed: {
     variant: AlertVariant.negative,
-    text: 'We konden het tijdsaldo niet aanpassen.',
-    title: 'Mislukt',
+    text: 'Te weinig geld om parkeersessie te starten.',
+    title: 'Niet genoeg geldsaldo',
     hasIcon: true,
-    testID: 'ParkingManageVisitorAdjustTimeBalanceFailedAlert',
-  },
-  freeParkingSuccess: {
-    variant: AlertVariant.positive,
-    text: 'U hoeft geen parkeersessie te starten.',
-    title: 'Parkeren in deze periode is gratis',
-    hasIcon: true,
-    testID: 'ParkingFreeParkingSuccessAlert',
-  },
-  maxLicensePlatesWarning: {
-    variant: AlertVariant.warning,
-    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
-    title: 'Maximum aantal kentekens',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'ParkingMaxLicensePlatesAlert',
-  },
-  maximumSessionsWarning: {
-    variant: AlertVariant.warning,
-    text: 'Pas de parkeertijd aan.',
-    title: 'Maximum aantal parkeersessies bereikt',
-    hasIcon: true,
-    testID: 'ParkingMaximumSessionsWarningAlert',
+    hasCloseIcon: false,
+    testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
   },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
@@ -94,13 +101,32 @@ export const alerts = {
     hasCloseIcon: false,
     testID: 'ParkingInsufficientTimeBalanceFailedAlert',
   },
-  insufficientMoneyBalanceFailed: {
+  loginForbiddenFailed: {
     variant: AlertVariant.negative,
-    text: 'Te weinig geld om parkeersessie te starten.',
-    title: 'Niet genoeg geldsaldo',
+    text: 'Controleer uw meldcode en pincode en probeer het opnieuw.',
+    title: 'Inloggen mislukt',
+    testID: 'ParkingLoginForbiddenFailedAlert',
+  },
+  loginFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het opnieuw.',
+    title: 'Inloggen mislukt',
+    testID: 'ParkingLoginFailedAlert',
+  },
+  maxLicensePlatesWarning: {
+    variant: AlertVariant.warning,
+    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
+    title: 'Maximum aantal kentekens',
     hasIcon: true,
-    hasCloseIcon: false,
-    testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
+    hasCloseIcon: true,
+    testID: 'ParkingMaxLicensePlatesAlert',
+  },
+  maximumSessionsWarning: {
+    variant: AlertVariant.warning,
+    text: 'Pas de parkeertijd aan.',
+    title: 'Maximum aantal parkeersessies bereikt',
+    hasIcon: true,
+    testID: 'ParkingMaximumSessionsWarningAlert',
   },
   startSessionSuccess: {
     variant: AlertVariant.positive,
@@ -108,20 +134,6 @@ export const alerts = {
     hasCloseIcon: true,
     hasIcon: true,
     testID: 'ParkingStartSessionSuccessAlert',
-  },
-  adjustSessionSuccess: {
-    variant: AlertVariant.positive,
-    title: 'Uw parkeersessie is aangepast',
-    hasCloseIcon: true,
-    hasIcon: true,
-    testID: 'ParkingAdjustSessionSuccessAlert',
-  },
-  accountPinCodeChangeSuccess: {
-    variant: AlertVariant.positive,
-    title: 'Uw pincode is gewijzigd.',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'ParkingAccountPinCodeChangeSuccessAlert',
   },
 } as const satisfies AlertsRecord
 
