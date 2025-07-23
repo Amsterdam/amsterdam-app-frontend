@@ -4,7 +4,7 @@ import {ParkingPermitDetailPermitZone} from '@/modules/parking/components/dashbo
 import {ParkingPermitDetailTimeBalance} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeBalance'
 import {ParkingPermitDetailTimeFrame} from '@/modules/parking/components/dashboard/ParkingPermitDetailTimeFrame'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitDetail = () => {

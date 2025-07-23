@@ -5,8 +5,7 @@ import {ParkingDashboardPermitSessionsChooseVisitorLicensePlate} from '@/modules
 import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
 import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
-import {useVisitorVehicleId} from '@/modules/parking/slice'
+import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitSessions = () => {

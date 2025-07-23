@@ -2,8 +2,8 @@ import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPaymentByVisitorButton = () => {

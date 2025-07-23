@@ -14,7 +14,7 @@ import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/det
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {
   ParkingPermitScope,
   ParkingSession,

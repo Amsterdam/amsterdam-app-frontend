@@ -1,7 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermit, ParkingPermitScope} from '@/modules/parking/types'
 import {formatNumber} from '@/utils/formatNumber'
 
