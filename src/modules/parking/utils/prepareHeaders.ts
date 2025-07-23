@@ -17,7 +17,7 @@ export const prepareHeaders: PrepareHeaders = async (
   {dispatch, getState},
 ) => {
   const state = getState() as RootState
-  const accessTokenExpiration = dayjs(selectAccessTokenExpiration(state))
+  const accessTokenExpiration = dayjs(selectAccessTokenExpiration(state)) // if accessTokenExpiration is not found in the store, it will be set to now
   const account = selectParkingAccount(state)
 
   if (!account) {
