@@ -34,7 +34,7 @@ const DiscountTransactionsContent = ({dateEnd, passNumber}: Props) => {
   return (
     <>
       <Paragraph>
-        {`In totaal heb je ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
+        {`Vanaf ${getPreviousYear(dateEnd)} heb je in totaal ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
       </Paragraph>
       <TransactionHistory
         transactions={transactions}
