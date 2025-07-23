@@ -109,7 +109,7 @@ export const ProjectFollow = ({
             }}
             logName={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
             onPress={onPressFollowButton}
-            testID="ConstructionWorkProjectFollowButton"
+            testID={`ConstructionWorkProject${isProjectFollowed ? 'Unfollow' : 'Follow'}Button`}
           />
         </ProductTourTipWrapper>
         <SingleSelectable
