@@ -13,51 +13,59 @@ export const ParkingPreRenderComponent = () => {
   const account = useParkingAccount()
 
   const setParkingAccount = useCallback(async () => {
-    let secureAccounts: string | null = null
-    let scope: ParkingPermitScope | undefined
-
-    secureAccounts = await getSecureItem(SecureItemKey.parkingPermitHolder)
-
-    if (secureAccounts) {
-      scope = ParkingPermitScope.permitHolder
-    } else {
-      secureAccounts = await getSecureItem(SecureItemKey.parkingVisitor)
-
-      if (secureAccounts) {
-        scope = ParkingPermitScope.visitor
+    const parseAccounts = (raw: string | null): SecureParkingAccount[] => {
+      if (!raw) {
+        return []
       }
+
+      try {
+        const parsed: unknown = JSON.parse(raw)
+
+        if (Array.isArray(parsed)) {
+          return parsed.filter(
+            (item): item is SecureParkingAccount =>
+              typeof item === 'object' && item !== null && 'reportCode' in item,
+          )
+        }
+      } catch {
+        // ignore parse error
+      }
+
+      return []
     }
 
-    if (!secureAccounts || !scope) {
-      return
-    }
-
-    let parsedSecureAccounts: unknown
-
-    try {
-      parsedSecureAccounts = JSON.parse(secureAccounts)
-    } catch {
-      parsedSecureAccounts = []
-    }
-
-    const firstSecureAccount =
-      Array.isArray(parsedSecureAccounts) && parsedSecureAccounts.length
-        ? (parsedSecureAccounts[0] as SecureParkingAccount)
-        : undefined
-
-    if (!firstSecureAccount) {
-      return
-    }
-
-    dispatch(
-      parkingSlice.actions.setCurrentAccount(firstSecureAccount.reportCode),
+    const permitHolderRaw = await getSecureItem(
+      SecureItemKey.parkingPermitHolder,
     )
-    dispatch(
-      parkingSlice.actions.setParkingAccount({
-        reportCode: firstSecureAccount.reportCode,
-        scope,
-      }),
-    )
+    const visitorRaw = await getSecureItem(SecureItemKey.parkingVisitor)
+
+    const permitHolders = parseAccounts(permitHolderRaw)
+    const visitors = parseAccounts(visitorRaw)
+
+    const dispatchAccounts = (
+      accounts: SecureParkingAccount[],
+      scope: ParkingPermitScope,
+    ) => {
+      accounts.forEach(a => {
+        dispatch(
+          parkingSlice.actions.setParkingAccount({
+            reportCode: a.reportCode,
+            scope,
+          }),
+        )
+      })
+    }
+
+    dispatchAccounts(permitHolders, ParkingPermitScope.permitHolder)
+    dispatchAccounts(visitors, ParkingPermitScope.visitor)
+
+    const currentAccount = permitHolders[0] ?? visitors[0]
+
+    if (currentAccount) {
+      dispatch(
+        parkingSlice.actions.setCurrentAccount(currentAccount.reportCode),
+      )
+    }
   }, [dispatch])
 
   useEffect(() => {
