@@ -1,16 +1,15 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
-import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
+import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useAccountDetailsQuery,
@@ -155,54 +154,38 @@ export const ParkingReceipt = () => {
       />
       <Gutter height="sm" />
       {!!currentPermit.time_balance_applicable && (
-        <SingleSelectable>
-          <Row
-            align="between"
-            flex={1}>
-            <Phrase emphasis="strong">Parkeertijd</Phrase>
-            <Phrase emphasis="strong">{parkingTimeText}</Phrase>
-          </Row>
-        </SingleSelectable>
+        <ParkingReceiptItem>
+          <Phrase emphasis="strong">Parkeertijd</Phrase>
+          <Phrase emphasis="strong">{parkingTimeText}</Phrase>
+        </ParkingReceiptItem>
       )}
       {!!currentPermit.money_balance_applicable && (
-        <SingleSelectable>
-          <Row
-            align="between"
-            flex={1}>
-            <Phrase emphasis="strong">Parkeerkosten</Phrase>
-            <Phrase emphasis="strong">{parkingCostText}</Phrase>
-          </Row>
-        </SingleSelectable>
+        <ParkingReceiptItem>
+          <Phrase emphasis="strong">Parkeerkosten</Phrase>
+          <Phrase emphasis="strong">{parkingCostText}</Phrase>
+        </ParkingReceiptItem>
       )}
       <Gutter height="md" />
       {!!currentPermit.time_balance_applicable && (
-        <SingleSelectable>
-          <Row
-            align="between"
-            flex={1}>
-            <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-              Resterend tijdsaldo
-            </Phrase>
-            <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-              {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
-            </Phrase>
-          </Row>
-        </SingleSelectable>
+        <ParkingReceiptItem>
+          <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+            Resterend tijdsaldo
+          </Phrase>
+          <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+            {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
+          </Phrase>
+        </ParkingReceiptItem>
       )}
 
       {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
-        <SingleSelectable>
-          <Row
-            align="between"
-            flex={1}>
-            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-              Resterend geldsaldo
-            </Phrase>
-            <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-              {remainingMoneyBalanceText}
-            </Phrase>
-          </Row>
-        </SingleSelectable>
+        <ParkingReceiptItem>
+          <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+            Resterend geldsaldo
+          </Phrase>
+          <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
+            {remainingMoneyBalanceText}
+          </Phrase>
+        </ParkingReceiptItem>
       )}
       {(!!remainingTimeBalanceError ||
         errors.root?.serverError?.message?.includes(
