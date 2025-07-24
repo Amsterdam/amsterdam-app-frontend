@@ -2,6 +2,7 @@ import {useCallback, useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {parkingSlice, useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope, SecureParkingAccount} from '@/modules/parking/types'
+import {parseSecureParkingAccounts} from '@/modules/parking/utils/parseSecureParkingAccounts'
 import {getSecureItem, SecureItemKey} from '@/utils/secureStorage'
 
 /**
@@ -13,34 +14,13 @@ export const ParkingPreRenderComponent = () => {
   const account = useParkingAccount()
 
   const setParkingAccount = useCallback(async () => {
-    const parseAccounts = (raw: string | null): SecureParkingAccount[] => {
-      if (!raw) {
-        return []
-      }
-
-      try {
-        const parsed: unknown = JSON.parse(raw)
-
-        if (Array.isArray(parsed)) {
-          return parsed.filter(
-            (item): item is SecureParkingAccount =>
-              typeof item === 'object' && item !== null && 'reportCode' in item,
-          )
-        }
-      } catch {
-        // ignore parse error
-      }
-
-      return []
-    }
-
     const permitHolderRaw = await getSecureItem(
       SecureItemKey.parkingPermitHolder,
     )
     const visitorRaw = await getSecureItem(SecureItemKey.parkingVisitor)
 
-    const permitHolders = parseAccounts(permitHolderRaw)
-    const visitors = parseAccounts(visitorRaw)
+    const permitHolders = parseSecureParkingAccounts(permitHolderRaw)
+    const visitors = parseSecureParkingAccounts(visitorRaw)
 
     const dispatchAccounts = (
       accounts: SecureParkingAccount[],
