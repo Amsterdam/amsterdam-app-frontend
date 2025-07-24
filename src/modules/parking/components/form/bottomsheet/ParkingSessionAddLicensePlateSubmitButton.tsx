@@ -1,7 +1,10 @@
 import {useBottomSheet} from '@gorhom/bottom-sheet'
+import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {useAddLicensePlateMutation} from '@/modules/parking/service'
 import {ParkingLicensePlate} from '@/modules/parking/types'
 
@@ -13,11 +16,24 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
   setLicensePlate,
 }: Props) => {
   const {close} = useBottomSheet()
-  const {handleSubmit, reset} = useFormContext<ParkingLicensePlate>()
+  const {
+    clearErrors,
+    handleSubmit,
+    reset,
+    setError,
+    formState: {errors},
+    watch,
+  } = useFormContext<ParkingLicensePlate>()
   const currentPermit = useCurrentParkingPermit()
   const [addLicensePlate] = useAddLicensePlateMutation()
+  const {licensePlates} = useGetLicensePlates()
+  const vehicleIdInput = watch('vehicle_id')
 
   const onSubmit = handleSubmit((licensePlate: ParkingLicensePlate) => {
+    if (errors.root?.localError?.type === 'isLicensePlateDuplicate') {
+      return
+    }
+
     const {vehicle_id, visitor_name} = licensePlate
 
     if (visitor_name) {
@@ -42,12 +58,33 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
     reset()
   })
 
+  useEffect(() => {
+    if (licensePlates?.some(lp => lp.vehicle_id === vehicleIdInput)) {
+      setError('root.localError', {
+        type: 'isLicensePlateDuplicate',
+      })
+    } else {
+      clearErrors('root.localError')
+    }
+  }, [clearErrors, licensePlates, setError, vehicleIdInput])
+
   return (
-    <Button
-      label="Gereed"
-      onPress={onSubmit}
-      testID="ParkingSessionAddLicensePlateSubmitButton"
-      variant="secondary"
-    />
+    <>
+      {errors.root?.localError?.type === 'isLicensePlateDuplicate' && (
+        <>
+          <AlertWarning
+            testID="ParkingSessionAddLicensePlateDuplicateAlert"
+            text="Dit kenteken is al opgeslagen in Mijn kentekens."
+            title="Kenteken bestaat al"
+          />
+        </>
+      )}
+      <Button
+        label="Gereed"
+        onPress={onSubmit}
+        testID="ParkingSessionAddLicensePlateSubmitButton"
+        variant="secondary"
+      />
+    </>
   )
 }
