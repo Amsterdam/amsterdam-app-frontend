@@ -1,8 +1,10 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
-import {useCurrentParkingPermitReportCode} from '@/modules/parking/slice'
+import {
+  useCurrentParkingPermitReportCode,
+  useParkingAccount,
+} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 

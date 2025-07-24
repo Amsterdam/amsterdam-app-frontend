@@ -1,4 +1,5 @@
 import {ParkingActionButton} from '@/modules/parking/components/ParkingActionButton'
+import {ParkingPreRenderComponent} from '@/modules/parking/components/ParkingPreRenderComponent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
@@ -25,6 +26,7 @@ export const parkingModule: ModuleClientConfig = {
   },
   postProcessLinking,
   logDimension: PiwikSessionDimension.parkingModule,
+  PreRenderComponent: ParkingPreRenderComponent,
   reduxConfigs: [
     {
       key: ReduxKey.parking,

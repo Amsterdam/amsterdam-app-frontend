@@ -5,8 +5,8 @@ import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useParkingAccount} from '@/modules/parking/slice'
 
 export const ParkingAccountCredentials = () => {
   const {reportCode} = useParkingAccount() ?? {}

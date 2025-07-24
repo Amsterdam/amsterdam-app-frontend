@@ -5,7 +5,7 @@ import {ParkingPermitBalanceMoney} from '@/modules/parking/components/dashboard/
 import {ParkingPermitBalanceTime} from '@/modules/parking/components/dashboard/ParkingPermitBalanceTime'
 import {ParkingPermitTariff} from '@/modules/parking/components/dashboard/ParkingPermitTariff'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
+import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitBalance = () => {

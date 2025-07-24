@@ -12,10 +12,9 @@ import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/Parki
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
-import {useParkingAccount} from '@/modules/parking/hooks/useParkingAccount'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useVisitorVehicleId} from '@/modules/parking/slice'
+import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = NavigationProps<ParkingRouteName.startSession>
