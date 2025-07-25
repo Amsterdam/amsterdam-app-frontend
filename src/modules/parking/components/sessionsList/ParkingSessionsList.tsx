@@ -101,14 +101,12 @@ export const ParkingSessionsList = ({
     [result, sortAscending],
   )
 
-  return currentPermit.no_endtime ? (
+  return currentPermit.no_endtime ||
+    currentPermit.max_session_length_in_days > 1 ? (
     <FlatList
       data={result.data}
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListFooterComponent={<Gutter height="md" />}
-      ListHeaderComponent={
-        currentPermit.no_endtime ? null : ListHeaderComponent
-      }
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
         <Box
@@ -121,9 +119,7 @@ export const ParkingSessionsList = ({
   ) : (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
-      ListHeaderComponent={
-        currentPermit.no_endtime ? null : ListHeaderComponent
-      }
+      ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
       renderItem={({item}) => (
         <Box
