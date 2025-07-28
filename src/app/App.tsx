@@ -1,4 +1,5 @@
-import {StatusBar, StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native'
+import {SystemBars} from 'react-native-edge-to-edge'
 import {GestureHandlerRootView} from 'react-native-gesture-handler'
 import {
   initialWindowMetrics,
@@ -23,11 +24,7 @@ export const App = () => (
       style={styles.appContainer}>
       <GestureHandlerRootView style={styles.flex}>
         <CustomErrorBoundary>
-          <StatusBar
-            backgroundColor="transparent"
-            barStyle="dark-content"
-            translucent
-          />
+          <SystemBars />
           <RootProvider>
             <PersistGate
               loading={null}
