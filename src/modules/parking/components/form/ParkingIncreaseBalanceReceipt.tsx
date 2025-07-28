@@ -6,6 +6,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
@@ -31,28 +32,18 @@ export const ParkingIncreaseBalanceReceipt = () => {
 
   return (
     <Column>
-      <SingleSelectable>
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase emphasis="strong">Huidig geldsaldo</Phrase>
-          <Phrase emphasis="strong">
-            {formatNumber(account?.wallet.balance, account?.wallet.currency)}
-          </Phrase>
-        </Row>
-      </SingleSelectable>
-      <SingleSelectable>
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase emphasis="strong">Bedrag toevoegen</Phrase>
-          <Phrase emphasis="strong">
-            {amount
-              ? `+ ${formatNumber(amount, account?.wallet.currency)}`
-              : '-'}
-          </Phrase>
-        </Row>
-      </SingleSelectable>
+      <ParkingReceiptItem>
+        <Phrase emphasis="strong">Huidig geldsaldo</Phrase>
+        <Phrase emphasis="strong">
+          {formatNumber(account?.wallet.balance, account?.wallet.currency)}
+        </Phrase>
+      </ParkingReceiptItem>
+      <ParkingReceiptItem>
+        <Phrase emphasis="strong">Bedrag toevoegen</Phrase>
+        <Phrase emphasis="strong">
+          {amount ? `+ ${formatNumber(amount, account?.wallet.currency)}` : '-'}
+        </Phrase>
+      </ParkingReceiptItem>
       <Gutter height="md" />
       <SingleSelectable>
         <Row
