@@ -128,6 +128,14 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingMaximumSessionsWarningAlert',
   },
+  saveLicensePlateDuplicateWarning: {
+    variant: AlertVariant.warning,
+    text: 'Dit kenteken is al opgeslagen in Mijn kentekens.',
+    title: 'Kenteken bestaat al',
+    hasIcon: true,
+    hasCloseIcon: true,
+    testID: 'ParkingLicensePlateDuplicateErrorAlert',
+  },
   startSessionSuccess: {
     variant: AlertVariant.positive,
     title: 'Uw parkeersessie is opgeslagen',

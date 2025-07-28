@@ -5,7 +5,9 @@ import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitPro
 
 export const AddLicensePlateScreen = () => (
   <CurrentPermitProvider>
-    <Screen testID="ParkingAddLicensePlateScreen">
+    <Screen
+      hasStickyAlert
+      testID="ParkingAddLicensePlateScreen">
       <Box>
         <AddLicensePlateForm />
       </Box>
