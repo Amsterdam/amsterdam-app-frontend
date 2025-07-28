@@ -35,7 +35,9 @@ export const ScreenWrapper = ({
   }
 
   if (keyboardAware) {
-    return <KeyboardAvoidingView>{children}</KeyboardAvoidingView>
+    return (
+      <KeyboardAvoidingView behavior="padding">{children}</KeyboardAvoidingView>
+    )
   }
 
   return <>{children}</>
