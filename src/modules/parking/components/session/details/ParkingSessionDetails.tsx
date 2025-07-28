@@ -181,7 +181,8 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           </>
         )}
         {parkingAccount?.scope === ParkingPermitScope.visitor &&
-          parkingSession.status === ParkingSessionStatus.active && (
+          parkingSession.status === ParkingSessionStatus.active &&
+          !!parkingSession.ps_right_id && (
             <ParkingSessionDetailsVisitorExtendButton
               parkingSession={parkingSession as ParkingSession}
             />
