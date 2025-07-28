@@ -56,7 +56,7 @@ export const NavigationButton = ({
             testID={`${testID}Icon`}
           />
         )}
-        <Column>
+        <Column shrink={1}>
           <Row
             gutter="md"
             shrink={0}>
