@@ -24,12 +24,13 @@ export const ParkingPlannedSessionNavigationButton = ({
     {short: false},
   )
   const currentPermit = useCurrentParkingPermit()
-  const startDateTimeString = `${dayjs(start_date_time).format('DD MMMM, HH.mm')} uur`
+  const startDateTimeString = `${dayjs(start_date_time).format('D MMMM, HH.mm')} uur`
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
   const endTimeString = `${dayjs(end_date_time).format('HH.mm')} uur`
-  const description = currentPermit.no_endtime
-    ? `${startDateTimeString}`
-    : `Van ${startDateTimeString} tot ${endTimeString}`
+  const description =
+    currentPermit.no_endtime || currentPermit.max_session_length_in_days > 1
+      ? `${startDateTimeString}`
+      : `Van ${startTimeString} tot ${endTimeString}`
 
   return (
     <NavigationButton
