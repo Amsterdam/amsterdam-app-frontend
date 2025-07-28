@@ -1,6 +1,5 @@
 import {ReactNode} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {SwipeToDelete} from '@/components/ui/buttons/SwipeToDelete'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -26,21 +25,16 @@ const AddressDeleteButton = ({
 }: AddressDeleteButtonProps) => {
   if (canDelete) {
     return (
-      <SwipeToDelete
-        onEvent={onDelete}
-        showIcon={false}
-        testID="AddressDeleteSwipeToDelete">
-        <Row>
-          <Row grow={1}>{children}</Row>
-          <Button
-            accessibilityLabel="Verwijder mijn adres"
-            iconName="trash-bin"
-            onPress={onDelete}
-            testID="AddressDeleteButton"
-            variant="tertiary"
-          />
-        </Row>
-      </SwipeToDelete>
+      <Row>
+        <Row grow={1}>{children}</Row>
+        <Button
+          accessibilityLabel="Verwijder mijn adres"
+          iconName="trash-bin"
+          onPress={onDelete}
+          testID="AddressDeleteButton"
+          variant="tertiary"
+        />
+      </Row>
     )
   }
 

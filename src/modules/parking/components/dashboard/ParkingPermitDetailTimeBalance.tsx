@@ -3,6 +3,8 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermit, ParkingPermitScope} from '@/modules/parking/types'
+import {formatDate} from '@/utils/datetime/formatDate'
+import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
@@ -16,7 +18,14 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
     return null
   }
 
-  const {parking_rate, max_sessions_allowed, time_balance_applicable} = permit
+  const {
+    permit_name,
+    time_balance,
+    parking_rate,
+    max_sessions_allowed,
+    time_balance_applicable,
+    time_valid_until,
+  } = permit
 
   const parkingRate = parking_rate.value
     ? `${formatNumber(parking_rate.value, parking_rate.currency)} per uur`
@@ -27,20 +36,28 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
       <Title
         level="h5"
         testID="ParkingPermitDetailNamePhrase"
-        text="Tarief"
+        text={
+          parkingAccount?.scope === ParkingPermitScope.permitHolder
+            ? permit_name
+            : 'Bezoekersvergunning'
+        }
       />
       <Column>
-        {!time_balance_applicable && (
-          <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-            Parkeertijd: Onbeperkt
-          </Phrase>
-        )}
-        <Phrase testID="ParkingPermitDetailParkingRatePhrase">
-          Parkeertarief: {parkingRate}
-        </Phrase>
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-            Maximaal aantal parkeersessies tegelijk: {max_sessions_allowed}
+            {`Parkeertijd: ${time_balance_applicable ? formatSecondsTimeRangeToDisplay(time_balance, {short: true}) : 'Onbeperkt'}`}
+          </Phrase>
+        )}
+
+        <Phrase testID="ParkingPermitDetailParkingRatePhrase">
+          Uw parkeertarief: {parkingRate}
+        </Phrase>
+        <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
+          Maximaal parkeersessies tegelijk: {max_sessions_allowed}
+        </Phrase>
+        {!!time_valid_until && (
+          <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
+            {`Geldig tot ${formatDate(time_valid_until)}`}
           </Phrase>
         )}
       </Column>
