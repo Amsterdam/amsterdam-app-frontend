@@ -97,22 +97,10 @@ export const ParkingStartSessionButton = () => {
               data?: {code?: string; detail?: string}
               status?: string
             }) => {
-              let detail: {error?: {content?: string}} | string = ''
+              const detail = error.data?.detail || ''
 
-              if (error.data?.detail) {
-                try {
-                  detail = JSON.parse(error.data.detail) as {
-                    error?: {content?: string}
-                  }
-                } catch {
-                  detail = error.data.detail
-                }
-              }
-
-              if (
-                typeof detail === 'object' &&
-                detail.error?.content === 'Start time in past'
-              ) {
+              // Match error messages as plain text
+              if (detail.toLowerCase().includes('start time in past')) {
                 setError('startTime', {
                   type: 'manual',
                   message: 'Starttijd mag niet in het verleden liggen.',
@@ -123,11 +111,7 @@ export const ParkingStartSessionButton = () => {
 
               setError('root.serverError', {
                 type: error?.status,
-                message: detail
-                  ? typeof detail === 'object'
-                    ? detail.error?.content
-                    : detail
-                  : error.data?.code,
+                message: detail || error.data?.code,
               })
             },
           )

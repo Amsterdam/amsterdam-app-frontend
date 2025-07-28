@@ -42,10 +42,9 @@ export const ParkingChoosePaymentZone = () => {
   const currentPermit = useCurrentParkingPermit()
   const startTimeDayOfWeek = startTime.day()
 
-  const isParkingOutsideRegimeError =
-    errors.root?.serverError?.message?.includes(
-      'Parking time outside available regime times',
-    )
+  const isParkingOutsideRegimeError = errors.root?.serverError?.message
+    ?.toLowerCase()
+    .includes('parking time outside available regime times')
 
   const allPaymentZonesAreEqual = useMemo(
     () =>
