@@ -12,6 +12,7 @@ export type HeaderProps = {
   navigation:
     | StackHeaderProps['navigation']
     | NavigationProp<keyof RootStackParams>
-  options?: StackHeaderProps['options'] & HeaderContentOptions
+  options?: StackHeaderProps['options'] &
+    HeaderContentOptions & {disableHorizontalInsets?: boolean}
   route: StackHeaderProps['route']
 }

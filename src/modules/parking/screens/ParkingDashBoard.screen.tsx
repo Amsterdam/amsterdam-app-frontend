@@ -68,6 +68,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
         }
         hasStickyAlert
         headerOptions={{
+          disableHorizontalInsets: true,
           SideComponent: DashboardHeaderButton,
         }}
         stickyHeader={<DashboardMenu />}
