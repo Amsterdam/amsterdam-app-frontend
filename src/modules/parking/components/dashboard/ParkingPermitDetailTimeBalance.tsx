@@ -4,7 +4,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermit, ParkingPermitScope} from '@/modules/parking/types'
 import {formatDate} from '@/utils/datetime/formatDate'
-import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
@@ -20,7 +19,6 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
 
   const {
     permit_name,
-    time_balance,
     parking_rate,
     max_sessions_allowed,
     time_balance_applicable,
@@ -43,9 +41,9 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
         }
       />
       <Column>
-        {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+        {!time_balance_applicable && (
           <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-            {`Parkeertijd: ${time_balance_applicable ? formatSecondsTimeRangeToDisplay(time_balance, {short: true}) : 'Onbeperkt'}`}
+            Onbeperkt
           </Phrase>
         )}
 
