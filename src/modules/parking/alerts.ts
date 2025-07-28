@@ -61,6 +61,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingFreeParkingSuccessAlert',
   },
+  inactiveSessionFailed: {
+    variant: AlertVariant.negative,
+    text: 'Uw sessie is verlopen. Plan een nieuwe sessie.',
+    title: 'Sessie verlopen',
+    hasIcon: true,
+    testID: 'ParkingInactiveSessionFailedAlert',
+  },
   increaseBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Geldsaldo is verhoogd. Het kan even duren voordat het saldo is bijgewerkt.',
