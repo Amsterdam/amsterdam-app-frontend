@@ -25,6 +25,7 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
       <ParkingSessionFormProvider parkingSession={parkingSession}>
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
+          hasStickyAlert
           testID="ParkingStartSessionScreen">
           <Box>
             <Column gutter="sm">

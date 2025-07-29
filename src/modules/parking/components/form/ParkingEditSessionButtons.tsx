@@ -1,7 +1,6 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -24,7 +23,7 @@ type FieldValues = {
 
 export const ParkingEditSessionButtons = () => {
   const {handleSubmit, formState} = useFormContext<FieldValues>()
-  const [editSession, {isError}] = useEditSessionMutation()
+  const [editSession] = useEditSessionMutation()
 
   const navigation = useNavigation()
   const openWebUrl = useOpenWebUrl()
@@ -63,15 +62,25 @@ export const ParkingEditSessionButtons = () => {
             : {}),
         })
           .unwrap()
-          .then(result => {
-            if (result.redirect_url) {
-              openWebUrl(result.redirect_url)
-            } else {
-              setAlert(alerts.adjustSessionSuccess)
-            }
+          .then(
+            result => {
+              if (result.redirect_url) {
+                openWebUrl(result.redirect_url)
+              } else {
+                setAlert(alerts.adjustSessionSuccess)
+              }
 
-            navigation.popToTop()
-          })
+              navigation.popToTop()
+            },
+            (error: {
+              data?: {code?: string; detail?: string}
+              status?: string
+            }) => {
+              if (error?.data?.code === 'SSP_SESSION_NOT_ACTIVE') {
+                setAlert(alerts.inactiveSessionFailed)
+              }
+            },
+          )
       }
     },
     [editSession, navigation, openWebUrl, setAlert],
@@ -79,9 +88,6 @@ export const ParkingEditSessionButtons = () => {
 
   return (
     <Column gutter="md">
-      {!!isError && (
-        <SomethingWentWrong testID="ParkingEditSessionButtonsSomethingWentWrong" />
-      )}
       <Button
         disabled={formState.isSubmitting}
         label="Bevestig nieuwe eindtijd"
