@@ -239,6 +239,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                     emitOnTypingStopped(params)
                   }
                 }
+
+                is CoreEvent.ConversationEvent.ProgressIndicator -> {
+                  // TODO
+                }
               }
             }
             coreClient?.events?.collect { entry ->
@@ -273,6 +277,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                   params.putString("message", entry.message)
 
                   emitOnError(params)
+                }
+
+                is CoreEvent.ConversationEvent.ProgressIndicator -> {
+                  // TODO
                 }
               }
             }
@@ -451,7 +459,9 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
           }
 
           is StaticContentFormat.RichLinkFormat -> {
-            map.putMap("asset", encodeImageAssetToMap(content.image))
+            if (content.image is FileAsset.ImageAsset.RichLinkImage) {
+              map.putMap("asset", encodeRichLinkImageToMap(content.image as FileAsset.ImageAsset.RichLinkImage))
+            }
             map.putString("title", content.linkItem.titleItem.title)
             map.putString("url", content.linkItem.url)
           }
@@ -537,7 +547,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       }
 
       is EntryPayload.RoutingResultPayload -> {
-        map.putInt("estimatedWaitTime", payload.estimatedWaitTime.estimatedWaitTimeInSeconds ?: -1)
+        map.putInt("estimatedWaitTime", payload.estimatedWaitTime?.estimatedWaitTimeInSeconds ?: -1)
         //        map.putString("id", payload.id) // not available on iOS
         map.putString("failureReason", payload.failureReason)
         map.putString("failureType", payload.failureType.toString())
@@ -563,6 +573,13 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       }
 
       is EntryPayload.UnknownEntryPayload -> {
+        // TODO
+      }
+
+      is EntryPayload.ProgressIndicatorPayload -> {
+        // TODO
+      }
+      is EntryPayload.StreamingTokenPayload -> {
         // TODO
       }
     }
@@ -955,7 +972,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  private fun encodeImageAssetToMap(imageAsset: FileAsset.ImageAsset): ReadableMap {
+  private fun encodeRichLinkImageToMap(imageAsset: FileAsset.ImageAsset.RichLinkImage): ReadableMap {
     if (imageAsset.file != null) {
       val file = imageAsset.file!!
       val bytes = file.readBytes()
