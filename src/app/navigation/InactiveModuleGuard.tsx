@@ -42,10 +42,15 @@ export const InactiveModuleGuard = ({
     return (
       <Screen
         bottomSheet
-        headerOptions={{headerTitle: cachedServerModule.title}}
+        headerOptions={{
+          disableHorizontalInsets: true,
+          headerTitle: cachedServerModule.title,
+        }}
         testID="InactiveModuleGuardScreen">
         <Box>
-          <Column gutter="xxl">
+          <Column
+            gutter="xxl"
+            halign="center">
             <Column gutter="lg">
               <Column gutter="md">
                 <Title

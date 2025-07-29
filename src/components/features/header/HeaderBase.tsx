@@ -14,10 +14,16 @@ type BackgroundColorProp = {
 
 type Props = {
   children: ReactNode
+  disableHorizontalInsets?: boolean
 } & BackgroundColorProp
 
-export const HeaderBase = ({backgroundColor, children}: Props) => {
-  const {top = 0, left = 0, right = 0} = useSafeAreaInsets()
+export const HeaderBase = ({
+  backgroundColor,
+  children,
+  disableHorizontalInsets,
+}: Props) => {
+  const {top, ...insets} = useSafeAreaInsets()
+  const {left = 0, right = 0} = disableHorizontalInsets ? {} : insets
   const {isContentHiddenFromAccessibility, isHiddenFromAccessibility} =
     useScreen()
   const styles = useMemo(
