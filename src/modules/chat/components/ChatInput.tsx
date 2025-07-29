@@ -2,7 +2,6 @@ import {useCallback, useRef, useState} from 'react'
 import {
   Keyboard,
   KeyboardAvoidingView,
-  Platform,
   StyleSheet,
   TextInput,
   type TextInputProps,
@@ -35,6 +34,7 @@ export const ChatInput = ({onSubmit}: Props) => {
   const insets = useSafeAreaInsets()
   const trackException = useTrackException()
 
+  const isKeyboardVisible = Keyboard.isVisible()
   const styles = useThemable(createStyles)
   const themedTextInputProps = useThemable(createTextInputProps)
 
@@ -76,8 +76,8 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={insets.top}>
+        behavior="padding"
+        keyboardVerticalOffset={isKeyboardVisible ? insets.top : 0}>
         <Box>
           <Row gutter="sm">
             {!!agentInChat && (
