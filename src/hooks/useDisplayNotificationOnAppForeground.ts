@@ -1,6 +1,7 @@
 import notifee from '@notifee/react-native'
-import messaging, {
+import {
   FirebaseMessagingTypes,
+  getMessaging,
 } from '@react-native-firebase/messaging'
 import {useEffect} from 'react'
 import {useGetNotificationsQuery} from '@/modules/notification-history/service'
@@ -82,6 +83,6 @@ export const useDisplayNotificationOnAppForeground = () => {
       }
     }
 
-    return messaging().onMessage(onMessage)
+    return getMessaging().onMessage(onMessage)
   }, [refetch, trackCustomEvent])
 }
