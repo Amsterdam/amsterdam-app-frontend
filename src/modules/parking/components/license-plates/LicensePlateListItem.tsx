@@ -42,8 +42,9 @@ export const LicensePlateListItem = ({
               testID="ParkingRemoveLicensePlateIcon"
             />
           }
+          logName="ParkingRemoveLicensePlateButton"
           onPress={() => onPressDelete(vehicle_id, visitor_name)}
-          testID="ParkingRemoveLicensePlateButton"
+          testID={`ParkingRemoveLicensePlate${number}Button`}
         />
       )}
     </Row>
