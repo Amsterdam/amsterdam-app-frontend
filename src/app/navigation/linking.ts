@@ -1,6 +1,7 @@
 import notifee, {EventType} from '@notifee/react-native'
-import messaging, {
+import {
   FirebaseMessagingTypes,
+  getMessaging,
 } from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
@@ -75,7 +76,7 @@ export const createLinking = (
       }
 
       const initialFirebaseNotification =
-        await messaging().getInitialNotification()
+        await getMessaging().getInitialNotification()
 
       const routeWithPrefix =
         initialFirebaseNotification?.data &&
@@ -149,7 +150,7 @@ export const createLinking = (
     }
 
     // navigate from push when app is in background-state
-    messaging().onNotificationOpenedApp(onMessageReceived)
+    getMessaging().onNotificationOpenedApp(onMessageReceived)
 
     const navigateToUrlFromNotification = (notification?: PushNotification) => {
       if (!notification?.data) {

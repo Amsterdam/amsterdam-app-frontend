@@ -1,4 +1,4 @@
-import messaging from '@react-native-firebase/messaging'
+import {getMessaging} from '@react-native-firebase/messaging'
 import {useCallback} from 'react'
 import {usePermission} from '@/hooks/permissions/usePermission'
 
@@ -21,7 +21,7 @@ export const useRegisterDevice = () => {
   )
 
   const registerDevice = useCallback(() => {
-    messaging()
+    getMessaging()
       .getToken()
       .then(firebase_token => {
         void registerDeviceMutation({firebase_token})
