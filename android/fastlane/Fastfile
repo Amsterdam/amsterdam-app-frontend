@@ -33,6 +33,7 @@ apps = [
     :app_identifier => "nl.amsterdam.app.dev",
     :build_type => "Release",
     :flavor => "dev",
+    :distribute_to_internal => true,
     :distribute_to_stakeholders => true,
     :distribute_to_production => false,
     :apk_path => "/apk/dev/release/app-dev-release.apk", 
@@ -50,6 +51,7 @@ apps = [
     :app_identifier => "nl.amsterdam.app.dev",
     :build_type => "Release",
     :flavor => "dev",
+    :distribute_to_internal => false,
     :distribute_to_stakeholders => false,
     :distribute_to_production => false,
     :apk_path => "/apk/dev/release/app-dev-release.apk", 
@@ -67,6 +69,7 @@ apps = [
     :app_identifier => "nl.amsterdam.app",
     :build_type => "Release",
     :flavor => "prod",
+    :distribute_to_internal => true,
     :distribute_to_stakeholders => true,
     :distribute_to_production => true,
     :apk_path => "/apk/prod/release/app-prod-release.apk", 
@@ -155,21 +158,23 @@ platform :android do
     releaseNotes = getReleaseInfoForVersion(true)['releaseNotes']
     writeReleaseNotes(releaseNotes)
     apps.each do |app|
-      isAab = app[:task] == "bundle"
-      full_apk_path = "#{app_build_path}#{app[:apk_path]}"
-      full_aab_path = "#{app_build_path}#{app[:aab_path]}"
-      final_path = isAab ? full_aab_path : full_apk_path
-      puts "Upload to Play Store for #{final_path}"
-      if File.exists?(final_path)
-        upload_to_play_store(
-          package_name: app[:app_identifier],
-          track: 'internal',
-          aab: isAab ? full_aab_path : nil,
-          apk: !isAab ? full_apk_path : nil,
-          version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
-        )
-      else
-        UI.user_error!("ERROR: #{final_path} does not exist")
+      if app[:distribute_to_internal]
+        isAab = app[:task] == "bundle"
+        full_apk_path = "#{app_build_path}#{app[:apk_path]}"
+        full_aab_path = "#{app_build_path}#{app[:aab_path]}"
+        final_path = isAab ? full_aab_path : full_apk_path
+        puts "Upload to Play Store for #{final_path}"
+        if File.exists?(final_path)
+          upload_to_play_store(
+            package_name: app[:app_identifier],
+            track: 'internal',
+            aab: isAab ? full_aab_path : nil,
+            apk: !isAab ? full_apk_path : nil,
+            version_code: parseVersionNumber(ENV["VERSION_NUMBER"])[:build].to_i,
+          )
+        else
+          UI.user_error!("ERROR: #{final_path} does not exist")
+        end
       end
     end
   end
