@@ -12,6 +12,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Notification} from '@/modules/notification-history/types'
 import {Module} from '@/modules/types'
 import {Theme} from '@/themes/themes'
@@ -29,8 +30,9 @@ export const NotificationHistoryItem = ({
   enabledModules = [],
 }: Props) => {
   const {navigate} = useNavigation()
+  const {fontScale} = useDeviceContext()
   const module = enabledModules.find(({slug}) => slug === module_slug)
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(fontScale))
 
   const linkTo = useLinkTo()
 
@@ -69,7 +71,9 @@ export const NotificationHistoryItem = ({
       <Box
         insetHorizontal="md"
         insetVertical="smd">
-        <Row gutter="sm">
+        <Row
+          gutter="md"
+          valign="start">
           <View style={styles.iconContainer}>
             {image && image.sources[0] ? (
               <Image
@@ -89,49 +93,51 @@ export const NotificationHistoryItem = ({
           <Column
             grow={1}
             shrink={1}>
-            <Row
-              align="between"
-              flex={1}
-              gutter="sm"
-              valign="start">
-              <Title
-                level="h5"
-                testID={`NotificationHistoryItem${id}Title`}
-                text={title}
-              />
-              <Row gutter="sm">
-                <Phrase
-                  color="secondary"
-                  numberOfLines={1}
-                  testID={`NotificationHistoryItem${id}CreationDatePhrase`}
-                  variant="body">
-                  {createdAt}
-                </Phrase>
-                {!is_read && (
-                  <Badge
-                    testID={`NotificationHistoryItem${id}IsUnreadBadge`}
-                    variant="extraSmall"
-                  />
-                )}
-              </Row>
-            </Row>
+            <Title
+              level="h5"
+              testID={`NotificationHistoryItem${id}Title`}
+              text={title}
+            />
             <Paragraph testID={`NotificationHistoryItem${id}DescriptionText`}>
               {body}
             </Paragraph>
+            <Phrase
+              color="secondary"
+              testID={`NotificationHistoryItem${id}CreationDatePhrase`}
+              variant="body">
+              {createdAt}
+            </Phrase>
           </Column>
+          {!!is_read && (
+            <View style={styles.badgeContainer}>
+              <Badge
+                testID={`NotificationHistoryItem${id}IsUnreadBadge`}
+                variant="extraSmall"
+              />
+            </View>
+          )}
         </Row>
       </Box>
     </PressableBase>
   )
 }
 
-const createStyles = ({color, size}: Theme) =>
-  StyleSheet.create({
-    iconContainer: {
-      backgroundColor: color.notificationHistory.itemIcon.background,
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: size.iconContainer.xl,
-      height: size.iconContainer.xl,
-    },
-  })
+const LINE_HEIGHT_CORRECTION = 6
+
+const createStyles =
+  (fontScale: number) =>
+  ({color, size}: Theme) =>
+    StyleSheet.create({
+      iconContainer: {
+        display: fontScale > 1.5 ? 'none' : undefined,
+        backgroundColor: color.notificationHistory.itemIcon.background,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: size.iconContainer.lg * fontScale,
+        height: size.iconContainer.lg * fontScale,
+        marginTop: LINE_HEIGHT_CORRECTION * fontScale,
+      },
+      badgeContainer: {
+        marginTop: LINE_HEIGHT_CORRECTION * fontScale,
+      },
+    })
