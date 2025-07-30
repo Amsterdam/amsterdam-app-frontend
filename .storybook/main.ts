@@ -64,6 +64,9 @@ const config: StorybookConfig = {
       optimizeDeps: {
         esbuildOptions: {
           resolveExtensions: extensions,
+          loader: {
+            '.js': 'jsx', // <-- Move this line here!
+          },
         },
       },
       build: {
