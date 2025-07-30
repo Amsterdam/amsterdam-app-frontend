@@ -54,7 +54,7 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
                     />
                     <Title
                       level="h4"
-                      testID={`ParkingLogoutScreenPermit-${permit.report_code}`}
+                      testID={`ParkingLogoutScreenPermit-${permit.report_code}Title`}
                       text={permit.permit_name}
                     />
                   </Row>
