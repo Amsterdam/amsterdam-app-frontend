@@ -6,6 +6,7 @@ import {
   setShouldShowLoginScreenAction,
 } from '@/modules/parking/slice'
 import {removeSecureParkingAccount} from '@/modules/parking/utils/removeSecureParkingAccount'
+import {alertSlice} from '@/store/slices/alert'
 import {type RootState} from '@/store/types/rootState'
 
 export const logout = async (
@@ -21,7 +22,7 @@ export const logout = async (
   }
 
   dispatch(parkingSlice.actions.setIsLoggingOut(true))
-
+  dispatch(alertSlice.actions.resetAlert())
   await removeSecureParkingAccount(reportCode, scope, dispatch)
   dispatch(parkingSlice.actions.removeParkingAccount(undefined))
   shouldShowLoginScreen && dispatch(setShouldShowLoginScreenAction(true))
