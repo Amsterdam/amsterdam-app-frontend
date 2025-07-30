@@ -129,7 +129,6 @@ const createStyles =
   ({color, size}: Theme) =>
     StyleSheet.create({
       iconContainer: {
-        display: fontScale > 1.5 ? 'none' : undefined,
         backgroundColor: color.notificationHistory.itemIcon.background,
         justifyContent: 'center',
         alignItems: 'center',
