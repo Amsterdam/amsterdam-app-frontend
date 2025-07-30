@@ -6,6 +6,7 @@ import {ParkingActiveSessionsScreen} from '@/modules/parking/screens/ParkingActi
 import {ParkingDashboardScreen} from '@/modules/parking/screens/ParkingDashBoard.screen'
 import {ParkingEditSessionScreen} from '@/modules/parking/screens/ParkingEditSession.screen'
 import {ParkingIncreaseBalanceScreen} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
+import {ParkingLogoutScreen} from '@/modules/parking/screens/ParkingLogout.screen'
 import {ParkingMoneyTransactionsScreen} from '@/modules/parking/screens/ParkingMoneyTransactions.screen'
 import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyLicensePlates.screen'
 import {ParkingPermitZonesScreen} from '@/modules/parking/screens/ParkingPermitZones.screen'
@@ -149,6 +150,13 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.accountChangePinCode,
     options: {
       headerTitle: 'Pincode wijzigen',
+    },
+  },
+  [ParkingRouteName.logout]: {
+    component: ParkingLogoutScreen,
+    name: ParkingRouteName.logout,
+    options: {
+      headerTitle: 'Uitloggen',
     },
   },
 }

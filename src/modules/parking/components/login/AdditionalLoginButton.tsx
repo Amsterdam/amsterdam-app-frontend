@@ -1,8 +1,5 @@
 import {useCallback, useEffect} from 'react'
-import {
-  TopTaskButton,
-  TopTaskButtonProps,
-} from '@/components/ui/buttons/TopTaskButton'
+import {Button, type ButtonProps} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -11,7 +8,7 @@ import {
   useParkingAccountIsLoggingIn,
 } from '@/modules/parking/slice'
 
-type Props = Omit<TopTaskButtonProps, 'onPress' | 'iconName' | 'iconSize'>
+type Props = ButtonProps
 
 export const AdditionalLoginButton = (props: Props) => {
   const dispatch = useDispatch()
@@ -29,11 +26,11 @@ export const AdditionalLoginButton = (props: Props) => {
   }, [isLoggingIn, navigate])
 
   return (
-    <TopTaskButton
-      iconName="login"
-      iconSize="lg"
-      onPress={onPress}
+    <Button
       {...props}
+      label="Inloggen"
+      onPress={onPress}
+      variant="secondary"
     />
   )
 }
