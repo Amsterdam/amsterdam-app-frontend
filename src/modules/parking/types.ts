@@ -64,6 +64,7 @@ export type RequestPinCode = {
 export type SecureParkingAccount = ParkingAccountLogin
 
 export type ParkingAccount = {
+  name?: string
   permits?: ParkingPermit[]
   reportCode: string
   scope: ParkingPermitScope

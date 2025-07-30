@@ -1,7 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {useMemo} from 'react'
+import {useEffect, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useMenu} from '@/store/slices/menu'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 export type BottomSheetState = {
@@ -41,15 +42,24 @@ export const {closeBottomSheet, openBottomSheet, toggleBottomSheet} =
 
 export const useBottomSheet = () => {
   const dispatch = useDispatch()
+  const {close} = useMenu()
   const isOpen = useSelector(state => state[ReduxKey.bottomSheet].isOpen)
   const variant = useSelector(state => state[ReduxKey.bottomSheet].variant)
+
+  useEffect(() => {
+    if (isOpen) {
+      close()
+    }
+  }, [close, isOpen])
 
   return {
     isOpen,
     ...useMemo(
       () => ({
         close: () => dispatch(closeBottomSheet()),
-        open: (newVariant?: string) => dispatch(openBottomSheet(newVariant)),
+        open: (newVariant?: string) => {
+          dispatch(openBottomSheet(newVariant))
+        },
         toggle: (newVariant?: string) =>
           dispatch(toggleBottomSheet(newVariant)),
       }),

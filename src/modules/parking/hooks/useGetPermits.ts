@@ -1,5 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSetParkingAccountName} from '@/modules/parking/hooks/useSetParkingAccountName'
 import {usePermitsQuery} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -8,25 +9,31 @@ import {
 
 export const useGetPermits = (skip?: boolean) => {
   const dispatch = useDispatch()
-  const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
+  const {
+    data: permits,
+    isLoading,
+    refetch,
+  } = usePermitsQuery({status: 'ACTIVE'}, {skip})
+
+  useSetParkingAccountName(!permits)
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
     parkingSlice.actions
 
   useEffect(() => {
-    if (data?.length && !currentPermitReportCode) {
-      setCurrentPermitReportCode(data[0].report_code.toString())
+    if (permits?.length && !currentPermitReportCode) {
+      setCurrentPermitReportCode(permits[0].report_code.toString())
     }
-  }, [currentPermitReportCode, data, setCurrentPermitReportCode])
+  }, [currentPermitReportCode, permits, setCurrentPermitReportCode])
 
   useEffect(() => {
-    if (data?.length) {
-      dispatch(setParkingAccountPermits(data))
+    if (permits?.length) {
+      dispatch(setParkingAccountPermits(permits))
     }
-  }, [data, dispatch, setParkingAccountPermits])
+  }, [permits, dispatch, setParkingAccountPermits])
 
   return {
-    permits: data,
+    permits,
     isLoading,
     refetch,
   }

@@ -120,6 +120,13 @@ export const alerts = {
     title: 'Inloggen mislukt',
     testID: 'ParkingLoginFailedAlert',
   },
+  logoutWithAnotherAccountSuccess: {
+    variant: AlertVariant.positive,
+    text: 'U bent nog ingelogd met een ander account.',
+    title: 'Uitgelogd',
+    hasIcon: true,
+    testID: 'ParkingLogoutWithAnotherAccountSuccessAlert',
+  },
   maxLicensePlatesWarning: {
     variant: AlertVariant.warning,
     text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
