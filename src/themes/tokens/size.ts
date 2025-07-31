@@ -14,6 +14,7 @@ export const sizeTokens = {
     xxl: 80,
   },
   iconContainer: {
+    lg: 40,
     xl: 55,
   },
   progressSteps: {
