@@ -48,6 +48,8 @@ import {
   HomeStackParams,
 } from '@/modules/home/routes'
 import {homeModals} from '@/modules/home/screenConfig'
+import {MijnAmsterdamStack} from '@/modules/mijn-amsterdam/Stack'
+import {MijnAmsterdamStackParams} from '@/modules/mijn-amsterdam/routes'
 import {NotificationHistoryStack} from '@/modules/notification-history/Stack'
 import {OnboardingStack} from '@/modules/onboarding/Stack'
 import {
@@ -117,6 +119,7 @@ export type ModuleStackParams = AboutStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
   HomeStackParams &
+  MijnAmsterdamStackParams &
   OnboardingStackParams &
   ParkingStackParams &
   WasteContainerStackParams &
@@ -135,7 +138,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['construction-work-editor']]: ConstructionWorkEditorStack,
   [ModuleSlug.contact]: ContactStack,
   [ModuleSlug.home]: HomeStack,
-  [ModuleSlug['mijn-amsterdam']]: () => null,
+  [ModuleSlug['mijn-amsterdam']]: MijnAmsterdamStack,
   [ModuleSlug['notification-history']]: NotificationHistoryStack,
   [ModuleSlug.onboarding]: OnboardingStack,
   [ModuleSlug.parking]: ParkingStack,

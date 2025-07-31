@@ -181,6 +181,11 @@ export const SvgIconsConfig = {
     path: 'M4.5 6H11.5V4H2.5V20H11.5V18H4.5V6ZM17.3692 10.9929L14.8173 8.44105L16.2315 7.02684L21.2894 12.0848L16.2315 17.1427L14.8173 15.7285L17.5528 12.9929H7V10.9929H17.3692Z',
     viewBox: '0 0 24 24',
   },
+  // TODO: fix this icon:
+  mijnAmsterdam: {
+    path: 'M2 3a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3zm1 0v18h18V3H3zm0 0h18v4H3V3zm2 1h2v2H5V4zm4 0h2v2H9V4zm4 0h2v2h-2V4zm-5 7h12v2H5v-2zm0 4h7v2H5v-2z',
+    viewBox: '0 0 24 24',
+  },
   'organic-waste-container': {
     path: 'M23.2 4.8C22.9 2.1 19.6 0 15.7 0S8.5 2.2 8.1 4.8H7V30H3.9v2h24v-2h-3.2V4.8h-1.5zM12.3 2.4h6.9v6.9h-6.9V2.4zM22.7 29H9V12.6h13.7V29z',
   },

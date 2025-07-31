@@ -1,14 +1,16 @@
 import {View} from 'react-native'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useModules} from '@/hooks/useModules'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {UserRouteName} from '@/modules/user/routes'
-import {UserMenuSection} from '@/modules/user/types'
+import {UserMenuSection, UserMenuSectionItem} from '@/modules/user/types'
 
 const accessCodeSection: UserMenuSection = {
   title: 'Beveiliging',
@@ -26,7 +28,9 @@ const accessCodeSection: UserMenuSection = {
   ],
 }
 
-const sections: UserMenuSection[] = [
+const getSections = (
+  moduleSections: UserMenuSectionItem[],
+): UserMenuSection[] => [
   {
     navigationItems: [
       {
@@ -35,6 +39,7 @@ const sections: UserMenuSection[] = [
         moduleSlug: ModuleSlug.address,
         route: AddressRouteName.address,
       },
+      ...moduleSections,
       {
         icon: 'settings',
         label: 'Onderwerpen in de app',
@@ -45,8 +50,8 @@ const sections: UserMenuSection[] = [
 ]
 
 const MenuSection = ({title, navigationItems}: UserMenuSection) => {
-  const {navigate} = useNavigation()
   const {biometricsLabel, isEnrolled} = useAccessCodeBiometrics()
+  const {navigate} = useNavigation()
 
   return (
     <Column gutter="sm">
@@ -86,6 +91,15 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
 
 export const UserMenu = () => {
   const {accessCode} = useGetSecureAccessCode()
+  const {enabledModules, modulesLoading} = useModules()
+  const moduleMenuSections = enabledModules
+    ? enabledModules.map(m => m.userMenuSection?.navigationItems || []).flat()
+    : []
+  const sections = getSections(moduleMenuSections)
+
+  if (modulesLoading) {
+    return <PleaseWait testID="UserMenuPleaseWait" />
+  }
 
   return (
     <View testID="UserMenu">
