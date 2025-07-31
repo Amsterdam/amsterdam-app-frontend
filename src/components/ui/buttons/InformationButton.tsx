@@ -9,6 +9,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   iconName: SvgIconName
+  isExternalLink?: boolean
   text?: string
   title: string
   variant?: 'default' | 'inverse'
@@ -16,6 +17,7 @@ type Props = {
 
 export const InformationButton = ({
   iconName,
+  isExternalLink,
   onPress,
   text,
   title,
@@ -25,6 +27,7 @@ export const InformationButton = ({
   ...pressableProps
 }: Props) => (
   <Pressable
+    accessibilityHint={isExternalLink ? 'Opent in webbrowser' : undefined}
     accessibilityLabel={accessibleText(
       title,
       typeof text === 'string' ? text : '',
@@ -37,7 +40,9 @@ export const InformationButton = ({
     insetHorizontal="md"
     insetVertical="sm"
     variant="transparent">
-    <Row gutter="md">
+    <Row
+      gutter="md"
+      valign="start">
       <Icon
         color={variant === 'inverse' ? 'inverse' : 'link'}
         name={iconName}
@@ -49,13 +54,18 @@ export const InformationButton = ({
         grow={1}
         gutter="xs"
         shrink={1}>
-        <Row>
+        <Row gutter="sm">
           <Title
             color={variant === 'inverse' ? 'inverse' : 'link'}
             level="h4"
             testID={`${testID}Title`}
             text={title}
             underline
+          />
+          <Icon
+            color={variant === 'inverse' ? 'inverse' : 'link'}
+            name="external-link"
+            testID={`${testID}Icon`}
           />
         </Row>
         <Paragraph

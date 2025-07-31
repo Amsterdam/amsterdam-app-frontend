@@ -1,5 +1,5 @@
 import {Button} from '@/components/ui/buttons/Button'
-import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
@@ -99,7 +99,7 @@ export const PassOwners = ({logout}: Props) => {
             vermogen. Bekijk of je recht hebt op een Stadspas.
           </Paragraph>
           <Gutter height="lg" />
-          <RedirectButton
+          <ExternalLinkButton
             label="Stadspas aanvragen"
             redirectKey={RedirectKey.cityPassRequest}
             testID="CityPassRequestButton"

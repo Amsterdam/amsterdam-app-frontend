@@ -1,4 +1,4 @@
-import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -13,7 +13,7 @@ export const RequestCityPass = () => (
       Met de Stadspas kunt u gratis of met korting leuke activiteiten doen.
     </Paragraph>
     <Gutter height="lg" />
-    <RedirectButton
+    <ExternalLinkButton
       label="Stadspas aanvragen"
       redirectKey={RedirectKey.cityPassRequest}
       testID="CityPassRequestCityPassButton"

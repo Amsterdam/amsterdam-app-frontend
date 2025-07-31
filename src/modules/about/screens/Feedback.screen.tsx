@@ -1,6 +1,6 @@
 import {Alert} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -45,7 +45,7 @@ export const FeedbackScreen = () => {
             ) : isError ? (
               <SomethingWentWrong testID="AboutFeedbackSomethingWentWrong" />
             ) : (
-              <Button
+              <ExternalLinkButton
                 label="Laat het ons weten"
                 onPress={() => {
                   if (redirectUrls?.feedbackForm) {
@@ -62,8 +62,7 @@ export const FeedbackScreen = () => {
                     )
                   }
                 }}
-                role="link"
-                testID="AboutFeedbackLink"
+                testID="AboutFeedback"
               />
             )}
           </Column>

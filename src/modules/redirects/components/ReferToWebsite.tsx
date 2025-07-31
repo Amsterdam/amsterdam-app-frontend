@@ -1,12 +1,10 @@
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 export const ReferToWebsite = () => {
-  const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useDeviceContext()
 
   return (
@@ -20,11 +18,11 @@ export const ReferToWebsite = () => {
           Kijk dan op onze website waar al onze informatie staat.
         </Paragraph>
         <Column halign={isLandscape ? 'start' : undefined}>
-          <Button
+          <ExternalLinkButton
             accessibilityRole="link"
             label="Naar amsterdam.nl"
-            onPress={() => openWebUrl('https://www.amsterdam.nl')}
-            testID="RedirectsWebsiteButton"
+            testID="RedirectsWebsite"
+            url="https://www.amsterdam.nl"
           />
         </Column>
       </Column>

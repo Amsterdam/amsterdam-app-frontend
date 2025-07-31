@@ -1,4 +1,4 @@
-import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -22,7 +22,7 @@ export const NewsletterSignup = () => (
           nieuws, tips en mooie verhalen over de stad en uw stadsdeel.
         </Paragraph>
         <Gutter />
-        <RedirectButton
+        <ExternalLinkButton
           accessibilityHint="Opent een link naar een aanmeldformulier voor de nieuwsbrief."
           label="Ik wil de nieuwsbrief"
           redirectKey={RedirectKey.contactNewsletterSignup}

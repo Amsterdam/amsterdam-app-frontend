@@ -1,13 +1,12 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Link} from '@/components/ui/text/Link'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {AboutRouteName} from '@/modules/about/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -18,13 +17,14 @@ export const AccessibilityStatementScreen = ({
   navigation: {navigate},
 }: Props) => {
   const {isPortrait, isTablet} = useDeviceContext()
-  const openUrl = useOpenUrl()
 
   return (
     <Screen testID="AboutAccessibilityStatementScreen">
       <Box>
         <Column gutter="lg">
-          <Column gutter="md">
+          <Column
+            gutter="md"
+            halign="start">
             <Title
               accessibilityLabel="Toegankelijkheidsverklaring"
               testID="AboutAccessibilityStatementTitle"
@@ -37,13 +37,12 @@ export const AccessibilityStatementScreen = ({
               variant="small">
               Deze toegankelijkheidsverklaring is getekend op 16 maart 2024.
             </Paragraph>
-            <Link
+            <ExternalLinkButton
               label="Toegankelijkheidsverklaring"
-              onPress={() =>
-                openUrl('https://toegankelijkheidsverklaring.nl/register/13502')
-              }
-              testID="AboutAccessibilityStatementExternalLink"
-              variant="external"
+              noPadding
+              testID="AboutAccessibilityStatement"
+              url="https://toegankelijkheidsverklaring.nl/register/13502"
+              variant="tertiary"
             />
             <Paragraph
               testID="AboutAccessibilityStatementIntroParagraph"
@@ -60,25 +59,19 @@ export const AccessibilityStatementScreen = ({
               testID="AboutAccessibilityStatementReportTitle"
               text="Testresultaten"
             />
-            <Link
+            <ExternalLinkButton
               label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App Android (PDF, 3.667 kB)"
-              onPress={() =>
-                openUrl(
-                  'https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_android.pdf',
-                )
-              }
-              testID="AboutAccessibilityStatementReportAndroidLink"
-              variant="external"
+              noPadding
+              testID="AboutAccessibilityStatementReportAndroid"
+              url="https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_android.pdf"
+              variant="tertiary"
             />
-            <Link
+            <ExternalLinkButton
               label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App iOS (PDF, 4.315 kB)"
-              onPress={() =>
-                openUrl(
-                  'https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_ios.pdf',
-                )
-              }
-              testID="AboutAccessibilityStatementReportIosLink"
-              variant="external"
+              noPadding
+              testID="AboutAccessibilityStatementReportIos"
+              url="https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_ios.pdf"
+              variant="tertiary"
             />
           </Column>
           <Column gutter="md">

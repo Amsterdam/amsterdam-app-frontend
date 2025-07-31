@@ -10,21 +10,17 @@ import {useTheme} from '@/themes/useTheme'
 type Props = {
   label: string
   onPress: () => void
-  variant?: 'backward' | 'default' | 'external' | 'forward'
+  variant?: 'backward' | 'default' | 'forward'
 } & TestProps
 
 type LinkIconProps = {
   direction?: Direction.left | Direction.right
-  external?: boolean
 } & TestProps
 
-const LinkIcon = ({direction, external, testID}: LinkIconProps) => {
+const LinkIcon = ({direction, testID}: LinkIconProps) => {
   const {text} = useTheme()
-  const iconName = external
-    ? 'external-link'
-    : direction === Direction.left
-      ? 'chevron-left'
-      : 'chevron-right'
+  const iconName =
+    direction === Direction.left ? 'chevron-left' : 'chevron-right'
 
   return (
     <Size height={text.lineHeight.body}>
@@ -42,22 +38,11 @@ export const Link = ({label, onPress, testID, variant = 'default'}: Props) => {
 
   return (
     <Pressable
-      accessibilityLabel={
-        variant === 'external' ? label + ', opent in webbrowser' : label
-      }
       accessibilityRole="link"
       hitSlop={(config.minTouchSize - text.lineHeight.body) / 2}
       onPress={onPress}
       testID={testID}>
-      <Row
-        gutter="sm"
-        valign={variant !== 'external' ? 'center' : undefined}>
-        {variant === 'external' && (
-          <LinkIcon
-            external
-            testID={`${testID}Icon`}
-          />
-        )}
+      <Row gutter="sm">
         {variant === 'backward' && (
           <LinkIcon
             direction={Direction.left}

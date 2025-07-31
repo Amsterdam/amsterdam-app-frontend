@@ -1,6 +1,6 @@
 import {Alert} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
@@ -62,7 +62,7 @@ export const AboutTheAppDutchScreen = () => {
                 </Paragraph>
               </Column>
               {!isLoading && !isError && (
-                <Button
+                <ExternalLinkButton
                   label="Uw mening"
                   onPress={() => {
                     if (redirectUrls?.feedbackForm) {
@@ -79,8 +79,7 @@ export const AboutTheAppDutchScreen = () => {
                       )
                     }
                   }}
-                  role="link"
-                  testID="AboutAboutTheAppDutchFeedbackLink"
+                  testID="AboutAboutTheAppDutchFeedback"
                   variant="secondary"
                 />
               )}

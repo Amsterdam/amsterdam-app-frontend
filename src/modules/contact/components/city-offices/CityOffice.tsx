@@ -1,4 +1,4 @@
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -6,7 +6,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {NameAndAddress} from '@/modules/contact/components/city-offices/NameAndAddress'
 import {VisitingHours} from '@/modules/contact/components/city-offices/VisitingHours'
@@ -17,7 +16,6 @@ import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
 import {mapImageSources} from '@/modules/contact/utils/mapImageSources'
 
 export const CityOffice = () => {
-  const openWebUrl = useOpenWebUrl()
   const selectedCityOfficeId = useSelector(selectCityOffice)
   const {data: cityOffices, isLoading, refetch} = useGetCityOfficesQuery()
 
@@ -90,12 +88,11 @@ export const CityOffice = () => {
               <Paragraph testID="ContactMakeAppointmentParagraph">
                 {appointment.text}
               </Paragraph>
-              <Button
+              <ExternalLinkButton
                 accessibilityHint="Opent een link naar een formulier."
-                accessibilityRole="link"
                 label="Maak een afspraak"
-                onPress={() => openWebUrl(appointment.url)}
-                testID="ContactMakeAppointmentButton"
+                testID="ContactMakeAppointment"
+                url={appointment.url}
               />
             </Column>
           ) : (
@@ -114,12 +111,11 @@ export const CityOffice = () => {
             )
           )}
           {!!directionsUrl && (
-            <Button
+            <ExternalLinkButton
               accessibilityHint="Opent een link naar Google Maps."
-              accessibilityRole="link"
               label="Bekijk route"
-              onPress={() => openWebUrl(directionsUrl)}
-              testID="ContactSeeRouteButton"
+              testID="ContactSeeRoute"
+              url={directionsUrl}
               variant="secondary"
             />
           )}

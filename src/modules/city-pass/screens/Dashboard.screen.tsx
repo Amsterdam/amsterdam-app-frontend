@@ -39,6 +39,7 @@ export const DashboardScreen = ({navigation}: Props) => {
             <InformationButton
               accessibilityRole="link"
               iconName={icon}
+              isExternalLink
               key={title}
               onPress={() => openRedirect(redirectKey)}
               testID={testID}

@@ -1,7 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback, useMemo} from 'react'
 import {Alert} from 'react-native'
-import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -118,7 +118,7 @@ export const ParkingMyLicensePlates = () => {
                 U kunt online een kenteken toevoegen of wijzigen.
               </Paragraph>
             </Column>
-            <RedirectButton
+            <ExternalLinkButton
               label="Kenteken wijzigen"
               redirectKey={redirectKey}
               testID="ParkingMyLicensePlatesForceLicensePlatesPhoneButton"

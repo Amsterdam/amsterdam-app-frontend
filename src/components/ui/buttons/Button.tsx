@@ -1,5 +1,5 @@
 import {useCallback, useState} from 'react'
-import {FlexStyle, GestureResponderEvent, StyleSheet} from 'react-native'
+import {FlexStyle, GestureResponderEvent, StyleSheet, View} from 'react-native'
 import {
   PressableBaseProps,
   PressableBase,
@@ -26,6 +26,9 @@ export type ButtonProps = {
   isError?: boolean
   isLoading?: boolean
   label?: string
+  noPadding?: boolean
+  noPaddingHorizontal?: boolean
+  noPaddingVertical?: boolean
   numberOfLines?: number
   small?: boolean
   underline?: boolean
@@ -42,16 +45,26 @@ export const Button = ({
   isError,
   isLoading,
   label,
+  noPadding = false,
+  noPaddingHorizontal = false,
+  noPaddingVertical = false,
   numberOfLines,
   small,
   testID,
-  underline,
+  underline = false,
   variant = defaultVariant,
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
   const styles = useThemable(
-    createStyles({small, variant}, isPressed, underline),
+    createStyles(
+      {small, variant},
+      isPressed,
+      noPadding,
+      noPaddingHorizontal,
+      noPaddingVertical,
+      underline,
+    ),
   )
   const {onPressIn, onPressOut} = pressableProps
 
@@ -72,6 +85,7 @@ export const Button = ({
   )
 
   const iconName = isLoading ? 'spinner' : isError ? 'alert' : iconNameInput
+  const isExternalLink = iconName === 'external-link'
 
   return (
     <PressableBase
@@ -83,15 +97,18 @@ export const Button = ({
       testID={testID}
       {...pressableProps}>
       <Row
-        gutter={iconName === 'external-link' ? 'md' : 'sm'}
-        reverse={iconName === 'external-link'}>
+        gutter={isExternalLink ? 'md' : 'sm'}
+        reverse={isExternalLink}
+        valign={variant === 'tertiary' ? 'start' : 'center'}>
         {!!iconName && (
-          <Icon
-            color={variant === 'primary' ? 'inverse' : 'link'}
-            name={iconName}
-            size={iconSize}
-            testID={`${testID}Icon`}
-          />
+          <View style={variant === 'tertiary' ? styles.iconWrapper : undefined}>
+            <Icon
+              color={variant === 'primary' ? 'inverse' : 'link'}
+              name={iconName}
+              size={iconSize}
+              testID={`${testID}Icon`}
+            />
+          </View>
         )}
         {!!label && (
           <AccessibleText
@@ -125,10 +142,15 @@ const getBackgroundColor = (
   variant: ButtonProps['variant'] = defaultVariant,
 ) => color.pressable[variant][isPressed ? 'pressed' : 'default'].background
 
+const LINE_HEIGHT_CORRECTION = 6
+
 const createStyles =
   (
     {small, variant}: Partial<ButtonProps>,
     isPressed: boolean,
+    noPadding: boolean,
+    noPaddingHorizontal: boolean,
+    noPaddingVertical: boolean,
     underline?: boolean,
   ) =>
   ({border, color, text, size}: Theme) => {
@@ -139,10 +161,14 @@ const createStyles =
     const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
 
     const paddingHorizontal =
-      size.spacing.md + 2 + border.width.md - borderWidth
+      noPadding || noPaddingHorizontal
+        ? 0
+        : size.spacing.md + 2 + border.width.md - borderWidth
 
     const paddingVertical =
-      (buttonHeight - labelLineHeight - 2 * borderWidth) / 2
+      noPadding || noPaddingVertical
+        ? 0
+        : (buttonHeight - labelLineHeight - 2 * borderWidth) / 2
 
     return StyleSheet.create({
       button: {
@@ -155,6 +181,9 @@ const createStyles =
         borderColor: getBorderColor(color, isPressed, variant),
         borderStyle: 'solid',
         borderWidth,
+      },
+      iconWrapper: {
+        marginTop: LINE_HEIGHT_CORRECTION, // Only applied to tertiary buttons
       },
       // TODO Use `Phrase` instead, after merging line height branch
       label: {
