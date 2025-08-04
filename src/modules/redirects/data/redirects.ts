@@ -47,4 +47,11 @@ export const redirects: RedirectResponse[] = [
     title: 'Hulp bij een laag inkomen',
     urlKey: RedirectKey.income_help,
   },
+  {
+    iconName: 'redirectsSail',
+    testID: 'RedirectsSailButton',
+    text: 'Ga in 3 stappen voorbereid het water op om recreatief te varen tijdens SAIL 2025!',
+    title: 'Varen tijdens SAIL ',
+    urlKey: RedirectKey.sail,
+  },
 ]

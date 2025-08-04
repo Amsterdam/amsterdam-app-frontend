@@ -26,7 +26,7 @@ export const useOpenRedirect = () => {
         openWebUrl(redirectUrls[redirectKey])
       } else {
         Alert.alert(
-          `Sorry, deze functie is ${!redirectUrls && 'even '}niet beschikbaar.`,
+          `Sorry, deze functie is ${!redirectUrls ? 'even ' : ''}niet beschikbaar.`,
           !redirectUrls ? 'Probeer het later opnieuw.' : '',
         )
 
