@@ -4,6 +4,7 @@ import {Platform} from 'react-native'
 import {isEmulator as isEmulatorDeviceInfo} from 'react-native-device-info'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {obfuscateQueryParams} from '@/processes/logging/utils/obfuscateQueryParams'
 import {useAppInsights} from '@/providers/appinsights.provider'
 import {selectEnvironment} from '@/store/slices/environment'
 import {selectPermissions} from '@/store/slices/permissions'
@@ -34,6 +35,9 @@ export const useAddTelemetryInitializer = () => {
       }
 
       appInsights.addTelemetryInitializer(telemetryInitializer)
+      appInsights.addDependencyInitializer(details => {
+        details.item.name = obfuscateQueryParams(details.item.name)
+      })
     })
   }, [appInsights, environment, isScreenReaderEnabled, permissions])
 }
