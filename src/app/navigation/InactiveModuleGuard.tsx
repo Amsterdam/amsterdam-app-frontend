@@ -64,7 +64,7 @@ export const InactiveModuleGuard = ({
               {!!fallbackUrl && (
                 <ExternalLinkButton
                   label="Bekijk op Amsterdam.nl"
-                  testID="InactiveModuleGuardFallbackUrl"
+                  testID="InactiveModuleGuardFallbackUrlExternalLinkButton"
                   url={fallbackUrl}
                   variant="secondary"
                 />

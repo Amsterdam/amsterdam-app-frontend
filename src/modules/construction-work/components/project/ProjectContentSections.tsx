@@ -33,7 +33,7 @@ export const ProjectContentSections = ({sections, testID}: Props) =>
               key={label}
               label={label}
               noPaddingHorizontal
-              testID={testID + index + linkIndex}
+              testID={`${testID}${index}${linkIndex}ExternalLinkButton`}
               url={url}
               variant="tertiary"
             />

@@ -16,7 +16,7 @@ export const RequestCityPass = () => (
     <ExternalLinkButton
       label="Stadspas aanvragen"
       redirectKey={RedirectKey.cityPassRequest}
-      testID="CityPassRequestCityPassButton"
+      testID="CityPassRequestCityPassExternalLinkButton"
       variant="secondary"
     />
   </>

@@ -79,7 +79,7 @@ export const AboutTheAppDutchScreen = () => {
                       )
                     }
                   }}
-                  testID="AboutAboutTheAppDutchFeedback"
+                  testID="AboutAboutTheAppDutchFeedbackExternalLinkButton"
                   variant="secondary"
                 />
               )}

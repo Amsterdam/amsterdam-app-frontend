@@ -102,14 +102,14 @@ export const PassOwners = ({logout}: Props) => {
           <ExternalLinkButton
             label="Stadspas aanvragen"
             redirectKey={RedirectKey.cityPassRequest}
-            testID="CityPassRequestButton"
+            testID="CityPassRequestExternalLinkButton"
             variant="secondary"
           />
           <Gutter height="lg" />
           <Button
             label="Uitloggen"
             onPress={logout}
-            testID="CityPassLogoutButton"
+            testID="CityPassLogoutExternalLinkButton"
           />
         </>
       )}

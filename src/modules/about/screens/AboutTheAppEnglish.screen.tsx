@@ -88,7 +88,7 @@ export const AboutTheAppEnglishScreen = () => {
                       )
                     }
                   }}
-                  testID="AboutAboutTheAppEnglishFeedback"
+                  testID="AboutAboutTheAppEnglishFeedbackExternalLinkButton"
                   variant="secondary"
                 />
               )}

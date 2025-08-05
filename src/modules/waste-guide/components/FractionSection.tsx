@@ -33,7 +33,7 @@ export const FractionSection = ({
         <ExternalLinkButton
           label={content}
           noPadding
-          testID={testID}
+          testID={`${testID}ExternalLinkButton`}
           url={url}
           variant="tertiary"
         />

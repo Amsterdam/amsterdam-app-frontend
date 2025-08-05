@@ -26,7 +26,7 @@ export const NewsletterSignup = () => (
           accessibilityHint="Opent een link naar een aanmeldformulier voor de nieuwsbrief."
           label="Ik wil de nieuwsbrief"
           redirectKey={RedirectKey.contactNewsletterSignup}
-          testID="ContactNewsletterSignupButton"
+          testID="ContactNewsletterSignupExternalLinkButton"
           variant="secondary"
         />
       </Column>

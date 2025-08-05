@@ -40,7 +40,7 @@ export const AccessibilityStatementScreen = ({
             <ExternalLinkButton
               label="Toegankelijkheidsverklaring"
               noPadding
-              testID="AboutAccessibilityStatement"
+              testID="AboutAccessibilityStatementExternalLinkButton"
               url="https://toegankelijkheidsverklaring.nl/register/13502"
               variant="tertiary"
             />
@@ -62,14 +62,14 @@ export const AccessibilityStatementScreen = ({
             <ExternalLinkButton
               label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App Android (PDF, 3.667 kB)"
               noPadding
-              testID="AboutAccessibilityStatementReportAndroid"
+              testID="AboutAccessibilityStatementReportAndroidExternalLinkButton"
               url="https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_android.pdf"
               variant="tertiary"
             />
             <ExternalLinkButton
               label="20-12-2023: Rapport WCAG 2.1 AA – Amsterdam App iOS (PDF, 4.315 kB)"
               noPadding
-              testID="AboutAccessibilityStatementReportIos"
+              testID="AboutAccessibilityStatementReportIosExternalLinkButton"
               url="https://assets.amsterdam.nl/publish/pages/891623/volledig_toegankelijkheidsonderzoek_amsterdam_app_ios.pdf"
               variant="tertiary"
             />

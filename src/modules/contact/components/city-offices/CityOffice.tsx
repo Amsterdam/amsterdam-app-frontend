@@ -91,7 +91,7 @@ export const CityOffice = () => {
               <ExternalLinkButton
                 accessibilityHint="Opent een link naar een formulier."
                 label="Maak een afspraak"
-                testID="ContactMakeAppointment"
+                testID="ContactMakeAppointmentExternalLinkButton"
                 url={appointment.url}
               />
             </Column>
@@ -114,7 +114,7 @@ export const CityOffice = () => {
             <ExternalLinkButton
               accessibilityHint="Opent een link naar Google Maps."
               label="Bekijk route"
-              testID="ContactSeeRoute"
+              testID="ContactSeeRouteExternalLinkButton"
               url={directionsUrl}
               variant="secondary"
             />

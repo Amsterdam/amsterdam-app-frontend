@@ -55,7 +55,7 @@ export const MakeAppointmentScreen = () => (
                         label={label}
                         noPadding
                         redirectKey={urlKey}
-                        testID={`RedirectsMakeAppointment${pascalCase(label)}Link`}
+                        testID={`RedirectsMakeAppointment${pascalCase(label)}ExternalLinkButton`}
                         variant="tertiary"
                       />
                     ))}

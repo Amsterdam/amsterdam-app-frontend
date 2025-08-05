@@ -118,7 +118,7 @@ export const Fraction = ({fraction, testID}: Props) => {
             <ExternalLinkButton
               label="Kaart met recyclepunten in de buurt"
               noPaddingHorizontal
-              testID={`${testID}CollectionPoints`}
+              testID={`${testID}CollectionPointsExternalLinkButton`}
               url={collectionPointsMapUrl}
               variant="tertiary"
             />

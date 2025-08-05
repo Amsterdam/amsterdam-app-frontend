@@ -63,7 +63,7 @@ export const CityPassIntroScreen = () => {
               flex={1}
               label="Inloggen met DigiD"
               onPress={login}
-              testID="CityPassLogin"
+              testID="CityPassLoginExternalLinkButton"
             />
           </Row>
         </Column>

@@ -1,14 +1,15 @@
 import {useCallback} from 'react'
 import {Button, ButtonProps} from '@/components/ui/buttons/Button'
+import {TestProps} from '@/components/ui/types'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = {
   redirectKey?: RedirectKey
-  testID: string
   url?: string
-} & Omit<ButtonProps, 'testID'>
+} & ButtonProps &
+  TestProps
 
 export const ExternalLinkButton = ({
   accessibilityHint,
@@ -39,7 +40,7 @@ export const ExternalLinkButton = ({
       isLoading={isLoading}
       label={label}
       onPress={onPress}
-      testID={`${testID}ExternalLinkButton`}
+      testID={testID}
       {...props}
     />
   )

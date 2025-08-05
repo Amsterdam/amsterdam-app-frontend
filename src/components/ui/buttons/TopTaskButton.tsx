@@ -50,7 +50,7 @@ export const TopTaskButton = ({
         typeof text === 'string' ? text : '',
       )}
       accessibilityLanguage="nl-NL"
-      accessibilityRole={accessibilityRole}
+      accessibilityRole={isExternalLink ? 'link' : accessibilityRole}
       onPress={onPress}
       testID={testID}
       {...pressableProps}

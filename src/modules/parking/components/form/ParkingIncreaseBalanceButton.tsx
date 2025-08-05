@@ -55,7 +55,7 @@ export const ParkingIncreaseBalanceButton = () => {
       disabled={formState.isSubmitting}
       label="Nu betalen"
       onPress={handleSubmit(onSubmit)}
-      testID="ParkingIncreaseBalance"
+      testID="ParkingIncreaseBalanceExternalLinkButton"
     />
   )
 }

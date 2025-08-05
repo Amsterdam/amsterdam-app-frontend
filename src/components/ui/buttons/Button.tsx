@@ -11,7 +11,7 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
 import {IconSize} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
 
 export type ButtonVariant =
   | 'primary'
@@ -56,15 +56,15 @@ export const Button = ({
   ...pressableProps
 }: ButtonProps) => {
   const [isPressed, setIsPressed] = useState(false)
-  const styles = useThemable(
-    createStyles(
-      {small, variant},
-      isPressed,
-      noPadding,
-      noPaddingHorizontal,
-      noPaddingVertical,
-      underline,
-    ),
+  const theme = useTheme()
+  const styles = createStyles(
+    theme,
+    {small, variant},
+    isPressed,
+    noPadding,
+    noPaddingHorizontal,
+    noPaddingVertical,
+    underline,
   )
   const {onPressIn, onPressOut} = pressableProps
 
@@ -91,6 +91,11 @@ export const Button = ({
     <PressableBase
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
+      hitSlop={
+        noPadding || noPaddingVertical
+          ? (config.minTouchSize - theme.text.lineHeight.body) / 2
+          : undefined
+      }
       onPressIn={mergeOnPressIn}
       onPressOut={mergeOnPressOut}
       style={styles.button}
@@ -144,55 +149,54 @@ const getBackgroundColor = (
 
 const LINE_HEIGHT_CORRECTION = 6
 
-const createStyles =
-  (
-    {small, variant}: Partial<ButtonProps>,
-    isPressed: boolean,
-    noPadding: boolean,
-    noPaddingHorizontal: boolean,
-    noPaddingVertical: boolean,
-    underline?: boolean,
-  ) =>
-  ({border, color, text, size}: Theme) => {
-    const buttonHeight = config.buttonHeight
-    const borderWidth =
-      border.width[variant === 'secondary' && isPressed ? 'lg' : 'md']
-    const labelFontSize = text.fontSize[small ? 'small' : 'body']
-    const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
+const createStyles = (
+  {border, color, text, size}: Theme,
+  {small, variant}: Partial<ButtonProps>,
+  isPressed: boolean,
+  noPadding: boolean,
+  noPaddingHorizontal: boolean,
+  noPaddingVertical: boolean,
+  underline?: boolean,
+) => {
+  const buttonHeight = config.buttonHeight
+  const borderWidth =
+    border.width[variant === 'secondary' && isPressed ? 'lg' : 'md']
+  const labelFontSize = text.fontSize[small ? 'small' : 'body']
+  const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
 
-    const paddingHorizontal =
-      noPadding || noPaddingHorizontal
-        ? 0
-        : size.spacing.md + 2 + border.width.md - borderWidth
+  const paddingHorizontal =
+    noPadding || noPaddingHorizontal
+      ? 0
+      : size.spacing.md + 2 + border.width.md - borderWidth
 
-    const paddingVertical =
-      noPadding || noPaddingVertical
-        ? 0
-        : (buttonHeight - labelLineHeight - 2 * borderWidth) / 2
+  const paddingVertical =
+    noPadding || noPaddingVertical
+      ? 0
+      : (buttonHeight - labelLineHeight - 2 * borderWidth) / 2
 
-    return StyleSheet.create({
-      button: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        flexShrink: 1,
-        paddingHorizontal,
-        paddingVertical,
-        backgroundColor: getBackgroundColor(color, isPressed, variant),
-        borderColor: getBorderColor(color, isPressed, variant),
-        borderStyle: 'solid',
-        borderWidth,
-      },
-      iconWrapper: {
-        marginTop: LINE_HEIGHT_CORRECTION, // Only applied to tertiary buttons
-      },
-      // TODO Use `Phrase` instead, after merging line height branch
-      label: {
-        flexShrink: 1,
-        color: getLabelColor(color, isPressed, variant),
-        fontFamily: text.fontFamily.regular,
-        fontSize: labelFontSize,
-        lineHeight: labelLineHeight,
-        textDecorationLine: underline ? 'underline' : 'none',
-      },
-    })
-  }
+  return StyleSheet.create({
+    button: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      flexShrink: 1,
+      paddingHorizontal,
+      paddingVertical,
+      backgroundColor: getBackgroundColor(color, isPressed, variant),
+      borderColor: getBorderColor(color, isPressed, variant),
+      borderStyle: 'solid',
+      borderWidth,
+    },
+    iconWrapper: {
+      marginTop: LINE_HEIGHT_CORRECTION, // Only applied to tertiary buttons
+    },
+    // TODO Use `Phrase` instead, after merging line height branch
+    label: {
+      flexShrink: 1,
+      color: getLabelColor(color, isPressed, variant),
+      fontFamily: text.fontFamily.regular,
+      fontSize: labelFontSize,
+      lineHeight: labelLineHeight,
+      textDecorationLine: underline ? 'underline' : 'none',
+    },
+  })
+}

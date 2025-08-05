@@ -62,7 +62,7 @@ export const FeedbackScreen = () => {
                     )
                   }
                 }}
-                testID="AboutFeedback"
+                testID="AboutFeedbackExternalLinkButton"
               />
             )}
           </Column>

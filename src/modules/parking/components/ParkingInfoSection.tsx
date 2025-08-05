@@ -18,7 +18,7 @@ export const ParkingInfoSection = () => (
       <ExternalLinkButton
         label="Lees meer over parkeren"
         redirectKey={RedirectKey.parking}
-        testID="ParkingHomeParkingInformationButton"
+        testID="ParkingHomeParkingInformationExternalLinkButton"
         variant="secondary"
       />
     </Column>

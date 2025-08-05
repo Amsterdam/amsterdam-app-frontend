@@ -52,7 +52,7 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   ) : (
                     <ExternalLinkButton
                       label="Weesp"
-                      testID="RedirectsMakeAppointmentWeesp"
+                      testID="RedirectsMakeAppointmentWeespExternalLinkButton"
                       url={redirectUrls?.makeAppointMentWeesp}
                     />
                   )}

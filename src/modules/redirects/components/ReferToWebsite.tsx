@@ -21,7 +21,7 @@ export const ReferToWebsite = () => {
           <ExternalLinkButton
             accessibilityRole="link"
             label="Naar amsterdam.nl"
-            testID="RedirectsWebsite"
+            testID="RedirectsWebsiteExternalLinkButton"
             url="https://www.amsterdam.nl"
           />
         </Column>

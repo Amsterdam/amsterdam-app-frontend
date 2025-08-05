@@ -121,7 +121,7 @@ export const ParkingMyLicensePlates = () => {
             <ExternalLinkButton
               label="Kenteken wijzigen"
               redirectKey={redirectKey}
-              testID="ParkingMyLicensePlatesForceLicensePlatesPhoneButton"
+              testID="ParkingMyLicensePlatesForceLicensePlatesPhoneExternalLinkButton"
               variant="secondary"
             />
           </Column>
