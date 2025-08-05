@@ -13,6 +13,20 @@ type RedirectResponse = {
 
 export const redirects: RedirectResponse[] = [
   {
+    iconName: 'redirectsSail',
+    testID: 'RedirectsSailButton',
+    text: 'Ga in 3 stappen voorbereid het water op om recreatief te varen tijdens SAIL 2025!',
+    title: 'Varen tijdens SAIL ',
+    urlKey: RedirectKey.sail,
+  },
+  {
+    iconName: 'vote',
+    testID: 'RedirectsElectionsButton',
+    text: 'Meer informatie over de Tweede Kamerverkiezingen op woensdag 29 oktober.',
+    title: 'Verkiezingen',
+    urlKey: RedirectKey.elections,
+  },
+  {
     iconName: 'car',
     testID: 'RedirectsParkingButton',
     text: 'Alles over parkeren en verkeer in de stad.',
@@ -46,5 +60,12 @@ export const redirects: RedirectResponse[] = [
     text: 'Regelingen bij laag inkomen / Pak je kans.',
     title: 'Hulp bij een laag inkomen',
     urlKey: RedirectKey.income_help,
+  },
+  {
+    iconName: 'redirectsSail',
+    testID: 'RedirectsSailingAndMooringButton',
+    text: 'Koop een vaarvignet als u met uw boot in Amsterdam en Weesp wilt varen of afmeren.',
+    title: 'Vignet voor varen en afmeren',
+    urlKey: RedirectKey.sailingAndMooring,
   },
 ]

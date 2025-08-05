@@ -1,7 +1,7 @@
 import {useEffect} from 'react'
 import DigiD from '@/assets/icons/digid.svg'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -59,11 +59,11 @@ export const CityPassIntroScreen = () => {
               testID="CityPassLoginDigiDButton">
               <DigiD />
             </Pressable>
-            <Button
+            <ExternalLinkButton
               flex={1}
               label="Inloggen met DigiD"
               onPress={login}
-              testID="CityPassLoginButton"
+              testID="CityPassLoginExternalLinkButton"
             />
           </Row>
         </Column>

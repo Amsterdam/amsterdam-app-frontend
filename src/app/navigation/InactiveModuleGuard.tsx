@@ -2,13 +2,12 @@ import {ComponentType, useLayoutEffect} from 'react'
 import {NavigationProps, RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {UnderConstructionFigure} from '@/components/ui/media/errors/UnderConstructionFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleStatus} from '@/modules/types'
 import {useGetCachedServerModule} from '@/store/slices/modules'
@@ -27,7 +26,6 @@ export const InactiveModuleGuard = ({
 }: Props) => {
   const {cardStyle} = useScreenOptions()
   const {cachedServerModule} = useGetCachedServerModule(slug)
-  const openWebUrl = useOpenWebUrl()
   const fallbackUrl =
     cachedServerModule?.moduleFallbackUrl ??
     cachedServerModule?.releaseFallbackUrl
@@ -64,12 +62,10 @@ export const InactiveModuleGuard = ({
                 </Paragraph>
               </Column>
               {!!fallbackUrl && (
-                <Button
-                  iconName="external-link"
-                  iconSize="md"
+                <ExternalLinkButton
                   label="Bekijk op Amsterdam.nl"
-                  onPress={() => openWebUrl(fallbackUrl)}
-                  testID="InactiveModuleGuardFallbackUrlButton"
+                  testID="InactiveModuleGuardFallbackUrlExternalLinkButton"
+                  url={fallbackUrl}
                   variant="secondary"
                 />
               )}

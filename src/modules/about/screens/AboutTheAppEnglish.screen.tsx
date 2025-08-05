@@ -1,6 +1,6 @@
 import {Alert} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'
-import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
@@ -70,7 +70,7 @@ export const AboutTheAppEnglishScreen = () => {
                 </Paragraph>
               </Column>
               {!isLoading && !isError && (
-                <Button
+                <ExternalLinkButton
                   accessibilityLanguage="en-US"
                   label="Your opinion"
                   onPress={() => {
@@ -88,8 +88,7 @@ export const AboutTheAppEnglishScreen = () => {
                       )
                     }
                   }}
-                  role="link"
-                  testID="AboutAboutTheAppEnglishFeedbackLink"
+                  testID="AboutAboutTheAppEnglishFeedbackExternalLinkButton"
                   variant="secondary"
                 />
               )}

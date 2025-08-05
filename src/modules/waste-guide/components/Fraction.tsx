@@ -1,11 +1,10 @@
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
@@ -48,7 +47,6 @@ const showTimeBoundNotification = ({
 }
 
 export const Fraction = ({fraction, testID}: Props) => {
-  const openWebUrl = useOpenWebUrl()
   const {
     bulkyWasteAppointmentUrl,
     collectionPointsMapUrl,
@@ -117,11 +115,13 @@ export const Fraction = ({fraction, testID}: Props) => {
             </>
           )}
           {!!collectionPointsMapUrl && (
-            <InlineLink
-              onPress={() => openWebUrl(collectionPointsMapUrl)}
-              testID={`${testID}CollectionPointsLink`}>
-              Kaart met recyclepunten in de buurt
-            </InlineLink>
+            <ExternalLinkButton
+              label="Kaart met recyclepunten in de buurt"
+              noPaddingHorizontal
+              testID={`${testID}CollectionPointsExternalLinkButton`}
+              url={collectionPointsMapUrl}
+              variant="tertiary"
+            />
           )}
         </Column>
         <FractionSection

@@ -19,12 +19,14 @@ export type TopTaskButtonProps = {
   iconRightSize?: IconProps['size']
   iconSize?: IconProps['size']
   isError?: boolean
+  isExternalLink?: boolean
   text?: ReactNode
   title: string
   titleIconName?: SvgIconName
 } & Omit<PressableProps, 'children' | 'style'>
 
 export const TopTaskButton = ({
+  isExternalLink,
   isError = false,
   iconName,
   iconRightName,
@@ -42,12 +44,13 @@ export const TopTaskButton = ({
 
   return (
     <Pressable
+      accessibilityHint={isExternalLink ? 'Opent in webbrowser' : undefined}
       accessibilityLabel={accessibleText(
         title,
         typeof text === 'string' ? text : '',
       )}
       accessibilityLanguage="nl-NL"
-      accessibilityRole={accessibilityRole}
+      accessibilityRole={isExternalLink ? 'link' : accessibilityRole}
       onPress={onPress}
       testID={testID}
       {...pressableProps}
@@ -75,6 +78,13 @@ export const TopTaskButton = ({
               testID={`${testID}Title`}
               text={title}
             />
+            {!!isExternalLink && (
+              <Icon
+                color="link"
+                name="external-link"
+                testID={`${testID}TitleIcon`}
+              />
+            )}
             {!!titleIconName && (
               <Icon
                 color="link"

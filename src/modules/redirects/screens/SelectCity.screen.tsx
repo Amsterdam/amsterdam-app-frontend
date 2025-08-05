@@ -1,6 +1,7 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -9,7 +10,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
@@ -18,7 +18,6 @@ import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 type Props = NavigationProps<RedirectsRouteName.selectCity>
 
 export const SelectCityScreen = ({navigation}: Props) => {
-  const openWebUrl = useOpenWebUrl()
   const {isLandscape} = useDeviceContext()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
@@ -51,14 +50,10 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   ) : isError ? (
                     <SomethingWentWrong testID="RedirectsMakeAppointmentWeespSomethingWentWrong" />
                   ) : (
-                    <Button
-                      accessibilityRole="link"
+                    <ExternalLinkButton
                       label="Weesp"
-                      onPress={() =>
-                        redirectUrls?.makeAppointMentWeesp &&
-                        openWebUrl(redirectUrls?.makeAppointMentWeesp)
-                      }
-                      testID="RedirectsMakeAppointmentWeespButton"
+                      testID="RedirectsMakeAppointmentWeespExternalLinkButton"
+                      url={redirectUrls?.makeAppointMentWeesp}
                     />
                   )}
                 </Column>

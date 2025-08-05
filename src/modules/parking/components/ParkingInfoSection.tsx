@@ -1,4 +1,4 @@
-import {RedirectButton} from '@/components/ui/buttons/RedirectButton'
+import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
@@ -15,10 +15,10 @@ export const ParkingInfoSection = () => (
         In de app regelt u parkeersessies. Op de website staat meer informatie,
         zoals over vergunningen, zones, boetes en tarieven.
       </Paragraph>
-      <RedirectButton
+      <ExternalLinkButton
         label="Lees meer over parkeren"
         redirectKey={RedirectKey.parking}
-        testID="ParkingHomeParkingInformationButton"
+        testID="ParkingHomeParkingInformationExternalLinkButton"
         variant="secondary"
       />
     </Column>
