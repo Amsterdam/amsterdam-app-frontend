@@ -1,10 +1,12 @@
 import {type ReactNode, type Ref, useMemo} from 'react'
 import {Text, type TextProps} from 'react-native'
+import type {TestProps} from '@/components/ui/types'
 
-interface AccessibleTextProps extends TextProps {
+export type AccessibleTextProps = {
   children: ReactNode
   ref?: Ref<Text | null>
-}
+} & TextProps &
+  Partial<TestProps>
 
 export const AccessibleText = ({
   ref,
