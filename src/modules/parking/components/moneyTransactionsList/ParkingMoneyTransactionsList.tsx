@@ -160,15 +160,15 @@ export const ParkingMoneyTransactionsList = () => {
                 insetBottom="md"
                 insetHorizontal="md"
                 insetTop="md">
-                <Row
-                  align="between"
-                  flex={1}>
+                <Row align="between">
                   <Phrase emphasis="strong">
                     {item.order_type === ParkingOrderType.recharge
                       ? 'Geldsaldo opwaarderen'
                       : 'Geldsaldo teruggevorderd'}
                   </Phrase>
-                  <Phrase emphasis="strong">
+                  <Phrase
+                    emphasis="strong"
+                    flexShrink={0}>
                     {item.amount.value > 0 ? '+' : '-'}{' '}
                     {formatNumber(
                       Math.abs(item.amount.value),
