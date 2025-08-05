@@ -45,14 +45,15 @@ export class ApplicationInsights {
   onCfgChange() {}
 }
 
-export const SeverityLevel = {
-  Verbose: 0,
-  Information: 1,
-  Warning: 2,
-  Error: 3,
-  Critical: 4,
+export enum SeverityLevel {
+  Verbose = 0,
+  Information = 1,
+  Warning = 2,
+  Error = 3,
+  Critical = 4,
 }
 
 export default {
   ApplicationInsights,
+  SeverityLevel,
 }
