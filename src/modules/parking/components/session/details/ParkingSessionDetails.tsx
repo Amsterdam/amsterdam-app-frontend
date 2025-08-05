@@ -7,7 +7,6 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingPermitZonesLink} from '@/modules/parking/components/ParkingPermitZonesLink'
 import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsAdjustEndTimeButton'
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
@@ -131,12 +130,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             !!permit_zone && (
               <ParkingSessionDetailsRow
                 label="Gebied"
-                value={
-                  <ParkingPermitZonesLink
-                    testID="ParkingSessionDetailsPermitZonesLink"
-                    text={permit_zone.name}
-                  />
-                }
+                value={permit_zone.name}
               />
             )
           )}
