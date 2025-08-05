@@ -42,7 +42,7 @@ export const PassOwners = ({logout}: Props) => {
     })
   }
 
-  if (!secureCityPasses.length && isLoading) {
+  if (isLoading) {
     return (
       <Box
         insetBottom="xl"
@@ -57,38 +57,36 @@ export const PassOwners = ({logout}: Props) => {
     )
   }
 
-  if (isError) {
-    return (
-      <SomethingWentWrong
-        inset="md"
-        testID="CityPassDashboardSomethingWentWrong"
-        text={SOMETHING_WENT_WRONG_TEXT}
-        title=""
-      />
-    )
-  }
-
   return (
     <Box
       insetBottom="xl"
       insetHorizontal="md"
       insetTop="md">
       {cityPasses.length ? (
-        <Column gutter="md">
+        <Column gutter="lg">
           <ShowCityPassButton />
-          <Gutter height="sm" />
-          {cityPasses.map((cityPass, index) => (
-            <CityPassCard
-              cityPass={cityPass}
-              key={cityPass.passNumberComplete}
-              onPress={() => {
-                if ('passNumber' in cityPass) {
-                  onPressCityPassCard(cityPass.passNumber)
-                }
-              }}
-              testID={`CityPassOwner${index}Button`}
+          {isError ? (
+            <SomethingWentWrong
+              testID="CityPassDashboardSomethingWentWrong"
+              text={SOMETHING_WENT_WRONG_TEXT}
+              title=""
             />
-          ))}
+          ) : (
+            <Column gutter="md">
+              {cityPasses.map((cityPass, index) => (
+                <CityPassCard
+                  cityPass={cityPass}
+                  key={cityPass.passNumberComplete}
+                  onPress={() => {
+                    if ('passNumber' in cityPass) {
+                      onPressCityPassCard(cityPass.passNumber)
+                    }
+                  }}
+                  testID={`CityPassOwner${index}Button`}
+                />
+              ))}
+            </Column>
+          )}
         </Column>
       ) : (
         <>
