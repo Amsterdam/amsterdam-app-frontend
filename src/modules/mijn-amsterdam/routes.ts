@@ -1,7 +1,9 @@
+import {LoginResult} from '@/types/navigation'
+
 export enum MijnAmsterdamRouteName {
   settings = 'Settings',
 }
 
 export type MijnAmsterdamStackParams = {
-  [MijnAmsterdamRouteName.settings]: undefined
+  [MijnAmsterdamRouteName.settings]: {loginResult: LoginResult} | undefined
 }

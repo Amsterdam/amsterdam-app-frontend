@@ -3,10 +3,11 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {alerts} from '@/modules/city-pass/alerts'
 import {setIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
-import {LoginResult, RedirectErrorCodes} from '@/modules/city-pass/types'
+import {RedirectErrorCodes} from '@/modules/city-pass/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
+import {LoginResult} from '@/types/navigation'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 type Params = {
@@ -51,7 +52,7 @@ export const useRegisterCityPassOwner = ({
           ? alerts.noPassesInfo
           : alerts.retrievePassesFailed,
       )
-      trackException(ExceptionLogKey.deepLink, 'LoginSteps.screen.tsx', {
+      trackException(ExceptionLogKey.deepLink, 'useRegisterCityPassOwner.ts', {
         error: {
           deeplinkAccessToken,
           deeplinkRefreshToken,
