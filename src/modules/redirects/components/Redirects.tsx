@@ -26,7 +26,7 @@ export const Redirects = () => {
             accessibilityRole={routeName ? 'button' : 'link'}
             iconName={iconName}
             isExternalLink
-            key={iconName}
+            key={testID}
             onPress={() => {
               if (routeName) {
                 navigation.navigate(routeName)

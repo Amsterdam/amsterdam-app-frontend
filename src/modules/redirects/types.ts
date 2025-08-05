@@ -13,6 +13,7 @@ export enum RedirectKey {
   contactForm = 'contactForm',
   contactNewsletterSignup = 'contactNewsletterSignup',
   documents = 'documents',
+  elections = 'elections',
   feedbackForm = 'feedbackForm',
   immigration = 'immigration',
   income_help = 'income_help',
@@ -30,4 +31,5 @@ export enum RedirectKey {
   passingForFuneralDirectors = 'passingForFuneralDirectors',
   relocation = 'relocation',
   sail = 'sail',
+  sailingAndMooring = 'sailingAndMooring',
 }
