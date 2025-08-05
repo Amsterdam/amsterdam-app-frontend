@@ -1,17 +1,32 @@
-import {ReactNode, useCallback, useState} from 'react'
+import {ReactNode, useCallback, useEffect, useState} from 'react'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
+import {useLoginMijnAmsterdam} from '@/modules/mijn-amsterdam/hooks/useLoginMijnAmsterdam'
 
 export const MijnAmsterdamSettingsScreen = () => {
-  const [isEnabled, setIsEnabled] = useState(true)
-  const onChange = useCallback(() => setIsEnabled(prev => !prev), []) // TODO: make the switch functional
+  const [isEnabled, setIsEnabled] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false) // TODO: check if user is logged in once endpoint is ready
+  const login = useLoginMijnAmsterdam()
+
+  const onChange = useCallback(() => {
+    setIsEnabled(prev => !prev)
+    setIsLoggedIn(prev => !prev)
+  }, [])
+
+  useEffect(() => {
+    if (isEnabled && !isLoggedIn) {
+      login()
+    }
+  }, [isEnabled, isLoggedIn, login])
 
   return (
-    <Screen testID="MijnAmsterdamSettingsScreen">
+    <Screen
+      hasStickyAlert
+      testID="MijnAmsterdamSettingsScreen">
       <Box>
         <Column>
           <Switch
