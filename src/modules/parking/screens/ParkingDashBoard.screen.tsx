@@ -10,6 +10,8 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Placement} from '@/components/ui/types'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
@@ -25,16 +27,25 @@ import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useParkingAccountIsLoggingOut} from '@/modules/parking/slice'
+import {
+  setIsLoggingIn,
+  useParkingAccountIsLoggingOut,
+} from '@/modules/parking/slice'
 
 type Props = NavigationProps<ParkingRouteName.dashboard>
 
 export const ParkingDashboardScreen = ({route}: Props) => {
+  const dispatch = useDispatch()
+
   useHandleDeeplink(route)
   const {permits, isLoading} = useGetPermits()
   const {headerShown = true} = (navigationRef.current?.getCurrentOptions() ??
     {}) as {headerShown?: boolean}
   const isLoggingOut = useParkingAccountIsLoggingOut()
+
+  useFocusAndForegroundEffect(() => {
+    dispatch(setIsLoggingIn(false))
+  }, [])
 
   if (isLoading || isLoggingOut) {
     return (
