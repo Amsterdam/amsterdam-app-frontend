@@ -93,7 +93,9 @@ export const Fraction = ({fraction, testID}: Props) => {
         </AlertWarning>
       )}
       <Column gutter="md">
-        <Column gutter="sm">
+        <Column
+          gutter="sm"
+          halign="start">
           {afvalwijzerButtontekst && buttonUrl ? (
             <FractionButtonSection
               buttonLabel={afvalwijzerButtontekst}
