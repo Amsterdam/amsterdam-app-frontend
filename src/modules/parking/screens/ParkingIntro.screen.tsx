@@ -36,7 +36,7 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => (
             />
           </Column>
         </Column>
-        <ParkingInfoSection />
+        <ParkingInfoSection isIntro />
       </Column>
     </Box>
   </Screen>
