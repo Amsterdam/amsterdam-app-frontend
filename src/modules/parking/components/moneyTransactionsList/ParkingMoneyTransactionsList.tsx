@@ -3,6 +3,7 @@ import {SectionList, SectionListProps} from 'react-native'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -153,7 +154,11 @@ export const ParkingMoneyTransactionsList = () => {
         onViewableItemsChanged={onViewableItemsChanged}
         renderItem={({item}) =>
           item.dummy ? (
-            <Gutter height="xxs" />
+            <Box>
+              <Skeleton isLoading>
+                <Phrase>Laden...</Phrase>
+              </Skeleton>
+            </Box>
           ) : (
             <SingleSelectable>
               <Box
