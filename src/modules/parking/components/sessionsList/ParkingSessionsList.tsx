@@ -1,7 +1,9 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {FlatList, SectionList, SectionListProps} from 'react-native'
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
+import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
@@ -126,7 +128,13 @@ export const ParkingSessionsList = ({
           insetHorizontal="md"
           insetTop="md">
           {item.dummy ? (
-            <Gutter height="lg" />
+            <Skeleton isLoading>
+              <NavigationButton
+                onPress={() => null}
+                testID="DummyNavigationButton"
+                title="Laden"
+              />
+            </Skeleton>
           ) : (
             <ParkingPlannedSessionNavigationButton parkingSession={item} />
           )}
