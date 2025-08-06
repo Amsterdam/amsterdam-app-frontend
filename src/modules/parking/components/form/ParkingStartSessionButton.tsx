@@ -35,7 +35,7 @@ export const ParkingStartSessionButton = () => {
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
-  const [startSession] = useStartSessionMutation()
+  const [startSession, {isLoading}] = useStartSessionMutation()
 
   const {goBack} = useNavigation()
   const openWebUrl = useOpenWebUrl()
@@ -137,8 +137,9 @@ export const ParkingStartSessionButton = () => {
     />
   ) : (
     <Button
-      disabled={isSubmitting}
+      disabled={isSubmitting || isLoading}
       iconName="parkingSession"
+      isLoading={isLoading}
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}
       testID={`ParkingStartSession${currentPermit.permit_type}Button`}
