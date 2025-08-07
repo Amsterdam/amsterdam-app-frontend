@@ -16,7 +16,7 @@ type Props = {
 
 export const Carousel = ({ref, items, onChangeIndex, slideIndex}: Props) => {
   const {isPortrait} = useDeviceContext()
-  const {width} = useWindowDimensions()
+  const {width: windowWidth} = useWindowDimensions()
   const fontScale = PixelRatio.getFontScale()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
@@ -25,7 +25,6 @@ export const Carousel = ({ref, items, onChangeIndex, slideIndex}: Props) => {
       data={items}
       disableGesture={isScreenReaderEnabled}
       index={slideIndex}
-      key={width}
       onChangeIndex={({index}) => {
         onChangeIndex?.(index)
       }}
@@ -38,7 +37,7 @@ export const Carousel = ({ref, items, onChangeIndex, slideIndex}: Props) => {
           isCurrentSlide={index === slideIndex}
           isPortrait={isPortrait}
           item={item}
-          width={width}
+          windowWidth={windowWidth}
         />
       )}
       showPagination

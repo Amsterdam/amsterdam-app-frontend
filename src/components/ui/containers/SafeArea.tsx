@@ -49,8 +49,8 @@ const createStyles = (
     insets: {
       flex,
       paddingBottom: bottom ? insets.bottom : undefined,
-      paddingLeft: left ? insets.left : undefined,
-      paddingRight: right ? insets.right : undefined,
+      paddingLeft: left ? insets.left || insets.right : undefined,
+      paddingRight: right ? insets.right || insets.left : undefined,
       paddingTop: top ? insets.top : undefined,
     },
   })

@@ -1,7 +1,9 @@
 import {useMemo, useState} from 'react'
-import {StyleSheet, Text, View} from 'react-native'
+import {Platform, StyleSheet, Text, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {AmsterdamHuisjesBackground} from '@/assets/images/AmsterdamHuisjesBackground'
 import {Box} from '@/components/ui/containers/Box'
+import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -27,21 +29,26 @@ type Props = {
   isCurrentSlide: boolean
   isPortrait: boolean
   item: CarouselSlideItem
-  width: number
+  windowWidth: number
 }
 
 export const CarouselSlide = ({
   item: {image, description, title},
   isCurrentSlide,
   index,
-  width,
+  windowWidth,
   isPortrait,
   fontScale,
 }: Props) => {
   const [imageHeight, setImageHeight] = useState<number | undefined>()
+  const {left: leftInset, right: rightInset} = useSafeAreaInsets()
   const isImageVisible = isPortrait
     ? imageHeight && imageHeight > MIN_IMAGE_HEiGHT
     : true
+  const width =
+    Platform.OS === 'android' && Platform.Version < 35
+      ? windowWidth + leftInset + rightInset
+      : windowWidth
   const styles = useThemable(createStyles({width, isImageVisible, isPortrait}))
   const accessibilityAutoFocusRef = useAccessibilityAutoFocus<Text>({
     isActive: isCurrentSlide,
@@ -71,55 +78,57 @@ export const CarouselSlide = ({
           width={width}
         />
       </View>
-      <Track
-        align={isPortrait ? 'start' : 'center'}
-        alwaysDisplayAsRowForScreenReader
-        flex={1}
-        gutter={isPortrait ? 'no' : 'lg'}
-        reverse={!isPortrait}>
-        <Column
+      <HorizontalSafeArea flex={1}>
+        <Track
           align={isPortrait ? 'start' : 'center'}
-          basis={isPortrait ? undefined : 1}
-          grow={isPortrait ? undefined : 1}>
-          <Size
-            minHeight={minHeightTextContainer}
-            valign="start">
-            <Box
-              insetHorizontal="md"
-              insetTop="md">
-              <ContentView>
-                <Wrapper>
-                  <Title
-                    ref={accessibilityAutoFocusRef}
-                    text={title}
-                  />
-                  <Phrase
-                    testID="OnboardingIntroPhrase"
-                    variant="intro">
-                    {description}
-                  </Phrase>
-                </Wrapper>
-              </ContentView>
-            </Box>
-          </Size>
-        </Column>
-        <Column
-          basis={!isPortrait ? 1 : undefined}
-          grow={1}>
-          <View
-            onLayout={e => setImageHeight(e.nativeEvent.layout.height)}
-            style={styles.imageVisibility}>
-            <Center grow>
-              <Image
-                accessible={false}
-                resizeMode="contain"
-                source={image}
-                testID={`OnboardingSide${index}`}
-              />
-            </Center>
-          </View>
-        </Column>
-      </Track>
+          alwaysDisplayAsRowForScreenReader
+          flex={1}
+          gutter={isPortrait ? 'no' : 'lg'}
+          reverse={!isPortrait}>
+          <Column
+            align={isPortrait ? 'start' : 'center'}
+            basis={isPortrait ? undefined : 1}
+            grow={isPortrait ? undefined : 1}>
+            <Size
+              minHeight={minHeightTextContainer}
+              valign="start">
+              <Box
+                insetHorizontal="md"
+                insetTop="md">
+                <ContentView>
+                  <Wrapper>
+                    <Title
+                      ref={accessibilityAutoFocusRef}
+                      text={title}
+                    />
+                    <Phrase
+                      testID="OnboardingIntroPhrase"
+                      variant="intro">
+                      {description}
+                    </Phrase>
+                  </Wrapper>
+                </ContentView>
+              </Box>
+            </Size>
+          </Column>
+          <Column
+            basis={!isPortrait ? 1 : undefined}
+            grow={1}>
+            <View
+              onLayout={e => setImageHeight(e.nativeEvent.layout.height)}
+              style={styles.imageVisibility}>
+              <Center grow>
+                <Image
+                  accessible={false}
+                  resizeMode="contain"
+                  source={image}
+                  testID={`OnboardingSide${index}`}
+                />
+              </Center>
+            </View>
+          </Column>
+        </Track>
+      </HorizontalSafeArea>
       <Gutter height="md" />
     </View>
   )
