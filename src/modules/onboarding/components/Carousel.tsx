@@ -1,4 +1,4 @@
-import {Dimensions, PixelRatio} from 'react-native'
+import {PixelRatio, useWindowDimensions} from 'react-native'
 import {SwiperFlatList} from 'react-native-swiper-flatlist'
 import type {CarouselItem, CarouselSlideItem} from '@/modules/onboarding/types'
 import type {Ref} from 'react'
@@ -16,7 +16,7 @@ type Props = {
 
 export const Carousel = ({ref, items, onChangeIndex, slideIndex}: Props) => {
   const {isPortrait} = useDeviceContext()
-  const screenWidth = Dimensions.get('screen').width
+  const {width: windowWidth} = useWindowDimensions()
   const fontScale = PixelRatio.getFontScale()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
@@ -37,7 +37,7 @@ export const Carousel = ({ref, items, onChangeIndex, slideIndex}: Props) => {
           isCurrentSlide={index === slideIndex}
           isPortrait={isPortrait}
           item={item}
-          width={screenWidth}
+          windowWidth={windowWidth}
         />
       )}
       showPagination
