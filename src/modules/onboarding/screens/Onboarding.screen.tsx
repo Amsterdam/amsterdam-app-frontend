@@ -1,4 +1,5 @@
 import {useCallback, useRef, useState} from 'react'
+import {Platform} from 'react-native'
 import type SwiperFlatList from 'react-native-swiper-flatlist'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -79,8 +80,8 @@ export const OnboardingScreen = ({navigation}: Props) => {
         </Box>
       }
       testID="OnboardingScreen"
-      withLeftInset={false}
-      withRightInset={false}
+      withLeftInset={Platform.OS === 'android'}
+      withRightInset={Platform.OS === 'android'}
       withTopInset>
       <Carousel
         items={onboardingData}
