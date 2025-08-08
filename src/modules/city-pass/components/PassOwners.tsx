@@ -89,27 +89,30 @@ export const PassOwners = ({logout}: Props) => {
           )}
         </Column>
       ) : (
-        <>
-          <Title text="Je hebt geen Stadspas" />
-          <Gutter height="sm" />
-          <Paragraph>
-            De Stadspas is voor Amsterdammers met een laag inkomen en weinig
-            vermogen. Bekijk of je recht hebt op een Stadspas.
-          </Paragraph>
-          <Gutter height="lg" />
+        <Column gutter="lg">
+          <Column gutter="md">
+            <Title text="Je hebt geen Stadspas" />
+            <Paragraph>
+              De Stadspas is voor Amsterdammers met een laag inkomen en weinig
+              vermogen. Bekijk of je recht hebt op een Stadspas.
+            </Paragraph>
+            <Paragraph>
+              Als je al een Stadspas hebt aangevraagd, komt deze vanzelf in de
+              app te staan.
+            </Paragraph>
+          </Column>
           <ExternalLinkButton
             label="Stadspas aanvragen"
             redirectKey={RedirectKey.cityPassRequest}
             testID="CityPassRequestExternalLinkButton"
             variant="secondary"
           />
-          <Gutter height="lg" />
           <Button
             label="Uitloggen"
             onPress={logout}
             testID="CityPassLogoutExternalLinkButton"
           />
-        </>
+        </Column>
       )}
     </Box>
   )
