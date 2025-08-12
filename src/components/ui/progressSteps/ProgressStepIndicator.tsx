@@ -39,7 +39,7 @@ export const ProgressStepIndicator = ({
       {!!numberIndicator && progressStatus !== 'done' && (
         <AccessibleText
           style={styles.text}
-          testID="ProgressStepIndicatorNumberIndicator">
+          testID="ProgressStepIndicatorNumberLabel">
           {numberIndicator}
         </AccessibleText>
       )}

@@ -69,7 +69,7 @@ export const CityPassCard = ({
           <Title
             color="link"
             level="h3"
-            testID={`${testID}Name`}
+            testID={`${testID}NameTitle`}
             text={firstname}
           />
           {cityPass.actief === false ? (

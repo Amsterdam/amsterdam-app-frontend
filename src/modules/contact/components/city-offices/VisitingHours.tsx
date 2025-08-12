@@ -84,13 +84,13 @@ export const VisitingHours = ({
       {!!visitingHoursSentence.written && (
         <Paragraph
           accessibilityLabel={visitingHoursSentence.spoken}
-          testID="ContactVisitingHoursParagraphOpeningTimes">
+          testID="ContactVisitingHoursParagraphOpeningTimesText">
           {visitingHoursSentence.written}
         </Paragraph>
       )}
       <Paragraph
         accessibilityLabel={accessibleText(getOpeningHoursMore('spoken'))}
-        testID="ContactVisitingHoursParagraphOpeningTimesMore">
+        testID="ContactVisitingHoursParagraphOpeningTimesMoreText">
         {getOpeningHoursMore('written')}
       </Paragraph>
     </Column>

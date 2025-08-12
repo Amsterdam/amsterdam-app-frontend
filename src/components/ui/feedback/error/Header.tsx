@@ -38,7 +38,7 @@ export const FullScreenErrorHeader = ({
           )}
           {!!error && (
             <Paragraph
-              testID={`${testID}Error`}
+              testID={`${testID}ErrorText`}
               textAlign="center">
               {`Foutcode is ${getErrorCode(error)}`}
             </Paragraph>
