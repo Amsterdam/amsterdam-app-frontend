@@ -7,6 +7,7 @@ import {constructionWorkModule} from '@/modules/construction-work'
 import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {contactModule} from '@/modules/contact'
 import {homeModule} from '@/modules/home'
+import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
 import {notificationHistoryModule} from '@/modules/notification-history'
 import {onboardingModule} from '@/modules/onboarding'
 import {parkingModule} from '@/modules/parking'
@@ -37,6 +38,7 @@ export const clientModules = [
   constructionWorkEditorModule,
   constructionWorkModule,
   contactModule,
+  mijnAmsterdamModule,
   notificationHistoryModule,
   parkingModule,
   redirectsModule,
