@@ -119,12 +119,6 @@ export type DiscountTransactionsResponse = {
   transactions: DiscountTransaction[]
 }
 
-// deeplink
-export enum LoginResult {
-  failed = 'mislukt',
-  success = 'gelukt',
-}
-
 export enum CityPassError401Codes {
   apiKeyInvalid = 'API_KEY_INVALID',
   tokenExpired = 'TOKEN_EXPIRED',

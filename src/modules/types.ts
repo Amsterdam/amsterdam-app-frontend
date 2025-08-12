@@ -10,6 +10,7 @@ import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {type SvgIconName} from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
+import {UserMenuSection} from '@/modules/user/types'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
 import {type RootState} from '@/store/types/rootState'
@@ -124,6 +125,7 @@ export type ModuleClientConfig = BaseModuleConfig & {
    * Determines whether the module requires a Firebase token.
    */
   requiresFirebaseToken?: boolean
+  userMenuSection?: UserMenuSection
 }
 
 /**
