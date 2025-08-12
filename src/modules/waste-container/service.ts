@@ -1,4 +1,4 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {DeviatingApiSlug} from '@/environment'
 import {
   WasteContainerApi,
   WasteContainerEndpointName,
@@ -14,9 +14,9 @@ export const wasteContainerApi = baseApi.injectEndpoints({
     >({
       query: params => ({
         params,
-        slug: ModuleSlug['waste-container'],
+        slug: DeviatingApiSlug.waste,
         timeout: TimeOutDuration.long,
-        url: '/pass-number',
+        url: '/container/pass-number',
       }),
       keepUnusedDataFor: CacheLifetime.day,
     }),
