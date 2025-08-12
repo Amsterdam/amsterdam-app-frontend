@@ -16,7 +16,14 @@ export enum GlobalApiSlug {
   notification = 'notification',
 }
 
-export type ApiSlug = GlobalApiSlug | ModuleSlug
+/**
+ * Api slugs where backend deviates from module slugs for their endpoint
+ */
+export enum DeviatingApiSlug {
+  waste = 'waste',
+}
+
+export type ApiSlug = GlobalApiSlug | ModuleSlug | DeviatingApiSlug
 
 export const editableApiSlug = {
   constructionWork: ModuleSlug['construction-work'],
