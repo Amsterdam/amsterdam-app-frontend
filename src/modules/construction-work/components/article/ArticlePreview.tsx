@@ -78,7 +78,7 @@ export const ArticlePreview = ({
             <Row gutter="sm">
               <View style={styles.horizontalLine} />
               {!!isNewAndUnreadArticle && <Tag label="Nieuw" />}
-              <Paragraph testID={`${testID}Date`}>
+              <Paragraph testID={`${testID}DateLabel`}>
                 {formatDateToDisplay(article.publication_date)}
               </Paragraph>
             </Row>

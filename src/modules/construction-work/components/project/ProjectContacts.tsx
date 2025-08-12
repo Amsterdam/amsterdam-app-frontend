@@ -52,7 +52,7 @@ export const ProjectContacts = ({contacts, emailSubject}: Props) => (
           </Row>
         )}
         {!!address && (
-          <Paragraph testID="ConstructionWorkProjectContactAddress">
+          <Paragraph testID="ConstructionWorkProjectContactAddressText">
             {address}
           </Paragraph>
         )}

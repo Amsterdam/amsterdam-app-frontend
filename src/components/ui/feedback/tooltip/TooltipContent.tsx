@@ -25,7 +25,7 @@ export const TooltipContent = ({testID, text}: Props) => {
           <Paragraph
             color="inverse"
             key={paragraph}
-            testID={`${testID}Paragraph${index}`}
+            testID={`${testID}${index}Paragraph`}
             variant="small">
             {paragraph}
           </Paragraph>

@@ -1,6 +1,7 @@
 import {ReactNode, useMemo} from 'react'
 import {StyleSheet, TextProps, TextStyle} from 'react-native'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
+import {TestProps} from '@/components/ui/types'
 import {Theme} from '@/themes/themes'
 import {ColorTokens} from '@/themes/tokens/color-light'
 import {ParagraphVariants} from '@/themes/tokens/text'
@@ -20,7 +21,8 @@ type Props = {
    * Which variation of a paragraph to display.
    */
   variant?: ParagraphVariants
-} & Omit<TextProps, 'style'>
+} & Omit<TextProps, 'style' | 'testID'> &
+  Partial<TestProps>
 
 export const Paragraph = ({
   children,

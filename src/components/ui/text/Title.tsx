@@ -2,7 +2,7 @@ import {type Ref, useMemo} from 'react'
 import {StyleSheet, Text, type TextProps, type TextStyle} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
-import {TestProps} from '@/components/ui/types'
+import type {TestProps} from '@/components/ui/types'
 import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
@@ -16,7 +16,7 @@ type Props = {
    */
   textAlign?: TextStyle['textAlign']
   underline?: boolean
-} & Omit<TextProps, 'style'> &
+} & Omit<TextProps, 'style' | 'testID'> &
   Partial<TestProps>
 
 export const Title = ({

@@ -75,7 +75,7 @@ export const ProjectArticle = ({
                 <Column>
                   {!!publicationDate && (
                     <Paragraph
-                      testID={`ConstructionWorkProjectArticle${id}Date`}>
+                      testID={`ConstructionWorkProjectArticle${id}DateLabel`}>
                       {formatDate(publicationDate)}
                     </Paragraph>
                   )}
