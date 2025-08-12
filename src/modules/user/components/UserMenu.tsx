@@ -93,7 +93,7 @@ export const UserMenu = () => {
   const {accessCode} = useGetSecureAccessCode()
   const {enabledModules, modulesLoading} = useModules()
   const moduleMenuSections = enabledModules
-    ? enabledModules.map(m => m.userMenuSection?.navigationItems || []).flat()
+    ? enabledModules.flatMap(m => m.userMenuSection?.navigationItems || [])
     : []
   const sections = getSections(moduleMenuSections)
 
