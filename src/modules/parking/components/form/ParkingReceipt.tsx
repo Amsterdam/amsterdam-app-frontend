@@ -17,6 +17,7 @@ import {
 } from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -52,11 +53,11 @@ export const ParkingReceipt = () => {
   const isVisitor = parkingAccount?.scope === ParkingPermitScope.visitor
 
   const currentPermit = useCurrentParkingPermit()
-
+  const {isOpen} = useBottomSheet()
   const allDataEntered = endTime && paymentZoneId && endTime.isAfter(startTime)
 
   const {data, isLoading} = useSessionReceiptQuery(
-    allDataEntered
+    allDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
           end_date_time: endTime.toJSON(),
