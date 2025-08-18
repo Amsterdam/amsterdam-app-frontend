@@ -3,7 +3,6 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
-import {LazyImage} from '@/components/ui/media/LazyImage'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -13,7 +12,6 @@ import {WaitingTime} from '@/modules/contact/components/city-offices/WaitingTime
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
 import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
-import {mapImageSources} from '@/modules/contact/utils/mapImageSources'
 
 export const CityOffice = () => {
   const selectedCityOfficeId = useSelector(selectCityOffice)
@@ -41,7 +39,6 @@ export const CityOffice = () => {
   const {
     identifier,
     title,
-    image,
     address,
     appointment,
     addressContent,
@@ -50,8 +47,6 @@ export const CityOffice = () => {
     visitingHoursContent,
   } = cityOffice
 
-  const imageSources = mapImageSources(image.sources)
-
   return (
     <Box>
       <Column gutter="md">
@@ -59,11 +54,6 @@ export const CityOffice = () => {
           level="h2"
           testID="ContactVisitUsTitle"
           text="Bezoek ons"
-        />
-        <LazyImage
-          key={imageSources?.[0].uri}
-          source={imageSources}
-          testID="ContactVisitUsImage"
         />
         <NameAndAddress
           address={address}
