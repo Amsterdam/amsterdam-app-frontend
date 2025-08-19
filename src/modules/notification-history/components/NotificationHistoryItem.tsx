@@ -85,7 +85,7 @@ export const NotificationHistoryItem = ({
               <Icon
                 color="inverse"
                 name={icon}
-                size="xl"
+                size="lg"
                 testID={`NotificationHistoryItem${id}Icon`}
               />
             )}
@@ -108,7 +108,7 @@ export const NotificationHistoryItem = ({
               {createdAt}
             </Phrase>
           </Column>
-          {!!is_read && (
+          {!is_read && (
             <View style={styles.badgeContainer}>
               <Badge
                 testID={`NotificationHistoryItem${id}IsUnreadBadge`}
