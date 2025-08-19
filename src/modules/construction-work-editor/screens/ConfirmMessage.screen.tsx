@@ -156,24 +156,22 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
             {!!message?.body && <Paragraph>{message.body}</Paragraph>}
           </Column>
           {!!project?.title && !!message?.title && (
-            <>
-              <Column gutter="sm">
-                <Gutter height="sm" />
+            <Column gutter="sm">
+              <Gutter height="sm" />
+              <Title
+                level="h4"
+                text="Voorbeeld pushbericht"
+              />
+              <Column gutter="xs">
                 <Title
-                  level="h4"
-                  text="Voorbeeld pushbericht"
+                  level="h5"
+                  text={project.title}
                 />
-                <Column gutter="xs">
-                  <Title
-                    level="h5"
-                    text={project.title}
-                  />
-                  <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationPreviewMessage">
-                    {message.title}
-                  </Phrase>
-                </Column>
+                <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationPreviewMessage">
+                  {message.title}
+                </Phrase>
               </Column>
-            </>
+            </Column>
           )}
         </Column>
       </Box>
