@@ -60,9 +60,7 @@ export const ModuleSettings = () => {
   return (
     <Box testID="UserModuleSettings">
       <Column gutter="md">
-        <Paragraph>
-          Hier kunt u zelf bepalen welke onderwerpen u wilt zien in de app.
-        </Paragraph>
+        <Paragraph>Kies de onderwerpen die u wilt zien.</Paragraph>
         <Column gutter="sm">
           {toggleableModules.map(module => (
             <ModuleSetting
