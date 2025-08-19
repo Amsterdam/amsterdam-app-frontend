@@ -1,8 +1,8 @@
 import {type NavigationProps} from '@/app/navigation/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
-import {Checkbox} from '@/components/ui/forms/Checkbox'
 import {Column} from '@/components/ui/layout/Column'
+import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Image} from '@/components/ui/media/Image'
@@ -13,7 +13,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useBoolean} from '@/hooks/useBoolean'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {alerts} from '@/modules/construction-work-editor/alerts'
 import {LoginBoundaryScreen} from '@/modules/construction-work-editor/components/LoginBoundaryScreen'
@@ -42,10 +41,6 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
   const dispatch = useDispatch()
   const {resetAlert, setAlert} = useAlert()
 
-  const {
-    value: isPushNotificationChecked,
-    toggle: togglePushNotificationChecked,
-  } = useBoolean()
   const currentProjectId = useSelector(selectCurrentProjectId)
   const message = useSelector(selectMessage(currentProjectId))
   const mainImage = useSelector(selectMainImage(currentProjectId))
@@ -72,7 +67,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
       const arg = {
         ...message,
         body: encodeBody(message.body),
-        send_push_notification: isPushNotificationChecked,
+        send_push_notification: true,
       }
 
       if (mainImage) {
@@ -162,28 +157,20 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
           </Column>
           {!!project?.title && !!message?.title && (
             <Column gutter="sm">
-              <Checkbox
-                accessibilityLabel="Wil je ook een pushbericht versturen?"
-                label={
-                  <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckboxPhrase">
-                    Wil je ook een pushbericht versturen?
-                  </Phrase>
-                }
-                onValueChange={togglePushNotificationChecked}
-                testID="ConstructionWorkEditorCreateMessageSendPushNotificationCheckbox"
-                value={isPushNotificationChecked}
+              <Gutter height="sm" />
+              <Title
+                level="h4"
+                text="Voorbeeld pushbericht"
               />
-              {!!isPushNotificationChecked && (
-                <Column gutter="xs">
-                  <Title
-                    level="h5"
-                    text={project.title}
-                  />
-                  <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationPreviewMessage">
-                    {message.title}
-                  </Phrase>
-                </Column>
-              )}
+              <Column gutter="xs">
+                <Title
+                  level="h5"
+                  text={project.title}
+                />
+                <Phrase testID="ConstructionWorkEditorCreateMessageSendPushNotificationPreviewMessage">
+                  {message.title}
+                </Phrase>
+              </Column>
             </Column>
           )}
         </Column>
