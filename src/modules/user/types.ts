@@ -1,4 +1,5 @@
 import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {ApiSlug} from '@/environment'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
 import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
@@ -15,3 +16,16 @@ export type UserMenuSectionItem = {
   moduleSlug?: ModuleSlug
   route?: AccessCodeRouteName | AddressRouteName | UserRouteName
 }
+
+export type NotificationModule = {
+  description: string
+  module: ApiSlug
+  types: [
+    {
+      description: string
+      type: string
+    },
+  ]
+}
+
+export type NotificationModulesResponse = NotificationModule[]

@@ -14,5 +14,6 @@ export const wasteGuideModule: ModuleClientConfig = {
       slice: wasteGuideSlice,
     },
   ],
+  requiresFirebaseToken: true,
   slug: ModuleSlug['waste-guide'],
 }
