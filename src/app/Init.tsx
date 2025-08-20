@@ -2,6 +2,7 @@ import {type ReactNode} from 'react'
 import {AppInsights} from '@/app/init/AppInsights'
 import {CheckPermissions} from '@/app/init/CheckPermissions'
 import {DeviceRegistration} from '@/app/init/DeviceRegistration'
+import {DisablePushForDisabledModules} from '@/app/init/DisablePushForDisabledModules'
 import {DisplayNotificationOnForeground} from '@/app/init/DisplayNotificationOnForeground'
 import {GetLocation} from '@/app/init/GetLocation'
 import {HandleNotificationEvent} from '@/app/init/HandleNotificationEvent'
@@ -29,6 +30,7 @@ export const Init = ({children}: Props) => {
       <PostRenderComponents enabledModules={enabledModules} />
       {/* temporarily hide this component, until the issue that makes it appear too often is fixed */}
       {/* <NoInternet /> */}
+      <DisablePushForDisabledModules />
     </>
   )
 }
