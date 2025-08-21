@@ -1,52 +1,43 @@
 import {pascalCase} from 'pascal-case'
-import {StyleSheet} from 'react-native'
-import {FlexStyle} from 'react-native/Libraries/StyleSheet/StyleSheetTypes'
-import {SimpleGrid} from '@/components/ui/containers/SimpleGrid'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {Fraction} from '@/modules/waste-guide/components/Fraction'
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {Column} from '@/components/ui/layout/Column'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {useFractions} from '@/modules/waste-guide/hooks/useFractions'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
-import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   wasteGuide: WasteGuideResponseFraction[]
 }
 
 export const Fractions = ({wasteGuide}: Props) => {
+  const {navigate} = useNavigation()
   const fractions = useFractions(wasteGuide)
 
-  const {fontScale} = useDeviceContext()
-  const {size} = useTheme()
-  const itemDimension = 20 * size.spacing.md * Math.max(fontScale, 1)
-  const gutter = size.spacing.xl
-
-  const styles = createStyles(gutter)
-
   return (
-    <SimpleGrid
-      data={fractions}
-      itemContainerStyle={styles.itemContainer}
-      itemDimension={itemDimension}
-      keyExtractor={fraction => fraction.afvalwijzerFractieCode}
-      listKey="fractions"
-      renderItem={({item}) => (
-        <Fraction
-          fraction={item}
-          testID={`WasteGuide${pascalCase(item.afvalwijzerFractieNaam ?? '')}Fraction`}
-        />
-      )}
-      spacing={gutter}
-      style={styles.grid}
-    />
+    <Column gutter="lg">
+      {fractions.map(fraction => {
+        const {afvalwijzerFractieCode, afvalwijzerFractieNaam} = fraction
+
+        return (
+          <NavigationButton
+            Icon={
+              <WasteFractionIcon
+                fractionCode={afvalwijzerFractieCode}
+                testID={`WasteGuide${pascalCase(afvalwijzerFractieNaam ?? '')}FractionIcon`}
+              />
+            }
+            isDescriptionBelowIcon={false}
+            key={afvalwijzerFractieCode}
+            onPress={() => {
+              navigate(WasteGuideRouteName.wasteGuideFraction, {fraction})
+            }}
+            testID={`WasteGuide${pascalCase(afvalwijzerFractieNaam ?? '')}FractionNavigationButton`}
+            title={afvalwijzerFractieNaam}
+          />
+        )
+      })}
+    </Column>
   )
 }
-
-const createStyles = (gutter: FlexStyle['margin']) =>
-  StyleSheet.create({
-    grid: {
-      margin: gutter && -gutter,
-    },
-    itemContainer: {
-      justifyContent: 'flex-start',
-    },
-  })

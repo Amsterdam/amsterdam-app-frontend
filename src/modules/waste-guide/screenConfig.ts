@@ -6,6 +6,7 @@ import {
 } from '@/modules/waste-guide/routes'
 import {WasteGuideScreen} from '@/modules/waste-guide/screens/WasteGuide.screen'
 import {WasteGuideFeedbackScreen} from '@/modules/waste-guide/screens/WasteGuideFeedback.screen'
+import {WasteGuideFractionScreen} from '@/modules/waste-guide/screens/WasteGuideFraction.screen'
 
 export const screenConfig: StackNavigationRoutes<
   WasteGuideStackParams,
@@ -25,6 +26,10 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Melding afvalinformatie doen',
     },
+  },
+  [WasteGuideRouteName.wasteGuideFraction]: {
+    component: WasteGuideFractionScreen,
+    name: WasteGuideRouteName.wasteGuideFraction,
   },
 }
 

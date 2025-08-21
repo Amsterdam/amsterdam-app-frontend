@@ -20,11 +20,7 @@ export const WasteGuideContent = ({wasteGuide}: Props) => {
   )
 
   if (wasteGuide[0].gebruiksdoelWoonfunctie) {
-    return (
-      <Column gutter="xl">
-        <Fractions wasteGuide={wasteGuide} />
-      </Column>
-    )
+    return <Fractions wasteGuide={wasteGuide} />
   }
 
   if (!address) {

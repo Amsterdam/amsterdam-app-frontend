@@ -1,3 +1,4 @@
+import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
@@ -6,18 +7,21 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
 import {IconSize, TestProps} from '@/components/ui/types'
 
 type Props = {
+  Icon?: ReactNode
   accessibilityLabel?: string
   accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
   description?: string
   direction?: 'backward' | 'forward'
   emphasis?: PhraseProps['emphasis']
-  icon?: SvgIconName
+  iconName?: SvgIconName
   iconSize?: keyof typeof IconSize
   inset?: boolean
+  isDescriptionBelowIcon?: boolean
   onPress: () => void
   title: string
 } & TestProps
@@ -26,15 +30,17 @@ export const NavigationButton = ({
   description,
   direction = 'forward',
   emphasis = 'strong',
-  icon,
+  iconName,
   iconSize = 'lg',
   inset = true,
+  isDescriptionBelowIcon = true,
   title,
   onPress,
   testID,
   accessibilityRole = 'link',
   accessibilityLanguage = 'nl-NL',
   accessibilityLabel,
+  ...props
 }: Props) => (
   <Pressable
     accessibilityLabel={accessibilityLabel}
@@ -60,22 +66,38 @@ export const NavigationButton = ({
           <Row
             gutter="md"
             shrink={0}>
-            {!!icon && (
+            {!!iconName && (
               <Icon
                 color="link"
-                name={icon}
+                name={iconName}
                 size="lg"
                 testID={`${testID}Icon`}
               />
             )}
-            <Phrase
-              color="link"
-              emphasis={emphasis}
-              testID="NavigationButtonTitle">
-              {title}
-            </Phrase>
+            {!!props.Icon && !iconName ? props.Icon : null}
+            <Column>
+              {emphasis === 'strong' ? (
+                <Title
+                  color="link"
+                  level="h5"
+                  testID="NavigationButtonTitle"
+                  text={title}
+                />
+              ) : (
+                <Phrase
+                  color="link"
+                  testID="NavigationButtonTitle">
+                  {title}
+                </Phrase>
+              )}
+              {!!description && !isDescriptionBelowIcon && (
+                <Phrase testID="NavigationButtonDescription">
+                  {description}
+                </Phrase>
+              )}
+            </Column>
           </Row>
-          {!!description && (
+          {!!description && !!isDescriptionBelowIcon && (
             <Phrase testID="NavigationButtonDescription">{description}</Phrase>
           )}
         </Column>

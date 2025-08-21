@@ -27,7 +27,7 @@ export const ParkingActiveSessionNavigationButton = ({
           ? `Actief sinds ${dayjs(start_date_time).format(isEndDateToday ? 'HH.mm' : 'D MMMM, HH.mm')} uur`
           : `Tot ${dayjs(end_date_time).format(isEndDateToday ? 'HH.mm' : 'D MMMM, HH.mm')} uur`
       }
-      icon="parkingCar"
+      iconName="parkingCar"
       iconSize="lg"
       inset={false}
       onPress={() => {
