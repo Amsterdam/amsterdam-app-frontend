@@ -52,6 +52,7 @@ export const NotificationSetting = ({
       />
       <Box insetHorizontal="md">
         <Phrase
+          accessible={false}
           testID={`NotificationSetting${module}Description`}
           variant="small">
           {description}
