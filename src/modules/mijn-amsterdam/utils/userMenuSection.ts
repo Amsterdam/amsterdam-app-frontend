@@ -5,7 +5,7 @@ export const mijnAmsterdamUserMenuSection: UserMenuSection = {
   title: 'Mijn Amsterdam',
   navigationItems: [
     {
-      icon: 'mijnAmsterdam',
+      iconName: 'mijnAmsterdam',
       label: 'Mijn Amsterdam',
       moduleSlug: ModuleSlug['mijn-amsterdam'],
     },

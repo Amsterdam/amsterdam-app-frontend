@@ -2,8 +2,6 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
-import {Title} from '@/components/ui/text/Title'
 import {type TestProps} from '@/components/ui/types'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
@@ -15,7 +13,6 @@ import {
   FractionCode,
   WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 import {capitalizeString} from '@/utils/capitalizeString'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatEnumeration} from '@/utils/formatEnumeration'
@@ -61,7 +58,6 @@ export const Fraction = ({fraction, testID}: Props) => {
     afvalwijzerBuitenzetten,
     afvalwijzerButtontekst,
     afvalwijzerFractieCode,
-    afvalwijzerFractieNaam,
     afvalwijzerInstructie2,
     afvalwijzerOphaaldagen2,
     afvalwijzerUrl,
@@ -72,18 +68,13 @@ export const Fraction = ({fraction, testID}: Props) => {
 
   return (
     <Column gutter="md">
-      <Row gutter="sm">
+      <Column halign="center">
         <WasteFractionIcon
           fractionCode={afvalwijzerFractieCode}
-          testID={`${testID}Icon`}
+          size="xl"
+          testID="WasteGuideFractionIcon"
         />
-        <Title
-          accessibilityLabel={accessibleText(afvalwijzerFractieNaam)}
-          level="h4"
-          testID={`${testID}Title`}
-          text={afvalwijzerFractieNaam}
-        />
-      </Row>
+      </Column>
       {showTimeBoundNotification(fraction) && (
         <AlertWarning testID={`${testID}TimeboundNotification`}>
           <FractionContent

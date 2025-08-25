@@ -10,7 +10,7 @@ export type UserMenuSection = {
 }
 
 export type UserMenuSectionItem = {
-  icon: SvgIconName
+  iconName: SvgIconName
   label: string
   moduleSlug?: ModuleSlug
   route?: AccessCodeRouteName | AddressRouteName | UserRouteName

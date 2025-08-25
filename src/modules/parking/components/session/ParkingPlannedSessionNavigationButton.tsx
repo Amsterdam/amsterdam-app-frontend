@@ -36,7 +36,7 @@ export const ParkingPlannedSessionNavigationButton = ({
     <NavigationButton
       accessibilityLabel={`Kenteken ${title}. Starttijd ${startTimeString} ${!currentPermit.no_endtime ? 'Parkeertijd ' + remainingTimeStringLong : ''}`}
       description={description}
-      icon="parkingCar"
+      iconName="parkingCar"
       iconSize="lg"
       inset={false}
       onPress={() => {

@@ -27,4 +27,10 @@ export const sizeTokens = {
       line: 3,
     },
   },
+  waste: {
+    fractionIcon: {
+      md: 32,
+      xl: 56,
+    },
+  },
 } as const

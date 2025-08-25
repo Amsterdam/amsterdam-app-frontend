@@ -16,12 +16,12 @@ const accessCodeSection: UserMenuSection = {
   title: 'Beveiliging',
   navigationItems: [
     {
-      icon: 'accessCode',
+      iconName: 'accessCode',
       label: 'Wijzig toegangscode',
       moduleSlug: ModuleSlug['access-code'],
     },
     {
-      icon: 'lock',
+      iconName: 'lock',
       label: 'Toegang met biometrische gevens',
       route: UserRouteName.userBiometrics,
     },
@@ -34,14 +34,14 @@ const getSections = (
   {
     navigationItems: [
       {
-        icon: 'housing',
+        iconName: 'housing',
         label: 'Mijn adres',
         moduleSlug: ModuleSlug.address,
         route: AddressRouteName.address,
       },
       ...moduleSections,
       {
-        icon: 'settings',
+        iconName: 'settings',
         label: 'Onderwerpen in de app',
         route: UserRouteName.moduleSettings,
       },
@@ -68,7 +68,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
             <NavigationButton
               emphasis="default"
               iconSize="md"
-              key={item.icon}
+              key={item.iconName}
               {...item}
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
@@ -107,7 +107,7 @@ export const UserMenu = () => {
         {!!sections.length &&
           sections.map(section => (
             <MenuSection
-              key={section.navigationItems[0].icon}
+              key={section.navigationItems[0].iconName}
               {...section}
             />
           ))}
