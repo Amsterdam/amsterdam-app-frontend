@@ -62,7 +62,9 @@ export const ContactOptions = () => {
                   )}
                   accessibilityRole="link"
                   iconName={redirectsKey && isLoading ? 'spinner' : iconName}
-                  isExternalLink={!!redirectsKey || !!url}
+                  isExternalLink={/^https:\/\/(?!wa\.me).+/.test(
+                    resultUrl ?? '',
+                  )}
                   onPress={() => {
                     if (resultUrl) {
                       openUrl(resultUrl)
