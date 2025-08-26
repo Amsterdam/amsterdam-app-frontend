@@ -1,4 +1,6 @@
-import {ReactNode, useCallback} from 'react'
+import {type ReactNode, useCallback} from 'react'
+import type {Module} from '@/modules/types'
+import type {NotificationModule} from '@/modules/user/types'
 import {Box} from '@/components/ui/containers/Box'
 import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
@@ -9,17 +11,16 @@ import {
   useAddDisabledPushModuleMutation,
   useDeleteDisabledPushModuleMutation,
 } from '@/modules/user/service'
-import {NotificationModule} from '@/modules/user/types'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
   isDisabled: boolean
-  notificationModule: NotificationModule
+  notificationModule: NotificationModule & Module
 }
 
 export const NotificationSetting = ({
   isDisabled,
-  notificationModule: {description, module},
+  notificationModule: {description, module, title},
 }: Props) => {
   const [addDisabledPushModule] = useAddDisabledPushModuleMutation()
   const [deleteDisabledPushModule] = useDeleteDisabledPushModuleMutation()
@@ -42,7 +43,7 @@ export const NotificationSetting = ({
         label={
           <Title
             level="h5"
-            text={module} // TODO: Change to module name once implemented in endpoint (#152107)
+            text={title}
           />
         }
         onChange={() => onChange(module)}
