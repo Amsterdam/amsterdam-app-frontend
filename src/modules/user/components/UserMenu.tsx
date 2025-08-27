@@ -40,7 +40,7 @@ const getSections = (
         route: AddressRouteName.address,
       },
       {
-        icon: 'alarm',
+        iconName: 'alarm',
         label: 'Pushmeldingen',
         route: UserRouteName.notificationSettings,
       },
