@@ -6,7 +6,6 @@ import {Switch} from '@/components/ui/forms/Switch'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ApiSlug} from '@/environment'
 import {
   useAddDisabledPushModuleMutation,
   useDeleteDisabledPushModuleMutation,
@@ -22,31 +21,43 @@ export const NotificationSetting = ({
   isDisabled,
   notificationModule: {description, module, title},
 }: Props) => {
-  const [addDisabledPushModule] = useAddDisabledPushModuleMutation()
-  const [deleteDisabledPushModule] = useDeleteDisabledPushModuleMutation()
+  const [addDisabledPushModule, {isLoading: isLoadingDisable}] =
+    useAddDisabledPushModuleMutation()
+  const [deleteDisabledPushModule, {isLoading: isLoadingEnable}] =
+    useDeleteDisabledPushModuleMutation()
 
-  const onChange = useCallback(
-    (apiSlug: ApiSlug) => {
-      if (isDisabled) {
-        void deleteDisabledPushModule(apiSlug)
-      } else {
-        void addDisabledPushModule(apiSlug)
-      }
-    },
-    [isDisabled, addDisabledPushModule, deleteDisabledPushModule],
-  )
+  const isLoading = isLoadingDisable || isLoadingEnable
+
+  const onChange = useCallback(() => {
+    if (isLoading) {
+      return
+    }
+
+    if (isDisabled) {
+      void deleteDisabledPushModule(module)
+    } else {
+      void addDisabledPushModule(module)
+    }
+  }, [
+    isLoading,
+    isDisabled,
+    deleteDisabledPushModule,
+    module,
+    addDisabledPushModule,
+  ])
 
   return (
     <Column gutter="sm">
       <Switch
         accessibilityLabel={accessibleText(module, description)}
+        disabled={isLoading}
         label={
           <Title
             level="h5"
             text={title}
           />
         }
-        onChange={() => onChange(module)}
+        onChange={onChange}
         testID={`NotificationSetting${module}Switch`}
         value={!isDisabled}
         wrapper={SwitchWrapper}

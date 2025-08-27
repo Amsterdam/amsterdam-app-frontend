@@ -29,20 +29,20 @@ export const NotificationSettings = () => {
     )
   }
 
-  const activeModules = notificationModules
-    .map<NotificationModule & Partial<Module>>(notificationNodule => {
-      const slug = notificationNodule.module
-      const module: Partial<Module> =
-        enabledModules?.find(
-          enabledModule => enabledModule.moduleSlug === slug,
-        ) ?? {}
+  const activeModules = (enabledModules
+    ?.map<NotificationModule & Partial<Module>>(enabledModule => {
+      const slug = enabledModule.moduleSlug
+      const notificationModule: Partial<Module> =
+        notificationModules?.find(({module}) => module === slug) ?? {}
 
       return {
-        ...notificationNodule,
-        ...module,
+        ...enabledModule,
+        ...notificationModule,
       } as NotificationModule & Partial<Module>
     })
-    .filter(module => !!module.moduleSlug) as Array<NotificationModule & Module>
+    .filter(module => !!module.module) ?? []) as Array<
+    NotificationModule & Module
+  >
 
   return (
     <Column gutter="lg">

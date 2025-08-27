@@ -13,6 +13,10 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Module, ModuleStatus} from '@/modules/types'
 import {InactiveModuleMessage} from '@/modules/user/components/InactiveModuleMessage'
+import {
+  useAddDisabledPushModuleMutation,
+  useDeleteDisabledPushModuleMutation,
+} from '@/modules/user/service'
 import {selectDisabledModules, toggleModule} from '@/store/slices/modules'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -87,13 +91,22 @@ export const ModuleSetting = ({
   const dispatch = useDispatch()
   const disabledModules = useSelector(selectDisabledModules)
 
-  const onChange = () => {
-    dispatch(toggleModule(slug))
-  }
-
   const isModuleActive = status === ModuleStatus.active
 
   const value = !disabledModules?.includes(slug) && isModuleActive
+
+  const [addDisabledPushModule] = useAddDisabledPushModuleMutation()
+  const [deleteDisabledPushModule] = useDeleteDisabledPushModuleMutation()
+
+  const onChange = () => {
+    dispatch(toggleModule(slug))
+
+    if (!value) {
+      void addDisabledPushModule(slug)
+    } else {
+      void deleteDisabledPushModule(slug)
+    }
+  }
 
   const ModuleSettingContentComponent = (
     <ModuleSettingContent
