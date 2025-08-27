@@ -5,6 +5,7 @@ import {
   UserStackParams,
 } from '@/modules/user/routes'
 import {ModuleSettingsScreen} from '@/modules/user/screens/ModuleSettings.screen'
+import {NotificationSettingsScreen} from '@/modules/user/screens/NotificationSettings.screen'
 import {UserScreen} from '@/modules/user/screens/User.screen'
 import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen'
 
@@ -17,6 +18,13 @@ export const screenConfig: StackNavigationRoutes<
     name: UserRouteName.moduleSettings,
     options: {
       headerTitle: 'Onderwerpen in de app',
+    },
+  },
+  [UserRouteName.notificationSettings]: {
+    component: NotificationSettingsScreen,
+    name: UserRouteName.notificationSettings,
+    options: {
+      headerTitle: 'Pushmeldingen',
     },
   },
   [UserRouteName.user]: {

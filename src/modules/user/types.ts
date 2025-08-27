@@ -1,8 +1,8 @@
-import {SvgIconName} from '@/components/ui/media/svgIcons'
-import {AccessCodeRouteName} from '@/modules/access-code/routes'
-import {AddressRouteName} from '@/modules/address/routes'
-import {ModuleSlug} from '@/modules/slugs'
-import {UserRouteName} from '@/modules/user/routes'
+import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {AccessCodeRouteName} from '@/modules/access-code/routes'
+import type {AddressRouteName} from '@/modules/address/routes'
+import type {ModuleSlug} from '@/modules/slugs'
+import type {UserRouteName} from '@/modules/user/routes'
 
 export type UserMenuSection = {
   navigationItems: UserMenuSectionItem[]
@@ -15,3 +15,16 @@ export type UserMenuSectionItem = {
   moduleSlug?: ModuleSlug
   route?: AccessCodeRouteName | AddressRouteName | UserRouteName
 }
+
+export type NotificationModule = {
+  description: string
+  module: ModuleSlug
+  types: [
+    {
+      description: string
+      type: string
+    },
+  ]
+}
+
+export type NotificationModulesResponse = NotificationModule[]

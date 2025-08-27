@@ -35,5 +35,6 @@ export const parkingModule: ModuleClientConfig = {
       slice: parkingSlice,
     },
   ],
+  requiresFirebaseToken: true,
   slug: ModuleSlug.parking,
 }

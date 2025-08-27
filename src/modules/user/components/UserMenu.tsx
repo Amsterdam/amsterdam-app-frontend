@@ -39,6 +39,11 @@ const getSections = (
         moduleSlug: ModuleSlug.address,
         route: AddressRouteName.address,
       },
+      {
+        iconName: 'alarm',
+        label: 'Pushmeldingen',
+        route: UserRouteName.notificationSettings,
+      },
       ...moduleSections,
       {
         iconName: 'settings',

@@ -10,7 +10,7 @@ import {ModulesFigure} from '@/components/ui/media/errors/ModulesFigure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useModules} from '@/hooks/useModules'
-import {ModuleSetting} from '@/modules/home/components/ModuleSetting'
+import {ModuleSetting} from '@/modules/user/components/ModuleSetting'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const ModuleSettings = () => {

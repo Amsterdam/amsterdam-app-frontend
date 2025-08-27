@@ -31,5 +31,6 @@ export const cityPassModule: ModuleClientConfig = {
       persistWhitelist,
     },
   ],
+  requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
 }

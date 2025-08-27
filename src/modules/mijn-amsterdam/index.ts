@@ -9,6 +9,7 @@ export const mijnAmsterdamModule: ModuleClientConfig = {
     [MijnAmsterdamRouteName.settings]: 'mijn-amsterdam/:loginResult',
   },
   name: 'MijnAmsterdamModule',
+  requiresFirebaseToken: true,
   slug: ModuleSlug['mijn-amsterdam'],
   userMenuSection: mijnAmsterdamUserMenuSection,
 }
