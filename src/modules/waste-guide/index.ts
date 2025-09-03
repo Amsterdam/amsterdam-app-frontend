@@ -1,5 +1,6 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
+import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -16,4 +17,7 @@ export const wasteGuideModule: ModuleClientConfig = {
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['waste-guide'],
+  linking: {
+    [WasteGuideRouteName.wasteGuide]: '/afval/afvalinformatie/',
+  },
 }

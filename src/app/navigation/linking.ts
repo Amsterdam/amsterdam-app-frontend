@@ -63,7 +63,7 @@ export const createLinking = (
   dispatch: ReduxDispatch,
   getState: () => RootState,
 ): LinkingOptions<RootStackParams> => ({
-  prefixes: [appPrefix],
+  prefixes: [appPrefix, 'https://www.amsterdam.nl'],
   config: {
     screens: moduleLinkings,
   },
