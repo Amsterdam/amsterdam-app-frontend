@@ -1,4 +1,5 @@
-import {Notification} from '@notifee/react-native'
+import type {ModuleSlug} from '@/modules/slugs'
+import type {Notification} from '@notifee/react-native'
 
 export type NotificationQueryArg = {
   body: string
@@ -8,19 +9,11 @@ export type NotificationQueryArg = {
   warning_identifier?: string
 }
 
-export type PushNotificationType =
-  | 'NewsUpdatedByProjectManager'
-  | 'ProjectWarningCreatedByProjectManager'
-
-export type PushNotificationRouteConfig = {
-  id: PushNotificationType
-  route: string
-  routeWithPrefix: string
-}
-
-export type PushNotificationData = {
+export type PushNotificationDataDefault = {
   linkSourceid?: string
-  type?: PushNotificationType
+  module_slug?: ModuleSlug
 }
 
-export type PushNotification = Notification & {data?: PushNotificationData}
+export type PushNotification<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> = Notification & {data?: PushNotificationDataDefault & T}

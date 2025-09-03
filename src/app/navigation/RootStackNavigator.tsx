@@ -4,37 +4,35 @@ import {InactiveModuleGuard} from '@/app/navigation/InactiveModuleGuard'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
-import {clientModules, coreModules} from '@/modules/modules'
+import {allModules} from '@/modules/modules'
 import {useHasSeenOnboarding} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {getModuleStack, modals} from '@/modules/stacks'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-const moduleStacks = [...coreModules, ...clientModules].map(
-  ({screenOptions: options, slug}) => {
-    const stack = getModuleStack(slug)
+const moduleStacks = allModules.map(({screenOptions: options, slug}) => {
+  const stack = getModuleStack(slug)
 
-    if (!stack) {
-      return null
-    }
+  if (!stack) {
+    return null
+  }
 
-    return (
-      <Stack.Screen
-        children={props => (
-          <InactiveModuleGuard
-            component={stack}
-            slug={slug}
-            {...props}
-          />
-        )}
-        key={slug}
-        name={slug}
-        options={options}
-      />
-    )
-  },
-)
+  return (
+    <Stack.Screen
+      children={props => (
+        <InactiveModuleGuard
+          component={stack}
+          slug={slug}
+          {...props}
+        />
+      )}
+      key={slug}
+      name={slug}
+      options={options}
+    />
+  )
+})
 
 const modalStacks = Object.entries(modals).map(([key, route]) => (
   <Stack.Screen

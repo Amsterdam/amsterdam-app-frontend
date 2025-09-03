@@ -1,17 +1,23 @@
+import type {ModuleClientConfig} from '@/modules/types'
 import {PreRenderComponent} from '@/modules/construction-work/components/PreRenderComponent'
+import {
+  onNotificationEvent,
+  type PushNotificationType,
+} from '@/modules/construction-work/onNotificationEvent'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
-  ConstructionWorkState,
+  type ConstructionWorkState,
   constructionWorkSlice,
 } from '@/modules/construction-work/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
-export const constructionWorkModule: ModuleClientConfig = {
+export const constructionWorkModule: ModuleClientConfig<{
+  type: PushNotificationType
+}> = {
   PreRenderComponent: PreRenderComponent,
   linking: {
     [ConstructionWorkRouteName.projectNews]:
@@ -32,4 +38,5 @@ export const constructionWorkModule: ModuleClientConfig = {
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['construction-work'],
+  onNotificationEvent,
 }

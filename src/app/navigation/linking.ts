@@ -5,8 +5,14 @@ import {
 } from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
+import type {RootStackParams} from '@/app/navigation/types'
+import type {
+  PushNotification,
+  PushNotificationDataDefault,
+} from '@/types/notification'
+import {appPrefix} from '@/app/navigation/constants'
+import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {navigationRef} from '@/app/navigation/navigationRef'
-import {RootStackParams} from '@/app/navigation/types'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {clientModules} from '@/modules/modules'
 import {ModuleSlug} from '@/modules/slugs'
@@ -14,50 +20,6 @@ import {type ModuleClientConfig} from '@/modules/types'
 import {moduleLinkings} from '@/modules/utils/moduleLinkings'
 import {devLog} from '@/processes/development'
 import {type RootState} from '@/store/types/rootState'
-import {
-  type PushNotification,
-  type PushNotificationType,
-  type PushNotificationRouteConfig,
-} from '@/types/notification'
-
-const appPrefix = 'amsterdam://'
-
-export const pushNotificationTypes: Record<
-  PushNotificationType,
-  PushNotificationRouteConfig
-> = {
-  NewsUpdatedByProjectManager: {
-    id: 'NewsUpdatedByProjectManager',
-    route: '/news',
-    routeWithPrefix: `${appPrefix}news`,
-  },
-  ProjectWarningCreatedByProjectManager: {
-    id: 'ProjectWarningCreatedByProjectManager',
-    route: '/warning',
-    routeWithPrefix: `${appPrefix}warning`,
-  },
-}
-
-export const createPathFromNotification = (
-  {data, title = '', body = ''}: PushNotification,
-  isDeeplink = true,
-): string | undefined => {
-  const notificationType = data?.type && pushNotificationTypes[data.type]
-
-  if (!notificationType?.routeWithPrefix || !data?.linkSourceid) {
-    return
-  }
-
-  const analyticsTitle = encodeURIComponent(`${title} - ${body}`)
-
-  const path = `/${data.linkSourceid}/${encodeURIComponent(title)}/${analyticsTitle}/${isDeeplink}`
-
-  if (isDeeplink) {
-    return `${notificationType.routeWithPrefix}${path}`
-  } else {
-    return `${notificationType.route}${path}`
-  }
-}
 
 export const createLinking = (
   dispatch: ReduxDispatch,
@@ -75,10 +37,25 @@ export const createLinking = (
         return url
       }
 
+      const initialNotifeeNotification = await notifee.getInitialNotification()
+
+      const notifeeRoute =
+        initialNotifeeNotification?.notification.data &&
+        initialNotifeeNotification.notification &&
+        createPathFromNotification({
+          data: initialNotifeeNotification.notification.data,
+          title: initialNotifeeNotification.notification.title,
+          body: initialNotifeeNotification.notification.body,
+        })
+
+      if (notifeeRoute) {
+        return appPrefix + notifeeRoute.slice(1)
+      }
+
       const initialFirebaseNotification =
         await getMessaging().getInitialNotification()
 
-      const routeWithPrefix =
+      const route =
         initialFirebaseNotification?.data &&
         initialFirebaseNotification.notification &&
         createPathFromNotification({
@@ -87,13 +64,22 @@ export const createLinking = (
           body: initialFirebaseNotification.notification.body,
         })
 
-      return routeWithPrefix ?? null
+      return route ? appPrefix + route.slice(1) : null
     } catch (error) {
       devLog(error)
     }
   },
   getStateFromPath: (path, config) => {
-    const state = getStateFromPath(path, config)
+    let state: ReturnType<typeof getStateFromPath>
+    const match = /module\/(.*)/.exec(path)
+
+    if (match?.[1]) {
+      const moduleName = match[1] as ModuleSlug
+
+      state = {routes: [{name: moduleName, params: undefined}]}
+    } else {
+      state = getStateFromPath(path, config)
+    }
 
     if (state && !navigationRef.isReady()) {
       const {routes} = state
@@ -108,7 +94,8 @@ export const createLinking = (
     }
 
     if (state) {
-      clientModules.forEach((module: ModuleClientConfig) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      clientModules.forEach((module: ModuleClientConfig<any>) => {
         if (typeof module.postProcessLinking === 'function') {
           const result = module.postProcessLinking(state, dispatch, getState)
 
@@ -136,17 +123,17 @@ export const createLinking = (
         return
       }
 
-      const routeWithPrefix = createPathFromNotification({
-        data: message.data,
+      const route = createPathFromNotification({
+        data: message.data as PushNotificationDataDefault,
         title: message.notification?.title,
         body: message.notification?.body,
       })
 
-      if (!routeWithPrefix) {
+      if (!route) {
         return
       }
 
-      listener(routeWithPrefix)
+      listener(appPrefix + route.slice(1))
     }
 
     // navigate from push when app is in background-state
@@ -157,13 +144,13 @@ export const createLinking = (
         return
       }
 
-      const url = createPathFromNotification(notification)
+      const route = createPathFromNotification(notification)
 
-      if (!url) {
+      if (!route) {
         return
       }
 
-      listener(url)
+      listener(appPrefix + route.slice(1))
     }
 
     const removeListener = notifee.onForegroundEvent(({type, detail}) => {

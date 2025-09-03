@@ -1,3 +1,4 @@
+import type {ModuleClientConfig, CoreModuleConfig} from '@/modules/types'
 import {aboutModule} from '@/modules/about'
 import {accessCodeModule} from '@/modules/access-code'
 import {addressModule} from '@/modules/address'
@@ -45,4 +46,9 @@ export const clientModules = [
   reportProblemModule,
   wasteContainerModule,
   wasteGuideModule,
+]
+
+export const allModules: Array<ModuleClientConfig | CoreModuleConfig> = [
+  ...coreModules,
+  ...clientModules,
 ]

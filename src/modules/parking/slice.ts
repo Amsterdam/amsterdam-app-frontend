@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import type {ParkingAccount, ParkingAccountLogin} from '@/modules/parking/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ParkingAccount, ParkingAccountLogin} from '@/modules/parking/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -125,6 +125,19 @@ export const parkingSlice = createSlice({
     ) => {
       state.currentAccount = payload
     },
+    setCurrentAccountByPermitReportCode: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      const currentAccount = Object.entries(state.accounts).find(
+        ([_accountReportCode, account]) =>
+          account.permits?.some(permit => permit.report_code === payload),
+      )?.[0]
+
+      if (currentAccount) {
+        state.currentAccount = currentAccount
+      }
+    },
     setWalletBalanceIncreaseStartedAt: (
       state,
       {payload}: PayloadAction<string | undefined>,
@@ -141,6 +154,8 @@ export const parkingSlice = createSlice({
 })
 
 export const {
+  setCurrentPermitReportCode,
+  setCurrentAccountByPermitReportCode,
   setDeeplinkAccount,
   setIsLoggingIn,
   setIsLoggingOut,

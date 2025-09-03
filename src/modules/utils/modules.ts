@@ -23,7 +23,8 @@ export const mergeModulesConfig = (
 }
 
 export const postProcessModules = (
-  clientModuleConfigs: ModuleClientConfig[],
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  clientModuleConfigs: ModuleClientConfig<any>[],
   userDisabledModulesBySlug: string[],
   authorizedModulesBySlug: string[],
   serverModuleConfigs: ModuleServerConfig[],

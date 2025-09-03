@@ -11,7 +11,7 @@ import {
 } from '@/store/slices/modules'
 
 /**
- * Handles the request for the serverside module configuration and returns various postprocessed lists of modules, not including core modules. It also returns the modules disabled by the user, plus the loading/error state of the endpoint and a refetch method.
+ * Handles the request for the server-side module configuration and returns various postprocessed lists of modules, not including core modules. It also returns the modules disabled by the user, plus the loading/error state of the endpoint and a refetch method.
  */
 export const useModules = () => {
   const {

@@ -7,26 +7,17 @@ export const HandleNotificationEvent = () => {
   const {enabledModules} = useModules()
   const enabledModulesRef = useRef(enabledModules)
 
+  // this ref trick is used to not trigger a new listener on the notifee background event and still have the latest information
   enabledModulesRef.current = enabledModules
 
   useEffect(() => {
-    const removeListener = notifee.onForegroundEvent(({type, detail}) => {
-      enabledModulesRef.current
-        ?.find(module => module.slug === detail.notification?.data?.module)
-        ?.onNotificationEvent?.(type, detail, store.dispatch)
-
-      return Promise.resolve()
-    })
-
     notifee.onBackgroundEvent(({type, detail}) => {
       enabledModulesRef.current
         ?.find(module => module.slug === detail.notification?.data?.module)
-        ?.onNotificationEvent?.(type, detail, store.dispatch)
+        ?.onNotificationEvent?.(type, detail, true, store.dispatch)
 
       return Promise.resolve()
     })
-
-    return removeListener
   }, [])
 
   return null

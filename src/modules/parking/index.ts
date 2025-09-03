@@ -1,5 +1,6 @@
 import {ParkingActionButton} from '@/modules/parking/components/ParkingActionButton'
 import {ParkingPreRenderComponent} from '@/modules/parking/components/ParkingPreRenderComponent'
+import {onNotificationEvent} from '@/modules/parking/onNotificationEvent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
@@ -16,7 +17,9 @@ const persistWhitelist: (keyof ParkingState)[] = [
   'visitorVehicleId',
 ] as const
 
-export const parkingModule: ModuleClientConfig = {
+export const parkingModule: ModuleClientConfig<{
+  reportCode?: string
+}> = {
   ActionButton: ParkingActionButton,
   logout: (dispatch, state) => logout(true, dispatch, state),
   name: 'ParkingModule',
@@ -24,6 +27,7 @@ export const parkingModule: ModuleClientConfig = {
     [ParkingRouteName.dashboard]: 'parking/:action/return',
     [ParkingRouteName.login]: 'parking/visitor/:reportCode/:pin',
   },
+  onNotificationEvent,
   postProcessLinking,
   logDimension: PiwikSessionDimension.parkingModule,
   PreRenderComponent: ParkingPreRenderComponent,

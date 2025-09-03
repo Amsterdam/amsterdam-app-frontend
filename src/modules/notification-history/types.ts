@@ -1,11 +1,11 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {type PushNotificationData} from '@/types/notification'
+import {type PushNotificationDataDefault} from '@/types/notification'
 
 export type GetNotificationsResult = Notification[]
 
 export type Notification = {
   body: string
-  context: Record<string, string | number | object> & PushNotificationData
+  context: PushNotificationDataDefault & Record<string, unknown>
   created_at: string
   id: string
   image?: NotificationImage
