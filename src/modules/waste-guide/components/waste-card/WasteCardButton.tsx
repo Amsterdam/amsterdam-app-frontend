@@ -1,10 +1,10 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {useIsPermissionFeatureAvailableOnDevice} from '@/hooks/permissions/useIsPermissionFeatureAvailableOnDevice'
 import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
-import {useIsModuleActive} from '@/hooks/useIsModuleActive'
 import {ModuleSlug} from '@/modules/slugs'
 import {AddWasteCardButton} from '@/modules/waste-guide/components/waste-card/AddWasteCardButton'
 import {ShowWasteCardButton} from '@/modules/waste-guide/components/waste-card/ShowWasteCardButton'
+import {useGetCachedServerModule} from '@/store/slices/modules'
 import {Permissions} from '@/types/permissions'
 import {SecureItemKey} from '@/utils/secureStorage'
 
@@ -16,15 +16,13 @@ export const WasteCardButton = ({showAddOnly}: Props) => {
   const isBluetoothAvailable = useIsPermissionFeatureAvailableOnDevice(
     Permissions.bluetooth,
   )
-  const isWasteContainerModuleActive = useIsModuleActive(
-    ModuleSlug['waste-container'],
-  )
+  const {isInactive} = useGetCachedServerModule(ModuleSlug['waste-container'])
 
   const {item: secureWasteCardNumber, isLoading} = useGetSecureItem(
     SecureItemKey.wasteCardNumber,
   )
 
-  if (!isWasteContainerModuleActive || !isBluetoothAvailable) {
+  if (isInactive || !isBluetoothAvailable) {
     return null
   }
 
