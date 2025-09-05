@@ -8,6 +8,8 @@ import {Title} from '@/components/ui/text/Title'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {NameAndAddress} from '@/modules/contact/components/city-offices/NameAndAddress'
 import {VisitingHours} from '@/modules/contact/components/city-offices/VisitingHours'
+import {VisitingHoursExceptions} from '@/modules/contact/components/city-offices/VisitingHoursExceptions'
+import {VisitingHoursToday} from '@/modules/contact/components/city-offices/VisitingHoursToday'
 import {WaitingTime} from '@/modules/contact/components/city-offices/WaitingTime'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
@@ -49,67 +51,66 @@ export const CityOffice = () => {
 
   return (
     <Box>
-      <Column gutter="md">
-        <Title
-          level="h2"
-          testID="ContactVisitUsTitle"
-          text="Bezoek ons"
+      <Column gutter="xl">
+        <Column gutter="md">
+          <Title
+            level="h2"
+            testID="ContactVisitUsTitle"
+            text="Bezoek ons"
+          />
+          <NameAndAddress
+            address={address}
+            addressContent={addressContent}
+            title={title}
+          />
+          <VisitingHoursToday
+            visitingHours={visitingHours.regular}
+            visitingHoursExceptions={visitingHours.exceptions}
+          />
+        </Column>
+        <VisitingHoursExceptions
+          visitingHoursExceptions={visitingHours.exceptions}
         />
-        <NameAndAddress
-          address={address}
-          addressContent={addressContent}
-          title={title}
+        <VisitingHours
+          visitingHours={visitingHours.regular}
+          visitingHoursContent={visitingHoursContent}
         />
-        <Column gutter="lg">
-          <Column gutter="sm">
-            <Title
-              level="h5"
-              testID="ContactVisitingHoursTitle"
-              text="Openingstijden"
-            />
-            <VisitingHours
-              visitingHours={visitingHours.regular}
-              visitingHoursContent={visitingHoursContent}
-              visitingHoursExceptions={visitingHours.exceptions}
+        {appointment ? (
+          <Column gutter="md">
+            <Paragraph testID="ContactMakeAppointmentParagraph">
+              {appointment.text}
+            </Paragraph>
+            <ExternalLinkButton
+              accessibilityHint="Opent een link naar een formulier."
+              label="Maak een afspraak"
+              testID="ContactMakeAppointmentExternalLinkButton"
+              url={appointment.url}
             />
           </Column>
-          {appointment ? (
-            <Column gutter="md">
-              <Paragraph testID="ContactMakeAppointmentParagraph">
-                {appointment.text}
-              </Paragraph>
-              <ExternalLinkButton
-                accessibilityHint="Opent een link naar een formulier."
-                label="Maak een afspraak"
-                testID="ContactMakeAppointmentExternalLinkButton"
-                url={appointment.url}
+        ) : (
+          isOpenForVisiting(
+            visitingHours.regular,
+            visitingHours.exceptions,
+          ) && (
+            <Column gutter="sm">
+              <Title
+                level="h3"
+                testID="ContactWaitingTimeTitle"
+                text="Wachttijd"
               />
+              <WaitingTime cityOfficeId={identifier} />
             </Column>
-          ) : (
-            isOpenForVisiting(
-              visitingHours.regular,
-              visitingHours.exceptions,
-            ) && (
-              <Column gutter="sm">
-                <Title
-                  level="h5"
-                  testID="ContactWaitingTimeTitle"
-                  text="Wachttijden"
-                />
-                <WaitingTime cityOfficeId={identifier} />
-              </Column>
-            )
-          )}
-          {!!directionsUrl && (
-            <ExternalLinkButton
-              accessibilityHint="Opent een link naar Google Maps."
-              label="Bekijk route"
-              testID="ContactSeeRouteExternalLinkButton"
-              url={directionsUrl}
-              variant="secondary"
-            />
-          )}
-        </Column>
+          )
+        )}
+        {!!directionsUrl && (
+          <ExternalLinkButton
+            accessibilityHint="Opent een link naar Google Maps."
+            label="Route bekijken"
+            testID="ContactSeeRouteExternalLinkButton"
+            url={directionsUrl}
+            variant="secondary"
+          />
+        )}
       </Column>
     </Box>
   )

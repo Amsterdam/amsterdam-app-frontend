@@ -14,7 +14,7 @@ export const List = ({items, marker = 'square', testID}: Props) => (
   <Column gutter="md">
     {items.map((text, index) => (
       <ListItem
-        key={String(text)}
+        key={String(text) + index}
         marker={marker}
         testID={`${testID}${index}Item`}
         text={text}
