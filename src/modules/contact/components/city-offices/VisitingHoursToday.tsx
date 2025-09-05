@@ -2,6 +2,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ExceptionDate, VisitingHour} from '@/modules/contact/types'
+import {getNextOpening} from '@/modules/contact/utils/getNextOpening'
 import {getVisitingHoursTodayStatus} from '@/modules/contact/utils/getVisitingHoursTodayStatus'
 
 type Props = {
@@ -33,13 +34,22 @@ export const VisitingHoursToday = ({
   }
 
   if (status.label === 'closed') {
+    const next = getNextOpening(visitingHours, visitingHoursExceptions)
+
     return (
-      <Phrase
-        color="warning"
-        emphasis="strong"
-        testID="ContactVisitingHoursTodayClosedLabel">
-        Gesloten
-      </Phrase>
+      <Column>
+        <Phrase
+          color="warning"
+          emphasis="strong"
+          testID="ContactVisitingHoursTodayClosedLabel">
+          Gesloten
+        </Phrase>
+        {!!next && (
+          <Phrase color="default">
+            {`(We zijn open vanaf ${next.dayLabel} ${next.timeLabel} uur)`}
+          </Phrase>
+        )}
+      </Column>
     )
   }
 
