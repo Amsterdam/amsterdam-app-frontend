@@ -5,12 +5,15 @@ import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ChatOption} from '@/modules/contact/components/contact-options/ChatOption'
 import {contactOptions} from '@/modules/contact/data/contact'
+import {ContactStackParams} from '@/modules/contact/routes'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export const ContactOptions = () => {
+  const {navigate} = useNavigation<keyof ContactStackParams>()
   const openUrl = useOpenUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
@@ -29,7 +32,7 @@ export const ContactOptions = () => {
         </Column>
         <Column gutter="md">
           {contactOptions.map(
-            ({redirectsKey, url, iconName, key, ...props}) => {
+            ({redirectsKey, url, iconName, key, routeName, ...props}) => {
               const redirectUrl = redirectsKey && redirectUrls?.[redirectsKey]
               const resultUrl = redirectUrl ?? url
 
@@ -68,7 +71,9 @@ export const ContactOptions = () => {
                   onPress={() => {
                     if (resultUrl) {
                       openUrl(resultUrl)
-                    } else {
+                    } else if (routeName) {
+                      // @ts-expect-error: routeName is a valid key for the stack, but navigate expects a more specific type
+                      navigate(routeName)
                     }
                   }}
                 />

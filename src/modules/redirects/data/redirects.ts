@@ -48,7 +48,7 @@ export const redirects: RedirectResponse[] = [
     urlKey: RedirectKey.relocation,
   },
   {
-    iconName: 'person-desk',
+    iconName: 'buildings',
     routeName: RedirectsRouteName.selectCity,
     testID: 'RedirectsMakeAppointmentButton',
     text: 'Bekijk voor welke onderwerpen u een afspraak kunt maken.',

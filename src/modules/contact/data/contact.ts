@@ -1,7 +1,9 @@
 import {Key} from 'react'
+import {RootStackParams} from '@/app/navigation/types'
 import {TopTaskButtonProps} from '@/components/ui/buttons/TopTaskButton'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
+import {ContactRouteName} from '@/modules/contact/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 import {formatPhoneNumber} from '@/utils/formatPhoneNumber'
 
@@ -9,6 +11,7 @@ export type ContactOption = {
   iconName: SvgIconName
   key: Key
   redirectsKey?: RedirectKey
+  routeName?: keyof RootStackParams
   text: string
   title: string
   url?: string
@@ -56,9 +59,17 @@ export const contactOptions: ContactOption[] = [
     title: `WhatsApp ${formatPhoneNumber('0644440655') ?? ''}`,
   },
   {
+    iconName: 'buildings',
+    key: 'stadsloketten',
+    routeName: ContactRouteName.cityOffice,
+    testID: 'ContactCityOfficesButton',
+    text: 'Kom langs bij 1 van onze Stadsloketten.',
+    title: 'Stadsloketten',
+  },
+  {
     accessibilityHint: 'Opent een link naar een website.',
     accessibilityLabel: 'Ga naar Mijn Amsterdam',
-    iconName: 'person',
+    iconName: 'personCircle',
     key: 'mijn-amsterdam',
     url: 'https://mijn.amsterdam.nl/',
     testID: 'ContactMijnAmsterdamButton',
