@@ -53,7 +53,7 @@ export const InactiveModuleGuard = ({
               <Column gutter="md">
                 <Title
                   level="h2"
-                  text="Dit onderdeel is nu niet beschikbaar"
+                  text="Dit onderdeel werkt nu niet"
                   textAlign="center"
                 />
                 {!!reason && <Paragraph textAlign="center">{reason}</Paragraph>}

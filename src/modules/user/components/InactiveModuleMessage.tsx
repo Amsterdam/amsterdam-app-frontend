@@ -4,6 +4,6 @@ export const InactiveModuleMessage = () => (
   <Paragraph
     color="warning"
     variant="small">
-    Dit onderdeel is nu niet beschikbaar.
+    Dit onderdeel werkt nu niet.
   </Paragraph>
 )
