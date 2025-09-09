@@ -1,6 +1,8 @@
+import {DeviatingApiSlug} from '@/environment'
 import {ModuleSlug} from '@/modules/slugs'
 import {
   WasteGuideEndpointName,
+  WasteGuideNewResponse,
   WasteGuideQueryArg,
   WasteGuideResponse,
   WasteGuideResponseFraction,
@@ -27,8 +29,20 @@ export const wasteGuideApi = baseApi.injectEndpoints({
         response._embedded.afvalwijzer,
       keepUnusedDataFor: CacheLifetime.day,
     }),
+    [WasteGuideEndpointName.getWasteGuideNew]: builder.query<
+      WasteGuideNewResponse,
+      WasteGuideQueryArg
+    >({
+      query: ({bagNummeraanduidingId}) => ({
+        params: {bag_nummeraanduiding_id: bagNummeraanduidingId},
+        slug: DeviatingApiSlug.waste,
+        timeout: TimeOutDuration.long,
+        url: '/guide',
+      }),
+      keepUnusedDataFor: CacheLifetime.day,
+    }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetWasteGuideQuery} = wasteGuideApi
+export const {useGetWasteGuideQuery, useGetWasteGuideNewQuery} = wasteGuideApi

@@ -1,5 +1,6 @@
 export enum WasteGuideEndpointName {
   getWasteGuide = 'getWasteGuide',
+  getWasteGuideNew = 'getWasteGuideNew',
 }
 
 export enum FractionCode {
@@ -73,4 +74,33 @@ export type WasteGuideResponse = {
   _embedded: {
     afvalwijzer: WasteGuideResponseFraction[]
   }
+}
+
+type WasteGuideCalendar = {
+  alert: string
+  code: string
+  curb_rules_from: string
+  curb_rules_to: string
+  date: string
+  label: string
+}
+
+export type WasteType = {
+  alert: string
+  button_text: string
+  code: FractionCode
+  curb_rules: string
+  days_array: string[]
+  frequency: string
+  how: string
+  label: string
+  next_date: string
+  note: string
+  url: string
+  where: string
+}
+
+export type WasteGuideNewResponse = {
+  calendar: WasteGuideCalendar[]
+  waste_types: WasteType[]
 }
