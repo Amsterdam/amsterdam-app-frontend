@@ -58,8 +58,12 @@ export const getVisitingHoursTodayStatus = (
     return {status: 'closed'}
   }
 
-  if (exceptionResult) {
-    const {opening, closing} = exceptionResult
+  // Helper to check if now is within opening/closing and return status
+  const getOpenStatus = (
+    opening: {hours: number; minutes: number},
+    closing: {hours: number; minutes: number},
+    openType: 'open-exception' | 'open-regular',
+  ) => {
     const openTime = now
       .set('hour', opening.hours)
       .set('minute', opening.minutes)
@@ -70,29 +74,33 @@ export const getVisitingHoursTodayStatus = (
       .set('second', 0)
 
     if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      return {status: 'open-exception', closingTime: closeTime.format('HH.mm')}
+      if (openType === 'open-exception') {
+        return {status: openType, closingTime: closeTime.format('HH.mm')}
+      }
+
+      return {status: openType}
     }
 
-    // If exception exists but not open now, it's closed
-    return {status: 'closed'}
+    return null
+  }
+
+  if (exceptionResult) {
+    const {opening, closing} = exceptionResult
+
+    return (
+      getOpenStatus(opening, closing, 'open-exception') || {status: 'closed'}
+    )
   }
 
   // 2. Check regular hours for today
   const regular = getTodayRegularOpeningAndClosing(visitingHours, now)
 
   if (regular) {
-    const openTime = now
-      .set('hour', regular.opening.hours)
-      .set('minute', regular.opening.minutes)
-      .set('second', 0)
-    const closeTime = now
-      .set('hour', regular.closing.hours)
-      .set('minute', regular.closing.minutes)
-      .set('second', 0)
-
-    if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      return {status: 'open-regular'}
-    }
+    return (
+      getOpenStatus(regular.opening, regular.closing, 'open-regular') || {
+        status: 'closed',
+      }
+    )
   }
 
   // 3. Otherwise closed
