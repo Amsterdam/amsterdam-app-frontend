@@ -48,14 +48,14 @@ export const getVisitingHoursTodayStatus = (
   nowArg?: import('dayjs').Dayjs,
 ): {
   closingTime?: string
-  label: 'open-exception' | 'closed' | 'open-regular'
+  status: 'open-exception' | 'closed' | 'open-regular'
 } => {
   const now = nowArg ?? dayjs()
   // 1. Check exception for today
   const exceptionResult = getTodayExceptionOpeningAndClosing(exceptions, now)
 
   if (exceptionResult === 'closed-all-day') {
-    return {label: 'closed'}
+    return {status: 'closed'}
   }
 
   if (exceptionResult) {
@@ -70,11 +70,11 @@ export const getVisitingHoursTodayStatus = (
       .set('second', 0)
 
     if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      return {label: 'open-exception', closingTime: closeTime.format('HH.mm')}
+      return {status: 'open-exception', closingTime: closeTime.format('HH.mm')}
     }
 
     // If exception exists but not open now, it's closed
-    return {label: 'closed'}
+    return {status: 'closed'}
   }
 
   // 2. Check regular hours for today
@@ -91,10 +91,10 @@ export const getVisitingHoursTodayStatus = (
       .set('second', 0)
 
     if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      return {label: 'open-regular'}
+      return {status: 'open-regular'}
     }
   }
 
   // 3. Otherwise closed
-  return {label: 'closed'}
+  return {status: 'closed'}
 }

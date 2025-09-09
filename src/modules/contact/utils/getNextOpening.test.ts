@@ -65,7 +65,8 @@ describe('getNextOpening', () => {
     ]
     const result = getNextOpening(visitingHours, exceptions, now)
 
-    expect(result).toEqual({dayLabel: 'vrijdag', timeLabel: '09.00'})
+    // Next available opening is Friday 2025-09-12 (diff > 6)
+    expect(result).toEqual({dayLabel: '12 september', timeLabel: '09.00'})
   })
 
   it('returns null if no opening in next 8 days', () => {

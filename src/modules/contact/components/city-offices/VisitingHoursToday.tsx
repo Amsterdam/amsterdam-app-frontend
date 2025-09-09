@@ -19,7 +19,7 @@ export const VisitingHoursToday = ({
     visitingHoursExceptions,
   )
 
-  if (status.label === 'open-exception') {
+  if (status.status === 'open-exception') {
     return (
       <Column>
         <Phrase
@@ -33,7 +33,7 @@ export const VisitingHoursToday = ({
     )
   }
 
-  if (status.label === 'closed') {
+  if (status.status === 'closed') {
     const next = getNextOpening(visitingHours, visitingHoursExceptions)
 
     return (

@@ -1,12 +1,12 @@
 import {VisitingHour, ExceptionDate} from '@/modules/contact/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, type Dayjs} from '@/utils/datetime/dayjs'
 
 // Helper to check if an opening time should be returned
 const checkAndReturnOpening = (
-  check: import('dayjs').Dayjs,
-  now: import('dayjs').Dayjs,
+  check: Dayjs,
+  now: Dayjs,
   opening: {hours: number; minutes: number} | undefined,
-  i: number,
+  dayIterator: number,
 ): {dayLabel: string; timeLabel: string} | null => {
   if (!opening) {
     return null
@@ -17,7 +17,7 @@ const checkAndReturnOpening = (
     .set('minute', opening.minutes)
     .set('second', 0)
 
-  if (i === 0 && !openingTime.isAfter(now)) {
+  if (dayIterator === 0 && !openingTime.isAfter(now)) {
     // If today, only return if opening is after now
     // Otherwise, skip to next day
     return null
@@ -27,11 +27,12 @@ const checkAndReturnOpening = (
 }
 
 // Helper to get the day label (vandaag, morgen, or weekday)
-const getDayLabel = (
-  day: import('dayjs').Dayjs,
-  now: import('dayjs').Dayjs,
-): string => {
+const getDayLabel = (day: Dayjs, now: Dayjs): string => {
   const diff = day.startOf('day').diff(now.startOf('day'), 'day')
+
+  if (diff < 0) {
+    return ''
+  }
 
   if (diff === 0) {
     return 'vandaag'
@@ -41,23 +42,27 @@ const getDayLabel = (
     return 'morgen'
   }
 
+  if (diff > 6) {
+    return day.format('D MMMM')
+  }
+
   return day.format('dddd')
 }
 
 // Helper to create the opening result object
 const makeOpeningResult = (
-  day: import('dayjs').Dayjs,
-  nowRef: import('dayjs').Dayjs,
-  openingTime: import('dayjs').Dayjs,
+  day: Dayjs,
+  now: Dayjs,
+  openingTime: Dayjs,
 ): {dayLabel: string; timeLabel: string} => ({
-  dayLabel: getDayLabel(day, nowRef),
+  dayLabel: getDayLabel(day, now),
   timeLabel: openingTime.format('HH.mm'),
 })
 
 export const getNextOpening = (
   visitingHours: VisitingHour[],
   exceptions: ExceptionDate[],
-  nowArg?: import('dayjs').Dayjs,
+  nowArg?: Dayjs,
 ): {dayLabel: string; timeLabel: string} | null => {
   const now = nowArg ?? dayjs()
 

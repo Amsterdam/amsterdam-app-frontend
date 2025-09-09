@@ -21,14 +21,14 @@ describe('getVisitingHoursTodayStatus', () => {
     const now = getNow(baseDate, 10)
     const result = getVisitingHoursTodayStatus(visitingHours, [], now)
 
-    expect(result.label).toBe('open-regular')
+    expect(result.status).toBe('open-regular')
   })
 
   it('returns closed when outside regular hours and no exception', () => {
     const now = getNow(baseDate, 18)
     const result = getVisitingHoursTodayStatus(visitingHours, [], now)
 
-    expect(result.label).toBe('closed')
+    expect(result.status).toBe('closed')
   })
 
   it('returns open-exception when within exception hours', () => {
@@ -43,8 +43,24 @@ describe('getVisitingHoursTodayStatus', () => {
     ]
     const result = getVisitingHoursTodayStatus(visitingHours, exceptions, now)
 
-    expect(result.label).toBe('open-exception')
+    expect(result.status).toBe('open-exception')
     expect(result.closingTime).toBe('15.00')
+  })
+
+  it('returns open-exception when outside regular hours but within exception hours', () => {
+    const now = getNow(baseDate, 18)
+    const exceptions: ExceptionDate[] = [
+      {
+        date: baseDate,
+        description: null,
+        opening: {hours: 9, minutes: 0},
+        closing: {hours: 19, minutes: 0},
+      },
+    ]
+    const result = getVisitingHoursTodayStatus(visitingHours, exceptions, now)
+
+    expect(result.status).toBe('open-exception')
+    expect(result.closingTime).toBe('19.00')
   })
 
   it('returns closed when exception is closed all day (no opening/closing)', () => {
@@ -58,7 +74,7 @@ describe('getVisitingHoursTodayStatus', () => {
     ]
     const result = getVisitingHoursTodayStatus(visitingHours, exceptions, now)
 
-    expect(result.label).toBe('closed')
+    expect(result.status).toBe('closed')
   })
 
   it('returns closed when exception exists but now is outside exception hours', () => {
@@ -73,13 +89,13 @@ describe('getVisitingHoursTodayStatus', () => {
     ]
     const result = getVisitingHoursTodayStatus(visitingHours, exceptions, now)
 
-    expect(result.label).toBe('closed')
+    expect(result.status).toBe('closed')
   })
 
   it('returns closed when no regular hours for today', () => {
     const now = getNow(baseDate, 10)
     const result = getVisitingHoursTodayStatus([], [], now)
 
-    expect(result.label).toBe('closed')
+    expect(result.status).toBe('closed')
   })
 })
