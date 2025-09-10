@@ -19,7 +19,7 @@ export const VisitingHoursToday = ({
     visitingHoursExceptions,
   )
 
-  if (status.status === 'open-exception') {
+  if (status.status !== 'closed') {
     return (
       <Column>
         <Phrase
@@ -28,7 +28,9 @@ export const VisitingHoursToday = ({
           testID="ContactVisitingHoursTodayOpenLabel">
           Open tot {status.closingTime} uur
         </Phrase>
-        <Paragraph>(aangepaste openingstijden)</Paragraph>
+        {status.status === 'open-exception' && (
+          <Paragraph>(aangepaste openingstijden)</Paragraph>
+        )}
       </Column>
     )
   }

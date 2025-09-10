@@ -6,7 +6,6 @@ const checkAndReturnOpening = (
   check: Dayjs,
   now: Dayjs,
   opening: {hours: number; minutes: number} | undefined,
-  dayIterator: number,
 ): {dayLabel: string; timeLabel: string} | null => {
   if (!opening) {
     return null
@@ -17,7 +16,7 @@ const checkAndReturnOpening = (
     .set('minute', opening.minutes)
     .set('second', 0)
 
-  if (dayIterator === 0 && !openingTime.isAfter(now)) {
+  if (check.diff(now) === 0 && !openingTime.isAfter(now)) {
     // If today, only return if opening is after now
     // Otherwise, skip to next day
     return null
@@ -62,10 +61,8 @@ const makeOpeningResult = (
 export const getNextOpening = (
   visitingHours: VisitingHour[],
   exceptions: ExceptionDate[],
-  nowArg?: Dayjs,
+  now: Dayjs = dayjs(),
 ): {dayLabel: string; timeLabel: string} | null => {
-  const now = nowArg ?? dayjs()
-
   // Check today and the next 7 days
   for (let i = 0; i <= 7; i++) {
     const check = now.add(i, 'day')
@@ -75,7 +72,7 @@ export const getNextOpening = (
 
     if (exception) {
       if (exception.opening && exception.closing) {
-        const result = checkAndReturnOpening(check, now, exception.opening, i)
+        const result = checkAndReturnOpening(check, now, exception.opening)
 
         if (result) {
           return result
@@ -94,14 +91,10 @@ export const getNextOpening = (
     // 2. Check regular hours, but only if no closed-all-day exception
     const dayOfWeek = check.day() === 0 ? 7 : check.day()
 
-    if (dayOfWeek < 1 || dayOfWeek > 5) {
-      continue
-    }
-
     const regular = visitingHours.find(h => h.dayOfWeek === dayOfWeek)
 
     if (regular) {
-      const result = checkAndReturnOpening(check, now, regular.opening, i)
+      const result = checkAndReturnOpening(check, now, regular.opening)
 
       if (result) {
         return result

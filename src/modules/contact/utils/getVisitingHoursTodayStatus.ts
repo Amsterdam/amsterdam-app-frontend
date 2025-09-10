@@ -74,11 +74,7 @@ export const getVisitingHoursTodayStatus = (
       .set('second', 0)
 
     if (now.isAfter(openTime) && now.isBefore(closeTime)) {
-      if (openType === 'open-exception') {
-        return {status: openType, closingTime: closeTime.format('HH.mm')}
-      }
-
-      return {status: openType}
+      return {status: openType, closingTime: closeTime.format('HH.mm')}
     }
 
     return null
