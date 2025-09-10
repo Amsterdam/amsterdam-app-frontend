@@ -14,12 +14,12 @@ export const VisitingHoursToday = ({
   visitingHours,
   visitingHoursExceptions,
 }: Props) => {
-  const status = getVisitingHoursTodayStatus(
+  const {closingTime, status} = getVisitingHoursTodayStatus(
     visitingHours,
     visitingHoursExceptions,
   )
 
-  if (status.status === 'closed') {
+  if (status === 'closed') {
     const next = getNextOpening(visitingHours, visitingHoursExceptions)
 
     return (
@@ -45,9 +45,9 @@ export const VisitingHoursToday = ({
         color="confirm"
         emphasis="strong"
         testID="ContactVisitingHoursTodayOpenLabel">
-        Open tot {status.closingTime} uur
+        Open tot {closingTime} uur
       </Phrase>
-      {status.status === 'open-exception' && (
+      {status === 'open-exception' && (
         <Paragraph>(aangepaste openingstijden)</Paragraph>
       )}
     </Column>
