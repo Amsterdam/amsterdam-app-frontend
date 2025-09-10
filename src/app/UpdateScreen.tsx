@@ -52,8 +52,8 @@ export const UpdateScreen = ({children}: Props) => {
           Image={UpdateFigure}
           onPress={openStore}
           testID="UpdateScreenOpenStoreButton"
-          text="Om de app te kunnen gebruiken moet u eerst updaten."
-          title="De versie van de app is verouderd en werkt niet meer."
+          text="De versie die u nu gebruikt werkt niet meer."
+          title="Update de app om verder te gaan."
         />
       </ScreenOutsideNavigation>
     )
