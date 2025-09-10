@@ -1,17 +1,10 @@
 import notifee, {EventType} from '@notifee/react-native'
-import {
-  FirebaseMessagingTypes,
-  getMessaging,
-} from '@react-native-firebase/messaging'
+import {getMessaging} from '@react-native-firebase/messaging'
 import {getStateFromPath, LinkingOptions} from '@react-navigation/native'
 import {Linking} from 'react-native'
 import type {RootStackParams} from '@/app/navigation/types'
-import type {
-  PushNotification,
-  PushNotificationDataDefault,
-} from '@/types/notification'
 import {appPrefix} from '@/app/navigation/constants'
-import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
+import {getRouteFromNotification} from '@/app/navigation/getRouteFromNotification'
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {clientModules} from '@/modules/modules'
@@ -33,40 +26,32 @@ export const createLinking = (
     try {
       const url = await Linking.getInitialURL()
 
-      if (url != null) {
+      if (url) {
         return url
       }
 
       const initialNotifeeNotification = await notifee.getInitialNotification()
 
-      const notifeeRoute =
-        initialNotifeeNotification?.notification.data &&
-        initialNotifeeNotification.notification &&
-        createPathFromNotification({
-          data: initialNotifeeNotification.notification.data,
-          title: initialNotifeeNotification.notification.title,
-          body: initialNotifeeNotification.notification.body,
-        })
+      const notifeeUrl = getRouteFromNotification(
+        initialNotifeeNotification?.notification,
+      )
 
-      if (notifeeRoute) {
-        return appPrefix + notifeeRoute.slice(1)
+      if (notifeeUrl) {
+        return notifeeUrl
       }
 
       const initialFirebaseNotification =
         await getMessaging().getInitialNotification()
 
-      const route =
-        initialFirebaseNotification?.data &&
-        initialFirebaseNotification.notification &&
-        createPathFromNotification({
-          data: initialFirebaseNotification.data,
-          title: initialFirebaseNotification.notification.title,
-          body: initialFirebaseNotification.notification.body,
-        })
-
-      return route ? appPrefix + route.slice(1) : null
+      return getRouteFromNotification({
+        data: initialFirebaseNotification?.data,
+        title: initialFirebaseNotification?.notification?.title,
+        body: initialFirebaseNotification?.notification?.body,
+      })
     } catch (error) {
       devLog(error)
+
+      return null
     }
   },
   getStateFromPath: (path, config) => {
@@ -110,56 +95,32 @@ export const createLinking = (
   },
 
   subscribe: (listener: (deeplink: string) => void) => {
-    // First, you may want to do the default deep link handling
-    const onReceiveURL = ({url}: {url: string}) => listener(url)
-
     // Listen to incoming links from deep linking
-    const subscription = Linking.addEventListener('url', onReceiveURL)
+    const subscription = Linking.addEventListener('url', ({url}) =>
+      listener(url),
+    )
 
-    const onMessageReceived = (
-      message: FirebaseMessagingTypes.RemoteMessage,
-    ) => {
-      if (!message.data) {
-        return
-      }
-
-      const route = createPathFromNotification({
-        data: message.data as PushNotificationDataDefault,
+    // Firebase background notification
+    getMessaging().onNotificationOpenedApp(message => {
+      const url = getRouteFromNotification({
+        data: message.data,
         title: message.notification?.title,
         body: message.notification?.body,
       })
 
-      if (!route) {
-        return
+      if (url) {
+        listener(url)
       }
+    })
 
-      listener(appPrefix + route.slice(1))
-    }
-
-    // navigate from push when app is in background-state
-    getMessaging().onNotificationOpenedApp(onMessageReceived)
-
-    const navigateToUrlFromNotification = (notification?: PushNotification) => {
-      if (!notification?.data) {
-        return
-      }
-
-      const route = createPathFromNotification(notification)
-
-      if (!route) {
-        return
-      }
-
-      listener(appPrefix + route.slice(1))
-    }
-
+    // Notifee foreground notification
     const removeListener = notifee.onForegroundEvent(({type, detail}) => {
       if (type === EventType.PRESS) {
-        navigateToUrlFromNotification(detail.notification)
-        // trackCustomEvent('push-notification', PiwikAction.pushNotificationTap, {
-        //   [PiwikDimension.pushTitle]: detail.notification?.title,
-        //   [PiwikDimension.pushContent]: detail.notification?.body,
-        // })
+        const url = getRouteFromNotification(detail.notification)
+
+        if (url) {
+          listener(url)
+        }
       }
     })
 
