@@ -64,6 +64,7 @@ export type VisitingHour = {
 
 export type ExceptionDate = {
   date: string
+  description: string | null
 } & Partial<OpeningAndClosingTimes>
 
 export type OpeningAndClosingTimes = {
