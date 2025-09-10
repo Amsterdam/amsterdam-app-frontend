@@ -89,9 +89,7 @@ export const getNextOpening = (
     }
 
     // 2. Check regular hours, but only if no closed-all-day exception
-    const dayOfWeek = check.day() === 0 ? 7 : check.day()
-
-    const regular = visitingHours.find(h => h.dayOfWeek === dayOfWeek)
+    const regular = visitingHours.find(h => h.dayOfWeek === check.day())
 
     if (regular) {
       const result = checkAndReturnOpening(check, now, regular.opening)
