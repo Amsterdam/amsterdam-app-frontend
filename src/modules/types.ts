@@ -1,7 +1,7 @@
 import {type EventDetail, type EventType} from '@notifee/react-native'
 import {
-  NavigationState,
-  PartialState,
+  type NavigationState,
+  type PartialState,
   type PathConfigMap,
 } from '@react-navigation/core'
 import {type StackNavigationOptions} from '@react-navigation/stack'
@@ -10,10 +10,11 @@ import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {type SvgIconName} from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
-import {UserMenuSection} from '@/modules/user/types'
+import {type UserMenuSection} from '@/modules/user/types'
 import {type CustomDimensionKeys} from '@/processes/piwik/types'
 import {type ReduxConfig} from '@/store/types/reduxConfig'
 import {type RootState} from '@/store/types/rootState'
+import {type PushNotification} from '@/types/notification'
 
 /**
  * The config properties that are shared between core and non-core modules.
@@ -56,7 +57,12 @@ export type CoreModuleConfig = BaseModuleConfig
 /**
  * The client part of a non-core module’s configuration.
  */
-export type ModuleClientConfig = BaseModuleConfig & {
+export type ModuleClientConfig<
+  PushNotificationData extends Record<string, unknown> = Record<
+    string,
+    unknown
+  >,
+> = BaseModuleConfig & {
   /**
    * A button on the home screen that leads to an action within the module.
    */
@@ -101,9 +107,12 @@ export type ModuleClientConfig = BaseModuleConfig & {
    */
   onNotificationEvent?: (
     type: EventType,
-    detail: EventDetail,
+    detail: Omit<EventDetail, 'notification'> & {
+      notification?: PushNotification<PushNotificationData>
+    },
+    isPushNotificationDeeplink: boolean,
     dispatch: ReduxDispatch,
-  ) => void
+  ) => string | undefined | void
   /**
    * Function to post-process the linking state after it has been created.
    * This can be used to run side-effects and modify the state before it is used by the navigation container.

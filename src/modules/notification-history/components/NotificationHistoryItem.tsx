@@ -1,6 +1,6 @@
 import {useLinkTo} from '@react-navigation/native'
 import {StyleSheet, View} from 'react-native'
-import {createPathFromNotification} from '@/app/navigation/linking'
+import {createPathFromNotification} from '@/app/navigation/createPathFromNotification'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Box} from '@/components/ui/containers/Box'
 import {Badge} from '@/components/ui/feedback/Badge'
@@ -54,9 +54,10 @@ export const NotificationHistoryItem = ({
       onPress={() => {
         const deeplinkUrl = createPathFromNotification(
           {
+            id,
             title,
             body,
-            data: context,
+            data: context as Record<string, string | number | object>,
           },
           false,
         )

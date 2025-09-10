@@ -1,11 +1,9 @@
 import {onboardingSlice} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {type CoreModuleConfig} from '@/modules/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const onboardingModule: ModuleClientConfig = {
-  alwaysEnabled: true,
-  hiddenInMenu: true,
+export const onboardingModule: CoreModuleConfig = {
   name: 'OnboardingModule',
   reduxConfigs: [
     {
