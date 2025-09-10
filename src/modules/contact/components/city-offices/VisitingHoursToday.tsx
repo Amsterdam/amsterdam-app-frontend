@@ -33,9 +33,7 @@ export const VisitingHoursToday = ({
         )}
       </Column>
     )
-  }
-
-  if (status.status === 'closed') {
+  } else {
     const next = getNextOpening(visitingHours, visitingHoursExceptions)
 
     return (
@@ -54,7 +52,4 @@ export const VisitingHoursToday = ({
       </Column>
     )
   }
-
-  // If open due to regular hours, show nothing (or add a label if desired)
-  return null
 }
