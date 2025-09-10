@@ -19,21 +19,7 @@ export const VisitingHoursToday = ({
     visitingHoursExceptions,
   )
 
-  if (status.status !== 'closed') {
-    return (
-      <Column>
-        <Phrase
-          color="confirm"
-          emphasis="strong"
-          testID="ContactVisitingHoursTodayOpenLabel">
-          Open tot {status.closingTime} uur
-        </Phrase>
-        {status.status === 'open-exception' && (
-          <Paragraph>(aangepaste openingstijden)</Paragraph>
-        )}
-      </Column>
-    )
-  } else {
+  if (status.status === 'closed') {
     const next = getNextOpening(visitingHours, visitingHoursExceptions)
 
     return (
@@ -52,4 +38,18 @@ export const VisitingHoursToday = ({
       </Column>
     )
   }
+
+  return (
+    <Column>
+      <Phrase
+        color="confirm"
+        emphasis="strong"
+        testID="ContactVisitingHoursTodayOpenLabel">
+        Open tot {status.closingTime} uur
+      </Phrase>
+      {status.status === 'open-exception' && (
+        <Paragraph>(aangepaste openingstijden)</Paragraph>
+      )}
+    </Column>
+  )
 }
