@@ -16,13 +16,15 @@ export const WasteCardButton = ({showAddOnly}: Props) => {
   const isBluetoothAvailable = useIsPermissionFeatureAvailableOnDevice(
     Permissions.bluetooth,
   )
-  const {isInactive} = useGetCachedServerModule(ModuleSlug['waste-container'])
+  const {cachedServerModule, isInactive} = useGetCachedServerModule(
+    ModuleSlug['waste-container'],
+  )
 
   const {item: secureWasteCardNumber, isLoading} = useGetSecureItem(
     SecureItemKey.wasteCardNumber,
   )
 
-  if (isInactive || !isBluetoothAvailable) {
+  if (!cachedServerModule || isInactive || !isBluetoothAvailable) {
     return null
   }
 
