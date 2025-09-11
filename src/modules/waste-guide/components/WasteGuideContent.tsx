@@ -7,20 +7,24 @@ import {Fractions} from '@/modules/waste-guide/components/Fractions'
 import {ReportWrongBuildingType} from '@/modules/waste-guide/components/ReportWrongBuildingType'
 import {SelectContract} from '@/modules/waste-guide/components/SelectContract'
 import {selectContract} from '@/modules/waste-guide/slice'
-import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {WasteGuideResponse} from '@/modules/waste-guide/types'
+import {getFractionsForCollectionByAppointment} from '@/modules/waste-guide/utils/getFractionsForCollectionByAppointment'
+import {updateFractionLabels} from '@/modules/waste-guide/utils/updateFractionLabels'
 
 type Props = {
-  wasteGuide: WasteGuideResponseFraction[]
+  bagId: string
+  wasteGuide: WasteGuideResponse
 }
 
-export const WasteGuideContent = ({wasteGuide}: Props) => {
+export const WasteGuideContent = ({bagId, wasteGuide}: Props) => {
   const {address} = useSelectedAddress()
-  const contract = useSelector(
-    selectContract(wasteGuide[0].bagNummeraanduidingId),
-  )
+  const contract = useSelector(selectContract(bagId))
+  const fractions = wasteGuide.is_collection_by_appointment
+    ? getFractionsForCollectionByAppointment(wasteGuide.waste_types)
+    : updateFractionLabels(wasteGuide.waste_types)
 
-  if (wasteGuide[0].gebruiksdoelWoonfunctie) {
-    return <Fractions wasteGuide={wasteGuide} />
+  if (wasteGuide.is_residential) {
+    return <Fractions fractions={fractions} />
   }
 
   if (!address) {
@@ -34,7 +38,7 @@ export const WasteGuideContent = ({wasteGuide}: Props) => {
       <ReportWrongBuildingType testID="WasteGuideReportWrongBuildingType" />
       <SelectContract bagNummeraanduidingId={address.bagId} />
       {contract?.hasContract === false ? (
-        <Fractions wasteGuide={wasteGuide} />
+        <Fractions fractions={fractions} />
       ) : (
         <ContactCollector />
       )}

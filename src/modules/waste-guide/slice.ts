@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {Contract, WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {Contract} from '@/modules/waste-guide/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -28,9 +28,7 @@ export const {addContract, resetContracts} = wasteGuideSlice.actions
 export const selectContracts = (state: RootState) =>
   state[ReduxKey.wasteGuide].contracts
 
-export const selectContract = (
-  bagNummeraanduidingId: WasteGuideResponseFraction['bagNummeraanduidingId'],
-) =>
+export const selectContract = (bagNummeraanduidingId: string) =>
   createSelector(
     (state: RootState) => state[ReduxKey.wasteGuide].contracts,
     contracts => contracts?.[bagNummeraanduidingId],

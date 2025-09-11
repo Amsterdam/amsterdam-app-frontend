@@ -1,5 +1,4 @@
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
-import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {AlertWarning} from '@/components/ui/feedback/alert/AlertWarning'
 import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
@@ -9,39 +8,14 @@ import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
-import {
-  FractionCode,
-  WasteGuideResponseFraction,
-} from '@/modules/waste-guide/types'
+import {FractionCode, WasteType} from '@/modules/waste-guide/types'
+import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollectionDate'
 import {capitalizeString} from '@/utils/capitalizeString'
-import {dayjs} from '@/utils/datetime/dayjs'
 import {formatEnumeration} from '@/utils/formatEnumeration'
 
 type Props = {
-  fraction: WasteGuideResponseFraction
+  fraction: WasteType
 } & TestProps
-
-/**
- * Show the notification if we have content a start date and an end date and the current date is between (or equal to) the start and end date.
- */
-const showTimeBoundNotification = ({
-  afvalwijzerAfvalkalenderMelding,
-  afvalwijzerAfvalkalenderTot,
-  afvalwijzerAfvalkalenderVan,
-}: WasteGuideResponseFraction) => {
-  if (
-    !afvalwijzerAfvalkalenderMelding ||
-    !afvalwijzerAfvalkalenderVan ||
-    !afvalwijzerAfvalkalenderTot
-  ) {
-    return false
-  }
-
-  return (
-    dayjs().isBefore(dayjs(afvalwijzerAfvalkalenderTot)) &&
-    dayjs().isAfter(dayjs(afvalwijzerAfvalkalenderVan))
-  )
-}
 
 export const Fraction = ({fraction, testID}: Props) => {
   const {
@@ -51,34 +25,22 @@ export const Fraction = ({fraction, testID}: Props) => {
     seenonsUrl,
   } = useWasteGuideUrls(fraction)
 
-  const {
-    afvalwijzerAfvalkalenderFrequentie,
-    afvalwijzerAfvalkalenderMelding,
-    afvalwijzerAfvalkalenderOpmerking,
-    afvalwijzerBuitenzetten,
-    afvalwijzerButtontekst,
-    afvalwijzerFractieCode,
-    afvalwijzerInstructie2,
-    afvalwijzerOphaaldagen2,
-    afvalwijzerUrl,
-    afvalwijzerWaar,
-  } = fraction
-
-  const buttonUrl = bulkyWasteAppointmentUrl ?? seenonsUrl ?? afvalwijzerUrl
+  const buttonUrl = bulkyWasteAppointmentUrl ?? seenonsUrl ?? fraction.url
+  const nextCollectionDate = getNextCollectionDate(fraction)
 
   return (
     <Column gutter="md">
       <Column halign="center">
         <WasteFractionIcon
-          fractionCode={afvalwijzerFractieCode}
+          fractionCode={fraction.code}
           size="xl"
           testID="WasteGuideFractionIcon"
         />
       </Column>
-      {showTimeBoundNotification(fraction) && (
+      {!!fraction.alert && (
         <AlertWarning testID={`${testID}TimeboundNotification`}>
           <FractionContent
-            content={afvalwijzerAfvalkalenderMelding}
+            content={fraction.alert}
             testID={`${testID}Content`}
           />
         </AlertWarning>
@@ -87,9 +49,9 @@ export const Fraction = ({fraction, testID}: Props) => {
         <Column
           gutter="sm"
           halign="start">
-          {afvalwijzerButtontekst && buttonUrl ? (
+          {fraction.button_text && buttonUrl ? (
             <FractionButtonSection
-              buttonLabel={afvalwijzerButtontekst}
+              buttonLabel={fraction.button_text}
               buttonUrl={buttonUrl}
               sectionTitle="Hoe"
               testID={`${testID}HowSection`}
@@ -98,11 +60,11 @@ export const Fraction = ({fraction, testID}: Props) => {
           ) : (
             <>
               <FractionSection
-                content={afvalwijzerInstructie2}
+                content={fraction.how}
                 sectionTitle="Hoe"
                 testID={`${testID}HowSection`}
               />
-              {afvalwijzerFractieCode === FractionCode.GFT && (
+              {fraction.code === FractionCode.GFT && (
                 <WasteCardButton showAddOnly />
               )}
             </>
@@ -119,34 +81,39 @@ export const Fraction = ({fraction, testID}: Props) => {
         </Column>
         <FractionSection
           content={capitalizeString(
-            afvalwijzerAfvalkalenderFrequentie
+            fraction.frequency
               ? `${
-                  formatEnumeration(afvalwijzerOphaaldagen2) ?? ''
-                }, ${afvalwijzerAfvalkalenderFrequentie}`
-              : (formatEnumeration(afvalwijzerOphaaldagen2) ?? ''),
+                  formatEnumeration(fraction.days_array) ?? ''
+                }, ${fraction.frequency}`
+              : (formatEnumeration(fraction.days_array) ?? ''),
           )}
           sectionTitle="Ophaaldag"
           testID={`${testID}DaySection`}
         />
+        {!!nextCollectionDate && (
+          <FractionSection
+            content={nextCollectionDate}
+            sectionTitle="Volgende ophaaldag"
+            testID={`${testID}NextCollectionSection`}
+          />
+        )}
         <FractionSection
-          content={afvalwijzerBuitenzetten}
+          content={fraction.curb_rules}
           sectionTitle="Buitenzetten"
           testID={`${testID}OutsideSection`}
         />
         <FractionSection
-          content={afvalwijzerWaar}
+          content={fraction.where}
           sectionTitle="Waar"
           testID={`${testID}WhereSection`}
           url={containerMapUrl}
         />
       </Column>
-      {!!afvalwijzerAfvalkalenderOpmerking && (
-        <AlertBase testID={`${testID}Remark`}>
-          <FractionContent
-            content={afvalwijzerAfvalkalenderOpmerking}
-            testID={`${testID}RemarksContent`}
-          />
-        </AlertBase>
+      {!!fraction.note && (
+        <FractionContent
+          content={fraction.note}
+          testID={`${testID}RemarksContent`}
+        />
       )}
     </Column>
   )
