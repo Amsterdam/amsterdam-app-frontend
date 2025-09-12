@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {Contract} from '@/modules/waste-guide/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
 export type WasteGuideState = {
+  calendarView: 'list' | 'calendar'
   contracts?: Contract
 }
 
 const initialState: WasteGuideState = {
+  calendarView: 'list',
   contracts: undefined,
 }
 
@@ -20,6 +24,9 @@ export const wasteGuideSlice = createSlice({
       state.contracts = {...state.contracts, ...payload}
     },
     resetContracts: ({contracts, ...rest}) => rest,
+    toggleCalendarView: state => {
+      state.calendarView = state.calendarView === 'list' ? 'calendar' : 'list'
+    },
   },
 })
 
@@ -33,3 +40,15 @@ export const selectContract = (bagNummeraanduidingId: string) =>
     (state: RootState) => state[ReduxKey.wasteGuide].contracts,
     contracts => contracts?.[bagNummeraanduidingId],
   )
+
+export const useCalendarView = () => {
+  const dispatch = useDispatch()
+  const calendarView = useSelector(
+    (state: RootState) => state[ReduxKey.wasteGuide].calendarView,
+  )
+  const toggleCalendarView = () => {
+    dispatch(wasteGuideSlice.actions.toggleCalendarView())
+  }
+
+  return {calendarView, toggleCalendarView}
+}

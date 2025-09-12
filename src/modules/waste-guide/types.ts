@@ -20,9 +20,9 @@ export type WasteGuideQueryArg = {
   bagNummeraanduidingId: string
 }
 
-type WasteGuideCalendar = {
+export type WasteGuideCalendarEvent = {
   alert: string
-  code: string
+  code: FractionCode
   curb_rules_from: string
   curb_rules_to: string
   date: string
@@ -45,7 +45,7 @@ export type WasteType = {
 }
 
 export type WasteGuideResponse = {
-  calendar: WasteGuideCalendar[]
+  calendar: WasteGuideCalendarEvent[]
   is_collection_by_appointment: boolean
   is_residential: boolean
   waste_types: WasteType[]

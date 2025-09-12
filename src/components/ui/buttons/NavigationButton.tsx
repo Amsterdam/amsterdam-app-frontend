@@ -4,6 +4,7 @@ import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
+import {MainAxisAlignment} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
@@ -18,6 +19,7 @@ type Props = {
   description?: string
   direction?: 'backward' | 'forward'
   emphasis?: PhraseProps['emphasis']
+  horizontallyAlign?: MainAxisAlignment
   iconName?: SvgIconName
   iconSize?: keyof typeof IconSize
   inset?: boolean
@@ -30,6 +32,7 @@ export const NavigationButton = ({
   description,
   direction = 'forward',
   emphasis = 'strong',
+  horizontallyAlign = 'between',
   iconName,
   iconSize = 'lg',
   inset = true,
@@ -52,7 +55,7 @@ export const NavigationButton = ({
       insetHorizontal={inset ? 'md' : 'no'}
       insetVertical={inset ? 'sm' : 'no'}>
       <Row
-        align="between"
+        align={horizontallyAlign}
         gutter="md">
         {direction === 'backward' && (
           <Icon

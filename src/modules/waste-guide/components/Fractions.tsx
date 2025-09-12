@@ -9,9 +9,10 @@ import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollecti
 
 type Props = {
   fractions: WasteType[]
+  isCollectionByAppointment: boolean
 }
 
-export const Fractions = ({fractions}: Props) => {
+export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
   const {navigate} = useNavigation()
 
   return (
@@ -23,14 +24,11 @@ export const Fractions = ({fractions}: Props) => {
         return (
           <NavigationButton
             description={
-              nextCollectionDate ? `Ophaaldag: ${nextCollectionDate}` : ''
+              !isCollectionByAppointment && nextCollectionDate
+                ? `Ophaaldag: ${nextCollectionDate}`
+                : ''
             }
-            Icon={
-              <WasteFractionIcon
-                fractionCode={code}
-                testID={`WasteGuide${pascalCase(label ?? '')}FractionIcon`}
-              />
-            }
+            Icon={<WasteFractionIcon fractionCode={code} />}
             iconSize="ml"
             inset={false}
             isDescriptionBelowIcon={false}

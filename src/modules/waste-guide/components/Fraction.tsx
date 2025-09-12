@@ -5,8 +5,10 @@ import {type TestProps} from '@/components/ui/types'
 import {FractionButtonSection} from '@/modules/waste-guide/components/FractionButtonSection'
 import {FractionContent} from '@/modules/waste-guide/components/FractionContent'
 import {FractionSection} from '@/modules/waste-guide/components/FractionSection'
+import {NavigationButtonToWasteCalendar} from '@/modules/waste-guide/components/NavigationButtonToWasteCalendar'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
+import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
 import {FractionCode, WasteType} from '@/modules/waste-guide/types'
 import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollectionDate'
@@ -18,6 +20,7 @@ type Props = {
 } & TestProps
 
 export const Fraction = ({fraction, testID}: Props) => {
+  const {wasteGuide} = useGetWasteGuide()
   const {
     bulkyWasteAppointmentUrl,
     collectionPointsMapUrl,
@@ -34,7 +37,6 @@ export const Fraction = ({fraction, testID}: Props) => {
         <WasteFractionIcon
           fractionCode={fraction.code}
           size="xl"
-          testID="WasteGuideFractionIcon"
         />
       </Column>
       {!!fraction.alert && (
@@ -90,12 +92,15 @@ export const Fraction = ({fraction, testID}: Props) => {
           sectionTitle="Ophaaldag"
           testID={`${testID}DaySection`}
         />
-        {!!nextCollectionDate && (
-          <FractionSection
-            content={nextCollectionDate}
-            sectionTitle="Volgende ophaaldag"
-            testID={`${testID}NextCollectionSection`}
-          />
+        {!!nextCollectionDate && !wasteGuide?.is_collection_by_appointment && (
+          <Column gutter="xs">
+            <FractionSection
+              content={nextCollectionDate}
+              sectionTitle="Volgende ophaaldag"
+              testID={`${testID}NextCollectionSection`}
+            />
+            <NavigationButtonToWasteCalendar />
+          </Column>
         )}
         <FractionSection
           content={fraction.curb_rules}

@@ -1,9 +1,21 @@
-import {WasteType, FractionCode} from '@/modules/waste-guide/types'
+import {
+  WasteType,
+  FractionCode,
+  WasteGuideCalendarEvent,
+} from '@/modules/waste-guide/types'
 
 export const updateFractionLabels = (fractions: WasteType[]) =>
   fractions.map(fraction => ({
     ...fraction,
     label: fractionTitles[fraction.code] || fraction.label,
+  }))
+
+export const updateCalendarEventLabels = (
+  calendar: WasteGuideCalendarEvent[],
+) =>
+  calendar.map(event => ({
+    ...event,
+    label: fractionTitles[event.code] || event.label,
   }))
 
 const fractionTitles = {
