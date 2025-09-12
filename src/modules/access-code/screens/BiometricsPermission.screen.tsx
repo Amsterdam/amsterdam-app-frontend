@@ -53,7 +53,7 @@ export const BiometricsPermissionScreen = () => {
           gutter="lg">
           <Row align="center">
             <Icon
-              name="lock"
+              name="faceId"
               size="xxl"
               testID="BiometricsPermissionScreenIcon"
             />
