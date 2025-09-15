@@ -30,6 +30,7 @@ export enum ExceptionLogKey {
   openStore = 'Open app store',
   openWebUrl = 'Open web url failed',
   parkingAccessTokenHeader = 'Failed to set parking access token header',
+  parkingLoginFailed = 'Parking login failed',
   pickingImageFailed = 'Picking image from device failed',
   piwikInitialization = 'Piwik initialization failed',
   piwikTrackCustomEvent = 'Piwik trackCustomEvent failed',

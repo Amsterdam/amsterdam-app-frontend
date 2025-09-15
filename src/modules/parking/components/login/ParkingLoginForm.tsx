@@ -18,6 +18,10 @@ import {
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {useAlert} from '@/store/slices/alert'
 
 export const ParkingLoginForm = () => {
@@ -28,6 +32,7 @@ export const ParkingLoginForm = () => {
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
   const {resetAlert, setAlert} = useAlert()
+  const trackException = useTrackException()
 
   const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -52,6 +57,13 @@ export const ParkingLoginForm = () => {
       dispatch(parkingApi.util.resetApiState())
       dispatch(setIsLoggingIn(false))
     } catch (err) {
+      trackException(
+        ExceptionLogKey.parkingLoginFailed,
+        'ParkingLoginForm.tsx',
+        {
+          error: err,
+        },
+      )
       devError('ParkingLoginForm onSubmit error:', err)
     }
   })
