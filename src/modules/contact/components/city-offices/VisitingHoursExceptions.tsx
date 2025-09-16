@@ -10,8 +10,9 @@ type Props = {
 
 export const VisitingHoursExceptions = ({visitingHoursExceptions}: Props) => {
   const items = getUpcomingExceptionDescriptions(visitingHoursExceptions)
+  const uniqueExceptions = items.filter((e, idx) => e && e !== items[idx - 1])
 
-  if (!items.length) {
+  if (!uniqueExceptions.length) {
     return null
   }
 
@@ -23,7 +24,7 @@ export const VisitingHoursExceptions = ({visitingHoursExceptions}: Props) => {
         text="Aangepaste openingstijden"
       />
       <List
-        items={items}
+        items={uniqueExceptions}
         testID="ContactVisitingHoursGroupedList"
       />
     </Column>
