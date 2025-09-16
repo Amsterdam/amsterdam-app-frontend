@@ -75,7 +75,7 @@ export const NavigationButton = ({
               />
             )}
             {!!props.Icon && !iconName ? props.Icon : null}
-            <Column>
+            <Column shrink={1}>
               {emphasis === 'strong' ? (
                 <Title
                   color="link"
