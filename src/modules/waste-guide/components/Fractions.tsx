@@ -34,7 +34,9 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
             isDescriptionBelowIcon={false}
             key={code}
             onPress={() => {
-              navigate(WasteGuideRouteName.wasteGuideFraction, {fraction})
+              navigate(WasteGuideRouteName.wasteGuideFraction, {
+                fractionCode: fraction.code,
+              })
             }}
             testID={`WasteGuide${pascalCase(label ?? '')}FractionNavigationButton`}
             title={label}

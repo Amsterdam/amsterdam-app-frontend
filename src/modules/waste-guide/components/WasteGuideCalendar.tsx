@@ -1,5 +1,6 @@
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {WasteGuideCalendarGridView} from '@/modules/waste-guide/components/WasteGuideCalendarGridView'
 import {WasteGuideCalendarListView} from '@/modules/waste-guide/components/WasteGuideCalendarListView'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {useCalendarView} from '@/modules/waste-guide/slice'
@@ -33,5 +34,7 @@ export const WasteGuideCalendar = () => {
 
   return calendarView === 'list' ? (
     <WasteGuideCalendarListView wasteGuide={wasteGuide} />
-  ) : null
+  ) : (
+    <WasteGuideCalendarGridView wasteGuide={wasteGuide} />
+  )
 }

@@ -60,14 +60,7 @@ export const WasteGuide = () => {
               <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
               <WasteCardButton />
             </Column>
-            {hasContent ? (
-              <WasteGuideContent
-                bagId={address.bagId}
-                wasteGuide={wasteGuide}
-              />
-            ) : (
-              <WasteGuideNotFound />
-            )}
+            {hasContent ? <WasteGuideContent /> : <WasteGuideNotFound />}
           </Column>
         </Box>
       </HorizontalSafeArea>

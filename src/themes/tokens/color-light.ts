@@ -366,4 +366,14 @@ export const lightColorTokens = {
   tooltip: {
     background: baseColor.neutral.grey4,
   },
+  wasteGuide: {
+    calendar: {
+      day: {
+        inactive: {
+          background: baseColor.neutral.grey1,
+          label: baseColor.neutral.grey3,
+        },
+      },
+    },
+  },
 }

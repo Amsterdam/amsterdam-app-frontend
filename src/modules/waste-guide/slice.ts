@@ -35,11 +35,14 @@ export const {addContract, resetContracts} = wasteGuideSlice.actions
 export const selectContracts = (state: RootState) =>
   state[ReduxKey.wasteGuide].contracts
 
-export const selectContract = (bagNummeraanduidingId: string) =>
-  createSelector(
-    (state: RootState) => state[ReduxKey.wasteGuide].contracts,
-    contracts => contracts?.[bagNummeraanduidingId],
-  )
+export const selectContract =
+  (bagNummeraanduidingId?: string) => (state: RootState) => {
+    if (!bagNummeraanduidingId) {
+      return undefined
+    }
+
+    return state[ReduxKey.wasteGuide].contracts?.[bagNummeraanduidingId]
+  }
 
 export const useCalendarView = () => {
   const dispatch = useDispatch()
