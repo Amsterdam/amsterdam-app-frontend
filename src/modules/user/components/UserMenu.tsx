@@ -21,7 +21,7 @@ const accessCodeSection: UserMenuSection = {
       moduleSlug: ModuleSlug['access-code'],
     },
     {
-      iconName: 'faceId',
+      iconName: 'lock',
       label: 'Toegang met biometrische gevens',
       route: UserRouteName.userBiometrics,
     },
