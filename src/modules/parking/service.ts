@@ -116,8 +116,8 @@ export const parkingApi = baseApi.injectEndpoints({
         slug: ModuleSlug.parking,
         url: '/login',
         afterError: (result, _api, failRetry) => {
-          if (result.error?.status === 401) {
-            failRetry('Unauthorized')
+          if (result.error?.status === 403) {
+            failRetry(result.error)
           }
         },
       }),
