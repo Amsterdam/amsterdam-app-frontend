@@ -36,7 +36,7 @@ export type IconProps = {
    * The size of the icon.
    */
   size?: keyof typeof IconSize
-} & TestProps
+} & Partial<TestProps>
 
 const DEFAULT_VIEW_BOX = '0 0 32 32'
 

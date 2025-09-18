@@ -47,6 +47,8 @@ import {ModuleSlug} from '@/modules/slugs'
 import {UserStack} from '@/modules/user/Stack'
 import {UserModalParams, UserStackParams} from '@/modules/user/routes'
 import {userModals} from '@/modules/user/screenConfig'
+import {VoteStack} from '@/modules/vote/Stack'
+import {VoteStackParams} from '@/modules/vote/routes'
 import {WasteContainerStack} from '@/modules/waste-container/Stack'
 import {
   WasteContainerModalParams,
@@ -76,6 +78,7 @@ export type ModuleStackParams = AboutStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
+  VoteStackParams &
   WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
@@ -96,6 +99,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
+  [ModuleSlug.vote]: VoteStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 

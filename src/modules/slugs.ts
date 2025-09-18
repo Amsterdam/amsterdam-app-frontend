@@ -15,6 +15,7 @@ export enum ModuleSlug {
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
+  vote = 'vote',
   'waste-container' = 'waste-container',
   'waste-guide' = 'waste-guide',
 }

@@ -1,16 +1,19 @@
 import {Screen} from '@/components/features/screen/Screen'
-import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
+import {BottomSheet} from '@/components/ui/containers/BottomSheet'
+import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'
 
 export const ConstructionWorkScreen = () => (
   <Screen
     bottomSheet={
-      <SelectLocationTypeBottomSheet
-        highAccuracyPurposeKey={
-          HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
-        }
-      />
+      <BottomSheet testID="SelectLocationTypeBottomSheet">
+        <SelectLocationTypeBottomSheetContent
+          highAccuracyPurposeKey={
+            HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
+          }
+        />
+      </BottomSheet>
     }
     scroll={false}
     testID="ConstructionWorkScreen"

@@ -160,7 +160,9 @@ const createStyles = (
 ) => {
   const buttonHeight = config.buttonHeight
   const borderWidth =
-    border.width[variant === 'secondary' && isPressed ? 'lg' : 'md']
+    variant === 'tertiary'
+      ? 0
+      : border.width[variant === 'secondary' && isPressed ? 'lg' : 'md']
   const labelFontSize = text.fontSize[small ? 'small' : 'body']
   const labelLineHeight = text.lineHeight[small ? 'small' : 'body']
 

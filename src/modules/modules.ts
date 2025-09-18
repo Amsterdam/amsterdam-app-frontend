@@ -15,6 +15,7 @@ import {parkingModule} from '@/modules/parking'
 import {redirectsModule} from '@/modules/redirects'
 import {reportProblemModule} from '@/modules/report-problem'
 import {userModule} from '@/modules/user'
+import {voteModule} from '@/modules/vote'
 import {wasteContainerModule} from '@/modules/waste-container'
 import {wasteGuideModule} from '@/modules/waste-guide'
 
@@ -44,6 +45,7 @@ export const clientModules = [
   parkingModule,
   redirectsModule,
   reportProblemModule,
+  voteModule,
   wasteContainerModule,
   wasteGuideModule,
 ]
