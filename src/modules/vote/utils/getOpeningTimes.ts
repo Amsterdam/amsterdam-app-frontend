@@ -1,4 +1,4 @@
-import {dayjs} from '@/utils/datetime/dayjs'
+import {dayjsFromUnix} from '@/utils/datetime/dayjs'
 
 export const getOpeningTimes = (openingTimes: number[][] | undefined) => {
   if (!openingTimes || !openingTimes.length) {
@@ -11,5 +11,8 @@ export const getOpeningTimes = (openingTimes: number[][] | undefined) => {
     return ''
   }
 
-  return `${dayjs(start * 1000).format('HH.mm')} tot ${dayjs(end * 1000).format('HH.mm')} uur, ${dayjs(end * 1000).format('DD MMMM')}`
+  const startDate = dayjsFromUnix(start)
+  const endDate = dayjsFromUnix(end)
+
+  return `${startDate.format('HH.mm')} tot ${endDate.format('HH.mm')} uur, ${endDate.format('DD MMMM')}`
 }
