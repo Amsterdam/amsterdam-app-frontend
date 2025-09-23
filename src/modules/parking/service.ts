@@ -1,34 +1,35 @@
+import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import type {FeatureCollection} from 'geojson'
 import {
-  ParkingAccountDetails,
-  ParkingEndpointName,
-  LicensePlatesEndpointRequest,
-  LicensePlatesEndpointResponse,
-  ParkingLoginEndpointRequest,
-  ParkingLoginEndpointResponse,
-  ParkingPermitsEndpointResponse,
-  RemoveLicensePlateEndpointRequest,
-  RemoveLicensePlateEndpointResponse,
-  AddLicensePlateEndpointRequest,
-  AddLicensePlateEndpointResponse,
-  ParkingSessionsEndpointResponse,
-  ParkingSessionsEndpointRequest,
-  ParkingSessionReceiptEndpointResponse,
-  ParkingSessionReceiptEndpointRequestParams,
-  ParkingStartSessionEndpointRequestParams,
-  ParkingPermitsEndpointRequestParams,
-  ParkingOrderResponse,
-  ParkingEditSessionEndpointRequestParams,
-  ParkingDeleteSessionEndpointRequestParams,
-  RemoveIncreaseBalanceEndpointRequest,
-  ParkingTransactionsEndpointRequest,
-  ParkingTransactionsEndpointResponse,
-  ParkingManageVisitorChangePinCodeEndpointRequest,
-  VisitorParkingSessionsEndpointRequest,
-  VisitorParkingSessionsEndpointResponse,
+  type ParkingAccountDetails,
+  type LicensePlatesEndpointRequest,
+  type LicensePlatesEndpointResponse,
+  type ParkingLoginEndpointRequest,
+  type ParkingLoginEndpointResponse,
+  type ParkingPermitsEndpointResponse,
+  type RemoveLicensePlateEndpointRequest,
+  type RemoveLicensePlateEndpointResponse,
+  type AddLicensePlateEndpointRequest,
+  type AddLicensePlateEndpointResponse,
+  type ParkingSessionsEndpointResponse,
+  type ParkingSessionsEndpointRequest,
+  type ParkingSessionReceiptEndpointResponse,
+  type ParkingSessionReceiptEndpointRequestParams,
+  type ParkingStartSessionEndpointRequestParams,
+  type ParkingPermitsEndpointRequestParams,
+  type ParkingOrderResponse,
+  type ParkingEditSessionEndpointRequestParams,
+  type ParkingDeleteSessionEndpointRequestParams,
+  type RemoveIncreaseBalanceEndpointRequest,
+  type ParkingTransactionsEndpointRequest,
+  type ParkingTransactionsEndpointResponse,
+  type ParkingManageVisitorChangePinCodeEndpointRequest,
+  type VisitorParkingSessionsEndpointRequest,
+  type VisitorParkingSessionsEndpointResponse,
   ParkingSessionStatus,
-  RequestPinCode,
-  ParkingManageVisitorTimeBalanceEndpointRequest,
+  type RequestPinCode,
+  type ParkingManageVisitorTimeBalanceEndpointRequest,
+  ParkingEndpointName,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
@@ -116,7 +117,11 @@ export const parkingApi = baseApi.injectEndpoints({
         slug: ModuleSlug.parking,
         url: '/login',
         afterError: (result, _api, failRetry) => {
-          if (result.error?.status === 403) {
+          if (
+            (
+              [401, 403] as Array<FetchBaseQueryError['status'] | undefined>
+            ).includes(result.error?.status)
+          ) {
             failRetry(result.error)
           }
         },
