@@ -12,9 +12,9 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: fraction.afvalwijzerFractieNaam,
+      headerTitle: fraction.label,
     })
-  }, [fraction.afvalwijzerFractieNaam, navigation])
+  }, [fraction.label, navigation])
 
   if (!fraction) {
     return null

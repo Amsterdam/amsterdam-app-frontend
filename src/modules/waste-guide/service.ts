@@ -1,30 +1,23 @@
-import {ModuleSlug} from '@/modules/slugs'
+import {DeviatingApiSlug} from '@/environment'
 import {
   WasteGuideEndpointName,
-  WasteGuideQueryArg,
   WasteGuideResponse,
-  WasteGuideResponseFraction,
 } from '@/modules/waste-guide/types'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime, TimeOutDuration} from '@/types/api'
-import {generateRequestUrl} from '@/utils/api'
 
 export const wasteGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     [WasteGuideEndpointName.getWasteGuide]: builder.query<
-      WasteGuideResponseFraction[],
-      WasteGuideQueryArg
+      WasteGuideResponse,
+      string
     >({
-      query: params => ({
-        slug: ModuleSlug['waste-guide'],
-        url: generateRequestUrl({
-          params: {...params, _format: 'json'},
-          path: '/search',
-        }),
+      query: bag_nummeraanduiding_id => ({
+        params: {bag_nummeraanduiding_id},
+        slug: DeviatingApiSlug.waste,
         timeout: TimeOutDuration.long,
+        url: '/guide',
       }),
-      transformResponse: (response: WasteGuideResponse) =>
-        response._embedded.afvalwijzer,
       keepUnusedDataFor: CacheLifetime.day,
     }),
   }),

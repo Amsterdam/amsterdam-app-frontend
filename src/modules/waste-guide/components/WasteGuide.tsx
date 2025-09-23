@@ -33,9 +33,7 @@ export const WasteGuide = () => {
     isFetching: isFetchingWasteGuide,
   } = useGetWasteGuideQuery(
     // isFocusedOrNotAndroid: on Android we delay the request until the screen is in focus, to prevent a double content rendering issue
-    address?.bagId && isFocusedAndroid
-      ? {bagNummeraanduidingId: address.bagId}
-      : skipToken,
+    address?.bagId && isFocusedAndroid ? address.bagId : skipToken,
   )
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
@@ -74,7 +72,10 @@ export const WasteGuide = () => {
               <WasteCardButton />
             </Column>
             {hasContent ? (
-              <WasteGuideContent wasteGuide={wasteGuide} />
+              <WasteGuideContent
+                bagId={address.bagId}
+                wasteGuide={wasteGuide}
+              />
             ) : (
               <WasteGuideNotFound />
             )}

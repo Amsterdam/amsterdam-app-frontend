@@ -1,4 +1,4 @@
-import {WasteGuideResponseFraction} from '@/modules/waste-guide/types'
+import {type WasteType} from '@/modules/waste-guide/types'
 
 export enum WasteGuideRouteName {
   wasteGuide = 'WasteGuide',
@@ -10,7 +10,7 @@ export type WasteGuideStackParams = {
   [WasteGuideRouteName.wasteGuide]: undefined
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
   [WasteGuideRouteName.wasteGuideFraction]: {
-    fraction: WasteGuideResponseFraction
+    fraction: WasteType
   }
 }
 
