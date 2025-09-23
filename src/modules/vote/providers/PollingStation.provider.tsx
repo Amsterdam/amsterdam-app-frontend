@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useMemo, useState} from 'react'
 import {PollingStationContext} from '@/modules/vote/providers/PollingStation.context'
 import {PollingStation} from '@/modules/vote/types'
 
@@ -11,8 +11,13 @@ export const PollingStationProvider = ({children}: Props) => {
     PollingStation | undefined
   >(undefined)
 
+  const value = useMemo(
+    () => ({pollingStation, setPollingStation}),
+    [pollingStation],
+  )
+
   return (
-    <PollingStationContext.Provider value={{pollingStation, setPollingStation}}>
+    <PollingStationContext.Provider value={value}>
       {children}
     </PollingStationContext.Provider>
   )
