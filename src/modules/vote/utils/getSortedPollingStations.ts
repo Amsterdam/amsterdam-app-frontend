@@ -8,16 +8,13 @@ export const getSortedPollingStations = (
   address?: Address,
 ) =>
   address?.coordinates
-    ? [...pollingStations].sort((a, b) => {
-        const aDist = getDistance(
-          {lat: a.position.lat, lon: a.position.lng},
-          address.coordinates as Coordinates,
-        )
-        const bDist = getDistance(
-          {lat: b.position.lat, lon: b.position.lng},
-          address.coordinates as Coordinates,
-        )
-
-        return aDist - bDist
-      })
+    ? pollingStations
+        .map(station => ({
+          ...station,
+          distance: getDistance(
+            {lat: station.position.lat, lon: station.position.lng},
+            address.coordinates as Coordinates,
+          ),
+        }))
+        .sort((a, b) => a.distance - b.distance)
     : pollingStations
