@@ -85,60 +85,15 @@ export const PollingStationDetails = () => {
               variant="tertiary"
             />
           </Column>
-          <Column gutter="md">
-            <Row
-              gutter="md"
-              valign="start">
-              <Box insetTop="xs">
-                <Icon
-                  name="clock"
-                  size="lg"
-                />
-              </Box>
-              <Column>
-                <Title
-                  level="h5"
-                  text="Openingstijden"
-                />
-                <Paragraph>
-                  {getOpeningTimes(pollingStation.openingTimes)}
-                </Paragraph>
-              </Column>
-            </Row>
-            <Row
-              gutter="md"
-              valign="start">
-              <Box insetTop="xs">
-                <Icon
-                  name="location"
-                  size="lg"
-                />
-              </Box>
-              <Column halign="start">
-                <Title
-                  level="h5"
-                  text="Adres"
-                />
-                <Paragraph>{pollingStation.address1}</Paragraph>
-                <ExternalLinkButton
-                  label="Route openen"
-                  noPadding
-                  testID="PollingStationDetailsRouteExternalLinkButton"
-                  url={directionsUrl}
-                  variant="tertiary"
-                />
-              </Column>
-            </Row>
-          </Column>
-          <Row align="start">
-            <ExternalLinkButton
-              label="Meer informatie over de verkiezingen"
-              noPadding
-              redirectKey={RedirectKey.elections}
-              testID="PollingStationDetailsElectionsExternalLinkButton"
-              variant="tertiary"
-            />
-          </Row>
+        </Row>
+        <Row align="start">
+          <ExternalLinkButton
+            label="Meer informatie over de verkiezingen"
+            noPadding
+            redirectKey={RedirectKey.elections}
+            testID="PollingStationDetailsElectionsExternalLinkButton"
+            variant="tertiary"
+          />
         </Row>
       </Column>
     </Box>

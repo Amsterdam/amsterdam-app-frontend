@@ -7,6 +7,8 @@ import Svg, {
   Circle,
   Defs,
   ClipPath,
+  FeDropShadow,
+  Filter,
 } from 'react-native-svg'
 
 export const PollingStationMarkerIcon = (
@@ -18,6 +20,15 @@ export const PollingStationMarkerIcon = (
     viewBox="0 0 40 40"
     width={40}
     {...props}>
+    <Filter id="shadow3">
+      <FeDropShadow
+        dx="-0.8"
+        dy="-0.8"
+        floodColor="black"
+        floodOpacity="0.5"
+        stdDeviation="0"
+      />
+    </Filter>
     <Defs>
       <ClipPath id="clip0_9596_2164">
         <Rect
@@ -27,7 +38,9 @@ export const PollingStationMarkerIcon = (
         />
       </ClipPath>
     </Defs>
-    <G clipPath="url(#clip0_9596_2164)">
+    <G
+      clipPath="url(#clip0_9596_2164)"
+      filter="url(#shadow3)">
       {/* Drop shadow filter is not supported in react-native-svg, so it's omitted */}
       <Path
         clipRule="evenodd"
