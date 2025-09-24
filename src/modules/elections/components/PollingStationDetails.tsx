@@ -13,8 +13,8 @@ import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
-  const {close: closeBottomSheet} = useBottomSheet()
   const {pollingStation} = useContext(PollingStationContext)
+  const {close: closeBottomSheet} = useBottomSheet()
   const {lat, lng} = pollingStation?.position || {}
   const directionsUrl =
     lat && lng ? useGetGoogleMapsDirectionsUrl({lat, lon: lng}) : undefined
@@ -70,7 +70,7 @@ export const PollingStationDetails = () => {
               size="lg"
             />
           </Box>
-          <Column>
+          <Column halign="start">
             <Title
               level="h5"
               text="Adres"

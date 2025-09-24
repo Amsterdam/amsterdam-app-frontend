@@ -10,6 +10,7 @@ import {useThemable} from '@/themes/useThemable'
 
 type TabsProps = {
   children: ReactNode
+  grow?: number
 } & TestProps
 
 type TabProps = {
@@ -28,13 +29,15 @@ type TabProps = {
         </Tabs.Tab>
     </Tabs>
  */
-export const Tabs = ({children, testID}: TabsProps) => {
+export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0)
 
   const styles = useThemable(createStyles)
 
   return (
-    <Column halign="stretch">
+    <Column
+      grow={grow}
+      halign="stretch">
       <View>
         <Row>
           {React.Children.map(children, (child, index) => {

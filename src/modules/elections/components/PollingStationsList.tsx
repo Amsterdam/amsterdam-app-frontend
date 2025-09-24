@@ -1,4 +1,4 @@
-import {useCallback, useContext} from 'react'
+import {useContext} from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -15,7 +15,6 @@ import {
   PollingStationsListBottomSheetVariant,
 } from '@/modules/elections/types'
 import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {getDistance} from '@/utils/getDistance'
 
 type Props = {
@@ -23,17 +22,8 @@ type Props = {
 }
 
 export const PollingStationsList = ({pollingStations}: Props) => {
-  const {setPollingStation} = useContext(PollingStationContext)
-  const {open} = useBottomSheet()
+  const {onPressListItem} = useContext(PollingStationContext)
   const address = useSelector(selectAddress)
-
-  const onPressListItem = useCallback(
-    (pollingStation: PollingStation) => {
-      setPollingStation(pollingStation)
-      open(PollingStationsListBottomSheetVariant.pollingStation)
-    },
-    [setPollingStation, open],
-  )
 
   if (!pollingStations || !pollingStations.length) {
     return null

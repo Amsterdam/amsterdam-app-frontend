@@ -7,7 +7,9 @@ export const PollingStations = () => {
   const {data} = usePollingStationsQuery()
 
   return (
-    <Tabs testID="PollingStationsViewTabs">
+    <Tabs
+      grow={1}
+      testID="PollingStationsViewTabs">
       <Tabs.Tab
         accessibilityLabel="Kaartweergave"
         label="Kaart">
