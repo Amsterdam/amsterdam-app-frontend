@@ -17,8 +17,7 @@ export const PollingStationDetails = () => {
   const {pollingStation} = useContext(PollingStationContext)
   const {close: closeBottomSheet} = useBottomSheet()
   const {lat, lng} = pollingStation?.position || {}
-  const directionsUrl =
-    lat && lng ? useGetGoogleMapsDirectionsUrl({lat, lon: lng}) : undefined
+  const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
   if (!pollingStation) {
     return null

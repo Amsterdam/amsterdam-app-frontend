@@ -28,6 +28,7 @@ export const PollingStationsMap = ({pollingStations}: Props) => {
 
   return (
     <MapView
+      collapsable={false}
       moveOnMarkerPress={false}
       onMapReady={handleOnMapReady}
       provider={Platform.OS === 'android' ? 'google' : undefined}

@@ -2,8 +2,8 @@ import {useAddress} from '@/modules/address/slice'
 import {getGoogleMapsDirectionsUrl} from '@/utils/getGoogleMapsDirectionsUrl'
 
 export const useGetGoogleMapsDirectionsUrl = (destination: {
-  lat: number
-  lon: number
+  lat?: number
+  lon?: number
 }) => {
   const address = useAddress()
 
