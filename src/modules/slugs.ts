@@ -7,6 +7,7 @@ export enum ModuleSlug {
   'construction-work' = 'construction-work',
   'construction-work-editor' = 'construction-work-editor',
   'contact' = 'contact',
+  elections = 'elections',
   home = 'home',
   'mijn-amsterdam' = 'mijn-amsterdam',
   'notification-history' = 'notification-history',

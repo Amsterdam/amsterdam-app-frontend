@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -21,10 +20,10 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Permissions} from '@/types/permissions'
 
 type Props = {
-  highAccuracyPurposeKey: HighAccuracyPurposeKey
+  highAccuracyPurposeKey?: HighAccuracyPurposeKey
 }
 
-export const SelectLocationTypeBottomSheet = ({
+export const SelectLocationTypeBottomSheetContent = ({
   highAccuracyPurposeKey,
 }: Props) => {
   const address = useAddress()
@@ -78,43 +77,41 @@ export const SelectLocationTypeBottomSheet = ({
   ])
 
   return (
-    <BottomSheet testID="SelectLocationTypeBottomSheet">
-      <Box grow>
-        <Column gutter="md">
-          <Row align="between">
-            <Title
-              accessibilityHint="kies of u uw adres of huidige locatie wil gebruiken"
-              level="h3"
-              ref={focusRef}
-              text="Locaties"
-            />
-            {!!address && (
-              <Button
-                label="Wijzig adres"
-                onPress={() => {
-                  navigate(ModuleSlug.address, {
-                    screen: AddressRouteName.address,
-                  })
+    <Box grow>
+      <Column gutter="md">
+        <Row align="between">
+          <Title
+            accessibilityHint="kies of u uw adres of huidige locatie wil gebruiken"
+            level="h3"
+            ref={focusRef}
+            text="Locaties"
+          />
+          {!!address && (
+            <Button
+              label="Wijzig adres"
+              onPress={() => {
+                navigate(ModuleSlug.address, {
+                  screen: AddressRouteName.address,
+                })
 
-                  setLocationType('address')
-                }}
-                testID="BottomSheetChangeAddressButton"
-                variant="tertiary"
-              />
-            )}
-          </Row>
-          <AddressTopTaskButton
-            logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
-            onPress={onPressAddressButton}
-            testID="BottomSheetSelectAddressButton"
-          />
-          <LocationTopTaskButton
-            highAccuracyPurposeKey={highAccuracyPurposeKey}
-            onPress={onPressLocationButton}
-            testID="BottomSheetSelectLocationButton"
-          />
-        </Column>
-      </Box>
-    </BottomSheet>
+                setLocationType('address')
+              }}
+              testID="BottomSheetChangeAddressButton"
+              variant="tertiary"
+            />
+          )}
+        </Row>
+        <AddressTopTaskButton
+          logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
+          onPress={onPressAddressButton}
+          testID="BottomSheetSelectAddressButton"
+        />
+        <LocationTopTaskButton
+          highAccuracyPurposeKey={highAccuracyPurposeKey}
+          onPress={onPressLocationButton}
+          testID="BottomSheetSelectLocationButton"
+        />
+      </Column>
+    </Box>
   )
 }

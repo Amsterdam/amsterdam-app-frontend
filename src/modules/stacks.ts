@@ -25,6 +25,8 @@ import {constructionWorkEditorModals} from '@/modules/construction-work-editor/s
 import {ContactStack} from '@/modules/contact/Stack'
 import {ContactModalParams, ContactStackParams} from '@/modules/contact/routes'
 import {contactModals} from '@/modules/contact/screenConfig'
+import {ElectionsStack} from '@/modules/elections/Stack'
+import {ElectionsStackParams} from '@/modules/elections/routes'
 import {HomeStack} from '@/modules/home/Stack'
 import {HomeModalParams, HomeStackParams} from '@/modules/home/routes'
 import {homeModals} from '@/modules/home/screenConfig'
@@ -76,6 +78,7 @@ export type ModuleStackParams = AboutStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
   UserStackParams &
+  ElectionsStackParams &
   WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
@@ -96,6 +99,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
+  [ModuleSlug.elections]: ElectionsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }
 

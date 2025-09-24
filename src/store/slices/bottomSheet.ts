@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import {useEffect, useMemo} from 'react'
+import {useMemo} from 'react'
 import {Keyboard} from 'react-native'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -43,15 +43,9 @@ export const {closeBottomSheet, openBottomSheet, toggleBottomSheet} =
 
 export const useBottomSheet = () => {
   const dispatch = useDispatch()
-  const {close} = useMenu()
+  const {close: closeMenu} = useMenu()
   const isOpen = useSelector(state => state[ReduxKey.bottomSheet].isOpen)
   const variant = useSelector(state => state[ReduxKey.bottomSheet].variant)
-
-  useEffect(() => {
-    if (isOpen) {
-      close()
-    }
-  }, [close, isOpen])
 
   return {
     isOpen,
@@ -59,15 +53,17 @@ export const useBottomSheet = () => {
       () => ({
         close: () => dispatch(closeBottomSheet()),
         open: (newVariant?: string) => {
+          closeMenu()
           Keyboard.dismiss()
           dispatch(openBottomSheet(newVariant))
         },
         toggle: (newVariant?: string) => {
+          closeMenu()
           Keyboard.dismiss()
           dispatch(toggleBottomSheet(newVariant))
         },
       }),
-      [dispatch],
+      [closeMenu, dispatch],
     ),
     variant,
   }

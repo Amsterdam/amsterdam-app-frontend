@@ -7,6 +7,7 @@ import {cityPassModule} from '@/modules/city-pass'
 import {constructionWorkModule} from '@/modules/construction-work'
 import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {contactModule} from '@/modules/contact'
+import {electionsModule} from '@/modules/elections'
 import {homeModule} from '@/modules/home'
 import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
 import {notificationHistoryModule} from '@/modules/notification-history'
@@ -44,6 +45,7 @@ export const clientModules = [
   parkingModule,
   redirectsModule,
   reportProblemModule,
+  electionsModule,
   wasteContainerModule,
   wasteGuideModule,
 ]

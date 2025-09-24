@@ -1,6 +1,7 @@
 import {Screen} from '@/components/features/screen/Screen'
+import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {SelectLocationTypeBottomSheet} from '@/modules/address/components/location/SelectLocationTypeBottomSheet'
+import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 
@@ -10,11 +11,13 @@ export const WasteGuideScreen = () => {
   return (
     <Screen
       bottomSheet={
-        <SelectLocationTypeBottomSheet
-          highAccuracyPurposeKey={
-            HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
-          }
-        />
+        <BottomSheet testID="SelectLocationTypeBottomSheet">
+          <SelectLocationTypeBottomSheetContent
+            highAccuracyPurposeKey={
+              HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
+            }
+          />
+        </BottomSheet>
       }
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
