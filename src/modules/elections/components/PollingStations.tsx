@@ -1,10 +1,10 @@
 import {Tabs} from '@/components/ui/Tabs'
-import {PollingStationsList} from '@/modules/vote/components/PollingStationsList'
-import {PollingStationsMap} from '@/modules/vote/components/PollingStationsMap'
-import {useLocationsQuery} from '@/modules/vote/service'
+import {PollingStationsList} from '@/modules/elections/components/PollingStationsList'
+import {PollingStationsMap} from '@/modules/elections/components/PollingStationsMap'
+import {usePollingStationsQuery} from '@/modules/elections/service'
 
 export const PollingStations = () => {
-  const {data} = useLocationsQuery()
+  const {data} = usePollingStationsQuery()
 
   return (
     <Tabs testID="PollingStationsViewTabs">

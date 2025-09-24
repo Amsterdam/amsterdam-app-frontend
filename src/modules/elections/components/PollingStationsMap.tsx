@@ -1,5 +1,5 @@
 import {Title} from '@/components/ui/text/Title'
-import {PollingStation} from '@/modules/vote/types'
+import {PollingStation} from '@/modules/elections/types'
 
 type Props = {
   pollingStations?: PollingStation[]

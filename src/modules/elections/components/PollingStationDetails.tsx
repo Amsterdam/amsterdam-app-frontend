@@ -9,8 +9,8 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {useAddress} from '@/modules/address/slice'
-import {PollingStationContext} from '@/modules/vote/providers/PollingStation.context'
-import {getOpeningTimes} from '@/modules/vote/utils/getOpeningTimes'
+import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
+import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {

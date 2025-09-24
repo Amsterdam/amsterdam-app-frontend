@@ -1,17 +1,17 @@
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
-import {VoteRouteName} from '@/modules/vote/routes'
-import {screenConfig} from '@/modules/vote/screenConfig'
+import {ElectionsRouteName} from '@/modules/elections/routes'
+import {screenConfig} from '@/modules/elections/screenConfig'
 
 const Stack = createStackNavigator<RootStackParams>()
 
-export const VoteStack = () => {
+export const ElectionsStack = () => {
   const screenOptions = useScreenOptions()
 
   return (
     <Stack.Navigator
-      initialRouteName={VoteRouteName.vote}
+      initialRouteName={ElectionsRouteName.elections}
       screenOptions={screenOptions}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen

@@ -7,14 +7,14 @@ import {Title} from '@/components/ui/text/Title'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {selectAddress} from '@/modules/address/slice'
-import {PollingStationsListItem} from '@/modules/vote/components/PollingStationListItem'
-import {PollingStationContext} from '@/modules/vote/providers/PollingStation.context'
+import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
+import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
 
 import {
   PollingStation,
   PollingStationsListBottomSheetVariant,
-} from '@/modules/vote/types'
-import {getSortedPollingStations} from '@/modules/vote/utils/getSortedPollingStations'
+} from '@/modules/elections/types'
+import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {getDistance} from '@/utils/getDistance'
 

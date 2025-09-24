@@ -1,6 +1,6 @@
 import {ReactNode, useMemo, useState} from 'react'
-import {PollingStationContext} from '@/modules/vote/providers/PollingStation.context'
-import {PollingStation} from '@/modules/vote/types'
+import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
+import {PollingStation} from '@/modules/elections/types'
 
 type Props = {
   children: ReactNode

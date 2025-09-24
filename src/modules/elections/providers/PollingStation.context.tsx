@@ -1,5 +1,5 @@
 import {createContext} from 'react'
-import {PollingStation} from '@/modules/vote/types'
+import {PollingStation} from '@/modules/elections/types'
 
 export const PollingStationContext = createContext<{
   pollingStation?: PollingStation

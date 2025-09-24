@@ -7,6 +7,7 @@ import {cityPassModule} from '@/modules/city-pass'
 import {constructionWorkModule} from '@/modules/construction-work'
 import {constructionWorkEditorModule} from '@/modules/construction-work-editor'
 import {contactModule} from '@/modules/contact'
+import {electionsModule} from '@/modules/elections'
 import {homeModule} from '@/modules/home'
 import {mijnAmsterdamModule} from '@/modules/mijn-amsterdam'
 import {notificationHistoryModule} from '@/modules/notification-history'
@@ -15,7 +16,6 @@ import {parkingModule} from '@/modules/parking'
 import {redirectsModule} from '@/modules/redirects'
 import {reportProblemModule} from '@/modules/report-problem'
 import {userModule} from '@/modules/user'
-import {voteModule} from '@/modules/vote'
 import {wasteContainerModule} from '@/modules/waste-container'
 import {wasteGuideModule} from '@/modules/waste-guide'
 
@@ -45,7 +45,7 @@ export const clientModules = [
   parkingModule,
   redirectsModule,
   reportProblemModule,
-  voteModule,
+  electionsModule,
   wasteContainerModule,
   wasteGuideModule,
 ]

@@ -1,11 +1,11 @@
-export enum VoteEndpointName {
-  locations = 'locations',
+export enum ElectionsEndpointName {
+  pollingStations = 'pollingStations',
 }
 
 export type PollingStation = {
   address1: string
   address2: string
-  categories: VoteCategory[]
+  categories: ElectionsCategory[]
   id: number
   isOpen: boolean
   lastUpdate: {
@@ -21,7 +21,7 @@ export type PollingStation = {
   }
 }
 
-export enum VoteCategory {
+export enum ElectionsCategory {
   disabledParking = 'disabled_parking',
   ptWheelchair = 'pt_wheelchair',
   pysicalLimitation = 'pysical_limitation',

@@ -1,8 +1,8 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
 
-export const voteModule: ModuleClientConfig = {
+export const electionsModule: ModuleClientConfig = {
   alwaysEnabled: true,
-  name: 'VoteModule',
-  slug: ModuleSlug.vote,
+  name: 'ElectionsModule',
+  slug: ModuleSlug.elections,
 }

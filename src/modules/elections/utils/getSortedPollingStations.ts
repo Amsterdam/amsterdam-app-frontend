@@ -1,5 +1,5 @@
 import {type Address, Coordinates} from '@/modules/address/types'
-import {type PollingStation} from '@/modules/vote/types'
+import {type PollingStation} from '@/modules/elections/types'
 import {getDistance} from '@/utils/getDistance'
 
 // Sort pollingStations by distance to address if address and coordinates exist

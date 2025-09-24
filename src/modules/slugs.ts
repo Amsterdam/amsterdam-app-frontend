@@ -7,6 +7,7 @@ export enum ModuleSlug {
   'construction-work' = 'construction-work',
   'construction-work-editor' = 'construction-work-editor',
   'contact' = 'contact',
+  elections = 'elections',
   home = 'home',
   'mijn-amsterdam' = 'mijn-amsterdam',
   'notification-history' = 'notification-history',
@@ -15,7 +16,6 @@ export enum ModuleSlug {
   redirects = 'redirects',
   'report-problem' = 'report-problem',
   user = 'user',
-  vote = 'vote',
   'waste-container' = 'waste-container',
   'waste-guide' = 'waste-guide',
 }

@@ -1,4 +1,4 @@
-import {getOpeningTimes} from '@/modules/vote/utils/getOpeningTimes'
+import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 
 describe('getOpeningTimes', () => {
   it('returns empty string for undefined', () => {

@@ -3,8 +3,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {PollingStation} from '@/modules/vote/types'
-import {getOpeningTimes} from '@/modules/vote/utils/getOpeningTimes'
+import {PollingStation} from '@/modules/elections/types'
+import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 
 type Props = {
   distanceInMeters?: number

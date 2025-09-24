@@ -1,6 +1,6 @@
 import {Address, AddressCity} from '@/modules/address/types'
-import {PollingStation} from '@/modules/vote/types'
-import {getSortedPollingStations} from '@/modules/vote/utils/getSortedPollingStations'
+import {PollingStation} from '@/modules/elections/types'
+import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
 
 describe('getSortedPollingStations', () => {
   const stations: PollingStation[] = [
