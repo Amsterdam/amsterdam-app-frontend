@@ -8,13 +8,11 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
-import {useAddress} from '@/modules/address/slice'
 import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
-  const address = useAddress()
   const {close: closeBottomSheet} = useBottomSheet()
   const {pollingStation} = useContext(PollingStationContext)
   const {lat, lng} = pollingStation?.position || {}
@@ -78,15 +76,13 @@ export const PollingStationDetails = () => {
               text="Adres"
             />
             <Paragraph>{pollingStation.address1}</Paragraph>
-            {!!address && (
-              <ExternalLinkButton
-                label="Route openen"
-                noPadding
-                testID="PollingStationDetailsRouteExternalLinkButton"
-                url={directionsUrl}
-                variant="tertiary"
-              />
-            )}
+            <ExternalLinkButton
+              label="Route openen"
+              noPadding
+              testID="PollingStationDetailsRouteExternalLinkButton"
+              url={directionsUrl}
+              variant="tertiary"
+            />
           </Column>
         </Row>
       </Column>
