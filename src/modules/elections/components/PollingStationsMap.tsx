@@ -1,9 +1,10 @@
 import {useContext, useState} from 'react'
 import {Platform, StyleSheet} from 'react-native'
-import MapView, {Geojson} from 'react-native-maps'
+import MapView, {Marker} from 'react-native-maps'
 import {useAddress} from '@/modules/address/slice'
 import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
 import {PollingStation} from '@/modules/elections/types'
+import {PollingStationMarkerActiveIcon} from '@/modules/vote/components/icons/PollingStationMarkerActiveIcon'
 import {PollingStationMarkerIcon} from '@/modules/vote/components/icons/PollingStationMarkerIcon'
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 export const PollingStationsMap = ({pollingStations}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
   const address = useAddress()
-  const {onPressListItem} = useContext(PollingStationContext)
+  const {onPressListItem, pollingStation} = useContext(PollingStationContext)
   const coordinates = address?.coordinates
   const styles = createStyles()
 
@@ -39,26 +40,21 @@ export const PollingStationsMap = ({pollingStations}: Props) => {
       showsBuildings={false}
       showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
       style={styles.mapView}>
-      <Geojson
-        geojson={{
-          type: 'FeatureCollection',
-          features: pollingStations.map(station => ({
-            type: 'Feature',
-            properties: {
-              ...station,
-            },
-            geometry: {
-              type: 'Point',
-              coordinates: [station.position.lng, station.position.lat],
-            },
-          })),
-        }}
-        markerComponent={<PollingStationMarkerIcon />}
-        onPress={e => {
-          e.feature.properties &&
-            onPressListItem(e.feature.properties as PollingStation)
-        }}
-      />
+      {pollingStations.map(station => (
+        <Marker
+          coordinate={{
+            latitude: station.position.lat,
+            longitude: station.position.lng,
+          }}
+          key={station.id}
+          onPress={() => onPressListItem(station)}>
+          {pollingStation?.id === station.id ? (
+            <PollingStationMarkerActiveIcon />
+          ) : (
+            <PollingStationMarkerIcon />
+          )}
+        </Marker>
+      ))}
     </MapView>
   )
 }

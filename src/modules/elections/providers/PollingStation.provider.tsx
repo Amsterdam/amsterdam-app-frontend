@@ -26,7 +26,7 @@ export const PollingStationProvider = ({children}: Props) => {
 
   const value = useMemo(
     () => ({pollingStation, setPollingStation, onPressListItem}),
-    [pollingStation, onPressListItem],
+    [onPressListItem, pollingStation],
   )
 
   return (

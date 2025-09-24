@@ -10,6 +10,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
+import {RedirectKey} from '@/modules/redirects/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
@@ -25,7 +26,7 @@ export const PollingStationDetails = () => {
 
   return (
     <Box>
-      <Column gutter="md">
+      <Column gutter="lg">
         <Row align="between">
           <Title
             level="h3"
@@ -84,6 +85,60 @@ export const PollingStationDetails = () => {
               variant="tertiary"
             />
           </Column>
+          <Column gutter="md">
+            <Row
+              gutter="md"
+              valign="start">
+              <Box insetTop="xs">
+                <Icon
+                  name="clock"
+                  size="lg"
+                />
+              </Box>
+              <Column>
+                <Title
+                  level="h5"
+                  text="Openingstijden"
+                />
+                <Paragraph>
+                  {getOpeningTimes(pollingStation.openingTimes)}
+                </Paragraph>
+              </Column>
+            </Row>
+            <Row
+              gutter="md"
+              valign="start">
+              <Box insetTop="xs">
+                <Icon
+                  name="location"
+                  size="lg"
+                />
+              </Box>
+              <Column halign="start">
+                <Title
+                  level="h5"
+                  text="Adres"
+                />
+                <Paragraph>{pollingStation.address1}</Paragraph>
+                <ExternalLinkButton
+                  label="Route openen"
+                  noPadding
+                  testID="PollingStationDetailsRouteExternalLinkButton"
+                  url={directionsUrl}
+                  variant="tertiary"
+                />
+              </Column>
+            </Row>
+          </Column>
+          <Row align="start">
+            <ExternalLinkButton
+              label="Meer informatie over de verkiezingen"
+              noPadding
+              redirectKey={RedirectKey.elections}
+              testID="PollingStationDetailsElectionsExternalLinkButton"
+              variant="tertiary"
+            />
+          </Row>
         </Row>
       </Column>
     </Box>
