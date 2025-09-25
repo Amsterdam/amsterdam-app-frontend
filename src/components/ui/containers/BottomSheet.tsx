@@ -14,7 +14,10 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {
+  useBottomSheet,
+  useBottomSheetSelectors,
+} from '@/store/slices/bottomSheet'
 import {useScreen} from '@/store/slices/screen'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -79,7 +82,8 @@ type Props = Partial<
   )
 
 const useBottomSheetHandler = () => {
-  const {close, isOpen, open, variant} = useBottomSheet()
+  const {close, open} = useBottomSheet()
+  const {isOpen, variant} = useBottomSheetSelectors()
   const {setHideContentFromAccessibility} = useScreen()
   const ref = useRef<BottomSheetOriginal>(null)
 
@@ -102,7 +106,6 @@ const useBottomSheetHandler = () => {
   }, [isOpen, setHideContentFromAccessibility])
 
   return {
-    isOpen,
     onChange,
     ref,
     variant,

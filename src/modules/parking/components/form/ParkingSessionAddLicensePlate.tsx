@@ -10,10 +10,10 @@ import {alerts} from '@/modules/parking/alerts'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 
 export const ParkingSessionAddLicensePlate = () => {
-  const {isOpen} = useBottomSheet()
+  const {isOpen} = useBottomSheetSelectors()
   const [isVisitorNameVisible, setIsVisitorNameVisible] = useState(false)
   const {licensePlates, isLoading} = useGetLicensePlates()
 
