@@ -18,6 +18,7 @@ export const ElectionsScreen = () => {
     <Screen
       bottomSheet={
         <BottomSheet
+          scroll
           testID="PollingStationBottomSheet"
           variants={variantMap}
         />

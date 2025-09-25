@@ -7,6 +7,7 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
@@ -34,6 +35,7 @@ export const PollingStationDetails = () => {
             text={pollingStation?.name}
           />
           <IconButton
+            accessibilityLabel="Sluit stembureau details venster"
             icon={
               <Icon
                 name="close"
@@ -87,6 +89,9 @@ export const PollingStationDetails = () => {
             />
           </Column>
         </Row>
+        <PollingStationDetailsCategories
+          categories={pollingStation.categories}
+        />
         <Row align="start">
           <ExternalLinkButton
             label="Meer informatie over de verkiezingen"
