@@ -41,15 +41,15 @@ export const PollingStationsMap = ({
   return (
     <MapView
       collapsable={false}
-      moveOnMarkerPress={false}
-      onMapReady={handleOnMapReady}
-      provider={Platform.OS === 'android' ? 'google' : undefined}
-      region={{
+      initialRegion={{
         latitude: coordinates?.lat ?? 52.3753,
         longitude: coordinates?.lon ?? 4.9044,
         latitudeDelta: coordinates ? 0.01 : 0.0922,
         longitudeDelta: coordinates ? 0.01 : 0.0421,
       }}
+      moveOnMarkerPress={false}
+      onMapReady={handleOnMapReady}
+      provider={Platform.OS === 'android' ? 'google' : undefined}
       showsBuildings={false}
       showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
       style={styles.mapView}>
