@@ -1,5 +1,5 @@
 import {WasteGuideResponse} from '@/modules/waste-guide/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {Dayjs, dayjs} from '@/utils/datetime/dayjs'
 
 export const getWasteCalendarListSections = (
   calendar: WasteGuideResponse['calendar'],
@@ -24,20 +24,27 @@ export const getWasteCalendarListSections = (
   const sections = dateGroups.reduce(
     (acc, events) => {
       const date = events[0].date
-      const month = dayjs(date).locale('nl').format('MMMM YYYY')
+      const eventDate = dayjs(date)
+      const isToday = eventDate.isSame(today, 'day')
+      const month = eventDate.locale('nl').format('MMMM YYYY')
 
       if (!acc[month]) {
         acc[month] = {title: month, data: []}
       }
 
-      acc[month].data.push({date, events})
+      acc[month].data.push({date, eventDate, isToday, events})
 
       return acc
     },
     {} as Record<
       string,
       {
-        data: {date: string; events: typeof calendar}[]
+        data: {
+          date: string
+          eventDate: Dayjs
+          events: typeof calendar
+          isToday: boolean
+        }[]
         title: string
       }
     >,
