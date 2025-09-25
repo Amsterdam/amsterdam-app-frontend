@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,16 +7,20 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
-import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
+import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
+import {usePollingStationsQuery} from '@/modules/elections/service'
+import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
+import {RedirectKey} from '@/modules/redirects/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
   const {close: closeBottomSheet} = useBottomSheet()
-  const {pollingStation} = useContext(PollingStationContext)
+  const pollingStationId = useSelectedPollingStationId()
+  const {data} = usePollingStationsQuery()
+  const pollingStation = data?.find(station => station.id === pollingStationId)
   const {lat, lng} = pollingStation?.position || {}
-  const directionsUrl =
-    lat && lng ? useGetGoogleMapsDirectionsUrl({lat, lon: lng}) : undefined
+  const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
   if (!pollingStation) {
     return null
@@ -25,13 +28,14 @@ export const PollingStationDetails = () => {
 
   return (
     <Box>
-      <Column gutter="md">
+      <Column gutter="lg">
         <Row align="between">
           <Title
             level="h3"
             text={pollingStation?.name}
           />
           <IconButton
+            accessibilityLabel="Sluit stembureau details venster"
             icon={
               <Icon
                 name="close"
@@ -70,7 +74,7 @@ export const PollingStationDetails = () => {
               size="lg"
             />
           </Box>
-          <Column>
+          <Column halign="start">
             <Title
               level="h5"
               text="Adres"
@@ -84,6 +88,18 @@ export const PollingStationDetails = () => {
               variant="tertiary"
             />
           </Column>
+        </Row>
+        <PollingStationDetailsCategories
+          categories={pollingStation.categories}
+        />
+        <Row align="start">
+          <ExternalLinkButton
+            label="Meer informatie over de verkiezingen"
+            noPadding
+            redirectKey={RedirectKey.elections}
+            testID="PollingStationDetailsElectionsExternalLinkButton"
+            variant="tertiary"
+          />
         </Row>
       </Column>
     </Box>

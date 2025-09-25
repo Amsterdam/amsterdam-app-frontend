@@ -8,6 +8,7 @@ export enum ReduxKey {
   constructionWork = 'constructionWork',
   constructionWorkEditor = 'constructionWorkEditor',
   contact = 'contact',
+  elections = 'elections',
   environment = 'environment',
   internetConnection = 'internetConnection',
   menu = 'menu',

@@ -41,14 +41,21 @@ export const bottomSheetSlice = createSlice({
 export const {closeBottomSheet, openBottomSheet, toggleBottomSheet} =
   bottomSheetSlice.actions
 
-export const useBottomSheet = () => {
-  const dispatch = useDispatch()
-  const {close: closeMenu} = useMenu()
+export const useBottomSheetSelectors = () => {
   const isOpen = useSelector(state => state[ReduxKey.bottomSheet].isOpen)
   const variant = useSelector(state => state[ReduxKey.bottomSheet].variant)
 
   return {
     isOpen,
+    variant,
+  }
+}
+
+export const useBottomSheet = () => {
+  const dispatch = useDispatch()
+  const {close: closeMenu} = useMenu()
+
+  return {
     ...useMemo(
       () => ({
         close: () => dispatch(closeBottomSheet()),
@@ -65,6 +72,5 @@ export const useBottomSheet = () => {
       }),
       [closeMenu, dispatch],
     ),
-    variant,
   }
 }
