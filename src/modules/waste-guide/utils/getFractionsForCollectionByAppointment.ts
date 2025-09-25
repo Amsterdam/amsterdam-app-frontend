@@ -12,7 +12,7 @@ export const getFractionsForCollectionByAppointment = (
     const {code} = fraction
 
     if (code === FractionCode.GA) {
-      combinedFractions.push({...fraction, label: 'Grof afval'})
+      combinedFractions.push(fraction)
     } else if (code === FractionCode.Rest) {
       combinedFractions.unshift({
         ...fraction,
