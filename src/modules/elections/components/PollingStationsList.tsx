@@ -1,14 +1,13 @@
-import {useContext} from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {selectAddress} from '@/modules/address/slice'
+import {Address} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
-import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
 
 import {
   PollingStation,
@@ -18,15 +17,26 @@ import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPolli
 import {getDistance} from '@/utils/getDistance'
 
 type Props = {
+  address?: Address
+  isError: boolean
+  isLoading: boolean
+  onPress: (id: PollingStation['id']) => void
   pollingStations?: PollingStation[]
 }
 
-export const PollingStationsList = ({pollingStations}: Props) => {
-  const {onPressListItem} = useContext(PollingStationContext)
-  const address = useSelector(selectAddress)
+export const PollingStationsList = ({
+  address,
+  isLoading,
+  isError,
+  onPress,
+  pollingStations,
+}: Props) => {
+  if (isLoading) {
+    return <PleaseWait testID="PollingStationsListPleaseWait" />
+  }
 
-  if (!pollingStations || !pollingStations.length) {
-    return null
+  if (!pollingStations || !pollingStations.length || isError) {
+    return <SomethingWentWrong testID="PollingStationsListSomethingWentWrong" />
   }
 
   const pollingStationsByDistance = getSortedPollingStations(
@@ -73,7 +83,7 @@ export const PollingStationsList = ({pollingStations}: Props) => {
           return (
             <PollingStationsListItem
               distanceInMeters={distanceInMeters}
-              onPress={onPressListItem}
+              onPress={onPress}
               pollingStation={pollingStation}
             />
           )

@@ -1,24 +1,57 @@
+import {useCallback} from 'react'
 import {Tabs} from '@/components/ui/Tabs'
+import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {PollingStationsList} from '@/modules/elections/components/PollingStationsList'
 import {PollingStationsMap} from '@/modules/elections/components/PollingStationsMap'
 import {usePollingStationsQuery} from '@/modules/elections/service'
+import {setSelectedPollingStationId} from '@/modules/elections/slice'
+import {
+  PollingStation,
+  PollingStationsListBottomSheetVariant,
+} from '@/modules/elections/types'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStations = () => {
-  const {data} = usePollingStationsQuery()
+  const dispatch = useDispatch()
+  const {data, isLoading, isError} = usePollingStationsQuery()
+  const {address} = useSelectedAddress()
+  const {open} = useBottomSheet()
+
+  const onSelectPollingStation = useCallback(
+    (id: PollingStation['id']) => {
+      dispatch(setSelectedPollingStationId(id))
+      open(PollingStationsListBottomSheetVariant.pollingStation)
+    },
+    [dispatch, open],
+  )
 
   return (
     <Tabs
       grow={1}
+      initialTab={1}
       testID="PollingStationsViewTabs">
       <Tabs.Tab
         accessibilityLabel="Kaartweergave"
         label="Kaart">
-        <PollingStationsMap pollingStations={data} />
+        <PollingStationsMap
+          address={address}
+          isError={isError}
+          isLoading={isLoading}
+          onPress={onSelectPollingStation}
+          pollingStations={data}
+        />
       </Tabs.Tab>
       <Tabs.Tab
         accessibilityLabel="Lijstweergave"
         label="Lijst">
-        <PollingStationsList pollingStations={data} />
+        <PollingStationsList
+          address={address}
+          isError={isError}
+          isLoading={isLoading}
+          onPress={onSelectPollingStation}
+          pollingStations={data}
+        />
       </Tabs.Tab>
     </Tabs>
   )

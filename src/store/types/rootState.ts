@@ -7,6 +7,7 @@ import {ConstructionWorkState} from '@/modules/construction-work/slice'
 import {MessageDraftState} from '@/modules/construction-work-editor/messageDraftSlice'
 import {ConstructionWorkEditorState} from '@/modules/construction-work-editor/slice'
 import {ContactState} from '@/modules/contact/slice'
+import {ElectionsState} from '@/modules/elections/slice'
 import {OnboardingState} from '@/modules/onboarding/slice'
 import {ParkingState} from '@/modules/parking/slice'
 import {WasteGuideState} from '@/modules/waste-guide/slice'
@@ -35,6 +36,7 @@ export type RootState = {
   [ReduxKey.constructionWork]: ConstructionWorkState
   [ReduxKey.constructionWorkEditor]: ConstructionWorkEditorState
   [ReduxKey.contact]: ContactState
+  [ReduxKey.elections]: ElectionsState
   [ReduxKey.environment]: EnvironmentState
   [ReduxKey.internetConnection]: InternetConnectionState
   [ReduxKey.menu]: MenuState

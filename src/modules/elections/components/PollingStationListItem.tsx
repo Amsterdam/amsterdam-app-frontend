@@ -8,7 +8,7 @@ import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 
 type Props = {
   distanceInMeters?: number
-  onPress: (pollingStation: PollingStation) => void
+  onPress: (pollingStationId: PollingStation['id']) => void
   pollingStation: PollingStation
 }
 
@@ -23,7 +23,7 @@ export const PollingStationsListItem = ({
 
   return (
     <Pressable
-      onPress={() => onPress(pollingStation)}
+      onPress={() => onPress(pollingStation.id)}
       testID="PollingStationListItemButton">
       <Box insetVertical="sm">
         <Column>

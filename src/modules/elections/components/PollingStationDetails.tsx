@@ -1,4 +1,3 @@
-import {useContext} from 'react'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -8,14 +7,17 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
-import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
+import {usePollingStationsQuery} from '@/modules/elections/service'
+import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {RedirectKey} from '@/modules/redirects/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
-  const {pollingStation} = useContext(PollingStationContext)
   const {close: closeBottomSheet} = useBottomSheet()
+  const pollingStationId = useSelectedPollingStationId()
+  const {data} = usePollingStationsQuery()
+  const pollingStation = data?.find(station => station.id === pollingStationId)
   const {lat, lng} = pollingStation?.position || {}
   const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 

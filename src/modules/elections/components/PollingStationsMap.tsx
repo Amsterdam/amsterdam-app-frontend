@@ -1,20 +1,28 @@
-import {useContext, useState} from 'react'
+import {useState} from 'react'
 import {Platform, StyleSheet} from 'react-native'
-import MapView, {Marker} from 'react-native-maps'
-import {useAddress} from '@/modules/address/slice'
-import {PollingStationMarkerActiveIcon} from '@/modules/elections/components/icons/PollingStationMarkerActiveIcon'
-import {PollingStationMarkerIcon} from '@/modules/elections/components/icons/PollingStationMarkerIcon'
-import {PollingStationContext} from '@/modules/elections/providers/PollingStation.context'
+import MapView, {Geojson} from 'react-native-maps'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {Address} from '@/modules/address/types'
 import {PollingStation} from '@/modules/elections/types'
 
 type Props = {
+  address?: Address
+  isError: boolean
+  isLoading: boolean
+  onPress: (id: PollingStation['id']) => void
   pollingStations?: PollingStation[]
 }
 
-export const PollingStationsMap = ({pollingStations}: Props) => {
+export const PollingStationsMap = ({
+  address,
+  isLoading,
+  isError,
+  onPress,
+  pollingStations,
+}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
-  const address = useAddress()
-  const {onPressListItem, pollingStation} = useContext(PollingStationContext)
+
   const coordinates = address?.coordinates
   const styles = createStyles()
 
@@ -22,8 +30,12 @@ export const PollingStationsMap = ({pollingStations}: Props) => {
     setIsMapReady(true)
   }
 
-  if (!pollingStations || !pollingStations.length) {
-    return null
+  if (isLoading) {
+    return <PleaseWait testID="PollingStationsMapPleaseWait" />
+  }
+
+  if (!pollingStations || !pollingStations.length || isError) {
+    return <SomethingWentWrong testID="PollingStationsMapSomethingWentWrong" />
   }
 
   return (
@@ -41,21 +53,25 @@ export const PollingStationsMap = ({pollingStations}: Props) => {
       showsBuildings={false}
       showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
       style={styles.mapView}>
-      {pollingStations.map(station => (
-        <Marker
-          coordinate={{
-            latitude: station.position.lat,
-            longitude: station.position.lng,
-          }}
-          key={station.id}
-          onPress={() => onPressListItem(station)}>
-          {pollingStation?.id === station.id ? (
-            <PollingStationMarkerActiveIcon />
-          ) : (
-            <PollingStationMarkerIcon />
-          )}
-        </Marker>
-      ))}
+      <Geojson
+        geojson={{
+          type: 'FeatureCollection',
+          features: pollingStations.map(station => ({
+            type: 'Feature',
+            geometry: {
+              type: 'Point',
+              coordinates: [station.position.lng, station.position.lat],
+            },
+            properties: {
+              ...station,
+            },
+          })),
+        }}
+        onPress={e =>
+          e.feature.properties &&
+          onPress(e.feature.properties.id as PollingStation['id'])
+        }
+      />
     </MapView>
   )
 }

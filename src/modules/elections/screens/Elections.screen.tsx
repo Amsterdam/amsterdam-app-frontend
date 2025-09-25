@@ -4,7 +4,6 @@ import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {PollingStationDetails} from '@/modules/elections/components/PollingStationDetails'
 import {PollingStations} from '@/modules/elections/components/PollingStations'
-import {PollingStationProvider} from '@/modules/elections/providers/PollingStation.provider'
 import {PollingStationsListBottomSheetVariant} from '@/modules/elections/types'
 
 export const ElectionsScreen = () => {
@@ -16,18 +15,16 @@ export const ElectionsScreen = () => {
   }
 
   return (
-    <PollingStationProvider>
-      <Screen
-        bottomSheet={
-          <BottomSheet
-            testID="PollingStationBottomSheet"
-            variants={variantMap}
-          />
-        }
-        scroll={false}
-        testID="ElectionsScreen">
-        <PollingStations />
-      </Screen>
-    </PollingStationProvider>
+    <Screen
+      bottomSheet={
+        <BottomSheet
+          testID="PollingStationBottomSheet"
+          variants={variantMap}
+        />
+      }
+      scroll={false}
+      testID="ElectionsScreen">
+      <PollingStations />
+    </Screen>
   )
 }
