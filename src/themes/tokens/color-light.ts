@@ -83,6 +83,7 @@ export const lightColorTokens = {
     border: {
       default: baseColor.neutral.grey1,
       distinct: baseColor.primary.blue,
+      emphasis: baseColor.primary.black,
       onGrey: baseColor.neutral.grey2,
       cityPass: baseColor.secondary.purple,
     },
