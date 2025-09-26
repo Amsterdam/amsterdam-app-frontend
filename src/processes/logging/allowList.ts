@@ -42,6 +42,7 @@ export const allowList = {
   [ExceptionLogKey.registerDevice]: ['error'],
   [ExceptionLogKey.requestLocationPermission]: ['error'],
   [ExceptionLogKey.resetLoginsAfterInvalidAccessCode]: ['error'],
+  [ExceptionLogKey.shareFailed]: ['error', 'url'],
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [ExceptionLogKey.tokenInvalid]: ['message'],
   [ExceptionLogKey.updatePermission]: ['error', 'permission', 'request'],
