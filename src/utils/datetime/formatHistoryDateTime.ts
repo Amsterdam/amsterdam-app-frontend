@@ -1,5 +1,5 @@
 import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
-import {days} from '@/utils/datetime/days'
+import {weekDays} from '@/utils/datetime/weekDays'
 
 export const formatHistoryDateTime = (date: string | number | Dayjs) => {
   if (date === null || date === undefined || date === '') {
@@ -18,7 +18,7 @@ export const formatHistoryDateTime = (date: string | number | Dayjs) => {
   } else if (isYesterday) {
     return 'gisteren'
   } else if (isLastSixDays) {
-    return days[moment.get('day')]
+    return weekDays[moment.get('day')]
   } else {
     return moment.format('D MMMM')
   }

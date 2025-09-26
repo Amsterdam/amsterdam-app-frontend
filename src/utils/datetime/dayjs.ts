@@ -1,5 +1,6 @@
 // eslint-disable-next-line no-restricted-imports
 import dayjsFn, {ConfigType} from 'dayjs'
+import localeData from 'dayjs/plugin/localeData'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import 'dayjs/locale/nl'
@@ -11,6 +12,7 @@ const defaultTimezone = 'Europe/Amsterdam'
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
 
+dayjsFn.extend(localeData)
 dayjsFn.locale('nl')
 dayjsFn.tz.setDefault(defaultTimezone)
 

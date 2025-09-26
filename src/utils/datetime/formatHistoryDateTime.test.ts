@@ -1,6 +1,6 @@
 import {dayjs} from '@/utils/datetime/dayjs'
-import {days} from '@/utils/datetime/days'
 import {formatHistoryDateTime} from '@/utils/datetime/formatHistoryDateTime'
+import {weekDays} from '@/utils/datetime/weekDays'
 
 describe('formatHistoryDateTime', () => {
   test('Some time today', () => {
@@ -16,7 +16,7 @@ describe('formatHistoryDateTime', () => {
   test('Some time in the past 6 days', () => {
     const date = dayjs().add(-2, 'day')
 
-    expect(formatHistoryDateTime(date)).toBe(days[date.get('day')])
+    expect(formatHistoryDateTime(date)).toBe(weekDays[date.get('day')])
   })
   test('Some time 7 days ago', () => {
     const date = dayjs().add(-7, 'day')

@@ -83,6 +83,7 @@ export const lightColorTokens = {
     border: {
       default: baseColor.neutral.grey1,
       distinct: baseColor.primary.blue,
+      emphasis: baseColor.primary.black,
       onGrey: baseColor.neutral.grey2,
       cityPass: baseColor.secondary.purple,
     },
@@ -365,5 +366,15 @@ export const lightColorTokens = {
   },
   tooltip: {
     background: baseColor.neutral.grey4,
+  },
+  wasteGuide: {
+    calendar: {
+      day: {
+        inactive: {
+          background: baseColor.neutral.grey1,
+          label: baseColor.neutral.grey3,
+        },
+      },
+    },
   },
 }

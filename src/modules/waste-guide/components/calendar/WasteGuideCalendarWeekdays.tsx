@@ -1,0 +1,24 @@
+import {Phrase} from '@/components/ui/text/Phrase'
+import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
+import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
+import {capitalizeString} from '@/utils/capitalizeString'
+import {getWeekdaysStartingFrom} from '@/utils/datetime/getWeekdaysStartingFrom'
+
+const dayNames = getWeekdaysStartingFrom(1, true)
+
+export const WasteGuideCalendarWeekdays = () => (
+  <WasteGuideCalendarDaysRow>
+    {dayNames.map((name, index) => (
+      <WasteGuideCalendarDay key={index}>
+        <Phrase
+          color={
+            index === dayNames.length - 1 || index === dayNames.length - 2
+              ? 'secondary'
+              : undefined
+          }>
+          {capitalizeString(name)}
+        </Phrase>
+      </WasteGuideCalendarDay>
+    ))}
+  </WasteGuideCalendarDaysRow>
+)

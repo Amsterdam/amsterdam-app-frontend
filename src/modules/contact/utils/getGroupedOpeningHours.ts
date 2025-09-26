@@ -1,6 +1,6 @@
 import {VisitingHour} from '@/modules/contact/types'
 import {dayjs} from '@/utils/datetime/dayjs'
-import {days as dayNames} from '@/utils/datetime/days.ts'
+import {weekDays} from '@/utils/datetime/weekDays'
 
 const groupByOpeningHours = (visitingHours: VisitingHour[]) => {
   const groups: Record<string, number[]> = {}
@@ -22,7 +22,7 @@ const formatTime = (h: number, m: number) =>
   dayjs().hour(h).minute(m).format('HH.mm')
 
 const joinDays = (days: number[]) => {
-  const names = days.map(d => dayNames[d])
+  const names = days.map(d => weekDays[d])
 
   if (names.length === 1) {
     return names[0][0].toUpperCase() + names[0].slice(1)
