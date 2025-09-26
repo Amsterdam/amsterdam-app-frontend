@@ -4,7 +4,5 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 export const getNextCollectionDate = (fraction: WasteType) =>
   fraction.next_date
-    ? capitalizeString(
-        dayjs(fraction.next_date).locale('nl').format('dddd D MMMM'),
-      )
+    ? capitalizeString(dayjs(fraction.next_date).format('dddd D MMMM'))
     : ''

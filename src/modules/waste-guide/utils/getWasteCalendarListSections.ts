@@ -26,7 +26,7 @@ export const getWasteCalendarListSections = (
       const date = events[0].date
       const eventDate = dayjs(date)
       const isToday = eventDate.isSame(today, 'day')
-      const month = eventDate.locale('nl').format('MMMM YYYY')
+      const month = eventDate.format('MMMM YYYY')
 
       if (!acc[month]) {
         acc[month] = {title: month, data: []}
