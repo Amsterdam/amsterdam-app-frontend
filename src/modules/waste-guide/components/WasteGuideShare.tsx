@@ -1,0 +1,58 @@
+import {Platform, Share} from 'react-native'
+import {Pressable} from '@/components/ui/buttons/Pressable'
+import {Icon} from '@/components/ui/media/Icon'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {Address} from '@/modules/address/types'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
+
+const WASTE_GUIDE_BASE_URL = 'https://www.amsterdam.nl/afval/afvalinformatie/'
+
+export const WasteGuideShare = () => {
+  const trackException = useTrackException()
+  const {address, hasValidAddress} = useSelectedAddress()
+  const url = buildWasteGuideUrl(address)
+  const onShare = async () => {
+    try {
+      await Share.share({
+        message: url,
+        url,
+      })
+    } catch (error) {
+      trackException(ExceptionLogKey.shareFailed, 'WasteGuideShare.tsx', {
+        error,
+        url: WASTE_GUIDE_BASE_URL,
+      })
+    }
+  }
+
+  if (!hasValidAddress) {
+    return null
+  }
+
+  return (
+    <Pressable
+      onPress={onShare}
+      testID="WasteGuideShareButton">
+      <Icon
+        color="link"
+        name={Platform.OS === 'ios' ? 'shareIos' : 'shareAndroid'}
+        size="lg"
+        testID="WasteGuideShareIcon"
+      />
+    </Pressable>
+  )
+}
+
+const buildWasteGuideUrl = (address?: Address) => {
+  if (!address) {
+    return WASTE_GUIDE_BASE_URL
+  }
+
+  const addressString = `${address.addressLine1}, ${address.postcode} ${address.city}`
+  const encoded = encodeURIComponent(addressString)
+
+  return `${WASTE_GUIDE_BASE_URL}?adres=${encoded}`
+}

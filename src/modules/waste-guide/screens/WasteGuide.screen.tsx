@@ -4,6 +4,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
+import {WasteGuideShare} from '@/modules/waste-guide/components/WasteGuideShare'
 
 export const WasteGuideScreen = () => {
   const {isPortrait} = useDeviceContext()
@@ -19,6 +20,7 @@ export const WasteGuideScreen = () => {
           />
         </BottomSheet>
       }
+      headerOptions={{SideComponent: WasteGuideShare}}
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
       withRightInset={isPortrait}>
