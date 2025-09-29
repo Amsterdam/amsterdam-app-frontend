@@ -54,7 +54,7 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data
               android:scheme="https"
-              android:host="www.amsterdam.nl"
+              android:host="*.amsterdam.nl"
               android:pathPattern="/afval/afvalinformatie/.*" />
         </intent-filter>
       </activity>
