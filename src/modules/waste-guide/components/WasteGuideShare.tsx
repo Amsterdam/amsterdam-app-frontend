@@ -18,7 +18,7 @@ export const WasteGuideShare = () => {
     try {
       await Share.share({
         message: url,
-        url,
+        title: 'Afvalinformatie',
       })
     } catch (error) {
       trackException(ExceptionLogKey.shareFailed, 'WasteGuideShare.tsx', {

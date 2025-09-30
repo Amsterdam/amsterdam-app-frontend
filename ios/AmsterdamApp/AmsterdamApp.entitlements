@@ -7,6 +7,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:www.amsterdam.nl</string>
+		<string>applinks:amsterdam.nl</string>
 	</array>
 </dict>
 </plist>
