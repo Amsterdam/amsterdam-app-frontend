@@ -32,4 +32,5 @@ export enum RedirectKey {
   relocation = 'relocation',
   sail = 'sail',
   sailingAndMooring = 'sailingAndMooring',
+  waste = 'waste',
 }

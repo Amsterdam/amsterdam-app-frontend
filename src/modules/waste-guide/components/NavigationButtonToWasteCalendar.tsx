@@ -10,7 +10,8 @@ export const NavigationButtonToWasteCalendar = () => {
       emphasis="default"
       horizontallyAlign="start"
       iconSize="md"
-      inset={false}
+      insetHorizontal="no"
+      insetVertical="no"
       onPress={() => navigate(WasteGuideRouteName.wasteGuideCalendar)}
       testID="WasteGuideWasteGuideCalendarButton"
       title="Bekijk de afvalkalender"

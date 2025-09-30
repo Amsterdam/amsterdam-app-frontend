@@ -10,6 +10,7 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {Phrase, PhraseProps} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {IconSize, TestProps} from '@/components/ui/types'
+import {SpacingTokens} from '@/themes/tokens/size'
 
 type Props = {
   Icon?: ReactNode
@@ -22,7 +23,8 @@ type Props = {
   horizontallyAlign?: MainAxisAlignment
   iconName?: SvgIconName
   iconSize?: keyof typeof IconSize
-  inset?: boolean
+  insetHorizontal?: keyof SpacingTokens
+  insetVertical?: keyof SpacingTokens
   isDescriptionBelowIcon?: boolean
   onPress: () => void
   title: string
@@ -35,7 +37,8 @@ export const NavigationButton = ({
   horizontallyAlign = 'between',
   iconName,
   iconSize = 'lg',
-  inset = true,
+  insetHorizontal = 'md',
+  insetVertical = 'sm',
   isDescriptionBelowIcon = true,
   title,
   onPress,
@@ -52,8 +55,8 @@ export const NavigationButton = ({
     onPress={onPress}
     testID={testID}>
     <Box
-      insetHorizontal={inset ? 'md' : 'no'}
-      insetVertical={inset ? 'sm' : 'no'}>
+      insetHorizontal={insetHorizontal}
+      insetVertical={insetVertical}>
       <Row
         align={horizontallyAlign}
         gutter="md">

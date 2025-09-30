@@ -29,7 +29,8 @@ export const ParkingActiveSessionNavigationButton = ({
       }
       iconName="parkingCar"
       iconSize="lg"
-      inset={false}
+      insetHorizontal="no"
+      insetVertical="no"
       onPress={() => {
         navigate(ParkingRouteName.parkingSession, {parkingSession})
       }}
