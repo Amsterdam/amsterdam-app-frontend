@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Column} from '@/components/ui/layout/Column'
+import {Box} from '@/components/ui/containers/Box'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
@@ -19,10 +19,10 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const weeks = getCalendarWeeks()
 
   return (
-    <ScrollView>
-      <Column gutter="md">
-        <WasteGuideCalendarWeekdays />
-        <View>
+    <View>
+      <WasteGuideCalendarWeekdays />
+      <ScrollView>
+        <Box insetTop="md">
           {weeks.map((week, weekIdx) => (
             <View key={weekIdx}>
               <WasteGuideCalendarMonthTitle
@@ -35,10 +35,14 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                 {week.days.map((day, dayIdx) => {
                   const isToday = day.isSame(dayjs(), 'day')
                   const isBeforeToday = day.isBefore(dayjs(), 'day')
+                  const isAfterPeriod = day
+                    .add(1, 'day')
+                    .isAfter(dayjs().add(6, 'week'), 'day')
                   const isWeekendDay = day.day() === 6 || day.day() === 0
 
                   return (
                     <WasteGuideCalendarDay
+                      isAfter={isAfterPeriod}
                       isBeforeToday={isBeforeToday}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
                       isToday={isToday}
@@ -58,8 +62,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
               </WasteGuideCalendarDaysRow>
             </View>
           ))}
-        </View>
-      </Column>
-    </ScrollView>
+        </Box>
+      </ScrollView>
+    </View>
   )
 }
