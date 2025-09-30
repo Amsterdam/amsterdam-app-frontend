@@ -30,7 +30,8 @@ export const Fractions = ({fractions, isCollectionByAppointment}: Props) => {
             }
             Icon={<WasteFractionIcon fractionCode={code} />}
             iconSize="ml"
-            inset={false}
+            insetHorizontal="no"
+            insetVertical="no"
             isDescriptionBelowIcon={false}
             key={code}
             onPress={() => {

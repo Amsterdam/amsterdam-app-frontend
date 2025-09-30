@@ -6,7 +6,6 @@ import {useSelector} from '@/hooks/redux/useSelector'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {AddressCity} from '@/modules/address/types'
 import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
-import {WasteGuideFigure} from '@/modules/waste-guide/components/WasteGuideFigure'
 import {WasteGuideFullScreenError} from '@/modules/waste-guide/components/WasteGuideFullScreenError'
 import {WasteGuideNoAddress} from '@/modules/waste-guide/components/WasteGuideNoAddress'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
@@ -64,7 +63,6 @@ export const WasteGuide = () => {
           </Column>
         </Box>
       </HorizontalSafeArea>
-      <WasteGuideFigure hasContent={hasContent} />
     </Column>
   )
 }

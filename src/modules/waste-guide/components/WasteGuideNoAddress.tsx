@@ -2,10 +2,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
-import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
 import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import HouseholdWasteToContainerImage from '@/modules/waste-guide/assets/images/household-waste-to-container.svg'
 
 type Props = {
   isFetchingAddress?: boolean
@@ -36,8 +34,5 @@ export const WasteGuideNoAddress = ({
         </Column>
       </Box>
     </HorizontalSafeArea>
-    <FigureWithFacadesBackground testID="WasteGuideRequestLocationBackground">
-      <HouseholdWasteToContainerImage />
-    </FigureWithFacadesBackground>
   </Column>
 )
