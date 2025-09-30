@@ -14,5 +14,5 @@ export const getOpeningTimes = (openingTimes: number[][] | undefined) => {
   const startDate = dayjsFromUnix(start)
   const endDate = dayjsFromUnix(end)
 
-  return `${startDate.format('HH.mm')} tot ${endDate.format('HH.mm')} uur, ${endDate.format('DD MMMM')}`
+  return `${startDate.format('HH.mm')} tot ${endDate.format('HH.mm')} uur`
 }
