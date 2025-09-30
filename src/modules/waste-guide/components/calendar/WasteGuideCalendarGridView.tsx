@@ -35,10 +35,14 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                 {week.days.map((day, dayIdx) => {
                   const isToday = day.isSame(dayjs(), 'day')
                   const isBeforeToday = day.isBefore(dayjs(), 'day')
+                  const isAfterPeriod = day
+                    .add(1, 'day')
+                    .isAfter(dayjs().add(6, 'week'), 'day')
                   const isWeekendDay = day.day() === 6 || day.day() === 0
 
                   return (
                     <WasteGuideCalendarDay
+                      isAfter={isAfterPeriod}
                       isBeforeToday={isBeforeToday}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
                       isToday={isToday}

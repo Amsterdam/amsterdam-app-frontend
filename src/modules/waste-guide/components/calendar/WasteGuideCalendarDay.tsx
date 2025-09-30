@@ -5,6 +5,7 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   children: ReactNode
+  isAfter?: boolean
   isBeforeToday?: boolean
   isFirstWeekOfMonth?: boolean
   isToday?: boolean
@@ -13,6 +14,7 @@ type Props = {
 export const WasteGuideCalendarDay = ({
   children,
   isBeforeToday,
+  isAfter,
   isToday,
   isFirstWeekOfMonth,
 }: Props) => {
@@ -23,7 +25,7 @@ export const WasteGuideCalendarDay = ({
       accessible={!isBeforeToday}
       style={[
         styles.cell,
-        isBeforeToday && styles.dayPast,
+        (isBeforeToday || isAfter) && styles.dayInvisible,
         isToday && styles.cellToday,
         isFirstWeekOfMonth && isToday && styles.cellTodayCurrentWeek,
       ]}>
@@ -47,7 +49,7 @@ const createStyles = ({border, color, size}: Theme) =>
     cellTodayCurrentWeek: {
       borderTopWidth: border.width.md,
     },
-    dayPast: {
+    dayInvisible: {
       opacity: 0,
     },
   })
