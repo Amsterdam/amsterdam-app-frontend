@@ -9,7 +9,9 @@ const dayNames = getWeekdaysStartingFrom(1, true)
 export const WasteGuideCalendarWeekdays = () => (
   <WasteGuideCalendarDaysRow>
     {dayNames.map((name, index) => (
-      <WasteGuideCalendarDay key={index}>
+      <WasteGuideCalendarDay
+        isWeekDayLabel
+        key={index}>
         <Phrase
           color={
             index === dayNames.length - 1 || index === dayNames.length - 2

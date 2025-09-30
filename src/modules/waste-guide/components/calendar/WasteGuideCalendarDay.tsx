@@ -1,7 +1,7 @@
 import {ReactNode} from 'react'
 import {StyleSheet, View} from 'react-native'
 import {Theme} from '@/themes/themes'
-import {useThemable} from '@/themes/useThemable'
+import {useTheme} from '@/themes/useTheme'
 
 type Props = {
   children: ReactNode
@@ -9,6 +9,7 @@ type Props = {
   isBeforeToday?: boolean
   isFirstWeekOfMonth?: boolean
   isToday?: boolean
+  isWeekDayLabel?: boolean
 }
 
 export const WasteGuideCalendarDay = ({
@@ -17,8 +18,10 @@ export const WasteGuideCalendarDay = ({
   isAfter,
   isToday,
   isFirstWeekOfMonth,
+  isWeekDayLabel,
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const theme = useTheme()
+  const styles = createStyles(theme, isWeekDayLabel)
 
   return (
     <View
@@ -34,12 +37,12 @@ export const WasteGuideCalendarDay = ({
   )
 }
 
-const createStyles = ({border, color, size}: Theme) =>
+const createStyles = ({border, color, size}: Theme, isWeekDayLabel?: boolean) =>
   StyleSheet.create({
     cell: {
       alignItems: 'center',
       height: '100%',
-      paddingBottom: size.spacing.lg,
+      paddingBottom: size.spacing[isWeekDayLabel ? 'md' : 'lg'],
       width: `${100 / 7}%`,
     },
     cellToday: {
