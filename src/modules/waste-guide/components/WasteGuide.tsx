@@ -45,7 +45,7 @@ export const WasteGuide = () => {
 
   const {city} = address
   const cityIsWeesp = city === AddressCity.Weesp
-  const hasContent = Object.keys(wasteGuide).length > 0 || cityIsWeesp
+  const hasContent = wasteGuide.waste_types.length > 0 || cityIsWeesp
 
   return (
     <Column
