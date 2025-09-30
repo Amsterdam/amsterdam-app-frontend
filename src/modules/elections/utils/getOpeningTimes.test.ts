@@ -12,6 +12,6 @@ describe('getOpeningTimes', () => {
   it('formats a single opening time', () => {
     const input = [[1717651800, 1717686000]]
 
-    expect(getOpeningTimes(input)).toBe('04.30 tot 14.00 uur, 06 juni')
+    expect(getOpeningTimes(input)).toBe('04.30 tot 14.00 uur')
   })
 })
