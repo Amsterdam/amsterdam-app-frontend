@@ -47,23 +47,24 @@ export const PollingStationsList = ({
   return (
     <Box
       insetBottom="md"
-      insetHorizontal="md"
-      insetTop="lg">
+      insetLeft="md">
       <FlatList
         data={pollingStationsByDistance}
         ListHeaderComponent={
           <Column gutter="sm">
-            {!address && (
-              <Title
-                level="h3"
-                shrink={0}
-                text="Voer een adres in en zie locaties in de buurt"
+            <Box insetTop="lg">
+              {!address && (
+                <Title
+                  level="h3"
+                  shrink={0}
+                  text="Voer een adres in en zie locaties in de buurt"
+                />
+              )}
+              <ShareLocationTopTaskButton
+                newVariant={PollingStationsListBottomSheetVariant.address}
+                testID="PollingStationsListRequestLocationButton"
               />
-            )}
-            <ShareLocationTopTaskButton
-              newVariant={PollingStationsListBottomSheetVariant.address}
-              testID="PollingStationsListRequestLocationButton"
-            />
+            </Box>
             <Phrase color="secondary">{`Resultaten${address ? ' gesorteerd op afstand' : ''}:`}</Phrase>
           </Column>
         }
