@@ -1,16 +1,18 @@
 import {WasteType} from '@/modules/waste-guide/types'
 import {capitalizeString} from '@/utils/capitalizeString'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {isToday} from '@/utils/datetime/isToday'
+import {isTomorrow} from '@/utils/datetime/isTomorrow'
 
 export const getNextCollectionDate = (fraction: WasteType) => {
   const nextDate = dayjs(fraction.next_date)
 
   const getDateToDisplay = () => {
-    if ((dayjs().isSame(nextDate), 'day')) {
+    if (isToday(fraction.next_date)) {
       return 'vandaag'
     }
 
-    if (dayjs().add(1, 'day').isSame(nextDate, 'day')) {
+    if (isTomorrow(nextDate)) {
       return 'morgen'
     }
 
