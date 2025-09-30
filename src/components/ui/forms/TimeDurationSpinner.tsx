@@ -24,8 +24,8 @@ type Props = {
   onChange: (hours: number, minutes: number) => void
 }
 
-const {width} = Dimensions.get('window')
-const CIRCLE_SIZE = width * 0.7
+const {width, height} = Dimensions.get('window')
+const CIRCLE_SIZE = Math.min(Math.min(height, width) * 0.7, 350)
 
 const numberOfLines = 16
 
