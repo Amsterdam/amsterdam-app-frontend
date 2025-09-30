@@ -11,28 +11,44 @@ type Props = {
 }
 
 const mapCategoryToLabel: Record<ElectionsCategory, string> = {
-  [ElectionsCategory.ptWheelchair]: 'Rolstoeltoegankelijk',
   [ElectionsCategory.disabledParking]: 'Gehandicaptenparkeerplaats binnen 100m',
+  [ElectionsCategory.hearingImpaired]:
+    'Voorzieningen voor doven/slechthorenden',
+  [ElectionsCategory.inAccessible]: 'Niet rolstoeltoegankelijk',
+  [ElectionsCategory.ptWheelchair]:
+    'Rolstoeltoegankelijke OV-halte binnen 100m',
+  [ElectionsCategory.pysicalLimitation]: 'Rolstoeltoegankelijk',
   [ElectionsCategory.visionImpaired]:
     'Voorzieningen voor blinden/slechtzienden',
-  [ElectionsCategory.pysicalLimitation]: 'Fysieke beperking',
 }
 
 const mapCategoryToIconName: Record<ElectionsCategory, SvgIconName> = {
-  [ElectionsCategory.ptWheelchair]: 'wheelchair',
   [ElectionsCategory.disabledParking]: 'disabledParking',
-  [ElectionsCategory.visionImpaired]: 'visionImpaired',
+  [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
+  [ElectionsCategory.inAccessible]: 'wheelchairDisabled',
+  [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
   [ElectionsCategory.pysicalLimitation]: 'wheelchair',
+  [ElectionsCategory.visionImpaired]: 'visionImpaired',
 }
 
-export const PollingStationDetailsCategories = ({categories}: Props) =>
-  categories?.length ? (
-    <Column gutter="md">
-      <Title
-        level="h5"
-        text="Toegankelijkheid"
-      />
-      {categories?.map(category => (
+export const PollingStationDetailsCategories = ({categories}: Props) => (
+  <Column gutter="md">
+    <Title
+      level="h5"
+      text="Toegankelijkheid"
+    />
+    {!categories?.some(c => c === ElectionsCategory.pysicalLimitation) ? (
+      <Row
+        gutter="md"
+        key="categoryInaccessible">
+        <Icon
+          name={mapCategoryToIconName.inaccessible}
+          size="xl"
+        />
+        <Paragraph>{mapCategoryToLabel.inaccessible}</Paragraph>
+      </Row>
+    ) : (
+      categories?.map(category => (
         <Row
           gutter="md"
           key={category}>
@@ -42,6 +58,7 @@ export const PollingStationDetailsCategories = ({categories}: Props) =>
           />
           <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
         </Row>
-      ))}
-    </Column>
-  ) : null
+      ))
+    )}
+  </Column>
+)
