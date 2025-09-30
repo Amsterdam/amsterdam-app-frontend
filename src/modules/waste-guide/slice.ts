@@ -12,7 +12,7 @@ export type WasteGuideState = {
 }
 
 const initialState: WasteGuideState = {
-  calendarView: 'list',
+  calendarView: 'calendar',
   contracts: undefined,
 }
 

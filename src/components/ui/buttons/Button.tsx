@@ -102,7 +102,7 @@ export const Button = ({
       testID={testID}
       {...pressableProps}>
       <Row
-        gutter={isExternalLink ? 'md' : 'sm'}
+        gutter="sm"
         reverse={isExternalLink}
         valign={variant === 'tertiary' ? 'start' : 'center'}>
         {!!iconName && (
