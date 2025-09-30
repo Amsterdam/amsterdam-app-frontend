@@ -27,6 +27,8 @@ export type BoxProps = {
    * The amount of inner spacing at the left and right.
    */
   insetHorizontal?: keyof SpacingTokens
+  insetLeft?: keyof SpacingTokens
+  insetRight?: keyof SpacingTokens
   /**
    * The amount of inner spacing at the start of ltr
    */
@@ -60,6 +62,8 @@ export const Box = memo(
     grow,
     inset = 'md',
     insetHorizontal,
+    insetLeft,
+    insetRight,
     insetVertical,
     insetTop,
     insetBottom,
@@ -75,6 +79,8 @@ export const Box = memo(
         distinct,
         inset,
         insetHorizontal,
+        insetLeft,
+        insetRight,
         insetTop,
         insetVertical,
         insetBottom,
@@ -100,6 +106,8 @@ const createStyles =
     borderWidth,
     inset,
     insetHorizontal,
+    insetLeft,
+    insetRight,
     insetTop,
     insetVertical,
     insetBottom,
@@ -117,12 +125,18 @@ const createStyles =
         padding:
           inset &&
           !insetHorizontal &&
+          !insetLeft &&
+          !insetRight &&
           !insetTop &&
           !insetBottom &&
           !insetVertical
             ? size.spacing[inset]
             : 0,
-        paddingHorizontal: insetHorizontal && size.spacing[insetHorizontal],
+        paddingLeft: insetLeft ? size.spacing[insetLeft] : undefined,
+        paddingRight: insetRight ? size.spacing[insetRight] : undefined,
+        paddingHorizontal: insetHorizontal
+          ? size.spacing[insetHorizontal]
+          : undefined,
         paddingTop: insetTop && size.spacing[insetTop],
         paddingBottom: insetBottom && size.spacing[insetBottom],
         paddingVertical: insetVertical && size.spacing[insetVertical],

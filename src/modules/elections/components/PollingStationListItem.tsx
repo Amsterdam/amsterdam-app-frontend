@@ -35,28 +35,30 @@ export const PollingStationsListItem = ({
   const openingTimes = getOpeningTimes(pollingStation.openingTimes)
 
   return (
-    <Pressable
-      accessibilityLabel={`${pollingStation.name}, ${openingTimes}, ${distance ? 'Afstand: ' + distance : ''}`}
-      onPress={() => onPress(pollingStation.id)}
-      testID="PollingStationListItemButton">
-      <Box insetVertical="sm">
-        <Column>
-          <Title
-            accessible={false}
-            color="link"
-            level="h5"
-            text={pollingStation.name}
-          />
-          <Paragraph accessible={false}>{openingTimes}</Paragraph>
-          {!!distanceInMeters && (
-            <Paragraph
+    <Box insetRight="md">
+      <Pressable
+        accessibilityLabel={`${pollingStation.name}, ${openingTimes}, ${distance ? 'Afstand: ' + distance : ''}`}
+        onPress={() => onPress(pollingStation.id)}
+        testID="PollingStationListItemButton">
+        <Box insetVertical="sm">
+          <Column>
+            <Title
               accessible={false}
-              color="secondary">
-              {distance}
-            </Paragraph>
-          )}
-        </Column>
-      </Box>
-    </Pressable>
+              color="link"
+              level="h5"
+              text={pollingStation.name}
+            />
+            <Paragraph accessible={false}>{openingTimes}</Paragraph>
+            {!!distanceInMeters && (
+              <Paragraph
+                accessible={false}
+                color="secondary">
+                {distance}
+              </Paragraph>
+            )}
+          </Column>
+        </Box>
+      </Pressable>
+    </Box>
   )
 }
