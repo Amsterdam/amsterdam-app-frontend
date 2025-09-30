@@ -29,7 +29,6 @@ export const PollingStations = () => {
   return (
     <Tabs
       grow={1}
-      initialTab={1}
       testID="PollingStationsViewTabs">
       <Tabs.Tab
         accessibilityLabel="Kaartweergave"
