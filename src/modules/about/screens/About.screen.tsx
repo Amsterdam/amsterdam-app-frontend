@@ -26,30 +26,10 @@ export const AboutScreen = ({navigation}: Props) => (
         <Column
           flex={1}
           gutter="md">
-          <>
-            <Title
-              testID="AboutAmsterdamAppTitle"
-              text="Amsterdam App"
-            />
-            <Column>
-              <CopyButton
-                insetHorizontal="no"
-                label={`Versie ${VERSION_NUMBER_WITH_BUILD}`}
-                testID="AboutVersionNumberText"
-                textToCopy={VERSION_NUMBER_WITH_BUILD}
-                variant="secondary"
-              />
-              <CopyButton
-                ellipsizeMode="tail"
-                insetHorizontal="no"
-                label={`Installatie-id ${SHA256EncryptedDeviceId}`}
-                numberOfLines={1}
-                testID="AboutInstallationIdText"
-                textToCopy={SHA256EncryptedDeviceId}
-                variant="secondary"
-              />
-            </Column>
-          </>
+          <Title
+            testID="AboutAmsterdamAppTitle"
+            text="Amsterdam App"
+          />
           <Column gutter="sm">
             <NavigationButton
               accessibilityRole="button"
@@ -90,6 +70,25 @@ export const AboutScreen = ({navigation}: Props) => (
               onPress={() => navigation.navigate(AboutRouteName.feedback)}
               testID="AboutFeedbackButton"
               title="Uw mening"
+            />
+          </Column>
+
+          <Column>
+            <CopyButton
+              insetHorizontal="no"
+              label={`Versie ${VERSION_NUMBER_WITH_BUILD}`}
+              testID="AboutVersionNumberText"
+              textToCopy={VERSION_NUMBER_WITH_BUILD}
+              variant="secondary"
+            />
+            <CopyButton
+              ellipsizeMode="tail"
+              insetHorizontal="no"
+              label={`Installatie-id ${SHA256EncryptedDeviceId}`}
+              numberOfLines={1}
+              testID="AboutInstallationIdText"
+              textToCopy={SHA256EncryptedDeviceId}
+              variant="secondary"
             />
           </Column>
         </Column>
