@@ -1,5 +1,5 @@
 import {View} from 'react-native'
-import {Column} from '@/components/ui/layout/Column'
+import {Box} from '@/components/ui/containers/Box'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
@@ -19,10 +19,10 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const weeks = getCalendarWeeks()
 
   return (
-    <ScrollView>
-      <Column gutter="md">
-        <WasteGuideCalendarWeekdays />
-        <View>
+    <View>
+      <WasteGuideCalendarWeekdays />
+      <ScrollView>
+        <Box insetTop="md">
           {weeks.map((week, weekIdx) => (
             <View key={weekIdx}>
               <WasteGuideCalendarMonthTitle
@@ -62,8 +62,8 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
               </WasteGuideCalendarDaysRow>
             </View>
           ))}
-        </View>
-      </Column>
-    </ScrollView>
+        </Box>
+      </ScrollView>
+    </View>
   )
 }
