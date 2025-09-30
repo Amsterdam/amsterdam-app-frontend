@@ -1,5 +1,5 @@
 import {Platform, Share} from 'react-native'
-import {Pressable} from '@/components/ui/buttons/Pressable'
+import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {Address} from '@/modules/address/types'
@@ -33,16 +33,18 @@ export const WasteGuideShare = () => {
   }
 
   return (
-    <Pressable
+    <IconButton
+      icon={
+        <Icon
+          color="link"
+          name={Platform.OS === 'ios' ? 'shareIos' : 'shareAndroid'}
+          size="lg"
+          testID="WasteGuideShareIcon"
+        />
+      }
       onPress={onShare}
-      testID="WasteGuideShareButton">
-      <Icon
-        color="link"
-        name={Platform.OS === 'ios' ? 'shareIos' : 'shareAndroid'}
-        size="lg"
-        testID="WasteGuideShareIcon"
-      />
-    </Pressable>
+      testID="WasteGuideShareButton"
+    />
   )
 }
 
