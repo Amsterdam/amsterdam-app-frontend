@@ -1,4 +1,4 @@
-import {Geojson} from 'react-native-maps'
+import {Marker} from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -35,25 +35,17 @@ export const PollingStationsMap = ({
     <Map
       controls={[ControlVariant.location]}
       coordinates={coordinates}>
-      <Geojson
-        geojson={{
-          type: 'FeatureCollection',
-          features: pollingStations.map(station => ({
-            type: 'Feature',
-            geometry: {
-              type: 'Point',
-              coordinates: [station.position.lng, station.position.lat],
-            },
-            properties: {
-              ...station,
-            },
-          })),
-        }}
-        onPress={e =>
-          e.feature.properties &&
-          onPress(e.feature.properties.id as PollingStation['id'])
-        }
-      />
+      {pollingStations.map(station => (
+        <Marker
+          coordinate={{
+            latitude: station.position.lat,
+            longitude: station.position.lng,
+          }}
+          key={station.id}
+          onPress={() => onPress(station.id)}
+          onSelect={() => onPress(station.id)}
+        />
+      ))}
     </Map>
   )
 }

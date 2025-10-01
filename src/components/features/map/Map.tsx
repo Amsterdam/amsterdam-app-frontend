@@ -1,6 +1,6 @@
 import {ReactNode, useState} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
-import MapView from 'react-native-maps'
+import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
@@ -13,9 +13,14 @@ type Props = {
     lat: number
     lon: number
   }
-}
+} & MapViewProps
 
-export const Map = ({children, controls, coordinates}: Props) => {
+export const Map = ({
+  children,
+  controls,
+  coordinates,
+  ...mapViewProps
+}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
   const styles = useThemable(createStyles)
   const handleOnMapReady = () => {
@@ -42,7 +47,8 @@ export const Map = ({children, controls, coordinates}: Props) => {
         provider={Platform.OS === 'android' ? 'google' : undefined}
         showsBuildings={false}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
-        style={styles.mapView}>
+        style={styles.mapView}
+        {...mapViewProps}>
         {children}
       </MapView>
     </View>
