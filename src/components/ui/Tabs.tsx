@@ -33,6 +33,13 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
   const [activeTab, setActiveTab] = useState(0)
 
   const styles = useThemable(createStyles)
+  const childrenArray = React.Children.toArray(children).filter(child =>
+    isChildElementTab(child),
+  )
+
+  if (childrenArray.length < activeTab) {
+    setActiveTab(0)
+  }
 
   return (
     <Column
@@ -40,26 +47,21 @@ export const Tabs = ({children, grow = 0, testID}: TabsProps) => {
       halign="stretch">
       <View>
         <Row>
-          {React.Children.map(children, (child, index) => {
-            if (isChildElementTab(child)) {
-              return (
-                <PressableBase
-                  onPress={() => setActiveTab(index)}
-                  style={[styles.tab, activeTab === index && styles.tabActive]}
-                  testID={`${testID}Tab${child.props.label}Button`}>
-                  <Phrase
-                    accessibilityLabel={child.props.accessibilityLabel}
-                    color="link"
-                    emphasis={activeTab === index ? 'strong' : 'default'}
-                    textAlign="center">
-                    {child.props.label}
-                  </Phrase>
-                </PressableBase>
-              )
-            }
-
-            return null
-          })}
+          {childrenArray.map((child, index) => (
+            <PressableBase
+              key={child.props.label}
+              onPress={() => setActiveTab(index)}
+              style={[styles.tab, activeTab === index && styles.tabActive]}
+              testID={`${testID}Tab${child.props.label}Button`}>
+              <Phrase
+                accessibilityLabel={child.props.accessibilityLabel}
+                color="link"
+                emphasis={activeTab === index ? 'strong' : 'default'}
+                textAlign="center">
+                {child.props.label}
+              </Phrase>
+            </PressableBase>
+          ))}
         </Row>
       </View>
       {React.Children.toArray(children)[activeTab]}

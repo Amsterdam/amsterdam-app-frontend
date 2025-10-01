@@ -3,7 +3,7 @@ import {useController} from 'react-hook-form'
 import {StyleSheet} from 'react-native'
 import DatePicker from 'react-native-date-picker'
 import {RadioGroup} from '@/components/ui/forms/RadioGroup'
-import {Column} from '@/components/ui/layout/Column'
+import {Track} from '@/components/ui/layout/Track'
 import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
 import {roundDownToMinutes} from '@/utils/datetime/roundDownToMinutes'
@@ -24,7 +24,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
   const justNow = useMemo(roundDownToMinutes, [])
 
   return (
-    <Column>
+    <Track align="around">
       <RadioGroup
         onChange={value => {
           let newStartTime = startTime
@@ -69,7 +69,7 @@ export const ParkingSessionTodayTomorrowStartTime = () => {
         style={styles.centerSelf}
         theme="light"
       />
-    </Column>
+    </Track>
   )
 }
 
