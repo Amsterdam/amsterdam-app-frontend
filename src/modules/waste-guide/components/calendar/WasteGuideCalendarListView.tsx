@@ -18,47 +18,55 @@ export const WasteGuideCalendarListView = ({calendar}: Props) => {
   const {sectionList, eventsToday} = getWasteCalendarListSections(calendar)
 
   return (
-    <>
-      {eventsToday.length === 0 && (
-        <Box insetBottom="md">
-          <Phrase>Er wordt vandaag geen afval opgehaald.</Phrase>
+    <SectionList
+      keyExtractor={item => item.date}
+      ListHeaderComponent={
+        eventsToday.length === 0 ? (
+          <Box
+            insetBottom="md"
+            insetHorizontal="md">
+            <Phrase>Er wordt vandaag geen afval opgehaald.</Phrase>
+          </Box>
+        ) : null
+      }
+      renderItem={({item}) => (
+        <Box
+          insetBottom="md"
+          insetHorizontal="md">
+          <Column gutter="md">
+            <Phrase emphasis="strong">
+              {capitalizeString(item.eventDate.format('dddd D MMMM'))}
+              {item.isToday ? ' (vandaag)' : ''}
+            </Phrase>
+            <Column gutter="lg">
+              {item.events.map(event => (
+                <Row
+                  gutter="sm"
+                  key={event.code}
+                  valign="center">
+                  <WasteFractionIcon fractionCode={event.code} />
+                  <Phrase>{event.label}</Phrase>
+                </Row>
+              ))}
+            </Column>
+          </Column>
         </Box>
       )}
-      <SectionList
-        keyExtractor={item => item.date}
-        renderItem={({item}) => (
-          <Box insetBottom="md">
-            <Column gutter="md">
-              <Phrase emphasis="strong">
-                {capitalizeString(item.eventDate.format('dddd D MMMM'))}
-                {item.isToday ? ' (vandaag)' : ''}
-              </Phrase>
-              <Column gutter="lg">
-                {item.events.map(event => (
-                  <Row
-                    gutter="sm"
-                    key={event.code}
-                    valign="center">
-                    <WasteFractionIcon fractionCode={event.code} />
-                    <Phrase>{event.label}</Phrase>
-                  </Row>
-                ))}
-              </Column>
-            </Column>
-          </Box>
-        )}
-        renderSectionHeader={({section: {title}}) => (
+      renderSectionHeader={({section: {title}}) => (
+        <Box
+          insetHorizontal="md"
+          insetVertical="no">
           <Title
             accessibilityLabel={`Ophaaldagen voor ${title}`}
             level="h2"
             text={title.charAt(0).toUpperCase() + title.slice(1)}
           />
-        )}
-        sections={sectionList}
-        SectionSeparatorComponent={SectionSeparatorComponent}
-        stickySectionHeadersEnabled={false}
-      />
-    </>
+        </Box>
+      )}
+      sections={sectionList}
+      SectionSeparatorComponent={SectionSeparatorComponent}
+      stickySectionHeadersEnabled={false}
+    />
   )
 }
 

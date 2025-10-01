@@ -19,7 +19,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const weeks = getCalendarWeeks()
 
   return (
-    <View>
+    <Box>
       <WasteGuideCalendarWeekdays />
       <ScrollView>
         <Box insetTop="md">
@@ -64,6 +64,6 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
           ))}
         </Box>
       </ScrollView>
-    </View>
+    </Box>
   )
 }
