@@ -15,6 +15,7 @@ export const WasteGuideCalendarWeekdays = () => (
         isWeekDayLabel
         key={index}>
         <Phrase
+          accessible={false}
           color={
             index === dayNames.length - 1 || index === dayNames.length - 2
               ? 'secondary'

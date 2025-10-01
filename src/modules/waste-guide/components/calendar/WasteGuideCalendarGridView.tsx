@@ -58,6 +58,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                       isToday={dayIsToday}
                       key={dayIdx}>
                       <Phrase
+                        accessible={false}
                         color={isWeekendDay ? 'secondary' : undefined}
                         emphasis={dayIsToday ? 'strong' : undefined}>
                         {day.date()}
