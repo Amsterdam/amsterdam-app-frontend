@@ -7,7 +7,7 @@ export const WasteGuideHeaderSideComponent = () => {
 
   return (
     <IconButton
-      accessibilityLabel={`Toon ophaaldagen als ${calendarView === 'list' ? 'lijst' : 'kalender'}`}
+      accessibilityLabel={`Toon ophaaldagen als ${calendarView !== 'list' ? 'lijst' : 'kalender'}`}
       icon={
         <Icon
           color="link"

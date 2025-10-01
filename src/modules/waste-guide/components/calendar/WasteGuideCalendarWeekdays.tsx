@@ -5,11 +5,13 @@ import {capitalizeString} from '@/utils/capitalizeString'
 import {getWeekdaysStartingFrom} from '@/utils/datetime/getWeekdaysStartingFrom'
 
 const dayNames = getWeekdaysStartingFrom(1, true)
+const dayNamesLong = getWeekdaysStartingFrom(1, false)
 
 export const WasteGuideCalendarWeekdays = () => (
   <WasteGuideCalendarDaysRow>
     {dayNames.map((name, index) => (
       <WasteGuideCalendarDay
+        accessibilityLabel={dayNamesLong[index]}
         isWeekDayLabel
         key={index}>
         <Phrase
