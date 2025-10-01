@@ -237,6 +237,7 @@ const ARenderer: CustomMixedRenderer = props => {
 
   return (
     <InlineLink
+      external
       onPress={() => openUrl(href)}
       testID="HtmlRendererAInlineLink">
       <TNodeChildrenRenderer {...props} />
