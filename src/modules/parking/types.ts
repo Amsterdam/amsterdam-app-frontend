@@ -18,6 +18,7 @@ export enum ParkingEndpointName {
   permitZones = 'permitZones',
   permits = 'permits',
   removeLicensePlate = 'removeLicensePlate',
+  removeVisitorAccount = 'removeVisitorAccount',
   sessionReceipt = 'sessionReceipt',
   startSession = 'startSession',
   visitorParkingSessions = 'visitorParkingSessions',
@@ -75,10 +76,16 @@ export type ParkingLoginEndpointRequest = {
   report_code: string
 }
 
+export enum ParkingApiVersion {
+  v1 = 1,
+  v2 = 2,
+}
+
 export type ParkingLoginEndpointResponse = {
   access_token: string
   access_token_expiration: string
   scope: ParkingPermitScope
+  version: ParkingApiVersion
 }
 
 // License-plate

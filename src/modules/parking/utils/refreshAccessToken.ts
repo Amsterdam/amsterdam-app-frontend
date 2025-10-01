@@ -40,7 +40,8 @@ export const refreshAccessToken = (
     )
       .unwrap()
       .then(
-        ({access_token, access_token_expiration}) => {
+        ({access_token, access_token_expiration, version}) => {
+          dispatch(parkingSlice.actions.setCurrentApiVersion(version))
           dispatch(
             parkingSlice.actions.setAccessToken({
               accessToken: access_token,

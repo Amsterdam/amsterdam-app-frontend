@@ -1,6 +1,10 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
-import type {ParkingAccount, ParkingAccountLogin} from '@/modules/parking/types'
+import type {
+  ParkingAccount,
+  ParkingAccountLogin,
+  ParkingApiVersion,
+} from '@/modules/parking/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -14,6 +18,7 @@ export type ParkingState = {
   >
   accounts: Record<string, ParkingAccount>
   currentAccount?: string
+  currentApiVersion?: ParkingApiVersion
   currentPermitReportCode?: string
   deeplinkAccount?: ParkingAccountLogin
   isLoggingIn: boolean
@@ -34,6 +39,7 @@ export type ParkingState = {
 const initialState: ParkingState = {
   accessTokens: {},
   accounts: {},
+  currentApiVersion: undefined,
   currentPermitReportCode: undefined,
   deeplinkAccount: undefined,
   isLoggingIn: false,
@@ -75,6 +81,12 @@ export const parkingSlice = createSlice({
         accessToken: payload.accessToken,
         accessTokenExpiration: payload.accessTokenExpiration,
       }
+    },
+    setCurrentApiVersion: (
+      state,
+      {payload}: PayloadAction<ParkingApiVersion | undefined>,
+    ) => {
+      state.currentApiVersion = payload
     },
     setCurrentPermitReportCode: (
       state,
@@ -154,6 +166,7 @@ export const parkingSlice = createSlice({
 })
 
 export const {
+  setCurrentApiVersion,
   setCurrentPermitReportCode,
   setCurrentAccountByPermitReportCode,
   setDeeplinkAccount,
@@ -178,6 +191,9 @@ export const selectAccessTokenExpiration = (state: RootState) =>
         state[ReduxKey.parking].currentAccount
       ]?.accessTokenExpiration
     : undefined
+
+export const selectCurrentApiVersion = (state: RootState) =>
+  state[ReduxKey.parking].currentApiVersion
 
 export const selectCurrentPermitReportCode = (state: RootState) =>
   state[ReduxKey.parking].currentPermitReportCode
