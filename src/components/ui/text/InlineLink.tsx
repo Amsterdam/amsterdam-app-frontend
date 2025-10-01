@@ -1,4 +1,5 @@
 import {type ReactNode} from 'react'
+import {Icon} from '@/components/ui/media/Icon'
 import {Phrase, type PhraseProps} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
@@ -7,6 +8,7 @@ import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 type Props = {
   children: ReactNode
   emphasis?: PhraseProps['emphasis']
+  external?: boolean
   inverse?: boolean
   onPress: () => void
   phraseVariant?: PhraseProps['variant']
@@ -22,6 +24,8 @@ export const InlineLink = ({
   onPress,
   phraseVariant,
   logAction = PiwikAction.buttonPress,
+  external = false,
+  testID,
   ...otherProps
 }: Props) => {
   const onEvent = usePiwikTrackCustomEventFromProps({
@@ -36,10 +40,22 @@ export const InlineLink = ({
       color={inverse ? 'inverse' : 'link'}
       emphasis={emphasis}
       onPress={onEvent}
-      underline
+      testID={testID}
+      underline={!external}
       variant={phraseVariant}
       {...otherProps}>
       {children}
+      {external ? (
+        <>
+          {'  '}
+          <Icon
+            color="link"
+            name="external-link"
+            size="smd"
+            testID={`${testID}Icon`}
+          />
+        </>
+      ) : null}
     </Phrase>
   )
 }

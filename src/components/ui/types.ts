@@ -7,6 +7,7 @@ export enum Direction {
 
 export enum IconSize {
   sm = 12,
+  smd = 14,
   md = 16,
   ml = 20,
   lg = 24,
