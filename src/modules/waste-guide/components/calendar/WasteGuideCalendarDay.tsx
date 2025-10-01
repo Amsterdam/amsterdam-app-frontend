@@ -4,6 +4,7 @@ import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
 type Props = {
+  accessibilityLabel?: string
   children: ReactNode
   isAfter?: boolean
   isBeforeToday?: boolean
@@ -19,12 +20,14 @@ export const WasteGuideCalendarDay = ({
   isToday,
   isFirstWeekOfMonth,
   isWeekDayLabel,
+  accessibilityLabel,
 }: Props) => {
   const theme = useTheme()
   const styles = createStyles(theme, isWeekDayLabel)
 
   return (
     <View
+      accessibilityLabel={accessibilityLabel}
       accessible={!isBeforeToday}
       style={[
         styles.cell,

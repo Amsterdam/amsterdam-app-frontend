@@ -7,9 +7,12 @@ import {WasteGuideCalendarDayEvents} from '@/modules/waste-guide/components/cale
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
 import {WasteGuideCalendarMonthTitle} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarMonthTitle'
 import {WasteGuideCalendarWeekdays} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarWeekdays'
+import {getCalendarEventsByDate} from '@/modules/waste-guide/components/calendar/utils/getCalendarEventsByDate'
 import {getCalendarWeeks} from '@/modules/waste-guide/components/calendar/utils/getCalendarWeeks'
 import {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {isToday} from '@/utils/datetime/isToday'
+import {isTomorrow} from '@/utils/datetime/isTomorrow'
 
 type Props = {
   calendar: WasteGuideCalendarEvent[]
@@ -17,6 +20,8 @@ type Props = {
 
 export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const weeks = getCalendarWeeks()
+
+  const eventsByDate = getCalendarEventsByDate(calendar)
 
   return (
     <Box>
@@ -33,28 +38,34 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                 isFirstOfMonth={week.isFirstOfMonth}
                 isLastOfMonth={week.isLastOfMonth}>
                 {week.days.map((day, dayIdx) => {
-                  const isToday = day.isSame(dayjs(), 'day')
-                  const isBeforeToday = day.isBefore(dayjs(), 'day')
+                  const now = dayjs()
+                  const dayIsToday = isToday(day)
+                  const dayIsTomorrow = isTomorrow(day)
+                  const isBeforeToday = day.isBefore(now, 'day')
                   const isAfterPeriod = day
                     .add(1, 'day')
-                    .isAfter(dayjs().add(6, 'week'), 'day')
+                    .isAfter(now.add(6, 'week'), 'day')
                   const isWeekendDay = day.day() === 6 || day.day() === 0
+                  const dayEvents = eventsByDate[day.format('YYYY-MM-DD')] || []
+                  const accessibilityLabel = `${day.format('dddd D MMMM')}, ${dayIsToday ? 'vandaag, ' : dayIsTomorrow ? 'morgen, ' : ''}${dayEvents.length > 0 ? dayEvents.map(event => event.label).join(', ') : 'Geen ophaaldag'}`
 
                   return (
                     <WasteGuideCalendarDay
+                      accessibilityLabel={accessibilityLabel}
                       isAfter={isAfterPeriod}
                       isBeforeToday={isBeforeToday}
                       isFirstWeekOfMonth={week.isFirstOfMonth}
-                      isToday={isToday}
+                      isToday={dayIsToday}
                       key={dayIdx}>
                       <Phrase
+                        accessible={false}
                         color={isWeekendDay ? 'secondary' : undefined}
-                        emphasis={isToday ? 'strong' : undefined}>
+                        emphasis={dayIsToday ? 'strong' : undefined}>
                         {day.date()}
                       </Phrase>
                       <WasteGuideCalendarDayEvents
-                        calendar={calendar}
                         day={day}
+                        dayEvents={dayEvents}
                       />
                     </WasteGuideCalendarDay>
                   )
