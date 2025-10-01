@@ -8,7 +8,6 @@ import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {Address} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
-
 import {
   PollingStation,
   PollingStationsListBottomSheetVariant,

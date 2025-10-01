@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react'
+import {ReactNode, useRef, useState} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
@@ -26,26 +26,32 @@ export const Map = ({
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
+  const mapRef = useRef<MapView | null>(null)
 
   return (
     <View style={styles.container}>
       {!!controls?.length && (
         <View style={styles.controls}>
-          <MapControls variants={controls} />
+          <MapControls
+            mapRef={mapRef}
+            variants={controls}
+          />
         </View>
       )}
       <MapView
         collapsable={false}
-        initialRegion={{
+        moveOnMarkerPress={false}
+        onMapReady={handleOnMapReady}
+        provider={Platform.OS === 'android' ? 'google' : undefined}
+        ref={mapRef}
+        region={{
           latitude: coordinates?.lat ?? 52.3753,
           longitude: coordinates?.lon ?? 4.9044,
           latitudeDelta: coordinates ? 0.01 : 0.0922,
           longitudeDelta: coordinates ? 0.01 : 0.0421,
         }}
-        moveOnMarkerPress={false}
-        onMapReady={handleOnMapReady}
-        provider={Platform.OS === 'android' ? 'google' : undefined}
         showsBuildings={false}
+        showsMyLocationButton={false}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
         style={styles.mapView}
         {...mapViewProps}>
