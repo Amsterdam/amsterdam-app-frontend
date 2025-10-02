@@ -1,5 +1,5 @@
 import {type FC} from 'react'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {ParkingSessionAmountBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionAmountBottomSheetContent'
 import {ParkingSessionEndTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionEndTimeBottomSheetContent'
 import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionLicensePlateBottomSheetContent'

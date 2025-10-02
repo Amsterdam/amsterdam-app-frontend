@@ -1,5 +1,5 @@
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {Projects} from '@/modules/construction-work/components/projects/Projects'

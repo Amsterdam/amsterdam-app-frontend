@@ -1,5 +1,5 @@
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {CityOffice} from '@/modules/contact/components/city-offices/CityOffice'
 import {SelectCityOffice} from '@/modules/contact/components/city-offices/SelectCityOffice'
