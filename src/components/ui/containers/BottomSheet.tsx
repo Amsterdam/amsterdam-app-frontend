@@ -63,12 +63,16 @@ const createStylesBackgroundComponent = ({color, border}: Theme) =>
 type Props = Partial<
   Omit<
     BottomSheetProps,
-    'children' | 'contentHeight' | 'handleHeight' | 'ref' | 'snapPoints'
+    | 'children'
+    | 'contentHeight'
+    | 'handleHeight'
+    | 'onChange'
+    | 'ref'
+    | 'snapPoints'
   >
 > & {
   flex?: number
   scroll?: boolean
-  snapPoints?: (string | number)[]
 } & TestProps &
   (
     | {children: ReactNode; variants?: never}
@@ -87,6 +91,12 @@ const useBottomSheetHandler = () => {
   const {setHideContentFromAccessibility} = useScreen()
   const ref = useRef<BottomSheetOriginal>(null)
 
+  const variantRef = useRef(variant) // needed because ref.current?.expand() triggers onChange with old variant value
+
+  useEffect(() => {
+    variantRef.current = variant
+  }, [variant])
+
   useBlurEffect(close)
 
   const onChange = useCallback(
@@ -94,7 +104,7 @@ const useBottomSheetHandler = () => {
       const newIsOpen = snapPointIndex !== -1
 
       if (newIsOpen !== isOpen) {
-        newIsOpen ? open() : close()
+        newIsOpen ? open(variantRef.current) : close()
       }
     },
     [close, isOpen, open],
@@ -122,9 +132,7 @@ const ScrollWrapper = ({children}: {children: ReactNode}) => (
 export const BottomSheet = ({
   children,
   flex,
-  onChange,
   scroll,
-  snapPoints,
   testID,
   variants,
   ...rest
@@ -144,16 +152,11 @@ export const BottomSheet = ({
       backdropComponent={Backdrop}
       backgroundComponent={BackgroundComponent}
       enableContentPanningGesture={false}
-      enableDynamicSizing
       enablePanDownToClose
       handleComponent={Handle}
       index={-1}
-      onChange={(snapPointIndex, position, type) => {
-        onChangeHandler(snapPointIndex)
-        onChange?.(snapPointIndex, position, type)
-      }}
+      onChange={onChangeHandler}
       ref={ref}
-      snapPoints={snapPoints}
       topInset={topInset}
       {...rest}>
       <ViewComponent
