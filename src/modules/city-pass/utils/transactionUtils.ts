@@ -4,7 +4,7 @@ import {
   TransactionType,
   BudgetTransaction,
 } from '@/modules/city-pass/types'
-import {formatDate} from '@/utils/datetime/formatDate'
+import {isToday} from '@/utils/datetime/isToday'
 
 export type TransactionByDate = TransactionItemProps & {
   datePublished: string
@@ -21,23 +21,29 @@ export const getTransactionsByDate = (transactions: TransactionByDate[]) => {
     return []
   }
 
-  return transactions.reduce((result: TransactionsByDate[], transaction) => {
+  // Sort transactions by datePublished descending
+  const sorted = [...transactions].sort((a, b) =>
+    b.datePublished.localeCompare(a.datePublished),
+  )
+
+  // Group by date
+  const grouped: TransactionsByDate[] = []
+
+  for (const transaction of sorted) {
     const {datePublishedFormatted, datePublished} = transaction
-    const today = formatDate(new Date().toISOString())
-    const dateOrToday =
-      datePublishedFormatted === today ? 'Vandaag' : datePublishedFormatted
-    const section = result.find(s => s.date === dateOrToday)
+    const dateOrToday = isToday(datePublished)
+      ? 'Vandaag'
+      : datePublishedFormatted
+    const section = grouped.find(s => s.date === dateOrToday)
 
     if (section) {
       section.data.push(transaction)
     } else {
-      datePublished > result[result.length - 1]?.data[0]?.datePublished
-        ? result.unshift({date: dateOrToday, data: [transaction]})
-        : result.push({date: dateOrToday, data: [transaction]})
+      grouped.push({date: dateOrToday, data: [transaction]})
     }
+  }
 
-    return result
-  }, [] as TransactionsByDate[])
+  return grouped
 }
 
 const transactionsIsBudget = (
