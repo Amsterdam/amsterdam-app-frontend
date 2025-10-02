@@ -302,6 +302,19 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.manageVisitorRemoveAccount]: builder.mutation<
+      void,
+      string
+    >({
+      invalidatesTags: ['ParkingPermits', 'ParkingAccount'],
+      query: permitId => ({
+        prepareHeaders,
+        method: 'DELETE',
+        slug: ModuleSlug.parking,
+        url: `/permit/${permitId}/visitor`,
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.manageVisitorTimeBalance]: builder.mutation<
       void,
       ParkingManageVisitorTimeBalanceEndpointRequest
@@ -373,6 +386,7 @@ export const {
   useDeleteSessionMutation,
   useIncreaseBalanceMutation,
   useManageVisitorTimeBalanceMutation,
+  useManageVisitorRemoveAccountMutation,
   useManageVisitorChangePinCodeMutation,
   useVisitorParkingSessionsQuery,
 } = parkingApi
