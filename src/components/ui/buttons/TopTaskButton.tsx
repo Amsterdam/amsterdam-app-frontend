@@ -71,7 +71,9 @@ export const TopTaskButton = ({
           align="center"
           grow={1}
           shrink={1}>
-          <Row gutter="sm">
+          <Row
+            align={isExternalLink ? 'between' : undefined}
+            gutter="sm">
             <Title
               color="link"
               level="h5"
