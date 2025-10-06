@@ -8,7 +8,6 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
-import {useSetCurrentParkingApiVersion} from '@/modules/parking/hooks/useSetCurrentParkingApiVersion'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
@@ -32,7 +31,6 @@ export const ParkingLoginForm = () => {
   const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
   const pincodeRef = useRef<TextInput | null>(null)
   const {setAccessToken} = useParkingAccessToken()
-  const setCurrentParkingApiVersion = useSetCurrentParkingApiVersion()
   const {resetAlert, setAlert} = useAlert()
   const trackException = useTrackException()
 
@@ -44,14 +42,14 @@ export const ParkingLoginForm = () => {
 
   const onSubmit = handleSubmit(async ({pin, reportCode}) => {
     try {
-      const {access_token, access_token_expiration, scope, version} =
-        await loginParking({
+      const {access_token, access_token_expiration, scope} = await loginParking(
+        {
           pin,
           report_code: reportCode,
-        }).unwrap()
+        },
+      ).unwrap()
 
       await setSecureParkingAccount({pin, reportCode}, scope)
-      setCurrentParkingApiVersion(version)
       setAccessToken(reportCode, access_token, access_token_expiration)
       dispatch(parkingSlice.actions.setCurrentAccount(reportCode))
       dispatch(parkingSlice.actions.setCurrentPermitReportCode(undefined))

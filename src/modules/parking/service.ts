@@ -1,5 +1,6 @@
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
 import type {FeatureCollection} from 'geojson'
+import {setCurrentApiVersion} from '@/modules/parking/slice'
 import {
   type ParkingAccountDetails,
   type LicensePlatesEndpointRequest,
@@ -124,6 +125,13 @@ export const parkingApi = baseApi.injectEndpoints({
           ) {
             failRetry(result.error)
           }
+        },
+        afterSuccess: ({data}, {dispatch}) => {
+          dispatch(
+            setCurrentApiVersion(
+              (data as ParkingLoginEndpointResponse).version,
+            ),
+          )
         },
       }),
     }),
