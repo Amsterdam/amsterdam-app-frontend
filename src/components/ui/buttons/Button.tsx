@@ -108,7 +108,13 @@ export const Button = ({
         {!!iconName && (
           <View style={variant === 'tertiary' ? styles.iconWrapper : undefined}>
             <Icon
-              color={variant === 'primary' ? 'inverse' : 'link'}
+              color={
+                variant === 'primary'
+                  ? 'inverse'
+                  : variant === 'secondaryDestructive'
+                    ? 'warning'
+                    : 'link'
+              }
               name={iconName}
               size={iconSize}
               testID={`${testID}Icon`}

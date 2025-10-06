@@ -10,7 +10,9 @@ export enum ParkingEndpointName {
   increaseBalance = 'increaseBalance',
   licensePlates = 'licensePlates',
   login = 'login',
+  manageVisitorAddAccount = 'manageVisitorAddAccount',
   manageVisitorChangePinCode = 'manageVisitorChangePinCode',
+  manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',
   parkingPinCode = 'parkingPinCode',
   parkingSessions = 'parkingSessions',
@@ -75,10 +77,16 @@ export type ParkingLoginEndpointRequest = {
   report_code: string
 }
 
+export enum ParkingApiVersion {
+  v1 = 1,
+  v2 = 2,
+}
+
 export type ParkingLoginEndpointResponse = {
   access_token: string
   access_token_expiration: string
   scope: ParkingPermitScope
+  version: ParkingApiVersion
 }
 
 // License-plate
