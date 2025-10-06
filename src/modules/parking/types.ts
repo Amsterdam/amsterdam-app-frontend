@@ -10,6 +10,7 @@ export enum ParkingEndpointName {
   increaseBalance = 'increaseBalance',
   licensePlates = 'licensePlates',
   login = 'login',
+  manageVisitorAddAccount = 'manageVisitorAddAccount',
   manageVisitorChangePinCode = 'manageVisitorChangePinCode',
   manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',

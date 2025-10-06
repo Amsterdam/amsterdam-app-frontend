@@ -3,14 +3,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingDashboardPermitSessionsChooseVisitorLicensePlate} from '@/modules/parking/components/dashboard/ParkingDashboardPermitSessionsChooseVisitorLicensePlate'
 import {ParkingActiveSessionsSummary} from '@/modules/parking/components/session/ParkingActiveSessionsSummary'
-import {ParkingPlannedSessionsSummary} from '@/modules/parking/components/session/ParkingPlannedSessionsSummary'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingPermitSessions = () => {
   const {visitorVehicleId} = useVisitorVehicleId()
-  const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
 
   return (
@@ -28,7 +25,7 @@ export const ParkingPermitSessions = () => {
           !!visitorVehicleId) && (
           <>
             <ParkingActiveSessionsSummary />
-            {!currentPermit.no_endtime && <ParkingPlannedSessionsSummary />}
+            {/* {!currentPermit.no_endtime && <ParkingPlannedSessionsSummary />} */}
           </>
         )}
       </Column>

@@ -302,6 +302,19 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.manageVisitorAddAccount]: builder.mutation<
+      void,
+      string
+    >({
+      invalidatesTags: ['ParkingPermits', 'ParkingAccount'],
+      query: permitId => ({
+        prepareHeaders,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: `/permit/${permitId}/visitor`,
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.manageVisitorRemoveAccount]: builder.mutation<
       void,
       string
@@ -386,6 +399,7 @@ export const {
   useDeleteSessionMutation,
   useIncreaseBalanceMutation,
   useManageVisitorTimeBalanceMutation,
+  useManageVisitorAddAccountMutation,
   useManageVisitorRemoveAccountMutation,
   useManageVisitorChangePinCodeMutation,
   useVisitorParkingSessionsQuery,

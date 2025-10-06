@@ -40,6 +40,20 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingChangePincodeSuccessAlert',
   },
+  createVisitorAccountSuccess: {
+    variant: AlertVariant.positive,
+    text: 'Voeg tijdsaldo toe en deel de meldcode en pincode met uw bezoek.',
+    title: 'Nieuw bezoekersaccount',
+    hasIcon: true,
+    testID: 'ParkingManageVisitorCreateAccountSuccessAlert',
+  },
+  createVisitorAccountFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is iets misgegaan. Probeer het later nog een keer.',
+    title: 'Geen bezoekersaccount',
+    hasIcon: true,
+    testID: 'ParkingManageVisitorCreateAccountFailedAlert',
+  },
   decreaseTimeBalanceSuccess: {
     variant: AlertVariant.positive,
     text: 'Tijdsaldo is succesvol verlaagd.',

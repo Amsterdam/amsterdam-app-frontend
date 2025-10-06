@@ -51,7 +51,7 @@ export const ManageVisitorCredentialsOverview = () => {
         testID="ParkingManageVisitorCopyCredentialsButton"
         textToCopy={`Meldcode: ${currentPermit.visitor_account.report_code}, Pincode: ${currentPermit.visitor_account.pin}`}
       />
-      {apiVersion !== ParkingApiVersion.v1 ? (
+      {apiVersion === ParkingApiVersion.v1 ? (
         <Button
           label="Pincode wijzigen"
           onPress={() => navigate(ParkingRouteName.manageVisitorChangePinCode)}

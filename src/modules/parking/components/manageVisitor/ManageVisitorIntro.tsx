@@ -1,4 +1,4 @@
-import {Share} from 'react-native'
+import {Platform, Share} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -23,6 +23,7 @@ export const ManageVisitorIntro = () => {
       </Paragraph>
       <Gutter height="lg" />
       <Button
+        iconName={Platform.OS === 'android' ? 'shareAndroid' : 'shareIos'}
         label="Bezoeker uitnodigen"
         onPress={() => {
           if (!currentPermit.visitor_account) {
