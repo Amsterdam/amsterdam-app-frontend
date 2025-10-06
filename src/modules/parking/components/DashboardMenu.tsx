@@ -22,26 +22,25 @@ export const DashboardMenu = () => {
   }, [close, navigate])
 
   const menuItemsAccountHolder: PopupMenuItem[] = useMemo(
-    () => [
-      {
-        id: 'accountDetails',
-        color: 'link',
-        label: 'Accountgegevens',
-        onPress: () => {
-          close()
-          navigate(ParkingRouteName.accountDetails)
+    () =>
+      [
+        apiVersion === ParkingApiVersion.v1 && {
+          color: 'link',
+          label: 'Accountgegevens',
+          onPress: () => {
+            close()
+            navigate(ParkingRouteName.accountDetails)
+          },
+          testID: 'ParkingDashboardMenuAccountDetailsButton',
         },
-        testID: 'ParkingDashboardMenuAccountDetailsButton',
-      },
-      {
-        id: 'logout',
-        color: 'warning',
-        label: 'Uitloggen',
-        onPress: onPressLogout,
-        testID: 'ParkingDashboardMenuAccountHolderLogoutButton',
-      },
-    ],
-    [close, navigate, onPressLogout],
+        {
+          color: 'warning',
+          label: 'Uitloggen',
+          onPress: onPressLogout,
+          testID: 'ParkingDashboardMenuAccountHolderLogoutButton',
+        },
+      ].filter(Boolean) as PopupMenuItem[],
+    [apiVersion, close, navigate, onPressLogout],
   )
 
   const menuItemsVisitorAccount: PopupMenuItem[] = useMemo(
@@ -56,21 +55,10 @@ export const DashboardMenu = () => {
     [onPressLogout],
   )
 
-  const menuItems: PopupMenuItem[] = useMemo(() => {
-    if (parkingAccount?.scope === ParkingPermitScope.visitor) {
-      return menuItemsVisitorAccount
-    }
-
-    return menuItemsAccountHolder.filter(
-      item =>
-        apiVersion === ParkingApiVersion.v1 || item.id !== 'accountDetails',
-    )
-  }, [
-    parkingAccount?.scope,
-    menuItemsAccountHolder,
-    menuItemsVisitorAccount,
-    apiVersion,
-  ])
+  const menuItems: PopupMenuItem[] =
+    parkingAccount?.scope === ParkingPermitScope.visitor
+      ? menuItemsVisitorAccount
+      : menuItemsAccountHolder
 
   return (
     <PopUpMenu
