@@ -1,5 +1,5 @@
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
-import {BottomSheet} from '@/components/ui/containers/BottomSheet'
 import {Column} from '@/components/ui/layout/Column'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
