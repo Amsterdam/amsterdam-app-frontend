@@ -19,7 +19,7 @@ The [React Native docs](https://reactnative.dev/docs/environment-setup) offer a 
   - Install bundler (Ruby gem manager): `gem install bundler:2.4.16`
   - Install/update the gems with bundler: `bundle install`
   - Go to `/ios`
-  - Install pods: `pod install`
+  - Install pods: `npm run ios:install:pods`
 - Get the necessary files and add them to the project
   - See "Secret files" below
 - To run the app on a simulator/emulator
@@ -46,13 +46,13 @@ You can find these files in the Keepass database. To access this database:
 - Make sure you are in the `main` branch to have access to the most recent file `KP Database.kdbx`
 - Install a [Keepass client](https://keepass.info/) and use it to open the `.kpdx` file
 - Request the password from a colleague
-- The files can be found in Keepass under `General` and `Signing`
+- The files can be found in Keepass under `Front-end` and `Signing`
 
 #### Files ignored by Git
 
 - `.env` - Environment variables to be used in the JS. This should be added to the project root. Also see `.env.example`.
 - `android/app/google-services.json` - Production Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app)).
-- `android/app/src/debug/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
+- `android/app/src/dev/google-services.json` - Development Firebase config/key for Android ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/android:nl.amsterdam.app.dev)).
 - `ios/GoogleService-Info-Prod.plist` - Production Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app)).
 - `ios/GoogleService-Info-Test.plist` - Development Firebase config/key for iOS ([source](https://console.firebase.google.com/u/1/project/amsterdam-15a0a/settings/general/ios:nl.amsterdam.app.dev)).
 
