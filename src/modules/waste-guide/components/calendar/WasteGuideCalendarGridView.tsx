@@ -63,10 +63,7 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
                         emphasis={dayIsToday ? 'strong' : undefined}>
                         {day.date()}
                       </Phrase>
-                      <WasteGuideCalendarDayEvents
-                        day={day}
-                        dayEvents={dayEvents}
-                      />
+                      <WasteGuideCalendarDayEvents dayEvents={dayEvents} />
                     </WasteGuideCalendarDay>
                   )
                 })}
