@@ -73,7 +73,7 @@ export const permitMock: ParkingPermit = {
   visitor_account: {
     seconds_remaining: 0,
     pin: '',
-    report_code: 0,
+    report_code: '',
   },
   visitor_account_allowed: true,
 }
