@@ -289,7 +289,7 @@ export type ParkingSessionReceiptEndpointResponse = {
     currency: string
     value: number
   }
-  report_code: string
+  report_code: number
   start_time: string
 }
 
