@@ -35,4 +35,6 @@ export const lightTheme: Theme = {
 
 export const themes = {
   light: lightTheme,
-}
+} satisfies Record<string, Theme>
+
+export type Themes = keyof typeof themes
