@@ -130,6 +130,7 @@ export const ParkingLoginForm = () => {
         />
         <Button
           disabled={form.formState.isSubmitting}
+          isLoading={form.formState.isSubmitting}
           label="Inloggen"
           onPress={onSubmit}
           testID="ParkingLoginFormSubmitButton"
