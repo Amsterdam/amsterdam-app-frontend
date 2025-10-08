@@ -6,6 +6,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
 import {usePollingStationsQuery} from '@/modules/elections/service'
@@ -22,6 +23,8 @@ export const PollingStationDetails = () => {
   const {lat, lng} = pollingStation?.position || {}
   const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
+  const autoFocus = useAccessibilityFocus()
+
   if (!pollingStation) {
     return null
   }
@@ -32,6 +35,7 @@ export const PollingStationDetails = () => {
         <Row align="between">
           <Title
             level="h3"
+            ref={autoFocus}
             text={pollingStation?.name}
           />
           <IconButton

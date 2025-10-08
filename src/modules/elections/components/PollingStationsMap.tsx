@@ -37,6 +37,7 @@ export const PollingStationsMap = ({
       coordinates={coordinates}>
       {pollingStations.map(station => (
         <Marker
+          accessibilityLabel={station.name + ', ' + station.address1}
           coordinate={{
             latitude: station.position.lat,
             longitude: station.position.lng,
