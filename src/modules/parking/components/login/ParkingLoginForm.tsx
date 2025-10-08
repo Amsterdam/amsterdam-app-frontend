@@ -8,6 +8,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
+import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
@@ -16,7 +17,7 @@ import {
   useParkingAccessToken,
   useParkingDeeplinkAccount,
 } from '@/modules/parking/slice'
-import {ParkingAccountLogin} from '@/modules/parking/types'
+import {ParkingAccountLogin, ParkingApiVersion} from '@/modules/parking/types'
 import {devError} from '@/processes/development'
 import {
   ExceptionLogKey,
@@ -27,6 +28,7 @@ import {useAlert} from '@/store/slices/alert'
 export const ParkingLoginForm = () => {
   const navigation = useNavigation()
   const {navigate} = navigation
+  const apiVersion = useCurrentParkingApiVersion()
   const deeplinkAccount = useParkingDeeplinkAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
   const pincodeRef = useRef<TextInput | null>(null)
@@ -97,7 +99,9 @@ export const ParkingLoginForm = () => {
         <TextInputField
           autoFocus
           hasClearButton={false}
-          keyboardType="number-pad"
+          keyboardType={
+            apiVersion === ParkingApiVersion.v1 ? 'number-pad' : undefined
+          }
           label="Meldcode"
           name="reportCode"
           onSubmitEditing={() => {
