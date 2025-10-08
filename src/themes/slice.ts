@@ -1,14 +1,15 @@
 import {createSlice} from '@reduxjs/toolkit'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
-import {type Theme, lightTheme} from '@/themes/themes'
+import {type Themes, themes} from '@/themes/themes'
 
-export type ThemeState = {theme: Theme}
+export type ThemeState = {theme: Themes}
 
 export const themeSlice = createSlice({
   name: ReduxKey.theme,
-  initialState: {theme: lightTheme},
+  initialState: {theme: 'light'},
   reducers: {},
 })
 
-export const selectTheme = (state: RootState) => state[ReduxKey.theme]
+export const selectTheme = (state: RootState) =>
+  themes[state[ReduxKey.theme].theme]

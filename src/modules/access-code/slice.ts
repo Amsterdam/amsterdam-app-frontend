@@ -103,50 +103,38 @@ export const {
   setIsCodeValid,
 } = accessCodeSlice.actions
 
-const selectCodeEntered = (state: RootState) =>
+export const selectCodeEntered = (state: RootState) =>
   state[ReduxKey.accessCode].codeEntered
 
-const selectCodeSet = (state: RootState) => state[ReduxKey.accessCode].codeSet
-const selectCodeConfirmed = (state: RootState) =>
+export const selectCodeSet = (state: RootState) =>
+  state[ReduxKey.accessCode].codeSet
+
+export const selectCodeConfirmed = (state: RootState) =>
   state[ReduxKey.accessCode].codeConfirmed
 
-const selectAttemptsLeft = (state: RootState) =>
+export const selectAttemptsLeft = (state: RootState) =>
   state[ReduxKey.accessCode].attemptsLeft
 
-const selectError = (state: RootState) => state[ReduxKey.accessCode].error
+export const selectError = (state: RootState) =>
+  state[ReduxKey.accessCode].error
 
-const selectIsCodeSet = (state: RootState) =>
+export const selectIsCodeSet = (state: RootState) =>
   state[ReduxKey.accessCode].isCodeSet
 
-const selectIsCodeConfirmed = (state: RootState) =>
+export const selectIsCodeConfirmed = (state: RootState) =>
   state[ReduxKey.accessCode].isCodeConfirmed
 
-const selectIsCodeValid = (state: RootState) =>
+export const selectIsCodeValid = (state: RootState) =>
   state[ReduxKey.accessCode].isCodeValid
 
-const selectIsEnteringCode = (state: RootState) =>
+export const selectIsEnteringCode = (state: RootState) =>
   state[ReduxKey.accessCode].isEnteringCode
 
-const selectIsForgotCode = (state: RootState) =>
+export const selectIsForgotCode = (state: RootState) =>
   state[ReduxKey.accessCode].isForgotCode
 
-const selectCodeValidTimestamp = (state: RootState) =>
+export const selectCodeValidTimestamp = (state: RootState) =>
   state[ReduxKey.accessCode].codeValidTimestamp
 
-const selectUseBiometrics = (state: RootState) =>
+export const selectUseBiometrics = (state: RootState) =>
   state[ReduxKey.accessCode].useBiometrics
-
-export {
-  selectAttemptsLeft,
-  selectCodeConfirmed,
-  selectCodeEntered,
-  selectCodeSet,
-  selectCodeValidTimestamp,
-  selectError,
-  selectIsCodeConfirmed,
-  selectIsCodeSet,
-  selectIsCodeValid,
-  selectIsEnteringCode,
-  selectIsForgotCode,
-  selectUseBiometrics,
-}
