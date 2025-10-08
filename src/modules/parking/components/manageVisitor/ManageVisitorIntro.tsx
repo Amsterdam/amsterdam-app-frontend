@@ -17,7 +17,7 @@ export const ManageVisitorIntro = () => {
     <Column>
       <Title text="Bezoekersaccount" />
       <Gutter height="md" />
-      <Paragraph>
+      <Paragraph variant="intro">
         Uw bezoekers plannen en betalen zelf hun parkeersessie. U stelt tijd
         beschikbaar en stuurt de meldcode en pincode.
       </Paragraph>
