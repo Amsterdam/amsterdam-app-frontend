@@ -32,3 +32,7 @@ export const lightTheme: Theme = {
   text: textTokens,
   z: zTokens,
 }
+
+export const themes = {
+  light: lightTheme,
+}

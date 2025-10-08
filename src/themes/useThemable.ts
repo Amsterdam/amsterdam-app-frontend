@@ -1,7 +1,6 @@
 import {useMemo} from 'react'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectTheme} from '@/themes/slice'
 import {Theme} from '@/themes/themes'
+import {useTheme} from '@/themes/useTheme'
 
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-explicit-any
 type Generator<T extends any> = (theme: Theme) => T
@@ -11,10 +10,8 @@ type Generator<T extends any> = (theme: Theme) => T
  * @param fn The function in which the theme is used.
  */
 // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-explicit-any
-const useThemable = <T extends any>(fn: Generator<T>) => {
-  const {theme} = useSelector(selectTheme)
+export const useThemable = <T extends any>(fn: Generator<T>) => {
+  const theme = useTheme()
 
   return useMemo(() => fn(theme), [fn, theme])
 }
-
-export {useThemable}
