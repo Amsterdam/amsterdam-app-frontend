@@ -4,9 +4,12 @@ import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ParkingPlannedSessionNavigationButton} from '@/modules/parking/components/session/ParkingPlannedSessionNavigationButton'
+import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
-import {ParkingSessionStatus} from '@/modules/parking/types'
+import {
+  ParkingSessionOrDummy,
+  ParkingSessionStatus,
+} from '@/modules/parking/types'
 import {
   dummyTitle,
   groupParkingSessionsByDate,
@@ -27,7 +30,11 @@ export const ParkingSessionsListVisitor = ({
 }: Props) => {
   const {parkingSessions, isLoading} = useGetParkingSessions(status)
   const sections = useMemo(
-    () => groupParkingSessionsByDate(parkingSessions, sortAscending),
+    () =>
+      groupParkingSessionsByDate<ParkingSessionOrDummy>(
+        parkingSessions,
+        sortAscending,
+      ),
     [parkingSessions, sortAscending],
   )
 
@@ -42,7 +49,7 @@ export const ParkingSessionsListVisitor = ({
           {item.dummy ? (
             <Gutter height="lg" />
           ) : (
-            <ParkingPlannedSessionNavigationButton parkingSession={item} />
+            <ParkingSessionNavigationButton parkingSession={item} />
           )}
         </Box>
       )}

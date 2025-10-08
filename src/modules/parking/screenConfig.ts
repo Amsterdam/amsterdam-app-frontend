@@ -12,7 +12,7 @@ import {ParkingMyLicensePlatesScreen} from '@/modules/parking/screens/ParkingMyL
 import {ParkingPermitZonesScreen} from '@/modules/parking/screens/ParkingPermitZones.screen'
 import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPlannedSessions.screen'
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
-import {ParkingSessionTransactionsScreen} from '@/modules/parking/screens/ParkingSessionTransactions.screen'
+import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistoryScreen.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingAccountChangePinCodeScreen} from '@/modules/parking/screens/account/AccountChangePinCode.screen'
 import {ParkingAccountDetailsScreen} from '@/modules/parking/screens/account/AccountDetails.screen'
@@ -96,7 +96,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     },
   },
   [ParkingRouteName.parkingSessionTransactions]: {
-    component: ParkingSessionTransactionsScreen,
+    component: ParkingSessionHistoryScreen,
     name: ParkingRouteName.parkingSessionTransactions,
     options: {
       headerTitle: 'Parkeergeschiedenis',

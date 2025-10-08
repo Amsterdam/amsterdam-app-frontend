@@ -21,7 +21,7 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => (
       <Column gutter="xl">
         <Column gutter="md">
           <Title
-            level="h2"
+            level="h1"
             text="Start parkeersessie"
           />
           <Column gutter="lg">
@@ -36,7 +36,7 @@ export const ParkingIntroScreen = ({navigation: {navigate}}: Props) => (
             />
           </Column>
         </Column>
-        <ParkingInfoSection isIntro />
+        <ParkingInfoSection />
       </Column>
     </Box>
   </Screen>

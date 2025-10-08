@@ -1,10 +1,10 @@
 import {ParkingSessionStatus} from '../../types'
-import {ParkingPlannedSessionNavigationButton} from './ParkingPlannedSessionNavigationButton'
+import {ParkingSessionNavigationButton} from './ParkingSessionNavigationButton'
 import type {Meta, StoryObj} from '@storybook/react'
 
 const meta = {
-  component: ParkingPlannedSessionNavigationButton,
-} satisfies Meta<typeof ParkingPlannedSessionNavigationButton>
+  component: ParkingSessionNavigationButton,
+} satisfies Meta<typeof ParkingSessionNavigationButton>
 
 export default meta
 

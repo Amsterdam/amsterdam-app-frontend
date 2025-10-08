@@ -31,6 +31,8 @@ import {
   type RequestPinCode,
   type ParkingManageVisitorTimeBalanceEndpointRequest,
   ParkingEndpointName,
+  ParkingSessionHistoryEndpointRequest,
+  ParkingSessionHistoryEndpointResponse,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
@@ -133,6 +135,20 @@ export const parkingApi = baseApi.injectEndpoints({
             ),
           )
         },
+      }),
+    }),
+    [ParkingEndpointName.parkingSessionHistory]: builder.query<
+      ParkingSessionHistoryEndpointResponse,
+      ParkingSessionHistoryEndpointRequest
+    >({
+      providesTags: ['ParkingSessions'],
+      query: params => ({
+        prepareHeaders,
+        method: 'GET',
+        params,
+        slug: ModuleSlug.parking,
+        url: '/sessions/history',
+        afterError,
       }),
     }),
     [ParkingEndpointName.parkingSessions]: builder.query<
@@ -396,6 +412,7 @@ export const {
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
   useParkingPinCodeMutation,
+  useParkingSessionHistoryQuery,
   useParkingSessionsQuery,
   useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,

@@ -2,17 +2,19 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
+import {
+  ParkingHistorySession,
+  ParkingSession,
+  VisitorParkingSession,
+} from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 
 type Props = {
-  parkingSession: ParkingSession | VisitorParkingSession
+  parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
 }
 
-export const ParkingPlannedSessionNavigationButton = ({
-  parkingSession,
-}: Props) => {
+export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
   const {start_date_time, end_date_time, vehicle_id, visitor_name} =
     parkingSession
@@ -43,7 +45,7 @@ export const ParkingPlannedSessionNavigationButton = ({
       onPress={() => {
         navigate(ParkingRouteName.parkingSession, {parkingSession})
       }}
-      testID="ParkingPlannedSessionNavigationButton"
+      testID="ParkingSessionNavigationButton"
       title={title}
     />
   )

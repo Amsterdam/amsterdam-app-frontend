@@ -1,22 +1,19 @@
-import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
 import {compareParkingSessionsByStartDateTime} from '@/modules/parking/utils/compareParkingSessionsByStartDateTime'
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
-export type ParkingSessionOrDummy =
-  | ((ParkingSession | VisitorParkingSession) & {dummy?: never})
-  | {dummy: true; ps_right_id: number; start_date_time: string}
+export const dummyTitle = 'dummy'
 
-export type Section = {
-  data: Array<ParkingSessionOrDummy>
+export type Section<T> = {
+  data: Array<T>
   title: string
 }
 
-export const dummyTitle = 'dummy'
-
-export const groupParkingSessionsByDate = (
-  parkingSessions: Array<ParkingSessionOrDummy> | undefined,
+export const groupParkingSessionsByDate = <
+  T extends {dummy?: boolean; start_date_time: string},
+>(
+  parkingSessions: Array<T> | undefined,
   sortAscending: boolean,
-) =>
+): Section<T>[] =>
   [...(parkingSessions ?? [])]
     .sort((a, b) =>
       a.dummy || b.dummy
@@ -25,7 +22,7 @@ export const groupParkingSessionsByDate = (
           ? compareParkingSessionsByStartDateTime(a, b)
           : compareParkingSessionsByStartDateTime(b, a),
     )
-    .reduce<Section[]>((result, session) => {
+    .reduce<Section<T>[]>((result, session) => {
       const date = session.dummy
         ? dummyTitle
         : formatDateToDisplay(session.start_date_time, false)

@@ -15,6 +15,7 @@ export enum ParkingEndpointName {
   manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',
   parkingPinCode = 'parkingPinCode',
+  parkingSessionHistory = 'parkingSessionHistory',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
   permitZones = 'permitZones',
@@ -228,6 +229,10 @@ export type ParkingSessionsEndpointRequest = {
   status?: ParkingSessionStatus
 } & PaginationQueryArgs
 
+export type ParkingSessionHistoryEndpointRequest = {
+  report_code: string
+} & PaginationQueryArgs
+
 export type VisitorParkingSessionsEndpointRequest = {
   vehicle_id: string
 }
@@ -251,6 +256,26 @@ export enum ParkingOrderType {
   session = 'SESSION',
 }
 
+export type ParkingHistorySession = Omit<
+  ParkingTransaction,
+  'is_paid' | 'parkingCost' | 'money_balance_applicable' | 'time_balance'
+> & {
+  days?: {
+    day_of_week: string
+    end_time: string
+    start_time: string
+  }
+  is_payed?: boolean
+  is_stopped_early?: boolean
+  is_visitor?: boolean
+  money_balance_applicable?: boolean
+  parking_time?: number
+  permit_name?: string
+  time_balance_applicable?: boolean
+}
+
+export type ParkingSessionHistoryEndpointResponse =
+  Paginated<ParkingHistorySession>
 export type ParkingTransactionsEndpointResponse = Paginated<ParkingTransaction>
 
 export type ParkingSessionReceiptEndpointResponse = {
@@ -387,3 +412,7 @@ export type ParkingManageVisitorTimeBalanceEndpointRequest = {
   report_code: string
   seconds_to_transfer: number
 }
+
+export type ParkingSessionOrDummy =
+  | ((ParkingSession | VisitorParkingSession) & {dummy?: never})
+  | {dummy: true; ps_right_id: number; start_date_time: string}
