@@ -43,7 +43,7 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
       <Column>
         {!time_balance_applicable && (
           <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-            Onbeperkt
+            Parkeertijd: Onbeperkt
           </Phrase>
         )}
 
