@@ -40,7 +40,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
   const {permits, isLoading} = useGetPermits()
-  const {permit_zone, parking_rate, payment_zones} =
+  const {permit_zone, parking_rate, payment_zones, money_balance_applicable} =
     permits?.find(
       permit =>
         permit.report_code.toString() === parkingSession.report_code.toString(),
@@ -99,7 +99,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
               )}
             />
           )}
-          {!!parkingSession.money_balance_applicable &&
+          {!!money_balance_applicable &&
             'parking_cost' in parkingSession &&
             parkingSession.parking_cost?.value &&
             'parking_cost' in parkingSession &&
@@ -115,7 +115,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           {isLoading ? (
             <PleaseWait testID="ParkingSessionPleaseWait" />
           ) : (
-            !!parkingSession.money_balance_applicable && (
+            !!money_balance_applicable && (
               <ParkingSessionDetailsRow
                 label="Tarief"
                 value={`${formatNumber(
@@ -136,7 +136,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             )
           )}
         </Column>
-        {!!parkingSession.money_balance_applicable && !!timeString && (
+        {!!money_balance_applicable && !!timeString && (
           <Paragraph>Betaald parkeren van {timeString}</Paragraph>
         )}
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
@@ -163,7 +163,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!!parkingSession.money_balance_applicable &&
+            {!!money_balance_applicable &&
               'is_paid' in parkingSession &&
               !parkingSession.is_paid && (
                 <AlertBase

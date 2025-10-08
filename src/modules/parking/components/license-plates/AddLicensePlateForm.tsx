@@ -22,7 +22,7 @@ export const AddLicensePlateForm = () => {
   const {licensePlates} = useGetLicensePlates()
   const {setAlert} = useAlert()
 
-  const [addLicensePlate] = useAddLicensePlateMutation()
+  const [addLicensePlate, {isLoading}] = useAddLicensePlateMutation()
 
   const saveLicensePlate = useCallback(
     (vehicle_id: string, visitor_name: string) => {
@@ -90,7 +90,8 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormNameInputField"
         />
         <Button
-          disabled={formState.isSubmitting}
+          disabled={formState.isSubmitting || isLoading}
+          isLoading={formState.isSubmitting || isLoading}
           label="Opslaan"
           onPress={handleSubmit(onSubmit)}
           testID="ParkingAddLicensePlateFormSubmitButton"
