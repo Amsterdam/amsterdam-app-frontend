@@ -21,7 +21,10 @@ export const ManageVisitorTimeBalanceOverview = () => {
 
   return (
     <Column gutter="lg">
-      <Title text="Tijdsaldo bezoeker" />
+      <Title
+        level="h2"
+        text="Tijdsaldo bezoeker"
+      />
       <SingleSelectable>
         <Column gutter="no">
           <Row
@@ -41,7 +44,7 @@ export const ManageVisitorTimeBalanceOverview = () => {
           </Phrase>
         </Column>
       </SingleSelectable>
-      <Paragraph variant="small">
+      <Paragraph>
         Beheer de tijd van uw bezoekersaccount. De aangepaste tijd wordt
         verrekend met het saldo van uw bezoekersvergunning.
       </Paragraph>
