@@ -200,15 +200,14 @@ export enum ParkingSessionStatus {
 
 export type VisitorParkingSession = {
   end_date_time: string
-  money_balance_applicable: boolean
   no_endtime: boolean
+  parking_machine?: string
   payment_zone_id?: string
   ps_right_id: number
   remaining_time: number
   report_code: string
   start_date_time: string
   status: ParkingSessionStatus
-  time_balance_applicable: boolean
   vehicle_id: string
   visitor_name?: string
 }
