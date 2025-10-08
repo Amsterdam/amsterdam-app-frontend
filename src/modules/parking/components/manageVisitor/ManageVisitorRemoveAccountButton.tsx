@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react'
+import {useCallback, useEffect, useState} from 'react'
 import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
@@ -6,8 +6,8 @@ import {useManageVisitorRemoveAccountMutation} from '@/modules/parking/service'
 
 export const ManageVisitorRemoveAccountButton = () => {
   const currentPermit = useCurrentParkingPermit()
-  const [isButtonPressed, setIsButtonPressed] = useState(false)
   const [removeAccount, {isError}] = useManageVisitorRemoveAccountMutation()
+  const [isPressed, setIsPressed] = useState(false)
   const onPress = useCallback(() => {
     Alert.alert(
       'Weet u zeker dat u het bezoekersaccount wilt verwijderen?',
@@ -21,7 +21,7 @@ export const ManageVisitorRemoveAccountButton = () => {
           text: 'Verwijderen',
           style: 'destructive',
           onPress: () => {
-            setIsButtonPressed(true)
+            setIsPressed(true)
             void removeAccount(currentPermit.report_code)
           },
         },
@@ -30,10 +30,16 @@ export const ManageVisitorRemoveAccountButton = () => {
     )
   }, [currentPermit.report_code, removeAccount])
 
+  useEffect(() => {
+    if (isError) {
+      setIsPressed(false)
+    }
+  }, [isError])
+
   return (
     <Button
       isError={isError}
-      isLoading={!!isButtonPressed && !!currentPermit.visitor_account}
+      isLoading={!!isPressed && !!currentPermit.visitor_account}
       label="Verwijder account"
       onPress={onPress}
       testID="ParkingManageVisitorRemoveAccountButton"
