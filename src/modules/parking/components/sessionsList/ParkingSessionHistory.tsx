@@ -1,9 +1,8 @@
 import {Box} from '@/components/ui/containers/Box'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {ParkingSessionsList} from '@/modules/parking/components/sessionsList/ParkingSessionsList'
+import {ParkingSessionHistoryList} from '@/modules/parking/components/sessionsList/ParkingSessionHistoryList'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {ParkingSessionStatus} from '@/modules/parking/types'
 
 const ListEmptyComponent = () => (
   <Box>
@@ -24,17 +23,16 @@ const ListHeaderComponent = () => (
   </Box>
 )
 
-export const ParkingSessionTransactionsList = () => {
+export const ParkingSessionHistory = () => {
   const currentPermit = useCurrentParkingPermit()
 
   return (
-    <ParkingSessionsList
+    <ParkingSessionHistoryList
       ListEmptyComponent={ListEmptyComponent}
       ListHeaderComponent={
         currentPermit.visitor_account_allowed ? ListHeaderComponent : undefined
       }
       sortAscending={false}
-      status={ParkingSessionStatus.completed}
     />
   )
 }

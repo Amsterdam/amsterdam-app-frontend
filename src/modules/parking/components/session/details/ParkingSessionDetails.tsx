@@ -15,6 +15,7 @@ import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/compon
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
+  ParkingHistorySession,
   ParkingPermitScope,
   ParkingSession,
   ParkingSessionStatus,
@@ -31,7 +32,7 @@ import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDispla
 import {formatNumber} from '@/utils/formatNumber'
 
 type Props = {
-  parkingSession: ParkingSession | VisitorParkingSession
+  parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
 }
 
 export const ParkingSessionDetails = ({parkingSession}: Props) => {

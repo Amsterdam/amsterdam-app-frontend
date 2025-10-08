@@ -19,8 +19,7 @@ import {
   ParkingTransaction,
   ParkingTransactionsEndpointRequest,
 } from '@/modules/parking/types'
-import {compareParkingSessionsByStartDateTime} from '@/modules/parking/utils/compareParkingSessionsByStartDateTime'
-import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
+import {groupParkingSessionsByDate} from '@/modules/parking/utils/groupParkingSessionsByDate'
 import {formatNumber} from '@/utils/formatNumber'
 
 const ListEmptyComponent = () => (
@@ -47,34 +46,6 @@ type Section = {
 }
 
 const dummyTitle = 'dummy'
-
-const groupParkingSessionsByDate = (
-  parkingSessions: Array<ParkingTransactionOrDummy> | undefined,
-  sortAscending: boolean,
-) =>
-  [...(parkingSessions ?? [])]
-    .filter(item => item.dummy || item.order_type === ParkingOrderType.recharge)
-    .sort((a, b) =>
-      a.dummy || b.dummy
-        ? 0
-        : sortAscending
-          ? compareParkingSessionsByStartDateTime(a, b)
-          : compareParkingSessionsByStartDateTime(b, a),
-    )
-    .reduce<Section[]>((result, session) => {
-      const date = session.dummy
-        ? dummyTitle
-        : formatDateToDisplay(session.created_date_time, false)
-      const section = result.find(s => s.title === date)
-
-      if (section) {
-        section.data.push(session)
-      } else {
-        result.push({title: date, data: [session]})
-      }
-
-      return result
-    }, [])
 
 const pageSize = 20
 
@@ -136,10 +107,13 @@ export const ParkingMoneyTransactionsList = () => {
     [result.data],
   )
 
-  const sections = useMemo(
-    () => groupParkingSessionsByDate(result.data, false),
-    [result],
-  )
+  const sections = useMemo(() => {
+    const transactionsOnly = result.data.filter(
+      item => item.dummy || item.order_type === ParkingOrderType.recharge,
+    )
+
+    return groupParkingSessionsByDate(transactionsOnly, false)
+  }, [result])
 
   return (
     <>

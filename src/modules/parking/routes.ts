@@ -1,4 +1,8 @@
-import {ParkingSession, VisitorParkingSession} from '@/modules/parking/types'
+import {
+  ParkingHistorySession,
+  ParkingSession,
+  VisitorParkingSession,
+} from '@/modules/parking/types'
 
 export enum ParkingRouteName {
   accountChangePinCode = 'ParkingAccountChangePinCode',
@@ -50,7 +54,10 @@ export type ParkingStackParams = {
   [ParkingRouteName.parkingPermitZones]: undefined
   [ParkingRouteName.parkingPlannedSessions]: undefined
   [ParkingRouteName.parkingSession]: {
-    parkingSession: ParkingSession | VisitorParkingSession
+    parkingSession:
+      | ParkingSession
+      | VisitorParkingSession
+      | ParkingHistorySession
   }
   [ParkingRouteName.parkingSessionTransactions]: undefined
   [ParkingRouteName.parkingMoneyTransactions]: undefined

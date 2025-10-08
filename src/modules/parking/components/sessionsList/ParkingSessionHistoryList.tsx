@@ -1,5 +1,5 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
-import {FlatList, SectionList, SectionListProps} from 'react-native'
+import {SectionList, SectionListProps} from 'react-native'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
@@ -10,70 +10,70 @@ import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
 import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
+import {
+  parkingApi,
+  useParkingSessionHistoryQuery,
+} from '@/modules/parking/service'
 import {
   ParkingEndpointName,
-  ParkingSession,
-  ParkingSessionOrDummy,
+  ParkingHistorySession,
+  ParkingOrderType,
   ParkingSessionsEndpointRequest,
-  ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {
-  Section,
   dummyTitle,
   groupParkingSessionsByDate,
 } from '@/modules/parking/utils/groupParkingSessionsByDate'
+
+type ParkingHistorySessionOrDummy =
+  | (ParkingHistorySession & {dummy?: never})
+  | {dummy: true; ps_right_id: number; start_date_time: string}
 
 type Props = {
   ListEmptyComponent?: ComponentType
   ListHeaderComponent?: ComponentType
   sortAscending?: boolean
-  status: ParkingSessionStatus
 }
 
 const pageSize = 20
 
-export const ParkingSessionsList = ({
+export const ParkingSessionHistoryList = ({
   ListEmptyComponent,
   ListHeaderComponent,
   sortAscending = false,
-  status,
 }: Props) => {
-  const isSessionHistory = status === ParkingSessionStatus.completed
   const currentPermit = useCurrentParkingPermit()
 
   const [viewableItemIndex, setViewableItemIndex] = useState(1)
   const page = getCurrentPage(viewableItemIndex, 1, pageSize)
 
   const result = useInfiniteScroller<
-    ParkingSession,
-    ParkingSession,
+    ParkingHistorySession,
+    ParkingHistorySessionOrDummy,
     ParkingSessionsEndpointRequest
   >(
     {
       start_date_time: sortAscending
         ? '2038-01-01T00:00:00'
         : '1970-01-01T00:00:00',
-      ps_right_id: -1,
       dummy: true,
-    } as unknown as ParkingSession,
-    parkingApi.endpoints[ParkingEndpointName.parkingSessions],
-    'ps_right_id',
-    useParkingSessionsQuery,
+    } as unknown as ParkingHistorySession,
+    parkingApi.endpoints[ParkingEndpointName.parkingSessionHistory],
+    'start_date_time',
+    useParkingSessionHistoryQuery,
     page,
     pageSize,
     {
       page_size: pageSize,
       report_code: currentPermit.report_code.toString(),
-      status: isSessionHistory ? undefined : status,
     },
   )
 
   const onViewableItemsChanged = useCallback<
     NonNullable<
       SectionListProps<
-        ParkingSessionOrDummy,
-        Section<ParkingSessionOrDummy>
+        ParkingHistorySessionOrDummy,
+        ParkingHistorySession
       >['onViewableItemsChanged']
     >
   >(
@@ -102,31 +102,18 @@ export const ParkingSessionsList = ({
     [result.data],
   )
 
-  const sections = useMemo(
-    () =>
-      groupParkingSessionsByDate<ParkingSessionOrDummy>(
-        result.data,
-        sortAscending,
-      ),
-    [result, sortAscending],
-  )
+  const sections = useMemo(() => {
+    const sessionsOnly = result.data.filter(
+      item =>
+        item.dummy ||
+        item.order_type === undefined || // On v2 this property doesn't exist
+        item.order_type === ParkingOrderType.session,
+    )
 
-  return currentPermit.no_endtime ||
-    currentPermit.max_session_length_in_days > 1 ? (
-    <FlatList
-      data={result.data}
-      ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
-      ListFooterComponent={<Gutter height="md" />}
-      onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={({item}) => (
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          <ParkingSessionNavigationButton parkingSession={item} />
-        </Box>
-      )}
-    />
-  ) : (
+    return groupParkingSessionsByDate(sessionsOnly, sortAscending)
+  }, [result, sortAscending])
+
+  return (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
