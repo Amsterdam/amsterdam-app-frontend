@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
@@ -13,6 +13,8 @@ export const ManageVisitorCreateAccount = () => {
   const currentPermit = useCurrentParkingPermit()
   const [addAccount, {isError, isLoading, isSuccess}] =
     useManageVisitorAddAccountMutation()
+
+  const [isPressed, setIsPressed] = useState(false)
   const {setAlert} = useAlert()
 
   useEffect(() => {
@@ -20,6 +22,12 @@ export const ManageVisitorCreateAccount = () => {
       setAlert(alerts.createVisitorAccountSuccess)
     }
   }, [isSuccess, setAlert])
+
+  useEffect(() => {
+    if (isError) {
+      setIsPressed(false)
+    }
+  }, [isError])
 
   return (
     <Column gutter="md">
@@ -31,9 +39,13 @@ export const ManageVisitorCreateAccount = () => {
       </Paragraph>
       <Button
         isError={!!isError}
-        isLoading={!!isLoading}
+        isLoading={!!isLoading || !!isPressed}
         label="Nieuw bezoekersaccount"
-        onPress={() => addAccount(currentPermit.report_code)}
+        onPress={() => {
+          setIsPressed(true)
+
+          return addAccount(currentPermit.report_code)
+        }}
         testID="ParkingManageVisitorCreateVisitorButton"
       />
     </Column>
