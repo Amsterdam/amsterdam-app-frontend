@@ -114,7 +114,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
             <NavigationButton
               emphasis="default"
               iconSize="md"
-              key={item.iconName}
+              key={item.label}
               {...item}
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
