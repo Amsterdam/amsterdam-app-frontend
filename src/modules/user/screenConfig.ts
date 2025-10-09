@@ -1,5 +1,6 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
+  AboutRouteName,
   UserModalParams,
   UserRouteName,
   UserStackParams,
@@ -16,7 +17,7 @@ import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen
 
 export const screenConfig: StackNavigationRoutes<
   UserStackParams,
-  UserRouteName
+  AboutRouteName | UserRouteName
 > = {
   [UserRouteName.moduleSettings]: {
     component: ModuleSettingsScreen,
@@ -46,38 +47,38 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Biometrische gegevens',
     },
   },
-  [UserRouteName.appSummary]: {
+  [AboutRouteName.appSummary]: {
     component: AboutTheAppDutchScreen,
-    name: UserRouteName.appSummary,
+    name: AboutRouteName.appSummary,
     options: {
       headerTitle: 'Over deze app',
     },
   },
-  [UserRouteName.aboutEnglish]: {
+  [AboutRouteName.aboutEnglish]: {
     component: AboutTheAppEnglishScreen,
-    name: UserRouteName.aboutEnglish,
+    name: AboutRouteName.aboutEnglish,
     options: {
       accessibilityLanguage: 'en-US',
       headerTitle: 'About this app',
     },
   },
-  [UserRouteName.accessibilityStatement]: {
+  [AboutRouteName.accessibilityStatement]: {
     component: AccessibilityStatementScreen,
-    name: UserRouteName.accessibilityStatement,
+    name: AboutRouteName.accessibilityStatement,
     options: {
       headerTitle: 'Toegankelijkheidsverklaring',
     },
   },
-  [UserRouteName.feedback]: {
+  [AboutRouteName.feedback]: {
     component: FeedbackScreen,
-    name: UserRouteName.feedback,
+    name: AboutRouteName.feedback,
     options: {
       headerTitle: 'Uw mening',
     },
   },
-  [UserRouteName.privacyStatement]: {
+  [AboutRouteName.privacyStatement]: {
     component: PrivacyStatementScreen,
-    name: UserRouteName.privacyStatement,
+    name: AboutRouteName.privacyStatement,
     options: {
       headerTitle: 'Privacyverklaring',
     },

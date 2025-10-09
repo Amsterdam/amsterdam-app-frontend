@@ -13,7 +13,7 @@ import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAc
 import {AddressRouteName} from '@/modules/address/routes'
 import {OnboardingRouteName} from '@/modules/onboarding/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {UserRouteName} from '@/modules/user/routes'
+import {AboutRouteName, UserRouteName} from '@/modules/user/routes'
 import {UserMenuSection, UserMenuSectionItem} from '@/modules/user/types'
 import {SHA256EncryptedDeviceId} from '@/utils/encryption'
 import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
@@ -66,11 +66,11 @@ const getAboutSections = (): UserMenuSection[] => [
     navigationItems: [
       {
         label: 'Over deze app',
-        route: UserRouteName.appSummary,
+        route: AboutRouteName.appSummary,
       },
       {
         label: 'About this app',
-        route: UserRouteName.aboutEnglish,
+        route: AboutRouteName.aboutEnglish,
       },
       {
         label: 'Zo werkt de app',
@@ -79,15 +79,15 @@ const getAboutSections = (): UserMenuSection[] => [
       },
       {
         label: 'Geef uw mening over de app',
-        route: UserRouteName.feedback,
+        route: AboutRouteName.feedback,
       },
       {
         label: 'Privacy verklaring',
-        route: UserRouteName.privacyStatement,
+        route: AboutRouteName.privacyStatement,
       },
       {
         label: 'Toegankelijkheidsverklaring',
-        route: UserRouteName.accessibilityStatement,
+        route: AboutRouteName.accessibilityStatement,
       },
     ],
   },
@@ -161,7 +161,7 @@ export const UserMenu = () => {
             />
           ))}
 
-        {!accessCode && <MenuSection {...accessCodeSection} />}
+        {!!accessCode && <MenuSection {...accessCodeSection} />}
 
         {!!aboutSections.length &&
           aboutSections.map(section => (
