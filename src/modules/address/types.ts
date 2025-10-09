@@ -79,6 +79,18 @@ export type AddressResponse = {
   }
 }
 
+export type AddressResponseV2 = {
+  additionLetter?: string
+  additionNumber?: string
+  bagId?: string
+  city: AddressCity
+  coordinates: Coordinates
+  number?: number
+  postcode?: string
+  street: string
+  type: 'adres' | 'weg' | 'woonplaats'
+}[]
+
 export type LocationType = 'address' | 'location'
 
 export enum HighAccuracyPurposeKey {

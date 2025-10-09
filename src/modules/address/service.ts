@@ -1,4 +1,8 @@
-import {AddressResponse, Coordinates} from '@/modules/address/types'
+import {
+  AddressResponse,
+  AddressResponseV2,
+  Coordinates,
+} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
@@ -55,6 +59,10 @@ const keepUnusedDataFor = CacheLifetime.day
 
 export const addressApi = baseApi.injectEndpoints({
   endpoints: builder => ({
+    /**
+     * @deprecated Use getLocationV2 (and its hook useGetLocationV2Query) instead.
+     * This endpoint calls the legacy PDOK /free path and will be removed in a future release.
+     */
     getLocation: builder.query<
       AddressResponse | undefined,
       AddressForCoordinatesQueryParams
@@ -74,6 +82,20 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
+    getLocationV2: builder.query<AddressResponseV2 | undefined, Coordinates>({
+      query: ({lat, lon}) => ({
+        url: generateRequestUrl<Coordinates>({
+          params: {lat, lon},
+          path: '/coordinate',
+        }),
+        slug: ModuleSlug.address,
+        keepUnusedDataFor,
+      }),
+    }),
+    /**
+     * @deprecated Use getAddressSuggestionsV2 (and its hook useGetAddressSuggestionsV2Query) instead.
+     * This endpoint calls the legacy PDOK /free path and will be removed in a future release.
+     */
     getAddressSuggestions: builder.query<
       AddressResponse | undefined,
       AddressSuggestionQueryParams
@@ -97,8 +119,30 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
+    getAddressSuggestionsV2: builder.query<
+      AddressResponseV2 | undefined,
+      Omit<AddressSuggestionQueryParams, 'rows'>
+    >({
+      query: ({address, city, street}) => ({
+        url: generateRequestUrl<{query: string; street_name?: string}>({
+          params: {
+            query: [address, city].join(' '),
+            street_name: street,
+          },
+          path: '/address',
+        }),
+        slug: ModuleSlug.address,
+        keepUnusedDataFor,
+      }),
+    }),
   }),
+
   overrideExisting: true,
 })
 
-export const {useGetLocationQuery, useGetAddressSuggestionsQuery} = addressApi
+export const {
+  useGetLocationQuery,
+  useGetLocationV2Query,
+  useGetAddressSuggestionsQuery,
+  useGetAddressSuggestionsV2Query,
+} = addressApi
