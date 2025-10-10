@@ -2,6 +2,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {ParkingIncreaseBalanceButton} from '@/modules/parking/components/form/ParkingIncreaseBalanceButton'
@@ -30,9 +31,14 @@ export const ParkingIncreaseBalanceScreen = () => (
               testID="ParkingChooseTimeTitle"
               text="Geldsaldo"
             />
-            <ParkingIncreaseBalanceReceipt />
-            <Gutter height="sm" />
-            <ParkingIncreaseBalanceButton />
+            <Column gutter="lg">
+              <ParkingIncreaseBalanceReceipt />
+              <Paragraph>
+                U betaalt via uw bank. Daarna moet u zelf deze app opnieuw
+                openen om uw bijgewerkte saldo te zien.
+              </Paragraph>
+              <ParkingIncreaseBalanceButton />
+            </Column>
           </Column>
         </Box>
       </Screen>

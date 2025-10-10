@@ -1,5 +1,4 @@
 import {useEffect} from 'react'
-import {Button} from '@/components/ui/buttons/Button'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -7,11 +6,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
+import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {ParkingRouteName} from '@/modules/parking/routes'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
 import {
   setWalletBalanceIncreaseStartedAt,
@@ -28,12 +26,7 @@ export const ParkingPermitBalanceMoney = () => {
   const walletBalance = useWalletBalanceIncreaseStartBalance()
   const {data: account, isLoading, refetch} = useAccountDetailsQuery()
   const accountWalletBalance = account?.wallet?.balance
-  const {navigate} = useNavigation()
   const walletBalanceIncreaseStartedAt = useWalletBalanceIncreaseStartedAt()
-
-  const onPressAddMoney = () => {
-    navigate(ParkingRouteName.increaseBalance)
-  }
 
   useEffect(() => {
     if (
@@ -99,13 +92,7 @@ export const ParkingPermitBalanceMoney = () => {
           </Phrase>
         </Column>
       </SingleSelectable>
-      <Button
-        iconName="euroCoins"
-        label="Geld toevoegen"
-        onPress={onPressAddMoney}
-        testID="ParkingPermitBalanceMoneyAddButton"
-        variant="secondary"
-      />
+      <ParkingAddMoneyButton variant="secondary" />
     </Column>
   )
 }
