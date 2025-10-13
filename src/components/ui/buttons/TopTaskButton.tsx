@@ -20,6 +20,7 @@ export type TopTaskButtonProps = {
   iconSize?: IconProps['size']
   isError?: boolean
   isExternalLink?: boolean
+  isInternalLink?: boolean
   text?: ReactNode
   title: string
   titleIconName?: SvgIconName
@@ -27,6 +28,7 @@ export type TopTaskButtonProps = {
 
 export const TopTaskButton = ({
   isExternalLink,
+  isInternalLink,
   isError = false,
   iconName,
   iconRightName,
@@ -71,22 +73,13 @@ export const TopTaskButton = ({
           align="center"
           grow={1}
           shrink={1}>
-          <Row
-            align={isExternalLink ? 'between' : undefined}
-            gutter="sm">
+          <Row gutter="sm">
             <Title
               color="link"
               level="h5"
               testID={`${testID}Title`}
               text={title}
             />
-            {!!isExternalLink && (
-              <Icon
-                color="link"
-                name="external-link"
-                testID={`${testID}TitleIcon`}
-              />
-            )}
             {!!titleIconName && (
               <Icon
                 color="link"
@@ -106,6 +99,18 @@ export const TopTaskButton = ({
             text
           )}
         </Column>
+        {!!isExternalLink && (
+          <Icon
+            color="secondary"
+            name="external-link"
+          />
+        )}
+        {!!isInternalLink && (
+          <Icon
+            color="secondary"
+            name="chevron-right"
+          />
+        )}
         {!!iconRightName && (
           <View style={styles.height}>
             <HideFromAccessibility>
