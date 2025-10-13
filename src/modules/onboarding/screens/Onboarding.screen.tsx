@@ -29,7 +29,12 @@ export const OnboardingScreen = ({navigation}: Props) => {
 
   const handleOnboarding = useCallback(() => {
     dispatch(setHasSeenOnboarding(true))
-    navigation.reset(navigationResetParam)
+
+    if (navigation.canGoBack()) {
+      navigation.goBack()
+    } else {
+      navigation.reset(navigationResetParam)
+    }
   }, [dispatch, navigation])
 
   const onPress = useCallback(() => {
