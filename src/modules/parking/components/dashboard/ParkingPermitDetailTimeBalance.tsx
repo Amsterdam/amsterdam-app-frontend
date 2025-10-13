@@ -50,9 +50,11 @@ export const ParkingPermitDetailTimeBalance = ({permit}: Props) => {
         <Phrase testID="ParkingPermitDetailParkingRatePhrase">
           Uw parkeertarief: {parkingRate}
         </Phrase>
-        <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
-          Maximaal parkeersessies tegelijk: {max_sessions_allowed}
-        </Phrase>
+        {!!max_sessions_allowed && (
+          <Phrase testID="ParkingPermitDetailTimeBalancePhrase">
+            Maximaal parkeersessies tegelijk: {max_sessions_allowed}
+          </Phrase>
+        )}
         {!!time_valid_until && (
           <Phrase testID="ParkingPermitBalanceTimeValidUntilPhrase">
             {`Geldig tot ${formatDate(time_valid_until)}`}

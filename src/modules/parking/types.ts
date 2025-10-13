@@ -152,7 +152,7 @@ export type ParkingPermit = {
   discount: number
   forced_license_plate_list: boolean
   max_session_length_in_days: number
-  max_sessions_allowed: number
+  max_sessions_allowed?: number // DEPRECATED in V2
   money_balance_applicable: boolean
   no_endtime: boolean
   parking_rate: {
