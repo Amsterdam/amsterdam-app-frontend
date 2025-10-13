@@ -86,8 +86,7 @@ const getBackgroundColor = (
   color: Theme['color'],
   isPressed: boolean,
   variant: Variants = 'primary',
-) =>
-  color.copyButton[variant].backgroundColors[isPressed ? 'pressed' : 'default']
+) => color.copyButton[variant].background[isPressed ? 'pressed' : 'default']
 
 const createStyles =
   (
