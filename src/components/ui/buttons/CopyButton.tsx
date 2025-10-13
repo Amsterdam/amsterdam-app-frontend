@@ -1,5 +1,6 @@
 import {useCallback, useState} from 'react'
 import {StyleSheet, TextProps} from 'react-native'
+import type {ColorTokens} from '@/themes/tokens/color-light'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {config} from '@/components/ui/config'
 import {Row} from '@/components/ui/layout/Row'
@@ -10,32 +11,9 @@ import {useCopyToClipboard} from '@/hooks/useCopyToClipboard'
 import {LogProps} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {SpacingTokens} from '@/themes/tokens/size'
-import {ParagraphVariants} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
-type Variants = 'primary' | 'secondary' | 'tertiary'
-
-type VariantProps = {
-  backgroundColors: 'tertiary' | 'transparent'
-  color: keyof Theme['color']['text']
-  reverse: boolean
-  textSize?: ParagraphVariants
-}
-
-const variantProps: Record<Variants, VariantProps> = {
-  primary: {
-    backgroundColors: 'tertiary',
-    color: 'link',
-    reverse: false,
-  },
-  secondary: {backgroundColors: 'tertiary', color: 'default', reverse: true},
-  tertiary: {
-    backgroundColors: 'transparent',
-    color: 'default',
-    reverse: true,
-    textSize: 'small',
-  },
-}
+type Variants = keyof ColorTokens['copyButton']
 
 type Props = {
   insetHorizontal?: keyof SpacingTokens
@@ -81,7 +59,7 @@ export const CopyButton = ({
       {...pressableProps}>
       <Row
         gutter="sm"
-        reverse={variantProps[variant].reverse}>
+        reverse={variant !== 'primary'}>
         <Icon
           color={isCopied ? 'confirm' : 'link'}
           name="copy"
@@ -89,12 +67,14 @@ export const CopyButton = ({
           testID={`${testID}Icon`}
         />
         <Phrase
-          color={isCopied ? 'confirm' : variantProps[variant].color}
+          color={
+            isCopied ? 'confirm' : variant === 'primary' ? 'link' : 'default'
+          }
           ellipsizeMode={ellipsizeMode}
           emphasis={variant === 'primary' || isCopied ? 'strong' : 'default'}
           numberOfLines={numberOfLines}
           testID={`${testID}Label`}
-          variant={variantProps[variant].textSize}>
+          variant={variant === 'transparent' ? 'small' : 'body'}>
           {isCopied ? 'Gekopieerd' : label}
         </Phrase>
       </Row>
@@ -107,9 +87,7 @@ const getBackgroundColor = (
   isPressed: boolean,
   variant: Variants = 'primary',
 ) =>
-  color.pressable[variantProps[variant].backgroundColors][
-    isPressed ? 'pressed' : 'default'
-  ].background
+  color.copyButton[variant].backgroundColors[isPressed ? 'pressed' : 'default']
 
 const createStyles =
   (

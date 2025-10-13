@@ -180,7 +180,7 @@ export const UserMenu = () => {
           label={`Versie ${VERSION_NUMBER_WITH_BUILD}`}
           testID="AboutVersionNumberText"
           textToCopy={VERSION_NUMBER_WITH_BUILD}
-          variant="tertiary"
+          variant="transparent"
         />
         <CopyButton
           ellipsizeMode="tail"
@@ -189,7 +189,7 @@ export const UserMenu = () => {
           numberOfLines={1}
           testID="AboutInstallationIdText"
           textToCopy={SHA256EncryptedDeviceId}
-          variant="tertiary"
+          variant="transparent"
         />
       </Column>
     </View>

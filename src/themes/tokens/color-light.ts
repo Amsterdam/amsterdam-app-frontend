@@ -143,6 +143,26 @@ export const lightColorTokens = {
       border: baseColor.neutral.grey2,
     },
   },
+  copyButton: {
+    primary: {
+      backgroundColors: {
+        default: baseColor.primary.white,
+        pressed: baseColor.neutral.grey1,
+      },
+    },
+    secondary: {
+      backgroundColors: {
+        default: baseColor.primary.white,
+        pressed: baseColor.neutral.grey1,
+      },
+    },
+    transparent: {
+      backgroundColors: {
+        default: baseColor.transparent.full,
+        pressed: baseColor.primary.white,
+      },
+    },
+  },
   customKeyboard: {
     background: baseColor.neutral.grey2,
     button: {
