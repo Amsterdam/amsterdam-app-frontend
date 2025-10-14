@@ -12,9 +12,9 @@ import {config} from '@/modules/address/config'
 import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
-import {AddressCity, PdokAddress} from '@/modules/address/types'
+import {AddressCity, BaseAddress, Address} from '@/modules/address/types'
+import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 import {replaceString} from '@/modules/address/utils/replaceString'
-import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
 
@@ -60,13 +60,15 @@ export const AddressForm = () => {
   const previousRoute = usePreviousRoute()
 
   const selectResult = useCallback(
-    (item: PdokAddress) => {
-      if (item.type === 'weg') {
+    (item: Address | BaseAddress) => {
+      if (item.type !== 'adres') {
         setIsStreetSelected(true)
-        setStreet(item.straatnaam)
-        setCity(item.woonplaatsnaam)
+        setStreet(item.street)
+        setCity(item.city)
       } else {
-        dispatch(addAddress(transformAddressApiResponse(item)))
+        const transformedAddress = addDerivedAddressFields(item)
+
+        dispatch(addAddress(transformedAddress))
 
         if (previousRoute?.name === ModuleSlug.address) {
           setAlert(alerts.addAddressSuccess)
@@ -91,7 +93,7 @@ export const AddressForm = () => {
       insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
       {!isStreetSelected ? (
         <StreetInput
-          bagList={bagList?.response.docs ?? []}
+          bagList={bagList ?? []}
           changeStreet={changeStreet}
           inputStreetRef={inputStreetRef}
           isError={isError}
@@ -103,7 +105,7 @@ export const AddressForm = () => {
         />
       ) : (
         <NumberInput
-          bagList={bagList?.response.docs ?? []}
+          bagList={bagList ?? []}
           changeIsStreetSelected={setIsStreetSelected}
           changeNumber={changeNumber}
           isError={isError}

@@ -13,14 +13,12 @@ import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNaviga
 import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {useGetLocationQuery} from '@/modules/address/service'
 import {useLocation} from '@/modules/address/slice'
-import {PdokAddress} from '@/modules/address/types'
+import {BaseAddress, Address} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 import {Permissions} from '@/types/permissions'
 
-const NUM_OF_SEARCH_RESULTS = 5
-
 type Props = {
-  selectResult: (item: PdokAddress) => void
+  selectResult: (item: Address | BaseAddress) => void
 }
 
 export const StreetSearchResultForLocation = ({selectResult}: Props) => {
@@ -30,16 +28,16 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     Permissions.location,
   )
   const {isGettingLocation, location} = useLocation()
+
   const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates
-      ? {...location.coordinates, rows: NUM_OF_SEARCH_RESULTS}
+      ? location.coordinates
       : skipToken,
   )
-  const pdokAddresses = currentData?.response?.docs
 
   const addresses = useMemo(
-    () => pdokAddresses?.filter(addressIsInAmsterdamMunicipality),
-    [pdokAddresses],
+    () => currentData?.filter(addressIsInAmsterdamMunicipality),
+    [currentData],
   )
 
   const {hasPermission: hasLocationPermission, requestPermission} =
@@ -65,7 +63,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
 
   useStartGettingLocation()
 
-  if (!hasLocationPermission && !pdokAddresses) {
+  if (!hasLocationPermission && !addresses?.length) {
     return (
       <Box insetVertical="md">
         <Row>

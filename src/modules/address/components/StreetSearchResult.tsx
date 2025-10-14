@@ -3,14 +3,14 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Icon} from '@/components/ui/media/Icon'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {PdokAddress} from '@/modules/address/types'
+import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 
 type StreetSearchResultProps = {
-  bagList: PdokAddress[]
+  bagList: AddressList
   isError: boolean
   isLoading: boolean
   refetch: () => void
-  selectResult: (item: PdokAddress) => void
+  selectResult: (item: Address | BaseAddress) => void
 }
 
 export const StreetSearchResult = ({

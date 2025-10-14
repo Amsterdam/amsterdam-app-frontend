@@ -1,11 +1,12 @@
+import {nanoid} from '@reduxjs/toolkit'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
-import {PdokAddress} from '@/modules/address/types'
+import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
 import {addressPronounce} from '@/utils/accessibility/addressPronounce'
 
 type Props = {
-  addresses?: PdokAddress[]
-  selectResult: (item: PdokAddress) => void
+  addresses?: AddressList
+  selectResult: (item: Address | BaseAddress) => void
   showNumbersOnly?: boolean
 }
 
@@ -15,18 +16,22 @@ export const AddressSearchSuggestions = ({
   showNumbersOnly = false,
 }: Props) => (
   <>
-    {addresses.map(pdokAddress => (
-      <SuggestionButton
-        accessibilityLabel={addressPronounce(
-          getSuggestionLabel(pdokAddress, showNumbersOnly),
-        )}
-        key={pdokAddress.id}
-        label={getSuggestionLabel(pdokAddress, showNumbersOnly)}
-        logging-label="AddressSearchResultButton"
-        pdokAddress={pdokAddress}
-        selectResult={selectResult}
-        testID={`AddressSearchResult${pdokAddress.id}Button`}
-      />
-    ))}
+    {addresses.map(address => {
+      const key = 'bagId' in address ? address.bagId : nanoid()
+
+      return (
+        <SuggestionButton
+          accessibilityLabel={addressPronounce(
+            getSuggestionLabel(address, showNumbersOnly),
+          )}
+          address={address}
+          key={key}
+          label={getSuggestionLabel(address, showNumbersOnly)}
+          logging-label="AddressSearchResultButton"
+          selectResult={selectResult}
+          testID={`AddressSearchResult${key}Button`}
+        />
+      )
+    })}
   </>
 )
