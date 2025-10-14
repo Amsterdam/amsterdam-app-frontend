@@ -52,7 +52,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Over deze app',
     },
-    screenType: 'settings',
+    screenType: 'default',
   },
   [UserRouteName.aboutEnglish]: {
     component: AboutTheAppEnglishScreen,
@@ -61,7 +61,7 @@ export const screenConfig: StackNavigationRoutes<
       accessibilityLanguage: 'en-US',
       headerTitle: 'About this app',
     },
-    screenType: 'settings',
+    screenType: 'default',
   },
   [UserRouteName.accessibilityStatement]: {
     component: AccessibilityStatementScreen,
@@ -69,7 +69,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Toegankelijkheidsverklaring',
     },
-    screenType: 'settings',
+    screenType: 'default',
   },
   [UserRouteName.feedback]: {
     component: FeedbackScreen,
@@ -77,7 +77,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Uw mening',
     },
-    screenType: 'settings',
+    screenType: 'default',
   },
   [UserRouteName.privacyStatement]: {
     component: PrivacyStatementScreen,
@@ -85,7 +85,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       headerTitle: 'Privacyverklaring',
     },
-    screenType: 'settings',
+    screenType: 'default',
   },
 }
 
