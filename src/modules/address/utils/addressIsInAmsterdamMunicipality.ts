@@ -1,7 +1,7 @@
-import {AddressCity, PdokAddress} from '@/modules/address/types'
+import {Address, AddressCity, BaseAddress} from '@/modules/address/types'
 
 const citiesInAmsterdamMunicipality = [AddressCity.Amsterdam, AddressCity.Weesp]
 
 export const addressIsInAmsterdamMunicipality = ({
-  woonplaatsnaam,
-}: PdokAddress) => citiesInAmsterdamMunicipality.includes(woonplaatsnaam)
+  city,
+}: Address | BaseAddress) => citiesInAmsterdamMunicipality.includes(city)

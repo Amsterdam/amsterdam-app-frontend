@@ -1,41 +1,37 @@
-import {AddressCity, PdokAddress} from '@/modules/address/types'
-import {getAddressLine1} from '@/modules/address/utils/transformAddressApiResponse'
+import {Address, AddressCity, BaseAddress} from '@/modules/address/types'
+import {getAddressLine1} from '@/modules/address/utils/addDerivedAddressFields'
 
 export const getSuggestionLabelForStreetOrAddress = (
-  pdokAddress: PdokAddress,
+  address: Address | BaseAddress,
 ): string => {
-  const {straatnaam, type, woonplaatsnaam} = pdokAddress
+  const {street, type, city} = address
 
-  if (type === 'weg') {
-    if (woonplaatsnaam === AddressCity.Amsterdam) {
-      return straatnaam
-    } else {
-      return `${straatnaam}, ${woonplaatsnaam}`
-    }
+  if (type !== 'adres') {
+    return `${street}, ${city}`
   }
 
-  const streetAndHouseNumber = getAddressLine1(pdokAddress)
+  const streetAndHouseNumber = getAddressLine1(address)
 
-  if (woonplaatsnaam === AddressCity.Amsterdam) {
+  if (city === AddressCity.Amsterdam) {
     return streetAndHouseNumber
   } else {
-    return `${streetAndHouseNumber}, ${woonplaatsnaam}`
+    return `${streetAndHouseNumber}, ${city}`
   }
 }
 
 export const getSuggestionLabelForNumber = ({
-  huisnummer,
-  huisnummertoevoeging,
-  huisletter,
-}: PdokAddress) =>
-  `${huisnummer}${huisletter ?? ''}${
-    huisnummertoevoeging ? `-${huisnummertoevoeging}` : ''
+  number,
+  additionNumber,
+  additionLetter,
+}: Address) =>
+  `${number}${additionLetter ?? ''}${
+    additionNumber ? `-${additionNumber}` : ''
   }`
 
 export const getSuggestionLabel = (
-  pdokAddress: PdokAddress,
+  address: BaseAddress | Address,
   numbersOnly: boolean,
 ) =>
-  numbersOnly
-    ? getSuggestionLabelForNumber(pdokAddress)
-    : getSuggestionLabelForStreetOrAddress(pdokAddress)
+  numbersOnly && address.type === 'adres'
+    ? getSuggestionLabelForNumber(address)
+    : getSuggestionLabelForStreetOrAddress(address)
