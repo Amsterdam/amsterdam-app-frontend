@@ -7,9 +7,7 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Row} from '@/components/ui/layout/Row'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useAccountDetailsQuery} from '@/modules/parking/service'
-import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
 import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingIncreaseBalanceReceipt = () => {
@@ -17,8 +15,6 @@ export const ParkingIncreaseBalanceReceipt = () => {
   const amount = watch('amount')
 
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
-
-  const currentPermit = useCurrentParkingPermit()
 
   if (isLoadingAccount) {
     return <PleaseWait testID="ParkingIncreaseBalanceReceiptPleaseWait" />
@@ -61,19 +57,6 @@ export const ParkingIncreaseBalanceReceipt = () => {
               ? formatNumber(
                   amount + account?.wallet.balance,
                   account?.wallet.currency,
-                )
-              : '-'}
-          </Phrase>
-        </Row>
-        <Row
-          align="between"
-          flex={1}>
-          <Phrase>Goed voor</Phrase>
-          <Phrase>
-            {account && amount
-              ? getParkingTimeForMoneyBalance(
-                  account?.wallet.balance + amount,
-                  currentPermit.parking_rate.value,
                 )
               : '-'}
           </Phrase>
