@@ -145,21 +145,27 @@ export const lightColorTokens = {
   },
   copyButton: {
     primary: {
-      background: {
-        default: baseColor.primary.white,
-        pressed: baseColor.neutral.grey1,
+      pressed: {
+        background: baseColor.neutral.grey1,
+      },
+      default: {
+        background: baseColor.primary.white,
       },
     },
     secondary: {
-      background: {
-        default: baseColor.primary.white,
-        pressed: baseColor.neutral.grey1,
+      pressed: {
+        background: baseColor.neutral.grey1,
+      },
+      default: {
+        background: baseColor.primary.white,
       },
     },
     transparent: {
-      background: {
-        default: baseColor.transparent.full,
-        pressed: baseColor.primary.white,
+      pressed: {
+        background: baseColor.transparent.grey50,
+      },
+      default: {
+        background: baseColor.transparent.full,
       },
     },
   },

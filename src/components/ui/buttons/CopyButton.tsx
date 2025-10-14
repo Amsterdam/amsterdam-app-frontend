@@ -67,9 +67,7 @@ export const CopyButton = ({
           testID={`${testID}Icon`}
         />
         <Phrase
-          color={
-            isCopied ? 'confirm' : variant === 'primary' ? 'link' : 'default'
-          }
+          color={isCopied ? 'confirm' : getTextColor(variant)}
           ellipsizeMode={ellipsizeMode}
           emphasis={variant === 'primary' || isCopied ? 'strong' : 'default'}
           numberOfLines={numberOfLines}
@@ -86,7 +84,12 @@ const getBackgroundColor = (
   color: Theme['color'],
   isPressed: boolean,
   variant: Variants = 'primary',
-) => color.copyButton[variant].background[isPressed ? 'pressed' : 'default']
+) => color.copyButton[variant][isPressed ? 'pressed' : 'default'].background
+
+const getTextColor = (
+  variant: Variants = 'primary',
+): keyof Pick<Theme['color']['text'], 'link' | 'default'> =>
+  variant === 'primary' ? 'link' : 'default'
 
 const createStyles =
   (
