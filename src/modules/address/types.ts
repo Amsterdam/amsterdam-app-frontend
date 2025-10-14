@@ -8,11 +8,11 @@ export type Coordinates = {
   lon: number
 }
 
-export type BaseAddress<T = 'weg'> = {
+export type BaseAddress<Type = 'weg'> = {
   city: AddressCity
   coordinates?: Coordinates
   street: string
-  type?: T
+  type?: Type
 }
 
 export type Address = BaseAddress<'adres'> & {
