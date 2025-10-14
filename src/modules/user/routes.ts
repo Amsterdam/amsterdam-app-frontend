@@ -1,27 +1,21 @@
-export enum AboutRouteName {
+export enum UserRouteName {
   aboutEnglish = 'AboutEnglish',
   accessibilityStatement = 'AccessibilityStatement',
   appSummary = 'AppSummary',
   feedback = 'Feedback',
-  privacyStatement = 'PrivacyStatement',
-}
-
-export enum UserRouteName {
   moduleSettings = 'ModuleSettings',
   notificationSettings = 'NotificationSettings',
+  privacyStatement = 'PrivacyStatement',
   user = 'User',
   userBiometrics = 'UserBiometrics',
 }
 
-export type AboutParams = {
-  [AboutRouteName.aboutEnglish]: undefined
-  [AboutRouteName.accessibilityStatement]: undefined
-  [AboutRouteName.appSummary]: undefined
-  [AboutRouteName.feedback]: undefined
-  [AboutRouteName.privacyStatement]: undefined
-}
-
-export type UserStackParams = AboutParams & {
+export type UserStackParams = {
+  [UserRouteName.aboutEnglish]: undefined
+  [UserRouteName.accessibilityStatement]: undefined
+  [UserRouteName.appSummary]: undefined
+  [UserRouteName.feedback]: undefined
+  [UserRouteName.privacyStatement]: undefined
   [UserRouteName.moduleSettings]: undefined
   [UserRouteName.notificationSettings]: undefined
   [UserRouteName.user]: undefined

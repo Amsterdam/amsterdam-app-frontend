@@ -2,7 +2,7 @@ import type {SvgIconName} from '@/components/ui/media/svgIcons'
 import type {AccessCodeRouteName} from '@/modules/access-code/routes'
 import type {AddressRouteName} from '@/modules/address/routes'
 import type {ModuleSlug} from '@/modules/slugs'
-import type {AboutRouteName, UserRouteName} from '@/modules/user/routes'
+import type {UserRouteName} from '@/modules/user/routes'
 import {OnboardingRouteName} from '@/modules/onboarding/routes'
 
 export type UserMenuSection = {
@@ -19,7 +19,6 @@ export type UserMenuSectionItem = {
     | AddressRouteName
     | UserRouteName
     | OnboardingRouteName
-    | AboutRouteName
 }
 
 export type NotificationModule = {

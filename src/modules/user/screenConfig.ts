@@ -1,6 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  AboutRouteName,
   UserModalParams,
   UserRouteName,
   UserStackParams,
@@ -17,7 +16,7 @@ import {UserBiometricsScreen} from '@/modules/user/screens/UserBiometrics.screen
 
 export const screenConfig: StackNavigationRoutes<
   UserStackParams,
-  AboutRouteName | UserRouteName
+  UserRouteName
 > = {
   [UserRouteName.moduleSettings]: {
     component: ModuleSettingsScreen,
@@ -47,41 +46,46 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Biometrische gegevens',
     },
   },
-  [AboutRouteName.appSummary]: {
+  [UserRouteName.appSummary]: {
     component: AboutTheAppDutchScreen,
-    name: AboutRouteName.appSummary,
+    name: UserRouteName.appSummary,
     options: {
       headerTitle: 'Over deze app',
     },
+    screenType: 'settings',
   },
-  [AboutRouteName.aboutEnglish]: {
+  [UserRouteName.aboutEnglish]: {
     component: AboutTheAppEnglishScreen,
-    name: AboutRouteName.aboutEnglish,
+    name: UserRouteName.aboutEnglish,
     options: {
       accessibilityLanguage: 'en-US',
       headerTitle: 'About this app',
     },
+    screenType: 'settings',
   },
-  [AboutRouteName.accessibilityStatement]: {
+  [UserRouteName.accessibilityStatement]: {
     component: AccessibilityStatementScreen,
-    name: AboutRouteName.accessibilityStatement,
+    name: UserRouteName.accessibilityStatement,
     options: {
       headerTitle: 'Toegankelijkheidsverklaring',
     },
+    screenType: 'settings',
   },
-  [AboutRouteName.feedback]: {
+  [UserRouteName.feedback]: {
     component: FeedbackScreen,
-    name: AboutRouteName.feedback,
+    name: UserRouteName.feedback,
     options: {
       headerTitle: 'Uw mening',
     },
+    screenType: 'settings',
   },
-  [AboutRouteName.privacyStatement]: {
+  [UserRouteName.privacyStatement]: {
     component: PrivacyStatementScreen,
-    name: AboutRouteName.privacyStatement,
+    name: UserRouteName.privacyStatement,
     options: {
       headerTitle: 'Privacyverklaring',
     },
+    screenType: 'settings',
   },
 }
 

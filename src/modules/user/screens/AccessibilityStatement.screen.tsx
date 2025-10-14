@@ -9,9 +9,9 @@ import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {ModuleSlug} from '@/modules/slugs'
-import {AboutRouteName} from '@/modules/user/routes'
+import {UserRouteName} from '@/modules/user/routes'
 
-type Props = NavigationProps<AboutRouteName.accessibilityStatement>
+type Props = NavigationProps<UserRouteName.accessibilityStatement>
 
 export const AccessibilityStatementScreen = ({
   navigation: {navigate},
