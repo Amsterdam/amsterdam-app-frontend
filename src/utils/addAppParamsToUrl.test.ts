@@ -21,10 +21,10 @@ describe('isAmsterdamNlUrl', () => {
 describe('addAppParamsToUrl', () => {
   it('should add app parameters to Amsterdam URLs without existing query string', () => {
     const url = 'https://amsterdam.nl'
-    const slug: ModuleSlug = ModuleSlug.about
+    const slug: ModuleSlug = ModuleSlug.user
     const result = addAppParamsToUrl(url, slug)
 
-    expect(result).toBe('https://amsterdam.nl?app_from=1&app_module=about')
+    expect(result).toBe('https://amsterdam.nl?app_from=1&app_module=user')
   })
 
   it('should add app parameters to Amsterdam URLs with existing query string', () => {

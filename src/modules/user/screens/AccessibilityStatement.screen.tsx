@@ -8,10 +8,10 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {AboutRouteName} from '@/modules/about/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {UserRouteName} from '@/modules/user/routes'
 
-type Props = NavigationProps<AboutRouteName.accessibilityStatement>
+type Props = NavigationProps<UserRouteName.accessibilityStatement>
 
 export const AccessibilityStatementScreen = ({
   navigation: {navigate},

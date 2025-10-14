@@ -3,6 +3,7 @@ import type {AccessCodeRouteName} from '@/modules/access-code/routes'
 import type {AddressRouteName} from '@/modules/address/routes'
 import type {ModuleSlug} from '@/modules/slugs'
 import type {UserRouteName} from '@/modules/user/routes'
+import {OnboardingRouteName} from '@/modules/onboarding/routes'
 
 export type UserMenuSection = {
   navigationItems: UserMenuSectionItem[]
@@ -10,10 +11,14 @@ export type UserMenuSection = {
 }
 
 export type UserMenuSectionItem = {
-  iconName: SvgIconName
+  iconName?: SvgIconName
   label: string
   moduleSlug?: ModuleSlug
-  route?: AccessCodeRouteName | AddressRouteName | UserRouteName
+  route?:
+    | AccessCodeRouteName
+    | AddressRouteName
+    | UserRouteName
+    | OnboardingRouteName
 }
 
 export type NotificationModule = {

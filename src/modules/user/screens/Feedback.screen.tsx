@@ -9,8 +9,8 @@ import {Figure} from '@/components/ui/media/Figure'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import TwoPersonsHighFiveImage from '@/modules/about/assets/images/two-persons-high-five.svg'
 import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import TwoPersonsHighFiveImage from '@/modules/user/assets/images/two-persons-high-five.svg'
 
 import {
   ExceptionLogKey,

@@ -1,5 +1,6 @@
 import {View} from 'react-native'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
@@ -9,6 +10,8 @@ import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCode
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {AddressRouteName} from '@/modules/address/routes'
 import {ModuleSlug} from '@/modules/slugs'
+import {AppInfoCopyButtons} from '@/modules/user/components/AppInfoCopyButtons'
+import {aboutSections} from '@/modules/user/constants'
 import {UserRouteName} from '@/modules/user/routes'
 import {UserMenuSection, UserMenuSectionItem} from '@/modules/user/types'
 
@@ -61,10 +64,12 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
   return (
     <Column gutter="sm">
       {!!title && (
-        <Title
-          level="h5"
-          text={title}
-        />
+        <Box insetLeft="md">
+          <Title
+            level="h5"
+            text={title}
+          />
+        </Box>
       )}
       <Column gutter="xxs">
         {navigationItems.map(item =>
@@ -73,7 +78,7 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
             <NavigationButton
               emphasis="default"
               iconSize="md"
-              key={item.iconName}
+              key={item.label}
               {...item}
               onPress={() =>
                 navigate(item.moduleSlug ?? ModuleSlug.user, {
@@ -97,9 +102,11 @@ const MenuSection = ({title, navigationItems}: UserMenuSection) => {
 export const UserMenu = () => {
   const {accessCode} = useGetSecureAccessCode()
   const {enabledModules, modulesLoading} = useModules()
+
   const moduleMenuSections = enabledModules
     ? enabledModules.flatMap(m => m.userMenuSection?.navigationItems || [])
     : []
+
   const sections = getSections(moduleMenuSections)
 
   if (modulesLoading) {
@@ -108,15 +115,27 @@ export const UserMenu = () => {
 
   return (
     <View testID="UserMenu">
-      <Column gutter="lg">
-        {!!sections.length &&
-          sections.map(section => (
+      <Column gutter="md">
+        <Column gutter="lg">
+          {!!sections.length &&
+            sections.map(section => (
+              <MenuSection
+                key={section.navigationItems[0].iconName}
+                {...section}
+              />
+            ))}
+
+          {!!accessCode && <MenuSection {...accessCodeSection} />}
+
+          {aboutSections.map(section => (
             <MenuSection
-              key={section.navigationItems[0].iconName}
+              key={section.title}
               {...section}
             />
           ))}
-        {!!accessCode && <MenuSection {...accessCodeSection} />}
+        </Column>
+
+        <AppInfoCopyButtons />
       </Column>
     </View>
   )

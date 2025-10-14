@@ -12,17 +12,22 @@ export const UserStack = () => {
   const screenOptions = useScreenOptions({
     screenType: 'settings',
   })
+  const altScreenOptions = useScreenOptions({
+    screenType: 'default',
+  })
+
   const {biometricsLabel} = useAccessCodeBiometrics()
 
   return (
-    <Stack.Navigator
-      initialRouteName={UserRouteName.user}
-      screenOptions={screenOptions}>
+    <Stack.Navigator initialRouteName={UserRouteName.user}>
       {Object.entries(screenConfig).map(([key, route]) => (
         <Stack.Screen
           key={key}
           {...route}
           options={{
+            ...(route.screenType === 'default'
+              ? altScreenOptions
+              : screenOptions),
             headerTitle:
               route.name === UserRouteName.userBiometrics && biometricsLabel
                 ? capitalizeString(biometricsLabel)
