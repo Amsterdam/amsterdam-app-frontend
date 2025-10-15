@@ -40,41 +40,43 @@ export const InformationButton = ({
     insetHorizontal="md"
     insetVertical="sm"
     variant="transparent">
-    <Row
-      gutter="md"
-      valign="start">
+    <Row gutter="sm">
+      <Row
+        gutter="md"
+        valign="start">
+        <Icon
+          color={variant === 'inverse' ? 'inverse' : 'link'}
+          name={iconName}
+          size="xl"
+          testID={`${testID}Icon`}
+        />
+        <Column
+          align="center"
+          grow={1}
+          gutter="xs"
+          shrink={1}>
+          <Row gutter="sm">
+            <Title
+              color={variant === 'inverse' ? 'inverse' : 'link'}
+              level="h4"
+              testID={`${testID}Title`}
+              text={title}
+              underline
+            />
+          </Row>
+          <Paragraph
+            color={variant === 'inverse' ? 'inverse' : undefined}
+            testID={`${testID}Text`}
+            variant="small">
+            {text}
+          </Paragraph>
+        </Column>
+      </Row>
       <Icon
         color={variant === 'inverse' ? 'inverse' : 'link'}
-        name={iconName}
-        size="xl"
+        name="external-link"
         testID={`${testID}Icon`}
       />
-      <Column
-        align="center"
-        grow={1}
-        gutter="xs"
-        shrink={1}>
-        <Row gutter="sm">
-          <Title
-            color={variant === 'inverse' ? 'inverse' : 'link'}
-            level="h4"
-            testID={`${testID}Title`}
-            text={title}
-            underline
-          />
-          <Icon
-            color={variant === 'inverse' ? 'inverse' : 'link'}
-            name="external-link"
-            testID={`${testID}Icon`}
-          />
-        </Row>
-        <Paragraph
-          color={variant === 'inverse' ? 'inverse' : undefined}
-          testID={`${testID}Text`}
-          variant="small">
-          {text}
-        </Paragraph>
-      </Column>
     </Row>
   </Pressable>
 )
