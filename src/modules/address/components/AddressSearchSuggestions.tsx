@@ -1,4 +1,3 @@
-import {nanoid} from '@reduxjs/toolkit'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
@@ -17,7 +16,7 @@ export const AddressSearchSuggestions = ({
 }: Props) => (
   <>
     {addresses.map(address => {
-      const key = 'bagId' in address ? address.bagId : nanoid()
+      const key = 'bagId' in address ? address.bagId : address.street
 
       return (
         <SuggestionButton
