@@ -8,6 +8,10 @@ export const getAddition = (
     return
   }
 
+  if (!additionLetter && additionNumber) {
+    return additionNumber
+  }
+
   return `${additionLetter ?? ''}${additionNumber ? '-' + additionNumber : ''}`
 }
 

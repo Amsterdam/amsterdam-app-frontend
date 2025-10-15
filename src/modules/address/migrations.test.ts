@@ -58,7 +58,7 @@ describe('transform function for old address', () => {
       } as unknown as PersistedState),
     ).toEqual({
       address: {
-        addition: '-2',
+        addition: '2',
         additionNumber: '2',
         addressLine1: 'Hoofdstraat 123-2',
         addressLine2: '1234 AB AMSTERDAM',

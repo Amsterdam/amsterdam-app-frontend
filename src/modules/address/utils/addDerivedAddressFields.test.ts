@@ -11,7 +11,10 @@ describe('getAddition', () => {
     expect(getAddition('B', '')).toBe('B')
   })
   test('should return the correct addition when only bag_toevoeging is provided', () => {
-    expect(getAddition('', '3')).toBe('-3')
+    expect(getAddition('', '3')).toBe('3')
+  })
+  test('should return the correct addition when both bag_huisletter and bag_toevoeging are provided', () => {
+    expect(getAddition('B', '3')).toBe('B-3')
   })
   test('should return undefined when both bag_huisletter and bag_toevoeging are not provided', () => {
     expect(getAddition('', '')).toBeUndefined()
@@ -58,7 +61,7 @@ describe('getAddressLine2', () => {
 describe('addDerivedAddressFields', () => {
   test('should transform the address API response into the correct address format, with letter addition', () => {
     const addressApiResponse = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
       number: 123,
       additionLetter: 'A',
@@ -68,7 +71,7 @@ describe('addDerivedAddressFields', () => {
       type: 'adres',
     } as Address
     const expectedAddress: Address = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
       addition: 'A',
       additionLetter: 'A',
@@ -85,7 +88,7 @@ describe('addDerivedAddressFields', () => {
   })
   test('should transform the address API response into the correct address format, with number addition', () => {
     const addressApiResponse = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
       number: 123,
       additionNumber: '4',
@@ -95,9 +98,9 @@ describe('addDerivedAddressFields', () => {
       type: 'adres',
     } as Address
     const expectedAddress: Address = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
-      addition: '-4',
+      addition: '4',
       additionNumber: '4',
       postcode: '1058BB',
       coordinates: {lat: 52.36303093, lon: 4.85284154},
@@ -112,7 +115,7 @@ describe('addDerivedAddressFields', () => {
   })
   test('should transform the address API response into the correct address format, without number and letter addition', () => {
     const addressApiResponse = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
       number: 123,
       additionNumber: '4',
@@ -123,7 +126,7 @@ describe('addDerivedAddressFields', () => {
       type: 'adres',
     } as Address
     const expectedAddress: Address = {
-      bagId: '123',
+      bagId: '0363200000132941',
       street: 'Hoofdweg',
       addition: 'A-4',
       additionNumber: '4',
