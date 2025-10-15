@@ -1,4 +1,4 @@
-import {getFocusedRouteNameFromRoute} from '@react-navigation/core'
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'

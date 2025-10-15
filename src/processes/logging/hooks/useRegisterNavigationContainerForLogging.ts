@@ -2,7 +2,7 @@ import {
   NavigationContainerEventMap,
   NavigationContainerRefWithCurrent,
   Route,
-} from '@react-navigation/core'
+} from '@react-navigation/native'
 import {useRef, useCallback, useEffect, useContext} from 'react'
 import {RootStackParams} from '@/app/navigation/types'
 import {devError, devLog} from '@/processes/development'

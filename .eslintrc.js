@@ -137,14 +137,7 @@ module.exports = {
               },
               {
                 name: '@react-navigation/core',
-                importNames: [
-                  'NavigationProp',
-                  'RouteProp',
-                  'useNavigation',
-                  'useRoute',
-                ],
-                message:
-                  'Import NavigationProp and RouteProp from @/app/navigation/types; useNavigation and useRoute from @/hooks/navigation/.',
+                message: 'Import from @react-navigation/native instead.',
               },
               {
                 name: '@react-navigation/native',

@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/core'
+import {useFocusEffect} from '@react-navigation/native'
 import {Component, useCallback, useLayoutEffect, useRef, useState} from 'react'
 import {Platform} from 'react-native'
 import {useFocusOnElement} from '@/hooks/accessibility/useFocusOnElement'

@@ -1,4 +1,4 @@
-import {Route} from '@react-navigation/core'
+import {Route} from '@react-navigation/native'
 import {MenuHeaderButton} from '@/components/ui/menus/MenuHeaderButton'
 import {useGetCityPassesQuery} from '@/modules/city-pass/service'
 

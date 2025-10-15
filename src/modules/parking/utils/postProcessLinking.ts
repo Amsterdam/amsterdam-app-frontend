@@ -1,4 +1,4 @@
-import {PartialState, NavigationState} from '@react-navigation/core'
+import {PartialState, NavigationState} from '@react-navigation/native'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {parkingApi} from '@/modules/parking/service'
 import {parkingSlice, selectParkingAccounts} from '@/modules/parking/slice'

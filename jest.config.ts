@@ -56,7 +56,7 @@ const config: Config = {
   ],
   testTimeout: 30000,
   transformIgnorePatterns: [
-    'node_modules/(?!(jest-)?react-native|@react-native|@notifee)',
+    'node_modules/(?!(jest-)?react-native|@react-native|@notifee|@react-navigation)',
   ],
   globals: {
     API_KEY_DEV: '',

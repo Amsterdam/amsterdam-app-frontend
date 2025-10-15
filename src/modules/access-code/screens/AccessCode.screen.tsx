@@ -6,6 +6,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {Center} from '@/components/ui/layout/Center'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
+import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {AuthenticateWithCodeOrBiometrics} from '@/modules/access-code/components/AuthenticateWithCodeOrBiometrics'
 import {EnterAccessCode} from '@/modules/access-code/components/EnterAccessCode'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
@@ -16,8 +17,9 @@ import {ModuleSlug} from '@/modules/slugs'
 type Props = NavigationProps<AccessCodeRouteName.accessCode>
 
 export const AccessCodeScreen = ({navigation}: Props) => {
-  const {isCodeValid, setIsForgotCode} = useEnterAccessCode()
+  const {isCodeValid, setIsForgotCode, setIsEnteringCode} = useEnterAccessCode()
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
+
   const currentModule =
     (navigation.getParent()?.getState().routes.at(-1)?.name as ModuleSlug) ??
     ModuleSlug.home
@@ -33,6 +35,8 @@ export const AccessCodeScreen = ({navigation}: Props) => {
     // The module's stack automatically redirects user to forgot code screen.
     navigation.navigate(currentModule)
   }, [currentModule, navigation, setIsForgotCode])
+
+  useBlurEffect(() => setIsEnteringCode(false))
 
   return (
     <Screen

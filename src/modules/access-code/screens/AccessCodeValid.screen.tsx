@@ -13,7 +13,7 @@ import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<AccessCodeRouteName.validAccessCode>
 
-export const AccessCodeValidScreen = ({navigation: {navigate}}: Props) => {
+export const AccessCodeValidScreen = ({navigation}: Props) => {
   useUnsetCodeOnBlur(AccessCodeType.codeConfirmed)
 
   return (
@@ -22,7 +22,7 @@ export const AccessCodeValidScreen = ({navigation: {navigate}}: Props) => {
         <Box>
           <Button
             label="Gereed"
-            onPress={() => navigate(ModuleSlug.user)}
+            onPress={() => navigation.popTo(ModuleSlug.user)}
             testID="AccessCodeValidScreenButton"
           />
         </Box>

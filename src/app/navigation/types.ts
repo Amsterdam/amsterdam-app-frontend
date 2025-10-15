@@ -5,7 +5,7 @@ import {
   type ParamListBase,
   // eslint-disable-next-line no-restricted-imports
   type RouteProp as RoutePropOriginal,
-} from '@react-navigation/core'
+} from '@react-navigation/native'
 import {
   type StackNavigationOptions,
   StackNavigationProp as StackNavigationPropOriginal,
