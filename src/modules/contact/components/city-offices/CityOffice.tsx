@@ -10,10 +10,8 @@ import {NameAndAddress} from '@/modules/contact/components/city-offices/NameAndA
 import {VisitingHours} from '@/modules/contact/components/city-offices/VisitingHours'
 import {VisitingHoursExceptions} from '@/modules/contact/components/city-offices/VisitingHoursExceptions'
 import {VisitingHoursToday} from '@/modules/contact/components/city-offices/VisitingHoursToday'
-import {WaitingTime} from '@/modules/contact/components/city-offices/WaitingTime'
 import {useGetCityOfficesQuery} from '@/modules/contact/service'
 import {selectCityOffice} from '@/modules/contact/slice'
-import {isOpenForVisiting} from '@/modules/contact/utils/isOpenForVisiting'
 
 export const CityOffice = () => {
   const selectedCityOfficeId = useSelector(selectCityOffice)
@@ -39,7 +37,6 @@ export const CityOffice = () => {
   }
 
   const {
-    identifier,
     title,
     address,
     appointment,
@@ -75,7 +72,7 @@ export const CityOffice = () => {
           visitingHours={visitingHours.regular}
           visitingHoursContent={visitingHoursContent}
         />
-        {appointment ? (
+        {!!appointment && (
           <Column gutter="md">
             <Paragraph testID="ContactMakeAppointmentParagraph">
               {appointment.text}
@@ -87,20 +84,6 @@ export const CityOffice = () => {
               url={appointment.url}
             />
           </Column>
-        ) : (
-          isOpenForVisiting(
-            visitingHours.regular,
-            visitingHours.exceptions,
-          ) && (
-            <Column gutter="sm">
-              <Title
-                level="h3"
-                testID="ContactWaitingTimeTitle"
-                text="Wachttijd"
-              />
-              <WaitingTime cityOfficeId={identifier} />
-            </Column>
-          )
         )}
         {!!directionsUrl && (
           <ExternalLinkButton
