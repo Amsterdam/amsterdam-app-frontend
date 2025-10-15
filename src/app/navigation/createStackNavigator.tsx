@@ -1,4 +1,4 @@
-import {ParamListBase} from '@react-navigation/core'
+import {ParamListBase} from '@react-navigation/native'
 // eslint-disable-next-line no-restricted-imports
 import {createStackNavigator as createStackNavigatorOriginal} from '@react-navigation/stack'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
@@ -13,7 +13,7 @@ export const createStackNavigator = <T extends ParamListBase>() => {
       <Navigator
         {...props}
         screenOptions={{
-          animationEnabled: !isReduceMotionEnabled,
+          animation: isReduceMotionEnabled ? 'none' : undefined,
           ...screenOptions,
         }}
       />

@@ -1,4 +1,4 @@
-import {useIsFocused} from '@react-navigation/core'
+import {useIsFocused} from '@react-navigation/native'
 import {type RefObject, useCallback, useEffect, useRef, useState} from 'react'
 import {LayoutRectangle, useWindowDimensions, View} from 'react-native'
 import {measureElement} from '@/components/features/product-tour/utils'

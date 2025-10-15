@@ -1,4 +1,4 @@
-import {PathConfig, PathConfigMap} from '@react-navigation/core'
+import {PathConfig, PathConfigMap} from '@react-navigation/native'
 import {RootStackParams} from '@/app/navigation/types'
 import {clientModules} from '@/modules/modules'
 

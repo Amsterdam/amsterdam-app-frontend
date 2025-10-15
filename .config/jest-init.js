@@ -40,14 +40,6 @@ jest.mock('react-native-reanimated', () => {
 })
 
 jest.mock('react-native-image-crop-picker', () => ({}))
-jest.mock(
-  '@react-navigation/elements/lib/commonjs/assets/back-icon.png',
-  () => '',
-)
-jest.mock(
-  '@react-navigation/elements/lib/commonjs/assets/back-icon-mask.png',
-  () => '',
-)
 
 jest.mock('@notifee/react-native', () =>
   require('@notifee/react-native/jest-mock'),

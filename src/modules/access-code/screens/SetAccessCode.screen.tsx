@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/core'
+import {useFocusEffect} from '@react-navigation/native'
 import {useEffect} from 'react'
 import {View} from 'react-native'
 import {NavigationProps} from '@/app/navigation/types'

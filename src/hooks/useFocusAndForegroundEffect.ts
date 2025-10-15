@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/core'
+import {useFocusEffect} from '@react-navigation/native'
 import {type DependencyList, useCallback} from 'react'
 import {useAppState} from '@/hooks/useAppState'
 

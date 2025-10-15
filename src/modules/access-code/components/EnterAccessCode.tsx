@@ -11,10 +11,6 @@ export const EnterAccessCode = () => {
 
   useEffect(() => {
     setIsEnteringCode(true)
-
-    return () => {
-      setIsEnteringCode(false)
-    }
   }, [setIsEnteringCode])
 
   return (

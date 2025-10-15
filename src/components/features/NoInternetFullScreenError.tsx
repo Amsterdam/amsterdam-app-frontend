@@ -1,4 +1,4 @@
-import {useFocusEffect} from '@react-navigation/core'
+import {useFocusEffect} from '@react-navigation/native'
 import {ReactNode, useCallback, useEffect} from 'react'
 import {Platform, Linking} from 'react-native'
 import {Screen} from '@/components/features/screen/Screen'

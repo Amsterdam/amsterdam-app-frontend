@@ -3,7 +3,7 @@ import {
   type NavigationState,
   type PartialState,
   type PathConfigMap,
-} from '@react-navigation/core'
+} from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'

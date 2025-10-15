@@ -24,9 +24,7 @@ export const AccessCodeStack = () => {
   }
 
   return (
-    <Stack.Navigator
-      initialRouteName={AccessCodeRouteName.setAccessCode}
-      screenOptions={screenOptions}>
+    <Stack.Navigator screenOptions={screenOptions}>
       <Stack.Group navigationKey={isForgotCode ? 'forgotten' : 'access-code'}>
         {!isCodeValid ? (
           <>
