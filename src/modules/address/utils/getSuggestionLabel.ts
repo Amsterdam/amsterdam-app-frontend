@@ -7,7 +7,11 @@ export const getSuggestionLabelForStreetOrAddress = (
   const {street, type, city} = address
 
   if (type !== 'adres') {
-    return `${street}, ${city}`
+    if (city === AddressCity.Amsterdam) {
+      return street
+    } else {
+      return `${street}, ${city}`
+    }
   }
 
   const streetAndHouseNumber = getAddressLine1(address)

@@ -15,7 +15,7 @@ describe('getSuggestionLabelForStreet', () => {
 
     const result = getSuggestionLabelForStreetOrAddress(address)
 
-    expect(result).toBe('Amstel, Amsterdam')
+    expect(result).toBe('Amstel')
   })
 
   it('should return "straatnaam, woonplaatsnaam" when type is "weg" and woonplaatsnaam is not "Amsterdam"', () => {
@@ -109,6 +109,6 @@ describe('getSuggestionLabel', () => {
 
     const result = getSuggestionLabel(address, numbersOnly)
 
-    expect(result).toBe('Amstel, Amsterdam')
+    expect(result).toBe('Amstel')
   })
 })
