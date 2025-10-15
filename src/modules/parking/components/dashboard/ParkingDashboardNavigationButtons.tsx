@@ -40,6 +40,13 @@ export const ParkingDashboardNavigationButtons = () => {
           title="Betalingen"
         />
       )}
+      <NavigationButton
+        onPress={() => {
+          navigate(ParkingRouteName.parkingPermitZones)
+        }}
+        testID="ParkingPermitZoneButton"
+        title="Vergunninggebied"
+      />
     </Column>
   )
 }
