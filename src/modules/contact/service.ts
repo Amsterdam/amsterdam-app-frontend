@@ -1,8 +1,4 @@
-import {
-  CityOffice,
-  ContactEndpointName,
-  WaitingTime,
-} from '@/modules/contact/types'
+import {CityOffice, ContactEndpointName} from '@/modules/contact/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
@@ -17,16 +13,8 @@ export const contactApi = baseApi.injectEndpoints({
       keepUnusedDataFor: CacheLifetime.hour,
       transformResponse: (response: {result: CityOffice[]}) => response.result,
     }),
-    [ContactEndpointName.getWaitingTimes]: builder.query<WaitingTime[], void>({
-      query: () => ({
-        slug: ModuleSlug.contact,
-        url: '/waiting-times',
-      }),
-      keepUnusedDataFor: CacheLifetime.none,
-      transformResponse: (response: {result: WaitingTime[]}) => response.result,
-    }),
   }),
   overrideExisting: true,
 })
 
-export const {useGetCityOfficesQuery, useGetWaitingTimesQuery} = contactApi
+export const {useGetCityOfficesQuery} = contactApi

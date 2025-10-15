@@ -26,9 +26,8 @@ When an endpoint isn't mentioned, RTK's default caching duration of 1 minute wil
 
 For some components we use an interval after which, no matter the subscriptions, the endpoint will be refetched.
 
-| Component   | Endpoint               | Interval   |
-| ----------- | ---------------------- | ---------- |
-| WaitingTime | /contact/waiting-times | 15 seconds |
+| Component | Endpoint | Interval |
+| --------- | -------- | -------- |
 
 ## App goes to foreground state
 
