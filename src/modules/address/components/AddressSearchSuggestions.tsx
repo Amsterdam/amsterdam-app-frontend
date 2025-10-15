@@ -16,7 +16,10 @@ export const AddressSearchSuggestions = ({
 }: Props) => (
   <>
     {addresses.map(address => {
-      const key = 'bagId' in address ? address.bagId : address.street
+      const key =
+        'bagId' in address
+          ? address.bagId
+          : [address.street, address.city].join('-')
 
       return (
         <SuggestionButton
