@@ -4,7 +4,7 @@ import {Address, AddressCity} from '@/modules/address/types'
 import {
   getAddition,
   getAddressLine2,
-} from '@/modules/address/utils/transformAddressApiResponse'
+} from '@/modules/address/utils/addDerivedAddressFields'
 
 type AddressStateNegative1 = {
   adres: string

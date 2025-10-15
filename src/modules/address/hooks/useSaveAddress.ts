@@ -1,22 +1,22 @@
 import {useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {addLocation} from '@/modules/address/slice'
-import {PdokAddress} from '@/modules/address/types'
-import {transformAddressApiResponse} from '@/modules/address/utils/transformAddressApiResponse'
+import {AddressList} from '@/modules/address/types'
+import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 
 /**
  * Saves the address in redux in correct format.
  */
-export const useSaveAddress = (pdokAddresses?: PdokAddress[]) => {
+export const useSaveAddress = (addresses?: AddressList) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    if (!pdokAddresses?.length) {
+    if (!addresses?.length || addresses[0].type !== 'adres') {
       return
     }
 
-    const firstAddress = transformAddressApiResponse(pdokAddresses[0])
+    const firstAddress = addDerivedAddressFields(addresses[0])
 
     dispatch(addLocation(firstAddress))
-  }, [dispatch, pdokAddresses])
+  }, [dispatch, addresses])
 }

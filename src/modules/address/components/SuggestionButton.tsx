@@ -4,13 +4,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
-import {PdokAddress} from '@/modules/address/types'
+import {BaseAddress, Address} from '@/modules/address/types'
 
 type Props = {
+  address: Address | BaseAddress
   label: string
   'logging-label'?: string
-  pdokAddress: PdokAddress
-  selectResult: (item: PdokAddress) => void
+  selectResult: (item: Address | BaseAddress) => void
 } & Pick<AccessibilityProps, 'accessibilityLabel'> &
   TestProps
 
@@ -18,7 +18,7 @@ type Props = {
 export const SuggestionButton = ({
   label,
   accessibilityLabel,
-  pdokAddress,
+  address,
   selectResult,
   testID,
   'logging-label': loggingLabel,
@@ -28,7 +28,7 @@ export const SuggestionButton = ({
     accessibilityRole="button"
     insetVertical="md"
     logging-label={loggingLabel}
-    onPress={() => selectResult(pdokAddress)}
+    onPress={() => selectResult(address)}
     testID={testID}>
     <Row gutter="sm">
       <Icon

@@ -8,18 +8,22 @@ export type Coordinates = {
   lon: number
 }
 
-export type Address = {
+export type BaseAddress<Type = 'weg'> = {
+  city: AddressCity
+  coordinates?: Coordinates
+  street: string
+  type?: Type
+}
+
+export type Address = BaseAddress<'adres'> & {
   addition?: string
   additionLetter?: string
   additionNumber?: string
   addressLine1: string
   addressLine2: string
   bagId: string
-  city: AddressCity
-  coordinates?: Coordinates
   number: number
   postcode: string
-  street: string
 }
 
 export type AddressState = {
@@ -53,31 +57,7 @@ export type AddressState = {
   startGettingLocation: boolean | undefined
 }
 
-export type PdokAddress = {
-  centroide_ll: `POINT(${number} ${number})`
-  huisletter?: string
-  huisnummer: number
-  huisnummertoevoeging?: string
-  id: string
-  nummeraanduiding_id: string
-  postcode: string
-  score: number
-  straatnaam: string
-  type: 'woonplaats' | 'weg' | 'adres'
-  weergavenaam: string
-  woonplaatsnaam: AddressCity
-}
-
-export type AddressResponse = {
-  highlighting: unknown
-  response: {
-    docs: PdokAddress[]
-  }
-  spellcheck: {
-    collations: []
-    suggestions: []
-  }
-}
+export type AddressList = Array<Address | BaseAddress>
 
 export type LocationType = 'address' | 'location'
 

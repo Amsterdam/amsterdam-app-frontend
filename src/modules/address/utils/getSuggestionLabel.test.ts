@@ -1,4 +1,4 @@
-import {PdokAddress} from '@/modules/address/types'
+import {Address, type BaseAddress} from '@/modules/address/types'
 import {
   getSuggestionLabel,
   getSuggestionLabelForNumber,
@@ -7,49 +7,49 @@ import {
 
 describe('getSuggestionLabelForStreet', () => {
   it('should return straatnaam when type is "weg" and woonplaatsnaam is "Amsterdam"', () => {
-    const pdokAddress = {
-      straatnaam: 'Amstel',
+    const address = {
+      street: 'Amstel',
       type: 'weg',
-      woonplaatsnaam: 'Amsterdam',
-    } as PdokAddress
+      city: 'Amsterdam',
+    } as BaseAddress
 
-    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(address)
 
     expect(result).toBe('Amstel')
   })
 
   it('should return "straatnaam, woonplaatsnaam" when type is "weg" and woonplaatsnaam is not "Amsterdam"', () => {
-    const pdokAddress = {
-      straatnaam: 'Stationsplein',
+    const address = {
+      street: 'Stationsplein',
       type: 'weg',
-      woonplaatsnaam: 'Weesp',
-    } as unknown as PdokAddress
+      city: 'Weesp',
+    } as unknown as Address
 
-    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(address)
 
     expect(result).toBe('Stationsplein, Weesp')
   })
 
   it('should return streetAndHouseNumber when type is not "weg" and woonplaatsnaam is "Amsterdam"', () => {
-    const pdokAddress = {
-      huisnummer: '1',
-      straatnaam: 'Amstel',
+    const address = {
+      number: 1,
+      street: 'Amstel',
       type: 'adres',
-      woonplaatsnaam: 'Amsterdam',
-    } as unknown as PdokAddress
+      city: 'Amsterdam',
+    } as unknown as Address
 
-    const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
+    const result = getSuggestionLabelForStreetOrAddress(address)
 
     expect(result).toBe('Amstel 1')
   })
 
   it('should return "streetAndHouseNumber, woonplaatsnaam" when type is not "weg" and woonplaatsnaam is not "Amsterdam"', () => {
     const pdokAddress = {
-      huisnummer: 1,
-      straatnaam: 'Stationsplein',
+      number: 1,
+      street: 'Stationsplein',
       type: 'adres',
-      woonplaatsnaam: 'Weesp',
-    } as unknown as PdokAddress
+      city: 'Weesp',
+    } as unknown as Address
 
     const result = getSuggestionLabelForStreetOrAddress(pdokAddress)
 
@@ -59,27 +59,27 @@ describe('getSuggestionLabelForStreet', () => {
 
 describe('getSuggestionLabelForNumber', () => {
   it('should return the correct suggestion label for number with minimal fields', () => {
-    const pdokAddress = {
-      huisnummer: 123,
-    } as PdokAddress
+    const address = {
+      number: 123,
+    } as Address
 
-    const result = getSuggestionLabelForNumber(pdokAddress)
+    const result = getSuggestionLabelForNumber(address)
 
     expect(result).toBe('123')
   })
 
   it('should return the correct suggestion label for number with additions', () => {
-    const pdokAddress1 = {
-      huisnummer: 123,
-      huisletter: 'A',
-    } as PdokAddress
-    const pdokAddress2 = {
-      huisnummer: 123,
-      huisnummertoevoeging: '4',
-    } as PdokAddress
+    const address1 = {
+      number: 123,
+      additionLetter: 'A',
+    } as Address
+    const address2 = {
+      number: 123,
+      additionNumber: '4',
+    } as Address
 
-    const result1 = getSuggestionLabelForNumber(pdokAddress1)
-    const result2 = getSuggestionLabelForNumber(pdokAddress2)
+    const result1 = getSuggestionLabelForNumber(address1)
+    const result2 = getSuggestionLabelForNumber(address2)
 
     expect(result1).toBe('123A')
     expect(result2).toBe('123-4')
@@ -88,25 +88,26 @@ describe('getSuggestionLabelForNumber', () => {
 
 describe('getSuggestionLabel', () => {
   it('should call getSuggestionLabelForNumber when numbersOnly is true', () => {
-    const pdokAddress = {
-      huisnummer: 123,
-    } as PdokAddress
+    const address = {
+      number: 123,
+      type: 'adres',
+    } as Address
     const numbersOnly = true
 
-    const result = getSuggestionLabel(pdokAddress, numbersOnly)
+    const result = getSuggestionLabel(address, numbersOnly)
 
     expect(result).toBe('123')
   })
 
   it('should call getSuggestionLabelForStreet when numbersOnly is false', () => {
-    const pdokAddress = {
-      straatnaam: 'Amstel',
+    const address = {
+      street: 'Amstel',
       type: 'weg',
-      woonplaatsnaam: 'Amsterdam',
-    } as PdokAddress
+      city: 'Amsterdam',
+    } as BaseAddress
     const numbersOnly = false
 
-    const result = getSuggestionLabel(pdokAddress, numbersOnly)
+    const result = getSuggestionLabel(address, numbersOnly)
 
     expect(result).toBe('Amstel')
   })

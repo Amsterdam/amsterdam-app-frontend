@@ -5,17 +5,17 @@ import {SearchField} from '@/components/ui/forms/SearchField'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
 import {StreetSearchResultForLocation} from '@/modules/address/components/location/StreetSearchResultForLocation'
 import {config} from '@/modules/address/config'
-import {PdokAddress} from '@/modules/address/types'
+import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 
 type Props = {
-  bagList: PdokAddress[]
+  bagList: AddressList
   changeStreet: (text: string) => void
   inputStreetRef: Ref<TextInput>
   isError: boolean
   isLoading: boolean
   isStreetSelected: boolean
   refetch: () => void
-  selectResult: (item: PdokAddress) => void
+  selectResult: (item: Address | BaseAddress) => void
   street: string
 }
 

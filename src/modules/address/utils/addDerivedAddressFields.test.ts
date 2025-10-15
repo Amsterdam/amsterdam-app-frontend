@@ -1,11 +1,10 @@
-import {Address, AddressCity, PdokAddress} from '@/modules/address/types'
+import {Address, AddressCity} from '@/modules/address/types'
 import {
   getAddition,
   getAddressLine1,
   getAddressLine2,
-  getCoordinates,
-  transformAddressApiResponse,
-} from '@/modules/address/utils/transformAddressApiResponse'
+  addDerivedAddressFields,
+} from '@/modules/address/utils/addDerivedAddressFields'
 
 describe('getAddition', () => {
   test('should return the correct addition when only bag_huisletter is provided', () => {
@@ -13,6 +12,9 @@ describe('getAddition', () => {
   })
   test('should return the correct addition when only bag_toevoeging is provided', () => {
     expect(getAddition('', '3')).toBe('3')
+  })
+  test('should return the correct addition when both bag_huisletter and bag_toevoeging are provided', () => {
+    expect(getAddition('B', '3')).toBe('B-3')
   })
   test('should return undefined when both bag_huisletter and bag_toevoeging are not provided', () => {
     expect(getAddition('', '')).toBeUndefined()
@@ -23,9 +25,9 @@ describe('getAddressLine1', () => {
   test('should format postcode and city into address line 2', () => {
     expect(
       getAddressLine1({
-        huisletter: 'A',
-        huisnummer: 123,
-        straatnaam: 'Hoofdweg',
+        additionLetter: 'A',
+        number: 123,
+        street: 'Hoofdweg',
       }),
     ).toBe('Hoofdweg 123A')
   })
@@ -56,84 +58,88 @@ describe('getAddressLine2', () => {
   })
 })
 
-describe('getCoordinates', () => {
-  test('should parse centroid when provided', () => {
-    expect(getCoordinates('POINT(4.88969 52.37403)')).toEqual({
-      lat: 52.37403,
-      lon: 4.88969,
-    })
-  })
-  test('should return undefined when invalid centroid is provided', () => {
-    // @ts-ignore
-    expect(getCoordinates('')).toBe(undefined)
-    // @ts-ignore
-    expect(getCoordinates()).toBe(undefined)
-    // @ts-ignore
-    expect(getCoordinates(undefined)).toBe(undefined)
-  })
-})
-
-describe('transformAddressApiResponse', () => {
+describe('addDerivedAddressFields', () => {
   test('should transform the address API response into the correct address format, with letter addition', () => {
     const addressApiResponse = {
-      id: '123',
-      centroide_ll: 'POINT(4.85284154 52.36303093)',
-      huisletter: 'A',
-      huisnummer: 123,
-      nummeraanduiding_id: '0363200000132941',
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
+      number: 123,
+      additionLetter: 'A',
+      city: 'Amsterdam',
       postcode: '1058BB',
-      score: 6.84586,
-      straatnaam: 'Hoofdweg',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
       type: 'adres',
-      weergavenaam: 'Hoofdweg 123A, 1058BB Amsterdam',
-      woonplaatsnaam: 'Amsterdam',
-    } as PdokAddress
+    } as Address
     const expectedAddress: Address = {
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
       addition: 'A',
       additionLetter: 'A',
+      postcode: '1058BB',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
       addressLine1: 'Hoofdweg 123A',
       addressLine2: '1058 BB AMSTERDAM',
-      bagId: '0363200000132941',
       city: AddressCity.Amsterdam,
-      coordinates: {lat: 52.36303093, lon: 4.85284154},
       number: 123,
-      postcode: '1058BB',
-      street: 'Hoofdweg',
+      type: 'adres',
     }
 
-    expect(transformAddressApiResponse(addressApiResponse)).toEqual(
-      expectedAddress,
-    )
+    expect(addDerivedAddressFields(addressApiResponse)).toEqual(expectedAddress)
   })
   test('should transform the address API response into the correct address format, with number addition', () => {
     const addressApiResponse = {
-      id: '123',
-      centroide_ll: 'POINT(4.85284154 52.36303093)',
-      huisnummertoevoeging: '4',
-      huisnummer: 123,
-      nummeraanduiding_id: '0363200000132941',
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
+      number: 123,
+      additionNumber: '4',
+      city: 'Amsterdam',
       postcode: '1058BB',
-      score: 6.84586,
-      straatnaam: 'Hoofdweg',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
       type: 'adres',
-      weergavenaam: 'Hoofdweg 123A, 1058BB Amsterdam',
-      woonplaatsnaam: 'Amsterdam',
-    } as PdokAddress
+    } as Address
     const expectedAddress: Address = {
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
       addition: '4',
       additionNumber: '4',
+      postcode: '1058BB',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
       addressLine1: 'Hoofdweg 123-4',
       addressLine2: '1058 BB AMSTERDAM',
-      bagId: '0363200000132941',
       city: AddressCity.Amsterdam,
-      coordinates: {lat: 52.36303093, lon: 4.85284154},
       number: 123,
-      postcode: '1058BB',
-      street: 'Hoofdweg',
+      type: 'adres',
     }
 
-    expect(transformAddressApiResponse(addressApiResponse)).toEqual(
-      expectedAddress,
-    )
+    expect(addDerivedAddressFields(addressApiResponse)).toEqual(expectedAddress)
+  })
+  test('should transform the address API response into the correct address format, without number and letter addition', () => {
+    const addressApiResponse = {
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
+      number: 123,
+      additionNumber: '4',
+      additionLetter: 'A',
+      city: 'Amsterdam',
+      postcode: '1058BB',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
+      type: 'adres',
+    } as Address
+    const expectedAddress: Address = {
+      bagId: '0363200000132941',
+      street: 'Hoofdweg',
+      addition: 'A-4',
+      additionNumber: '4',
+      additionLetter: 'A',
+      postcode: '1058BB',
+      coordinates: {lat: 52.36303093, lon: 4.85284154},
+      addressLine1: 'Hoofdweg 123A-4',
+      addressLine2: '1058 BB AMSTERDAM',
+      city: AddressCity.Amsterdam,
+      number: 123,
+      type: 'adres',
+    }
+
+    expect(addDerivedAddressFields(addressApiResponse)).toEqual(expectedAddress)
   })
 })

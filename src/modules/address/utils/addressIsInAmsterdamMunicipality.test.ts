@@ -1,41 +1,41 @@
-import {AddressCity, PdokAddress} from '@/modules/address/types'
+import {AddressCity, Address} from '@/modules/address/types'
 import {addressIsInAmsterdamMunicipality} from '@/modules/address/utils/addressIsInAmsterdamMunicipality'
 
 describe('addressIsInAmsterdamMunicipality', () => {
   it('should return true when woonplaatsnaam is Amsterdam', () => {
-    const pdokAddress = {
-      woonplaatsnaam: AddressCity.Amsterdam,
-    } as unknown as PdokAddress
+    const address = {
+      city: AddressCity.Amsterdam,
+    } as unknown as Address
 
-    const result = addressIsInAmsterdamMunicipality(pdokAddress)
+    const result = addressIsInAmsterdamMunicipality(address)
 
     expect(result).toBe(true)
   })
 
   it('should return true when woonplaatsnaam is Weesp', () => {
-    const pdokAddress = {
-      woonplaatsnaam: AddressCity.Weesp,
-    } as unknown as PdokAddress
+    const address = {
+      city: AddressCity.Weesp,
+    } as unknown as Address
 
-    const result = addressIsInAmsterdamMunicipality(pdokAddress)
+    const result = addressIsInAmsterdamMunicipality(address)
 
     expect(result).toBe(true)
   })
 
   it('should return false when woonplaatsnaam is not Amsterdam or Weesp', () => {
-    const pdokAddress = {
-      woonplaatsnaam: 'Sexbierum',
-    } as unknown as PdokAddress
+    const address = {
+      city: 'Sexbierum',
+    } as unknown as Address
 
-    const result = addressIsInAmsterdamMunicipality(pdokAddress)
+    const result = addressIsInAmsterdamMunicipality(address)
 
     expect(result).toBe(false)
-  }) as unknown as PdokAddress
+  }) as unknown as Address
 
   it('should return false when woonplaatsnaam is undefined', () => {
-    const pdokAddress = {} as unknown as PdokAddress
+    const address = {} as unknown as Address
 
-    const result = addressIsInAmsterdamMunicipality(pdokAddress)
+    const result = addressIsInAmsterdamMunicipality(address)
 
     expect(result).toBe(false)
   })

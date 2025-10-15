@@ -9,22 +9,20 @@ import {
   setIsGettingLocation,
 } from '@/modules/address/slice'
 
-const NUM_OF_RESULTS = 1
-
 /**
  * Gets the GPS coordinates from the device, fetches the corresponding address which is then stored in redux.
  */
 export const useGetLocation = () => {
   const dispatch = useDispatch()
+
   const {coordinatesForLocation, isGettingCoordinates} =
     useGetCoordinatesForLocation()
+
   const {currentData, isError, isFetching} = useGetLocationQuery(
-    coordinatesForLocation
-      ? {...coordinatesForLocation, rows: NUM_OF_RESULTS}
-      : skipToken,
+    coordinatesForLocation ?? skipToken,
   )
 
-  useSaveAddress(currentData?.response?.docs)
+  useSaveAddress(currentData)
 
   useEffect(() => {
     dispatch(setIsGettingLocation(isGettingCoordinates || isFetching))
