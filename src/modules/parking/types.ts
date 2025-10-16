@@ -369,8 +369,8 @@ export type ParkingDeleteSessionEndpointRequestParams = {
 }
 
 export enum ParkingApiLocale {
-  en = 'EN',
-  nl = 'NL',
+  en = 'en',
+  nl = 'nl',
 }
 
 export type RemoveIncreaseBalanceEndpointRequest = {
