@@ -12,8 +12,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useBoolean} from '@/hooks/useBoolean'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {useRefetchTimeout} from '@/hooks/useRefetchTimeout'
-import {ParkingActiveSessionNavigationButton} from '@/modules/parking/components/session/ParkingActiveSessionNavigationButton'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi} from '@/modules/parking/service'
@@ -30,9 +29,6 @@ export const ParkingActiveSessionsSummary = () => {
     refetch,
   } = useGetParkingSessions(ParkingSessionStatus.active)
   const parkingAccount = useParkingAccount()
-
-  const currentPermit = useCurrentParkingPermit()
-
   // refetch sessions when there are sessions returned without a ps_right_id, because somehow, directly after making them it can occur that they do not have them
   const {value: isRefetched, enable: setRefetched} = useBoolean(false)
 
@@ -108,9 +104,8 @@ export const ParkingActiveSessionsSummary = () => {
         />
         {activeParkingSessions?.length ? (
           activeParkingSessions.map(session => (
-            <ParkingActiveSessionNavigationButton
+            <ParkingSessionNavigationButton
               key={session.ps_right_id ?? session.vehicle_id}
-              noEndTime={currentPermit.no_endtime}
               parkingSession={session}
             />
           ))
