@@ -5,12 +5,19 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
+  accessibilityLabel: string
   iconName: SvgIconName
   onPress: () => void
 } & TestProps
 
-export const MapControlsButton = ({iconName, onPress, testID}: Props) => (
+export const MapControlsButton = ({
+  accessibilityLabel,
+  iconName,
+  onPress,
+  testID,
+}: Props) => (
   <Pressable
+    accessibilityLabel={accessibilityLabel}
     onPress={onPress}
     testID={testID}>
     <Box

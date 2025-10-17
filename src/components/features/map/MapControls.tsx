@@ -14,8 +14,9 @@ export const MapControls = ({mapRef, variants}: Props) => {
 
   return (
     <Column gutter="sm">
-      {options.map(({iconName, key, onPress, testID}) => (
+      {options.map(({accessibilityLabel, iconName, key, onPress, testID}) => (
         <MapControlsButton
+          accessibilityLabel={accessibilityLabel}
           iconName={iconName}
           key={key}
           onPress={onPress}
