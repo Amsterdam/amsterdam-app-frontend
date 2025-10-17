@@ -10,6 +10,7 @@ resources:
         branches:
           include:
             - main
+            - hotfix/*
 
 stages:
   - stage: iOSInternal
