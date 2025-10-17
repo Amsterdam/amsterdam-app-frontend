@@ -1,11 +1,8 @@
+import {BottomSheetTextInput} from '@gorhom/bottom-sheet'
 import {createRef, type Ref, useEffect, useState} from 'react'
-import {
-  Platform,
-  StyleSheet,
-  TextInput as TextInputRN,
-  type TextInputProps,
-  View,
-} from 'react-native'
+import {Platform, StyleSheet, type TextInputProps, View} from 'react-native'
+import {TextInput as TextInputRN} from 'react-native-gesture-handler'
+import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Label} from '@/components/ui/forms/Label'
 import {Column} from '@/components/ui/layout/Column'
@@ -46,12 +43,15 @@ export const TextInput = ({
   accessibilityLanguage = 'nl-NL',
   ...textInputProps
 }: Props) => {
+  const isInBottomSheet = useIsInBottomSheet()
   const inputRef = createRef<TextInputRN>()
   const [hasFocus, setHasFocus] = useState(false)
   const [value, setValue] = useState(valueProp)
 
   const styles = useThemable(createStyles({hasFocus, numberOfLines, warning}))
   const themedTextInputProps = useThemable(createTextInputProps)
+
+  const InputComponent = isInBottomSheet ? BottomSheetTextInput : TextInputRN
 
   useEffect(() => {
     setValue(valueProp)
@@ -99,7 +99,7 @@ export const TextInput = ({
         )}
       </Column>
       <View style={styles.frame}>
-        <TextInputRN
+        <InputComponent
           {...textInputProps}
           {...themedTextInputProps}
           accessibilityLanguage={accessibilityLanguage}

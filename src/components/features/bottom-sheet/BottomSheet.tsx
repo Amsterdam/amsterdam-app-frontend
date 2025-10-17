@@ -8,6 +8,7 @@ import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Backdrop} from '@/components/features/bottom-sheet/Backdrop'
 import {BackgroundComponent} from '@/components/features/bottom-sheet/BackgroundComponent'
+import {BottomSheetPresenceContext} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
 import {Handle} from '@/components/features/bottom-sheet/Handle'
 import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/useBottomSheetHandler'
 import {SafeArea} from '@/components/ui/containers/SafeArea'
@@ -63,31 +64,34 @@ export const BottomSheet = ({
     : undefined
 
   return (
-    <BottomSheetOriginal
-      accessible={false}
-      backdropComponent={Backdrop}
-      backgroundComponent={BackgroundComponent}
-      enableContentPanningGesture={false}
-      enablePanDownToClose
-      handleComponent={Handle}
-      index={-1}
-      onChange={onChangeHandler}
-      ref={ref}
-      topInset={topInset}
-      {...rest}>
-      <ViewComponent
-        style={styles.container}
-        testID={testID}>
-        <SafeArea
-          bottom
-          flex={flex}
-          left
-          right
+    <BottomSheetPresenceContext.Provider value={true}>
+      <BottomSheetOriginal
+        accessible={false}
+        backdropComponent={Backdrop}
+        backgroundComponent={BackgroundComponent}
+        enableContentPanningGesture={false}
+        enablePanDownToClose
+        handleComponent={Handle}
+        index={-1}
+        keyboardBlurBehavior="restore"
+        onChange={onChangeHandler}
+        ref={ref}
+        topInset={topInset}
+        {...rest}>
+        <ViewComponent
+          style={styles.container}
           testID={testID}>
-          {VariantComponent ? <VariantComponent /> : children}
-        </SafeArea>
-      </ViewComponent>
-    </BottomSheetOriginal>
+          <SafeArea
+            bottom
+            flex={flex}
+            left
+            right
+            testID={testID}>
+            {VariantComponent ? <VariantComponent /> : children}
+          </SafeArea>
+        </ViewComponent>
+      </BottomSheetOriginal>
+    </BottomSheetPresenceContext.Provider>
   )
 }
 
