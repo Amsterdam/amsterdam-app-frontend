@@ -282,39 +282,18 @@ export type ParkingSessionReceiptEndpointResponse = {
     currency: string
     value: number
   }
-  costs_per_hour: {
-    currency: string
-    value: number
-  }
-  current_time_balance: number
-  current_wallet_balance: {
-    currency: string
-    value: number
-  }
-  end_time: string
   parking_cost: {
     currency: string
     value: number
   }
   parking_time: number
-  payment_required: boolean
-  payment_zone_id: string
-  regime_time: [
-    {
-      end_time: string
-      id: string
-      start_time: string
-    },
-  ]
-  remaining_parking_time: number
   remaining_time: number
-  remaining_time_balance: number
-  remaining_wallet_balance: {
+  remaining_time_balance?: number // DEPRECATED
+  // DEPRECATED
+  remaining_wallet_balance?: {
     currency: string
     value: number
   }
-  report_code: number
-  start_time: string
 }
 
 export type ParkingSessionReceiptEndpointRequestParams = {
@@ -389,13 +368,19 @@ export type ParkingDeleteSessionEndpointRequestParams = {
   vehicle_id: string
 }
 
+export enum ParkingApiLocale {
+  en = 'en',
+  nl = 'nl',
+}
+
 export type RemoveIncreaseBalanceEndpointRequest = {
   balance: {
     amount: number
-    currency: string
+    currency?: string //DEPRECATED
   }
-  locale: string
-  redirect: {
+  locale: ParkingApiLocale
+  //DEPRECATED
+  redirect?: {
     merchant_return_url: string
   }
 }

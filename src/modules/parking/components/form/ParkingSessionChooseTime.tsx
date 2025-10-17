@@ -1,5 +1,4 @@
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingChoosePaymentZone} from '@/modules/parking/components/form/ParkingChoosePaymentZone'
@@ -23,7 +22,6 @@ export const ParkingSessionChooseTime = () => {
       <ParkingChooseStartTimeButton />
       <ParkingChooseEndTimeButton />
       <ParkingChoosePaymentZone />
-      <Gutter height="md" />
     </Column>
   )
 }

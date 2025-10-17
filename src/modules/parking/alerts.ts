@@ -106,6 +106,14 @@ export const alerts = {
     hasCloseIcon: false,
     testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
   },
+  insufficientMoneyBalance2Failed: {
+    variant: AlertVariant.negative,
+    text: 'Er is niet genoeg geldsaldo om te parkeren. Voeg eerst geld toe. Daarna kun kunt u de parkeersessie starten.',
+    title: 'Uw saldo is te laag',
+    hasIcon: true,
+    hasCloseIcon: false,
+    testID: 'ParkingInsufficientMoneyBalance2FailedAlert',
+  },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,
     text: `Op 1 ${getFirstMonthOfNextQuarter().format('MMMM')} ontvangt u nieuw tijdsaldo. Probeer eventueel een kortere parkeertijd te kiezen.`,

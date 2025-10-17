@@ -30,36 +30,41 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
         <Screen
           bottomSheet={<ParkingSessionBottomSheet />}
           testID="ParkingStartSessionScreen">
-          <Box>
-            <Column gutter="lg">
-              {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-                <Title
-                  level="h2"
-                  testID="ParkingChooseLicensePlateTitle"
-                  text="Kenteken bezoeker"
-                />
-              ) : (
-                <ParkingStartSessionVisitorPermitZone />
-              )}
-              {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-                <ParkingChooseLicensePlateButton />
-              ) : (
-                <Column gutter="sm">
+          <Box
+            insetBottom="no"
+            insetHorizontal="md"
+            insetTop="md">
+            <Column gutter="xl">
+              <Column gutter="lg">
+                {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
                   <Title
                     level="h2"
-                    testID="ParkingVisitorLicensePlateTitle"
-                    text="Uw kenteken"
+                    testID="ParkingChooseLicensePlateTitle"
+                    text="Kenteken bezoeker"
                   />
-                  <ParkingVehicleIdTextInput
-                    defaultValue={visitorVehicleId}
-                    inputInstructions="Alleen letters en cijfers"
-                    testID="ParkingVisitorLicensePlateInputField"
-                  />
-                </Column>
-              )}
-              <ParkingSessionChooseTime />
+                ) : (
+                  <ParkingStartSessionVisitorPermitZone />
+                )}
+                {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
+                  <ParkingChooseLicensePlateButton />
+                ) : (
+                  <Column gutter="sm">
+                    <Title
+                      level="h2"
+                      testID="ParkingVisitorLicensePlateTitle"
+                      text="Uw kenteken"
+                    />
+                    <ParkingVehicleIdTextInput
+                      defaultValue={visitorVehicleId}
+                      inputInstructions="Alleen letters en cijfers"
+                      testID="ParkingVisitorLicensePlateInputField"
+                    />
+                  </Column>
+                )}
+                <ParkingSessionChooseTime />
 
-              <ParkingMaxSessionsWarning />
+                <ParkingMaxSessionsWarning />
+              </Column>
               <ParkingReceipt />
               <ParkingStartSessionButton />
             </Column>

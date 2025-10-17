@@ -10,15 +10,20 @@ import {Title} from '@/components/ui/text/Title'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
+import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
 } from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
+import {
+  ParkingApiVersion,
+  ParkingLicensePlate,
+  ParkingPermitScope,
+} from '@/modules/parking/types'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
-import {Dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -46,6 +51,8 @@ export const ParkingReceipt = () => {
     amount = 0,
     visitorVehicleId,
   } = watch()
+
+  const apiVersion = useCurrentParkingApiVersion()
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
   const parkingAccount = useParkingAccount()
   const isPermitHolder =
@@ -68,7 +75,6 @@ export const ParkingReceipt = () => {
         }
       : skipToken,
   )
-
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   useEffect(() => {
@@ -77,13 +83,9 @@ export const ParkingReceipt = () => {
     }
   }, [isVisitor, data?.costs?.value, setValue])
 
-  const {
-    remaining_wallet_balance,
-    remaining_time_balance,
-    parking_time,
-    parking_cost,
-  } = data ?? {}
+  const {parking_time, parking_cost} = data ?? {}
   const {time_balance} = currentPermit
+  const parkingTimeInSeconds = dayjs(endTime).diff(dayjs(startTime), 'seconds')
 
   const parkingTimeText = parking_time
     ? formatSecondsTimeRangeToDisplay(data?.parking_time, {
@@ -95,25 +97,27 @@ export const ParkingReceipt = () => {
     : '-'
 
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
-    remaining_time_balance ?? time_balance,
+    time_balance - parkingTimeInSeconds,
     {
       short: true,
     },
   )
-  const remainingMoneyBalanceText = formatNumber(
-    remaining_wallet_balance
-      ? remaining_wallet_balance.value + amount
-      : account?.wallet?.balance,
-    remaining_wallet_balance
-      ? remaining_wallet_balance.currency
-      : account?.wallet?.currency,
-  )
+  const remainingMoneyBalance =
+    (account?.wallet?.balance ?? 0) - (data?.costs.value ?? 0)
+
+  const remainingMoneyBalanceText = account?.wallet?.balance
+    ? formatNumber(remainingMoneyBalance, 'EUR')
+    : '-'
+
   const remainingTimeBalanceError =
-    currentPermit.time_balance_applicable && (remaining_time_balance ?? 0) < 0
+    currentPermit.time_balance_applicable &&
+    time_balance - parkingTimeInSeconds < 0
+
   const remainingMoneyBalanceError =
+    isPermitHolder &&
     currentPermit.money_balance_applicable &&
-    remaining_wallet_balance &&
-    remaining_wallet_balance.value + amount < 0
+    remainingMoneyBalance &&
+    remainingMoneyBalance < 0
 
   useEffect(() => {
     if (remainingTimeBalanceError) {
@@ -135,82 +139,86 @@ export const ParkingReceipt = () => {
   }
 
   return (
-    <Column>
-      {(!!remainingMoneyBalanceError || (amount > 0 && isPermitHolder)) && (
-        <>
-          <Title
-            level="h2"
-            testID="ParkingIncreaseBalanceTitle"
-            text="Geldsaldo toevoegen"
-          />
-          <Gutter height="md" />
-          <ParkingChooseAmountButton />
-          <Gutter height="lg" />
-        </>
-      )}
-      <Title
-        level="h2"
-        testID="ParkingCostTitle"
-        text="Kosten"
-      />
-      <Gutter height="sm" />
-      {!!currentPermit.time_balance_applicable && (
-        <ParkingReceiptItem>
-          <Phrase emphasis="strong">Parkeertijd</Phrase>
-          <Phrase emphasis="strong">{parkingTimeText}</Phrase>
-        </ParkingReceiptItem>
-      )}
-      {!!currentPermit.money_balance_applicable && (
-        <ParkingReceiptItem>
-          <Phrase emphasis="strong">Parkeerkosten</Phrase>
-          <Phrase emphasis="strong">{parkingCostText}</Phrase>
-        </ParkingReceiptItem>
-      )}
-      <Gutter height="md" />
-      {!!currentPermit.time_balance_applicable && (
-        <ParkingReceiptItem>
-          <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-            Resterend tijdsaldo
-          </Phrase>
-          <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-            {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
-          </Phrase>
-        </ParkingReceiptItem>
-      )}
+    <Column gutter="lg">
+      <Column gutter="md">
+        {(!!remainingMoneyBalanceError || (amount > 0 && isPermitHolder)) && (
+          <>
+            <Title
+              level="h2"
+              testID="ParkingIncreaseBalanceTitle"
+              text="Geldsaldo toevoegen"
+            />
+            <ParkingChooseAmountButton />
+            <Gutter height="sm" />
+          </>
+        )}
+        <Title
+          level="h2"
+          testID="ParkingCostTitle"
+          text="Kosten"
+        />
+        <Column gutter="xs">
+          {!!currentPermit.time_balance_applicable && (
+            <ParkingReceiptItem>
+              <Phrase emphasis="strong">Parkeertijd</Phrase>
+              <Phrase emphasis="strong">{parkingTimeText}</Phrase>
+            </ParkingReceiptItem>
+          )}
+          {!!currentPermit.money_balance_applicable && (
+            <ParkingReceiptItem>
+              <Phrase emphasis="strong">Parkeerkosten</Phrase>
+              <Phrase emphasis="strong">{parkingCostText}</Phrase>
+            </ParkingReceiptItem>
+          )}
+        </Column>
+        <Column gutter="xs">
+          {!!currentPermit.time_balance_applicable && (
+            <ParkingReceiptItem>
+              <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+                Resterend tijdsaldo
+              </Phrase>
+              <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
+                {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
+              </Phrase>
+            </ParkingReceiptItem>
+          )}
 
-      {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
-        <ParkingReceiptItem>
-          <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-            Resterend geldsaldo
-          </Phrase>
-          <Phrase color={remainingMoneyBalanceError ? 'warning' : undefined}>
-            {remainingMoneyBalanceText}
-          </Phrase>
-        </ParkingReceiptItem>
-      )}
-      {(!!remainingTimeBalanceError ||
-        errors.root?.serverError?.message?.includes(
+          {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
+            <ParkingReceiptItem>
+              <Phrase
+                color={remainingMoneyBalanceError ? 'warning' : undefined}>
+                Resterend geldsaldo
+              </Phrase>
+              <Phrase
+                color={remainingMoneyBalanceError ? 'warning' : undefined}>
+                {remainingMoneyBalanceText}
+              </Phrase>
+            </ParkingReceiptItem>
+          )}
+        </Column>
+      </Column>
+      {!!remainingTimeBalanceError ||
+        (errors.root?.serverError?.message?.includes(
           'Timebalance insufficient',
-        )) && (
-        <>
-          <Gutter height="lg" />
-          <AlertNegative
-            {...alerts[
-              isPermitHolder
-                ? 'insufficientTimeBalanceFailed'
-                : 'insufficientTimeBalanceVisitorFailed'
-            ]}
-          />
-        </>
-      )}
+        ) && (
+          <>
+            <AlertNegative
+              {...alerts[
+                isPermitHolder
+                  ? 'insufficientTimeBalanceFailed'
+                  : 'insufficientTimeBalanceVisitorFailed'
+              ]}
+            />
+          </>
+        ))}
       {(!!remainingMoneyBalanceError ||
         errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
-        <>
-          <Gutter height="lg" />
-          <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />
-        </>
+        <AlertNegative
+          {...(apiVersion === ParkingApiVersion.v1
+            ? alerts.insufficientMoneyBalanceFailed
+            : alerts.insufficientMoneyBalance2Failed)}
+        />
       )}
-      <Gutter height="md" />
     </Column>
   )
 }

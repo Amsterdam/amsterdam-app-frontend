@@ -9,6 +9,7 @@ import {
   useIncreaseBalanceMutation,
 } from '@/modules/parking/service'
 import {setWalletBalanceIncreaseStartBalance} from '@/modules/parking/slice'
+import {ParkingApiLocale} from '@/modules/parking/types'
 
 type FieldValues = {
   amount?: number
@@ -35,7 +36,7 @@ export const ParkingIncreaseBalanceButton = () => {
           redirect: {
             merchant_return_url: 'amsterdam://parking/increase-balance/return',
           },
-          locale: 'nl',
+          locale: ParkingApiLocale.nl,
         })
           .unwrap()
           .then(result => {
