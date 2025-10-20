@@ -28,6 +28,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     Permissions.location,
   )
   const {isGettingLocation, location} = useLocation()
+  const {makeSetStartGettingLocation} = useStartGettingLocation()
 
   const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates
@@ -61,7 +62,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     }
   }, [navigateToInstructionsScreen, requestPermission])
 
-  useStartGettingLocation()
+  makeSetStartGettingLocation()
 
   if (!hasLocationPermission && !addresses?.length) {
     return (
