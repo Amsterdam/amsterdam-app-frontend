@@ -20,21 +20,21 @@ export const redirects: RedirectResponse[] = [
     urlKey: RedirectKey.elections,
   },
   {
-    iconName: 'car',
+    iconName: 'parkingCar',
     testID: 'RedirectsParkingButton',
     text: 'Alles over parkeren en verkeer in de stad.',
     title: 'Parkeren',
     urlKey: RedirectKey.parking,
   },
   {
-    iconName: 'document-text',
+    iconName: 'formalDocument',
     testID: 'RedirectsDeedsAndStatementsButton',
     text: 'Geboorte-, huwelijks- en andere akten, uittreksel, VOG.',
     title: 'Akten, uittreksels en verklaringen',
     urlKey: RedirectKey.documents,
   },
   {
-    iconName: 'housing',
+    iconName: 'historicHouse',
     testID: 'RedirectsMoveButton',
     text: 'Naar en binnen Amsterdam.',
     title: 'Verhuizing doorgeven',
@@ -48,7 +48,7 @@ export const redirects: RedirectResponse[] = [
     title: 'Afspraak maken op Stadsloket',
   },
   {
-    iconName: 'collaborate',
+    iconName: 'euroCoinsInverted',
     testID: 'RedirectsLowIncomeAidButton',
     text: 'Regelingen bij laag inkomen / Pak je kans.',
     title: 'Hulp bij een laag inkomen',
