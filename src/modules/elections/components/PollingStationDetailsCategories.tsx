@@ -16,6 +16,7 @@ const mapCategoryToLabel: Record<ElectionsCategory, string> = {
   [ElectionsCategory.ptWheelchair]:
     'Rolstoeltoegankelijke OV-halte binnen 100m',
   [ElectionsCategory.pysicalLimitation]: 'Toegankelijk met rolstoel',
+  [ElectionsCategory.readingAid]: 'Hulp met lezen',
   [ElectionsCategory.visionImpaired]: 'Hulpmiddelen voor slechtzienden/blinden',
   [ElectionsCategory.wheelchairHelp]: 'Hulp bij rolstoel',
 }
@@ -25,6 +26,7 @@ const mapCategoryToIconName: Record<ElectionsCategory, SvgIconName> = {
   [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
   [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
   [ElectionsCategory.pysicalLimitation]: 'wheelchair',
+  [ElectionsCategory.readingAid]: 'readingAid',
   [ElectionsCategory.visionImpaired]: 'visionImpaired',
   [ElectionsCategory.wheelchairHelp]: 'wheelchairPlus',
 }
@@ -35,16 +37,20 @@ export const PollingStationDetailsCategories = ({categories}: Props) => (
       level="h5"
       text="Toegankelijkheid"
     />
-    {categories?.map(category => (
-      <Row
-        gutter="md"
-        key={category}>
-        <Icon
-          name={mapCategoryToIconName[category]}
-          size="xl"
-        />
-        <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
-      </Row>
-    ))}
+    {categories?.map(
+      category =>
+        !!mapCategoryToIconName[category] &&
+        !!mapCategoryToLabel[category] && (
+          <Row
+            gutter="md"
+            key={category}>
+            <Icon
+              name={mapCategoryToIconName[category]}
+              size="xl"
+            />
+            <Paragraph>{mapCategoryToLabel[category]}</Paragraph>
+          </Row>
+        ),
+    )}
   </Column>
 )
