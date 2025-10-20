@@ -2,7 +2,11 @@ import {ComponentType, Fragment} from 'react'
 import {View} from 'react-native'
 import {Path, Svg} from 'react-native-svg'
 import {Rotator} from '@/components/ui/animations/Rotator'
-import {SvgIconName, SvgIconsConfig} from '@/components/ui/media/svgIcons'
+import {
+  SvgIconName,
+  SvgIconsConfig,
+  type SvgIconConfig,
+} from '@/components/ui/media/svgIcons'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {Theme} from '@/themes/themes'
@@ -50,13 +54,17 @@ export const Icon = ({
   const {color: colorTokens} = useTheme()
   const {fontScale} = useDeviceContext()
   const scaledSize = IconSize[size] * fontScale
-  const icon = SvgIconsConfig[name]
+  const icon: SvgIconConfig | undefined = SvgIconsConfig[name]
 
   const {
     Wrapper = Fragment,
     stroke,
     strokeWidth = DEFAULT_STROKE_WIDTH,
   } = AdditionalIconConfigs[name] ?? {}
+
+  if (!icon) {
+    return null
+  }
 
   return (
     <View
