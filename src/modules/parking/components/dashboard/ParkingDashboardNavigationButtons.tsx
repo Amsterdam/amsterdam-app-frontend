@@ -1,15 +1,17 @@
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingApiVersion, ParkingPermitScope} from '@/modules/parking/types'
 
 export const ParkingDashboardNavigationButtons = () => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
+  const apiVersion = useCurrentParkingApiVersion()
 
   if (parkingAccount?.scope !== ParkingPermitScope.permitHolder) {
     return null
@@ -40,13 +42,15 @@ export const ParkingDashboardNavigationButtons = () => {
           title="Betalingen"
         />
       )}
-      <NavigationButton
-        onPress={() => {
-          navigate(ParkingRouteName.parkingPermitZones)
-        }}
-        testID="ParkingPermitZoneButton"
-        title="Vergunninggebied"
-      />
+      {apiVersion === ParkingApiVersion.v2 && (
+        <NavigationButton
+          onPress={() => {
+            navigate(ParkingRouteName.parkingPermitZones)
+          }}
+          testID="ParkingPermitZoneButton"
+          title="Vergunninggebied"
+        />
+      )}
     </Column>
   )
 }
