@@ -38,6 +38,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
       accessibilityLabel={getAccessibilityLabel(
         parkingSession,
         title,
+        currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
       )}
       description={getDescription(
@@ -61,6 +62,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
 const getAccessibilityLabel = (
   parkingSession: Props['parkingSession'],
   title: string,
+  maxSessionLengthInDays: number,
   noEndTime: boolean,
 ) => {
   const {start_date_time, end_date_time} = parkingSession
@@ -71,8 +73,10 @@ const getAccessibilityLabel = (
     {short: false},
   )
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
+  const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
+  const timeLabel = `Starttijd ${startTimeString} ${noEndTime || maxSessionLengthInDays > 1 ? startDateTimeString : 'Parkeertijd ' + remainingTimeStringLong}`
 
-  return `Kenteken ${title}. Starttijd ${startTimeString} ${!noEndTime ? 'Parkeertijd ' + remainingTimeStringLong : ''}`
+  return `Kenteken ${title}. ${timeLabel}`
 }
 
 const getDescription = (
