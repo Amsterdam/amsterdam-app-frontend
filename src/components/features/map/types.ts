@@ -6,6 +6,7 @@ export enum ControlVariant {
 }
 
 export type MapControlOption = {
+  accessibilityLabel: string
   iconName: SvgIconName
   key: ControlVariant
   onPress: () => void

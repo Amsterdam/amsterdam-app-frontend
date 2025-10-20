@@ -17,6 +17,7 @@ export const useMapControlsOptions = (
   > = useMemo(
     () => ({
       [ControlVariant.location]: {
+        accessibilityLabel: 'Mijn locatie',
         iconName,
         key: ControlVariant.location,
         onPress: onPressLocationButton,
