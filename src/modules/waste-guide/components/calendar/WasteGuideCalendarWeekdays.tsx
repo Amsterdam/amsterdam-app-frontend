@@ -8,7 +8,7 @@ const dayNames = getWeekdaysStartingFrom(1, true)
 const dayNamesLong = getWeekdaysStartingFrom(1, false)
 
 export const WasteGuideCalendarWeekdays = () => (
-  <WasteGuideCalendarDaysRow>
+  <WasteGuideCalendarDaysRow insetHorizontal="md">
     {dayNames.map((name, index) => (
       <WasteGuideCalendarDay
         accessibilityLabel={dayNamesLong[index]}
