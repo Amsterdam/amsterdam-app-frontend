@@ -4,7 +4,6 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
@@ -16,7 +15,6 @@ import {
   useWalletBalanceIncreaseStartedAt,
   useWalletBalanceIncreaseStartBalance,
 } from '@/modules/parking/slice'
-import {getParkingTimeForMoneyBalance} from '@/modules/parking/utils/getParkingTimeForMoneyBalance'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -83,13 +81,6 @@ export const ParkingPermitBalanceMoney = () => {
               text={formatNumber(balance, currency)}
             />
           </Row>
-          <Phrase testID="ParkingPermitBalanceMoneyValidUntilPhrase">
-            Goed voor{' '}
-            {getParkingTimeForMoneyBalance(
-              balance,
-              currentPermit.parking_rate.value,
-            )}
-          </Phrase>
         </Column>
       </SingleSelectable>
       <ParkingAddMoneyButton variant="secondary" />

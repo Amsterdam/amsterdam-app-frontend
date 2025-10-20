@@ -5,7 +5,7 @@ import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitPro
 export const ParkingPermitZonesScreen = () => (
   <Screen
     scroll={false}
-    testID="WasteGuideContainerMapScreen">
+    testID="ParkingPermitZonesMapScreen">
     <CurrentPermitProvider>
       <ParkingSessionDetailsPermitZones />
     </CurrentPermitProvider>
