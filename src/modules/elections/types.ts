@@ -26,6 +26,7 @@ export enum ElectionsCategory {
   hearingImpaired = 'hearing_impaired',
   ptWheelchair = 'pt_wheelchair',
   pysicalLimitation = 'pysical_limitation',
+  readingAid = 'reading_aid',
   visionImpaired = 'vision_impaired',
   wheelchairHelp = 'wheelchair_help',
 }
