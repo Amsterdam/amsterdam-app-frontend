@@ -1,7 +1,6 @@
 import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -9,7 +8,6 @@ import {
   type ParkingSession,
   type VisitorParkingSession,
   type ParkingHistorySession,
-  ParkingApiVersion,
   ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -24,10 +22,7 @@ type Props = {
 export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
-  const apiVersion = useCurrentParkingApiVersion()
-  const {licensePlates} = useGetLicensePlates(
-    apiVersion === ParkingApiVersion.v2,
-  )
+  const {licensePlates} = useGetLicensePlates()
   const possiblyVisitorName = useMemo(
     () =>
       licensePlates?.find(lp => lp.vehicle_id === parkingSession.vehicle_id)
