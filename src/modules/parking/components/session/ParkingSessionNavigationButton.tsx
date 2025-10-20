@@ -1,14 +1,19 @@
+import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
-  ParkingHistorySession,
-  ParkingSession,
-  VisitorParkingSession,
+  type ParkingSession,
+  type VisitorParkingSession,
+  type ParkingHistorySession,
+  ParkingSessionStatus,
 } from '@/modules/parking/types'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
+
+const DATE_FORMAT = 'D MMMM, HH.mm'
 
 type Props = {
   parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
@@ -16,28 +21,31 @@ type Props = {
 
 export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
-  const {start_date_time, end_date_time, vehicle_id, visitor_name} =
-    parkingSession
-  const title = `${vehicle_id}${visitor_name ? ' - ' + visitor_name : ''}`
-
-  const remainingTimeStringLong = formatTimeRangeToDisplay(
-    start_date_time,
-    end_date_time,
-    {short: false},
-  )
   const currentPermit = useCurrentParkingPermit()
-  const startDateTimeString = `${dayjs(start_date_time).format('D MMMM, HH.mm')} uur`
-  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
-  const endTimeString = `${dayjs(end_date_time).format('HH.mm')} uur`
-  const description =
-    currentPermit.no_endtime || currentPermit.max_session_length_in_days > 1
-      ? `${startDateTimeString}`
-      : `Van ${startTimeString} tot ${endTimeString}`
+  const {licensePlates} = useGetLicensePlates()
+  const possiblyVisitorName = useMemo(
+    () =>
+      licensePlates?.find(lp => lp.vehicle_id === parkingSession.vehicle_id)
+        ?.visitor_name,
+    [licensePlates, parkingSession.vehicle_id],
+  )
+  const {vehicle_id, visitor_name} = parkingSession
+  const visitorName = visitor_name ?? possiblyVisitorName
+  const title = `${vehicle_id}${visitorName ? ' - ' + visitorName : ''}`
 
   return (
     <NavigationButton
-      accessibilityLabel={`Kenteken ${title}. Starttijd ${startTimeString} ${!currentPermit.no_endtime ? 'Parkeertijd ' + remainingTimeStringLong : ''}`}
-      description={description}
+      accessibilityLabel={getAccessibilityLabel(
+        parkingSession,
+        title,
+        currentPermit.max_session_length_in_days,
+        currentPermit.no_endtime,
+      )}
+      description={getDescription(
+        parkingSession,
+        currentPermit.max_session_length_in_days,
+        currentPermit.no_endtime,
+      )}
       iconName="parkingCar"
       iconSize="lg"
       insetHorizontal="no"
@@ -49,4 +57,48 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
       title={title}
     />
   )
+}
+
+const getAccessibilityLabel = (
+  parkingSession: Props['parkingSession'],
+  title: string,
+  maxSessionLengthInDays: number,
+  noEndTime: boolean,
+) => {
+  const {start_date_time, end_date_time} = parkingSession
+
+  const remainingTimeStringLong = formatTimeRangeToDisplay(
+    start_date_time,
+    end_date_time,
+    {short: false},
+  )
+  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
+  const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
+  const timeLabel = `Starttijd ${startTimeString} ${noEndTime || maxSessionLengthInDays > 1 ? startDateTimeString : 'Parkeertijd ' + remainingTimeStringLong}`
+
+  return `Kenteken ${title}. ${timeLabel}`
+}
+
+const getDescription = (
+  parkingSession: Props['parkingSession'],
+  maxSessionLengthInDays: number,
+  noEndTime: boolean,
+) => {
+  const {start_date_time, end_date_time, status} = parkingSession
+
+  if (status === ParkingSessionStatus.active) {
+    const isEndDateToday = dayjs(end_date_time).isSame(dayjs(), 'day')
+
+    return noEndTime
+      ? `Actief sinds ${dayjs(start_date_time).format(isEndDateToday ? 'HH.mm' : DATE_FORMAT)} uur`
+      : `Tot ${dayjs(end_date_time).format(isEndDateToday ? 'HH.mm' : DATE_FORMAT)} uur`
+  }
+
+  const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
+  const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
+  const endTimeString = `${dayjs(end_date_time).format('HH.mm')} uur`
+
+  return noEndTime || maxSessionLengthInDays > 1
+    ? `${startDateTimeString}`
+    : `Van ${startTimeString} tot ${endTimeString}`
 }
