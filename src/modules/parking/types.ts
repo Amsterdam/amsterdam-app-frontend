@@ -157,7 +157,7 @@ export type ParkingPermit = {
   no_endtime: boolean
   parking_rate: {
     currency: string
-    value: number
+    value: number | null
   }
   parking_rate_original: {
     currency: string

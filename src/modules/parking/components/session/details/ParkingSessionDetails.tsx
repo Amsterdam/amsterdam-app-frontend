@@ -40,7 +40,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
   const {permits, isLoading} = useGetPermits()
-  const {permit_zone, parking_rate, payment_zones, money_balance_applicable} =
+  const {permit_zone, payment_zones, money_balance_applicable} =
     permits?.find(
       permit =>
         permit.report_code.toString() === parkingSession.report_code.toString(),
@@ -101,9 +101,9 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           )}
           {!!money_balance_applicable &&
             'parking_cost' in parkingSession &&
-            parkingSession.parking_cost?.value &&
+            !!parkingSession.parking_cost?.value &&
             'parking_cost' in parkingSession &&
-            parkingSession.parking_cost?.currency && (
+            !!parkingSession.parking_cost?.currency && (
               <ParkingSessionDetailsRow
                 label="Kosten"
                 value={formatNumber(
@@ -112,19 +112,6 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
                 )}
               />
             )}
-          {isLoading ? (
-            <PleaseWait testID="ParkingSessionPleaseWait" />
-          ) : (
-            !!money_balance_applicable && (
-              <ParkingSessionDetailsRow
-                label="Tarief"
-                value={`${formatNumber(
-                  parking_rate?.value,
-                  parking_rate?.currency,
-                )} per uur`}
-              />
-            )
-          )}
           {isLoading ? (
             <PleaseWait testID="ParkingSessionPleaseWait" />
           ) : (

@@ -3,7 +3,6 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingPermitBalanceMoney} from '@/modules/parking/components/dashboard/ParkingPermitBalanceMoney'
 import {ParkingPermitBalanceTime} from '@/modules/parking/components/dashboard/ParkingPermitBalanceTime'
-import {ParkingPermitTariff} from '@/modules/parking/components/dashboard/ParkingPermitTariff'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingPermitScope} from '@/modules/parking/types'
@@ -29,7 +28,6 @@ export const ParkingPermitBalance = () => {
         />
         <Gutter height="md" />
         <ParkingPermitBalanceTime />
-        <ParkingPermitTariff />
       </Column>
     )
   }
