@@ -63,11 +63,7 @@ const getAccessibilityLabel = (
   title: string,
   noEndTime: boolean,
 ) => {
-  const {start_date_time, end_date_time, status} = parkingSession
-
-  if (status === ParkingSessionStatus.active) {
-    return `Kenteken ${title}`
-  }
+  const {start_date_time, end_date_time} = parkingSession
 
   const remainingTimeStringLong = formatTimeRangeToDisplay(
     start_date_time,
