@@ -1,5 +1,6 @@
 import {Controller, type UseControllerProps} from 'react-hook-form'
-import {type TextInputProps, TextInput as TextInputRN} from 'react-native'
+import {type TextInputProps} from 'react-native'
+import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import type {Ref} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {

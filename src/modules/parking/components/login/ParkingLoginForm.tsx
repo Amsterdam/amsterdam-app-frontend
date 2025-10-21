@@ -1,6 +1,7 @@
 import {useEffect, useRef} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
-import {Platform, TextInput} from 'react-native'
+import {Platform} from 'react-native'
+import type {TextInput} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'

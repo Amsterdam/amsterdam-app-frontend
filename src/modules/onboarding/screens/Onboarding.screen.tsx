@@ -68,7 +68,7 @@ export const OnboardingScreen = ({navigation}: Props) => {
             insetTop="md">
             <Row align="end">
               <IconButton
-                accessibilityHint="Sluit onboarding"
+                accessibilityLabel="Sluit onboarding"
                 icon={
                   <Icon
                     color="link"
