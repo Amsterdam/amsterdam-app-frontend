@@ -250,7 +250,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
             coreClient?.events?.collect { entry ->
               when (entry) {
                 is CoreEvent.Connection -> {
-                  var status = ""
+                  var status: String
                   when (entry.event) {
                     is ServerSentEvent.Connection.Closed -> {
                       status = "Closed"
@@ -905,7 +905,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       try {
         val result = coreClient?.retrieveBusinessHours()
         if (result is Result.Success) {
-          val businessHoursInfo: BusinessHoursInfo? = (result as? Result.Success)?.data
+          val businessHoursInfo: BusinessHoursInfo? = result.data
           promise.resolve(businessHoursInfo?.isWithinBusinessHours())
         } else {
           promise.reject("Error", result.toString())
