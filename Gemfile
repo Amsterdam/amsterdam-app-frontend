@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "~> " + File.read(File.join(__dir__, ".ruby-version")).strip.split(".").first(2).join(".")
 
+gem "openssl", "~> 3.3"
 gem "fastlane", "2.228.0"
 
 group :iosAppBuildDependencies do
