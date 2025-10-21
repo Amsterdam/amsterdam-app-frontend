@@ -224,7 +224,7 @@ platform :ios do
     apps.each do |app|
       full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
       puts "Upload to testflight for #{full_ipa_path}"
-      if File.exists?(full_ipa_path)
+      if File.exist?(full_ipa_path)
         upload_to_testflight(
           ipa: full_ipa_path,
           app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
@@ -257,7 +257,7 @@ platform :ios do
       if app[:distribute_to_stakeholders]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
         puts "Upload to testflight for #{full_ipa_path}"
-        if File.exists?(full_ipa_path)
+        if File.exist?(full_ipa_path)
           upload_to_testflight(
             app_identifier: app[:app_identifier],
             app_version: parseVersionNumber(ENV["VERSION_NUMBER"])[:version],
@@ -312,7 +312,7 @@ platform :ios do
       if app[:distribute_to_production]
         full_ipa_path =  "#{ipa_path}/#{app[:output_name]}"
         puts "Release to App Store: #{full_ipa_path}"
-        if File.exists?(full_ipa_path)
+        if File.exist?(full_ipa_path)
           upload_to_app_store(
             submit_for_review: true,
             **automaticReleaseProperties,

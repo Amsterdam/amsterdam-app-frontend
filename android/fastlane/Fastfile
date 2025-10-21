@@ -107,7 +107,7 @@ end
 
 def writeReleaseNotes(releaseNotes)
   directory = "./metadata/android/nl-NL/changelogs/"
-  if (!Dir.exists?(directory))
+  if (!Dir.exist?(directory))
     require 'fileutils'
     FileUtils.mkdir_p(directory)
   end
@@ -129,7 +129,7 @@ platform :android do
     keystore_password = ENV["KEYSTORE_PASSWORD"] # store.password and key.password are sharing the same password
     keystore_alias = "key0"
 
-    if File.exists?(keystore_path)
+    if File.exist?(keystore_path)
       # this will create a file on the path set in the AppFile (json_key_file)
       system("keytool -list -v -keystore #{keystore_path} -storepass #{keystore_password}") # this is the upload certificate which should be used to sign the apk/aab
 
@@ -164,7 +164,7 @@ platform :android do
         full_aab_path = "#{app_build_path}#{app[:aab_path]}"
         final_path = isAab ? full_aab_path : full_apk_path
         puts "Upload to Play Store for #{final_path}"
-        if File.exists?(final_path)
+        if File.exist?(final_path)
           upload_to_play_store(
             package_name: app[:app_identifier],
             track: 'internal',
@@ -189,7 +189,7 @@ platform :android do
         full_aab_path = "#{app_build_path}#{app[:aab_path]}"
         final_path = isAab ? full_aab_path : full_apk_path
         puts "Upload to Play Store for #{final_path}"
-        if File.exists?(final_path)
+        if File.exist?(final_path)
           upload_to_play_store(
             package_name: app[:app_identifier],
             track: "internal",
@@ -218,7 +218,7 @@ platform :android do
         # Note: we only submit AABs for a production release (this is mandatory)
         full_aab_path = "#{app_build_path}#{app[:aab_path]}"
         puts "Upload to Play Store for #{full_aab_path}"
-        if File.exists?(full_aab_path)
+        if File.exist?(full_aab_path)
           upload_to_play_store(
             package_name: app[:app_identifier],
             track: "alpha",
