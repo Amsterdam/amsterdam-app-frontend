@@ -21,7 +21,6 @@ import {
   ParkingPermitScope,
   ParkingSession,
   ParkingSessionStatus,
-  PermitType,
   VisitorParkingSession,
 } from '@/modules/parking/types'
 import {getPermitZoneIdentifier} from '@/modules/parking/utils/getPermitZoneIdentifier'
@@ -51,7 +50,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
     parking_rate,
     payment_zones,
     money_balance_applicable,
-    permit_type,
+    // permit_type,
   } =
     permits?.find(
       permit =>
@@ -103,54 +102,44 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
 
-        {(permit_type === PermitType.bezoekersvergunning ||
-          permit_type === PermitType.kraskaartvergunning) && (
+        {parkingSession.parking_machine ? (
           <ParkingSessionDetailsRow
             icon="location"
-            title={`Parkeerautomaat ${parkingSession.ps_right_id}`} //NOTE: check if correct prop
-          >
-            {/* NOTE: dynamic data when parking machine api is ready */}
-            <Phrase>Rozenstraat 209</Phrase>
-            {!!parkingRateTimeString && (
-              <Phrase>{parkingRateTimeString}</Phrase>
+            title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
+            {isLoading ? (
+              <PleaseWait testID="ParkingSessionPleaseWait" />
+            ) : (
+              <>
+                {/* NOTE: dynamic data when parking machine api is ready */}
+                <Phrase>Rozenstraat 209</Phrase>
+                {!!parkingRateTimeString && (
+                  <Phrase>{parkingRateTimeString}</Phrase>
+                )}
+                <ExternalLinkButton
+                  label="Route openen"
+                  noPadding
+                  testID="PollingStationDetailsRouteExternalLinkButton"
+                  url={directionsUrl}
+                  variant="tertiary"
+                />
+              </>
             )}
-
-            <ExternalLinkButton
-              label="Route openen"
-              noPadding
-              testID="PollingStationDetailsRouteExternalLinkButton"
-              url={directionsUrl}
-              variant="tertiary"
+          </ParkingSessionDetailsRow>
+        ) : (
+          <ParkingSessionDetailsRow
+            icon="location"
+            title={getPermitZoneIdentifier(permit_zone)}>
+            <NavigationButton
+              emphasis="default"
+              iconSize="smd"
+              insetHorizontal="no"
+              insetVertical="no"
+              onPress={() => navigate('ParkingPermitZones')}
+              testID="ParkingParkingPermitZonesButton"
+              title="Kaart bekijken"
             />
           </ParkingSessionDetailsRow>
         )}
-        {permit_type !== PermitType.bezoekersvergunning &&
-          permit_type !== PermitType.kraskaartvergunning && (
-            <>
-              {isLoading ? (
-                <PleaseWait testID="ParkingSessionPleaseWait" />
-              ) : (
-                <ParkingSessionDetailsRow
-                  icon="location"
-                  title={getPermitZoneIdentifier(permit_zone)}>
-                  {/* NOTE Deprecated because of different rates within zones? */}
-                  {!!parkingRateTimeString && (
-                    <Phrase>{parkingRateTimeString}</Phrase>
-                  )}
-
-                  <NavigationButton
-                    emphasis="default"
-                    iconSize="smd"
-                    insetHorizontal="no"
-                    insetVertical="no"
-                    onPress={() => navigate('ParkingPermitZones')}
-                    testID="ParkingParkingPermitZonesButton"
-                    title="Kaart bekijken"
-                  />
-                </ParkingSessionDetailsRow>
-              )}
-            </>
-          )}
 
         <ParkingSessionDetailsRow
           icon="clock"
