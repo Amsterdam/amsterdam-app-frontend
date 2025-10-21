@@ -24,10 +24,12 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const eventsByDate = getCalendarEventsByDate(calendar)
 
   return (
-    <Box>
+    <View>
       <WasteGuideCalendarWeekdays />
       <ScrollView>
-        <Box insetTop="md">
+        <Box
+          insetHorizontal="md"
+          insetTop="md">
           {weeks.map((week, weekIdx) => (
             <View key={weekIdx}>
               <WasteGuideCalendarMonthTitle
@@ -72,6 +74,6 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
           ))}
         </Box>
       </ScrollView>
-    </Box>
+    </View>
   )
 }
