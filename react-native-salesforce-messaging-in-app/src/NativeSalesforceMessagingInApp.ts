@@ -46,9 +46,14 @@ export interface Spec extends TurboModule {
     imageBase64: string,
     fileName: string,
     uri: string,
+    message?: string,
   ) => Promise<void>
   sendMessage: (message: string) => Promise<void>
-  sendPDF: (filePath: string, fileName: string) => Promise<void>
+  sendPDF: (
+    filePath: string,
+    fileName: string,
+    message?: string,
+  ) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
   submitRemoteConfiguration: (

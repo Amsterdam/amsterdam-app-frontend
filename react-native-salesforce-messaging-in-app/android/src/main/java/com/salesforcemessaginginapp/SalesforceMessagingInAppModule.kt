@@ -25,6 +25,7 @@ import com.salesforce.android.smi.core.data.domain.remoteConfiguration.RemoteCon
 import com.salesforce.android.smi.core.events.CoreEvent
 import com.salesforce.android.smi.network.data.domain.conversation.Conversation
 import com.salesforce.android.smi.network.data.domain.conversationEntry.ConversationEntry
+import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.ConversationEntryType
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.EntryPayload
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.event.entries.ParticipantClientMenu
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.component.attachment.FileAsset
@@ -36,6 +37,7 @@ import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPay
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.FormResponseFormat
 import com.salesforce.android.smi.network.data.domain.conversationEntry.entryPayload.message.format.StaticContentFormat
 import com.salesforce.android.smi.network.data.domain.participant.Participant
+import com.salesforce.android.smi.network.data.domain.participant.ParticipantRoleType
 import com.salesforce.android.smi.network.data.domain.prechat.PreChatField
 import com.salesforce.android.smi.network.internal.api.sse.ServerSentEvent
 import kotlinx.coroutines.Job
@@ -232,16 +234,16 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                 }
 
                 is CoreEvent.ConversationEvent.TypingIndicator -> {
-                  val params = convertEntryToMap(entry.conversationEntry)
-                  if (entry.status === TypingIndicatorStatus.Started) {
-                    emitOnTypingStarted(params)
-                  } else {
-                    emitOnTypingStopped(params)
-                  }
+
                 }
 
                 is CoreEvent.ConversationEvent.ProgressIndicator -> {
-                  // TODO
+                  val params = convertEntryToMap(entry.conversationEntry)
+                  if (entry.conversationEntry.entryType === ConversationEntryType.TypingStartedIndicator) {
+                    emitOnTypingStarted(params)
+                  } else if (entry.conversationEntry.entryType === ConversationEntryType.TypingStoppedIndicator) {
+                    emitOnTypingStopped(params)
+                  }
                 }
               }
             }
@@ -280,7 +282,6 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
                 }
 
                 is CoreEvent.ConversationEvent.ProgressIndicator -> {
-                  // TODO
                 }
               }
             }
@@ -300,17 +301,17 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     return UUID.randomUUID().toString()
   }
 
-  private fun parseRole(role: String?): String? {
+  private fun parseRole(role: ParticipantRoleType): String? {
     return when (role) {
-      "EndUser" -> "USER"
-      else -> role
+        ParticipantRoleType.EndUser -> "USER"
+      else -> role.toString()
     }
   }
 
   private fun convertParticipantToMap(participant: Participant): WritableMap {
     val map = Arguments.createMap()
     map.putString("subject", participant.subject)
-    map.putString("role", parseRole(participant.role))
+    map.putString("role", parseRole(participant.roleType))
     map.putBoolean("local", participant.isLocal)
     map.putString("displayName", participant.displayName)
     map.putArray("options", convertParticipantClientMenuToMapArray(participant.clientMenu))
@@ -744,7 +745,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  override fun sendPDF(filePath: String, fileName: String, promise: Promise) {
+  override fun sendPDF(filePath: String, fileName: String, message: String?, promise: Promise) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
@@ -769,7 +770,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       scope.launch {
         try {
           val result: Result<ConversationEntry>? =
-            conversationClient?.sendPdf(newPdfFile)
+            conversationClient?.sendFile(newPdfFile, message)
 
           if (result is Result.Success) {
             promise.resolve(true)
@@ -787,7 +788,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
-  override fun sendImage(imageBase64: String, fileName: String, uri: String, promise: Promise) {
+  override fun sendImage(imageBase64: String, fileName: String, uri: String, message: String?, promise: Promise) {
     try {
       if (conversationClient == null) {
         promise.reject("Error", "conversationClient not created.")
@@ -805,7 +806,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
       scope.launch {
         try {
           val result: Result<ConversationEntry>? =
-            conversationClient?.sendImage(tempFile)
+            conversationClient?.sendFile(tempFile, message)
           if (result is Result.Success) {
             promise.resolve(true)
           } else {
