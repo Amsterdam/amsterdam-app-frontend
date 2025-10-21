@@ -124,6 +124,10 @@ const createStyles =
 
     const dateLineOffset = isNewAndUnreadArticle ? 0 : DATE_LINE_OFFSET
 
+    const topOffset = isNewAndUnreadArticle
+      ? VERTICAL_LINE_TOP_WITH_ALERT
+      : VERTICAL_LINE_TOP_WITHOUT_ALERT
+
     return StyleSheet.create({
       button: {
         paddingLeft: size.spacing.md,
@@ -134,6 +138,7 @@ const createStyles =
       horizontalLine: {
         position: 'absolute',
         left: -(size.spacing.md + dateLineOffset),
+        top: topOffset,
         height: LINE_WIDTH,
         width: size.spacing.md,
         backgroundColor: color.text.default,
@@ -147,11 +152,7 @@ const createStyles =
       line: {
         bottom: -itemBottomInset,
         position: 'absolute',
-        top: isFirst
-          ? isNewAndUnreadArticle
-            ? VERTICAL_LINE_TOP_WITH_ALERT
-            : VERTICAL_LINE_TOP_WITHOUT_ALERT
-          : 0,
+        top: isFirst ? topOffset : 0,
         left: 0,
         zIndex: z.articlePreviewLine,
         width: LINE_WIDTH,
