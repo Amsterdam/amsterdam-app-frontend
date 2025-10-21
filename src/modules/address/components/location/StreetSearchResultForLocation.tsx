@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useCallback, useMemo, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
@@ -28,6 +28,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     Permissions.location,
   )
   const {isGettingLocation, location} = useLocation()
+  const {makeSetStartGettingLocation} = useStartGettingLocation()
 
   const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates
@@ -61,7 +62,9 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     }
   }, [navigateToInstructionsScreen, requestPermission])
 
-  useStartGettingLocation()
+  useEffect(() => {
+    makeSetStartGettingLocation()
+  }, [hasLocationPermission, makeSetStartGettingLocation])
 
   if (!hasLocationPermission && !addresses?.length) {
     return (
