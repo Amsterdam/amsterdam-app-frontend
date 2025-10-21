@@ -12,6 +12,7 @@ export interface Spec extends TurboModule {
     developerName: string,
   ) => Promise<void>
   destroyStorageAndAuthorization: () => Promise<void>
+  endConversation: () => Promise<void>
   generateUUID: () => string
   markAsRead: (message: ConversationEntryBase) => Promise<boolean>
   /**

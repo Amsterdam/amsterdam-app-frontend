@@ -36,6 +36,8 @@ export const destroyStorageAndAuthorization = () =>
 export const markAsRead = (message: ConversationEntry) =>
   SalesforceMessagingInApp.markAsRead(message)
 
+export const endConversation = () => SalesforceMessagingInApp.endConversation()
+
 export const sendMessage = (message: string) =>
   SalesforceMessagingInApp.sendMessage(message)
 

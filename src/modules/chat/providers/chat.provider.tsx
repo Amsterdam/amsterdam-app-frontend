@@ -40,11 +40,7 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
-  const {isEnded, endChat} = useIsChatEnded(
-    messages,
-    isWaitingForAgent,
-    agentInChat,
-  )
+  const isEnded = useIsChatEnded(messages, isWaitingForAgent, agentInChat)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -84,7 +80,6 @@ export const ChatProvider = ({children}: Props) => {
       agentInChat,
       connectionStatus,
       downloadedTranscriptIds,
-      endChat,
       isEnded,
       isWaitingForAgent,
       messages: preparedMessages,
@@ -102,7 +97,6 @@ export const ChatProvider = ({children}: Props) => {
     agentInChat,
     connectionStatus,
     downloadedTranscriptIds,
-    endChat,
     isEnded,
     isWaitingForAgent,
     isTyping,

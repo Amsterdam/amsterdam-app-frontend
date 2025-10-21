@@ -630,6 +630,33 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
   }
 
   @ReactMethod
+  override fun endConversation(promise: Promise) {
+    try {
+      if (conversationClient == null) {
+        promise.reject("Error", "conversationClient not created.")
+        return
+      }
+      scope.launch {
+        try {
+          val result: Result<Unit>? =
+            conversationClient?.endSession()
+          if (result is Result.Success) {
+            promise.resolve(true)
+          } else {
+            promise.reject("Error", result.toString())
+          }
+        } catch (e: Exception) {
+          promise.reject("Error", e.message, e)
+        }
+      }
+    } catch (e: Exception) {
+      // Catch any exception and reject the promise
+      promise.reject("Error", "An error occurred: ${e.message}", e)
+    }
+  }
+
+
+  @ReactMethod
   override fun sendMessage(message: String, promise: Promise) {
     try {
       if (conversationClient == null) {

@@ -4,7 +4,6 @@ import {
   ConversationEntryFormat,
   ConversationEntryRoutingWorkType,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
-import {useBoolean} from '@/hooks/useBoolean'
 
 /**
  * Function to check if the chat is ended or not
@@ -39,8 +38,7 @@ export const useIsChatEnded = (
   messages: ConversationEntry[],
   isWaitingForAgent: boolean,
   agentInChat: boolean,
-): {endChat: () => void; isEnded: boolean} => {
-  const {value: isEnded, enable: endChat} = useBoolean(false)
+): boolean => {
   const [agentEnteredChat, setAgentEnteredChat] = useState(agentInChat)
 
   useEffect(() => {
@@ -49,10 +47,5 @@ export const useIsChatEnded = (
     }
   }, [agentInChat])
 
-  return {
-    isEnded:
-      isEnded ||
-      isChatEnded(messages, isWaitingForAgent, agentEnteredChat, agentInChat),
-    endChat,
-  }
+  return isChatEnded(messages, isWaitingForAgent, agentEnteredChat, agentInChat)
 }

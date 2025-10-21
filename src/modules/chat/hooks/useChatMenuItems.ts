@@ -1,9 +1,8 @@
 import {useMemo} from 'react'
 import {Alert} from 'react-native'
-import {sendMessage} from 'react-native-salesforce-messaging-in-app/src'
+import {endConversation} from 'react-native-salesforce-messaging-in-app/src'
 import {PopupMenuItem} from '@/components/ui/menus/types'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
-import {CLOSE_CHAT_MESSAGE} from '@/modules/chat/constants'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
@@ -15,7 +14,7 @@ import {useMenu} from '@/store/slices/menu'
 export const useChatMenuItems = () => {
   const {close} = useChat()
   const {close: closeMenu} = useMenu()
-  const {addDownloadedTranscriptId, endChat, ready, isEnded} = useChatContext()
+  const {addDownloadedTranscriptId, ready, isEnded} = useChatContext()
   const openWebUrl = useOpenWebUrl()
   const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
@@ -65,7 +64,7 @@ export const useChatMenuItems = () => {
           closeMenu()
 
           if (ready) {
-            void sendMessage(CLOSE_CHAT_MESSAGE).catch(error =>
+            void endConversation().catch(error =>
               trackException(
                 ExceptionLogKey.chatSendMessage,
                 'useChatMenuItems.ts',
@@ -74,7 +73,6 @@ export const useChatMenuItems = () => {
                 },
               ),
             )
-            endChat()
           } else {
             close()
           }
@@ -88,7 +86,6 @@ export const useChatMenuItems = () => {
     addDownloadedTranscriptId,
     close,
     closeMenu,
-    endChat,
     isEnded,
     isError,
     isLoading,
