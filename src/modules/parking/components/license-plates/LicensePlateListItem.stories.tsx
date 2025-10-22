@@ -18,6 +18,7 @@ export const Default: Story = {
   // @ts-expect-error as onPressDelete is missing
   args: {
     licensePlate: {
+      id: '3',
       vehicle_id: 'ABC123',
       visitor_name: 'John Doe',
     },

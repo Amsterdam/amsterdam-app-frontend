@@ -9,7 +9,9 @@ import {useAddLicensePlateMutation} from '@/modules/parking/service'
 import {ParkingLicensePlate} from '@/modules/parking/types'
 
 type Props = {
-  setLicensePlate: (licensePlate: ParkingLicensePlate) => void
+  setLicensePlate: (
+    licensePlate: Optional<ParkingLicensePlate, 'id' | 'visitor_name'>,
+  ) => void
 }
 
 export const ParkingSessionAddLicensePlateSubmitButton = ({
@@ -45,6 +47,7 @@ export const ParkingSessionAddLicensePlateSubmitButton = ({
         .unwrap()
         .then(result => {
           setLicensePlate({
+            id: result.id,
             vehicle_id: result.vehicle_id,
             visitor_name: result.visitor_name,
           })

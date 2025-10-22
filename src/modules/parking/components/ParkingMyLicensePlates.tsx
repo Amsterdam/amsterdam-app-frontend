@@ -15,7 +15,7 @@ import {
   useLicensePlatesQuery,
   useRemoveLicensePlateMutation,
 } from '@/modules/parking/service'
-import {PermitType} from '@/modules/parking/types'
+import {PermitType, type ParkingLicensePlate} from '@/modules/parking/types'
 import {RedirectKey} from '@/modules/redirects/types'
 
 export const ParkingMyLicensePlates = () => {
@@ -50,7 +50,9 @@ export const ParkingMyLicensePlates = () => {
     useRemoveLicensePlateMutation()
 
   const onPressDelete = useCallback(
-    (vehicle_id: string, visitor_name?: string) => {
+    (licensePlate: ParkingLicensePlate) => {
+      const {id, vehicle_id, visitor_name} = licensePlate
+
       Alert.alert(
         'Weet u zeker dat u het kenteken wilt verwijderen?',
         `Kenteken: ${vehicle_id}${visitor_name ? '\nNaam: ' + visitor_name : ''}`,
@@ -69,6 +71,7 @@ export const ParkingMyLicensePlates = () => {
               void removeLicensePlate({
                 report_code: currentPermit.report_code.toString(),
                 vehicle_id,
+                id,
               })
             },
           },
