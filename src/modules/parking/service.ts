@@ -33,6 +33,8 @@ import {
   ParkingEndpointName,
   ParkingSessionHistoryEndpointRequest,
   ParkingSessionHistoryEndpointResponse,
+  type ParkingZoneByMachineEndpointRequest,
+  type PaymentZone,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
@@ -210,6 +212,20 @@ export const parkingApi = baseApi.injectEndpoints({
         }),
       },
     ),
+    [ParkingEndpointName.zoneByMachine]: builder.query<
+      // Endpoint is only V2
+      PaymentZone,
+      ParkingZoneByMachineEndpointRequest
+    >({
+      providesTags: ['ParkingPermits'],
+      query: ({permitId, machineId}) => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug.parking,
+        url: `/permit/${permitId}/zone_by_machine/${machineId}`,
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.sessionReceipt]: builder.query<
       ParkingSessionReceiptEndpointResponse,
       ParkingSessionReceiptEndpointRequestParams
@@ -416,6 +432,7 @@ export const {
   useParkingSessionsQuery,
   useParkingTransactionsQuery,
   useRemoveLicensePlateMutation,
+  useZoneByMachineQuery,
   usePermitsQuery,
   usePermitZonesQuery,
   useSessionReceiptQuery,
