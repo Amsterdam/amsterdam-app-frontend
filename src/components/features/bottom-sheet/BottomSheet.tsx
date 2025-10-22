@@ -40,7 +40,9 @@ type Props = Partial<
   )
 
 const ScrollWrapper = ({children}: {children: ReactNode}) => (
-  <BottomSheetScrollView>{children}</BottomSheetScrollView>
+  <BottomSheetScrollView keyboardShouldPersistTaps="handled">
+    {children}
+  </BottomSheetScrollView>
 )
 
 /**
