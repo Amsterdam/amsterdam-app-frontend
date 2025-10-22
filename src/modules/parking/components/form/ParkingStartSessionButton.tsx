@@ -18,7 +18,8 @@ type FieldValues = {
   amount?: number
   endTime?: Dayjs
   licensePlate?: {vehicle_id: string; visitor_name: string}
-  paymentZoneId: string
+  parking_machine?: string
+  paymentZoneId?: string
   startTime: Dayjs
   vehicle_id?: string
 }
@@ -50,9 +51,10 @@ export const ParkingStartSessionButton = () => {
     ({
       startTime,
       endTime,
-      paymentZoneId,
       amount,
       licensePlate,
+      parking_machine,
+      paymentZoneId,
       vehicle_id: visitorVehicleId,
     }: FieldValues) => {
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
@@ -62,11 +64,12 @@ export const ParkingStartSessionButton = () => {
       if (vehicleId) {
         return startSession({
           parking_session: {
-            report_code: report_code.toString(),
-            vehicle_id: vehicleId,
             end_date_time: endTime?.toJSON(),
-            start_date_time: startTime.toJSON(),
+            parking_machine,
             payment_zone_id: paymentZoneId,
+            report_code: report_code.toString(),
+            start_date_time: startTime.toJSON(),
+            vehicle_id: vehicleId,
           },
           ...(amount
             ? {
