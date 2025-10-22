@@ -135,6 +135,10 @@ export type ActivateLicensePlateEndpointRequest = {
   vehicle_id: string
 }
 
+export type ActivateLicensePlateEndpointResponse = {
+  ps_right_id: string
+}
+
 // Permit
 export type PaymentZone = {
   city: string

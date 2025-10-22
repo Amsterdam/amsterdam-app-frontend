@@ -37,6 +37,7 @@ import {
   type PaymentZone,
   type ParkingMachine,
   type ActivateLicensePlateEndpointRequest,
+  type ActivateLicensePlateEndpointResponse,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
@@ -306,7 +307,7 @@ export const parkingApi = baseApi.injectEndpoints({
       }),
     }),
     [ParkingEndpointName.activateSession]: builder.mutation<
-      unknown,
+      ActivateLicensePlateEndpointResponse,
       ActivateLicensePlateEndpointRequest
     >({
       invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
