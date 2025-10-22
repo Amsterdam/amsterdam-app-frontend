@@ -92,6 +92,7 @@ export type ParkingLoginEndpointResponse = {
 
 // License-plate
 export type ParkingLicensePlate = {
+  id: string
   vehicle_id: string
   visitor_name?: string
 }
@@ -109,12 +110,14 @@ export type AddLicensePlateEndpointRequest = {
 }
 
 export type AddLicensePlateEndpointResponse = {
+  id: string
   report_code: string
   vehicle_id: string
   visitor_name: string
 }
 
 export type RemoveLicensePlateEndpointRequest = {
+  id: string
   report_code: string
   vehicle_id: string
 }

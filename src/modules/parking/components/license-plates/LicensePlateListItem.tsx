@@ -9,11 +9,11 @@ type Props = {
   isRemovable: boolean
   licensePlate: ParkingLicensePlate
   number: string
-  onPressDelete: (vehicleId: string, visitor_name?: string) => void
+  onPressDelete: (licensePlate: ParkingLicensePlate) => void
 }
 
 export const LicensePlateListItem = ({
-  licensePlate: {vehicle_id, visitor_name},
+  licensePlate: {id, vehicle_id, visitor_name},
   isRemovable,
   number,
   onPressDelete,
@@ -43,7 +43,7 @@ export const LicensePlateListItem = ({
             />
           }
           logName="ParkingRemoveLicensePlateButton"
-          onPress={() => onPressDelete(vehicle_id, visitor_name)}
+          onPress={() => onPressDelete({id, vehicle_id, visitor_name})}
           testID={`ParkingRemoveLicensePlate${number}Button`}
         />
       )}
