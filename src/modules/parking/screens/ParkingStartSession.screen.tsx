@@ -8,7 +8,7 @@ import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {ParkingSessionChooseParkingMachine} from '@/modules/parking/components/form/ParkingSessionChooseParkingMachine'
 import {ParkingSessionChooseTime} from '@/modules/parking/components/form/ParkingSessionChooseTime'
 import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
-import {ParkingStartSessionButton} from '@/modules/parking/components/form/ParkingStartSessionButton'
+import {ParkingSessionSubmitButton} from '@/modules/parking/components/form/ParkingSessionSubmitButton'
 import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/ParkingVehicleIdTextInput'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
@@ -72,7 +72,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 <ParkingMaxSessionsWarning />
               </Column>
               <ParkingReceipt />
-              <ParkingStartSessionButton />
+              <ParkingSessionSubmitButton />
             </Column>
           </Box>
         </Screen>
