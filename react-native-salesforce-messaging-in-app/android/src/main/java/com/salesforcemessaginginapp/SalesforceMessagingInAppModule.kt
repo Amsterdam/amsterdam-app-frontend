@@ -301,17 +301,10 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
     return UUID.randomUUID().toString()
   }
 
-  private fun parseRole(role: ParticipantRoleType): String? {
-    return when (role) {
-        ParticipantRoleType.EndUser -> "USER"
-      else -> role.toString()
-    }
-  }
-
   private fun convertParticipantToMap(participant: Participant): WritableMap {
     val map = Arguments.createMap()
     map.putString("subject", participant.subject)
-    map.putString("role", parseRole(participant.roleType))
+    map.putString("role", participant.roleType.toString())
     map.putBoolean("local", participant.isLocal)
     map.putString("displayName", participant.displayName)
     map.putArray("options", convertParticipantClientMenuToMapArray(participant.clientMenu))

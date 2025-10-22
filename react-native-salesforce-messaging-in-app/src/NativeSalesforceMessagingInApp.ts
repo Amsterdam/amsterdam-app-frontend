@@ -210,7 +210,7 @@ export enum ConversationEntrySenderRole {
   agent = 'Agent',
   chatbot = 'Chatbot',
   system = 'System',
-  user = 'USER',
+  user = 'EndUser',
 }
 
 export type ConversationEntryBase = {

@@ -477,6 +477,37 @@ RCT_EXPORT_METHOD(markAsRead:(JS::NativeSalesforceMessagingInApp::ConversationEn
     }
 }
 
+RCT_EXPORT_METHOD(endConversation:(RCTPromiseResolveBlock)resolve
+                  reject:(RCTPromiseRejectBlock)reject)
+{
+
+    @try {
+        // Ensure that the coreClient has been initialized
+        if (conversationClient == nil) {
+            NSError *error = [NSError errorWithDomain:@"ConversationClient Not Initialized"
+                                                code:500
+                                            userInfo:@{NSLocalizedDescriptionKey: @"ConversationClient is not initialized."}];
+            reject(@"send_message_exception", @"ConversationClient is not initialized", error);
+            return;
+        }
+
+        [conversationClient endSessionWithCompletion:^(NSError * _Nullable error) {
+            if (error == nil) {
+                resolve(@(YES));
+            }else {
+                reject(@"end_conversation_exception", @"An exception occurred during endSessionWithCompletion", error);
+            }
+        }];
+
+    } @catch (NSException *exception) {
+        // Handle exceptions by rejecting the promise
+        NSError *error = [NSError errorWithDomain:@"endConversation Exception"
+                                             code:500
+                                         userInfo:@{NSLocalizedDescriptionKey: [exception reason]}];
+        reject(@"end_conversation_exception", @"An exception occurred during endConversation", error);
+    }
+}
+
 RCT_EXPORT_METHOD(sendMessage:(NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
@@ -574,6 +605,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
 
 RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
                   fileName:(NSString *)fileName
+                  message:(NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -618,20 +650,18 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
             return;
         }
 
-        // Create a NSURL object from the cleaned-up file path
-        NSURL *pdfURL = [NSURL fileURLWithPath:newFilePath];
-        PDFDocument *pdfDocument = [[PDFDocument alloc] initWithURL:pdfURL];
-
-        if (pdfDocument == nil) {
-            NSError *error = [NSError errorWithDomain:@"PDFDocument Error"
+        // Load the PDF data from the new path
+        NSData *pdfData = [NSData dataWithContentsOfFile:newFilePath];
+        if (pdfData == nil) {
+            NSError *error = [NSError errorWithDomain:@"PDFData Error"
                                                 code:500
-                                            userInfo:@{NSLocalizedDescriptionKey: @"Failed to load PDF document."}];
-            reject(@"send_pdf_exception", @"Failed to load PDF document", error);
+                                            userInfo:@{NSLocalizedDescriptionKey: @"Failed to read PDF data."}];
+            reject(@"send_pdf_exception", @"Failed to read PDF data", error);
             return;
         }
 
         // Send the PDF using the conversation client
-        [conversationClient sendPDF:pdfDocument];
+        [conversationClient sendFile:pdfData fileName:fileName message:message ];
 
         resolve(@(YES)); // Resolve the promise with success
     } @catch (NSException *exception) {
@@ -646,6 +676,7 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
 RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
                   fileName:(NSString *)fileName
                   uri:(NSString *)uri
+                  message: (NSString *)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -672,7 +703,7 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
         }
 
         // Call the sendImage:fileName: method from the conversationClient
-        [conversationClient sendImage:imageData fileName:fileName];
+        [conversationClient sendFile:imageData fileName:fileName message: message];
 
         // Resolve the promise indicating success
         resolve(@(YES));
@@ -685,7 +716,6 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
     }
 }
 
-// Method to send the Base64-encoded image
 RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -748,6 +778,7 @@ RCT_EXPORT_METHOD(retrieveTranscript:(RCTPromiseResolveBlock)resolve
                 NSMutableDictionary *resultDict = [NSMutableDictionary dictionary];
                 resultDict[@"transcript"] = base64PdfString;
                 resultDict[@"entryId"] = [entryId UUIDString];
+
 
                 // Resolve the promise with the Base64-encoded PDF string
                 resolve(resultDict);
@@ -823,7 +854,7 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     NSMutableDictionary *participantDict = [NSMutableDictionary dictionary];
     participantDict[@"subject"] = participant.subject;
     participantDict[@"role"] = participant.role;
-    participantDict[@"local"] = @(participant.local);
+    participantDict[@"local"] = @(participant.isLocal);
     participantDict[@"displayName"] = participant.displayName ?: [NSNull null];
     participantDict[@"options"] = [self parseChoiceArrayToDictionaryArray:participant.clientMenu.options];
     return [participantDict copy];
@@ -1079,18 +1110,25 @@ didError:(nonnull NSError *)error
 
 // Triggered when a typing event starts
 - (void)core:(nonnull id<SMICoreClient>)core
-didReceiveTypingStartedEvent:(nonnull id<SMIConversationEntry>)entry
+conversation:(id<SMIConversation>) conversation
+didReceiveEvents:(NSArray<id<SMIConversationEntry>>*)events
 {
-    NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-    [self emitOnTypingStarted:finalMessageDict];
-}
-
-// Triggered when a typing event stops
-- (void)core:(nonnull id<SMICoreClient>)core
-didReceiveTypingStoppedEvent:(nonnull id<SMIConversationEntry>)entry
-{
-    NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
-    [self emitOnTypingStopped:finalMessageDict];
+//- (void) client:(id<SMIConversationClient>) client
+//didReceiveEvents:(NSArray<id<SMIConversationEntry>> *) events
+//{
+    
+    for (id<SMIConversationEntry> entry in events) {
+        if (entry.type == SMIConversationEntryTypesTypingIndicator) {
+            id<SMITypingIndicator> typingIndicatorPayload = (id<SMITypingIndicator>)entry.payload;
+            if(typingIndicatorPayload.type == SMITypingIndicatorTypesStarted){
+                NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+                [self emitOnTypingStarted:finalMessageDict];
+            } else if (typingIndicatorPayload.type == SMITypingIndicatorTypesStopped) {
+                NSDictionary *finalMessageDict = [self parseEntryToDictionary:entry];
+                [self emitOnTypingStopped:finalMessageDict];
+            }
+        }
+    }
 }
 
 // Will be called when this module's first listener is added.

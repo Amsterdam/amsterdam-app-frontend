@@ -11,7 +11,6 @@ import {useSendNotificationWhenInBackground} from '@/modules/chat/hooks/useSendN
 import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
 import {ChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
-import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
@@ -69,9 +68,8 @@ export const ChatProvider = ({children}: Props) => {
   useSubmitRemoteConfiguration(remoteConfiguration)
 
   const value = useMemo(() => {
-    const filteredMessages = filterOutCloseChatMessage(
-      filterOutDeliveryAcknowledgements(messages),
-    )
+    const filteredMessages = filterOutDeliveryAcknowledgements(messages)
+
     const preparedMessages =
       isTyping && !isEnded ? [...filteredMessages, isTyping] : filteredMessages
 
