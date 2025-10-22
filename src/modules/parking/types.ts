@@ -4,6 +4,7 @@ import {Paginated, PaginationQueryArgs} from '@/types/api'
 export enum ParkingEndpointName {
   accountChangePinCode = 'parkingAccountChangePinCode',
   accountDetails = 'accountDetails',
+  activateSession = 'activateSession',
   addLicensePlate = 'addLicensePlate',
   deleteSession = 'deleteSession',
   editSession = 'editSession',
@@ -125,6 +126,11 @@ export type RemoveLicensePlateEndpointRequest = {
 }
 
 export type RemoveLicensePlateEndpointResponse = {
+  report_code: string
+  vehicle_id: string
+}
+
+export type ActivateLicensePlateEndpointRequest = {
   report_code: string
   vehicle_id: string
 }

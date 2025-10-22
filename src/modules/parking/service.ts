@@ -36,6 +36,7 @@ import {
   type ParkingZoneByMachineEndpointRequest,
   type PaymentZone,
   type ParkingMachine,
+  type ActivateLicensePlateEndpointRequest,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
@@ -304,6 +305,20 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.activateSession]: builder.mutation<
+      unknown,
+      ActivateLicensePlateEndpointRequest
+    >({
+      invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
+      query: body => ({
+        prepareHeaders,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/session/activate',
+        afterError,
+        body,
+      }),
+    }),
     [ParkingEndpointName.removeLicensePlate]: builder.mutation<
       RemoveLicensePlateEndpointResponse,
       RemoveLicensePlateEndpointRequest
@@ -456,6 +471,7 @@ export const {
   useStartSessionMutation,
   useEditSessionMutation,
   useDeleteSessionMutation,
+  useActivateSessionMutation,
   useIncreaseBalanceMutation,
   useManageVisitorTimeBalanceMutation,
   useManageVisitorAddAccountMutation,
