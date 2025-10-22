@@ -11,6 +11,7 @@ type Props = {
   iconName: SvgIconName
   onPress: () => void
   text?: string
+  textAdditional?: string
   title: string
 } & TestProps &
   Pick<
@@ -22,6 +23,7 @@ export const SelectButton = ({
   iconName,
   testID,
   text,
+  textAdditional,
   title,
   error,
   onPress,
@@ -42,6 +44,7 @@ export const SelectButton = ({
       onPress={onPress}
       testID={testID}
       text={text}
+      textAdditional={textAdditional}
       title={title}
     />
     {!!error && (

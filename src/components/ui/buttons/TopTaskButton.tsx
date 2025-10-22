@@ -22,6 +22,7 @@ export type TopTaskButtonProps = {
   isExternalLink?: boolean
   isInternalLink?: boolean
   text?: ReactNode
+  textAdditional?: string
   title: string
   titleIconName?: SvgIconName
 } & Omit<PressableProps, 'children' | 'style'>
@@ -36,6 +37,7 @@ export const TopTaskButton = ({
   iconSize = 'xl',
   onPress,
   text,
+  textAdditional,
   title,
   titleIconName,
   testID,
@@ -97,6 +99,13 @@ export const TopTaskButton = ({
             </Paragraph>
           ) : (
             text
+          )}
+          {!!textAdditional && (
+            <Paragraph
+              testID={`${testID}AdditionalText`}
+              variant="small">
+              {textAdditional}
+            </Paragraph>
           )}
         </Column>
         {!!isExternalLink && (
