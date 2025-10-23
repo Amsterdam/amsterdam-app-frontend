@@ -25,6 +25,7 @@ type Props<
   bottomSheetVariant?: string
   iconName: SvgIconName
   text?: ValueFunctionOrString<TFieldValues, TName>
+  textAdditional?: ValueFunctionOrString<TFieldValues, TName>
   title: string | ((value: PathValue<TFieldValues, TName>) => string)
 } & TestProps &
   UseControllerProps<TFieldValues, TName>
@@ -37,6 +38,7 @@ export const SelectButtonControlled = <
   testID,
   title,
   text,
+  textAdditional,
   iconName,
   accessibilityLabel,
   accessibilityHint,
@@ -69,6 +71,11 @@ export const SelectButtonControlled = <
       }}
       testID={testID}
       text={typeof text === 'string' ? text : text?.(value)}
+      textAdditional={
+        typeof textAdditional === 'string'
+          ? textAdditional
+          : textAdditional?.(value)
+      }
       title={typeof title === 'string' ? title : title?.(value)}
     />
   )

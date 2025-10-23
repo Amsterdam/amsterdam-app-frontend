@@ -37,6 +37,7 @@ export const ParkingReceipt = () => {
     amount?: number
     endTime?: Dayjs
     licensePlate?: ParkingLicensePlate
+    parking_machine?: string
     paymentZoneId?: string
     ps_right_id?: number
     startTime: Dayjs
@@ -46,6 +47,7 @@ export const ParkingReceipt = () => {
     startTime,
     endTime,
     licensePlate,
+    parking_machine,
     paymentZoneId,
     ps_right_id,
     amount = 0,
@@ -61,13 +63,15 @@ export const ParkingReceipt = () => {
 
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheetSelectors()
-  const allDataEntered = endTime && paymentZoneId && endTime.isAfter(startTime)
+  const allDataEntered =
+    endTime && (paymentZoneId || parking_machine) && endTime.isAfter(startTime)
 
   const {data, isLoading} = useSessionReceiptQuery(
     allDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
           end_date_time: endTime.toJSON(),
+          parking_machine,
           payment_zone_id: paymentZoneId,
           start_date_time: startTime.toJSON(),
           vehicle_id: vehicleId,

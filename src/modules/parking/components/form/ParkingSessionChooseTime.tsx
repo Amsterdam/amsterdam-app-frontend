@@ -7,6 +7,7 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 
 export const ParkingSessionChooseTime = () => {
   const currentPermit = useCurrentParkingPermit()
+  const hasPaymentZoneId = currentPermit.payment_zones[0]?.id
 
   if (currentPermit.no_endtime) {
     return null
@@ -21,7 +22,7 @@ export const ParkingSessionChooseTime = () => {
       />
       <ParkingChooseStartTimeButton />
       <ParkingChooseEndTimeButton />
-      <ParkingChoosePaymentZone />
+      {!!hasPaymentZoneId && <ParkingChoosePaymentZone />}
     </Column>
   )
 }

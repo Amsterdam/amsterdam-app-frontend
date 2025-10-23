@@ -24,6 +24,7 @@ export enum ParkingEndpointName {
   sessionReceipt = 'sessionReceipt',
   startSession = 'startSession',
   visitorParkingSessions = 'visitorParkingSessions',
+  zoneByMachine = 'zoneByMachine',
 }
 
 // Account
@@ -158,6 +159,7 @@ export type ParkingPermit = {
   max_sessions_allowed?: number // DEPRECATED in V2
   money_balance_applicable: boolean
   no_endtime: boolean
+  parking_machine_favorite?: string
   parking_rate: {
     currency: string
     value: number | null
@@ -301,7 +303,8 @@ export type ParkingSessionReceiptEndpointResponse = {
 
 export type ParkingSessionReceiptEndpointRequestParams = {
   end_date_time: string
-  payment_zone_id: string
+  parking_machine?: string
+  payment_zone_id?: string
   ps_right_id?: number
   report_code: string
   start_date_time: string
@@ -315,7 +318,8 @@ export type ParkingStartSessionEndpointRequestParams = {
   locale?: string
   parking_session: {
     end_date_time?: string
-    payment_zone_id: string
+    parking_machine?: string
+    payment_zone_id?: string
     report_code: string
     start_date_time: string
     vehicle_id: string
@@ -403,3 +407,8 @@ export type ParkingManageVisitorTimeBalanceEndpointRequest = {
 export type ParkingSessionOrDummy =
   | ((ParkingSession | VisitorParkingSession) & {dummy?: never})
   | {dummy: true; ps_right_id: number; start_date_time: string}
+
+export type ParkingZoneByMachineEndpointRequest = {
+  machineId: string
+  permitId: string
+}
