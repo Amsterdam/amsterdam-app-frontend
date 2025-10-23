@@ -3,9 +3,9 @@ import MapView from 'react-native-maps'
 import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {useLocation} from '@/modules/address/slice'
 import {Permissions} from '@/types/permissions'
 
@@ -33,7 +33,7 @@ export const useMapControlsLocationButton = (
   )
   const setLocationType = useSetLocationType()
 
-  const {makeSetStartGettingLocation} = useStartGettingLocation()
+  const {startLocationFetch} = useRequestLocationFetch()
 
   const isSetLocation = locationType === 'location' && !!address?.coordinates
 
@@ -54,7 +54,7 @@ export const useMapControlsLocationButton = (
 
     const permission = await requestLocationPermission()
 
-    makeSetStartGettingLocation()
+    startLocationFetch()
 
     if (!permission) {
       navigateToInstructionsScreen()
@@ -66,7 +66,7 @@ export const useMapControlsLocationButton = (
   }, [
     address?.coordinates,
     isSetLocation,
-    makeSetStartGettingLocation,
+    startLocationFetch,
     mapRef,
     navigateToInstructionsScreen,
     requestLocationPermission,

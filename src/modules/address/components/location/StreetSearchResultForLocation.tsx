@@ -10,7 +10,7 @@ import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
-import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
+import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useGetLocationQuery} from '@/modules/address/service'
 import {useLocation} from '@/modules/address/slice'
 import {BaseAddress, Address} from '@/modules/address/types'
@@ -28,7 +28,7 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
     Permissions.location,
   )
   const {isGettingLocation, location} = useLocation()
-  const {makeSetStartGettingLocation} = useStartGettingLocation()
+  const {startLocationFetch} = useRequestLocationFetch()
 
   const {currentData, isLoading, isUninitialized} = useGetLocationQuery(
     !isGettingLocation && location?.coordinates
@@ -58,15 +58,11 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
         navigateToInstructionsScreen()
       }
 
-      makeSetStartGettingLocation()
+      startLocationFetch()
     } catch (error) {
       return
     }
-  }, [
-    navigateToInstructionsScreen,
-    requestPermission,
-    makeSetStartGettingLocation,
-  ])
+  }, [navigateToInstructionsScreen, requestPermission, startLocationFetch])
 
   if (!hasLocationPermission && !addresses?.length) {
     return (

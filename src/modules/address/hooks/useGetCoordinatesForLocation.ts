@@ -11,7 +11,7 @@ export const useGetCoordinatesForLocation = () => {
     Coordinates | undefined
   >()
   const [isGettingCoordinates, setIsGettingCoordinates] = useState(false)
-  const {startGettingLocation, highAccuracyPurposeKey} = useLocation()
+  const {locationFetchRequested, highAccuracyPurposeKey} = useLocation()
   const getCoordinates = useGetCoordinates(highAccuracyPurposeKey)
 
   const getCoordinatesForLocation = useCallback(async () => {
@@ -35,10 +35,10 @@ export const useGetCoordinatesForLocation = () => {
   }, [dispatch, getCoordinates])
 
   useEffect(() => {
-    if (startGettingLocation) {
+    if (locationFetchRequested) {
       void getCoordinatesForLocation()
     }
-  }, [getCoordinatesForLocation, startGettingLocation])
+  }, [getCoordinatesForLocation, locationFetchRequested])
 
   return {
     coordinatesForLocation,

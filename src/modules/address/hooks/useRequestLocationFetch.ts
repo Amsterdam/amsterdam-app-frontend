@@ -1,28 +1,25 @@
 import {useCallback, useEffect} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {
-  selectLocationType,
-  setStartGettingLocation,
-} from '@/modules/address/slice'
+import {selectLocationType, requestLocationFetch} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 
-export const useStartGettingLocation = (
+export const useRequestLocationFetch = (
   highAccuracyPurposeKey?: HighAccuracyPurposeKey,
 ) => {
   const dispatch = useDispatch()
   const locationType = useSelector(selectLocationType)
 
-  const makeSetStartGettingLocation = useCallback(
-    () => dispatch(setStartGettingLocation(highAccuracyPurposeKey)),
+  const startLocationFetch = useCallback(
+    () => dispatch(requestLocationFetch(highAccuracyPurposeKey)),
     [dispatch, highAccuracyPurposeKey],
   )
 
   useEffect(() => {
     if (locationType === 'location') {
-      makeSetStartGettingLocation()
+      startLocationFetch()
     }
-  }, [locationType, makeSetStartGettingLocation])
+  }, [locationType, startLocationFetch])
 
-  return {makeSetStartGettingLocation}
+  return {startLocationFetch}
 }

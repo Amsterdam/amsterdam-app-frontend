@@ -48,13 +48,13 @@ export type AddressState = {
    */
   location?: Address
   /**
+   * True when user requests to get the location
+   */
+  locationFetchRequested: boolean | undefined
+  /**
    * user preference for using location or address
    */
   locationType?: LocationType
-  /**
-   * True when user requests to get the location
-   */
-  startGettingLocation: boolean | undefined
 }
 
 export type AddressList = Array<Address | BaseAddress>
