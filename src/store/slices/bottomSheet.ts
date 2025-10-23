@@ -58,7 +58,10 @@ export const useBottomSheet = () => {
   return {
     ...useMemo(
       () => ({
-        close: () => dispatch(closeBottomSheet()),
+        close: () => {
+          dispatch(closeBottomSheet())
+          Keyboard.dismiss()
+        },
         open: (newVariant?: string) => {
           closeMenu()
           Keyboard.dismiss()
