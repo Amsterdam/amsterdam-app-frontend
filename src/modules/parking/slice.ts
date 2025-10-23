@@ -27,6 +27,8 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
+  remainingTimeBalance?: number
+  remainingWalletBalance?: number
   /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
@@ -39,13 +41,15 @@ export type ParkingState = {
 const initialState: ParkingState = {
   accessTokens: {},
   accounts: {},
+  currentAccount: undefined,
   currentApiVersion: undefined,
   currentPermitReportCode: undefined,
   deeplinkAccount: undefined,
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
-  currentAccount: undefined,
+  remainingWalletBalance: undefined,
+  remainingTimeBalance: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
@@ -82,6 +86,25 @@ export const parkingSlice = createSlice({
         accessTokenExpiration: payload.accessTokenExpiration,
       }
     },
+    setCurrentAccount: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      state.currentAccount = payload
+    },
+    setCurrentAccountByPermitReportCode: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      const currentAccount = Object.entries(state.accounts).find(
+        ([_accountReportCode, account]) =>
+          account.permits?.some(permit => permit.report_code === payload),
+      )?.[0]
+
+      if (currentAccount) {
+        state.currentAccount = currentAccount
+      }
+    },
     setCurrentApiVersion: (
       state,
       {payload}: PayloadAction<ParkingApiVersion | undefined>,
@@ -109,6 +132,18 @@ export const parkingSlice = createSlice({
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
+    setRemainingWalletBalance: (
+      state,
+      {payload}: PayloadAction<number | undefined>,
+    ) => {
+      state.remainingWalletBalance = payload
+    },
+    setRemainingTimeBalance: (
+      state,
+      {payload}: PayloadAction<number | undefined>,
+    ) => {
+      state.remainingTimeBalance = payload
+    },
     setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowLoginScreen = payload
     },
@@ -130,25 +165,6 @@ export const parkingSlice = createSlice({
       }
 
       state.accounts[state.currentAccount].permits = payload
-    },
-    setCurrentAccount: (
-      state,
-      {payload}: PayloadAction<string | undefined>,
-    ) => {
-      state.currentAccount = payload
-    },
-    setCurrentAccountByPermitReportCode: (
-      state,
-      {payload}: PayloadAction<string | undefined>,
-    ) => {
-      const currentAccount = Object.entries(state.accounts).find(
-        ([_accountReportCode, account]) =>
-          account.permits?.some(permit => permit.report_code === payload),
-      )?.[0]
-
-      if (currentAccount) {
-        state.currentAccount = currentAccount
-      }
     },
     setWalletBalanceIncreaseStartedAt: (
       state,
@@ -173,6 +189,8 @@ export const {
   setIsLoggingIn,
   setIsLoggingOut,
   setLoginStepsActive,
+  setRemainingWalletBalance,
+  setRemainingTimeBalance,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
@@ -226,6 +244,12 @@ export const selectParkingAccount = (state: RootState) =>
 
 export const selectCurrentParkingAccount = (state: RootState) =>
   state[ReduxKey.parking].currentAccount
+
+export const selectRemainingWalletBalance = (state: RootState) =>
+  state[ReduxKey.parking].remainingWalletBalance
+
+export const selectRemainingTimeBalance = (state: RootState) =>
+  state[ReduxKey.parking].remainingTimeBalance
 
 export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
   state[ReduxKey.parking].walletBalanceIncreaseStartedAt

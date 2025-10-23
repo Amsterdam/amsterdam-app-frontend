@@ -3,13 +3,18 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useSelector} from '@/hooks/redux/useSelector'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useStartSessionMutation} from '@/modules/parking/service'
-import {useVisitorVehicleId} from '@/modules/parking/slice'
+import {
+  selectRemainingTimeBalance,
+  selectRemainingWalletBalance,
+  useVisitorVehicleId,
+} from '@/modules/parking/slice'
 import {ParkingApiVersion} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
@@ -33,9 +38,12 @@ export const ParkingStartSessionButton = () => {
   const currentPermit = useCurrentParkingPermit()
   const {report_code} = currentPermit
   const apiVersion = useCurrentParkingApiVersion()
+  const remainingTimeBalance = useSelector(selectRemainingTimeBalance)
+  const remainingWalletBalance = useSelector(selectRemainingWalletBalance)
   const isTimebalanceInsufficient =
     errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
-    errors.root?.localError?.type === 'isTimeBalanceInsufficient'
+    errors.root?.localError?.type === 'isTimeBalanceInsufficient' ||
+    (remainingTimeBalance && remainingTimeBalance < 0)
   const isMoneyBalanceInsufficient =
     errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW'
   const {setVisitorVehicleId} = useVisitorVehicleId()
@@ -147,7 +155,11 @@ export const ParkingStartSessionButton = () => {
     )
   }
 
-  if (isMoneyBalanceInsufficient && apiVersion === ParkingApiVersion.v2) {
+  if (
+    ((remainingWalletBalance !== undefined && remainingWalletBalance < 0) ||
+      isMoneyBalanceInsufficient) &&
+    apiVersion === ParkingApiVersion.v2
+  ) {
     return <ParkingAddMoneyButton />
   }
 
