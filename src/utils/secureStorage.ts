@@ -1,4 +1,8 @@
-import {getItemAsync, deleteItemAsync, setItemAsync} from 'expo-secure-store'
+import SecureStore, {
+  getItemAsync,
+  deleteItemAsync,
+  setItemAsync,
+} from 'expo-secure-store'
 
 import {appInsights} from '@/providers/appinsights.provider'
 
@@ -14,7 +18,10 @@ export enum SecureItemKey {
 
 export const setSecureItem = (key: SecureItemKey, value: string) =>
   new Promise((resolve, reject) => {
-    setItemAsync(key, value, {requireAuthentication: false})
+    setItemAsync(key, value, {
+      requireAuthentication: false,
+      keychainAccessible: SecureStore.AFTER_FIRST_UNLOCK,
+    })
       .then(res => resolve(res))
       .catch((err: Error) => {
         appInsights.trackException({
