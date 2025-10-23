@@ -1,3 +1,4 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo} from 'react'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -14,18 +15,24 @@ import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/se
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
+import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {
+  useParkingMachinesQuery,
+  useZoneByMachineQuery,
+} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
+  ParkingApiVersion,
   ParkingHistorySession,
   ParkingPermitScope,
   ParkingSession,
   ParkingSessionStatus,
   VisitorParkingSession,
 } from '@/modules/parking/types'
+import {extractAddressFromParkingMachineName} from '@/modules/parking/utils/extractAddressFromParkingMachineName'
 import {getPermitZoneIdentifier} from '@/modules/parking/utils/getPermitZoneIdentifier'
 import {
-  getPaymentZone,
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
@@ -40,58 +47,70 @@ type Props = {
 
 export const ParkingSessionDetails = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
+  const apiVersion = useCurrentParkingApiVersion()
 
   const parkingAccount = useParkingAccount()
+
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
   const {permits, isLoading} = useGetPermits()
-  const {
-    permit_zone,
-    parking_rate,
-    payment_zones,
-    money_balance_applicable,
-    // permit_type,
-  } =
+
+  const {data: parkingMachines, isLoading: isLoadingParkingMachines} =
+    useParkingMachinesQuery(
+      apiVersion === ParkingApiVersion.v1 ? skipToken : undefined,
+    )
+
+  const parkingMachine = parkingMachines?.find(
+    p => p.id === parkingSession.parking_machine,
+  )
+
+  const {permit_zone, report_code, money_balance_applicable} =
     permits?.find(
       permit =>
         permit.report_code.toString() === parkingSession.report_code.toString(),
     ) ?? {}
 
-  const paymentZoneId = parkingSession.payment_zone_id
-
-  const paymentZone =
-    paymentZoneId && payment_zones
-      ? getPaymentZone(payment_zones, paymentZoneId)
-      : undefined
-
-  const startTimePaymentZoneDay = paymentZone
-    ? getPaymentZoneDay(
-        paymentZone,
-        dayjs(parkingSession.start_date_time).day(),
-      )
-    : undefined
+  const {data: parkingMachineData, isLoading: isLoadingParkingMachineData} =
+    useZoneByMachineQuery(
+      parkingSession.parking_machine &&
+        report_code &&
+        apiVersion === ParkingApiVersion.v2
+        ? {
+            permitId: report_code,
+            machineId: parkingSession.parking_machine,
+          }
+        : skipToken,
+    )
 
   const parkingRateTimeString = useMemo(() => {
-    const timeString = startTimePaymentZoneDay
-      ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
-      : undefined
+    if ('parking_cost' in parkingSession && parkingMachineData) {
+      const start = dayjs(parkingSession.start_date_time)
+      const end = dayjs(parkingSession.end_date_time)
+      const hours = end.diff(start, 'hour', true)
 
-    const parkingRate = parking_rate?.value
-      ? formatNumber(parking_rate?.value, parking_rate?.currency)
-      : undefined
+      const startTimePaymentZoneDay = getPaymentZoneDay(
+        parkingMachineData,
+        start.day(),
+      )
 
-    if (timeString && parkingRate) {
-      return `${timeString}, ${parkingRate} per uur`
+      const {value, currency} = parkingSession.parking_cost
+      const timeSpan = getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
+
+      const rate = formatNumber(value / 100 / hours, currency)
+
+      return `${timeSpan}, ${rate} per uur`
     }
-  }, [startTimePaymentZoneDay, parking_rate])
+  }, [parkingSession, parkingMachineData])
 
-  const directionsUrl = useGetGoogleMapsDirectionsUrl({lat: 2, lon: 2}) //NOTE: coordinates of parking machine when api is ready
+  const directionsUrl = useGetGoogleMapsDirectionsUrl({
+    lat: parkingMachine?.lat,
+    lon: parkingMachine?.lon,
+  })
 
   const shouldShowCosts =
     !!money_balance_applicable &&
     'parking_cost' in parkingSession &&
-    !!parkingSession.parking_cost?.value &&
-    !!parkingSession.parking_cost?.currency
+    !!parkingSession.parking_cost.value
 
   return (
     <Box>
@@ -106,22 +125,29 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
           <ParkingSessionDetailsRow
             icon="location"
             title={`Parkeerautomaat ${parkingSession.parking_machine}`}>
-            {isLoading ? (
+            {isLoading ||
+            isLoadingParkingMachineData ||
+            isLoadingParkingMachines ? (
               <PleaseWait testID="ParkingSessionPleaseWait" />
             ) : (
               <>
-                {/* NOTE: dynamic data when parking machine api is ready */}
-                <Phrase>Rozenstraat 209</Phrase>
+                {parkingMachine?.name && (
+                  <Phrase>
+                    {extractAddressFromParkingMachineName(parkingMachine.name)}
+                  </Phrase>
+                )}
                 {!!parkingRateTimeString && (
                   <Phrase>{parkingRateTimeString}</Phrase>
                 )}
-                <ExternalLinkButton
-                  label="Route openen"
-                  noPadding
-                  testID="PollingStationDetailsRouteExternalLinkButton"
-                  url={directionsUrl}
-                  variant="tertiary"
-                />
+                {!!directionsUrl && (
+                  <ExternalLinkButton
+                    label="Route openen"
+                    noPadding
+                    testID="PollingStationDetailsRouteExternalLinkButton"
+                    url={directionsUrl}
+                    variant="tertiary"
+                  />
+                )}
               </>
             )}
           </ParkingSessionDetailsRow>
@@ -163,7 +189,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
             title="Kosten">
             <Phrase>
               {formatNumber(
-                parkingSession.parking_cost.value,
+                parkingSession.parking_cost.value / 100,
                 parkingSession.parking_cost.currency,
               )}
             </Phrase>
