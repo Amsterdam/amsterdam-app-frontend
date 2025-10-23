@@ -130,6 +130,7 @@ export const baseApi = createApi({
     'ParkingTransactions',
     'ParkingAccount',
     'ParkingPermits',
+    'ParkingMachines',
     'Projects',
   ],
 })

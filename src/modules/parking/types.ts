@@ -14,6 +14,7 @@ export enum ParkingEndpointName {
   manageVisitorChangePinCode = 'manageVisitorChangePinCode',
   manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',
+  parkingMachines = 'parkingMachines',
   parkingPinCode = 'parkingPinCode',
   parkingSessionHistory = 'parkingSessionHistory',
   parkingSessions = 'parkingSessions',
@@ -411,4 +412,13 @@ export type ParkingSessionOrDummy =
 export type ParkingZoneByMachineEndpointRequest = {
   machineId: string
   permitId: string
+}
+
+export type ParkingMachine = {
+  id: string
+  lat: number
+  lon: number
+  name: string
+  payment_area: string
+  start_date: string
 }
