@@ -1,5 +1,5 @@
 import {
-  ConversationEntryAttachments,
+  type ConversationEntryAttachments,
   ConversationEntrySenderRole,
 } from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
 import {Row} from '@/components/ui/layout/Row'
@@ -8,6 +8,7 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ChatMessageEntry} from '@/modules/chat/components/ChatMessageEntry'
 import {ChatMessageImage} from '@/modules/chat/components/ChatMessageImage'
+import {MessagePhrase} from '@/modules/chat/components/MessagePhrase'
 import {saveFile} from '@/modules/chat/utils/saveFile'
 
 type Props = {
@@ -18,18 +19,32 @@ export const EntryAttachments = ({message}: Props) => {
   const isImage = message.attachments[0].mimeType.startsWith('image')
   const isAgent = message.sender.role === ConversationEntrySenderRole.agent
 
+  const isUser = message.sender.role === ConversationEntrySenderRole.user
+
   return (
     <>
       {message.attachments.map(attachment =>
         isImage ? (
           <ChatMessageEntry
-            isText={false}
+            isText={!!message.text}
             key={attachment.id}
             message={message}>
             <ChatMessageImage
               image={attachment}
               message={message}
             />
+            {!!message.text && (
+              <MessagePhrase
+                accessibilityLabel={
+                  isUser
+                    ? `Uw bericht: ${message.text}`
+                    : `${message.text} ontvangen van ${message.senderDisplayName}`
+                }
+                message={message}
+                testID="ChatEntryText">
+                {message.text}
+              </MessagePhrase>
+            )}
           </ChatMessageEntry>
         ) : (
           <ChatMessageEntry
@@ -49,9 +64,7 @@ export const EntryAttachments = ({message}: Props) => {
                   accessibilityLabel={`Bijlage gedeeld door ${message.senderDisplayName}. Dubbeltik om bijlage te downloaden.`}
                   ellipsizeMode="middle"
                   emphasis="strong"
-                  inverse={
-                    message.sender.role === ConversationEntrySenderRole.user
-                  }
+                  inverse={isUser}
                   numberOfLines={1}
                   onPress={() => {
                     void saveFile({
@@ -71,6 +84,18 @@ export const EntryAttachments = ({message}: Props) => {
                 </Phrase>
               )}
             </Row>
+            {!!message.text && (
+              <MessagePhrase
+                accessibilityLabel={
+                  isUser
+                    ? `Uw bericht: ${message.text}`
+                    : `${message.text} ontvangen van ${message.senderDisplayName}`
+                }
+                message={message}
+                testID="ChatEntryText">
+                {message.text}
+              </MessagePhrase>
+            )}
           </ChatMessageEntry>
         ),
       )}

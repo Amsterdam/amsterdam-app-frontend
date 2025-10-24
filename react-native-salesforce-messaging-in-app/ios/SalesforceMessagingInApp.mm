@@ -605,7 +605,7 @@ RCT_EXPORT_METHOD(sendTypingEvent:(RCTPromiseResolveBlock)resolve
 
 RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
                   fileName:(NSString *)fileName
-                  message:(NSString *)message
+                  message:(id)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -659,11 +659,18 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
             reject(@"send_pdf_exception", @"Failed to read PDF data", error);
             return;
         }
+        
+        NSString *safeMessage;
 
-        // Send the PDF using the conversation client
-        [conversationClient sendFile:pdfData fileName:fileName message:message ];
+        if ([message isKindOfClass:[NSString class]]) {
+            safeMessage = (NSString *)message;
+        } else {
+            safeMessage = @"";
+        }
+        
+        [conversationClient sendFile:pdfData fileName:fileName message:safeMessage];
 
-        resolve(@(YES)); // Resolve the promise with success
+        resolve(@(YES));
     } @catch (NSException *exception) {
         NSError *error = [NSError errorWithDomain:@"sendPDF Exception"
                                              code:500
@@ -676,7 +683,7 @@ RCT_EXPORT_METHOD(sendPDF:(NSString *)filePath
 RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
                   fileName:(NSString *)fileName
                   uri:(NSString *)uri
-                  message: (NSString *)message
+                  message:(id)message
                   resolve:(RCTPromiseResolveBlock)resolve
                   reject:(RCTPromiseRejectBlock)reject)
 {
@@ -702,10 +709,16 @@ RCT_EXPORT_METHOD(sendImage:(NSString *)base64Image
             return;
         }
 
-        // Call the sendImage:fileName: method from the conversationClient
-        [conversationClient sendFile:imageData fileName:fileName message: message];
+        NSString *safeMessage;
 
-        // Resolve the promise indicating success
+        if ([message isKindOfClass:[NSString class]]) {
+            safeMessage = (NSString *)message;
+        } else {
+            safeMessage = @"";
+        }
+        
+        [conversationClient sendFile:imageData fileName:fileName message:safeMessage];
+
         resolve(@(YES));
     } @catch (NSException *exception) {
         // Handle any exceptions by rejecting the promise
@@ -889,9 +902,10 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(generateUUID)
     NSString * type = entry.type;
     messageDict[@"entryType"] = type;
     if (format == SMIConversationFormatTypesAttachments) {
-        id<SMIAttachments> attachmentsPayload = (id<SMIAttachments>)payload;
+        id<SMIAttachmentEntry> attachmentsPayload = (id<SMIAttachmentEntry>)payload;
         //https://salesforce-async-messaging.github.io/messaging-in-app-ios/Protocols/SMIAttachments.html#/c:objc(pl)SMIAttachments(py)attachments
         messageDict[@"attachments"] = [self parseAttachmentsArrayToDictionaryArray:attachmentsPayload.attachments];
+        messageDict[@"text"] = attachmentsPayload.text ?: @"";
     }
     if (format == SMIConversationFormatTypesCarousel) {
         id<SMICarousel> carouselPayload = (id<SMICarousel>)payload;

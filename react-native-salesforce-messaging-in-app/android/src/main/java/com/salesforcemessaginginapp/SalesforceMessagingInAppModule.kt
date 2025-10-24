@@ -450,6 +450,7 @@ class SalesforceMessagingInAppModule(reactContext: ReactApplicationContext) :
 
           is StaticContentFormat.AttachmentsFormat -> {
             map.putArray("attachments", convertAttachmentsToMap(content.attachments))
+            map.putString("text", content.text)
           }
 
           is StaticContentFormat.RichLinkFormat -> {

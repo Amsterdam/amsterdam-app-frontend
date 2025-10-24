@@ -354,6 +354,7 @@ export type ConversationEntryCarousel = ConversationEntryBase & {
 export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]
   format: ConversationEntryFormat.attachments
+  text: string
 }
 export type ConversationEntryQuickReplies = ConversationEntryBase & {
   choices: Choice[]
