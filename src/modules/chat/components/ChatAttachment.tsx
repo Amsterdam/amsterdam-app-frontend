@@ -1,9 +1,5 @@
 import {getDocumentAsync} from 'expo-document-picker'
-import {
-  launchCameraAsync,
-  launchImageLibraryAsync,
-  MediaTypeOptions,
-} from 'expo-image-picker'
+import {launchCameraAsync, launchImageLibraryAsync} from 'expo-image-picker'
 import {useCallback} from 'react'
 import {Alert, StyleSheet} from 'react-native'
 import Animated, {SlideInDown} from 'react-native-reanimated'
@@ -40,7 +36,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
 
   const addPhotoFromLibrary = useCallback(() => {
     void launchImageLibraryAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: 'images',
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
@@ -86,7 +82,7 @@ export const ChatAttachment = ({onSelect, minHeight}: Props) => {
     }
 
     void launchCameraAsync({
-      mediaTypes: MediaTypeOptions.Images,
+      mediaTypes: 'images',
       allowsMultipleSelection: false,
       allowsEditing: false,
       base64: true,
