@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/media/svgIcons'
 import {IconSize, TestProps} from '@/components/ui/types'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
+import {devError} from '@/processes/development'
 import {Theme} from '@/themes/themes'
 import {useTheme} from '@/themes/useTheme'
 
@@ -63,6 +64,8 @@ export const Icon = ({
   } = AdditionalIconConfigs[name] ?? {}
 
   if (!icon) {
+    devError(`Icon with name "${name}" does not exist.`)
+
     return null
   }
 
