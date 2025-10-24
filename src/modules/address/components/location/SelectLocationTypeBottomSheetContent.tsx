@@ -10,8 +10,8 @@ import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {useStartGettingLocation} from '@/modules/address/hooks/useStartGettingLocation'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useAddress} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -38,9 +38,7 @@ export const SelectLocationTypeBottomSheetContent = ({
 
   const {requestPermission} = usePermission(Permissions.location)
 
-  const {makeSetStartGettingLocation} = useStartGettingLocation(
-    highAccuracyPurposeKey,
-  )
+  const {startLocationFetch} = useRequestLocationFetch(highAccuracyPurposeKey)
 
   const onPressAddressButton = useCallback(() => {
     setLocationType('address')
@@ -57,7 +55,7 @@ export const SelectLocationTypeBottomSheetContent = ({
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
 
-    makeSetStartGettingLocation()
+    startLocationFetch()
 
     if (!permission) {
       navigateToInstructionsScreen()
@@ -70,7 +68,7 @@ export const SelectLocationTypeBottomSheetContent = ({
     closeBottomSheet()
   }, [
     closeBottomSheet,
-    makeSetStartGettingLocation,
+    startLocationFetch,
     navigateToInstructionsScreen,
     requestPermission,
     setLocationType,
