@@ -13,7 +13,6 @@ type ChatContextType = {
   agentInChat: boolean
   connectionStatus: ConnectionState | null
   downloadedTranscriptIds: RetrieveTranscriptResponse['entryId'][]
-  endChat: () => void
   isEnded: boolean
   isWaitingForAgent: boolean
   messages: ConversationEntry[]
@@ -27,7 +26,6 @@ const initialValue: ChatContextType = {
   agentInChat: false,
   downloadedTranscriptIds: [],
   connectionStatus: null,
-  endChat: () => null,
   isEnded: false,
   isWaitingForAgent: false,
   messages: [],

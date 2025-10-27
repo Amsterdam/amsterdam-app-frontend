@@ -11,7 +11,6 @@ import {useSendNotificationWhenInBackground} from '@/modules/chat/hooks/useSendN
 import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
 import {ChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
-import {filterOutCloseChatMessage} from '@/modules/chat/utils/filterOutCloseChatMessage'
 import {filterOutDeliveryAcknowledgements} from '@/modules/chat/utils/filterOutDeliveryAcknowledgements'
 import {isNewMessage} from '@/modules/chat/utils/isNewMessage'
 
@@ -40,11 +39,7 @@ export const ChatProvider = ({children}: Props) => {
     ...coreConfig,
     conversationId,
   })
-  const {isEnded, endChat} = useIsChatEnded(
-    messages,
-    isWaitingForAgent,
-    agentInChat,
-  )
+  const isEnded = useIsChatEnded(messages, isWaitingForAgent, agentInChat)
 
   const addDownloadedTranscriptId = useCallback((transcriptId: string) => {
     setDownloadedTranscriptIds(ids => [...ids, transcriptId])
@@ -73,9 +68,8 @@ export const ChatProvider = ({children}: Props) => {
   useSubmitRemoteConfiguration(remoteConfiguration)
 
   const value = useMemo(() => {
-    const filteredMessages = filterOutCloseChatMessage(
-      filterOutDeliveryAcknowledgements(messages),
-    )
+    const filteredMessages = filterOutDeliveryAcknowledgements(messages)
+
     const preparedMessages =
       isTyping && !isEnded ? [...filteredMessages, isTyping] : filteredMessages
 
@@ -84,7 +78,6 @@ export const ChatProvider = ({children}: Props) => {
       agentInChat,
       connectionStatus,
       downloadedTranscriptIds,
-      endChat,
       isEnded,
       isWaitingForAgent,
       messages: preparedMessages,
@@ -102,7 +95,6 @@ export const ChatProvider = ({children}: Props) => {
     agentInChat,
     connectionStatus,
     downloadedTranscriptIds,
-    endChat,
     isEnded,
     isWaitingForAgent,
     isTyping,

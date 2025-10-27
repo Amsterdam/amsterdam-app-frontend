@@ -12,6 +12,7 @@ export interface Spec extends TurboModule {
     developerName: string,
   ) => Promise<void>
   destroyStorageAndAuthorization: () => Promise<void>
+  endConversation: () => Promise<void>
   generateUUID: () => string
   markAsRead: (message: ConversationEntryBase) => Promise<boolean>
   /**
@@ -46,9 +47,14 @@ export interface Spec extends TurboModule {
     imageBase64: string,
     fileName: string,
     uri: string,
+    message?: string,
   ) => Promise<void>
   sendMessage: (message: string) => Promise<void>
-  sendPDF: (filePath: string, fileName: string) => Promise<void>
+  sendPDF: (
+    filePath: string,
+    fileName: string,
+    message?: string,
+  ) => Promise<void>
   sendReply: (choice: Choice) => Promise<void>
   sendTypingEvent: () => Promise<void>
   submitRemoteConfiguration: (
@@ -204,7 +210,7 @@ export enum ConversationEntrySenderRole {
   agent = 'Agent',
   chatbot = 'Chatbot',
   system = 'System',
-  user = 'USER',
+  user = 'EndUser',
 }
 
 export type ConversationEntryBase = {
@@ -348,6 +354,7 @@ export type ConversationEntryCarousel = ConversationEntryBase & {
 export type ConversationEntryAttachments = ConversationEntryBase & {
   attachments: Attachment[]
   format: ConversationEntryFormat.attachments
+  text: string
 }
 export type ConversationEntryQuickReplies = ConversationEntryBase & {
   choices: Choice[]
