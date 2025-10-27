@@ -1,12 +1,15 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
+import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {useActivateSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
+import {ParkingSessionStatus} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
@@ -26,6 +29,7 @@ export const ParkingActivateLicensePlateButton = () => {
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
+  const {parkingSessions} = useGetParkingSessions(ParkingSessionStatus.active)
   const [activateSession, {isLoading}] = useActivateSessionMutation()
 
   const {
@@ -39,6 +43,15 @@ export const ParkingActivateLicensePlateButton = () => {
   const onSubmit = useCallback(
     ({licensePlate, vehicle_id: visitorVehicleId}: FieldValues) => {
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
+
+      if (vehicleId === parkingSessions?.[0].vehicle_id) {
+        Alert.alert(
+          'Dit kenteken is al actief',
+          'Kies een ander kenteken uit de lijst.',
+        )
+
+        return
+      }
 
       if (vehicleId) {
         return activateSession({
@@ -71,6 +84,7 @@ export const ParkingActivateLicensePlateButton = () => {
     [
       activateSession,
       report_code,
+      parkingSessions,
       registerDeviceIfPermitted,
       goBack,
       setVisitorVehicleId,
