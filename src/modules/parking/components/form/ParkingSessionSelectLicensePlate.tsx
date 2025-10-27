@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {StyleSheet, View} from 'react-native'
+import {Alert, StyleSheet, View} from 'react-native'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -7,7 +7,11 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
-import {ParkingLicensePlate} from '@/modules/parking/types'
+import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
+import {
+  ParkingLicensePlate,
+  ParkingSessionStatus,
+} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Props = {
@@ -17,21 +21,35 @@ type Props = {
 export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
   const {close} = useBottomSheet()
   const styles = createStyles()
-  const {licensePlates, isLoading} = useGetLicensePlates()
+
+  const {licensePlates, isLoading: isLoadingLicensePlates} =
+    useGetLicensePlates()
+  const {parkingSessions, isLoading: isLoadingSessions} = useGetParkingSessions(
+    ParkingSessionStatus.active,
+  )
 
   const onPress = useCallback(
     (licensePlate: ParkingLicensePlate) => {
+      if (parkingSessions?.[0].vehicle_id === licensePlate.vehicle_id) {
+        Alert.alert(
+          'Dit kenteken is al actief',
+          'Kies een ander kenteken uit de lijst.',
+        )
+
+        return
+      }
+
       setLicensePlate(licensePlate)
       close()
     },
-    [setLicensePlate, close],
+    [setLicensePlate, close, parkingSessions],
   )
 
-  if (isLoading) {
+  if (isLoadingLicensePlates || isLoadingSessions) {
     return <PleaseWait testID="ParkingSessionSelectLicensePlatePleaseWait" />
   }
 
-  if (!licensePlates) {
+  if (!licensePlates || !parkingSessions?.length) {
     return (
       <SomethingWentWrong testID="ParkingSessionSelectLicensePlateSomethingWentWrong" />
     )
