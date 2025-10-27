@@ -415,6 +415,7 @@ export type ParkingZoneByMachineEndpointRequest = {
 }
 
 export type ParkingMachine = {
+  address?: string
   id: string
   lat: number
   lon: number

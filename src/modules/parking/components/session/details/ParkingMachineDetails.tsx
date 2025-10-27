@@ -10,7 +10,6 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {extractAddressFromParkingMachineName} from '@/modules/parking/utils/extractAddressFromParkingMachineName'
 import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
@@ -72,11 +71,7 @@ export const ParkingMachineDetails = ({
         <PleaseWait testID="ParkingSessionPleaseWait" />
       ) : (
         <>
-          {parkingMachine?.name && (
-            <Phrase>
-              {extractAddressFromParkingMachineName(parkingMachine.name)}
-            </Phrase>
-          )}
+          {parkingMachine?.address && <Phrase>{parkingMachine.address}</Phrase>}
           {!!parkingRateTimeString && <Phrase>{parkingRateTimeString}</Phrase>}
           {!!directionsUrl && (
             <ExternalLinkButton
