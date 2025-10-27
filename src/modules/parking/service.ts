@@ -226,7 +226,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: 'parking-machines',
         afterError,
       }),
-      keepUnusedDataFor: CacheLifetime.week,
+      keepUnusedDataFor: CacheLifetime.day,
     }),
 
     [ParkingEndpointName.zoneByMachine]: builder.query<
