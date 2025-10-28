@@ -12,7 +12,7 @@ import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/det
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit.web'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
@@ -38,18 +38,12 @@ export const ParkingSessionDetails = ({
   const {navigate} = useNavigation()
   const apiVersion = useCurrentParkingApiVersion()
   const parkingAccount = useParkingAccount()
-  const {permits} = useGetPermits()
+  const {currentPermit} = useGetCurrentParkingPermit()
 
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
-  const {permit_zone, report_code, money_balance_applicable} =
-    permits?.find(
-      permit =>
-        permit.report_code.toString() === parkingSession.report_code.toString(),
-    ) ?? {}
-
   const shouldShowCosts =
-    !!money_balance_applicable &&
+    !!currentPermit.money_balance_applicable &&
     'parking_cost' in parkingSession &&
     !!parkingSession.parking_cost.value
 
@@ -62,25 +56,29 @@ export const ParkingSessionDetails = ({
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
 
-        {parkingSession.parking_machine &&
-        apiVersion === ParkingApiVersion.v2 ? (
-          <ParkingMachineDetails
-            parkingSession={parkingSession}
-            permitId={report_code}
-          />
-        ) : (
+        {!!parkingSession.parking_machine &&
+          apiVersion === ParkingApiVersion.v2 && (
+            <ParkingMachineDetails
+              parkingSession={parkingSession}
+              permitId={currentPermit.report_code}
+            />
+          )}
+
+        {!parkingSession.parking_machine && (
           <ParkingSessionDetailsRow
             icon="location"
-            title={getPermitZoneLabel(permit_zone)}>
-            <NavigationButton
-              emphasis="default"
-              iconSize="smd"
-              insetHorizontal="no"
-              insetVertical="no"
-              onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
-              testID="ParkingParkingPermitZonesButton"
-              title="Kaart bekijken"
-            />
+            title={getPermitZoneLabel(currentPermit.permit_zone)}>
+            {apiVersion === ParkingApiVersion.v2 && (
+              <NavigationButton
+                emphasis="default"
+                iconSize="smd"
+                insetHorizontal="no"
+                insetVertical="no"
+                onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
+                testID="ParkingParkingPermitZonesButton"
+                title="Kaart bekijken"
+              />
+            )}
           </ParkingSessionDetailsRow>
         )}
 
@@ -137,7 +135,7 @@ export const ParkingSessionDetails = ({
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!!money_balance_applicable &&
+            {!!currentPermit.money_balance_applicable &&
               'is_paid' in parkingSession &&
               !parkingSession.is_paid && (
                 <AlertBase
