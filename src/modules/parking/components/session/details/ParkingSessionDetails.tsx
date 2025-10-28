@@ -23,7 +23,7 @@ import {
   ParkingSessionStatus,
   VisitorParkingSession,
 } from '@/modules/parking/types'
-import {getPermitZoneIdentifier} from '@/modules/parking/utils/getPermitZoneIdentifier'
+import {getPermitZoneLabel} from '@/modules/parking/utils/getPermitZoneLabel'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
@@ -71,7 +71,7 @@ export const ParkingSessionDetails = ({
         ) : (
           <ParkingSessionDetailsRow
             icon="location"
-            title={getPermitZoneIdentifier(permit_zone)}>
+            title={getPermitZoneLabel(permit_zone)}>
             <NavigationButton
               emphasis="default"
               iconSize="smd"

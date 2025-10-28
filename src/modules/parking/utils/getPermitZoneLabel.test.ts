@@ -1,13 +1,13 @@
-import {getPermitZoneIdentifier} from '@/modules/parking/utils/getPermitZoneIdentifier'
+import {getPermitZoneLabel} from '@/modules/parking/utils/getPermitZoneLabel'
 
-describe('getPermitZoneIdentifier', () => {
+describe('getPermitZoneLabel', () => {
   it('returns only the name if id contains no number', () => {
     const permit_zone = {
       name: 'Stadsbreed',
       permit_zone_id: 'Stadsbreed',
     }
 
-    expect(getPermitZoneIdentifier(permit_zone)).toBe('Stadsbreed')
+    expect(getPermitZoneLabel(permit_zone)).toBe('Stadsbreed')
   })
 
   it('returns id and name if id contains a number', () => {
@@ -16,6 +16,6 @@ describe('getPermitZoneIdentifier', () => {
       permit_zone_id: 'NW09E',
     }
 
-    expect(getPermitZoneIdentifier(permit_zone)).toBe('NW09E Nieuw-West 9e')
+    expect(getPermitZoneLabel(permit_zone)).toBe('NW09E Nieuw-West 9e')
   })
 })
