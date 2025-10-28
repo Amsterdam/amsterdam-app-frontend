@@ -51,7 +51,7 @@ export const ParkingSessionDetails = ({
     <Box>
       <Column gutter="lg">
         <ParkingSessionDetailsRow
-          icon="parkingCar"
+          iconName="parkingCar"
           title="Kenteken">
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
@@ -66,7 +66,7 @@ export const ParkingSessionDetails = ({
 
         {!parkingSession.parking_machine && (
           <ParkingSessionDetailsRow
-            icon="location"
+            iconName="location"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
             {apiVersion === ParkingApiVersion.v2 && (
               <NavigationButton
@@ -83,7 +83,7 @@ export const ParkingSessionDetails = ({
         )}
 
         <ParkingSessionDetailsRow
-          icon="clock"
+          iconName="clock"
           title={`Parkeertijd: ${formatTimeRangeToDisplay(
             parkingSession.start_date_time,
             parkingSession.end_date_time,
@@ -100,7 +100,7 @@ export const ParkingSessionDetails = ({
 
         {!!shouldShowCosts && (
           <ParkingSessionDetailsRow
-            icon="euroCoinsInverted"
+            iconName="euroCoinsInverted"
             title="Kosten">
             <Phrase>
               {formatNumber(

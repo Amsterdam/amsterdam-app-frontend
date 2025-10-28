@@ -10,12 +10,9 @@ import {capitalizeString} from '@/utils/capitalizeString'
 export const ParkingSessionDetailsRow = ({
   children,
   title,
-  icon,
+  iconName,
 }: PropsWithChildren<{
-  icon: Extract<
-    SvgIconName,
-    'clock' | 'parkingCar' | 'location' | 'euroCoinsInverted'
-  >
+  iconName: SvgIconName
   title: string
 }>) => (
   <SingleSelectable>
@@ -23,9 +20,9 @@ export const ParkingSessionDetailsRow = ({
       gutter="sm"
       valign="start">
       <Icon
-        name={icon}
+        name={iconName}
         size="lg"
-        testID={`ParkingSessionDetails${capitalizeString(icon)}Icon`}
+        testID={`ParkingSessionDetails${capitalizeString(iconName)}Icon`}
       />
       <Column
         gutter="xxs"
