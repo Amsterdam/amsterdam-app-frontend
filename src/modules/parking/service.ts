@@ -218,7 +218,6 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingMachine[],
       void
     >({
-      providesTags: ['ParkingMachines'],
       query: () => ({
         prepareHeaders,
         method: 'GET',
