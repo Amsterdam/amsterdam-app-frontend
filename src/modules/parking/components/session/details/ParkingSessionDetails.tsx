@@ -13,6 +13,7 @@ import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/sess
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
   ParkingApiVersion,
@@ -76,7 +77,7 @@ export const ParkingSessionDetails = ({
               iconSize="smd"
               insetHorizontal="no"
               insetVertical="no"
-              onPress={() => navigate('ParkingPermitZones')}
+              onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
               testID="ParkingParkingPermitZonesButton"
               title="Kaart bekijken"
             />
