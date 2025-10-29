@@ -241,11 +241,11 @@ export const parkingApi = baseApi.injectEndpoints({
       ParkingZoneByMachineEndpointRequest
     >({
       providesTags: ['ParkingPermits'],
-      query: ({permitId, machineId}) => ({
+      query: ({report_code, machineId}) => ({
         prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
-        url: `/permit/${permitId}/zone_by_machine/${machineId}`,
+        url: `/permit/${report_code}/zone_by_machine/${machineId}`,
         afterError,
       }),
     }),
@@ -384,11 +384,11 @@ export const parkingApi = baseApi.injectEndpoints({
       string
     >({
       invalidatesTags: ['ParkingPermits', 'ParkingAccount'],
-      query: permitId => ({
+      query: report_code => ({
         prepareHeaders,
         method: 'POST',
         slug: ModuleSlug.parking,
-        url: `/permit/${permitId}/visitor`,
+        url: `/permit/${report_code}/visitor`,
         afterError,
       }),
     }),
@@ -397,11 +397,11 @@ export const parkingApi = baseApi.injectEndpoints({
       string
     >({
       invalidatesTags: ['ParkingPermits', 'ParkingAccount'],
-      query: permitId => ({
+      query: report_code => ({
         prepareHeaders,
         method: 'DELETE',
         slug: ModuleSlug.parking,
-        url: `/permit/${permitId}/visitor`,
+        url: `/permit/${report_code}/visitor`,
         afterError,
       }),
     }),

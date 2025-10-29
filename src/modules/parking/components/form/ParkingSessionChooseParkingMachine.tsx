@@ -27,7 +27,7 @@ export const ParkingSessionChooseParkingMachine = () => {
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
     parkingMachine && currentPermit.can_select_zone
-      ? {machineId: parkingMachine, permitId: currentPermit.report_code}
+      ? {machineId: parkingMachine, report_code: currentPermit.report_code}
       : skipToken,
   )
 

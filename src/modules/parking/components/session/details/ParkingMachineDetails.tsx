@@ -19,16 +19,16 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingMachineDetails = ({
   parkingSession,
-  permitId,
-}: ParkingSessionProps & {permitId?: string}) => {
+  report_code,
+}: ParkingSessionProps & {report_code?: string}) => {
   const {data: parkingMachines, isLoading: isLoadingParkingMachines} =
     useParkingMachinesQuery()
 
   const {data: parkingZoneData, isLoading: isLoadingParkingMachineData} =
     useZoneByMachineQuery(
-      parkingSession.parking_machine && permitId
+      parkingSession.parking_machine && report_code
         ? {
-            permitId,
+            report_code,
             machineId: parkingSession.parking_machine,
           }
         : skipToken,
@@ -75,7 +75,9 @@ export const ParkingMachineDetails = ({
         <PleaseWait testID="ParkingSessionPleaseWait" />
       ) : (
         <>
-          {parkingMachine?.address && <Phrase>{parkingMachine.address}</Phrase>}
+          {!!parkingMachine?.address && (
+            <Phrase>{parkingMachine.address}</Phrase>
+          )}
           {!!parkingRateTimeString && <Phrase>{parkingRateTimeString}</Phrase>}
           {!!directionsUrl && (
             <ExternalLinkButton
