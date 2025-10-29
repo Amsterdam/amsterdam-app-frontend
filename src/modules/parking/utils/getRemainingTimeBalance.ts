@@ -1,6 +1,7 @@
 import type {PaymentZone} from '@/modules/parking/types'
 import type {Dayjs} from 'dayjs'
 import {getPaymentZoneDay} from '@/modules/parking/utils/paymentZone'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 export const getRemainingTimeBalance = (
   timeBalance: number | undefined,
@@ -41,10 +42,8 @@ export const getRemainingTimeBalance = (
       .second(0)
 
     // Clamp the session to the allowed interval
-    const sessionStart = startTime.isAfter(allowedStart)
-      ? startTime
-      : allowedStart
-    const sessionEnd = endTime.isBefore(allowedEnd) ? endTime : allowedEnd
+    const sessionStart = dayjs.max(allowedStart, startTime)
+    const sessionEnd = dayjs.min(endTime, allowedEnd)
 
     const durationSeconds = Math.max(sessionEnd.diff(sessionStart, 'second'), 0)
     const remaining = timeBalance - durationSeconds
