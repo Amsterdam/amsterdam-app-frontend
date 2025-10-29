@@ -1,21 +1,21 @@
 import {useState} from 'react'
-import {Platform} from 'react-native'
+import {Platform, StyleSheet} from 'react-native'
 import MapView, {Geojson} from 'react-native-maps'
+import type {Theme} from '@/themes/themes'
 import type {Feature} from 'geojson'
 import {Box} from '@/components/ui/containers/Box'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitZonesQuery} from '@/modules/parking/service'
+import {useThemable} from '@/themes/useThemable'
 
 export const ParkingSessionDetailsPermitZones = () => {
   const [isMapReady, setIsMapReady] = useState(false)
-  const currentPermit = useCurrentParkingPermit()
+  const {report_code, permit_zone} = useCurrentParkingPermit()
 
-  useSetScreenTitle(currentPermit.permit_zone.name)
-  const {data, isLoading} = usePermitZonesQuery(
-    currentPermit.permit_zone.permit_zone_id,
-  )
-
+  useSetScreenTitle(permit_zone.name)
+  const {data, isLoading} = usePermitZonesQuery({report_code})
+  const styles = useThemable(createStyles)
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
@@ -24,20 +24,21 @@ export const ParkingSessionDetailsPermitZones = () => {
     return null
   }
 
-  const featureCollection = data
+  const featureCollection = data.geojson
   const properties = featureCollection.features[0]?.properties
   const allCoords = getAllPolygonCoords(featureCollection.features)
   const initialRegion = getInitialRegion(allCoords)
 
   return (
-    <Box grow>
+    <Box
+      grow
+      insetHorizontal="no">
       <MapView
         initialRegion={initialRegion}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
-        // eslint-disable-next-line react-native/no-inline-styles
-        style={{flex: 1}}>
+        style={styles.map}>
         <Geojson
           fillColor={getFillColor(
             String(properties?.fill ?? 'blue'),
@@ -49,6 +50,17 @@ export const ParkingSessionDetailsPermitZones = () => {
     </Box>
   )
 }
+
+const createStyles = ({color}: Theme) =>
+  StyleSheet.create({
+    map: {
+      flex: 1,
+    },
+    permitZone: {
+      backgroundColor: '#A00078',
+      borderColor: color.backgroundArea.primary,
+    },
+  })
 
 const getFillColor = (fill: string, opacity: number) => {
   if (!['red', 'green', 'blue'].includes(fill)) {
@@ -64,7 +76,7 @@ const getAllPolygonCoords = (features: Feature[]): LatLng[] =>
   features
     .filter((feature: Feature) => feature.geometry?.type === 'Polygon')
     .flatMap((feature: Feature) => {
-      if (feature.geometry && feature.geometry.type === 'Polygon') {
+      if (feature.geometry?.type === 'Polygon') {
         return feature.geometry.coordinates[0].map(coord => ({
           latitude: coord[1],
           longitude: coord[0],
