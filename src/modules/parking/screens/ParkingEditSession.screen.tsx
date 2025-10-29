@@ -3,7 +3,6 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
-import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
@@ -28,19 +27,14 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
           hasStickyAlert
           testID="ParkingStartSessionScreen">
           <Box>
-            <Column gutter="sm">
-              <Title
-                level="h2"
-                testID="ParkingChooseTimeTitle"
-                text="Parkeertijd"
-              />
+            <Column gutter="lg">
               {dayjs(parkingSession.start_date_time).isAfter(dayjs()) ? (
                 <ParkingChooseStartTimeButton />
               ) : (
                 <ParkingShowStartTime />
               )}
               <ParkingChooseEndTimeButton />
-              <Gutter height="md" />
+              <Gutter height="no" />
               <ParkingReceipt />
               <ParkingEditSessionButtons />
             </Column>

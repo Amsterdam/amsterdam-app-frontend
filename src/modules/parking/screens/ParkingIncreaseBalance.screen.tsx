@@ -19,11 +19,6 @@ export const ParkingIncreaseBalanceScreen = () => (
         testID="ParkingStartSessionScreen">
         <Box>
           <Column gutter="md">
-            <Title
-              level="h2"
-              testID="ParkingChooseLicensePlateTitle"
-              text="Bedrag"
-            />
             <ParkingChooseAmountButton />
             <Gutter height="sm" />
             <Title

@@ -39,15 +39,10 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
             insetTop="md">
             <Column gutter="xl">
               <Column gutter="lg">
-                {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
-                  <Title
-                    level="h2"
-                    testID="ParkingChooseLicensePlateTitle"
-                    text="Kenteken bezoeker"
-                  />
-                ) : (
+                {parkingAccount?.scope === ParkingPermitScope.visitor && (
                   <ParkingStartSessionVisitorPermitZone />
                 )}
+
                 {parkingAccount?.scope === ParkingPermitScope.permitHolder ? (
                   <ParkingChooseLicensePlateButton />
                 ) : (
@@ -67,6 +62,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                 {apiVersion === ParkingApiVersion.v2 && (
                   <ParkingSessionChooseParkingMachine />
                 )}
+
                 <ParkingSessionChooseTime />
 
                 <ParkingMaxSessionsWarning />

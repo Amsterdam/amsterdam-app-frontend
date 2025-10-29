@@ -30,11 +30,7 @@ export const ParkingManageVisitorAdjustTimeBalanceScreen = ({route}: Props) => {
           hasStickyAlert
           testID="ParkingManageVisitorAdjustTimeBalanceScreen">
           <Box>
-            <Column gutter="lg">
-              <Title
-                level="h2"
-                text="Wijzig tijdsaldo"
-              />
+            <Column gutter="xl">
               <ManageVisitorChooseTimeAddOn isNegative={params?.subtractTime} />
               <Column gutter="md">
                 <Title

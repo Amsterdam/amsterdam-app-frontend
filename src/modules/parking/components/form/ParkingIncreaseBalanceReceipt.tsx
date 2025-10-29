@@ -29,14 +29,14 @@ export const ParkingIncreaseBalanceReceipt = () => {
   return (
     <Column>
       <ParkingReceiptItem>
-        <Phrase emphasis="strong">Huidig geldsaldo</Phrase>
-        <Phrase emphasis="strong">
+        <Phrase>Huidig geldsaldo</Phrase>
+        <Phrase>
           {formatNumber(account?.wallet.balance, account?.wallet.currency)}
         </Phrase>
       </ParkingReceiptItem>
       <ParkingReceiptItem>
-        <Phrase emphasis="strong">Bedrag toevoegen</Phrase>
-        <Phrase emphasis="strong">
+        <Phrase>Bedrag toevoegen</Phrase>
+        <Phrase>
           {amount ? `+ ${formatNumber(amount, account?.wallet.currency)}` : '-'}
         </Phrase>
       </ParkingReceiptItem>
@@ -45,14 +45,8 @@ export const ParkingIncreaseBalanceReceipt = () => {
         <Row
           align="between"
           flex={1}>
-          <Phrase
-            emphasis="strong"
-            variant="intro">
-            Nieuw geldsaldo
-          </Phrase>
-          <Phrase
-            emphasis="strong"
-            variant="intro">
+          <Phrase emphasis="strong">Nieuw geldsaldo</Phrase>
+          <Phrase emphasis="strong">
             {amount && account
               ? formatNumber(
                   amount + account?.wallet.balance,
