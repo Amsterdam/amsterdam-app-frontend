@@ -100,7 +100,7 @@ export const ParkingActivateLicensePlateButton = () => {
       isLoading={isLoading}
       label="Activeer kenteken"
       onPress={handleSubmit(onSubmit)}
-      testID={`ParkingActivateLicense${currentPermit.permit_type}Button`}
+      testID={`ParkingActivateLicensePlate${currentPermit.permit_type}Button`}
       variant="primary"
     />
   )
