@@ -3,8 +3,8 @@ import type {
   ParkingSession,
   PaymentZone,
 } from '@/modules/parking/types'
-import {DAYS} from '@/types/datetime'
 import {dayjs} from '@/utils/datetime/dayjs'
+import {weekDays} from '@/utils/datetime/weekDays'
 import {formatNumber} from '@/utils/formatNumber'
 
 /**
@@ -57,8 +57,10 @@ export const getChargeableParkingHoursFromSessionAndZone = (
   const totalChargeableMinutes = Array.from({length: totalDays}).reduce(
     (minutes: number, _, index) => {
       const currentDay = startSession.startOf('day').add(index, 'day')
-      const dayName = DAYS[currentDay.day()]
-      const zoneDay = paymentZone.days.find(d => d.day_of_week === dayName)
+      const dayName = weekDays[currentDay.day()]
+      const zoneDay = paymentZone.days.find(
+        d => d.day_of_week.toLowerCase() === dayName,
+      )
 
       if (!zoneDay) {
         return minutes
