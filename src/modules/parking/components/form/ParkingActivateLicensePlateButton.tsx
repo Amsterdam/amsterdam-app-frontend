@@ -8,7 +8,6 @@ import {alerts} from '@/modules/parking/alerts'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {useActivateSessionMutation} from '@/modules/parking/service'
-import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
@@ -26,7 +25,6 @@ export const ParkingActivateLicensePlateButton = () => {
   const {goBack} = useNavigation()
   const {registerDeviceIfPermitted} = useRegisterDevice()
   const currentPermit = useCurrentParkingPermit()
-  const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
   const {parkingSessions} = useGetParkingSessions(ParkingSessionStatus.active)
@@ -41,10 +39,8 @@ export const ParkingActivateLicensePlateButton = () => {
   const {report_code} = currentPermit
 
   const onSubmit = useCallback(
-    ({licensePlate, vehicle_id: visitorVehicleId}: FieldValues) => {
-      const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
-
-      if (vehicleId === parkingSessions?.[0].vehicle_id) {
+    ({licensePlate}: FieldValues) => {
+      if (licensePlate?.vehicle_id === parkingSessions?.[0].vehicle_id) {
         Alert.alert(
           'Dit kenteken is al actief',
           'Kies een ander kenteken uit de lijst.',
@@ -53,18 +49,14 @@ export const ParkingActivateLicensePlateButton = () => {
         return
       }
 
-      if (vehicleId) {
+      if (licensePlate?.vehicle_id) {
         return activateSession({
           report_code: report_code.toString(),
-          vehicle_id: vehicleId,
+          vehicle_id: licensePlate?.vehicle_id,
         })
           .unwrap()
           .then(
             () => {
-              if (visitorVehicleId) {
-                setVisitorVehicleId(visitorVehicleId)
-              }
-
               setAlert(alerts.startSessionSuccess)
               void registerDeviceIfPermitted(true)
               goBack()
@@ -87,7 +79,6 @@ export const ParkingActivateLicensePlateButton = () => {
       parkingSessions,
       registerDeviceIfPermitted,
       goBack,
-      setVisitorVehicleId,
       setAlert,
       setError,
     ],
