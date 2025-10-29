@@ -23,7 +23,7 @@ export const ParkingSessionChooseParkingMachine = () => {
   const startTime = watch('startTime')
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
-    parkingMachine && currentPermit.money_balance_applicable
+    parkingMachine && currentPermit.can_select_zone
       ? {machineId: parkingMachine, permitId: currentPermit.report_code}
       : skipToken,
   )
@@ -56,7 +56,7 @@ export const ParkingSessionChooseParkingMachine = () => {
     ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
     : undefined
 
-  if (currentPermit.money_balance_applicable === false) {
+  if (!currentPermit.can_select_zone) {
     return null
   }
 

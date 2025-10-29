@@ -154,6 +154,7 @@ export enum PermitType {
 }
 
 export type ParkingPermit = {
+  can_select_zone?: boolean
   discount: number
   forced_license_plate_list: boolean
   max_session_length_in_days: number
