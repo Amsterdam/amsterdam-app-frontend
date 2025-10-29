@@ -23,7 +23,7 @@ export const ParkingSessionChooseParkingMachine = () => {
   const startTime = watch('startTime')
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
-    parkingMachine
+    parkingMachine && currentPermit.money_balance_applicable
       ? {machineId: parkingMachine, permitId: currentPermit.report_code}
       : skipToken,
   )
@@ -55,6 +55,10 @@ export const ParkingSessionChooseParkingMachine = () => {
   const timeString = startTimePaymentZoneDay
     ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
     : undefined
+
+  if (currentPermit.money_balance_applicable === false) {
+    return null
+  }
 
   return (
     <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
