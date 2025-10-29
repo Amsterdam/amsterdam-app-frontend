@@ -1,131 +1,116 @@
+import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {AlertVariant} from '@/components/ui/feedback/alert/Alert.types'
 import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
 import {Column} from '@/components/ui/layout/Column'
-import {Row} from '@/components/ui/layout/Row'
-import {Icon} from '@/components/ui/media/Icon'
-import {Paragraph} from '@/components/ui/text/Paragraph'
-import {Title} from '@/components/ui/text/Title'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {ParkingMachineDetails} from '@/modules/parking/components/session/details/ParkingMachineDetails'
 import {ParkingSessionDetailsAdjustEndTimeButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsAdjustEndTimeButton'
 import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsDeleteButton'
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
-import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
+import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
+import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit.web'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
+  ParkingApiVersion,
   ParkingHistorySession,
   ParkingPermitScope,
   ParkingSession,
   ParkingSessionStatus,
   VisitorParkingSession,
 } from '@/modules/parking/types'
-import {
-  getPaymentZone,
-  getPaymentZoneDay,
-  getPaymentZoneDayTimeSpan,
-} from '@/modules/parking/utils/paymentZone'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {getPermitZoneLabel} from '@/modules/parking/utils/getPermitZoneLabel'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 import {formatTimeRangeToDisplay} from '@/utils/datetime/formatTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
-type Props = {
+export type ParkingSessionProps = {
   parkingSession: ParkingSession | VisitorParkingSession | ParkingHistorySession
 }
 
-export const ParkingSessionDetails = ({parkingSession}: Props) => {
+export const ParkingSessionDetails = ({
+  parkingSession,
+}: ParkingSessionProps) => {
+  const {navigate} = useNavigation()
+  const apiVersion = useCurrentParkingApiVersion()
   const parkingAccount = useParkingAccount()
+  const {currentPermit} = useGetCurrentParkingPermit()
+
   const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
 
-  const {permits, isLoading} = useGetPermits()
-  const {permit_zone, payment_zones, money_balance_applicable} =
-    permits?.find(
-      permit =>
-        permit.report_code.toString() === parkingSession.report_code.toString(),
-    ) ?? {}
-
-  const paymentZoneId = parkingSession.payment_zone_id
-
-  const paymentZone =
-    paymentZoneId && payment_zones
-      ? getPaymentZone(payment_zones, paymentZoneId)
-      : undefined
-  const startTimePaymentZoneDay = paymentZone
-    ? getPaymentZoneDay(
-        paymentZone,
-        dayjs(parkingSession.start_date_time).day(),
-      )
-    : undefined
-
-  const timeString = startTimePaymentZoneDay
-    ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
-    : undefined
+  const shouldShowCosts =
+    !!currentPermit.money_balance_applicable &&
+    'parking_cost' in parkingSession &&
+    !!parkingSession.parking_cost.value
 
   return (
     <Box>
       <Column gutter="lg">
-        <Row gutter="md">
-          <Icon
-            name="parkingCar"
-            size="xl"
-            testID="ParkingSessionDetailsIcon"
-          />
-          <Title
-            accessibilityLabel={`Kenteken ${licensePlateString}`}
-            level="h2"
-            text={licensePlateString}
-          />
-        </Row>
-        <Column gutter="sm">
-          <ParkingSessionDetailsRow
-            label="Van"
-            value={formatDateTimeToDisplay(
-              parkingSession.start_date_time,
-              false,
-            )}
-          />
-          <ParkingSessionDetailsRow
-            label="Tot"
-            value={formatDateTimeToDisplay(parkingSession.end_date_time, false)}
-          />
-          {!parkingSession.no_endtime && (
-            <ParkingSessionDetailsRow
-              label="Parkeertijd"
-              value={formatTimeRangeToDisplay(
-                parkingSession.start_date_time,
-                parkingSession.end_date_time,
-              )}
+        <ParkingSessionDetailsRow
+          iconName="parkingCar"
+          title="Kenteken">
+          <Phrase>{licensePlateString}</Phrase>
+        </ParkingSessionDetailsRow>
+
+        {!!parkingSession.parking_machine &&
+          apiVersion === ParkingApiVersion.v2 && (
+            <ParkingMachineDetails
+              parkingSession={parkingSession}
+              permitId={currentPermit.report_code}
             />
           )}
-          {!!money_balance_applicable &&
-            'parking_cost' in parkingSession &&
-            !!parkingSession.parking_cost?.value &&
-            'parking_cost' in parkingSession &&
-            !!parkingSession.parking_cost?.currency && (
-              <ParkingSessionDetailsRow
-                label="Kosten"
-                value={formatNumber(
-                  parkingSession.parking_cost.value,
-                  parkingSession.parking_cost.currency,
-                )}
+
+        {!parkingSession.parking_machine && (
+          <ParkingSessionDetailsRow
+            iconName="location"
+            title={getPermitZoneLabel(currentPermit.permit_zone)}>
+            {apiVersion === ParkingApiVersion.v2 && (
+              <NavigationButton
+                emphasis="default"
+                iconSize="smd"
+                insetHorizontal="no"
+                insetVertical="no"
+                onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
+                testID="ParkingParkingPermitZonesButton"
+                title="Kaart bekijken"
               />
             )}
-          {isLoading ? (
-            <PleaseWait testID="ParkingSessionPleaseWait" />
-          ) : (
-            !!permit_zone && (
-              <ParkingSessionDetailsRow
-                label="Gebied"
-                value={permit_zone.name}
-              />
-            )
-          )}
-        </Column>
-        {!!money_balance_applicable && !!timeString && (
-          <Paragraph>Betaald parkeren van {timeString}</Paragraph>
+          </ParkingSessionDetailsRow>
         )}
+
+        <ParkingSessionDetailsRow
+          iconName="clock"
+          title={`Parkeertijd: ${formatTimeRangeToDisplay(
+            parkingSession.start_date_time,
+            parkingSession.end_date_time,
+          )}`}>
+          <Phrase>
+            {formatDateTimeToDisplay(parkingSession.start_date_time, false)}
+          </Phrase>
+          {!!parkingSession.end_date_time && (
+            <Phrase>
+              {formatDateTimeToDisplay(parkingSession.end_date_time, false)}
+            </Phrase>
+          )}
+        </ParkingSessionDetailsRow>
+
+        {!!shouldShowCosts && (
+          <ParkingSessionDetailsRow
+            iconName="euroCoinsInverted"
+            title="Kosten">
+            <Phrase>
+              {formatNumber(
+                parkingSession.parking_cost.value,
+                parkingSession.parking_cost.currency,
+              )}
+            </Phrase>
+          </ParkingSessionDetailsRow>
+        )}
+
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <>
             {!parkingSession.no_endtime &&
@@ -150,7 +135,7 @@ export const ParkingSessionDetails = ({parkingSession}: Props) => {
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!!money_balance_applicable &&
+            {!!currentPermit.money_balance_applicable &&
               'is_paid' in parkingSession &&
               !parkingSession.is_paid && (
                 <AlertBase
