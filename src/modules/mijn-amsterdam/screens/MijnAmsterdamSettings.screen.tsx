@@ -38,7 +38,7 @@ export const MijnAmsterdamSettingsScreen = ({route}: Props) => {
       <Box>
         <Column>
           <Switch
-            accessibilityLabel="Meldingen Mijn Amsterdam"
+            accessibilityLabel={`Meldingen Mijn Amsterdam staat ${isEnabled ? 'aan' : 'uit'}`}
             disabled={false}
             label={<Phrase>Meldingen Mijn Amsterdam</Phrase>}
             onChange={onChange}

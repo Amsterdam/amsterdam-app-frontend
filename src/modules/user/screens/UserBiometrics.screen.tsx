@@ -63,7 +63,7 @@ export const UserBiometricsScreen = () => {
         <Column gutter="md">
           {!!biometricsLabel && (
             <Switch
-              accessibilityLabel={`Toegang met ${biometricsLabel}`}
+              accessibilityLabel={`Toegang met ${biometricsLabel} staat ${useBiometrics ? 'aan' : 'uit'}`}
               label={
                 <Phrase testID={`${TEST_ID}SwitchPhrase`}>
                   {`Toegang met ${biometricsLabel}`}

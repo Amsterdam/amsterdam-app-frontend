@@ -138,7 +138,7 @@ export const ModuleSetting = ({
 
   return (
     <Switch
-      accessibilityLabel={accessibleText(title, description)}
+      accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${value ? 'aan' : 'uit'}`}
       disabled={!isModuleActive}
       label={ModuleSettingContentComponent}
       onChange={onChange}

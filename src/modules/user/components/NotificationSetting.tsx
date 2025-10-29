@@ -49,7 +49,7 @@ export const NotificationSetting = ({
   return (
     <Column gutter="sm">
       <Switch
-        accessibilityLabel={accessibleText(title, description)}
+        accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
         disabled={isLoading}
         label={
           <Title
