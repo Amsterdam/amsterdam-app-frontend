@@ -10,12 +10,12 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
+import {getHourlyParkingRateFromSessionAndZoneData} from '@/modules/parking/utils/getHourlyParkingRateFromSessionAndZoneData'
 import {
   getPaymentZoneDay,
   getPaymentZoneDayTimeSpan,
 } from '@/modules/parking/utils/paymentZone'
 import {dayjs} from '@/utils/datetime/dayjs'
-import {formatNumber} from '@/utils/formatNumber'
 
 export const ParkingMachineDetails = ({
   parkingSession,
@@ -45,19 +45,23 @@ export const ParkingMachineDetails = ({
 
   const parkingRateTimeString = useMemo(() => {
     if ('parking_cost' in parkingSession && parkingZoneData) {
+      const rate = getHourlyParkingRateFromSessionAndZoneData(
+        parkingSession,
+        parkingZoneData,
+      )
+
       const start = dayjs(parkingSession.start_date_time)
-      const end = dayjs(parkingSession.end_date_time)
-      const hours = end.diff(start, 'hour', true)
 
       const startTimePaymentZoneDay = getPaymentZoneDay(
         parkingZoneData,
         start.day(),
       )
 
-      const {value, currency} = parkingSession.parking_cost
       const timeSpan = getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
 
-      const rate = formatNumber(value / hours, currency)
+      if (!timeSpan || !rate) {
+        return
+      }
 
       return `${timeSpan}, ${rate} per uur`
     }
