@@ -1,4 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import {useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {Dayjs} from 'dayjs'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
@@ -16,16 +17,35 @@ type FieldValues = {
 }
 
 export const ParkingSessionChooseParkingMachine = () => {
-  const {watch} = useFormContext<FieldValues>()
+  const {clearErrors, setError, watch} = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const parkingMachine = watch('parking_machine')
   const startTime = watch('startTime')
 
-  const {data: parkingMachineDetails} = useZoneByMachineQuery(
+  const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
     parkingMachine
       ? {machineId: parkingMachine, permitId: currentPermit.report_code}
       : skipToken,
   )
+
+  useEffect(() => {
+    if (!error) {
+      clearErrors('parking_machine')
+
+      return
+    }
+
+    const {data} = error as {data: {code: string}}
+
+    if ('code' in data && data.code === 'SSP_PARKING_MACHINE_NOT_IN_ZONE') {
+      setError('parking_machine', {
+        type: 'manual',
+        message:
+          'Deze parkeerautomaat ligt buiten het vergunninggebied. Kies een andere automaat.',
+      })
+    }
+  }, [clearErrors, error, setError])
+
   const startTimeDayOfWeek = startTime.day()
 
   const startTimePaymentZoneDay = parkingMachineDetails
@@ -44,7 +64,7 @@ export const ParkingSessionChooseParkingMachine = () => {
       rules={{required: 'Kies een parkeerautomaat'}}
       testID="ParkingChooseParkingMachineButton"
       text={parking_machine => parking_machine}
-      textAdditional={timeString}
+      textAdditional={!error ? timeString : ''}
       title={parking_machine =>
         parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
       }
