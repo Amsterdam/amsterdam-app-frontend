@@ -12,7 +12,7 @@ import {ParkingChooseAmountButton} from '@/modules/parking/components/form/Parki
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useSetRemainingBalance} from '@/modules/parking/hooks/useSetRemainingBalance'
+import {useGetRemainingBalance} from '@/modules/parking/hooks/useGetRemainingBalance'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
@@ -82,7 +82,7 @@ export const ParkingReceipt = () => {
   )
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
-  const {remainingTimeBalance, remainingWalletBalance} = useSetRemainingBalance(
+  const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
     startTime,
     endTime,
     parking_machine,
@@ -131,6 +131,14 @@ export const ParkingReceipt = () => {
       })
     }
   }, [remainingTimeBalanceError, setError])
+
+  useEffect(() => {
+    if (remainingWalletBalanceError) {
+      setError('root.localError', {
+        type: 'isWalletBalanceInsufficient',
+      })
+    }
+  }, [remainingWalletBalanceError, setError])
 
   useEffect(() => {
     if (isVisitor) {

@@ -27,8 +27,6 @@ export type ParkingState = {
    * Whether the user is still completing the login steps
    */
   isLoginStepsActive: boolean
-  remainingTimeBalance?: number
-  remainingWalletBalance?: number
   /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
@@ -48,8 +46,6 @@ const initialState: ParkingState = {
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
-  remainingWalletBalance: undefined,
-  remainingTimeBalance: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
@@ -132,18 +128,6 @@ export const parkingSlice = createSlice({
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
-    setRemainingWalletBalance: (
-      state,
-      {payload}: PayloadAction<number | undefined>,
-    ) => {
-      state.remainingWalletBalance = payload
-    },
-    setRemainingTimeBalance: (
-      state,
-      {payload}: PayloadAction<number | undefined>,
-    ) => {
-      state.remainingTimeBalance = payload
-    },
     setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowLoginScreen = payload
     },
@@ -189,8 +173,6 @@ export const {
   setIsLoggingIn,
   setIsLoggingOut,
   setLoginStepsActive,
-  setRemainingWalletBalance,
-  setRemainingTimeBalance,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
@@ -244,12 +226,6 @@ export const selectParkingAccount = (state: RootState) =>
 
 export const selectCurrentParkingAccount = (state: RootState) =>
   state[ReduxKey.parking].currentAccount
-
-export const selectRemainingWalletBalance = (state: RootState) =>
-  state[ReduxKey.parking].remainingWalletBalance
-
-export const selectRemainingTimeBalance = (state: RootState) =>
-  state[ReduxKey.parking].remainingTimeBalance
 
 export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
   state[ReduxKey.parking].walletBalanceIncreaseStartedAt
