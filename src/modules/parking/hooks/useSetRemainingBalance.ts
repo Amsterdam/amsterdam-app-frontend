@@ -46,20 +46,25 @@ export const useSetRemainingBalance = (
   }, [currentPermit.payment_zones, paymentZoneId])
 
   useEffect(() => {
-    if (cost !== undefined && parkingAccount?.wallet?.balance !== undefined) {
-      dispatch(
-        setRemainingWalletBalance(parkingAccount?.wallet?.balance - cost),
-      )
+    if (parkingAccount?.wallet?.balance === undefined) {
+      return
     }
+
+    if (cost === undefined) {
+      dispatch(setRemainingWalletBalance(parkingAccount?.wallet?.balance))
+
+      return
+    }
+
+    dispatch(setRemainingWalletBalance(parkingAccount?.wallet?.balance - cost))
   }, [dispatch, parkingAccount?.wallet?.balance, cost])
 
   useEffect(() => {
-    if (
-      startTime &&
-      endTime &&
-      currentPermit?.time_balance !== undefined &&
-      (paymentZone || parkingMachine)
-    ) {
+    if (currentPermit?.time_balance === undefined) {
+      return
+    }
+
+    if (startTime && endTime && (paymentZone || parkingMachine)) {
       const zone = paymentZone ?? (parkingMachine as PaymentZone)
       // Get the weekday number for the start time
       const weekday = startTime.day()
@@ -101,7 +106,11 @@ export const useSetRemainingBalance = (
       const remaining = currentPermit.time_balance - durationSeconds
 
       dispatch(setRemainingTimeBalance(remaining))
+
+      return
     }
+
+    dispatch(setRemainingTimeBalance(currentPermit.time_balance))
   }, [
     dispatch,
     startTime,
