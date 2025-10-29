@@ -1,8 +1,7 @@
-import {useMemo} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetLicensePlates} from '@/modules/parking/hooks/useGetLicensePlates'
+import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   type ParkingSession,
@@ -22,22 +21,17 @@ type Props = {
 export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
   const {navigate} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
-  const {licensePlates} = useGetLicensePlates()
-  const possiblyVisitorName = useMemo(
-    () =>
-      licensePlates?.find(lp => lp.vehicle_id === parkingSession.vehicle_id)
-        ?.visitor_name,
-    [licensePlates, parkingSession.vehicle_id],
+
+  const licensePlateString = useLicensePlateString(
+    parkingSession.vehicle_id,
+    parkingSession.visitor_name,
   )
-  const {vehicle_id, visitor_name} = parkingSession
-  const visitorName = visitor_name ?? possiblyVisitorName
-  const title = `${vehicle_id}${visitorName ? ' - ' + visitorName : ''}`
 
   return (
     <NavigationButton
       accessibilityLabel={getAccessibilityLabel(
         parkingSession,
-        title,
+        licensePlateString,
         currentPermit.max_session_length_in_days,
         currentPermit.no_endtime,
       )}
@@ -54,7 +48,7 @@ export const ParkingSessionNavigationButton = ({parkingSession}: Props) => {
         navigate(ParkingRouteName.parkingSession, {parkingSession})
       }}
       testID="ParkingSessionNavigationButton"
-      title={title}
+      title={licensePlateString}
     />
   )
 }
