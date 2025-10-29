@@ -97,6 +97,36 @@ describe('getChargeableParkingHoursFromSessionAndZone', () => {
       },
       expectedHours: 57,
     },
+    {
+      name: 'session spans one full month',
+      zone: baseZone,
+      session: {
+        start_date_time: '2025-10-01 08:00:00 UTC', // Tuesday
+        end_date_time: '2025-10-31 14:00:00 UTC', // Tuesday
+        parking_cost: {value: 1, currency: 'EUR'},
+      },
+      expectedHours: 117,
+    },
+    {
+      name: 'session ends on threshold of new day',
+      zone: baseZone,
+      session: {
+        start_date_time: '2025-10-14 08:00:00 UTC', // Tuesday
+        end_date_time: '2025-10-15 00:00:00 UTC', // Wednesday
+        parking_cost: {value: 1, currency: 'EUR'},
+      },
+      expectedHours: 9,
+    },
+    {
+      name: 'session starts on threshold of new day',
+      zone: baseZone,
+      session: {
+        start_date_time: '2025-10-14 00:00:00 UTC', // Tuesday
+        end_date_time: '2025-10-14 21:00:00 UTC', // Tuesday
+        parking_cost: {value: 1, currency: 'EUR'},
+      },
+      expectedHours: 9,
+    },
   ])(
     'should return correct hours when $name',
     ({zone, session, expectedHours}) => {

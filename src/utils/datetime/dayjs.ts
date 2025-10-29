@@ -1,6 +1,7 @@
 // eslint-disable-next-line no-restricted-imports
 import dayjsFn, {ConfigType} from 'dayjs'
 import localeData from 'dayjs/plugin/localeData'
+import minMax from 'dayjs/plugin/minMax'
 import timezone from 'dayjs/plugin/timezone'
 import utc from 'dayjs/plugin/utc'
 import 'dayjs/locale/nl'
@@ -11,6 +12,7 @@ const defaultTimezone = 'Europe/Amsterdam'
 
 dayjsFn.extend(utc)
 dayjsFn.extend(timezone)
+dayjsFn.extend(minMax)
 
 dayjsFn.extend(localeData)
 dayjsFn.locale('nl')
@@ -24,6 +26,10 @@ export const dayjs = (date?: ConfigType) => {
 
   return dayjsFn(date1)
 }
+
+dayjs.min = dayjsFn.min
+dayjs.max = dayjsFn.max
+dayjs.utc = dayjsFn.utc
 
 export const dayjsFromUnix = (timestamp: number) => {
   const date1 = dayjsFn.unix(timestamp)

@@ -48,48 +48,39 @@ export const getChargeableParkingHoursFromSessionAndZone = (
   >,
   paymentZone: PaymentZone,
 ) => {
-  const startSession = dayjs(parkingSession.start_date_time)
-  const endSession = dayjs(parkingSession.end_date_time)
-  let totalMinutes = 0
+  const startSession = dayjs.utc(parkingSession.start_date_time)
+  const endSession = dayjs.utc(parkingSession.end_date_time)
 
-  let currentDay = startSession.startOf('day')
+  const totalDays =
+    endSession.startOf('day').diff(startSession.startOf('day'), 'day') + 1 // always 1 day as minimum
 
-  while (
-    currentDay.isBefore(endSession, 'day') ||
-    currentDay.isSame(endSession, 'day')
-  ) {
-    const dayOfWeek = currentDay.day()
-    const dayName = DAYS[dayOfWeek]
+  const totalChargeableMinutes = Array.from({length: totalDays}).reduce(
+    (minutes: number, _, index) => {
+      const currentDay = startSession.startOf('day').add(index, 'day')
+      const dayName = DAYS[currentDay.day()]
+      const zoneDay = paymentZone.days.find(d => d.day_of_week === dayName)
 
-    const zoneDay = paymentZone.days.find(d => d.day_of_week === dayName)
+      if (!zoneDay) {
+        return minutes
+      }
 
-    if (zoneDay) {
       const [startHour, startMinute] = zoneDay.start_time.split(':').map(Number)
       const [endHour, endMinute] = zoneDay.end_time.split(':').map(Number)
 
-      const paidStart = currentDay
-        .hour(startHour - 1)
-        .minute(startMinute)
-        .second(0)
+      const paidStart = currentDay.hour(startHour).minute(startMinute).second(0)
+      const paidEnd = currentDay.hour(endHour).minute(endMinute).second(0)
 
-      const paidEnd = currentDay
-        .hour(endHour - 1)
-        .minute(endMinute)
-        .second(0)
-
-      const dayStart = paidStart.isAfter(startSession)
-        ? paidStart
-        : startSession
-
-      const dayEnd = paidEnd.isBefore(endSession) ? paidEnd : endSession
+      const dayStart = dayjs.max(paidStart, startSession)
+      const dayEnd = dayjs.min(paidEnd, endSession)
 
       if (dayEnd.isAfter(dayStart)) {
-        totalMinutes += dayEnd.diff(dayStart, 'minute')
+        return minutes + dayEnd.diff(dayStart, 'minute')
       }
-    }
 
-    currentDay = currentDay.add(1, 'day')
-  }
+      return minutes
+    },
+    0,
+  )
 
-  return totalMinutes / 60
+  return totalChargeableMinutes / 60
 }
