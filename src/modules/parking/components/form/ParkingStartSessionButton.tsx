@@ -36,8 +36,9 @@ export const ParkingStartSessionButton = () => {
   const isTimebalanceInsufficient =
     errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
     errors.root?.localError?.type === 'isTimeBalanceInsufficient'
-  const isMoneyBalanceInsufficient =
-    errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW'
+  const isWalletBalanceInsufficient =
+    errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW' ||
+    errors.root?.localError?.type === 'isWalletBalanceInsufficient'
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
 
@@ -147,7 +148,7 @@ export const ParkingStartSessionButton = () => {
     )
   }
 
-  if (isMoneyBalanceInsufficient && apiVersion === ParkingApiVersion.v2) {
+  if (isWalletBalanceInsufficient && apiVersion === ParkingApiVersion.v2) {
     return <ParkingAddMoneyButton />
   }
 

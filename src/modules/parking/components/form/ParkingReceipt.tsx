@@ -12,6 +12,7 @@ import {ParkingChooseAmountButton} from '@/modules/parking/components/form/Parki
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useGetRemainingBalance} from '@/modules/parking/hooks/useGetRemainingBalance'
 import {
   useAccountDetailsQuery,
   useSessionReceiptQuery,
@@ -23,7 +24,7 @@ import {
   ParkingPermitScope,
 } from '@/modules/parking/types'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
-import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
+import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -81,15 +82,15 @@ export const ParkingReceipt = () => {
   )
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
-  useEffect(() => {
-    if (isVisitor) {
-      setValue('amount', data?.costs?.value)
-    }
-  }, [isVisitor, data?.costs?.value, setValue])
+  const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
+    startTime,
+    endTime,
+    parking_machine,
+    paymentZoneId,
+    data?.costs.value,
+  )
 
   const {parking_time, parking_cost} = data ?? {}
-  const {time_balance} = currentPermit
-  const parkingTimeInSeconds = dayjs(endTime).diff(dayjs(startTime), 'seconds')
 
   const parkingTimeText = parking_time
     ? formatSecondsTimeRangeToDisplay(data?.parking_time, {
@@ -101,28 +102,27 @@ export const ParkingReceipt = () => {
     : '-'
 
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
-    time_balance - parkingTimeInSeconds,
+    remainingTimeBalance,
     {
       short: true,
     },
   )
-  const remainingMoneyBalance =
-    (account?.wallet?.balance ?? 0) - (data?.costs.value ?? 0)
 
-  const remainingMoneyBalanceText =
+  const remainingWalletBalanceText =
     typeof account?.wallet?.balance === 'number'
-      ? formatNumber(remainingMoneyBalance, 'EUR')
+      ? formatNumber(remainingWalletBalance, 'EUR')
       : '-'
 
   const remainingTimeBalanceError =
     currentPermit.time_balance_applicable &&
-    time_balance - parkingTimeInSeconds < 0
+    remainingTimeBalance &&
+    remainingTimeBalance < 0
 
-  const remainingMoneyBalanceError =
+  const remainingWalletBalanceError =
     isPermitHolder &&
     currentPermit.money_balance_applicable &&
-    remainingMoneyBalance &&
-    remainingMoneyBalance < 0
+    remainingWalletBalance &&
+    remainingWalletBalance < 0
 
   useEffect(() => {
     if (remainingTimeBalanceError) {
@@ -131,6 +131,20 @@ export const ParkingReceipt = () => {
       })
     }
   }, [remainingTimeBalanceError, setError])
+
+  useEffect(() => {
+    if (remainingWalletBalanceError) {
+      setError('root.localError', {
+        type: 'isWalletBalanceInsufficient',
+      })
+    }
+  }, [remainingWalletBalanceError, setError])
+
+  useEffect(() => {
+    if (isVisitor) {
+      setValue('amount', data?.costs?.value)
+    }
+  }, [isVisitor, data?.costs?.value, setValue])
 
   if (isLoading || isLoadingAccount) {
     return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
@@ -146,7 +160,7 @@ export const ParkingReceipt = () => {
   return (
     <Column gutter="lg">
       <Column gutter="md">
-        {(!!remainingMoneyBalanceError || (amount > 0 && isPermitHolder)) && (
+        {(!!remainingWalletBalanceError || (amount > 0 && isPermitHolder)) && (
           <>
             <Title
               level="h2"
@@ -191,12 +205,12 @@ export const ParkingReceipt = () => {
           {!!currentPermit.money_balance_applicable && !!isPermitHolder && (
             <ParkingReceiptItem>
               <Phrase
-                color={remainingMoneyBalanceError ? 'warning' : undefined}>
+                color={remainingWalletBalanceError ? 'warning' : undefined}>
                 Resterend geldsaldo
               </Phrase>
               <Phrase
-                color={remainingMoneyBalanceError ? 'warning' : undefined}>
-                {remainingMoneyBalanceText}
+                color={remainingWalletBalanceError ? 'warning' : undefined}>
+                {remainingWalletBalanceText}
               </Phrase>
             </ParkingReceiptItem>
           )}
@@ -216,7 +230,7 @@ export const ParkingReceipt = () => {
             />
           </>
         ))}
-      {(!!remainingMoneyBalanceError ||
+      {(!!remainingWalletBalanceError ||
         errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
         <AlertNegative
           {...(apiVersion === ParkingApiVersion.v1

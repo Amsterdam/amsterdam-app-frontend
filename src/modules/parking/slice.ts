@@ -39,13 +39,13 @@ export type ParkingState = {
 const initialState: ParkingState = {
   accessTokens: {},
   accounts: {},
+  currentAccount: undefined,
   currentApiVersion: undefined,
   currentPermitReportCode: undefined,
   deeplinkAccount: undefined,
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
-  currentAccount: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
@@ -80,6 +80,25 @@ export const parkingSlice = createSlice({
       state.accessTokens[payload.reportCode] = {
         accessToken: payload.accessToken,
         accessTokenExpiration: payload.accessTokenExpiration,
+      }
+    },
+    setCurrentAccount: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      state.currentAccount = payload
+    },
+    setCurrentAccountByPermitReportCode: (
+      state,
+      {payload}: PayloadAction<string | undefined>,
+    ) => {
+      const currentAccount = Object.entries(state.accounts).find(
+        ([_accountReportCode, account]) =>
+          account.permits?.some(permit => permit.report_code === payload),
+      )?.[0]
+
+      if (currentAccount) {
+        state.currentAccount = currentAccount
       }
     },
     setCurrentApiVersion: (
@@ -130,25 +149,6 @@ export const parkingSlice = createSlice({
       }
 
       state.accounts[state.currentAccount].permits = payload
-    },
-    setCurrentAccount: (
-      state,
-      {payload}: PayloadAction<string | undefined>,
-    ) => {
-      state.currentAccount = payload
-    },
-    setCurrentAccountByPermitReportCode: (
-      state,
-      {payload}: PayloadAction<string | undefined>,
-    ) => {
-      const currentAccount = Object.entries(state.accounts).find(
-        ([_accountReportCode, account]) =>
-          account.permits?.some(permit => permit.report_code === payload),
-      )?.[0]
-
-      if (currentAccount) {
-        state.currentAccount = currentAccount
-      }
     },
     setWalletBalanceIncreaseStartedAt: (
       state,

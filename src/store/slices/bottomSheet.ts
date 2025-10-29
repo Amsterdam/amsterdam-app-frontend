@@ -64,12 +64,10 @@ export const useBottomSheet = () => {
         },
         open: (newVariant?: string) => {
           closeMenu()
-          Keyboard.dismiss()
           dispatch(openBottomSheet(newVariant))
         },
         toggle: (newVariant?: string) => {
           closeMenu()
-          Keyboard.dismiss()
           dispatch(toggleBottomSheet(newVariant))
         },
       }),
