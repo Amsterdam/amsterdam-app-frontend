@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {Platform, StyleSheet} from 'react-native'
 import MapView, {Polygon} from 'react-native-maps'
 import type {Theme} from '@/themes/themes'
@@ -14,6 +14,7 @@ import {useThemable} from '@/themes/useThemable'
 type PermitZoneProps = {
   fillColor: string
   stroke: string
+  strokeWidth: number
 }
 
 type LatLng = {latitude: number; longitude: number}
@@ -23,46 +24,65 @@ type PermitZoneFeature = Feature<GeoJSONPolygon, PermitZoneProps>
 export const ParkingSessionDetailsPermitZones = () => {
   const [isMapReady, setIsMapReady] = useState(false)
   const {report_code, permit_zone} = useCurrentParkingPermit()
+  const mapRef = useRef<MapView>(null)
 
   useSetScreenTitle(permit_zone.name)
   const {data, isLoading, isError} = usePermitZonesQuery({report_code})
   const styles = useThemable(createStyles)
+
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
 
-  const mappedFeatures = useMemo(
-    () =>
-      data?.geojson.features.reduce(
-        (features: PermitZoneFeature[], currentFeature: Feature) => {
-          if (currentFeature.geometry?.type !== 'Polygon') {
-            return features
-          }
+  const mappedFeatures = useMemo(() => {
+    if (!data) {
+      return []
+    }
 
-          const variant =
-            currentFeature.properties?.fill === 'red'
-              ? 'forbidden'
-              : 'permitZone'
+    return data.geojson.features.reduce(
+      (features: PermitZoneFeature[], currentFeature: Feature) => {
+        if (currentFeature.geometry?.type !== 'Polygon') {
+          return features
+        }
 
-          const feature: PermitZoneFeature = {
-            ...currentFeature,
-            geometry: {
-              ...currentFeature.geometry,
-              type: 'Polygon',
-            },
-            properties: {
-              ...currentFeature.properties,
-              fillColor: styles[variant].backgroundColor,
-              stroke: styles[variant].borderColor,
-            },
-          }
+        const variant =
+          currentFeature.properties?.fill === 'red' ? 'forbidden' : 'permitZone'
 
-          return [...features, feature]
+        const feature: PermitZoneFeature = {
+          ...currentFeature,
+          geometry: {
+            ...currentFeature.geometry,
+            type: 'Polygon',
+          },
+          properties: {
+            ...currentFeature.properties,
+            fillColor: styles[variant].backgroundColor,
+            stroke: styles[variant].borderColor,
+            strokeWidth: styles[variant].borderWidth,
+          },
+        }
+
+        return [...features, feature]
+      },
+      [],
+    )
+  }, [data, styles])
+
+  const allCoords = getAllPolygonCoords(mappedFeatures)
+
+  useEffect(() => {
+    if (mapRef.current && allCoords?.length) {
+      mapRef.current.fitToCoordinates(allCoords, {
+        edgePadding: {
+          top: 40,
+          bottom: 40,
+          left: 40,
+          right: 40,
         },
-        [],
-      ),
-    [data, styles],
-  )
+        animated: false,
+      })
+    }
+  }, [mapRef, allCoords])
 
   if (isLoading) {
     return <PleaseWait testID="ParkingSessionDetailsPermitZonesPleaseWait" />
@@ -74,26 +94,21 @@ export const ParkingSessionDetailsPermitZones = () => {
     )
   }
 
-  const allCoords = getAllPolygonCoords(mappedFeatures)
-  const initialRegion = getInitialRegion(allCoords)
-
   return (
     <Box
       grow
       insetHorizontal="no">
       <MapView
-        initialRegion={initialRegion}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
+        ref={mapRef}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
         style={styles.map}>
         {mappedFeatures?.map((feature, index) => (
           <Polygon
-            coordinates={feature.geometry.coordinates[0].map(
-              ([longitude, latitude]) => ({latitude, longitude}),
-            )}
+            coordinates={getPolygonCoords(feature)}
             fillColor={feature.properties.fillColor}
-            key={feature.id || index}
+            key={feature.id || `${feature.type}_${index}`}
             strokeColor={feature.properties.stroke}
             strokeWidth={3}
           />
@@ -111,37 +126,20 @@ const createStyles = ({color}: Theme) =>
     permitZone: {
       backgroundColor: color.map.permitZone.allowed.fillColor,
       borderColor: color.map.permitZone.allowed.stroke,
+      borderWidth: 3,
     },
     forbidden: {
       backgroundColor: color.map.permitZone.forbidden.fillColor,
       borderColor: color.map.permitZone.forbidden.stroke,
+      borderWidth: 3,
     },
   })
 
 const getAllPolygonCoords = (features: PermitZoneFeature[]): LatLng[] =>
-  features.flatMap(feature =>
-    feature.geometry.coordinates[0].map(coord => ({
-      latitude: coord[1],
-      longitude: coord[0],
-    })),
-  )
+  features.flatMap(getPolygonCoords)
 
-const getInitialRegion = (allCoords: LatLng[]) => {
-  if (allCoords.length === 0) {
-    return undefined
-  }
-
-  const lats = allCoords.map(c => c.latitude)
-  const lngs = allCoords.map(c => c.longitude)
-  const minLat = Math.min(...lats)
-  const maxLat = Math.max(...lats)
-  const minLng = Math.min(...lngs)
-  const maxLng = Math.max(...lngs)
-
-  return {
-    latitude: (minLat + maxLat) / 2,
-    longitude: (minLng + maxLng) / 2,
-    latitudeDelta: Math.max(0.01, (maxLat - minLat) * 1.2),
-    longitudeDelta: Math.max(0.01, (maxLng - minLng) * 1.2),
-  }
-}
+const getPolygonCoords = (feature: PermitZoneFeature): LatLng[] =>
+  feature.geometry.coordinates[0].map(([longitude, latitude]) => ({
+    latitude,
+    longitude,
+  }))
