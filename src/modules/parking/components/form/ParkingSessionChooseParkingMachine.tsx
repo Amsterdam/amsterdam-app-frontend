@@ -47,6 +47,13 @@ export const ParkingSessionChooseParkingMachine = () => {
           'Deze parkeerautomaat ligt buiten het vergunninggebied. Kies een andere automaat.',
       })
     }
+
+    if ('code' in data && data.code === 'SSP_NOT_FOUND') {
+      setError('parking_machine', {
+        type: 'manual',
+        message: 'Deze parkeerautomaat bestaat niet. Kies een andere automaat.',
+      })
+    }
   }, [clearErrors, error, setError])
 
   const startTimeDayOfWeek = startTime.day()
@@ -77,7 +84,7 @@ export const ParkingSessionChooseParkingMachine = () => {
           parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
         }
       />
-      {currentPermit.parking_machine_favorite !== parkingMachine && (
+      {currentPermit.parking_machine_favorite !== parkingMachine && !error && (
         <SwitchField
           accessibilityLabel="Stel in als favoriet"
           control={control}
