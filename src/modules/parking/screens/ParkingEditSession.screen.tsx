@@ -2,7 +2,6 @@ import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
@@ -33,9 +32,12 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
               ) : (
                 <ParkingShowStartTime />
               )}
-              <ParkingChooseEndTimeButton />
-              <Gutter height="no" />
-              <ParkingReceipt />
+
+              <Column gutter="xl">
+                <ParkingChooseEndTimeButton />
+                <ParkingReceipt />
+              </Column>
+
               <ParkingEditSessionButtons />
             </Column>
           </Box>
