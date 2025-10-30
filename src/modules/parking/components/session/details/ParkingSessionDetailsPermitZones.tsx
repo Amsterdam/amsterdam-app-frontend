@@ -1,32 +1,80 @@
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import {Platform, StyleSheet} from 'react-native'
-import MapView, {Geojson} from 'react-native-maps'
+import MapView, {Polygon} from 'react-native-maps'
 import type {Theme} from '@/themes/themes'
-import type {Feature} from 'geojson'
+import type {Feature, Polygon as GeoJSONPolygon} from 'geojson'
 import {Box} from '@/components/ui/containers/Box'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitZonesQuery} from '@/modules/parking/service'
 import {useThemable} from '@/themes/useThemable'
+
+type PermitZoneProps = {
+  fillColor: string
+  stroke: string
+}
+
+type LatLng = {latitude: number; longitude: number}
+
+type PermitZoneFeature = Feature<GeoJSONPolygon, PermitZoneProps>
 
 export const ParkingSessionDetailsPermitZones = () => {
   const [isMapReady, setIsMapReady] = useState(false)
   const {report_code, permit_zone} = useCurrentParkingPermit()
 
   useSetScreenTitle(permit_zone.name)
-  const {data, isLoading} = usePermitZonesQuery({report_code})
+  const {data, isLoading, isError} = usePermitZonesQuery({report_code})
   const styles = useThemable(createStyles)
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
 
-  if (!data || isLoading) {
-    return null
+  const mappedFeatures = useMemo(
+    () =>
+      data?.geojson.features.reduce(
+        (features: PermitZoneFeature[], currentFeature: Feature) => {
+          if (currentFeature.geometry?.type !== 'Polygon') {
+            return features
+          }
+
+          const variant =
+            currentFeature.properties?.fill === 'red'
+              ? 'forbidden'
+              : 'permitZone'
+
+          const feature: PermitZoneFeature = {
+            ...currentFeature,
+            geometry: {
+              ...currentFeature.geometry,
+              type: 'Polygon',
+            },
+            properties: {
+              ...currentFeature.properties,
+              fillColor: styles[variant].backgroundColor,
+              stroke: styles[variant].borderColor,
+            },
+          }
+
+          return [...features, feature]
+        },
+        [],
+      ),
+    [data, styles],
+  )
+
+  if (isLoading) {
+    return <PleaseWait testID="ParkingSessionDetailsPermitZonesPleaseWait" />
   }
 
-  const featureCollection = data.geojson
-  const properties = featureCollection.features[0]?.properties
-  const allCoords = getAllPolygonCoords(featureCollection.features)
+  if (isError || !mappedFeatures?.length) {
+    return (
+      <SomethingWentWrong testID="ParkingSessionDetailsPermitZonesSomethingWentWrong" />
+    )
+  }
+
+  const allCoords = getAllPolygonCoords(mappedFeatures)
   const initialRegion = getInitialRegion(allCoords)
 
   return (
@@ -39,13 +87,17 @@ export const ParkingSessionDetailsPermitZones = () => {
         provider={Platform.OS === 'android' ? 'google' : undefined}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready
         style={styles.map}>
-        <Geojson
-          fillColor={getFillColor(
-            String(properties?.fill ?? 'blue'),
-            Number(properties?.['fill-opacity'] ?? 0.5),
-          )}
-          geojson={featureCollection}
-        />
+        {mappedFeatures?.map((feature, index) => (
+          <Polygon
+            coordinates={feature.geometry.coordinates[0].map(
+              ([longitude, latitude]) => ({latitude, longitude}),
+            )}
+            fillColor={feature.properties.fillColor}
+            key={feature.id || index}
+            strokeColor={feature.properties.stroke}
+            strokeWidth={3}
+          />
+        ))}
       </MapView>
     </Box>
   )
@@ -57,34 +109,22 @@ const createStyles = ({color}: Theme) =>
       flex: 1,
     },
     permitZone: {
-      backgroundColor: '#A00078',
-      borderColor: color.backgroundArea.primary,
+      backgroundColor: color.map.permitZone.allowed.fillColor,
+      borderColor: color.map.permitZone.allowed.stroke,
+    },
+    forbidden: {
+      backgroundColor: color.map.permitZone.forbidden.fillColor,
+      borderColor: color.map.permitZone.forbidden.stroke,
     },
   })
 
-const getFillColor = (fill: string, opacity: number) => {
-  if (!['red', 'green', 'blue'].includes(fill)) {
-    return fill
-  }
-
-  return `rgba(${fill === 'red' ? 255 : 0}, ${fill === 'green' ? 255 : 0}, ${fill === 'blue' ? 255 : 0}, ${opacity})`
-}
-
-type LatLng = {latitude: number; longitude: number}
-
-const getAllPolygonCoords = (features: Feature[]): LatLng[] =>
-  features
-    .filter((feature: Feature) => feature.geometry?.type === 'Polygon')
-    .flatMap((feature: Feature) => {
-      if (feature.geometry?.type === 'Polygon') {
-        return feature.geometry.coordinates[0].map(coord => ({
-          latitude: coord[1],
-          longitude: coord[0],
-        }))
-      }
-
-      return []
-    })
+const getAllPolygonCoords = (features: PermitZoneFeature[]): LatLng[] =>
+  features.flatMap(feature =>
+    feature.geometry.coordinates[0].map(coord => ({
+      latitude: coord[1],
+      longitude: coord[0],
+    })),
+  )
 
 const getInitialRegion = (allCoords: LatLng[]) => {
   if (allCoords.length === 0) {
