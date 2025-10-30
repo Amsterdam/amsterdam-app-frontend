@@ -13,6 +13,7 @@ import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/sess
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit.web'
+import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
@@ -40,7 +41,10 @@ export const ParkingSessionDetails = ({
   const parkingAccount = useParkingAccount()
   const {currentPermit} = useGetCurrentParkingPermit()
 
-  const licensePlateString = `${parkingSession.vehicle_id}${parkingSession.visitor_name ? ' - ' + parkingSession.visitor_name : ''}`
+  const licensePlateString = useLicensePlateString(
+    parkingSession.vehicle_id,
+    parkingSession.visitor_name,
+  )
 
   const shouldShowCosts =
     !!currentPermit.money_balance_applicable &&
