@@ -68,7 +68,7 @@ export const ManageVisitorTimeBalance = ({isNegative}: Props) => {
         </Row>
         <Row align="between">
           <Phrase testID="ManageVisitorTimeBalanceMutationTitle">
-            Wijziging
+            Tijd toevoegen
           </Phrase>
           <Phrase testID="ManageVisitorTimeBalanceMutationAmountTitle">
             {time
