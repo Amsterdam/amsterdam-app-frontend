@@ -1,5 +1,3 @@
-import {Column} from '@/components/ui/layout/Column'
-import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
 import {ParkingChoosePaymentZone} from '@/modules/parking/components/form/ParkingChoosePaymentZone'
 import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
@@ -14,15 +12,10 @@ export const ParkingSessionChooseTime = () => {
   }
 
   return (
-    <Column gutter="sm">
-      <Title
-        level="h2"
-        testID="ParkingChooseTimeTitle"
-        text="Parkeertijd"
-      />
+    <>
       <ParkingChooseStartTimeButton />
       <ParkingChooseEndTimeButton />
       {!!hasPaymentZoneId && <ParkingChoosePaymentZone />}
-    </Column>
+    </>
   )
 }
