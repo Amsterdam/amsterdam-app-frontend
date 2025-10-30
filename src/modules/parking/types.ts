@@ -331,6 +331,7 @@ export type ParkingStartSessionEndpointRequestParams = {
   parking_session: {
     end_date_time?: string
     parking_machine?: string
+    parking_machine_favorite?: boolean
     payment_zone_id?: string
     report_code: string
     start_date_time: string
