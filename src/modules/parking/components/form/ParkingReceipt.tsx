@@ -160,17 +160,18 @@ export const ParkingReceipt = () => {
   return (
     <Column gutter="lg">
       <Column gutter="md">
-        {(!!remainingWalletBalanceError || (amount > 0 && isPermitHolder)) && (
-          <>
-            <Title
-              level="h2"
-              testID="ParkingIncreaseBalanceTitle"
-              text="Geldsaldo toevoegen"
-            />
-            <ParkingChooseAmountButton />
-            <Gutter height="sm" />
-          </>
-        )}
+        {(!!remainingWalletBalanceError || (amount > 0 && isPermitHolder)) &&
+          apiVersion === ParkingApiVersion.v1 && (
+            <>
+              <Title
+                level="h2"
+                testID="ParkingIncreaseBalanceTitle"
+                text="Geldsaldo toevoegen"
+              />
+              <ParkingChooseAmountButton />
+              <Gutter height="sm" />
+            </>
+          )}
         <Title
           level="h2"
           testID="ParkingCostTitle"
