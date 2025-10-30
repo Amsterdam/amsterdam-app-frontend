@@ -17,6 +17,7 @@ type Props = {
 export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
   const {close} = useBottomSheet()
   const styles = createStyles()
+
   const {licensePlates, isLoading} = useGetLicensePlates()
 
   const onPress = useCallback(
