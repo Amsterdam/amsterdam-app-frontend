@@ -14,11 +14,12 @@ import {ParkingApiVersion} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
-type FieldValues = {
+export type SessionFieldValues = {
   amount?: number
   endTime?: Dayjs
   licensePlate?: {vehicle_id: string; visitor_name: string}
   parking_machine?: string
+  parking_machine_favorite?: boolean
   paymentZoneId?: string
   startTime: Dayjs
   vehicle_id?: string
@@ -29,7 +30,7 @@ export const ParkingStartSessionButton = () => {
     handleSubmit,
     formState: {isSubmitting, errors},
     setError,
-  } = useFormContext<FieldValues>()
+  } = useFormContext<SessionFieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const {report_code} = currentPermit
   const apiVersion = useCurrentParkingApiVersion()
@@ -55,9 +56,10 @@ export const ParkingStartSessionButton = () => {
       amount,
       licensePlate,
       parking_machine,
+      parking_machine_favorite,
       paymentZoneId,
       vehicle_id: visitorVehicleId,
-    }: FieldValues) => {
+    }: SessionFieldValues) => {
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
 
       // TODO:
@@ -67,6 +69,7 @@ export const ParkingStartSessionButton = () => {
           parking_session: {
             end_date_time: endTime?.toJSON(),
             parking_machine,
+            parking_machine_favorite,
             payment_zone_id: paymentZoneId,
             report_code: report_code.toString(),
             start_date_time: startTime.toJSON(),

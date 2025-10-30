@@ -44,6 +44,7 @@ export const ParkingSessionParkingMachineBottomSheetContent = () => {
             autoCapitalize="characters"
             autoComplete="off"
             autoCorrect={false}
+            autoFocus
             defaultValue=""
             hasClearButton={false}
             keyboardType="number-pad"
