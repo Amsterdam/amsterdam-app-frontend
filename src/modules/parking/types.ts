@@ -6,6 +6,7 @@ export enum ParkingEndpointName {
   accountDetails = 'accountDetails',
   activateSession = 'activateSession',
   addLicensePlate = 'addLicensePlate',
+  confirmBalance = 'confirmBalance',
   deleteSession = 'deleteSession',
   editSession = 'editSession',
   increaseBalance = 'increaseBalance',
@@ -434,4 +435,10 @@ export type ParkingMachine = {
   name: string
   payment_area: string
   start_date: string
+}
+
+export type ConfirmBalanceEndpointRequest = {
+  order_id: string
+  signature: string
+  status: string
 }

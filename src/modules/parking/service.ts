@@ -31,13 +31,14 @@ import {
   type RequestPinCode,
   type ParkingManageVisitorTimeBalanceEndpointRequest,
   ParkingEndpointName,
-  ParkingSessionHistoryEndpointRequest,
-  ParkingSessionHistoryEndpointResponse,
+  type ParkingSessionHistoryEndpointRequest,
+  type ParkingSessionHistoryEndpointResponse,
   type ParkingZoneByMachineEndpointRequest,
   type PaymentZone,
   type ParkingMachine,
   type ActivateLicensePlateEndpointRequest,
   type ActivateLicensePlateEndpointResponse,
+  type ConfirmBalanceEndpointRequest,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {filterPermits} from '@/modules/parking/utils/filterPermits'
@@ -352,6 +353,20 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
+    [ParkingEndpointName.confirmBalance]: builder.mutation<
+      void,
+      ConfirmBalanceEndpointRequest
+    >({
+      invalidatesTags: ['ParkingAccount', 'ParkingSessions'],
+      query: body => ({
+        body,
+        prepareHeaders,
+        method: 'POST',
+        slug: ModuleSlug.parking,
+        url: '/balance-confirm',
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.parkingPinCode]: builder.mutation<
       void,
       RequestPinCode
@@ -462,6 +477,7 @@ export const {
   useParkingAccountChangePinCodeMutation,
   useAccountDetailsQuery,
   useAddLicensePlateMutation,
+  useConfirmBalanceMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
   useParkingPinCodeMutation,

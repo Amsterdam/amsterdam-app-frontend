@@ -3,6 +3,7 @@ import {RouteProp} from '@/app/navigation/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingRouteName} from '@/modules/parking/routes'
+import {useConfirmBalanceMutation} from '@/modules/parking/service'
 import {setWalletBalanceIncreaseStartedAt} from '@/modules/parking/slice'
 import {baseApi} from '@/services/baseApi'
 import {useAlert} from '@/store/slices/alert'
@@ -14,6 +15,7 @@ export const useHandleDeeplink = (
   const {params} = route
   const {setAlert} = useAlert()
   const dispatch = useDispatch()
+  const [confirmBalance] = useConfirmBalanceMutation()
 
   useEffect(() => {
     if (params?.action === 'increase-balance') {
@@ -24,6 +26,12 @@ export const useHandleDeeplink = (
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
+
+      void confirmBalance({
+        order_id: params.order_id,
+        status: params.status,
+        signature: params.signature,
+      })
     } else if (params?.action === 'start-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.startSessionSuccess)
@@ -33,6 +41,12 @@ export const useHandleDeeplink = (
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
+
+      void confirmBalance({
+        order_id: params.order_id,
+        status: params.status,
+        signature: params.signature,
+      })
     } else if (params?.action === 'adjust-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.adjustSessionSuccess)
@@ -43,5 +57,5 @@ export const useHandleDeeplink = (
         setAlert(alerts.increaseBalanceFailed)
       }
     }
-  }, [dispatch, params, setAlert])
+  }, [confirmBalance, dispatch, params, setAlert])
 }
