@@ -7,6 +7,7 @@ const KNOWN_PERMIT_NAME_KEYWORDS = [
   'Kraskaartparkeervergunning',
   'Bedrijfsvergunning',
   'met wisselend kenteken',
+  'Sportverenigingvergunning',
 ]
 
 export const filterPermits = (permits: ParkingPermit[]) =>
