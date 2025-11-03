@@ -6,8 +6,6 @@ import {dayjs} from '@/utils/datetime/dayjs'
 type Props = {
   children: ReactNode
   defaultStartTime?: string
-  extendVisitorSession?: boolean
-  parkingSession?: ParkingSession
 } & (
   | {extendVisitorSession: true; parkingSession: ParkingSession}
   | {extendVisitorSession?: false; parkingSession?: ParkingSession}
