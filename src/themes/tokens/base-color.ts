@@ -36,6 +36,5 @@ export const baseColor = {
     grey50: '#46464680',
     black90: '#000000e6',
     blue25: '#00469940',
-    purple20: 'rgba(160, 0, 120, 0.2)',
   },
 } as const

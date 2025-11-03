@@ -200,18 +200,6 @@ export const lightColorTokens = {
     border: baseColor.primary.blue,
   },
   logo: baseColor.primary.red,
-  map: {
-    permitZone: {
-      allowed: {
-        stroke: baseColor.secondary.purple,
-        fillColor: baseColor.transparent.purple20,
-      },
-      forbidden: {
-        stroke: baseColor.primary.red,
-        fillColor: baseColor.transparent.purple20,
-      },
-    },
-  },
   noInternet: {
     background: baseColor.primary.red,
   },
