@@ -1,3 +1,4 @@
+import type {FeatureCollection} from 'geojson'
 import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 // Routes
@@ -162,6 +163,10 @@ export enum PermitType {
   codevergunning = 'Codevergunning',
   kraskaartvergunning = 'Kraskaartvergunning',
   mantelzorgvergunning = 'Mantelzorgvergunning',
+}
+
+export type PermitZoneGeoJsonResponse = {
+  geojson: FeatureCollection
 }
 
 export type ParkingPermit = {

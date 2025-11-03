@@ -1,4 +1,4 @@
-import {ReactNode, useRef, useState} from 'react'
+import {useState, type PropsWithChildren, type RefObject} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
@@ -6,34 +6,39 @@ import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = {
-  children: ReactNode
-  controls?: ControlVariant[]
-  coordinates?: {
-    lat: number
-    lon: number
-  }
-} & MapViewProps
+const INITIAL_REGION = {
+  latitude: 52.3753,
+  longitude: 4.8964,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+}
 
-export const Map = ({
-  children,
-  controls,
-  coordinates,
-  ...mapViewProps
-}: Props) => {
+type ControlProps = {
+  controls: ControlVariant[]
+  ref: RefObject<MapView | null>
+}
+
+type DefaultProps = {
+  controls?: never
+  ref?: RefObject<MapView | null>
+}
+type Props = PropsWithChildren<ControlProps | DefaultProps> & MapViewProps
+
+export const Map = ({children, controls, ref, ...mapViewProps}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
+
   const styles = useThemable(createStyles)
+
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
-  const mapRef = useRef<MapView | null>(null)
 
   return (
     <View style={styles.container}>
       {!!controls?.length && (
         <View style={styles.controls}>
           <MapControls
-            mapRef={mapRef}
+            mapRef={ref}
             variants={controls}
           />
         </View>
@@ -43,13 +48,8 @@ export const Map = ({
         moveOnMarkerPress={false}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
-        ref={mapRef}
-        region={{
-          latitude: coordinates?.lat ?? 52.3753,
-          longitude: coordinates?.lon ?? 4.9044,
-          latitudeDelta: coordinates ? 0.01 : 0.0922,
-          longitudeDelta: coordinates ? 0.01 : 0.0421,
-        }}
+        ref={ref}
+        region={INITIAL_REGION}
         showsBuildings={false}
         showsMyLocationButton={false}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready

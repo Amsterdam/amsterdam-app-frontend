@@ -1,5 +1,4 @@
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
-import type {FeatureCollection} from 'geojson'
 import {setCurrentApiVersion} from '@/modules/parking/slice'
 import {
   type ParkingAccountDetails,
@@ -39,6 +38,7 @@ import {
   type ActivateLicensePlateEndpointRequest,
   type ActivateLicensePlateEndpointResponse,
   type ConfirmBalanceEndpointRequest,
+  type PermitZoneGeoJsonResponse,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
 import {filterPermits} from '@/modules/parking/utils/filterPermits'
@@ -206,21 +206,20 @@ export const parkingApi = baseApi.injectEndpoints({
         return fixPermitNames(knownPermits)
       },
     }),
-    [ParkingEndpointName.permitZones]: builder.query<FeatureCollection, string>(
-      {
-        providesTags: ['ParkingPermits'],
-        query: permit_zone => ({
-          prepareHeaders,
-          method: 'GET',
-          slug: ModuleSlug.parking,
-          url: generateRequestUrl({
-            path: '/permit-zones',
-            params: {permit_zone},
-          }),
-          afterError,
-        }),
-      },
-    ),
+    [ParkingEndpointName.permitZones]: builder.query<
+      // Endpoint is only V2
+      PermitZoneGeoJsonResponse,
+      string
+    >({
+      providesTags: ['ParkingPermits'],
+      query: report_code => ({
+        prepareHeaders,
+        method: 'GET',
+        slug: ModuleSlug.parking,
+        url: `/permit/${report_code}/zones`,
+        afterError,
+      }),
+    }),
     [ParkingEndpointName.parkingMachines]: builder.query<
       // Endpoint is only V2
       ParkingMachine[],
