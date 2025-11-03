@@ -12,8 +12,8 @@ import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/det
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {useGetCurrentParkingPermit} from '@/modules/parking/hooks/useGetCurrentParkingPermit.web'
 import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
+import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
@@ -39,7 +39,7 @@ export const ParkingSessionDetails = ({
   const {navigate} = useNavigation()
   const apiVersion = useCurrentParkingApiVersion()
   const parkingAccount = useParkingAccount()
-  const {currentPermit} = useGetCurrentParkingPermit()
+  const currentPermit = useCurrentParkingPermit()
 
   const licensePlateString = useLicensePlateString(
     parkingSession.vehicle_id,
