@@ -10,7 +10,7 @@ export const ParkingSessionDetailsPermitZones = () => {
   const {report_code, permit_zone} = useCurrentParkingPermit()
 
   useSetScreenTitle(permit_zone.name)
-  const {data, isLoading} = usePermitZonesQuery({report_code})
+  const {data, isLoading} = usePermitZonesQuery(report_code)
   const mapRef = useRef<MapView>(null)
 
   if (!data || isLoading) {

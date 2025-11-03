@@ -209,10 +209,10 @@ export const parkingApi = baseApi.injectEndpoints({
     [ParkingEndpointName.permitZones]: builder.query<
       // Endpoint is only V2
       PermitZoneGeoJsonResponse,
-      {report_code: string}
+      string
     >({
       providesTags: ['ParkingPermits'],
-      query: ({report_code}) => ({
+      query: report_code => ({
         prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
