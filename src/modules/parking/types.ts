@@ -340,6 +340,7 @@ export type ParkingStartSessionEndpointRequestParams = {
   redirect?: {
     merchant_return_url: string
   }
+  remove_notifications_ps_right_id?: number
 }
 
 export type ParkingEditSessionEndpointRequestParams = {
