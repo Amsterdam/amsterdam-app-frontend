@@ -5,7 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
-import {useEditSessionMutation} from '@/modules/parking/service'
+import {useStartSessionMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
@@ -16,14 +16,16 @@ type FieldValues = {
     vehicle_id: string
     visitor_name?: string
   }
+  parking_machine?: string
+  payment_zone_id?: string
   ps_right_id: number
   report_code: string
   startTime: Dayjs
 }
 
-export const ParkingEditSessionButtons = () => {
+export const ParkingVisitorEditSessionButtons = () => {
   const {handleSubmit, formState} = useFormContext<FieldValues>()
-  const [editSession, {isLoading}] = useEditSessionMutation()
+  const [startSession, {isLoading}] = useStartSessionMutation()
 
   const navigation = useNavigation()
   const openWebUrl = useOpenWebUrl()
@@ -37,16 +39,20 @@ export const ParkingEditSessionButtons = () => {
       ps_right_id,
       amount,
       licensePlate: {vehicle_id},
+      payment_zone_id,
+      parking_machine,
     }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
-        return editSession({
+        return startSession({
           parking_session: {
             report_code,
-            ps_right_id,
             vehicle_id,
             end_date_time: endTime.toJSON(),
             start_date_time: startTime.toJSON(),
+            payment_zone_id,
+            parking_machine,
           },
+          remove_notifications_ps_right_id: ps_right_id,
           ...(amount
             ? {
                 balance: {
@@ -83,7 +89,7 @@ export const ParkingEditSessionButtons = () => {
           )
       }
     },
-    [editSession, navigation, openWebUrl, setAlert],
+    [startSession, navigation, openWebUrl, setAlert],
   )
 
   return (

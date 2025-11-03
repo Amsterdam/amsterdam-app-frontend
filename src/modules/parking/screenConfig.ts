@@ -14,6 +14,7 @@ import {ParkingPlannedSessionsScreen} from '@/modules/parking/screens/ParkingPla
 import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.screen'
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
+import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/ParkingVisitorEditSession.screen'
 import {ParkingAccountChangePinCodeScreen} from '@/modules/parking/screens/account/AccountChangePinCode.screen'
 import {ParkingAccountDetailsScreen} from '@/modules/parking/screens/account/AccountDetails.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
@@ -50,6 +51,14 @@ export const parkingScreenConfig: StackNavigationRoutes<
   [ParkingRouteName.editSession]: {
     component: ParkingEditSessionScreen,
     name: ParkingRouteName.editSession,
+    options: {
+      headerShown: false,
+      headerTitle: 'Parkeersessie aanpassen',
+    },
+  },
+  [ParkingRouteName.visitorEditSession]: {
+    component: ParkingVisitorEditSessionScreen,
+    name: ParkingRouteName.visitorEditSession,
     options: {
       headerShown: false,
       headerTitle: 'Parkeersessie aanpassen',

@@ -5,13 +5,15 @@ import {Title} from '@/components/ui/text/Title'
 import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
-export const ParkingShowStartTime = () => {
-  const {watch} = useFormContext<{
-    startTime: Dayjs
-  }>()
-  const startTime = watch('startTime')
+type Props = {
+  fieldName?: string
+}
 
-  const timeString = formatDateTimeToDisplay(startTime, false)
+export const ParkingShowStartTime = ({fieldName = 'startTime'}: Props) => {
+  const {watch} = useFormContext<Record<string, Dayjs>>()
+  const fieldTime = watch(fieldName)
+
+  const timeString = formatDateTimeToDisplay(fieldTime, false)
 
   return (
     <Column>
