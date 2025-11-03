@@ -1,6 +1,6 @@
 import {ReactNode, useRef, useState} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
-import MapView, {MapViewProps} from 'react-native-maps'
+import MapView, {MapViewProps, type LatLng} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
@@ -9,10 +9,10 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   children: ReactNode
   controls?: ControlVariant[]
-  coordinates?: {
-    lat: number
-    lon: number
-  }
+  /**
+   * Array of coordinates to fit the map to
+   */
+  coordinates?: LatLng[]
 } & MapViewProps
 
 export const Map = ({
@@ -26,7 +26,20 @@ export const Map = ({
   const handleOnMapReady = () => {
     setIsMapReady(true)
   }
+
   const mapRef = useRef<MapView | null>(null)
+  const onLayout = () => {
+    if (Platform.OS === 'android') {
+      mapRef.current?.fitToCoordinates(coordinates, {
+        edgePadding: {
+          top: 40,
+          right: 40,
+          bottom: 40,
+          left: 40,
+        },
+      })
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -41,15 +54,10 @@ export const Map = ({
       <MapView
         collapsable={false}
         moveOnMarkerPress={false}
+        onLayout={onLayout}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
         ref={mapRef}
-        region={{
-          latitude: coordinates?.lat ?? 52.3753,
-          longitude: coordinates?.lon ?? 4.9044,
-          latitudeDelta: coordinates ? 0.01 : 0.0922,
-          longitudeDelta: coordinates ? 0.01 : 0.0421,
-        }}
         showsBuildings={false}
         showsMyLocationButton={false}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready

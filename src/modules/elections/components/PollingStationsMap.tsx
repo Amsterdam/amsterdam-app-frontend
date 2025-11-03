@@ -34,7 +34,12 @@ export const PollingStationsMap = ({
   return (
     <Map
       controls={[ControlVariant.location]}
-      coordinates={coordinates}>
+      region={{
+        latitude: coordinates?.lat ?? 52.3753,
+        longitude: coordinates?.lon ?? 4.9044,
+        latitudeDelta: coordinates ? 0.01 : 0.0922,
+        longitudeDelta: coordinates ? 0.01 : 0.0421,
+      }}>
       {pollingStations.map(station => (
         <Marker
           accessibilityLabel={station.name + ', ' + station.address1}
