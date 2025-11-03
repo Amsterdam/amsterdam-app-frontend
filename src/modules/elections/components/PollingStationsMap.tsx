@@ -1,10 +1,13 @@
-import {Marker} from 'react-native-maps'
+import {useEffect, useRef} from 'react'
+import MapView, {Marker} from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Address} from '@/modules/address/types'
 import {PollingStation} from '@/modules/elections/types'
+
+const ANIMATION_DURATION = 0
 
 type Props = {
   address?: Address
@@ -21,7 +24,21 @@ export const PollingStationsMap = ({
   onPress,
   pollingStations,
 }: Props) => {
-  const coordinates = address?.coordinates
+  const mapRef = useRef<MapView>(null)
+
+  useEffect(() => {
+    if (mapRef.current && !!address?.coordinates) {
+      mapRef.current.animateToRegion(
+        {
+          latitude: address?.coordinates.lat,
+          longitude: address?.coordinates.lon,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        },
+        ANIMATION_DURATION,
+      )
+    }
+  }, [address, mapRef])
 
   if (isLoading) {
     return <PleaseWait testID="PollingStationsMapPleaseWait" />
@@ -34,12 +51,7 @@ export const PollingStationsMap = ({
   return (
     <Map
       controls={[ControlVariant.location]}
-      region={{
-        latitude: coordinates?.lat ?? 52.3753,
-        longitude: coordinates?.lon ?? 4.9044,
-        latitudeDelta: coordinates ? 0.01 : 0.0922,
-        longitudeDelta: coordinates ? 0.01 : 0.0421,
-      }}>
+      ref={mapRef}>
       {pollingStations.map(station => (
         <Marker
           accessibilityLabel={station.name + ', ' + station.address1}
