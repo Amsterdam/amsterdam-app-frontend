@@ -424,7 +424,7 @@ export type ParkingSessionOrDummy =
 
 export type ParkingZoneByMachineEndpointRequest = {
   machineId: string
-  permitId: string
+  report_code: string
 }
 
 export type ParkingMachine = {

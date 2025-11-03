@@ -20,7 +20,7 @@ export const useGetRemainingBalance = (
   const {data: parkingAccount} = useAccountDetailsQuery()
   const {data: parkingMachine} = useZoneByMachineQuery(
     parkingMachineId
-      ? {machineId: parkingMachineId, permitId: currentPermit?.report_code}
+      ? {machineId: parkingMachineId, report_code: currentPermit?.report_code}
       : skipToken,
   )
   const paymentZone = useMemo(() => {
