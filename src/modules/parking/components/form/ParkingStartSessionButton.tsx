@@ -69,7 +69,7 @@ export const ParkingStartSessionButton = () => {
           parking_session: {
             end_date_time: endTime?.toJSON(),
             parking_machine,
-            parking_machine_favorite,
+            parking_machine_favorite: !!parking_machine_favorite,
             payment_zone_id: paymentZoneId,
             report_code: report_code.toString(),
             start_date_time: startTime.toJSON(),
