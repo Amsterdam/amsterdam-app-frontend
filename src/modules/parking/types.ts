@@ -141,11 +141,11 @@ export type ActivateLicensePlateEndpointResponse = {
   ps_right_id: string
 }
 
-// Permit
 export type PaymentZone = {
   city: string
   days: PaymentZoneDay[]
   description: string
+  hourly_rate?: string
   id: string
 }
 

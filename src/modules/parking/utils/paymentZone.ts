@@ -1,3 +1,4 @@
+import type {Dayjs} from 'dayjs'
 import {PaymentZone, PaymentZoneDay} from '@/modules/parking/types'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 import {
@@ -39,3 +40,24 @@ export const areAllPaymentZonesEqual = (paymentZones: PaymentZone[]) =>
   ([0, 1, 2, 3, 4, 5, 6] as WeekdayNumber[]).every(dayOfWeek =>
     areAllPaymentZonesEqualOnDayOfWeek(paymentZones, dayOfWeek),
   )
+
+export const getParkingMachineDetailsLabel = (
+  parkingMachineDetails: PaymentZone | undefined,
+  startTime: Dayjs,
+) => {
+  const startTimeDayOfWeek = startTime.day()
+
+  const startTimePaymentZoneDay = parkingMachineDetails
+    ? getPaymentZoneDay(parkingMachineDetails, startTimeDayOfWeek)
+    : undefined
+
+  const timeString = startTimePaymentZoneDay
+    ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
+    : undefined
+
+  return `${timeString ?? ''}${
+    parkingMachineDetails?.hourly_rate
+      ? `${timeString ? ', ' : ''}${parkingMachineDetails.hourly_rate} per uur`
+      : ''
+  }`
+}
