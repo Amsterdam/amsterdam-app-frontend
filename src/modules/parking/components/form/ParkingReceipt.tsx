@@ -38,6 +38,7 @@ export const ParkingReceipt = () => {
     amount?: number
     endTime?: Dayjs
     licensePlate?: ParkingLicensePlate
+    originalEndTime?: Dayjs
     parking_machine?: string
     paymentZoneId?: string
     ps_right_id?: number
@@ -47,6 +48,7 @@ export const ParkingReceipt = () => {
   const {
     startTime,
     endTime,
+    originalEndTime,
     licensePlate,
     parking_machine,
     paymentZoneId,
@@ -85,6 +87,7 @@ export const ParkingReceipt = () => {
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
     startTime,
     endTime,
+    originalEndTime,
     parking_machine,
     paymentZoneId,
     data?.costs.value,
