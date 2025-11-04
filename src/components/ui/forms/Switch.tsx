@@ -1,10 +1,10 @@
 import {type ElementType, Fragment, type ReactNode} from 'react'
 import {
-  Switch as SwitchRN,
   SwitchProps as SwitchRNProps,
   type GestureResponderEvent,
   type SwitchChangeEvent,
 } from 'react-native'
+import {Switch as SwitchRN} from 'react-native-gesture-handler'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
