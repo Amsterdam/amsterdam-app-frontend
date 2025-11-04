@@ -27,7 +27,12 @@ export const LicensePlateListItem = ({
       key={vehicle_id}>
       <SingleSelectable accessibilityLabel={`Kenteken ${licensePlate}`}>
         <Row gutter="md">
-          <Phrase emphasis="strong">{number}.</Phrase>
+          <Phrase
+            emphasis="strong"
+            flex={1}
+            flexShrink={0}>
+            {number}.
+          </Phrase>
           <Phrase emphasis="strong">{licensePlate}</Phrase>
         </Row>
       </SingleSelectable>
