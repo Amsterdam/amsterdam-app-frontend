@@ -17,10 +17,6 @@ export type PhraseProps = {
    */
   emphasis?: keyof typeof Emphasis
   /**
-   * Defines if the phrase should flex inside container
-   */
-  flex?: number
-  /**
    * Defines how to shrink the phrase in case the parent container is smaller than the phrase.
    */
   flexShrink?: number
@@ -54,7 +50,6 @@ export const Phrase = ({
   color = 'default',
   emphasis = 'default',
   flexShrink = 1,
-  flex = 1,
   opacity = 1,
   underline = false,
   variant = 'body',
@@ -69,13 +64,12 @@ export const Phrase = ({
         color,
         emphasis,
         flexShrink,
-        flex,
         opacity,
         underline,
         variant,
         textAlign,
       }),
-    [color, emphasis, flexShrink, flex, opacity, underline, variant, textAlign],
+    [color, emphasis, flexShrink, opacity, underline, variant, textAlign],
   )
   const styles = useThemable(createdStyles)
 
@@ -96,7 +90,6 @@ const createStyles =
     color: textColor,
     emphasis,
     flexShrink,
-    flex,
     opacity,
     underline,
     variant,
@@ -111,14 +104,12 @@ const createStyles =
       | 'underline'
       | 'variant'
       | 'textAlign'
-      | 'flex'
     >
   >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       text: {
         flexShrink,
-        flex,
         color: color.text[textColor],
         fontFamily:
           text.fontFamily[emphasis === Emphasis.strong ? 'bold' : 'regular'],

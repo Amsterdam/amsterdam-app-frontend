@@ -29,7 +29,6 @@ export const LicensePlateListItem = ({
         <Row gutter="md">
           <Phrase
             emphasis="strong"
-            flex={1}
             flexShrink={0}>
             {number}.
           </Phrase>
