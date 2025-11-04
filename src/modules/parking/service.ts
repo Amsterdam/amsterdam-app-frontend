@@ -27,7 +27,6 @@ import {
   type VisitorParkingSessionsEndpointRequest,
   type VisitorParkingSessionsEndpointResponse,
   ParkingSessionStatus,
-  type RequestPinCode,
   type ParkingManageVisitorTimeBalanceEndpointRequest,
   ParkingEndpointName,
   type ParkingSessionHistoryEndpointRequest,
@@ -361,19 +360,6 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
-    [ParkingEndpointName.parkingPinCode]: builder.mutation<
-      void,
-      RequestPinCode
-    >({
-      invalidatesTags: ['ParkingPermits'],
-      query: ({phoneLastFourDigits, reportCode}) => ({
-        body: {report_code: reportCode, phone_number: phoneLastFourDigits},
-        method: 'POST',
-        slug: ModuleSlug.parking,
-        url: '/pin-code',
-        afterError,
-      }),
-    }),
     [ParkingEndpointName.manageVisitorChangePinCode]: builder.mutation<
       void,
       ParkingManageVisitorChangePinCodeEndpointRequest
@@ -474,7 +460,6 @@ export const {
   useConfirmBalanceMutation,
   useLicensePlatesQuery,
   useLoginMutation: useLoginParkingMutation,
-  useParkingPinCodeMutation,
   useParkingSessionHistoryQuery,
   useParkingSessionsQuery,
   useParkingTransactionsQuery,

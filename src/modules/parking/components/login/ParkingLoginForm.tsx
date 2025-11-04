@@ -5,12 +5,10 @@ import type {TextInput} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -27,8 +25,6 @@ import {
 import {useAlert} from '@/store/slices/alert'
 
 export const ParkingLoginForm = () => {
-  const navigation = useNavigation()
-  const {navigate} = navigation
   const apiVersion = useCurrentParkingApiVersion()
   const deeplinkAccount = useParkingDeeplinkAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
@@ -130,13 +126,8 @@ export const ParkingLoginForm = () => {
           testID="ParkingLoginFormPinCodeInputField"
         />
         <Button
-          label="Pincode vergeten"
-          onPress={() => navigate(ParkingRouteName.requestPinCode)}
-          testID="ParkingLoginForgotPinButton"
-          variant="tertiary"
-        />
-        <Button
           disabled={form.formState.isSubmitting}
+          insetBlockStart={20}
           isLoading={form.formState.isSubmitting}
           label="Inloggen"
           onPress={onSubmit}
