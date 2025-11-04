@@ -12,6 +12,7 @@ import {getPaymentZone} from '@/modules/parking/utils/paymentZone'
 export const useGetRemainingBalance = (
   startTime?: Dayjs,
   endTime?: Dayjs,
+  originalEndTime?: Dayjs,
   parkingMachineId?: string,
   paymentZoneId?: string,
   cost?: number,
@@ -31,22 +32,38 @@ export const useGetRemainingBalance = (
     return getPaymentZone(currentPermit.payment_zones, paymentZoneId)
   }, [currentPermit.payment_zones, paymentZoneId])
 
-  const remainingTimeBalance = useMemo(
-    () =>
-      getRemainingTimeBalance(
+  const remainingTimeBalance = useMemo(() => {
+    if (originalEndTime) {
+      return (
+        (getRemainingTimeBalance(
+          currentPermit.time_balance,
+          startTime,
+          endTime,
+          paymentZone ?? parkingMachine,
+        ) ?? 0) -
+        (getRemainingTimeBalance(
+          0,
+          startTime,
+          originalEndTime,
+          paymentZone ?? parkingMachine,
+        ) ?? 0)
+      )
+    } else {
+      return getRemainingTimeBalance(
         currentPermit.time_balance,
         startTime,
         endTime,
         paymentZone ?? parkingMachine,
-      ),
-    [
-      currentPermit.time_balance,
-      endTime,
-      parkingMachine,
-      paymentZone,
-      startTime,
-    ],
-  )
+      )
+    }
+  }, [
+    currentPermit.time_balance,
+    endTime,
+    originalEndTime,
+    parkingMachine,
+    paymentZone,
+    startTime,
+  ])
 
   const remainingWalletBalance = useMemo(
     () =>

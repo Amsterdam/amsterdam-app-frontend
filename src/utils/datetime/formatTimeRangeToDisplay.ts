@@ -14,8 +14,15 @@ export const formatTimeRangeToDisplay = (
   {short = false}: Options = {},
 ) => {
   const start = dayjs(startTime)
-  const hours = dayjs(endTime).diff(start, 'hour')
-  const minutes = dayjs(endTime).subtract(hours, 'hour').diff(start, 'minute')
+  const end = dayjs(endTime)
+  const isNegative = end.isBefore(start)
+  const sign = isNegative ? '-' : ''
+  const hours = Math.abs(dayjs(endTime).diff(start, 'hour'))
+  const minutes = Math.abs(
+    dayjs(endTime)
+      .subtract(isNegative ? -hours : hours, 'hour')
+      .diff(start, 'minute'),
+  )
   const minutesText = short
     ? `${minutes} min`
     : simplur`${minutes} minu[ut|ten]`
@@ -28,11 +35,11 @@ export const formatTimeRangeToDisplay = (
     const hoursText = short ? `${hours} uur` : simplur`${hours} u[ur|ren]`
 
     if (minutes > 0) {
-      return `${hoursText} en ${minutesText}`
+      return `${sign}${hoursText} en ${minutesText}`
     }
 
-    return hoursText
+    return `${sign}${hoursText}`
   } else {
-    return minutesText
+    return `${sign}${minutesText}`
   }
 }

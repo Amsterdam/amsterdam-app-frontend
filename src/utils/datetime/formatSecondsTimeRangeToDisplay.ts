@@ -10,9 +10,5 @@ export const formatSecondsTimeRangeToDisplay = (
 ) => {
   const now = dayjs()
 
-  return formatTimeRangeToDisplay(
-    now,
-    now.add((seconds && Math.abs(seconds)) ?? 0, 'second'),
-    options,
-  )
+  return formatTimeRangeToDisplay(now, now.add(seconds ?? 0, 'second'), options)
 }
