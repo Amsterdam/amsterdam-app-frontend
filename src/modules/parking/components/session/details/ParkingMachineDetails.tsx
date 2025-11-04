@@ -10,11 +10,7 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {getHourlyParkingRateFromSessionAndZoneData} from '@/modules/parking/utils/getHourlyParkingRateFromSessionAndZoneData'
-import {
-  getPaymentZoneDay,
-  getPaymentZoneDayTimeSpan,
-} from '@/modules/parking/utils/paymentZone'
+import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingMachineDetails = ({
@@ -43,29 +39,12 @@ export const ParkingMachineDetails = ({
     lon: parkingMachine?.lon,
   })
 
-  const parkingRateTimeString = useMemo(() => {
-    if ('parking_cost' in parkingSession && parkingZoneData) {
-      const rate = getHourlyParkingRateFromSessionAndZoneData(
-        parkingSession,
-        parkingZoneData,
-      )
+  const startTime = dayjs(parkingSession.start_date_time)
 
-      const start = dayjs(parkingSession.start_date_time)
-
-      const startTimePaymentZoneDay = getPaymentZoneDay(
-        parkingZoneData,
-        start.day(),
-      )
-
-      const timeSpan = getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
-
-      if (!timeSpan || !rate) {
-        return
-      }
-
-      return `${timeSpan}, ${rate} per uur`
-    }
-  }, [parkingSession, parkingZoneData])
+  const machineDetailsLabel = useMemo(
+    () => getParkingMachineDetailsLabel(parkingZoneData, startTime),
+    [parkingZoneData, startTime],
+  )
 
   return (
     <ParkingSessionDetailsRow
@@ -78,7 +57,7 @@ export const ParkingMachineDetails = ({
           {!!parkingMachine?.address && (
             <Phrase>{parkingMachine.address}</Phrase>
           )}
-          {!!parkingRateTimeString && <Phrase>{parkingRateTimeString}</Phrase>}
+          {!!machineDetailsLabel && <Phrase>{machineDetailsLabel}</Phrase>}
           {!!directionsUrl && (
             <ExternalLinkButton
               label="Route openen"

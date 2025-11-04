@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
@@ -9,10 +9,7 @@ import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
-import {
-  getPaymentZoneDay,
-  getPaymentZoneDayTimeSpan,
-} from '@/modules/parking/utils/paymentZone'
+import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 
 type FieldValues = Pick<
   SessionFieldValues,
@@ -56,19 +53,14 @@ export const ParkingSessionChooseParkingMachine = () => {
     }
   }, [clearErrors, error, setError])
 
-  const startTimeDayOfWeek = startTime.day()
-
-  const startTimePaymentZoneDay = parkingMachineDetails
-    ? getPaymentZoneDay(parkingMachineDetails, startTimeDayOfWeek)
-    : undefined
-
-  const timeString = startTimePaymentZoneDay
-    ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
-    : undefined
-
   if (!currentPermit.can_select_zone) {
     return null
   }
+
+  const machineDetailsLabel = useMemo(
+    () => getParkingMachineDetailsLabel(parkingMachineDetails, startTime),
+    [parkingMachineDetails, startTime],
+  )
 
   return (
     <Column gutter="md">
@@ -79,7 +71,7 @@ export const ParkingSessionChooseParkingMachine = () => {
         rules={{required: 'Kies een parkeerautomaat'}}
         testID="ParkingChooseParkingMachineButton"
         text={parking_machine => parking_machine}
-        textAdditional={!error ? timeString : ''}
+        textAdditional={!error ? machineDetailsLabel : ''}
         title={parking_machine =>
           parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
         }
