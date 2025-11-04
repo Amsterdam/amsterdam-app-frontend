@@ -15,7 +15,7 @@ import {ParkingLicensePlate} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 
 export const AddLicensePlateForm = () => {
-  const {navigate} = useNavigation()
+  const navigation = useNavigation()
   const form = useForm<ParkingLicensePlate>()
   const {handleSubmit, formState} = form
   const currentPermit = useCurrentParkingPermit()
@@ -39,14 +39,14 @@ export const AddLicensePlateForm = () => {
       })
         .unwrap()
         .then(() => {
-          navigate(ParkingRouteName.myLicensePlates)
+          navigation.popTo(ParkingRouteName.myLicensePlates)
         })
     },
     [
       addLicensePlate,
       currentPermit.report_code,
       licensePlates,
-      navigate,
+      navigation,
       setAlert,
     ],
   )
