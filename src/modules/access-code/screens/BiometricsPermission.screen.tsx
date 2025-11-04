@@ -9,13 +9,13 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 
 const TEST_ID = 'BiometricsPermissionScreen'
 
 type BiometricsPermissionForm = {
   enableBiometrics: boolean
-  test: string
 }
 const SwitchWrapper = ({children}: PropsWithChildren) => (
   <Box variant="distinct">{children}</Box>
@@ -24,6 +24,8 @@ const SwitchWrapper = ({children}: PropsWithChildren) => (
 export const BiometricsPermissionScreen = () => {
   const {biometricsLabel, isLoading, setUseBiometrics} =
     useAccessCodeBiometrics()
+
+  const {isLandscape} = useDeviceContext()
 
   const {handleSubmit, control} = useForm<BiometricsPermissionForm>()
 
@@ -41,35 +43,9 @@ export const BiometricsPermissionScreen = () => {
   return (
     <Screen
       stickyFooter={
-        <Box>
-          <Button
-            label="Gereed"
-            onPress={handleSubmit(onSubmit)}
-            testID="AccessCodeBiometricsPermissionScreenSubmitButton"
-          />
-        </Box>
-      }
-      testID="BiometricsPermissionScreen">
-      <Box
-        insetHorizontal="md"
-        insetTop="xxl">
-        <Column
-          align="center"
-          grow={1}
-          gutter="lg">
-          <Row align="center">
-            <Icon
-              name="lock-filled"
-              size="xxl"
-              testID="BiometricsPermissionScreenIcon"
-            />
-          </Row>
-          <Title
-            level="h2"
-            testID="BiometricsPermissionScreenTitle"
-            text={`De volgende keer sneller toegang met ${biometricsLabel}?`}
-            textAlign="center"
-          />
+        <Box
+          insetBottom="md"
+          insetHorizontal="md">
           <SwitchField
             accessibilityLabel={`Toegang met ${biometricsLabel}`}
             control={control}
@@ -82,6 +58,31 @@ export const BiometricsPermissionScreen = () => {
             name="enableBiometrics"
             testID={`${TEST_ID}Switch`}
             wrapper={SwitchWrapper}
+          />
+          <Button
+            label="Gereed"
+            onPress={handleSubmit(onSubmit)}
+            testID="AccessCodeBiometricsPermissionScreenSubmitButton"
+          />
+        </Box>
+      }
+      testID="BiometricsPermissionScreen">
+      <Box
+        insetHorizontal="md"
+        insetTop={isLandscape ? 'md' : 'xxl'}>
+        <Column gutter="lg">
+          <Row align="center">
+            <Icon
+              name="lock-filled"
+              size="xxl"
+              testID="BiometricsPermissionScreenIcon"
+            />
+          </Row>
+          <Title
+            level="h2"
+            testID="BiometricsPermissionScreenTitle"
+            text={`De volgende keer sneller toegang met ${biometricsLabel}?`}
+            textAlign="center"
           />
         </Column>
       </Box>
