@@ -9,6 +9,7 @@ import {
 } from '@/modules/parking/slice'
 import {ParkingApiVersion} from '@/modules/parking/types'
 import {filterPermits} from '@/modules/parking/utils/filterPermits'
+import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 
 export const useGetPermits = (skip?: boolean) => {
   const dispatch = useDispatch()
@@ -24,11 +25,13 @@ export const useGetPermits = (skip?: boolean) => {
       return
     }
 
+    const permitsFixedNames = fixPermitNames(data)
+
     if (apiVersion === ParkingApiVersion.v2) {
-      return filterPermits(data)
+      return filterPermits(permitsFixedNames)
     }
 
-    return data
+    return permitsFixedNames
   }, [apiVersion, data])
 
   useSetParkingAccountName(!permits)
