@@ -26,7 +26,8 @@ export const ParkingSessionDetailsRow = ({
       />
       <Column
         gutter="xxs"
-        halign="start">
+        halign="start"
+        shrink={1}>
         <Title
           level="h5"
           text={title}
