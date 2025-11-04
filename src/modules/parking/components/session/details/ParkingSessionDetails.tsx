@@ -117,7 +117,7 @@ export const ParkingSessionDetails = ({
 
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <>
-            {!parkingSession.no_endtime &&
+            {!currentPermit.no_endtime &&
               !!parkingSession.ps_right_id &&
               (parkingSession.status === ParkingSessionStatus.active ||
                 parkingSession.status === ParkingSessionStatus.planned) && (
@@ -125,14 +125,14 @@ export const ParkingSessionDetails = ({
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!parkingSession.no_endtime &&
+            {!currentPermit.no_endtime &&
               !!parkingSession.ps_right_id &&
               parkingSession.status === ParkingSessionStatus.active && (
                 <ParkingSessionDetailsStopButton
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!parkingSession.no_endtime &&
+            {!currentPermit.no_endtime &&
               !!parkingSession.ps_right_id &&
               parkingSession.status === ParkingSessionStatus.planned && (
                 <ParkingSessionDetailsDeleteButton
