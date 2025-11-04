@@ -51,6 +51,11 @@ export const ParkingSessionDetails = ({
     'parking_cost' in parkingSession &&
     !!parkingSession.parking_cost.value
 
+  const isEditable =
+    !parkingSession.no_endtime &&
+    !!parkingSession.ps_right_id &&
+    !!parkingSession.can_edit
+
   return (
     <Box>
       <Column gutter="lg">
@@ -117,23 +122,20 @@ export const ParkingSessionDetails = ({
 
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <>
-            {!currentPermit.no_endtime &&
-              !!parkingSession.ps_right_id &&
+            {!!isEditable &&
               (parkingSession.status === ParkingSessionStatus.active ||
                 parkingSession.status === ParkingSessionStatus.planned) && (
                 <ParkingSessionDetailsAdjustEndTimeButton
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!currentPermit.no_endtime &&
-              !!parkingSession.ps_right_id &&
+            {!!isEditable &&
               parkingSession.status === ParkingSessionStatus.active && (
                 <ParkingSessionDetailsStopButton
                   parkingSession={parkingSession as ParkingSession}
                 />
               )}
-            {!currentPermit.no_endtime &&
-              !!parkingSession.ps_right_id &&
+            {!!isEditable &&
               parkingSession.status === ParkingSessionStatus.planned && (
                 <ParkingSessionDetailsDeleteButton
                   parkingSession={parkingSession as ParkingSession}

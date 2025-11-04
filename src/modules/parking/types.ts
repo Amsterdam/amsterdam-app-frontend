@@ -222,6 +222,7 @@ export enum ParkingSessionStatus {
 }
 
 export type VisitorParkingSession = {
+  can_edit?: boolean
   end_date_time: string
   no_endtime: boolean
   parking_machine?: string
