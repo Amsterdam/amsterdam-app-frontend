@@ -41,7 +41,6 @@ import {
   type PermitZoneGeoJsonResponse,
 } from '@/modules/parking/types'
 import {afterError} from '@/modules/parking/utils/afterError'
-import {filterPermits} from '@/modules/parking/utils/filterPermits'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 import {prepareHeaders} from '@/modules/parking/utils/prepareHeaders'
 import {ModuleSlug} from '@/modules/slugs'
@@ -200,11 +199,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: generateRequestUrl({path: '/permits', params}),
         afterError,
       }),
-      transformResponse: (permits: ParkingPermitsEndpointResponse) => {
-        const knownPermits = filterPermits(permits)
-
-        return fixPermitNames(knownPermits)
-      },
+      transformResponse: fixPermitNames,
     }),
     [ParkingEndpointName.permitZones]: builder.query<
       // Endpoint is only V2
