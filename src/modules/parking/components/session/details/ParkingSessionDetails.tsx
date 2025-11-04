@@ -54,7 +54,7 @@ export const ParkingSessionDetails = ({
   const isEditable =
     !parkingSession.no_endtime &&
     !!parkingSession.ps_right_id &&
-    !!parkingSession.can_edit
+    (!!parkingSession.can_edit || apiVersion === ParkingApiVersion.v1)
 
   return (
     <Box>
