@@ -45,13 +45,12 @@ export const SwitchField = <FormFields extends FieldValues>({
 
   return (
     <Column gutter="sm">
-      <Column gutter="xs">
-        <Switch
-          {...switchProps}
-          {...field}
-          onValueChange={onChange}
-        />
-      </Column>
+      <Switch
+        {...switchProps}
+        {...field}
+        onChange={() => onChange(!field.value)}
+      />
+
       {!!error && (
         <Paragraph
           color="warning"
