@@ -33,6 +33,8 @@ export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
   useEffect(() => {
     if (isMapReady && region) {
       mapRef.current?.animateToRegion(region as Region, ANIMATION_DURATION)
+    } else {
+      mapRef.current?.animateToRegion(INITIAL_REGION, ANIMATION_DURATION)
     }
   }, [isMapReady, region])
 
