@@ -101,7 +101,9 @@ export const ParkingLoginForm = () => {
           autoFocus
           hasClearButton={false}
           keyboardType={
-            apiVersion === ParkingApiVersion.v1 ? 'number-pad' : undefined
+            apiVersion === ParkingApiVersion.v1
+              ? 'number-pad'
+              : 'numbers-and-punctuation'
           }
           label="Meldcode"
           name="reportCode"
