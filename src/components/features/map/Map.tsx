@@ -1,6 +1,6 @@
-import {useState, type PropsWithChildren, type RefObject} from 'react'
+import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
-import MapView, {MapViewProps} from 'react-native-maps'
+import MapView, {MapViewProps, type Region} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
@@ -13,19 +13,16 @@ const INITIAL_REGION = {
   longitudeDelta: 0.0421,
 }
 
-type ControlProps = {
-  controls: ControlVariant[]
-  ref: RefObject<MapView | null>
-}
+const ANIMATION_DURATION = 0
 
-type DefaultProps = {
-  controls?: never
-  ref?: RefObject<MapView | null>
-}
-type Props = PropsWithChildren<ControlProps | DefaultProps> & MapViewProps
+type Props = PropsWithChildren<{
+  controls?: ControlVariant[]
+}> &
+  MapViewProps
 
-export const Map = ({children, controls, ref, ...mapViewProps}: Props) => {
+export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
+  const mapRef = useRef<MapView>(null)
 
   const styles = useThemable(createStyles)
 
@@ -33,23 +30,31 @@ export const Map = ({children, controls, ref, ...mapViewProps}: Props) => {
     setIsMapReady(true)
   }
 
+  useEffect(() => {
+    if (isMapReady && region) {
+      mapRef.current?.animateToRegion(region as Region, ANIMATION_DURATION)
+    } else {
+      mapRef.current?.animateToRegion(INITIAL_REGION, ANIMATION_DURATION)
+    }
+  }, [isMapReady, region])
+
   return (
     <View style={styles.container}>
       {!!controls?.length && (
         <View style={styles.controls}>
           <MapControls
-            mapRef={ref}
+            mapRef={mapRef}
             variants={controls}
           />
         </View>
       )}
       <MapView
         collapsable={false}
+        initialRegion={INITIAL_REGION} // Default initial region is overview of Amsterdam.
         moveOnMarkerPress={false}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}
-        ref={ref}
-        region={INITIAL_REGION}
+        ref={mapRef}
         showsBuildings={false}
         showsMyLocationButton={false}
         showsUserLocation={isMapReady} // Workaround for Android to show user location after map is ready

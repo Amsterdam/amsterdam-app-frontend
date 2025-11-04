@@ -1,5 +1,4 @@
-import {useRef} from 'react'
-import MapView, {Geojson, type LatLng} from 'react-native-maps'
+import {Geojson, type LatLng} from 'react-native-maps'
 import type {Feature} from 'geojson'
 import {Map} from '@/components/features/map/Map'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
@@ -11,7 +10,6 @@ export const ParkingSessionDetailsPermitZones = () => {
 
   useSetScreenTitle(permit_zone.name)
   const {data, isLoading} = usePermitZonesQuery(report_code)
-  const mapRef = useRef<MapView>(null)
 
   if (!data || isLoading) {
     return null
@@ -19,25 +17,10 @@ export const ParkingSessionDetailsPermitZones = () => {
 
   const properties = data.geojson.features[0]?.properties
   const allCoords = getAllPolygonCoords(data.geojson.features)
-
-  const onLayout = () => {
-    if (mapRef.current) {
-      mapRef.current.fitToCoordinates(allCoords, {
-        edgePadding: {
-          left: 40,
-          right: 40,
-          top: 40,
-          bottom: 40,
-        },
-        animated: false,
-      })
-    }
-  }
+  const region = getInitialRegion(allCoords)
 
   return (
-    <Map
-      onLayout={onLayout}
-      ref={mapRef}>
+    <Map region={region}>
       <Geojson
         fillColor={getFillColor(
           String(properties?.fill ?? 'blue'),
@@ -70,3 +53,23 @@ const getAllPolygonCoords = (features: Feature[]): LatLng[] =>
 
       return []
     })
+
+const getInitialRegion = (allCoords: LatLng[]) => {
+  if (allCoords.length === 0) {
+    return undefined
+  }
+
+  const lats = allCoords.map(c => c.latitude)
+  const lngs = allCoords.map(c => c.longitude)
+  const minLat = Math.min(...lats)
+  const maxLat = Math.max(...lats)
+  const minLng = Math.min(...lngs)
+  const maxLng = Math.max(...lngs)
+
+  return {
+    latitude: (minLat + maxLat) / 2,
+    longitude: (minLng + maxLng) / 2,
+    latitudeDelta: Math.max(0.01, (maxLat - minLat) * 1.2),
+    longitudeDelta: Math.max(0.01, (maxLng - minLng) * 1.2),
+  }
+}
