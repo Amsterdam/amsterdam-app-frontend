@@ -84,16 +84,18 @@ export const ParkingSessionChooseParkingMachine = () => {
           parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
         }
       />
-      {currentPermit.parking_machine_favorite !== parkingMachine && !error && (
-        <SwitchField
-          accessibilityLabel="Stel in als favoriet"
-          control={control}
-          defaultValue={false}
-          label={<Phrase>Opslaan als standaard</Phrase>}
-          name="parking_machine_favorite"
-          testID="ParkingSessionChooseParkingMachineFavoriteSwitch"
-        />
-      )}
+      {currentPermit.parking_machine_favorite !== parkingMachine &&
+        !!parkingMachine &&
+        !error && (
+          <SwitchField
+            accessibilityLabel="Stel in als favoriet"
+            control={control}
+            defaultValue={false}
+            label={<Phrase>Opslaan als standaard</Phrase>}
+            name="parking_machine_favorite"
+            testID="ParkingSessionChooseParkingMachineFavoriteSwitch"
+          />
+        )}
     </Column>
   )
 }
