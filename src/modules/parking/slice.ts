@@ -28,6 +28,10 @@ export type ParkingState = {
    */
   isLoginStepsActive: boolean
   /**
+   * Whether the maintenance alert has been dismissed by the user
+   */
+  isMaintenanceAlertDismissed?: boolean
+  /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
   shouldShowLoginScreen: boolean
@@ -43,6 +47,7 @@ const initialState: ParkingState = {
   currentApiVersion: undefined,
   currentPermitReportCode: undefined,
   deeplinkAccount: undefined,
+  isMaintenanceAlertDismissed: false,
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
@@ -162,6 +167,12 @@ export const parkingSlice = createSlice({
     ) => {
       state.walletBalanceIncreaseStartBalance = payload
     },
+    setIsMaintenanceAlertDismissed: (
+      state,
+      {payload}: PayloadAction<boolean>,
+    ) => {
+      state.isMaintenanceAlertDismissed = payload
+    },
   },
 })
 
@@ -176,6 +187,7 @@ export const {
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
+  setIsMaintenanceAlertDismissed,
 } = parkingSlice.actions
 
 export const selectAccessToken = (state: RootState) =>
@@ -232,6 +244,9 @@ export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
 
 export const selectWalletBalanceIncreaseStartBalance = (state: RootState) =>
   state[ReduxKey.parking].walletBalanceIncreaseStartBalance
+
+export const selectIsMaintenanceAlertDismissed = (state: RootState) =>
+  state[ReduxKey.parking].isMaintenanceAlertDismissed
 
 // split selectors and dispatch
 export const useParkingAccessToken = () => {
