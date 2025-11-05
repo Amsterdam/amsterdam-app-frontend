@@ -92,42 +92,44 @@ export const ParkingLoginForm = () => {
 
   return (
     <FormProvider {...form}>
-      <Column gutter="md">
-        <TextInputField
-          autoFocus
-          hasClearButton={false}
-          keyboardType={
-            apiVersion === ParkingApiVersion.v1
-              ? 'number-pad'
-              : 'numbers-and-punctuation'
-          }
-          label="Meldcode"
-          name="reportCode"
-          onSubmitEditing={() => {
-            pincodeRef.current?.focus()
-          }}
-          returnKeyType={Platform.OS !== 'ios' ? 'done' : undefined}
-          rules={{
-            required: 'Vul een meldcode in',
-          }}
-          submitBehavior="submit"
-          testID="ParkingLoginFormReportCodeInputField"
-        />
-        <TextInputField
-          hasClearButton={false}
-          keyboardType="number-pad"
-          label="Pincode"
-          name="pin"
-          onSubmitEditing={onSubmit}
-          ref={pincodeRef}
-          rules={{
-            required: 'Vul een pincode in',
-          }}
-          testID="ParkingLoginFormPinCodeInputField"
-        />
+      <Column gutter="xl">
+        <Column gutter="md">
+          <TextInputField
+            autoFocus
+            hasClearButton={false}
+            keyboardType={
+              apiVersion === ParkingApiVersion.v1
+                ? 'number-pad'
+                : 'numbers-and-punctuation'
+            }
+            label="Meldcode"
+            name="reportCode"
+            onSubmitEditing={() => {
+              pincodeRef.current?.focus()
+            }}
+            returnKeyType={Platform.OS !== 'ios' ? 'done' : undefined}
+            rules={{
+              required: 'Vul een meldcode in',
+            }}
+            submitBehavior="submit"
+            testID="ParkingLoginFormReportCodeInputField"
+          />
+          <TextInputField
+            hasClearButton={false}
+            keyboardType="number-pad"
+            label="Pincode"
+            name="pin"
+            onSubmitEditing={onSubmit}
+            ref={pincodeRef}
+            rules={{
+              required: 'Vul een pincode in',
+            }}
+            testID="ParkingLoginFormPinCodeInputField"
+          />
+        </Column>
+
         <Button
           disabled={form.formState.isSubmitting}
-          insetBlockStart={20}
           isLoading={form.formState.isSubmitting}
           label="Inloggen"
           onPress={onSubmit}
