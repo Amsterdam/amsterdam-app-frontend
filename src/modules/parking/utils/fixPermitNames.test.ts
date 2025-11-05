@@ -2,7 +2,7 @@ import {ParkingPermit} from '@/modules/parking/types'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 
 describe('fixPermitNames', () => {
-  it('voegt report_code toe aan permit_name als er meerdere permits met hetzelfde type zijn', () => {
+  it('voegt report_code toe aan permit_name als er meerdere permits met dezelfde naam zijn', () => {
     const permits: ParkingPermit[] = [
       {
         permit_type: 'A',
@@ -11,7 +11,7 @@ describe('fixPermitNames', () => {
         id: 1,
       } as unknown as ParkingPermit,
       {
-        permit_type: 'A',
+        permit_type: 'B',
         permit_name: 'Parkeerbewijs',
         report_code: '456',
         id: 2,
@@ -30,7 +30,7 @@ describe('fixPermitNames', () => {
     expect(result[2]?.permit_name).toBe('Ander bewijs')
   })
 
-  it('laat permit_name ongemoeid als het type uniek is', () => {
+  it('laat permit_name ongemoeid als de naam uniek is', () => {
     const permits: ParkingPermit[] = [
       {
         permit_type: 'A',

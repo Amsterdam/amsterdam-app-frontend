@@ -6,7 +6,7 @@ import {ParkingPermit} from '@/modules/parking/types'
 export const fixPermitNames = (permits: ParkingPermit[]) => {
   const permitNameCounts = permits.reduce(
     (acc, permit) => {
-      acc[permit.permit_type] = (acc[permit.permit_type] || 0) + 1
+      acc[permit.permit_name] = (acc[permit.permit_name] || 0) + 1
 
       return acc
     },
@@ -14,7 +14,7 @@ export const fixPermitNames = (permits: ParkingPermit[]) => {
   )
 
   return permits.map(permit => {
-    if (permitNameCounts[permit.permit_type] > 1) {
+    if (permitNameCounts[permit.permit_name] > 1) {
       return {
         ...permit,
         permit_name: `${permit.permit_name} (${permit.report_code})`,
