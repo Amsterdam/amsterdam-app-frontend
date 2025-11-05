@@ -8,7 +8,11 @@ import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
+import {
+  ParkingPermitScope,
+  PermitType,
+  type ParkingPermit,
+} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
@@ -18,16 +22,23 @@ const ALLOWED_PERMIT_TYPES = [
   PermitType['GA-bezoekerskaart'],
 ]
 
-const ParkingActionButtonContent = () => {
+const ParkingActionButtonContent = ({
+  cachedPermits = [],
+}: {
+  cachedPermits?: ParkingPermit[]
+}) => {
   const {navigate} = useNavigation()
   const {isInactive} = useGetCachedServerModule(parkingModule.slug)
   const {permits} = useGetPermits(isInactive)
 
+  const optimisticPermits = permits ?? cachedPermits
+
   return (
-    permits?.length === 1 &&
-    ALLOWED_PERMIT_TYPES.includes(permits[0].permit_type) && (
+    optimisticPermits?.length === 1 &&
+    ALLOWED_PERMIT_TYPES.includes(optimisticPermits[0].permit_type) && (
       <Column>
         <ActionButton
+          disabled={!permits}
           iconName="parkingSession"
           isModuleInactive={isInactive}
           label={'Parkeersessie\nstarten'}
@@ -57,5 +68,5 @@ export const ParkingActionButton = () => {
     return null
   }
 
-  return <ParkingActionButtonContent />
+  return <ParkingActionButtonContent cachedPermits={parkingAccount?.permits} />
 }
