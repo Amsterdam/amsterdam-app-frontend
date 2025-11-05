@@ -20,6 +20,8 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
 
   const {licensePlates, isLoading} = useGetLicensePlates()
 
+  const activeLicensePlates = licensePlates?.filter(l => !l.is_future)
+
   const onPress = useCallback(
     (licensePlate: ParkingLicensePlate) => {
       setLicensePlate(licensePlate)
@@ -32,7 +34,7 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
     return <PleaseWait testID="ParkingSessionSelectLicensePlatePleaseWait" />
   }
 
-  if (!licensePlates) {
+  if (!activeLicensePlates) {
     return (
       <SomethingWentWrong testID="ParkingSessionSelectLicensePlateSomethingWentWrong" />
     )
@@ -45,10 +47,10 @@ export const ParkingSessionSelectLicensePlate = ({setLicensePlate}: Props) => {
           level="h5"
           text="Mijn kentekens"
         />
-        {licensePlates.length === 0 && (
+        {activeLicensePlates.length === 0 && (
           <Phrase>U heeft nog geen kentekens opgeslagen.</Phrase>
         )}
-        {licensePlates?.map(licensePlate => {
+        {activeLicensePlates?.map(licensePlate => {
           const title = `${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`
 
           return (
