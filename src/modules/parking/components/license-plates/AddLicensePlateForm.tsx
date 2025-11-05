@@ -88,7 +88,7 @@ export const AddLicensePlateForm = () => {
             required: 'Vul een naam in',
             maxLength: {
               value: 50,
-              message: 'De ingevoerde naam is te lang.',
+              message: 'De ingevoerde naam is te lang',
             },
           }}
           testID="ParkingAddLicensePlateFormNameInputField"
