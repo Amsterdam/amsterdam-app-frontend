@@ -1,9 +1,11 @@
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
+import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {ParkingLicensePlate} from '@/modules/parking/types'
+import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = {
   isRemovable: boolean
@@ -13,7 +15,7 @@ type Props = {
 }
 
 export const LicensePlateListItem = ({
-  licensePlate: {id, vehicle_id, visitor_name},
+  licensePlate: {activated_at, id, is_future, vehicle_id, visitor_name},
   isRemovable,
   number,
   onPressDelete,
@@ -30,9 +32,18 @@ export const LicensePlateListItem = ({
           <Phrase
             emphasis="strong"
             flexShrink={0}>
-            {number}.
+            {is_future ? '-' : number + '.'}
           </Phrase>
-          <Phrase emphasis="strong">{licensePlate}</Phrase>
+          {is_future && activated_at ? (
+            <Column>
+              <Phrase emphasis="strong">{licensePlate}</Phrase>
+              <Phrase>
+                Actief vanaf {dayjs(activated_at).format('D MMMM YYYY')}
+              </Phrase>
+            </Column>
+          ) : (
+            <Phrase emphasis="strong">{licensePlate}</Phrase>
+          )}
         </Row>
       </SingleSelectable>
       {!!isRemovable && (

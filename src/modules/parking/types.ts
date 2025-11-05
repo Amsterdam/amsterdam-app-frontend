@@ -91,7 +91,9 @@ export type ParkingLoginEndpointResponse = {
 
 // License-plate
 export type ParkingLicensePlate = {
+  activated_at?: string
   id: string
+  is_future?: boolean
   vehicle_id: string
   visitor_name?: string
 }
