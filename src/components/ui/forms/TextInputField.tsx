@@ -1,7 +1,7 @@
 import {Controller, type UseControllerProps} from 'react-hook-form'
 import {type TextInputProps} from 'react-native'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
-import type {Ref} from 'react'
+import type {RefObject} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {
   TextInput,
@@ -14,7 +14,7 @@ import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAn
 
 type Props = {
   maxCharacters?: number
-  ref?: Ref<TextInputRN | null>
+  ref?: RefObject<TextInputRN | null>
 } & TextInputSharedProps &
   TestProps &
   UseControllerProps &

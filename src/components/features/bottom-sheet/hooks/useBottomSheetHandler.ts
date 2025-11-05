@@ -1,5 +1,6 @@
 import BottomSheet from '@gorhom/bottom-sheet'
 import {useRef, useEffect, useCallback} from 'react'
+import {Dimensions} from 'react-native'
 import {useCloseBottomSheetOnBackPress} from '@/components/features/bottom-sheet/hooks/useCloseBottomSheetOnBackPress'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {
@@ -20,6 +21,15 @@ export const useBottomSheetHandler = () => {
   useEffect(() => {
     variantRef.current = variant
   }, [variant])
+
+  useEffect(() => {
+    const onChange = () => {
+      close()
+    }
+    const subscription = Dimensions.addEventListener('change', onChange)
+
+    return () => subscription?.remove()
+  }, [close])
 
   useBlurEffect(close)
 
