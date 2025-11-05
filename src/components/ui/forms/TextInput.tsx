@@ -1,8 +1,13 @@
-import {BottomSheetTextInput} from '@gorhom/bottom-sheet'
-import {createRef, type Ref, useEffect, useState} from 'react'
-import {Platform, StyleSheet, type TextInputProps, View} from 'react-native'
+import {createRef, type RefObject, useEffect, useState} from 'react'
+import {
+  Platform,
+  StyleSheet,
+  type TextInputProps as TextInputPropsRN,
+  View,
+} from 'react-native'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
+import {BottomSheetTextInput} from '@/components/features/bottom-sheet/BottomSheetTextInput'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Label} from '@/components/ui/forms/Label'
 import {Column} from '@/components/ui/layout/Column'
@@ -19,13 +24,13 @@ export type TextInputSharedProps = {
   textTransform?: (text: string) => string
 }
 
-type Props = {
+export type TextInputProps = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
-  ref?: Ref<TextInputRN | null>
+  ref?: RefObject<TextInputRN | null>
   warning?: boolean
 } & TextInputSharedProps &
-  TextInputProps
+  TextInputPropsRN
 
 export const TextInput = ({
   ref,
@@ -42,7 +47,7 @@ export const TextInput = ({
   textTransform,
   accessibilityLanguage = 'nl-NL',
   ...textInputProps
-}: Props) => {
+}: TextInputProps) => {
   const isInBottomSheet = useIsInBottomSheet()
   const inputRef = createRef<TextInputRN>()
   const [hasFocus, setHasFocus] = useState(false)
@@ -137,7 +142,11 @@ export const TextInput = ({
 }
 
 const createStyles =
-  ({hasFocus, numberOfLines, warning}: {hasFocus: boolean} & Partial<Props>) =>
+  ({
+    hasFocus,
+    numberOfLines,
+    warning,
+  }: {hasFocus: boolean} & Partial<TextInputProps>) =>
   ({color, size, text}: Theme) => {
     const borderWidth = hasFocus || warning ? 2 : 1
     const paddingHorizontal = size.spacing.md - (borderWidth - 1)
