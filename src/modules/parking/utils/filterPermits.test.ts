@@ -34,12 +34,19 @@ describe('filterPermits', () => {
       {...basePermit, permit_name: 'Bedrijfsvergunning'},
       {...basePermit, permit_name: 'met wisselend kenteken'},
       {...basePermit, permit_name: 'Onbekende vergunning'},
+      {
+        ...basePermit,
+        permit_name: 'GA-parkeervergunning voor bewoners (bestuurders)',
+      },
     ]
     const filtered = filterPermits(permits)
 
     expect(filtered).toHaveLength(6)
     expect(filtered.map(p => p.permit_name)).not.toContain(
       'Onbekende vergunning',
+    )
+    expect(filtered.map(p => p.permit_name)).not.toContain(
+      'GA-parkeervergunning voor bewoners (bestuurders)',
     )
   })
 
