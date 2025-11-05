@@ -1,3 +1,4 @@
+import {useEffect, useOptimistic, useTransition} from 'react'
 import {ActionButton} from '@/components/ui/buttons/ActionButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
@@ -31,7 +32,20 @@ const ParkingActionButtonContent = ({
   const {isInactive} = useGetCachedServerModule(parkingModule.slug)
   const {permits} = useGetPermits(isInactive)
 
-  const optimisticPermits = permits ?? cachedPermits
+  const [optimisticPermits, setPermits] = useOptimistic(
+    permits ?? cachedPermits,
+    (_, newPermits: ParkingPermit[]) => newPermits,
+  )
+
+  const [_, startTransition] = useTransition()
+
+  useEffect(() => {
+    if (Array.isArray(permits)) {
+      startTransition(() => {
+        setPermits(permits)
+      })
+    }
+  }, [permits, setPermits])
 
   return (
     optimisticPermits?.length === 1 &&
