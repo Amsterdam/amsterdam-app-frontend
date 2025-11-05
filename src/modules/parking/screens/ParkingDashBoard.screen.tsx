@@ -14,6 +14,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeaderButton'
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
+import {MaintenanceAlert} from '@/modules/parking/components/MaintenanceAlert'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
@@ -81,7 +82,12 @@ export const ParkingDashboardScreen = ({route}: Props) => {
           disableHorizontalInsets: true,
           SideComponent: DashboardHeaderButton,
         }}
-        stickyHeader={<DashboardMenu />}
+        stickyHeader={
+          <>
+            <MaintenanceAlert />
+            <DashboardMenu />
+          </>
+        }
         testID="ParkingDashboardScreen">
         <BackgroundColorArea
           color="primary"

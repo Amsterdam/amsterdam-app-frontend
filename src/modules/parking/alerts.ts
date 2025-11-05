@@ -173,6 +173,13 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingStartSessionSuccessAlert',
   },
+  maintenanceInfo: {
+    variant: AlertVariant.information,
+    title: 'Onderhoud Parkeren',
+    text: 'Op donderdag 13 november wordt Parkeren tijdelijk uitgeschakeld vanwege onderhoud. We doen ons best om dit zo snel mogelijk af te ronden. Dank voor uw geduld!',
+    hasIcon: true,
+    testID: 'ParkingMaintenanceAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts
