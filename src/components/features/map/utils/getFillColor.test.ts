@@ -1,7 +1,7 @@
 import {getFillColor} from '@/components/features/map/utils/getFillColor'
 
 describe('getFillColor', () => {
-  it('should return red with given opacity.', () => {
+  it('should return the fill color with given opacity.', () => {
     const result1 = getFillColor('red', 1)
     const result2 = getFillColor('blue', 0.5)
     const result3 = getFillColor('green', 0)
