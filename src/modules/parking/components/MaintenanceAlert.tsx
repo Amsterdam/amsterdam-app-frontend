@@ -13,10 +13,9 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 const shouldShowAlert = () => {
   const now = dayjs()
-  const logoutDate = dayjs('2025-11-13T00:00:00+01:00')
-  const diff = logoutDate.diff(now, 'day')
+  const maintenanceDate = dayjs('2025-11-13T12:00:00+01:00')
 
-  return diff > 0
+  return maintenanceDate.isAfter(now)
 }
 
 export const MaintenanceAlert = () => {
