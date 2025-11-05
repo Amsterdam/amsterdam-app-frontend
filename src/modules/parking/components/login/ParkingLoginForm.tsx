@@ -5,12 +5,10 @@ import type {TextInput} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -27,8 +25,6 @@ import {
 import {useAlert} from '@/store/slices/alert'
 
 export const ParkingLoginForm = () => {
-  const navigation = useNavigation()
-  const {navigate} = navigation
   const apiVersion = useCurrentParkingApiVersion()
   const deeplinkAccount = useParkingDeeplinkAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
@@ -96,45 +92,42 @@ export const ParkingLoginForm = () => {
 
   return (
     <FormProvider {...form}>
-      <Column gutter="md">
-        <TextInputField
-          autoFocus
-          hasClearButton={false}
-          keyboardType={
-            apiVersion === ParkingApiVersion.v1
-              ? 'number-pad'
-              : 'numbers-and-punctuation'
-          }
-          label="Meldcode"
-          name="reportCode"
-          onSubmitEditing={() => {
-            pincodeRef.current?.focus()
-          }}
-          returnKeyType={Platform.OS !== 'ios' ? 'done' : undefined}
-          rules={{
-            required: 'Vul een meldcode in',
-          }}
-          submitBehavior="submit"
-          testID="ParkingLoginFormReportCodeInputField"
-        />
-        <TextInputField
-          hasClearButton={false}
-          keyboardType="number-pad"
-          label="Pincode"
-          name="pin"
-          onSubmitEditing={onSubmit}
-          ref={pincodeRef}
-          rules={{
-            required: 'Vul een pincode in',
-          }}
-          testID="ParkingLoginFormPinCodeInputField"
-        />
-        <Button
-          label="Pincode vergeten"
-          onPress={() => navigate(ParkingRouteName.requestPinCode)}
-          testID="ParkingLoginForgotPinButton"
-          variant="tertiary"
-        />
+      <Column gutter="xl">
+        <Column gutter="md">
+          <TextInputField
+            autoFocus
+            hasClearButton={false}
+            keyboardType={
+              apiVersion === ParkingApiVersion.v1
+                ? 'number-pad'
+                : 'numbers-and-punctuation'
+            }
+            label="Meldcode"
+            name="reportCode"
+            onSubmitEditing={() => {
+              pincodeRef.current?.focus()
+            }}
+            returnKeyType={Platform.OS !== 'ios' ? 'done' : undefined}
+            rules={{
+              required: 'Vul een meldcode in',
+            }}
+            submitBehavior="submit"
+            testID="ParkingLoginFormReportCodeInputField"
+          />
+          <TextInputField
+            hasClearButton={false}
+            keyboardType="number-pad"
+            label="Pincode"
+            name="pin"
+            onSubmitEditing={onSubmit}
+            ref={pincodeRef}
+            rules={{
+              required: 'Vul een pincode in',
+            }}
+            testID="ParkingLoginFormPinCodeInputField"
+          />
+        </Column>
+
         <Button
           disabled={form.formState.isSubmitting}
           isLoading={form.formState.isSubmitting}

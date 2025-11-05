@@ -34,12 +34,6 @@ export const alerts = {
     hasIcon: true,
     testID: 'ParkingManageVisitorAdjustTimeBalanceSuccessAlert',
   },
-  changePincodeSuccess: {
-    variant: AlertVariant.positive,
-    text: 'Pincode verstuurd als deze meldcode bestaat.',
-    hasIcon: true,
-    testID: 'ParkingChangePincodeSuccessAlert',
-  },
   createVisitorAccountSuccess: {
     variant: AlertVariant.positive,
     text: 'Voeg tijdsaldo toe en deel de meldcode en pincode met uw bezoek.',

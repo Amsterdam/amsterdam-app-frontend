@@ -18,7 +18,6 @@ export enum ParkingEndpointName {
   manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',
   parkingMachines = 'parkingMachines',
-  parkingPinCode = 'parkingPinCode',
   parkingSessionHistory = 'parkingSessionHistory',
   parkingSessions = 'parkingSessions',
   parkingTransactions = 'parkingTransactions',
@@ -61,11 +60,6 @@ export enum ParkingPermitScope {
 
 export type ParkingAccountLogin = {
   pin: string
-  reportCode: string
-}
-
-export type RequestPinCode = {
-  phoneLastFourDigits: string
   reportCode: string
 }
 

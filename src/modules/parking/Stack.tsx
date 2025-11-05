@@ -20,7 +20,6 @@ import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
-import {ParkingRequestPinCodeScreen} from '@/modules/parking/screens/ParkingRequestPinCode.screen'
 import {useParkingAccountIsLoggingIn} from '@/modules/parking/slice'
 import {SecureItemKey} from '@/utils/secureStorage'
 
@@ -68,21 +67,6 @@ export const ParkingStack = () => {
       isSecurePermitHolderArray) ||
     (secureVisitor && secureVisitor !== '[]' && isSecureVisitorArray)
 
-  const LoginAndRequestPinCodeScreens = (
-    <>
-      <Stack.Screen
-        component={ParkingLoginScreen}
-        name={ParkingRouteName.login}
-        options={{headerTitle: 'Inloggen'}}
-      />
-      <Stack.Screen
-        component={ParkingRequestPinCodeScreen}
-        name={ParkingRouteName.requestPinCode}
-        options={{headerTitle: 'Pincode vergeten'}}
-      />
-    </>
-  )
-
   return (
     <Stack.Navigator screenOptions={screenOptions}>
       {isForgotCode ? (
@@ -103,7 +87,13 @@ export const ParkingStack = () => {
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
             <>
-              {!!isLoggingIn && LoginAndRequestPinCodeScreens}
+              {!!isLoggingIn && (
+                <Stack.Screen
+                  component={ParkingLoginScreen}
+                  name={ParkingRouteName.login}
+                  options={{headerTitle: 'Inloggen'}}
+                />
+              )}
               {Object.entries(parkingScreenConfig).map(([key, route]) => (
                 <Stack.Screen
                   key={key}
@@ -154,7 +144,11 @@ export const ParkingStack = () => {
               options={{headerTitle: 'Aanmelden parkeren'}}
             />
           )}
-          {LoginAndRequestPinCodeScreens}
+          <Stack.Screen
+            component={ParkingLoginScreen}
+            name={ParkingRouteName.login}
+            options={{headerTitle: 'Inloggen'}}
+          />
         </>
       )}
     </Stack.Navigator>
