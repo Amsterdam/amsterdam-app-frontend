@@ -129,6 +129,9 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
               disabled={
                 isLoadingAddProjectWarning || isLoadingAddProjectWarningImage
               }
+              isLoading={
+                isLoadingAddProjectWarning || isLoadingAddProjectWarningImage
+              }
               label="Plaats bericht"
               onPress={onSubmit}
               testID="ConstructionWorkEditorCreateMessageSubmitButton"
