@@ -1,6 +1,8 @@
-import {Geojson, type LatLng} from 'react-native-maps'
-import type {Feature} from 'geojson'
+import {Geojson} from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
+import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
+import {getFillColor} from '@/components/features/map/utils/getFillColor'
+import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
@@ -24,8 +26,8 @@ export const ParkingSessionDetailsPermitZones = () => {
   }
 
   const properties = data.geojson.features[0]?.properties
-  const allCoords = getAllPolygonCoords(data.geojson.features)
-  const region = getInitialRegion(allCoords)
+  const allCoords = getAllPolygonCoords(data.geojson)
+  const region = getRegionFromCoords(allCoords)
 
   return (
     <Map region={region}>
@@ -38,46 +40,4 @@ export const ParkingSessionDetailsPermitZones = () => {
       />
     </Map>
   )
-}
-
-const getFillColor = (fill: string, opacity: number) => {
-  if (!['red', 'green', 'blue'].includes(fill)) {
-    return fill
-  }
-
-  return `rgba(${fill === 'red' ? 255 : 0}, ${fill === 'green' ? 255 : 0}, ${fill === 'blue' ? 255 : 0}, ${opacity})`
-}
-
-const getAllPolygonCoords = (features: Feature[]): LatLng[] =>
-  features
-    .filter((feature: Feature) => feature.geometry?.type === 'Polygon')
-    .flatMap((feature: Feature) => {
-      if (feature.geometry?.type === 'Polygon') {
-        return feature.geometry.coordinates[0].map(coord => ({
-          latitude: coord[1],
-          longitude: coord[0],
-        }))
-      }
-
-      return []
-    })
-
-const getInitialRegion = (allCoords: LatLng[]) => {
-  if (allCoords.length === 0) {
-    return undefined
-  }
-
-  const lats = allCoords.map(c => c.latitude)
-  const lngs = allCoords.map(c => c.longitude)
-  const minLat = Math.min(...lats)
-  const maxLat = Math.max(...lats)
-  const minLng = Math.min(...lngs)
-  const maxLng = Math.max(...lngs)
-
-  return {
-    latitude: (minLat + maxLat) / 2,
-    longitude: (minLng + maxLng) / 2,
-    latitudeDelta: Math.max(0.01, (maxLat - minLat) * 1.2),
-    longitudeDelta: Math.max(0.01, (maxLng - minLng) * 1.2),
-  }
 }
