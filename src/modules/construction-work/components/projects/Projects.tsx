@@ -18,7 +18,7 @@ import {
 import {
   type ProjectsItem,
   type ProjectsQueryArgs,
-  ProjectsEndpointName,
+  ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 
@@ -51,7 +51,7 @@ export const Projects = () => {
     ProjectsQueryArgs
   >(
     emptyProjectsItem,
-    projectsApi.endpoints[ProjectsEndpointName.projects],
+    projectsApi.endpoints[ConstructionWorkEndpointName.projects],
     'id',
     useProjectsQuery,
     page,

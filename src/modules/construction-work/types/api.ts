@@ -7,7 +7,7 @@ import {
   SortQueryArgs,
 } from '@/types/api'
 
-export enum ProjectsEndpointName {
+export enum ConstructionWorkEndpointName {
   articles = 'articles',
   projectDetails = 'projectDetails',
   projectFollow = 'projectFollow',

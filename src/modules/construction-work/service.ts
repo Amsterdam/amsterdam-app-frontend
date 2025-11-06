@@ -8,7 +8,7 @@ import {
   ProjectNewsResponse,
   ProjectWarningQueryArgs,
   ProjectWarningResponse,
-  ProjectsEndpointName,
+  ConstructionWorkEndpointName,
   ProjectsQueryArgs,
   ProjectsResponse,
   ProjectsSearchQueryArgs,
@@ -28,7 +28,7 @@ const MODULE_SLUG = ModuleSlug['construction-work']
 export const projectsApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     // /articles GET
-    [ProjectsEndpointName.articles]: builder.query<
+    [ConstructionWorkEndpointName.articles]: builder.query<
       ArticlesResponse,
       ArticlesQueryArgs
     >({
@@ -45,7 +45,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /project/details GET
-    [ProjectsEndpointName.projectDetails]: builder.query<
+    [ConstructionWorkEndpointName.projectDetails]: builder.query<
       ProjectDetailsResponse,
       ProjectDetailsQueryArgs
     >({
@@ -60,7 +60,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /project/news GET
-    [ProjectsEndpointName.projectNews]: builder.query<
+    [ConstructionWorkEndpointName.projectNews]: builder.query<
       ProjectNewsResponse,
       ProjectNewsQueryArgs
     >({
@@ -72,7 +72,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /project/warning GET
-    [ProjectsEndpointName.projectWarning]: builder.query<
+    [ConstructionWorkEndpointName.projectWarning]: builder.query<
       ProjectWarningResponse,
       ProjectWarningQueryArgs
     >({
@@ -84,7 +84,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects GET
-    [ProjectsEndpointName.projects]: builder.query<
+    [ConstructionWorkEndpointName.projects]: builder.query<
       ProjectsResponse,
       ProjectsQueryArgs
     >({
@@ -104,7 +104,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects/follow DELETE
-    [ProjectsEndpointName.projectUnfollow]: builder.mutation<
+    [ConstructionWorkEndpointName.projectUnfollow]: builder.mutation<
       string,
       FollowProjectBody
     >({
@@ -119,7 +119,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects/follow POST
-    [ProjectsEndpointName.projectFollow]: builder.mutation<
+    [ConstructionWorkEndpointName.projectFollow]: builder.mutation<
       string,
       FollowProjectBody
     >({
@@ -134,7 +134,7 @@ export const projectsApi = baseApi.injectEndpoints({
     }),
 
     // /projects/search GET
-    [ProjectsEndpointName.projectsSearch]: builder.query<
+    [ConstructionWorkEndpointName.projectsSearch]: builder.query<
       ProjectsSearchResponse,
       ProjectsSearchQueryArgs
     >({

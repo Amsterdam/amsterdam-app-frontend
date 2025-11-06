@@ -12,7 +12,7 @@ import {ModuleSlug} from '@/modules/slugs'
 
 type ModuleButtonContentProps = {
   disabled: boolean | undefined
-  iconName: SvgIconName | 'projects'
+  iconName: SvgIconName
   label: string
   variant: ButtonVariants
 } & TestProps
@@ -39,23 +39,13 @@ const ModuleButtonContent = ({
   return (
     <Row gutter="sm">
       <Row gutter="md">
-        {/* TODO Remove fallback after updating icon name in database. */}
-        {iconName === 'projects' ? (
+        {!!iconName && (
           <Icon
             color={color}
-            name="construction-work"
+            name={iconName}
             size="lg"
             testID={`${testID}Icon`}
           />
-        ) : (
-          !!iconName && (
-            <Icon
-              color={color}
-              name={iconName}
-              size="lg"
-              testID={`${testID}Icon`}
-            />
-          )
         )}
         <Title
           color={color}
@@ -81,7 +71,7 @@ type ButtonVariants = 'primary' | 'tertiary'
 type ModuleButtonProps = {
   alwaysEnabled?: boolean
   disabled?: boolean
-  iconName: SvgIconName | 'projects'
+  iconName: SvgIconName
   label: string
   slug: ModuleSlug
   variant?: ButtonVariants
