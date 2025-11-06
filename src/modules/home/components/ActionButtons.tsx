@@ -19,7 +19,9 @@ export const ActionButtons = () => {
   }
 
   return (
-    <Row align="evenly">
+    <Row
+      align="evenly"
+      valign="start">
       {modules.map(
         ({ActionButton, slug}) => ActionButton && <ActionButton key={slug} />,
       )}
