@@ -85,11 +85,6 @@ describe('getGroupedOpeningHours', () => {
       },
       {
         closing: {hours: 17, minutes: 0},
-        dayOfWeek: 2,
-        opening: {hours: 9, minutes: 0},
-      },
-      {
-        closing: {hours: 17, minutes: 0},
         dayOfWeek: 3,
         opening: {hours: 9, minutes: 0},
       },
@@ -111,6 +106,11 @@ describe('getGroupedOpeningHours', () => {
       {
         closing: {hours: 19, minutes: 0},
         dayOfWeek: 4,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 2,
         opening: {hours: 9, minutes: 0},
       },
     ]
