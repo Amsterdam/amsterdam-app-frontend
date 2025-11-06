@@ -42,10 +42,26 @@ const joinDays = (days: number[]) => {
   )
 }
 
+const sortDaysChronologically = (groups: Record<string, number[]>) =>
+  Object.entries(groups).sort((a, b) => {
+    const aNum = a[1][0]
+    const bNum = b[1][0]
+
+    if (aNum === 0 && bNum !== 0) {
+      return 1
+    }
+
+    if (bNum === 0 && aNum !== 0) {
+      return -1
+    }
+
+    return aNum - bNum
+  })
+
 export const getGroupedOpeningHours = (visitingHours: VisitingHour[]) => {
   const groups = groupByOpeningHours(visitingHours)
 
-  return Object.entries(groups).map(([key, days]) => {
+  return sortDaysChronologically(groups).map(([key, days]) => {
     const [open, close] = key.split('-')
     const [openH, openM] = open.split(':').map(Number)
     const [closeH, closeM] = close.split(':').map(Number)

@@ -75,4 +75,79 @@ describe('getGroupedOpeningHours', () => {
       'Dinsdag van 09.00 tot 17.00 uur',
     ])
   })
+
+  it('groups days chronologically starting from Monday', () => {
+    const hours1: VisitingHour[] = [
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 1,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 2,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 3,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 5,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 16, minutes: 0},
+        dayOfWeek: 0,
+        opening: {hours: 10, minutes: 0},
+      },
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 6,
+        opening: {hours: 9, minutes: 0},
+      },
+      {
+        closing: {hours: 19, minutes: 0},
+        dayOfWeek: 4,
+        opening: {hours: 9, minutes: 0},
+      },
+    ]
+
+    const hours2: VisitingHour[] = [
+      {
+        closing: {hours: 17, minutes: 0},
+        dayOfWeek: 1,
+        opening: {hours: 9, minutes: 0},
+      },
+
+      {
+        closing: {hours: 16, minutes: 0},
+        dayOfWeek: 0,
+        opening: {hours: 10, minutes: 0},
+      },
+
+      {
+        closing: {hours: 19, minutes: 0},
+        dayOfWeek: 4,
+        opening: {hours: 9, minutes: 0},
+      },
+    ]
+
+    const result1 = getGroupedOpeningHours(hours1)
+    const result2 = getGroupedOpeningHours(hours2)
+
+    expect(result1).toEqual([
+      'Maandag, dinsdag, woensdag, vrijdag en zaterdag van 09.00 tot 17.00 uur',
+      'Donderdag van 09.00 tot 19.00 uur',
+      'Zondag van 10.00 tot 16.00 uur',
+    ])
+
+    expect(result2).toEqual([
+      'Maandag van 09.00 tot 17.00 uur',
+      'Donderdag van 09.00 tot 19.00 uur',
+      'Zondag van 10.00 tot 16.00 uur',
+    ])
+  })
 })
