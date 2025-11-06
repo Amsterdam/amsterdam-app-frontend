@@ -66,6 +66,8 @@ export const getGroupedOpeningHours = (visitingHours: VisitingHour[]) => {
     const [openH, openM] = open.split(':').map(Number)
     const [closeH, closeM] = close.split(':').map(Number)
 
-    return `${joinDays(days)} van ${formatTime(openH, openM)} tot ${formatTime(closeH, closeM)} uur`
+    const sortedDays = Array.from(days).sort((a, b) => a - b)
+
+    return `${joinDays(sortedDays)} van ${formatTime(openH, openM)} tot ${formatTime(closeH, closeM)} uur`
   })
 }
