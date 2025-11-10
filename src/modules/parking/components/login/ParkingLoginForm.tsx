@@ -5,6 +5,9 @@ import type {TextInput} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
+import {InlineLink} from '@/components/ui/text/InlineLink'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
@@ -32,6 +35,7 @@ export const ParkingLoginForm = () => {
   const {setAccessToken} = useParkingAccessToken()
   const {resetAlert, setAlert} = useAlert()
   const trackException = useTrackException()
+  const openUrl = useOpenUrl()
 
   const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -126,6 +130,18 @@ export const ParkingLoginForm = () => {
             }}
             testID="ParkingLoginFormPinCodeInputField"
           />
+          <Paragraph>
+            U vindt uw meldcode en pincode in{' '}
+            <InlineLink
+              external
+              logging-label="ParkingLoginFormInlineLink"
+              onPress={() =>
+                openUrl('https://parkeervergunningen.amsterdam.nl/')
+              }
+              testID="ParkingLoginFormInlineLink">
+              Mijn Parkeren
+            </InlineLink>
+          </Paragraph>
         </Column>
 
         <Button
