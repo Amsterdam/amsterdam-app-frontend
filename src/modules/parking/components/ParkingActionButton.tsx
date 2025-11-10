@@ -4,7 +4,6 @@ import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
 import {parkingModule} from '@/modules/parking'
-import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useLoginSteps} from '@/modules/parking/hooks/useLoginSteps'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
@@ -18,44 +17,37 @@ const ALLOWED_PERMIT_TYPES = [
   PermitType['GA-bezoekerskaart'],
 ]
 
-const ParkingActionButtonContent = () => {
-  const {navigate} = useNavigation()
-  const {isInactive} = useGetCachedServerModule(parkingModule.slug)
-  const {permits} = useGetPermits(isInactive)
-
-  return (
-    permits?.length === 1 &&
-    ALLOWED_PERMIT_TYPES.includes(permits[0].permit_type) && (
-      <Column>
-        <ActionButton
-          iconName="parkingSession"
-          isModuleInactive={isInactive}
-          label={'Parkeersessie\nstarten'}
-          onPress={() => {
-            navigate(ModuleSlug.parking, {
-              screen: ParkingRouteName.startSession,
-            })
-          }}
-          testID="ParkingActionButton"
-        />
-        <Gutter height="lg" />
-      </Column>
-    )
-  )
-}
-
 export const ParkingActionButton = () => {
+  const {navigate} = useNavigation()
+
   const {accessCode} = useGetSecureAccessCode()
   const {isLoginStepsActive} = useLoginSteps()
   const parkingAccount = useParkingAccount()
+  const {isInactive} = useGetCachedServerModule(parkingModule.slug)
 
-  if (
-    !accessCode ||
-    parkingAccount?.scope !== ParkingPermitScope.permitHolder ||
-    isLoginStepsActive
-  ) {
+  const isAllowedPermit =
+    parkingAccount?.permits?.length === 1 &&
+    ALLOWED_PERMIT_TYPES.includes(parkingAccount.permits[0].permit_type) &&
+    parkingAccount.scope === ParkingPermitScope.permitHolder
+
+  if (!accessCode || isLoginStepsActive || !isAllowedPermit) {
     return null
   }
 
-  return <ParkingActionButtonContent />
+  return (
+    <Column>
+      <ActionButton
+        iconName="parkingSession"
+        isModuleInactive={isInactive}
+        label={'Parkeersessie\nstarten'}
+        onPress={() => {
+          navigate(ModuleSlug.parking, {
+            screen: ParkingRouteName.startSession,
+          })
+        }}
+        testID="ParkingActionButton"
+      />
+      <Gutter height="lg" />
+    </Column>
+  )
 }
