@@ -31,23 +31,22 @@ export const ParkingStartSessionButton = () => {
     formState: {isSubmitting, errors},
     setError,
   } = useFormContext<SessionFieldValues>()
-  const currentPermit = useCurrentParkingPermit()
-  const {report_code} = currentPermit
+  const {report_code, permit_type} = useCurrentParkingPermit()
   const apiVersion = useCurrentParkingApiVersion()
-  const isTimebalanceInsufficient =
-    errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
-    errors.root?.localError?.type === 'isTimeBalanceInsufficient'
-  const isWalletBalanceInsufficient =
-    errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW' ||
-    errors.root?.localError?.type === 'isWalletBalanceInsufficient'
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
-
   const [startSession, {isLoading}] = useStartSessionMutation()
-
   const {goBack} = useNavigation()
   const openWebUrl = useOpenWebUrl()
   const {registerDeviceIfPermitted} = useRegisterDevice()
+
+  const isTimebalanceInsufficient =
+    errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
+    errors.root?.localError?.type === 'isTimeBalanceInsufficient'
+
+  const isWalletBalanceInsufficient =
+    errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW' ||
+    errors.root?.localError?.type === 'isWalletBalanceInsufficient'
 
   const onSubmit = useCallback(
     ({
@@ -157,13 +156,12 @@ export const ParkingStartSessionButton = () => {
 
   return (
     <Button
-      disabled={isSubmitting || isLoading || !!errors.parking_machine}
+      disabled={isSubmitting || isLoading || !!Object.keys(errors).length}
       iconName="parkingSession"
-      isError={!!Object.entries(errors).length}
       isLoading={isLoading}
       label="Bevestig parkeersessie"
       onPress={handleSubmit(onSubmit)}
-      testID={`ParkingStartSession${currentPermit.permit_type}Button`}
+      testID={`ParkingStartSession${permit_type}Button`}
       variant="primary"
     />
   )
