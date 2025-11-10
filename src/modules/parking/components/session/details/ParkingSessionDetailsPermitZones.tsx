@@ -11,13 +11,13 @@ export const ParkingSessionDetailsPermitZones = () => {
   const {report_code, permit_zone} = useCurrentParkingPermit()
 
   useSetScreenTitle(permit_zone.name)
-  const {data, isLoading} = usePermitZonesQuery(report_code)
+  const {data, isLoading, isError} = usePermitZonesQuery(report_code)
 
   if (isLoading) {
     return <PleaseWait testID="ParkingSessionDetailsPermitZonesPleaseWait" />
   }
 
-  if (!data) {
+  if (!data?.geojson || isError) {
     return (
       <SomethingWentWrong testID="ParkingSessionDetailsPermitZonesSomethingWentWrong" />
     )
