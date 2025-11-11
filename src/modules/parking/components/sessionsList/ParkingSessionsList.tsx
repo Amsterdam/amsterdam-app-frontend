@@ -55,6 +55,7 @@ export const ParkingSessionsList = ({
         ? '2038-01-01T00:00:00'
         : '1970-01-01T00:00:00',
       ps_right_id: -1,
+      vehicle_id: '',
       dummy: true,
     } as unknown as ParkingSession,
     parkingApi.endpoints[ParkingEndpointName.parkingSessions],

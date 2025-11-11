@@ -9,7 +9,7 @@ export const useLicensePlateString = (
   const possiblyVisitorName = useMemo(
     () =>
       licensePlates?.find(
-        lp => lp.vehicle_id.toUpperCase() === vehicleId.toUpperCase(),
+        lp => lp.vehicle_id?.toUpperCase() === vehicleId?.toUpperCase(),
       )?.visitor_name,
     [licensePlates, vehicleId],
   )
