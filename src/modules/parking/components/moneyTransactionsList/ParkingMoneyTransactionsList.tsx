@@ -59,9 +59,11 @@ export const ParkingMoneyTransactionsList = () => {
   >(
     {
       created_date_time: '1970-01-01T00:00:00',
-      creation_time: -1,
       dummy: true,
-    } as unknown as ParkingTransactionOrDummy,
+      ps_right_id: 0,
+      start_date_time: '',
+      page: 0,
+    },
     parkingApi.endpoints[ParkingEndpointName.parkingTransactions],
     'created_date_time',
     useParkingTransactionsQuery,

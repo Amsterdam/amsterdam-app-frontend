@@ -4,7 +4,7 @@ import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
+import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {
   ParkingSessionOrDummy,
@@ -42,17 +42,7 @@ export const ParkingSessionsListVisitor = ({
     <SectionList
       ListEmptyComponent={isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
-      renderItem={({item}) => (
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          {item.dummy ? (
-            <Gutter height="lg" />
-          ) : (
-            <ParkingSessionNavigationButton parkingSession={item} />
-          )}
-        </Box>
-      )}
+      renderItem={ParkingSessionListRenderItem}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">

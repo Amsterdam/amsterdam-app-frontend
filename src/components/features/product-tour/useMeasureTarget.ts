@@ -18,11 +18,11 @@ export const useMeasureTarget = (targetRef: TargetRef) => {
   })
 
   const measureTarget = useCallback(() => {
-    if (!isFocused) {
+    if (!isFocused || !targetRef.current) {
       return
     }
 
-    void measureElement(targetRef.current as unknown as View).then(
+    void measureElement(targetRef.current).then(
       ({x, y, width, height}) => {
         if (x === 0 && y === 0 && width === 0 && height === 0) {
           setTimeout(measureTarget, 300)

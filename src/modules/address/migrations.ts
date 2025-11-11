@@ -40,6 +40,7 @@ export const parseCentroid = (
   return coordinates
 }
 
+// TODO remove
 export const migrations: MigrationManifest = {
   // added in 0.37.0
   0: oldAddressState => {
