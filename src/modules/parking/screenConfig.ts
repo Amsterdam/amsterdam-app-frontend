@@ -82,6 +82,9 @@ export const parkingScreenConfig: StackNavigationRoutes<
   [ParkingRouteName.parkingPermitZones]: {
     component: ParkingPermitZonesScreen,
     name: ParkingRouteName.parkingPermitZones,
+    options: {
+      headerShown: false,
+    },
   },
   [ParkingRouteName.parkingSession]: {
     component: ParkingSessionScreen,

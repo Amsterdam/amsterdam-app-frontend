@@ -1,6 +1,7 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import {FeatureCollection} from 'geojson'
 import {Geojson} from 'react-native-maps'
-import type {FeatureCollection} from 'geojson'
+import type {ParkingMachine} from '@/modules/parking/types'
 import {Map} from '@/components/features/map/Map'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
@@ -9,39 +10,47 @@ import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFrom
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
-import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
-  useParkingMachinesQuery,
   usePermitZonesQuery,
+  useParkingMachinesQuery,
 } from '@/modules/parking/service'
 
-export const ParkingSessionDetailsPermitZones = () => {
-  const {report_code, permit_zone} = useCurrentParkingPermit()
+export const ParkingPermitZoneMap = ({
+  onSelectParkingMachine,
+}: {
+  onSelectParkingMachine: (id: ParkingMachine['id']) => void
+}) => {
+  const {report_code} = useCurrentParkingPermit()
 
-  useSetScreenTitle(permit_zone.name)
-  const {data, isLoading, isError} = usePermitZonesQuery(report_code)
-
-  const {data: permitZoneData} = usePermitZonesQuery(report_code)
+  const {
+    data: permitZoneData,
+    isLoading,
+    isError,
+  } = usePermitZonesQuery(report_code)
 
   const {data: parkingMachinesData} = useParkingMachinesQuery(
     permitZoneData ? undefined : skipToken,
   )
 
   if (isLoading) {
-    return <PleaseWait testID="ParkingSessionDetailsPermitZonesPleaseWait" />
+    return <PleaseWait testID="ParkingPermitZoneMapPleaseWait" />
   }
 
-  if (!data?.geojson || Object.keys(data.geojson).length === 0 || isError) {
+  if (
+    isError ||
+    !permitZoneData?.geojson ||
+    Object.keys(permitZoneData.geojson).length === 0
+  ) {
     return (
       <Box>
-        <SomethingWentWrong testID="ParkingSessionDetailsPermitZonesSomethingWentWrong" />
+        <SomethingWentWrong testID="ParkingPermitZoneMapSomethingWentWrong" />
       </Box>
     )
   }
 
-  const properties = data.geojson.features[0]?.properties
-  const allCoords = getAllPolygonCoords(data.geojson)
+  const properties = permitZoneData.geojson.features[0]?.properties
+  const allCoords = getAllPolygonCoords(permitZoneData.geojson)
   const region = getRegionFromCoords(allCoords)
 
   return (
@@ -51,7 +60,7 @@ export const ParkingSessionDetailsPermitZones = () => {
           String(properties?.fill ?? 'blue'),
           Number(properties?.['fill-opacity'] ?? 0.5),
         )}
-        geojson={data.geojson as FeatureCollection}
+        geojson={permitZoneData.geojson as FeatureCollection}
       />
       {!!parkingMachinesData?.length &&
         parkingMachinesData.map(({lat, lon, id}) => (
@@ -61,6 +70,7 @@ export const ParkingSessionDetailsPermitZones = () => {
               longitude: lon,
             }}
             key={id}
+            onPress={() => onSelectParkingMachine(id)}
             variant="pin"
           />
         ))}

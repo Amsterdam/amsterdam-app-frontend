@@ -4,6 +4,7 @@ import type {
   ParkingAccount,
   ParkingAccountLogin,
   ParkingApiVersion,
+  ParkingMachine,
 } from '@/modules/parking/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
@@ -28,6 +29,11 @@ export type ParkingState = {
    */
   isLoginStepsActive: boolean
   /**
+   * Whether the maintenance alert has been dismissed by the user
+   */
+  isMaintenanceAlertDismissed?: boolean
+  selectedParkingMachineId?: ParkingMachine['id']
+  /**
    * Determines whether any screen before the login screen should be skipped so the user automatically navigates to the login screen.
    */
   shouldShowLoginScreen: boolean
@@ -46,6 +52,7 @@ const initialState: ParkingState = {
   isLoggingIn: false,
   isLoggingOut: false,
   isLoginStepsActive: false,
+  selectedParkingMachineId: undefined,
   shouldShowLoginScreen: false,
   visitorVehicleId: undefined,
   walletBalanceIncreaseStartBalance: undefined,
@@ -128,6 +135,12 @@ export const parkingSlice = createSlice({
     setLoginStepsActive: (state, {payload}: PayloadAction<boolean>) => {
       state.isLoginStepsActive = payload
     },
+    setSelectedParkingMachineId: (
+      state,
+      {payload: id}: PayloadAction<ParkingMachine['id']>,
+    ) => {
+      state.selectedParkingMachineId = id
+    },
     setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowLoginScreen = payload
     },
@@ -173,6 +186,7 @@ export const {
   setIsLoggingIn,
   setIsLoggingOut,
   setLoginStepsActive,
+  setSelectedParkingMachineId,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,
@@ -232,6 +246,12 @@ export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
 
 export const selectWalletBalanceIncreaseStartBalance = (state: RootState) =>
   state[ReduxKey.parking].walletBalanceIncreaseStartBalance
+
+export const selectIsMaintenanceAlertDismissed = (state: RootState) =>
+  state[ReduxKey.parking].isMaintenanceAlertDismissed
+
+export const selectSelectedParkingMachineId = (state: RootState) =>
+  state[ReduxKey.parking].selectedParkingMachineId
 
 // split selectors and dispatch
 export const useParkingAccessToken = () => {
@@ -295,3 +315,6 @@ export const useVisitorVehicleId = () => {
 
   return {visitorVehicleId, setVisitorVehicleId}
 }
+
+export const useSelectedParkingMachineId = () =>
+  useSelector(selectSelectedParkingMachineId)

@@ -447,3 +447,8 @@ export type ConfirmBalanceEndpointRequest = {
   signature: string
   status: string
 }
+
+export enum ParkingPermitZonesBottomSheetVariant {
+  address = 'address',
+  parkingMachine = 'parkingMachine',
+}
