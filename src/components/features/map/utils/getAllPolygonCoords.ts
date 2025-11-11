@@ -6,7 +6,7 @@ export const getAllPolygonCoords = ({features}: FeatureCollection): LatLng[] =>
 
 const getPolygonCoords = (feature: Feature): LatLng[] => {
   if (feature.geometry.type === 'Polygon') {
-    return feature.geometry.coordinates[0].map(([longitude, latitude]) => ({
+    return feature.geometry.coordinates.flat().map(([longitude, latitude]) => ({
       latitude,
       longitude,
     }))

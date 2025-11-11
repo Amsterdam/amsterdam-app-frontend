@@ -2,7 +2,7 @@ import type {FeatureCollection} from 'geojson'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 
 describe('getAllPolygonCoords', () => {
-  it('should return a flat array of LatLng coordinates consisting of first entry in each feature.geometry.coordinates.', () => {
+  it('should return a flat array of LatLng coordinates consisting of all nested Position entries in each feature.geometry.coordinates.', () => {
     const mockGeoJson: FeatureCollection = {
       type: 'FeatureCollection',
       features: [
@@ -31,7 +31,9 @@ describe('getAllPolygonCoords', () => {
 
     expect(result).toEqual([
       {longitude: 1, latitude: 2},
+      {longitude: 3, latitude: 4},
       {longitude: 5, latitude: 6},
+      {longitude: 7, latitude: 8},
     ])
   })
 
@@ -62,6 +64,39 @@ describe('getAllPolygonCoords', () => {
 
     const result = getAllPolygonCoords(mockGeoJson)
 
-    expect(result).toEqual([{longitude: 1, latitude: 2}])
+    expect(result).toEqual([
+      {longitude: 1, latitude: 2},
+      {longitude: 3, latitude: 4},
+    ])
+  })
+
+  it('should return an empty array if no Features are of type Polygon.', () => {
+    const mockGeoJson: FeatureCollection = {
+      type: 'FeatureCollection',
+      features: [
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [5, 6],
+          },
+          id: 1,
+          properties: {},
+        },
+        {
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: [5, 6],
+          },
+          id: 1,
+          properties: {},
+        },
+      ],
+    }
+
+    const result = getAllPolygonCoords(mockGeoJson)
+
+    expect(result).toEqual([])
   })
 })
