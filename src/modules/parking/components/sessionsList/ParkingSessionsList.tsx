@@ -1,14 +1,12 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {FlatList, SectionList, SectionListProps} from 'react-native'
-import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
-import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
-import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
+import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {parkingApi, useParkingSessionsQuery} from '@/modules/parking/service'
 import {
@@ -47,7 +45,7 @@ export const ParkingSessionsList = ({
 
   const result = useInfiniteScroller<
     ParkingSession,
-    ParkingSession,
+    ParkingSession & {dummy: true},
     ParkingSessionsEndpointRequest
   >(
     {
@@ -57,7 +55,19 @@ export const ParkingSessionsList = ({
       ps_right_id: -1,
       vehicle_id: '',
       dummy: true,
-    } as unknown as ParkingSession,
+      end_date_time: '',
+      no_endtime: false,
+      remaining_time: 0,
+      report_code: '',
+      status: ParkingSessionStatus.active,
+      created_date_time: '',
+      is_cancelled: false,
+      is_paid: false,
+      parking_cost: {
+        currency: '',
+        value: 0,
+      },
+    },
     parkingApi.endpoints[ParkingEndpointName.parkingSessions],
     'ps_right_id',
     useParkingSessionsQuery,
@@ -119,36 +129,14 @@ export const ParkingSessionsList = ({
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListFooterComponent={<Gutter height="md" />}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={({item}) => (
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          <ParkingSessionNavigationButton parkingSession={item} />
-        </Box>
-      )}
+      renderItem={ParkingSessionListRenderItem}
     />
   ) : (
     <SectionList
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={({item}) => (
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          {item.dummy ? (
-            <Skeleton isLoading>
-              <NavigationButton
-                onPress={() => null}
-                testID="DummyNavigationButton"
-                title="Laden"
-              />
-            </Skeleton>
-          ) : (
-            <ParkingSessionNavigationButton parkingSession={item} />
-          )}
-        </Box>
-      )}
+      renderItem={ParkingSessionListRenderItem}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">

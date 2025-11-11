@@ -1,14 +1,12 @@
 import {type ComponentType, useCallback, useMemo, useState} from 'react'
 import {SectionList, SectionListProps} from 'react-native'
-import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Border} from '@/components/ui/containers/Border'
 import {Box} from '@/components/ui/containers/Box'
-import {Skeleton} from '@/components/ui/feedback/Skeleton'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {getCurrentPage} from '@/modules/construction-work/components/projects/utils/getCurrentPage'
-import {ParkingSessionNavigationButton} from '@/modules/parking/components/session/ParkingSessionNavigationButton'
+import {ParkingSessionListRenderItem} from '@/modules/parking/components/sessionsList/ParkingSessionListRenderItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   parkingApi,
@@ -57,7 +55,8 @@ export const ParkingSessionHistoryList = ({
         ? '2038-01-01T00:00:00'
         : '1970-01-01T00:00:00',
       dummy: true,
-    } as unknown as ParkingHistorySession,
+      ps_right_id: 0,
+    },
     parkingApi.endpoints[ParkingEndpointName.parkingSessionHistory],
     'start_date_time',
     useParkingSessionHistoryQuery,
@@ -118,23 +117,7 @@ export const ParkingSessionHistoryList = ({
       ListEmptyComponent={result.isLoading ? null : ListEmptyComponent}
       ListHeaderComponent={ListHeaderComponent}
       onViewableItemsChanged={onViewableItemsChanged}
-      renderItem={({item}) => (
-        <Box
-          insetHorizontal="md"
-          insetTop="md">
-          {item.dummy ? (
-            <Skeleton isLoading>
-              <NavigationButton
-                onPress={() => null}
-                testID="DummyNavigationButton"
-                title="Laden"
-              />
-            </Skeleton>
-          ) : (
-            <ParkingSessionNavigationButton parkingSession={item} />
-          )}
-        </Box>
-      )}
+      renderItem={ParkingSessionListRenderItem}
       renderSectionFooter={() => <Gutter height="md" />}
       renderSectionHeader={({section}) => (
         <Box insetHorizontal="md">
