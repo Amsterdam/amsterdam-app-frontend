@@ -162,7 +162,7 @@ export enum PermitType {
 }
 
 export type PermitZoneGeoJsonResponse = {
-  geojson: FeatureCollection
+  geojson: FeatureCollection | Record<string, never>
 }
 
 export type ParkingPermit = {

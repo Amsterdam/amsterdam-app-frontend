@@ -1,8 +1,10 @@
-import type {Feature, FeatureCollection} from 'geojson'
+import type {PermitZoneGeoJsonResponse} from '@/modules/parking/types'
+import type {Feature} from 'geojson'
 import type {LatLng} from 'react-native-maps'
 
-export const getAllPolygonCoords = ({features}: FeatureCollection): LatLng[] =>
-  features.flatMap(getPolygonCoords)
+export const getAllPolygonCoords = (
+  geojson: PermitZoneGeoJsonResponse['geojson'],
+): LatLng[] => geojson.features.flatMap(getPolygonCoords)
 
 const getPolygonCoords = (feature: Feature): LatLng[] => {
   if (feature.geometry.type === 'Polygon') {
