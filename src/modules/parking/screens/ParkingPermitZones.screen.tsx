@@ -1,22 +1,25 @@
-import type {FC} from 'react'
+import {type FC} from 'react'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
+import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
-import {ParkingMachineDetails} from '@/modules/parking/components/permit-zone/ParkingMachineDetails'
+import {ParkingMachineItemDetails} from '@/modules/parking/components/permit-zone/ParkingMachineItemDetails'
 import {ParkingPermitZone} from '@/modules/parking/components/permit-zone/ParkingPermitZone'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
+
+const variantMap: Record<ParkingPermitZonesBottomSheetVariant, FC> = {
+  [ParkingPermitZonesBottomSheetVariant.address]:
+    SelectLocationTypeBottomSheetContent,
+  [ParkingPermitZonesBottomSheetVariant.parkingMachine]:
+    ParkingMachineItemDetails,
+}
 
 export const ParkingPermitZonesScreenInner = () => {
   const {permit_zone} = useCurrentParkingPermit()
-
-  const variantMap: Record<ParkingPermitZonesBottomSheetVariant, FC> = {
-    [ParkingPermitZonesBottomSheetVariant.address]:
-      SelectLocationTypeBottomSheetContent,
-    [ParkingPermitZonesBottomSheetVariant.parkingMachine]:
-      ParkingMachineDetails,
-  }
+  const {name: previousRouteName} = usePreviousRoute() ?? {}
 
   return (
     <Screen
@@ -33,7 +36,13 @@ export const ParkingPermitZonesScreenInner = () => {
       scroll={false}
       testID="ParkingPermitZonesScreen"
       withBottomInset={false}>
-      <ParkingPermitZone />
+      <ParkingPermitZone
+        variant={
+          previousRouteName === ParkingRouteName.startSession
+            ? 'search'
+            : 'list'
+        }
+      />
     </Screen>
   )
 }

@@ -12,7 +12,9 @@ import {
 } from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
-export const ParkingPermitZone = () => {
+type Props = {variant: 'list' | 'search'}
+
+export const ParkingPermitZone = ({variant}: Props) => {
   const {permit_zone} = useCurrentParkingPermit()
 
   const dispatch = useDispatch()
@@ -37,11 +39,19 @@ export const ParkingPermitZone = () => {
         label="Kaart">
         <ParkingPermitZoneMap onSelectParkingMachine={onSelectParkingMachine} />
       </Tabs.Tab>
-      <Tabs.Tab
-        accessibilityLabel="Lijstweergave"
-        label="Lijst">
-        <ParkingMachineList onSelectParkingMachine={onSelectParkingMachine} />
-      </Tabs.Tab>
+      {variant === 'search' ? (
+        <Tabs.Tab
+          accessibilityLabel="Zoekweergave"
+          label="Zoeken">
+          <ParkingMachineList onSelectParkingMachine={onSelectParkingMachine} />
+        </Tabs.Tab>
+      ) : (
+        <Tabs.Tab
+          accessibilityLabel="Lijstweergave"
+          label="Lijst">
+          <ParkingMachineList onSelectParkingMachine={onSelectParkingMachine} />
+        </Tabs.Tab>
+      )}
     </Tabs>
   )
 }

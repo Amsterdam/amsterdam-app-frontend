@@ -64,7 +64,9 @@ export type ParkingStackParams = {
   [ParkingRouteName.editSession]: {parkingSession: ParkingSession}
   [ParkingRouteName.visitorEditSession]: {parkingSession: ParkingSession}
   [ParkingRouteName.forgotAccessCode]: undefined
-  [ParkingRouteName.startSession]: {defaultStartTime: string} | undefined
+  [ParkingRouteName.startSession]:
+    | {defaultStartTime?: string; parkingMachineId?: string}
+    | undefined
   [ParkingRouteName.increaseBalance]: undefined
   [ParkingRouteName.manageVisitor]: undefined
   [ParkingRouteName.manageVisitorChangePinCode]: undefined
