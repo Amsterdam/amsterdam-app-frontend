@@ -30,10 +30,11 @@ export const ParkingSessionChooseParkingMachine = ({
     control,
     setError,
     watch,
+    setValue,
     formState: {errors},
   } = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
-  const parkingMachine = watch('parking_machine', selectedParkingMachineId)
+  const parkingMachine = watch('parking_machine')
   const startTime = watch('startTime')
   const navigation = useNavigation<ParkingRouteName>()
 
@@ -42,6 +43,12 @@ export const ParkingSessionChooseParkingMachine = ({
       ? {machineId: parkingMachine, report_code: currentPermit.report_code}
       : skipToken,
   )
+
+  useEffect(() => {
+    if (selectedParkingMachineId) {
+      setValue('parking_machine', selectedParkingMachineId)
+    }
+  }, [setValue, selectedParkingMachineId])
 
   useEffect(() => {
     if (!error) {

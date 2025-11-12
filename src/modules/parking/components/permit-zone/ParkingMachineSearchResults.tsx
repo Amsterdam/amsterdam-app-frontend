@@ -2,8 +2,8 @@ import {useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {FlatList} from 'react-native'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ParkingMachineFavoriteButton} from '@/modules/parking/components/permit-zone/ParkingMachineFavoriteButton'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
-import {ParkingStartSessionParkingMachineFavoriteButton} from '@/modules/parking/components/session/ParkingStartSessionParkingMachineFavoriteButton'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 import {type ParkingMachine} from '@/modules/parking/types'
@@ -41,16 +41,12 @@ export const ParkingMachineSearchResults = ({
     <FlatList
       data={parkingMachinesByDistance}
       ListEmptyComponent={
-        <ParkingStartSessionParkingMachineFavoriteButton
-          onPress={onSelectParkingMachine}
-        />
+        <ParkingMachineFavoriteButton onPress={onSelectParkingMachine} />
       }
       renderItem={({item: parkingMachine}) => {
         if (parkingMachine.id === parking_machine_favorite) {
           return (
-            <ParkingStartSessionParkingMachineFavoriteButton
-              onPress={onSelectParkingMachine}
-            />
+            <ParkingMachineFavoriteButton onPress={onSelectParkingMachine} />
           )
         }
 

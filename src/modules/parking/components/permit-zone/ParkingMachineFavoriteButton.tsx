@@ -9,9 +9,7 @@ type Props = {
   onPress: (favorite: string) => void
 }
 
-export const ParkingStartSessionParkingMachineFavoriteButton = ({
-  onPress,
-}: Props) => {
+export const ParkingMachineFavoriteButton = ({onPress}: Props) => {
   const currentParkingPermit = useCurrentParkingPermit()
 
   if (!currentParkingPermit.parking_machine_favorite) {

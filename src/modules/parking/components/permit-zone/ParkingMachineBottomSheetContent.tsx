@@ -37,10 +37,16 @@ export const ParkingMachineBottomSheetContent = () => {
   const {data} = useParkingMachinesQuery()
   const parkingMachine = data?.find(machine => machine.id === parkingMachineId)
 
-  const {lat, lon} = parkingMachine || {}
-  const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon})
+  const directionsUrl = useGetGoogleMapsDirectionsUrl({
+    lat: parkingMachine?.lat,
+    lon: parkingMachine?.lon,
+  })
 
-  const {data: parkingMachineDetails, isLoading} = useZoneByMachineQuery(
+  const {
+    data: parkingMachineDetails,
+    isLoading,
+    isError,
+  } = useZoneByMachineQuery(
     parkingMachineId
       ? {machineId: parkingMachineId, report_code: currentPermit.report_code}
       : skipToken,
@@ -122,7 +128,11 @@ export const ParkingMachineBottomSheetContent = () => {
 
         {previousRouteName === ParkingRouteName.startSession && (
           <Button
-            label="Selecteer deze automaat"
+            disabled={isLoading || isError}
+            iconName={isError ? 'alert' : undefined}
+            label={
+              isError ? 'Automaat niet beschikbaar' : 'Selecteer deze automaat'
+            }
             onPress={() => {
               navigation.popTo(ParkingRouteName.startSession, {
                 parkingMachineId: parkingMachine.id,
