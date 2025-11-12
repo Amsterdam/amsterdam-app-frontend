@@ -113,6 +113,9 @@ export const ParkingLoginForm = () => {
             }}
             submitBehavior="submit"
             testID="ParkingLoginFormReportCodeInputField"
+            textTransform={text =>
+              text.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+            }
           />
           <TextInputField
             hasClearButton={false}
