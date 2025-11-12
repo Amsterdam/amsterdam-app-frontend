@@ -7,7 +7,7 @@ import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {useOpenUrl} from '@/hooks/linking/useOpenUrl'
+import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
@@ -20,6 +20,7 @@ import {
   useParkingDeeplinkAccount,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin, ParkingApiVersion} from '@/modules/parking/types'
+import {RedirectKey} from '@/modules/redirects/types'
 import {devError} from '@/processes/development'
 import {
   ExceptionLogKey,
@@ -35,7 +36,7 @@ export const ParkingLoginForm = () => {
   const {setAccessToken} = useParkingAccessToken()
   const {resetAlert, setAlert} = useAlert()
   const trackException = useTrackException()
-  const openUrl = useOpenUrl()
+  const {openRedirect} = useOpenRedirect()
 
   const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
@@ -135,9 +136,7 @@ export const ParkingLoginForm = () => {
             <InlineLink
               external
               logging-label="ParkingLoginFormInlineLink"
-              onPress={() =>
-                openUrl('https://parkeervergunningen.amsterdam.nl/')
-              }
+              onPress={() => openRedirect(RedirectKey.myParking)}
               testID="ParkingLoginFormInlineLink">
               Mijn Parkeren
             </InlineLink>
