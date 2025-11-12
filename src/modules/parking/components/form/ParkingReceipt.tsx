@@ -67,7 +67,9 @@ export const ParkingReceipt = () => {
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheetSelectors()
   const allDataEntered =
-    endTime && (paymentZoneId || parking_machine) && endTime.isAfter(startTime)
+    endTime &&
+    (paymentZoneId || parking_machine || !currentPermit.can_select_zone) &&
+    endTime.isAfter(startTime)
 
   const {data, isLoading} = useSessionReceiptQuery(
     allDataEntered && !isOpen
