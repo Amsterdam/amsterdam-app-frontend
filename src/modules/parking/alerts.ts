@@ -2,7 +2,6 @@ import {
   type AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
-import {MAX_LICENSE_PLATES} from '@/modules/parking/constants'
 import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
 
 export const alerts = {
@@ -142,14 +141,6 @@ export const alerts = {
     title: 'Uitgelogd',
     hasIcon: true,
     testID: 'ParkingLogoutWithAnotherAccountSuccessAlert',
-  },
-  maxLicensePlatesWarning: {
-    variant: AlertVariant.warning,
-    text: `Er kunnen niet meer dan ${MAX_LICENSE_PLATES} kentekens worden opgeslagen.`,
-    title: 'Maximum aantal kentekens',
-    hasIcon: true,
-    hasCloseIcon: true,
-    testID: 'ParkingMaxLicensePlatesAlert',
   },
   maximumSessionsWarning: {
     variant: AlertVariant.warning,
