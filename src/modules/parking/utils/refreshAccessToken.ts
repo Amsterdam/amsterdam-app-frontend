@@ -52,10 +52,13 @@ export const refreshAccessToken = (
           failRetry('New token, so old request should fail')
           resolve(access_token)
         },
-        () => {
-          void logout(false, dispatch, state)
-          devError('Token refresh failed, you are now logged out')
-          failRetry('Session ended')
+        ({data, status}: {data?: {code?: string}; status?: number}) => {
+          if (status === 401 && data?.code === 'SSP_BAD_CREDENTIALS') {
+            void logout(false, dispatch, state)
+            devError('Token refresh failed, you are now logged out')
+          }
+
+          failRetry('Refresh failed')
           reject(new Error('Token refresh failed'))
         },
       )
