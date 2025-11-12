@@ -13,35 +13,36 @@ export const ParkingDashboardNavigationButtons = () => {
   const parkingAccount = useParkingAccount()
   const apiVersion = useCurrentParkingApiVersion()
 
-  if (parkingAccount?.scope !== ParkingPermitScope.permitHolder) {
-    return null
-  }
-
   return (
     <Column gutter="xs">
-      <NavigationButton
-        onPress={() => {
-          navigate(ParkingRouteName.parkingSessionTransactions)
-        }}
-        testID="ParkingParkingHistoryButton"
-        title="Parkeergeschiedenis"
-      />
-      <NavigationButton
-        onPress={() => {
-          navigate(ParkingRouteName.myLicensePlates)
-        }}
-        testID="ParkingLicensePlatesButton"
-        title="Mijn kentekens"
-      />
-      {!!currentPermit.money_balance_applicable && (
-        <NavigationButton
-          onPress={() => {
-            navigate(ParkingRouteName.parkingMoneyTransactions)
-          }}
-          testID="ParkingPaymentHistoryButton"
-          title="Betalingen"
-        />
+      {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
+        <>
+          <NavigationButton
+            onPress={() => {
+              navigate(ParkingRouteName.parkingSessionTransactions)
+            }}
+            testID="ParkingParkingHistoryButton"
+            title="Parkeergeschiedenis"
+          />
+          <NavigationButton
+            onPress={() => {
+              navigate(ParkingRouteName.myLicensePlates)
+            }}
+            testID="ParkingLicensePlatesButton"
+            title="Mijn kentekens"
+          />
+          {!!currentPermit.money_balance_applicable && (
+            <NavigationButton
+              onPress={() => {
+                navigate(ParkingRouteName.parkingMoneyTransactions)
+              }}
+              testID="ParkingPaymentHistoryButton"
+              title="Betalingen"
+            />
+          )}
+        </>
       )}
+
       {apiVersion === ParkingApiVersion.v2 && (
         <NavigationButton
           onPress={() => {
