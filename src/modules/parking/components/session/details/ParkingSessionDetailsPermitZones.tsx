@@ -1,8 +1,10 @@
 import {Geojson} from 'react-native-maps'
+import type {FeatureCollection} from 'geojson'
 import {Map} from '@/components/features/map/Map'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 import {getFillColor} from '@/components/features/map/utils/getFillColor'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
+import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
@@ -19,9 +21,11 @@ export const ParkingSessionDetailsPermitZones = () => {
     return <PleaseWait testID="ParkingSessionDetailsPermitZonesPleaseWait" />
   }
 
-  if (!data?.geojson || isError) {
+  if (!data?.geojson || Object.keys(data.geojson).length === 0 || isError) {
     return (
-      <SomethingWentWrong testID="ParkingSessionDetailsPermitZonesSomethingWentWrong" />
+      <Box>
+        <SomethingWentWrong testID="ParkingSessionDetailsPermitZonesSomethingWentWrong" />
+      </Box>
     )
   }
 
@@ -36,7 +40,7 @@ export const ParkingSessionDetailsPermitZones = () => {
           String(properties?.fill ?? 'blue'),
           Number(properties?.['fill-opacity'] ?? 0.5),
         )}
-        geojson={data.geojson}
+        geojson={data.geojson as FeatureCollection}
       />
     </Map>
   )
