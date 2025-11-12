@@ -34,7 +34,7 @@ export const ParkingMachineSearchResults = ({
 
   const parkingMachinesByDistance = getSortedParkingMachines(
     filteredParkingMachines,
-    address, // TODO: What if user wants to use current location and locationType is set to address?
+    address,
   )
 
   return (

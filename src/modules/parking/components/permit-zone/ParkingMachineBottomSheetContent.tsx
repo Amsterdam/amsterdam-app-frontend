@@ -85,10 +85,12 @@ export const ParkingMachineBottomSheetContent = () => {
             size="lg"
           />
           <Column>
-            <Title
-              level="h5"
-              text={parkingMachine.address ?? ''}
-            />
+            {parkingMachine?.address && (
+              <Title
+                level="h5"
+                text={parkingMachine.address}
+              />
+            )}
             <ExternalLinkButton
               label="Route openen"
               noPadding

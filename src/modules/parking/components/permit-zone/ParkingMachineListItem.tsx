@@ -30,7 +30,7 @@ export const ParkingMachineListItem = ({
         testID="ParkingMachineListItemButton">
         <Box
           insetLeft="sm"
-          insetVertical="sm">
+          insetVertical={parkingMachine?.address ? 'sm' : 'md'}>
           <Row gutter="smd">
             {!!showIcon && (
               <Icon
@@ -49,7 +49,11 @@ export const ParkingMachineListItem = ({
                 text={parkingMachine.id}
               />
 
-              <Paragraph accessible={false}>{parkingMachine.address}</Paragraph>
+              {!!parkingMachine?.address && (
+                <Paragraph accessible={false}>
+                  {parkingMachine.address}
+                </Paragraph>
+              )}
             </Column>
           </Row>
         </Box>
