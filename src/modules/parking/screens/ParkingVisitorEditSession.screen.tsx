@@ -8,7 +8,7 @@ import {ParkingSessionFormProvider} from '@/modules/parking/components/form/Park
 import {ParkingVisitorEditSessionButtons} from '@/modules/parking/components/form/ParkingVisitorEditSessionButtons'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 
 type Props = NavigationProps<ParkingRouteName.editSession>

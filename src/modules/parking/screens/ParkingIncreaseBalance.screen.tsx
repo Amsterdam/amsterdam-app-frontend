@@ -8,7 +8,7 @@ import {ParkingIncreaseBalanceButton} from '@/modules/parking/components/form/Pa
 import {ParkingIncreaseBalanceReceipt} from '@/modules/parking/components/form/ParkingIncreaseBalanceReceipt'
 import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 
 export const ParkingIncreaseBalanceScreen = () => (
   <CurrentPermitProvider>
