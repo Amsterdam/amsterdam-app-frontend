@@ -253,6 +253,8 @@ export type ParkingSessionHistoryEndpointRequest = {
 } & PaginationQueryArgs
 
 export type VisitorParkingSessionsEndpointRequest = {
+  report_code: string
+  status?: ParkingSessionStatus
   vehicle_id: string
 }
 
