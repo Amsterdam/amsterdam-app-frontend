@@ -35,6 +35,8 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
     parkingAccount?.scope === ParkingPermitScope.visitor && visitorVehicleId
       ? {
           vehicle_id: visitorVehicleId,
+          report_code: currentPermit.report_code.toString(),
+          status,
         }
       : skipToken,
   )
