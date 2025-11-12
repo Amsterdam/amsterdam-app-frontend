@@ -3,7 +3,7 @@ import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
-import {ParkingMachineItemDetails} from '@/modules/parking/components/permit-zone/ParkingMachineItemDetails'
+import {ParkingMachineBottomSheetContent} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetContent'
 import {ParkingPermitZone} from '@/modules/parking/components/permit-zone/ParkingPermitZone'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
@@ -14,7 +14,7 @@ const variantMap: Record<ParkingPermitZonesBottomSheetVariant, FC> = {
   [ParkingPermitZonesBottomSheetVariant.address]:
     SelectLocationTypeBottomSheetContent,
   [ParkingPermitZonesBottomSheetVariant.parkingMachine]:
-    ParkingMachineItemDetails,
+    ParkingMachineBottomSheetContent,
 }
 
 export const ParkingPermitZonesScreenInner = () => {

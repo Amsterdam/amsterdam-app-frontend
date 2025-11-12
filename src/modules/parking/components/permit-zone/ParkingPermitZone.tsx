@@ -3,6 +3,7 @@ import {Tabs} from '@/components/ui/Tabs'
 import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingMachineList} from '@/modules/parking/components/permit-zone/ParkingMachineList'
+import {ParkingMachineSearch} from '@/modules/parking/components/permit-zone/ParkingMachineSearch'
 import {ParkingPermitZoneMap} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMap'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {setSelectedParkingMachineId} from '@/modules/parking/slice'
@@ -43,7 +44,9 @@ export const ParkingPermitZone = ({variant}: Props) => {
         <Tabs.Tab
           accessibilityLabel="Zoekweergave"
           label="Zoeken">
-          <ParkingMachineList onSelectParkingMachine={onSelectParkingMachine} />
+          <ParkingMachineSearch
+            onSelectParkingMachine={onSelectParkingMachine}
+          />
         </Tabs.Tab>
       ) : (
         <Tabs.Tab

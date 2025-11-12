@@ -35,7 +35,7 @@ export const ParkingSessionChooseParkingMachine = ({
   const currentPermit = useCurrentParkingPermit()
   const parkingMachine = watch('parking_machine', selectedParkingMachineId)
   const startTime = watch('startTime')
-  const navigation = useNavigation()
+  const navigation = useNavigation<ParkingRouteName>()
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
     parkingMachine && currentPermit.can_select_zone

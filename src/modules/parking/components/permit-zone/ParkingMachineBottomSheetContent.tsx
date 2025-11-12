@@ -25,9 +25,9 @@ import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export const ParkingMachineItemDetails = () => {
+export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
-  const navigation = useNavigation()
+  const navigation = useNavigation<ParkingRouteName>()
   const autoFocus = useAccessibilityFocus()
   const {name: previousRouteName} = usePreviousRoute() ?? {}
 
