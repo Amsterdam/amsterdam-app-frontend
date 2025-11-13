@@ -28,6 +28,7 @@ export type SessionFieldValues = {
 export const ParkingStartSessionButton = () => {
   const {
     handleSubmit,
+    clearErrors,
     formState: {isSubmitting, errors},
     setError,
   } = useFormContext<SessionFieldValues>()
@@ -59,6 +60,7 @@ export const ParkingStartSessionButton = () => {
       paymentZoneId,
       vehicle_id: visitorVehicleId,
     }: SessionFieldValues) => {
+      clearErrors('root.serverError')
       const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId
 
       // TODO:
@@ -137,6 +139,7 @@ export const ParkingStartSessionButton = () => {
       openWebUrl,
       setAlert,
       setError,
+      clearErrors,
     ],
   )
 
@@ -156,7 +159,7 @@ export const ParkingStartSessionButton = () => {
 
   return (
     <Button
-      disabled={isSubmitting || isLoading || !!Object.keys(errors).length}
+      disabled={isSubmitting || isLoading || !!errors?.parking_machine}
       iconName="parkingSession"
       isLoading={isLoading}
       label="Bevestig parkeersessie"

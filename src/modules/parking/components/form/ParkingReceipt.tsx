@@ -23,8 +23,9 @@ import {
   ParkingLicensePlate,
   ParkingPermitScope,
 } from '@/modules/parking/types'
+import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
-import {Dayjs} from '@/utils/datetime/dayjs'
+import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
@@ -46,7 +47,6 @@ export const ParkingReceipt = () => {
     visitorVehicleId?: string
   }>()
   const {
-    startTime,
     endTime,
     originalEndTime,
     licensePlate,
@@ -66,44 +66,63 @@ export const ParkingReceipt = () => {
 
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheetSelectors()
-  const allDataEntered =
-    endTime &&
-    (paymentZoneId || parking_machine || !currentPermit.can_select_zone) &&
-    endTime.isAfter(startTime)
+  const nowRounded = dayjs().set('second', 0)
+  const {isEndTimeBeforeOriginal, endDate} = getDateForCostCalculation({
+    endTime,
+    originalEndTime,
+    now: nowRounded,
+  })
 
-  const {data, isLoading} = useSessionReceiptQuery(
-    allDataEntered && !isOpen
+  const isAllDataEntered =
+    !!endDate &&
+    (parking_machine || !currentPermit.can_select_zone) &&
+    endDate?.isAfter(nowRounded)
+
+  const queryParams =
+    isAllDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
-          end_date_time: endTime.toJSON(),
+          end_date_time: endDate?.toJSON(),
           parking_machine,
           payment_zone_id: paymentZoneId,
-          start_date_time: startTime.toJSON(),
+          start_date_time: nowRounded.toJSON(),
           vehicle_id: vehicleId,
           ps_right_id,
         }
-      : skipToken,
-  )
+      : skipToken
+
+  const {data, isLoading} = useSessionReceiptQuery(queryParams)
+
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
+  useEffect(() => {
+    !originalEndTime && setValue('startTime', nowRounded)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [endTime])
+
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
-    startTime,
+    nowRounded,
     endTime,
     originalEndTime,
     parking_machine,
     paymentZoneId,
-    data?.costs.value,
+    isEndTimeBeforeOriginal && data?.costs?.value
+      ? -data?.costs?.value
+      : data?.costs?.value,
   )
 
   const {parking_time, parking_cost} = data ?? {}
-
+  const possiblyNegativePrefix = isEndTimeBeforeOriginal ? '-' : ''
   const parkingTimeText = parking_time
-    ? formatSecondsTimeRangeToDisplay(data?.parking_time, {
-        short: true,
-      })
+    ? `${possiblyNegativePrefix}${formatSecondsTimeRangeToDisplay(
+        parking_time,
+        {
+          short: true,
+        },
+      )}`
     : '-'
   const parkingCostText = parking_cost
-    ? formatNumber(data?.costs.value, data?.costs.currency)
+    ? `${possiblyNegativePrefix}${formatNumber(data?.costs?.value, data?.costs.currency)}`
     : '-'
 
   const remainingTimeBalanceText = formatSecondsTimeRangeToDisplay(
