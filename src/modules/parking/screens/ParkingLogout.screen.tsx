@@ -69,9 +69,8 @@ export const ParkingLogoutScreen = ({navigation: {goBack}}: Props) => {
 
               if (Object.keys(accounts).length > 1) {
                 setAlert(alerts.logoutWithAnotherAccountSuccess)
+                goBack()
               }
-
-              goBack()
             }}
             testID="ParkingLogoutScreenLogoutButton"
           />

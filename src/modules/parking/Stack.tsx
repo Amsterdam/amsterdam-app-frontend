@@ -2,7 +2,6 @@ import {TransitionPresets} from '@react-navigation/stack'
 import {createStackNavigator} from '@/app/navigation/createStackNavigator'
 import {RootStackParams} from '@/app/navigation/types'
 import {useScreenOptions} from '@/app/navigation/useScreenOptions'
-import {useGetSecureItem} from '@/hooks/secureStorage/useGetSecureItem'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {useEnterAccessCode} from '@/modules/access-code/hooks/useEnterAccessCode'
 import {useGetSecureAccessCode} from '@/modules/access-code/hooks/useGetSecureAccessCode'
@@ -20,8 +19,10 @@ import {LoginStepsScreen} from '@/modules/parking/screens/LoginSteps.screen'
 import {ParkingForgotAccessCodeScreen} from '@/modules/parking/screens/ParkingForgotAccessCode.screen'
 import {ParkingIntroScreen} from '@/modules/parking/screens/ParkingIntro.screen'
 import {ParkingLoginScreen} from '@/modules/parking/screens/ParkingLogin.screen'
-import {useParkingAccountIsLoggingIn} from '@/modules/parking/slice'
-import {SecureItemKey} from '@/utils/secureStorage'
+import {
+  useParkingAccountIsLoggingIn,
+  useParkingAccounts,
+} from '@/modules/parking/slice'
 
 const Stack = createStackNavigator<RootStackParams>()
 
@@ -31,41 +32,14 @@ export const ParkingStack = () => {
   const {isEnrolled, useBiometrics} = useAccessCodeBiometrics()
   const {isLoginStepsActive} = useLoginSteps()
   const {shouldShowLoginScreen} = useShouldShowLoginScreen()
-  const {item: securePermitHolder, isLoading: isLoadingSecurePermitHolder} =
-    useGetSecureItem(SecureItemKey.parkingPermitHolder)
-  const {item: secureVisitor, isLoading: isLoadingSecureVisitor} =
-    useGetSecureItem(SecureItemKey.parkingVisitor)
   const screenOptions = useScreenOptions()
+  const accounts = useParkingAccounts()
   const isLoggingIn = useParkingAccountIsLoggingIn()
+  const hasAccounts = Object.keys(accounts).length
 
-  if (isLoading || isLoadingSecurePermitHolder || isLoadingSecureVisitor) {
+  if (isLoading) {
     return null
   }
-
-  let isSecurePermitHolderArray = false
-  let isSecureVisitorArray = false
-
-  try {
-    isSecurePermitHolderArray = securePermitHolder
-      ? Array.isArray(JSON.parse(securePermitHolder))
-      : false
-  } catch {
-    isSecurePermitHolderArray = false
-  }
-
-  try {
-    isSecureVisitorArray = secureVisitor
-      ? Array.isArray(JSON.parse(secureVisitor))
-      : false
-  } catch {
-    isSecureVisitorArray = false
-  }
-
-  const hasSecureAccount =
-    (securePermitHolder &&
-      securePermitHolder !== '[]' &&
-      isSecurePermitHolderArray) ||
-    (secureVisitor && secureVisitor !== '[]' && isSecureVisitorArray)
 
   return (
     <Stack.Navigator screenOptions={screenOptions}>
@@ -83,7 +57,7 @@ export const ParkingStack = () => {
             headerTitle: 'Sneller toegang',
           }}
         />
-      ) : hasSecureAccount ? (
+      ) : hasAccounts ? (
         accessCode && !isLoginStepsActive ? (
           isCodeValid ? (
             <>
