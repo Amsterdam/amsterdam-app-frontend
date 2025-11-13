@@ -178,7 +178,7 @@ export const ParkingReceipt = () => {
     !currentPermit.time_balance_applicable &&
     !currentPermit.money_balance_applicable
   ) {
-    return <PleaseWait testID="ParkingSessionReceiptPleaseWait" />
+    return null
   }
 
   return (
