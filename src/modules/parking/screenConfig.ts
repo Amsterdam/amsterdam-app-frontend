@@ -1,4 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {ParkingTransactionHistoryHeaderButton} from '@/modules/parking/components/ParkingTransactionHistoryHeaderButton'
 import {AddLicensePlateHeaderButton} from '@/modules/parking/components/license-plates/AddLicensePlateHeaderButton'
 import {ParkingRouteName, ParkingStackParams} from '@/modules/parking/routes'
 import {AddLicensePlateScreen} from '@/modules/parking/screens/AddLicensePlate.screen'
@@ -115,6 +116,7 @@ export const parkingScreenConfig: StackNavigationRoutes<
     name: ParkingRouteName.parkingMoneyTransactions,
     options: {
       headerTitle: 'Betalingen',
+      SideComponent: ParkingTransactionHistoryHeaderButton,
     },
   },
   [ParkingRouteName.increaseBalance]: {

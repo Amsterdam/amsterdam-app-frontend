@@ -4,6 +4,7 @@ import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   useAccountDetailsQuery,
   useIncreaseBalanceMutation,
@@ -21,7 +22,7 @@ export const ParkingIncreaseBalanceButton = () => {
   const [increaseBalance] = useIncreaseBalanceMutation()
   const {data} = useAccountDetailsQuery()
 
-  const {goBack} = useNavigation()
+  const navigation = useNavigation<ParkingRouteName>()
   const openWebUrl = useOpenWebUrl()
   const onSubmit = useCallback(
     ({amount}: FieldValues) => {
@@ -44,11 +45,11 @@ export const ParkingIncreaseBalanceButton = () => {
               openWebUrl(result.redirect_url)
             }
 
-            goBack()
+            navigation.popTo(ParkingRouteName.dashboard)
           })
       }
     },
-    [dispatch, data?.wallet?.balance, increaseBalance, goBack, openWebUrl],
+    [dispatch, data?.wallet?.balance, increaseBalance, navigation, openWebUrl],
   )
 
   return (
