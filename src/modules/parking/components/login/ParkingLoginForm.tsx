@@ -136,7 +136,7 @@ export const ParkingLoginForm = () => {
             <InlineLink
               external
               logging-label="ParkingLoginFormInlineLink"
-              onPress={() => openRedirect(RedirectKey.myParking)}
+              onPress={() => openRedirect(RedirectKey.my_parking)}
               testID="ParkingLoginFormInlineLink">
               Mijn Parkeren
             </InlineLink>
