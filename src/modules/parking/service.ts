@@ -221,7 +221,7 @@ export const parkingApi = baseApi.injectEndpoints({
         prepareHeaders,
         method: 'GET',
         slug: ModuleSlug.parking,
-        url: 'parking-machines',
+        url: '/parking-machines',
         afterError,
       }),
       keepUnusedDataFor: CacheLifetime.day,
