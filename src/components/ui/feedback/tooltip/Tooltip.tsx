@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react'
 import {InteractionManager, StyleSheet, View} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {useMeasureTarget} from '@/components/features/product-tour/useMeasureTarget'
 import {PressableBase} from '@/components/ui/buttons/PressableBase'
 import {Pointer} from '@/components/ui/feedback/tooltip/Pointer'
@@ -34,6 +35,7 @@ export const Tooltip = ({
   const styles = useThemable(createStyles(!!productTourTipTargetLayout))
   const tooltipRef = useRef<View | null>(null)
   const {layout, measureTarget} = useMeasureTarget(tooltipRef)
+  const {left} = useSafeAreaInsets()
 
   useEffect(() => {
     if (!layout) {
@@ -41,10 +43,10 @@ export const Tooltip = ({
     }
 
     void InteractionManager.runAfterInteractions(() => {
-      setLeftPosition(layout.x)
+      setLeftPosition(layout.x - left)
       setIsPositioned(true)
     })
-  }, [layout])
+  }, [layout, left])
 
   useBlurEffect(() => setIsPositioned(false))
 

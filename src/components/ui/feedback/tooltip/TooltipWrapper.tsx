@@ -1,4 +1,5 @@
 import {StyleSheet, useWindowDimensions, View, ViewProps} from 'react-native'
+import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Fader} from '@/components/ui/animations/Fader'
 import {
   TooltipProps,
@@ -21,6 +22,8 @@ export const TooltipWrapper = ({
   ...props
 }: WrapperProps & ViewProps) => {
   const {width: windowWidth} = useWindowDimensions()
+  const {left, right} = useSafeAreaInsets()
+
   const styles = useThemable(
     createStyles({
       extraSpace,
@@ -28,7 +31,7 @@ export const TooltipWrapper = ({
       leftPosition,
       placement,
       productTourTipTargetLayout,
-      windowWidth,
+      windowWidth: windowWidth - left - right,
     }),
   )
 
