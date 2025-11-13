@@ -23,6 +23,7 @@ import {
   ParkingLicensePlate,
   ParkingPermitScope,
 } from '@/modules/parking/types'
+import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
@@ -65,21 +66,20 @@ export const ParkingReceipt = () => {
 
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheetSelectors()
-
   const nowRounded = dayjs().set('second', 0)
-  const diffMs =
-    endTime && originalEndTime ? endTime.diff(originalEndTime) : null
-  const newDate =
-    diffMs !== null ? nowRounded.add(Math.abs(diffMs), 'ms') : null
-  const endDate = newDate ?? endTime
+  const {isEndTimeBeforeOriginal, endDate} = getDateForCostCalculation({
+    endTime,
+    originalEndTime,
+    now: nowRounded,
+  })
 
-  const allDataEntered =
+  const isAllDataEntered =
     !!endDate &&
     (parking_machine || !currentPermit.can_select_zone) &&
     endDate?.isAfter(nowRounded)
 
   const queryParams =
-    allDataEntered && !isOpen
+    isAllDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
           end_date_time: endDate?.toJSON(),
@@ -106,13 +106,13 @@ export const ParkingReceipt = () => {
     originalEndTime,
     parking_machine,
     paymentZoneId,
-    diffMs !== null && diffMs < 0 && data?.costs?.value
+    isEndTimeBeforeOriginal && data?.costs?.value
       ? -data?.costs?.value
       : data?.costs?.value,
   )
 
   const {parking_time, parking_cost} = data ?? {}
-  const possiblyNegativePrefix = diffMs !== null && diffMs < 0 ? '-' : ''
+  const possiblyNegativePrefix = isEndTimeBeforeOriginal ? '-' : ''
   const parkingTimeText = parking_time
     ? `${possiblyNegativePrefix}${formatSecondsTimeRangeToDisplay(
         parking_time,
