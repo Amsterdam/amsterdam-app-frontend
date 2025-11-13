@@ -37,6 +37,10 @@ export const ParkingSessionChooseParkingMachine = () => {
 
     const {data} = error as {data: {code: string}}
 
+    if (typeof data !== 'object') {
+      return
+    }
+
     if ('code' in data && data.code === 'SSP_PARKING_MACHINE_NOT_IN_ZONE') {
       setError('parking_machine', {
         type: 'manual',
