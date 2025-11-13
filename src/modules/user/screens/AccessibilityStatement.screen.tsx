@@ -53,7 +53,9 @@ export const AccessibilityStatementScreen = ({
               toegankelijk voor verschillende doelgroepen.
             </Paragraph>
           </Column>
-          <Column gutter="md">
+          <Column
+            gutter="md"
+            halign="start">
             <Title
               level="h2"
               testID="AboutAccessibilityStatementReportTitle"
