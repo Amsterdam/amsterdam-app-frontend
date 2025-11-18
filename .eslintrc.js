@@ -161,6 +161,12 @@ module.exports = {
                 importNames: ['Marker'],
                 message: 'Import Marker from @/components/features/map/marker.',
               },
+              {
+                name: 'react-native-clusterer',
+                importNames: ['Clusterer'],
+                message:
+                  'Import Clusterer from @/components/features/map/cluster/Clusterer.',
+              },
             ],
           },
         ],

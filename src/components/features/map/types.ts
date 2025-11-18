@@ -1,3 +1,4 @@
+import type {Supercluster} from 'react-native-clusterer'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
@@ -11,3 +12,18 @@ export type MapControlOption = {
   key: ControlVariant
   onPress: () => void
 } & TestProps
+
+export type MarkerProperties = {
+  id: string
+  onItemPress?: () => void
+}
+
+export type ClusterProperties = Supercluster.ClusterProperties &
+  Supercluster.ClustererClusterProperties
+
+export type ClusterItem = {
+  geometry: {
+    coordinates: number[]
+  }
+  properties: MarkerProperties | ClusterProperties
+}
