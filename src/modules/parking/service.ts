@@ -154,6 +154,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/sessions/history',
         afterError,
       }),
+      keepUnusedDataFor: CacheLifetime.second * 3,
     }),
     [ParkingEndpointName.parkingSessions]: builder.query<
       ParkingSessionsEndpointResponse,
@@ -183,7 +184,7 @@ export const parkingApi = baseApi.injectEndpoints({
         url: '/transactions',
         afterError,
       }),
-      keepUnusedDataFor: CacheLifetime.hour,
+      keepUnusedDataFor: CacheLifetime.second * 3,
     }),
     [ParkingEndpointName.permits]: builder.query<
       ParkingPermitsEndpointResponse,
