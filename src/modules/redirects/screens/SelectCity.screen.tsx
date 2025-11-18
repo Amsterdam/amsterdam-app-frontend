@@ -4,8 +4,6 @@ import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
-import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
@@ -13,13 +11,12 @@ import {Title} from '@/components/ui/text/Title'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import PeopleAtCityOffice from '@/modules/redirects/assets/images/people-at-city-office.svg'
 import {RedirectsRouteName} from '@/modules/redirects/routes'
-import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {RedirectKey} from '@/modules/redirects/types'
 
 type Props = NavigationProps<RedirectsRouteName.selectCity>
 
 export const SelectCityScreen = ({navigation}: Props) => {
   const {isLandscape} = useDeviceContext()
-  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
 
   return (
     <Screen
@@ -45,17 +42,11 @@ export const SelectCityScreen = ({navigation}: Props) => {
                   />
                 </Column>
                 <Column flex={1}>
-                  {isLoading ? (
-                    <PleaseWait testID="RedirectsMakeAppointmentWeespPleaseWait" />
-                  ) : isError ? (
-                    <SomethingWentWrong testID="RedirectsMakeAppointmentWeespSomethingWentWrong" />
-                  ) : (
-                    <ExternalLinkButton
-                      label="Weesp"
-                      testID="RedirectsMakeAppointmentWeespExternalLinkButton"
-                      url={redirectUrls?.makeAppointMentWeesp}
-                    />
-                  )}
+                  <ExternalLinkButton
+                    label="Weesp"
+                    redirectKey={RedirectKey.makeAppointMentWeesp}
+                    testID="RedirectsMakeAppointmentWeespExternalLinkButton"
+                  />
                 </Column>
               </Row>
             </Column>
