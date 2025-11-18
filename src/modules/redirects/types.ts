@@ -21,6 +21,7 @@ export enum RedirectKey {
   makeAppointMentWeesp = 'makeAppointMentWeesp',
   marriage = 'marriage',
   marriagePermission = 'marriagePermission',
+  my_parking = 'my_parking',
   naturalisation = 'naturalisation',
   parking = 'parking',
   parking_request_license_plate_ga_bewoners = 'parking_request_license_plate_ga_bewoners',
