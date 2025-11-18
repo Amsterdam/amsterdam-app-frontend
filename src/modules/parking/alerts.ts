@@ -4,6 +4,8 @@ import {
 } from '@/components/ui/feedback/alert/Alert.types'
 import {getFirstMonthOfNextQuarter} from '@/modules/parking/utils/getFirstMonthOfNextQuarter'
 
+const loginFailedTitle = 'Inloggen mislukt'
+
 export const alerts = {
   accountPinCodeChangeSuccess: {
     variant: AlertVariant.positive,
@@ -126,14 +128,26 @@ export const alerts = {
   loginForbiddenFailed: {
     variant: AlertVariant.negative,
     text: 'Controleer uw meldcode en pincode en probeer het opnieuw.',
-    title: 'Inloggen mislukt',
+    title: loginFailedTitle,
     testID: 'ParkingLoginForbiddenFailedAlert',
   },
   loginFailed: {
     variant: AlertVariant.negative,
     text: 'Er is iets misgegaan. Probeer het opnieuw.',
-    title: 'Inloggen mislukt',
+    title: loginFailedTitle,
     testID: 'ParkingLoginFailedAlert',
+  },
+  loginAccountInactiveFailed: {
+    variant: AlertVariant.negative,
+    text: 'Account is niet actief. Neem contact op.',
+    title: loginFailedTitle,
+    testID: 'ParkingLoginAccountInactiveFailedAlert',
+  },
+  loginAccountBlockedFailed: {
+    variant: AlertVariant.negative,
+    text: 'Dit account is geblokkeerd voor 24 uur door te veel mislukte inlogpogingen.',
+    title: loginFailedTitle,
+    testID: 'ParkingLoginAccountBlockedFailedAlert',
   },
   logoutWithAnotherAccountSuccess: {
     variant: AlertVariant.positive,
