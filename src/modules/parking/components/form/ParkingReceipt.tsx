@@ -55,6 +55,7 @@ export const ParkingReceipt = () => {
     ps_right_id,
     amount = 0,
     visitorVehicleId,
+    startTime,
   } = watch()
 
   const apiVersion = useCurrentParkingApiVersion()
@@ -70,13 +71,13 @@ export const ParkingReceipt = () => {
   const {isEndTimeBeforeOriginal, endDate} = getDateForCostCalculation({
     endTime,
     originalEndTime,
-    now: nowRounded,
+    now: startTime,
   })
 
   const isAllDataEntered =
     !!endDate &&
     (parking_machine || !currentPermit.can_select_zone) &&
-    endDate?.isAfter(nowRounded)
+    endDate?.isAfter(startTime)
 
   const queryParams =
     isAllDataEntered && !isOpen
@@ -85,7 +86,9 @@ export const ParkingReceipt = () => {
           end_date_time: endDate?.toJSON(),
           parking_machine,
           payment_zone_id: paymentZoneId,
-          start_date_time: nowRounded.toJSON(),
+          start_date_time: startTime.isBefore(nowRounded)
+            ? nowRounded.toJSON()
+            : startTime.toJSON(),
           vehicle_id: vehicleId,
           ps_right_id,
         }
@@ -96,7 +99,9 @@ export const ParkingReceipt = () => {
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   useEffect(() => {
-    !originalEndTime && setValue('startTime', nowRounded)
+    !originalEndTime &&
+      nowRounded.isAfter(startTime) &&
+      setValue('startTime', nowRounded)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [endTime])
 
