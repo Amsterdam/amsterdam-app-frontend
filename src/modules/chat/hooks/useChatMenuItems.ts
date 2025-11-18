@@ -1,12 +1,11 @@
 import {useMemo} from 'react'
-import {Alert} from 'react-native'
 import {endConversation} from 'react-native-salesforce-messaging-in-app/src'
 import {PopupMenuItem} from '@/components/ui/menus/types'
-import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
+import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
 import {downloadChat} from '@/modules/chat/utils/downloadChat'
-import {useGetRedirectUrlsQuery} from '@/modules/redirects/service'
+import {RedirectKey} from '@/modules/redirects/types'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useMenu} from '@/store/slices/menu'
@@ -15,9 +14,8 @@ export const useChatMenuItems = () => {
   const {close} = useChat()
   const {close: closeMenu} = useMenu()
   const {addDownloadedTranscriptId, ready, isEnded} = useChatContext()
-  const openWebUrl = useOpenWebUrl()
-  const {data: redirectUrls, isLoading, isError} = useGetRedirectUrlsQuery()
   const trackException = useTrackException()
+  const {isLoading, isError, openRedirect} = useOpenRedirect()
 
   return useMemo(() => {
     const menuItems: PopupMenuItem[] = []
@@ -39,18 +37,8 @@ export const useChatMenuItems = () => {
         color: 'link',
         label: 'Privacy',
         onPress: () => {
-          if (redirectUrls?.chatPrivacy) {
-            closeMenu()
-            openWebUrl(redirectUrls.chatPrivacy)
-          } else {
-            Alert.alert(
-              'Sorry, deze functie is nu niet beschikbaar. Probeer het later nog eens.',
-            )
-
-            trackException(ExceptionLogKey.getRedirectsUrl, 'ChatMenu.ts', {
-              redirectsKey: 'chatPrivacy',
-            })
-          }
+          closeMenu()
+          openRedirect(RedirectKey.chatPrivacy)
         },
         testID: 'ChatMenuPressableChatPrivacyMenuItem',
       })
@@ -89,9 +77,8 @@ export const useChatMenuItems = () => {
     isEnded,
     isError,
     isLoading,
-    openWebUrl,
+    openRedirect,
     ready,
-    redirectUrls?.chatPrivacy,
     trackException,
   ])
 }

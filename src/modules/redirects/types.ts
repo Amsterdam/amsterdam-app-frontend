@@ -27,11 +27,9 @@ export enum RedirectKey {
   parking_request_license_plate_ga_bewoners = 'parking_request_license_plate_ga_bewoners',
   parking_request_license_plate_ga_bezoekers = 'parking_request_license_plate_ga_bezoekers',
   parking_request_license_plate_mantelzorgers = 'parking_request_license_plate_mantelzorgers',
-  parking_visitors = 'parking_visitors',
   passing = 'passing',
   passingForFuneralDirectors = 'passingForFuneralDirectors',
   relocation = 'relocation',
-  sail = 'sail',
   sailingAndMooring = 'sailingAndMooring',
   waste = 'waste',
 }
