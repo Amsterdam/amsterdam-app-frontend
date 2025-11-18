@@ -23,30 +23,28 @@ export const useHandleDeeplink = (
         setAlert(alerts.increaseBalanceSuccess)
         dispatch(setWalletBalanceIncreaseStartedAt(dayjs().toISOString()))
         dispatch(baseApi.util.invalidateTags(['ParkingAccount']))
+        void confirmBalance({
+          order_id: params.order_id,
+          status: params.status,
+          signature: params.signature,
+        })
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
-
-      void confirmBalance({
-        order_id: params.order_id,
-        status: params.status,
-        signature: params.signature,
-      })
     } else if (params?.action === 'start-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.startSessionSuccess)
         dispatch(
           baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
         )
+        void confirmBalance({
+          order_id: params.order_id,
+          status: params.status,
+          signature: params.signature,
+        })
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
-
-      void confirmBalance({
-        order_id: params.order_id,
-        status: params.status,
-        signature: params.signature,
-      })
     } else if (params?.action === 'adjust-session-and-increase-balance') {
       if (params.status === 'COMPLETED') {
         setAlert(alerts.adjustSessionSuccess)
