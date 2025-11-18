@@ -13,7 +13,7 @@ end
 # TF_BUILD will be true when this is run in a DevOps pipeline
 if ENV["TF_BUILD"]
   xcode_select("/Applications/Xcode_16.4.app")
-  setup_ci()
+  setup_ci(timeout: 0)
 end
 
 # The URL to the repo for Match
