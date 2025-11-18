@@ -8,7 +8,13 @@ steps:
       echo "##vso[task.setvariable variable=VERSION;]$(node ./nodescripts/version-number.js)"
     displayName: 'Get version number'
   - script: |
-      echo "##vso[task.setvariable variable=BUILD_NUMBER;]$(Build.BuildNumber)"
+      BUILD_NUMBER_RAW=$(Build.BuildNumber)
+      if [[ "$BUILD_NUMBER_RAW" == *.* ]]; then
+        BUILD_NUMBER="${BUILD_NUMBER_RAW##*.}"
+      else
+        BUILD_NUMBER="$BUILD_NUMBER_RAW"
+      fi
+      echo "##vso[task.setvariable variable=BUILD_NUMBER;]$BUILD_NUMBER"
     displayName: 'Get build number'
   - script: |
       echo "$(VERSION).$(BUILD_NUMBER)" > $(System.DefaultWorkingDirectory)/storybook-static/version.txt
