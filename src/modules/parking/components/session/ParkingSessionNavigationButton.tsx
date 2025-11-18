@@ -90,7 +90,11 @@ const getDescription = (
 
   const startDateTimeString = `${dayjs(start_date_time).format(DATE_FORMAT)} uur`
   const startTimeString = `${dayjs(start_date_time).format('HH.mm')} uur`
-  const endTimeString = `${dayjs(end_date_time).format('HH.mm')} uur`
+  const isEndDateSameAsStart = dayjs(end_date_time).isSame(
+    dayjs(start_date_time),
+    'day',
+  )
+  const endTimeString = `${dayjs(end_date_time).format(isEndDateSameAsStart ? 'HH.mm' : DATE_FORMAT)} uur`
 
   return noEndTime || maxSessionLengthInDays > 1
     ? `${startDateTimeString}`
