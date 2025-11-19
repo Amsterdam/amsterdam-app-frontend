@@ -3,7 +3,7 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/ParkingChooseEndTimeButton'
-import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
+// import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {ParkingReceiptV1} from '@/modules/parking/components/form/ParkingReceiptV1'
@@ -14,7 +14,7 @@ import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentPar
 import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingApiVersion} from '@/modules/parking/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+// import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
 
@@ -31,11 +31,11 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
           testID="ParkingStartSessionScreen">
           <Box>
             <Column gutter="lg">
-              {dayjs(parkingSession.start_date_time).isAfter(dayjs()) ? (
+              {/* {dayjs(parkingSession.start_date_time).isAfter(dayjs()) ? (
                 <ParkingChooseStartTimeButton />
-              ) : (
-                <ParkingShowStartTime />
-              )}
+              ) : ( */}
+              <ParkingShowStartTime />
+              {/* )} */}
 
               <Column gutter="xl">
                 <ParkingChooseEndTimeButton />
