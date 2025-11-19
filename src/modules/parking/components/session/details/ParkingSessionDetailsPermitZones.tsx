@@ -1,4 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+// import {Image, Platform, type ImageURISource} from 'react-native'
 import {Geojson, Marker} from 'react-native-maps'
 import type {FeatureCollection} from 'geojson'
 import {Map} from '@/components/features/map/Map'
@@ -14,6 +15,15 @@ import {
   useParkingMachinesQuery,
   usePermitZonesQuery,
 } from '@/modules/parking/service'
+
+// type MarkerVariants = 'pin'
+
+// const MARKER_IMAGES: Record<MarkerVariants, ImageURISource | undefined> = {
+//   pin: Platform.select({
+//     ios: {uri: 'pin'},
+//     android: {uri: 'pin'},
+//   }),
+// }
 
 export const ParkingSessionDetailsPermitZones = () => {
   const {report_code, permit_zone} = useCurrentParkingPermit()
@@ -43,6 +53,11 @@ export const ParkingSessionDetailsPermitZones = () => {
   const allCoords = getAllPolygonCoords(data.geojson)
   const region = getRegionFromCoords(allCoords)
 
+  // console.log(
+  //   Platform.OS,
+  //   Image.resolveAssetSource(require('@/assets/images/map/pin.png')),
+  // )
+
   return (
     <Map region={region}>
       <Geojson
@@ -59,7 +74,7 @@ export const ParkingSessionDetailsPermitZones = () => {
               latitude: lat,
               longitude: lon,
             }}
-            // image={require('@/assets/images/map/pin.png')}
+            // image={MARKER_IMAGES.pin}
             key={id}
           />
         ))}
