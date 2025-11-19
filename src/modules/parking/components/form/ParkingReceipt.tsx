@@ -29,8 +29,11 @@ import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
 import {formatSecondsTimeRangeToDisplay} from '@/utils/datetime/formatSecondsTimeRangeToDisplay'
 import {formatNumber} from '@/utils/formatNumber'
 
+const ROOT_LOCAL_ERROR_KEY = 'root.localError'
+
 export const ParkingReceipt = () => {
   const {
+    clearErrors,
     setError,
     setValue,
     watch,
@@ -155,19 +158,35 @@ export const ParkingReceipt = () => {
 
   useEffect(() => {
     if (remainingTimeBalanceError) {
-      setError('root.localError', {
+      setError(ROOT_LOCAL_ERROR_KEY, {
         type: 'isTimeBalanceInsufficient',
       })
+    } else if (errors.root?.localError?.type === 'isTimeBalanceInsufficient') {
+      clearErrors(ROOT_LOCAL_ERROR_KEY)
     }
-  }, [remainingTimeBalanceError, setError])
+  }, [
+    clearErrors,
+    errors.root?.localError?.type,
+    remainingTimeBalanceError,
+    setError,
+  ])
 
   useEffect(() => {
     if (remainingWalletBalanceError) {
-      setError('root.localError', {
+      setError(ROOT_LOCAL_ERROR_KEY, {
         type: 'isWalletBalanceInsufficient',
       })
+    } else if (
+      errors.root?.localError?.type === 'isWalletBalanceInsufficient'
+    ) {
+      clearErrors(ROOT_LOCAL_ERROR_KEY)
     }
-  }, [remainingWalletBalanceError, setError])
+  }, [
+    clearErrors,
+    errors.root?.localError?.type,
+    remainingWalletBalanceError,
+    setError,
+  ])
 
   useEffect(() => {
     if (isVisitor) {
