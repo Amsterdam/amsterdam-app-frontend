@@ -9,7 +9,6 @@ import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {alerts} from '@/modules/parking/alerts'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
@@ -20,6 +19,7 @@ import {
   useParkingDeeplinkAccount,
 } from '@/modules/parking/slice'
 import {ParkingAccountLogin, ParkingApiVersion} from '@/modules/parking/types'
+import {getLoginFailedAlert} from '@/modules/parking/utils/getLoginFailedAlert'
 import {RedirectKey} from '@/modules/redirects/types'
 import {devError} from '@/processes/development'
 import {
@@ -40,7 +40,6 @@ export const ParkingLoginForm = () => {
 
   const {handleSubmit, setValue} = form
   const [loginParking, {error, isError, isLoading}] = useLoginParkingMutation()
-  const isForbiddenError = error && 'status' in error && error.status === 403
   const setSecureParkingAccount = useAddSecureParkingAccount()
   const dispatch = useDispatch()
 
@@ -84,10 +83,12 @@ export const ParkingLoginForm = () => {
       return
     }
 
-    isForbiddenError
-      ? setAlert(alerts.loginForbiddenFailed)
-      : setAlert(alerts.loginFailed)
-  }, [isError, isForbiddenError, setAlert])
+    const alert = getLoginFailedAlert(error)
+
+    if (alert) {
+      setAlert(alert)
+    }
+  }, [isError, error, setAlert])
 
   useEffect(() => {
     if (isLoading) {
@@ -112,14 +113,14 @@ export const ParkingLoginForm = () => {
             onSubmitEditing={() => {
               pincodeRef.current?.focus()
             }}
-            returnKeyType={Platform.OS !== 'ios' ? 'done' : undefined}
+            returnKeyType={Platform.OS === 'android' ? 'done' : undefined}
             rules={{
               required: 'Vul een meldcode in',
             }}
             submitBehavior="submit"
             testID="ParkingLoginFormReportCodeInputField"
             textTransform={text =>
-              text.replace(/[^a-zA-Z0-9]/g, '').toUpperCase()
+              text.replaceAll(/[^a-zA-Z0-9]/g, '').toUpperCase()
             }
           />
           <TextInputField
