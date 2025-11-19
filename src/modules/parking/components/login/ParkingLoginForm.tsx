@@ -136,7 +136,7 @@ export const ParkingLoginForm = () => {
             testID="ParkingLoginFormPinCodeInputField"
           />
           <Paragraph>
-            U vindt uw meldcode en pincode in{' '}
+            Meld- of pincode kwijt? U vindt ze in{' '}
             <InlineLink
               external
               logging-label="ParkingLoginFormInlineLink"
