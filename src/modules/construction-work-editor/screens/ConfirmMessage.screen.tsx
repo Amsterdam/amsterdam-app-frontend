@@ -97,7 +97,7 @@ export const ConfirmMessageScreen = ({navigation}: Props) => {
 
       dispatch(clearDraft())
 
-      navigation.navigate(ConstructionWorkEditorRouteName.authorizedProjects, {
+      navigation.popTo(ConstructionWorkEditorRouteName.authorizedProjects, {
         showSuccessfullySentMessageAlert: true,
       })
     } catch (error: unknown) {
