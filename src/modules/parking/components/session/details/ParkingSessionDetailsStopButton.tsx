@@ -3,9 +3,8 @@ import {Alert} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useEditSessionMutation} from '@/modules/parking/service'
-import {ParkingSession, ParkingSessionStatus} from '@/modules/parking/types'
-import {dayjs} from '@/utils/datetime/dayjs'
+import {useDeleteSessionMutation} from '@/modules/parking/service'
+import {ParkingSession} from '@/modules/parking/types'
 
 type Props = {
   parkingSession: ParkingSession
@@ -13,7 +12,7 @@ type Props = {
 
 export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
   const {goBack} = useNavigation()
-  const [editSession, {isError}] = useEditSessionMutation()
+  const [deleteSession, {isError}] = useDeleteSessionMutation()
 
   const onPressStop = useCallback(() => {
     Alert.alert(
@@ -25,14 +24,12 @@ export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
           text: 'Stoppen',
           style: 'destructive',
           onPress: () => {
-            void editSession({
-              parking_session: {
-                ...parkingSession,
-                end_date_time:
-                  parkingSession.status === ParkingSessionStatus.active
-                    ? dayjs().toJSON()
-                    : parkingSession.start_date_time,
-              },
+            void deleteSession({
+              ps_right_id: parkingSession.ps_right_id,
+              end_date_time: parkingSession.end_date_time,
+              start_date_time: parkingSession.start_date_time,
+              report_code: parkingSession.report_code,
+              vehicle_id: parkingSession.vehicle_id,
             })
               .unwrap()
               .then(() => {
@@ -43,7 +40,7 @@ export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
       ],
       {cancelable: true},
     )
-  }, [editSession, goBack, parkingSession])
+  }, [deleteSession, goBack, parkingSession])
 
   return (
     <>
