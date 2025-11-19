@@ -22,20 +22,20 @@ describe('getRemainingTimeBalance', () => {
 
   it('returns undefined if timeBalance is undefined', () => {
     expect(
-      getRemainingTimeBalance(undefined, dayjs(), dayjs(), paymentZone),
+      getRemainingTimeBalance(undefined, dayjs(), dayjs(), paymentZone, true),
     ).toBeUndefined()
   })
 
   it('returns timeBalance if startTime or endTime or paymentZone is missing', () => {
-    expect(getRemainingTimeBalance(1000, undefined, dayjs(), paymentZone)).toBe(
-      1000,
-    )
-    expect(getRemainingTimeBalance(1000, dayjs(), undefined, paymentZone)).toBe(
-      1000,
-    )
-    expect(getRemainingTimeBalance(1000, dayjs(), dayjs(), undefined)).toBe(
-      1000,
-    )
+    expect(
+      getRemainingTimeBalance(1000, undefined, dayjs(), paymentZone, true),
+    ).toBe(1000)
+    expect(
+      getRemainingTimeBalance(1000, dayjs(), undefined, paymentZone, true),
+    ).toBe(1000)
+    expect(
+      getRemainingTimeBalance(1000, dayjs(), dayjs(), undefined, true),
+    ).toBe(1000)
   })
 
   it('returns correct remaining time when session is fully within allowed hours', () => {
@@ -43,7 +43,7 @@ describe('getRemainingTimeBalance', () => {
     const end = dayjs('2023-10-30T12:00:00')
 
     // 2 hours = 7200 seconds
-    expect(getRemainingTimeBalance(10000, start, end, paymentZone)).toBe(
+    expect(getRemainingTimeBalance(10000, start, end, paymentZone, true)).toBe(
       10000 - 7200,
     )
   })
@@ -53,7 +53,7 @@ describe('getRemainingTimeBalance', () => {
     const end = dayjs('2023-10-30T10:00:00')
 
     // Only 1 hour (09:00-10:00) is allowed
-    expect(getRemainingTimeBalance(10000, start, end, paymentZone)).toBe(
+    expect(getRemainingTimeBalance(10000, start, end, paymentZone, true)).toBe(
       10000 - 3600,
     )
   })
@@ -63,7 +63,7 @@ describe('getRemainingTimeBalance', () => {
     const end = dayjs('2023-10-30T18:00:00') // after allowed end
 
     // Only 1 hour (16:00-17:00) is allowed
-    expect(getRemainingTimeBalance(10000, start, end, paymentZone)).toBe(
+    expect(getRemainingTimeBalance(10000, start, end, paymentZone, true)).toBe(
       10000 - 3600,
     )
   })
@@ -72,14 +72,16 @@ describe('getRemainingTimeBalance', () => {
     const start = dayjs('2023-10-30T07:00:00')
     const end = dayjs('2023-10-30T08:00:00')
 
-    expect(getRemainingTimeBalance(10000, start, end, paymentZone)).toBe(10000)
+    expect(getRemainingTimeBalance(10000, start, end, paymentZone, true)).toBe(
+      10000,
+    )
   })
 
   it('returns correct remaining time for different weekday', () => {
     const start = dayjs('2023-10-31T09:00:00') // Tuesday
     const end = dayjs('2023-10-31T11:00:00')
 
-    expect(getRemainingTimeBalance(10000, start, end, paymentZone)).toBe(
+    expect(getRemainingTimeBalance(10000, start, end, paymentZone, true)).toBe(
       10000 - 7200,
     )
   })
@@ -89,7 +91,17 @@ describe('getRemainingTimeBalance', () => {
     const end = dayjs('2023-11-01T12:00:00')
 
     expect(
-      getRemainingTimeBalance(10000, start, end, paymentZone),
+      getRemainingTimeBalance(10000, start, end, paymentZone, true),
     ).toBeUndefined()
+  })
+
+  it('returns correct remaining time when cannot select zone', () => {
+    const start = dayjs('2023-10-30T10:00:00') // Monday
+    const end = dayjs('2023-10-30T12:00:00')
+
+    // 2 hours = 7200 seconds
+    expect(getRemainingTimeBalance(10000, start, end, undefined, false)).toBe(
+      10000 - 7200,
+    )
   })
 })

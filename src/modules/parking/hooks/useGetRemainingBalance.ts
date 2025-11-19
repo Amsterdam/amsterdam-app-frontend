@@ -40,12 +40,14 @@ export const useGetRemainingBalance = (
           startTime,
           endTime,
           paymentZone ?? parkingMachine,
+          currentPermit.can_select_zone,
         ) ?? 0) -
         (getRemainingTimeBalance(
           0,
           startTime,
           originalEndTime,
           paymentZone ?? parkingMachine,
+          currentPermit.can_select_zone,
         ) ?? 0)
       )
     } else {
@@ -54,9 +56,11 @@ export const useGetRemainingBalance = (
         startTime,
         endTime,
         paymentZone ?? parkingMachine,
+        currentPermit.can_select_zone,
       )
     }
   }, [
+    currentPermit.can_select_zone,
     currentPermit.time_balance,
     endTime,
     originalEndTime,

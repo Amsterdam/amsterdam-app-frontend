@@ -8,6 +8,7 @@ export const getRemainingTimeBalance = (
   startTime: Dayjs | undefined,
   endTime: Dayjs | undefined,
   paymentZone: PaymentZone | undefined,
+  canSelectZone: boolean = true,
 ) => {
   let remainingTimeBalance = timeBalance
 
@@ -46,9 +47,12 @@ export const getRemainingTimeBalance = (
     const sessionEnd = dayjs.min(endTime, allowedEnd)
 
     const durationSeconds = Math.max(sessionEnd.diff(sessionStart, 'second'), 0)
-    const remaining = timeBalance - durationSeconds
 
-    remainingTimeBalance = remaining
+    remainingTimeBalance = timeBalance - durationSeconds
+  } else if (!canSelectZone && startTime && endTime) {
+    const durationSeconds = Math.max(endTime.diff(startTime, 'second'), 0)
+
+    remainingTimeBalance = timeBalance - durationSeconds
   }
 
   return remainingTimeBalance
