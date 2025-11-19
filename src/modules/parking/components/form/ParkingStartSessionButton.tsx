@@ -111,9 +111,9 @@ export const ParkingStartSessionButton = () => {
               status?: string
             }) => {
               const detail = error.data?.detail || ''
+              const code = error?.data?.code
 
-              // Match error messages as plain text
-              if (detail.toLowerCase().includes('start time in past')) {
+              if (code === 'SSP_START_TIME_IN_PAST') {
                 setError('startTime', {
                   type: 'manual',
                   message: 'Starttijd mag niet in het verleden liggen.',
@@ -122,9 +122,18 @@ export const ParkingStartSessionButton = () => {
                 return
               }
 
+              if (code === 'SSP_START_TIME_INVALID') {
+                setError('startTime', {
+                  type: 'manual',
+                  message: 'Deze starttijd is niet toegestaan.',
+                })
+
+                return
+              }
+
               setError('root.serverError', {
                 type: error?.status,
-                message: error.data?.code ?? detail,
+                message: code ?? detail,
               })
             },
           )

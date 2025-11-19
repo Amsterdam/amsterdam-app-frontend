@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect} from 'react'
+import {useCallback, useEffect} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
@@ -7,6 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
+import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
@@ -98,12 +99,19 @@ export const ParkingReceipt = () => {
 
   const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
+  const checkStartTime = useCallback(() => {
+    const now = dayjs().set('second', 0)
+
+    if (!originalEndTime && now.isAfter(startTime)) {
+      setValue('startTime', now)
+    }
+  }, [originalEndTime, setValue, startTime])
+
   useEffect(() => {
-    !originalEndTime &&
-      nowRounded.isAfter(startTime) &&
-      setValue('startTime', nowRounded)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [endTime])
+    checkStartTime()
+  }, [endTime, checkStartTime])
+
+  useRefetchInterval(checkStartTime, 5000)
 
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
     nowRounded,
@@ -227,7 +235,7 @@ export const ParkingReceipt = () => {
                 Resterend tijdsaldo
               </Phrase>
               <Phrase color={remainingTimeBalanceError ? 'warning' : undefined}>
-                {`${remainingTimeBalanceError ? '-' : ''} ${remainingTimeBalanceText}`}
+                {remainingTimeBalanceText}
               </Phrase>
             </ParkingReceiptItem>
           )}

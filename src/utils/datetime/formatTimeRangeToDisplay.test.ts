@@ -40,13 +40,13 @@ describe('formatTimeRangeToDisplay', () => {
     const endTime = '2023-10-01T12:00:00'
 
     expect(formatTimeRangeToDisplay(startTime, endTime)).toBe(
-      '-2 uren en 30 minuten',
+      '- 2 uren en 30 minuten',
     )
   })
   it('should format negative minutes only time difference correctly', () => {
     const startTime = '2023-10-01T13:00:00'
     const endTime = '2023-10-01T12:45:00'
 
-    expect(formatTimeRangeToDisplay(startTime, endTime)).toBe('-15 minuten')
+    expect(formatTimeRangeToDisplay(startTime, endTime)).toBe('- 15 minuten')
   })
 })
