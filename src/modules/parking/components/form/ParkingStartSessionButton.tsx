@@ -42,7 +42,7 @@ export const ParkingStartSessionButton = () => {
   const {registerDeviceIfPermitted} = useRegisterDevice()
 
   const isTimebalanceInsufficient =
-    errors.root?.serverError?.message?.includes('Timebalance insufficient') ||
+    errors.root?.serverError?.message === 'SSP_TIME_BALANCE_INSUFFICIENT' ||
     errors.root?.localError?.type === 'isTimeBalanceInsufficient'
 
   const isWalletBalanceInsufficient =
@@ -124,7 +124,7 @@ export const ParkingStartSessionButton = () => {
 
               setError('root.serverError', {
                 type: error?.status,
-                message: detail || error.data?.code,
+                message: error.data?.code ?? detail,
               })
             },
           )
