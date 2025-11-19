@@ -91,7 +91,7 @@ export const ParkingMachineBottomSheetContent = () => {
             size="lg"
           />
           <Column>
-            {parkingMachine?.address && (
+            {!!parkingMachine?.address && (
               <Title
                 level="h5"
                 text={parkingMachine.address}

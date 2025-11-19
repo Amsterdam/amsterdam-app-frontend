@@ -8,6 +8,7 @@ import {
 type MarkerProps = {
   variant?: MarkerVariants
 } & MapMarkerProps
+
 export const Marker = ({variant = 'pin', ...markerProps}: MarkerProps) => (
   <MarkerRN
     image={MARKER_IMAGES[variant]}

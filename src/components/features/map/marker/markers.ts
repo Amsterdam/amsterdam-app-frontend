@@ -1,12 +1,15 @@
-import {Platform, type ImageURISource} from 'react-native'
+import {Platform} from 'react-native'
 import pinIcon from '@/assets/images/map/pin.png'
 
-export type MarkerVariants = 'pin'
+export const MARKER_IMAGES = {
+  pin: Platform.select({
+    ios: pinIcon,
+    android: {uri: 'pin'},
+  }),
+  selectedPin: Platform.select({
+    ios: pinIcon, // placeholder
+    android: {uri: 'pin'}, // placeholder
+  }),
+} as const
 
-export const MARKER_IMAGES: Record<MarkerVariants, ImageURISource | undefined> =
-  {
-    pin: Platform.select({
-      ios: pinIcon,
-      android: {uri: 'pin'},
-    }),
-  }
+export type MarkerVariants = keyof typeof MARKER_IMAGES

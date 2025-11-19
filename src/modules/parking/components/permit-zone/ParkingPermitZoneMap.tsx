@@ -15,6 +15,7 @@ import {
   usePermitZonesQuery,
   useParkingMachinesQuery,
 } from '@/modules/parking/service'
+import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 
 export const ParkingPermitZoneMap = ({
   onSelectParkingMachine,
@@ -22,6 +23,7 @@ export const ParkingPermitZoneMap = ({
   onSelectParkingMachine: (id: ParkingMachine['id']) => void
 }) => {
   const {report_code} = useCurrentParkingPermit()
+  const parkingMachineId = useSelectedParkingMachineId()
 
   const {
     data: permitZoneData,
@@ -71,7 +73,7 @@ export const ParkingPermitZoneMap = ({
             }}
             key={id}
             onPress={() => onSelectParkingMachine(id)}
-            variant="pin"
+            variant={parkingMachineId === id ? 'selectedPin' : 'pin'}
           />
         ))}
     </Map>
