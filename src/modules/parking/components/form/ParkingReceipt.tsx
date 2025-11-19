@@ -246,18 +246,17 @@ export const ParkingReceipt = () => {
           )}
         </Column>
       </Column>
-      {!!remainingTimeBalanceError ||
-        (errors.root?.serverError?.message?.includes(
-          'Timebalance insufficient',
-        ) && (
-          <AlertNegative
-            {...alerts[
-              isPermitHolder
-                ? 'insufficientTimeBalanceFailed'
-                : 'insufficientTimeBalanceVisitorFailed'
-            ]}
-          />
-        ))}
+      {(!!remainingTimeBalanceError ||
+        errors.root?.serverError?.message ===
+          'SSP_TIME_BALANCE_INSUFFICIENT') && (
+        <AlertNegative
+          {...alerts[
+            isPermitHolder
+              ? 'insufficientTimeBalanceFailed'
+              : 'insufficientTimeBalanceVisitorFailed'
+          ]}
+        />
+      )}
       {(!!remainingWalletBalanceError ||
         errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
         <AlertNegative
