@@ -69,27 +69,29 @@ export const ParkingReceipt = () => {
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheetSelectors()
   const nowRounded = dayjs().set('second', 0)
-  const {isEndTimeBeforeOriginal, endDate} = getDateForCostCalculation({
-    endTime,
-    originalEndTime,
-    now: startTime,
-  })
+  const {isEndTimeBeforeOriginal, calculatedEndTime, calculatedStartTime} =
+    getDateForCostCalculation({
+      endTime,
+      originalEndTime,
+      startTime,
+      now: nowRounded,
+    })
 
   const isAllDataEntered =
-    !!endDate &&
+    !!endTime &&
+    !!calculatedEndTime &&
+    !!calculatedStartTime &&
     (parking_machine || !currentPermit.can_select_zone) &&
-    endDate?.isAfter(startTime)
+    endTime?.isAfter(startTime)
 
   const queryParams =
     isAllDataEntered && !isOpen
       ? {
           report_code: currentPermit.report_code.toString(),
-          end_date_time: endDate?.toJSON(),
+          end_date_time: calculatedEndTime?.toJSON(),
           parking_machine,
           payment_zone_id: paymentZoneId,
-          start_date_time: startTime.isBefore(nowRounded)
-            ? nowRounded.toJSON()
-            : startTime.toJSON(),
+          start_date_time: calculatedStartTime?.toJSON(),
           vehicle_id: vehicleId,
           ps_right_id,
         }

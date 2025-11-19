@@ -4,18 +4,32 @@ type Params = {
   endTime?: Dayjs
   now: Dayjs
   originalEndTime?: Dayjs
+  startTime?: Dayjs
 }
 
 export const getDateForCostCalculation = ({
   endTime,
   originalEndTime,
+  startTime,
   now,
 }: Params) => {
-  const diffMs =
-    endTime && originalEndTime ? endTime.diff(originalEndTime) : null
-  const isEndTimeBeforeOriginal = diffMs !== null && diffMs < 0
-  const newDate = diffMs !== null ? now.add(Math.abs(diffMs), 'ms') : null
-  const endDate = newDate ?? endTime
+  const isEndTimeBeforeOriginal =
+    originalEndTime && endTime ? endTime.isBefore(originalEndTime) : false
+  const newEndTime = endTime?.isBefore(now) ? now : endTime
+  const newStartTime =
+    originalEndTime ?? (startTime?.isBefore(now) ? now : startTime)
 
-  return {diffMs, isEndTimeBeforeOriginal, newDate, endDate}
+  const isNewEndTimeBeforeNewStartTime = newEndTime?.isBefore(newStartTime)
+  const calculatedEndTime = isNewEndTimeBeforeNewStartTime
+    ? newStartTime
+    : newEndTime
+  const calculatedStartTime = isNewEndTimeBeforeNewStartTime
+    ? newEndTime
+    : newStartTime
+
+  return {
+    isEndTimeBeforeOriginal,
+    calculatedEndTime,
+    calculatedStartTime,
+  }
 }
