@@ -16,7 +16,7 @@ export const formatTimeRangeToDisplay = (
   const start = dayjs(startTime)
   const end = dayjs(endTime)
   const isNegative = end.isBefore(start)
-  const sign = isNegative ? '-' : ''
+  const sign = isNegative ? '- ' : ''
   const hours = Math.abs(dayjs(endTime).diff(start, 'hour'))
   const minutes = Math.abs(
     dayjs(endTime)
