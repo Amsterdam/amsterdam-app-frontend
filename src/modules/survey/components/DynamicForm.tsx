@@ -1,0 +1,98 @@
+import {ReactNode, useMemo} from 'react'
+import {FormProvider, useForm, useFormContext} from 'react-hook-form'
+import type {Question} from '@/modules/survey/types'
+import {Button} from '@/components/ui/buttons/Button'
+import {Column} from '@/components/ui/layout/Column'
+import {questionTypeToComponentMap} from '@/modules/survey/utils/questionTypeToComponentMap'
+
+type ConditionalComponentProps = {
+  children: ReactNode
+  conditions: Question['conditions']
+  conditionsType?: Question['conditions_type']
+}
+
+const ConditionalComponent = ({
+  children,
+  conditions,
+  conditionsType = 'and',
+}: ConditionalComponentProps) => {
+  const {watch} = useFormContext()
+
+  if (
+    conditions.length &&
+    !conditions[conditionsType === 'and' ? 'every' : 'some'](
+      ({reference_question, type, value}) => {
+        const fieldValue = watch(reference_question.toString()) as unknown
+
+        if (type === 'equal') {
+          return fieldValue === value
+        }
+
+        if (type === 'not_equal') {
+          return fieldValue !== value
+        }
+
+        return false
+      },
+    )
+  ) {
+    return null
+  }
+
+  return children
+}
+
+type Props = {
+  onSubmit: (data: unknown) => void
+  questions: Question[]
+}
+
+export const DynamicForm = ({questions, onSubmit}: Props) => {
+  const form = useForm()
+  const {handleSubmit} = form
+
+  const components = useMemo(
+    () =>
+      questions.map(question => {
+        const Component = questionTypeToComponentMap[question.question_type]
+
+        if (!Component) {
+          return null
+        }
+
+        return (
+          <ConditionalComponent
+            conditions={question.conditions}
+            conditionsType={question.conditions_type}
+            key={question.id}>
+            <Component
+              label={question.question_text}
+              name={question.id.toString()}
+              options={question.choices}
+              placeholder={question.default}
+              rules={{
+                required: question.required
+                  ? 'Dit veld is verplicht'
+                  : undefined,
+              }}
+              {...question}
+            />
+          </ConditionalComponent>
+        )
+      }),
+    [questions],
+  )
+
+  return (
+    <FormProvider {...form}>
+      <Column gutter="lg">
+        {components}
+        <Button
+          label="Verzenden"
+          onPress={handleSubmit(onSubmit)}
+          testID="DynamicFormSubmitButton"
+        />
+      </Column>
+    </FormProvider>
+  )
+}

@@ -1,5 +1,8 @@
+import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
+import {Label} from '@/components/ui/forms/Label'
 import {Radio} from '@/components/ui/forms/Radio'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {LogProps, PiwikAction, PiwikDimension} from '@/processes/piwik/types'
@@ -10,8 +13,11 @@ export type RadioGroupOption<T> = {
 }
 
 type RadioGroupProps<T> = {
+  errorMessage?: string
+  label?: string
   onChange: (value: T) => void
   options: RadioGroupOption<T>[]
+  orientation?: 'horizontal' | 'vertical'
   /**
    * Log value to analytics service as new state when the selected value changes and as name on the button press event of the option.
    */
@@ -23,8 +29,11 @@ type RadioGroupProps<T> = {
 type RadioValue = string | number | boolean
 
 export const RadioGroup = <T extends RadioValue>({
+  errorMessage,
+  label,
   options = [],
   onChange,
+  orientation = 'vertical',
   testID,
   value,
   logAction = PiwikAction.radioChange,
@@ -40,34 +49,47 @@ export const RadioGroup = <T extends RadioValue>({
     testID,
   })
 
+  const OrientationBasedLayout = orientation === 'horizontal' ? Row : Column
+
   return (
     <Column gutter="md">
-      {options.map(({label, value: optionValue}, index) => {
-        const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
+      {!!label && <Label text={label} />}
+      <OrientationBasedLayout
+        gutter="md"
+        wrap>
+        {options.map(({label: optionLabel, value: optionValue}, index) => {
+          const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
 
-        return (
-          <Radio
-            isSelected={value === optionValue}
-            key={label}
-            label={label}
-            logging-label={logName}
-            logName={logName}
-            onPress={() =>
-              onPress(
-                optionValue,
-                useOptionValuesForLogging
-                  ? {
-                      dimensions: {
-                        [PiwikDimension.newState]: optionValue.toString(),
-                      },
-                    }
-                  : {},
-              )
-            }
-            testID={`${testID}${optionValue.toString()}RadioButton`}
-          />
-        )
-      })}
+          return (
+            <Radio
+              isSelected={value === optionValue}
+              key={optionLabel}
+              label={optionLabel}
+              logging-label={logName}
+              logName={logName}
+              onPress={() =>
+                onPress(
+                  optionValue,
+                  useOptionValuesForLogging
+                    ? {
+                        dimensions: {
+                          [PiwikDimension.newState]: optionValue.toString(),
+                        },
+                      }
+                    : {},
+                )
+              }
+              testID={`${testID}${optionValue.toString()}RadioButton`}
+            />
+          )
+        })}
+      </OrientationBasedLayout>
+      {!!errorMessage && (
+        <ErrorMessage
+          testID={`${testID}ErrorMessage`}
+          text={errorMessage}
+        />
+      )}
     </Column>
   )
 }
