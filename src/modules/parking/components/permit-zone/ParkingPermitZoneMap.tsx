@@ -1,5 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {FeatureCollection} from 'geojson'
+import {useMemo} from 'react'
 import {Geojson} from 'react-native-maps'
 import type {ParkingMachine} from '@/modules/parking/types'
 import {Map} from '@/components/features/map/Map'
@@ -11,11 +12,11 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {useRenderParkingMachineMarker} from '@/modules/parking/hooks/useRenderParkingMachineMarker'
 import {
   usePermitZonesQuery,
   useParkingMachinesQuery,
 } from '@/modules/parking/service'
-import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 
 export const ParkingPermitZoneMap = ({
   onSelectParkingMachine,
@@ -23,7 +24,7 @@ export const ParkingPermitZoneMap = ({
   onSelectParkingMachine: (id: ParkingMachine['id']) => void
 }) => {
   const {report_code} = useCurrentParkingPermit()
-  const parkingMachineId = useSelectedParkingMachineId()
+  const renderMarker = useRenderParkingMachineMarker()
 
   const {
     data: permitZoneData,
@@ -34,6 +35,19 @@ export const ParkingPermitZoneMap = ({
   const {data: parkingMachinesData} = useParkingMachinesQuery(
     permitZoneData ? undefined : skipToken,
   )
+
+  const {region, properties} = useMemo(() => {
+    if (!permitZoneData) {
+      return {}
+    }
+
+    const allCoords = getAllPolygonCoords(permitZoneData.geojson)
+
+    return {
+      region: getRegionFromCoords(allCoords),
+      properties: permitZoneData?.geojson.features[0]?.properties,
+    }
+  }, [permitZoneData])
 
   if (isLoading) {
     return <PleaseWait testID="ParkingPermitZoneMapPleaseWait" />
@@ -51,10 +65,6 @@ export const ParkingPermitZoneMap = ({
     )
   }
 
-  const properties = permitZoneData.geojson.features[0]?.properties
-  const allCoords = getAllPolygonCoords(permitZoneData.geojson)
-  const region = getRegionFromCoords(allCoords)
-
   return (
     <Map region={region}>
       <Geojson
@@ -71,9 +81,10 @@ export const ParkingPermitZoneMap = ({
               latitude: lat,
               longitude: lon,
             }}
+            hitSlop={20}
             key={id}
             onPress={() => onSelectParkingMachine(id)}
-            variant={parkingMachineId === id ? 'selectedPin' : 'pin'}
+            variant={renderMarker(id)}
           />
         ))}
     </Map>

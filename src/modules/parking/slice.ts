@@ -137,7 +137,7 @@ export const parkingSlice = createSlice({
     },
     setSelectedParkingMachineId: (
       state,
-      {payload: id}: PayloadAction<ParkingMachine['id']>,
+      {payload: id}: PayloadAction<ParkingMachine['id'] | undefined>,
     ) => {
       state.selectedParkingMachineId = id
     },
