@@ -1,3 +1,4 @@
+import {useEffect} from 'react'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,16 +8,21 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
 import {usePollingStationsQuery} from '@/modules/elections/service'
-import {useSelectedPollingStationId} from '@/modules/elections/slice'
+import {
+  resetSelectedPollingStationId,
+  useSelectedPollingStationId,
+} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {RedirectKey} from '@/modules/redirects/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStationDetails = () => {
   const {close: closeBottomSheet} = useBottomSheet()
+  const dispatch = useDispatch()
   const pollingStationId = useSelectedPollingStationId()
   const {data} = usePollingStationsQuery()
   const pollingStation = data?.find(station => station.id === pollingStationId)
@@ -24,6 +30,10 @@ export const PollingStationDetails = () => {
   const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
   const autoFocus = useAccessibilityFocus()
+
+  useEffect(() => () => {
+    dispatch(resetSelectedPollingStationId())
+  })
 
   if (!pollingStation) {
     return null

@@ -141,6 +141,9 @@ export const parkingSlice = createSlice({
     ) => {
       state.selectedParkingMachineId = id
     },
+    resetSelectedParkingMachineId: state => {
+      state.selectedParkingMachineId = undefined
+    },
     setShouldShowLoginScreen: (state, {payload}: PayloadAction<boolean>) => {
       state.shouldShowLoginScreen = payload
     },
@@ -187,6 +190,7 @@ export const {
   setIsLoggingOut,
   setLoginStepsActive,
   setSelectedParkingMachineId,
+  resetSelectedParkingMachineId,
   setShouldShowLoginScreen: setShouldShowLoginScreenAction,
   setWalletBalanceIncreaseStartBalance,
   setWalletBalanceIncreaseStartedAt,

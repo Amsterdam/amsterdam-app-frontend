@@ -75,8 +75,9 @@ export const ParkingPermitZoneMap = ({
         geojson={permitZoneData.geojson as FeatureCollection}
       />
       {!!parkingMachinesData?.length &&
-        parkingMachinesData.map(({lat, lon, id}) => (
+        parkingMachinesData.map(({lat, lon, id, address}) => (
           <Marker
+            accessibilityLabel={`Parkeerautomaat ${id}${address ?? ' - ' + address}`}
             coordinate={{
               latitude: lat,
               longitude: lon,
@@ -84,6 +85,7 @@ export const ParkingPermitZoneMap = ({
             hitSlop={20}
             key={id}
             onPress={() => onSelectParkingMachine(id)}
+            onSelect={() => onSelectParkingMachine(id)}
             variant={renderMarker(id)}
           />
         ))}

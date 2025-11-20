@@ -22,7 +22,7 @@ import {
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
 import {
-  setSelectedParkingMachineId,
+  resetSelectedParkingMachineId,
   useSelectedParkingMachineId,
 } from '@/modules/parking/slice'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
@@ -64,7 +64,7 @@ export const ParkingMachineBottomSheetContent = () => {
 
   useEffect(
     () => () => {
-      dispatch(setSelectedParkingMachineId(undefined))
+      dispatch(resetSelectedParkingMachineId())
     },
     [dispatch],
   )
