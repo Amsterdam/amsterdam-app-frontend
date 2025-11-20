@@ -10,8 +10,10 @@ import type {
   ClusterProperties,
   MarkerProperties,
 } from '@/components/features/map/types'
-import type {Region} from 'react-native-maps'
+import type {MapMarkerProps, Region} from 'react-native-maps'
 import {ClusterSwitch} from '@/components/features/map/clusters/ClusterSwitch'
+import {AMSTERDAM_OVERVIEW} from '@/components/features/map/constants'
+import {isCluster} from '@/components/features/map/utils/isCluster'
 
 type ClustererProps = {
   clusterOptions?: Supercluster.Options<
@@ -20,16 +22,16 @@ type ClustererProps = {
   >
   data: Supercluster.PointFeature<MarkerProperties | ClusterProperties>[]
   mapDimensions?: {height: number; width: number}
-  region: Region
-}
+  region?: Region
+} & Omit<MapMarkerProps, 'coordinate'>
 
 const DEFAULT_CLUSTER_OPTIONS: ClustererProps['clusterOptions'] = {
-  radius: 40,
+  radius: 30,
 }
 
 export const Clusterer = ({
   data,
-  region,
+  region = AMSTERDAM_OVERVIEW,
   mapDimensions,
   clusterOptions,
 }: ClustererProps) => {
@@ -41,7 +43,16 @@ export const Clusterer = ({
       mapDimensions={mapDimensions || dimensions}
       options={clusterOptions || DEFAULT_CLUSTER_OPTIONS}
       region={region}
-      renderItem={(item: ClusterItem) => <ClusterSwitch item={item} />}
+      renderItem={(item: ClusterItem) => (
+        <ClusterSwitch
+          item={item}
+          key={
+            isCluster(item.properties)
+              ? `cluster-${item.properties?.cluster_id}`
+              : `point-${item.properties?.id}`
+          }
+        />
+      )}
     />
   )
 }

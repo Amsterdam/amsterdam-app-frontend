@@ -2,16 +2,10 @@ import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps, type Region} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
+import {AMSTERDAM_OVERVIEW} from '@/components/features/map/constants'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-
-const INITIAL_REGION = {
-  latitude: 52.3753,
-  longitude: 4.8964,
-  latitudeDelta: 0.0922,
-  longitudeDelta: 0.0421,
-}
 
 const ANIMATION_DURATION = 0
 
@@ -34,7 +28,7 @@ export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
     if (isMapReady && region) {
       mapRef.current?.animateToRegion(region as Region, ANIMATION_DURATION)
     } else {
-      mapRef.current?.animateToRegion(INITIAL_REGION, ANIMATION_DURATION)
+      mapRef.current?.animateToRegion(AMSTERDAM_OVERVIEW, ANIMATION_DURATION)
     }
   }, [isMapReady, region])
 
@@ -50,7 +44,7 @@ export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
       )}
       <MapView
         collapsable={false}
-        initialRegion={INITIAL_REGION} // Default initial region is overview of Amsterdam.
+        initialRegion={AMSTERDAM_OVERVIEW} // Default initial region is overview of Amsterdam.
         moveOnMarkerPress={false}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}

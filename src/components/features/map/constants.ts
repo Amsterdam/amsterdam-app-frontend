@@ -1,0 +1,8 @@
+import type {Region} from 'react-native-maps'
+
+export const AMSTERDAM_OVERVIEW: Region = {
+  latitude: 52.3753,
+  longitude: 4.8964,
+  latitudeDelta: 0.0922,
+  longitudeDelta: 0.0421,
+}

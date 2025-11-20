@@ -4,6 +4,7 @@ import pinIcon from '@/assets/images/map/pin.png'
 import selectedPinIcon from '@/assets/images/map/selected_pin.png'
 
 export enum MarkerVariant {
+  cluster = 'cluster',
   favoritePin = 'favoritePin',
   pin = 'pin',
   selectedPin = 'selectedPin',
@@ -24,4 +25,7 @@ export const MARKER_IMAGES: Record<
     ios: favoritePinIcon,
     android: {uri: 'favorite_pin'},
   }),
+  cluster: undefined,
 }
+
+export type MarkerVariants = keyof typeof MARKER_IMAGES
