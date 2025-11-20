@@ -1,4 +1,5 @@
 import {ComponentType} from 'react'
+import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
 import {AccessCodeStackParams} from '@/modules/access-code/routes'
@@ -44,6 +45,7 @@ import {
 } from '@/modules/report-problem/routes'
 import {reportProblemModals} from '@/modules/report-problem/screenConfig'
 import {ModuleSlug} from '@/modules/slugs'
+import {SurveyStack} from '@/modules/survey/Stack'
 import {UserStack} from '@/modules/user/Stack'
 import {UserModalParams, UserStackParams} from '@/modules/user/routes'
 import {userModals} from '@/modules/user/screenConfig'
@@ -67,15 +69,16 @@ export type ModuleStackParams = AccessCodeStackParams &
   ConstructionWorkStackParams &
   ConstructionWorkEditorStackParams &
   ContactStackParams &
+  ElectionsStackParams &
   HomeStackParams &
   MijnAmsterdamStackParams &
   OnboardingStackParams &
   ParkingStackParams &
-  WasteContainerStackParams &
   RedirectsStackParams &
   ReportProblemStackParams &
+  SurveyStackParams &
   UserStackParams &
-  ElectionsStackParams &
+  WasteContainerStackParams &
   WasteGuideStackParams
 
 const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
@@ -95,6 +98,7 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
   [ModuleSlug['report-problem']]: ReportProblemStack,
   [ModuleSlug.user]: UserStack,
   [ModuleSlug.redirects]: RedirectsStack,
+  [ModuleSlug.survey]: SurveyStack,
   [ModuleSlug.elections]: ElectionsStack,
   [ModuleSlug['waste-guide']]: WasteGuideStack,
 }

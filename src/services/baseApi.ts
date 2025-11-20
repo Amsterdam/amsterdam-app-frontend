@@ -123,6 +123,7 @@ export const baseApi = createApi({
     'Articles',
     'CityPass',
     'FollowedProjects',
+    'Form',
     'Modules',
     'Notifications',
     'ParkingLicensePlates',
