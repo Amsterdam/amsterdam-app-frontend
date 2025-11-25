@@ -148,7 +148,6 @@ export const ParkingLoginForm = () => {
         </Column>
 
         <Button
-          disabled={form.formState.isSubmitting}
           isLoading={form.formState.isSubmitting}
           label="Inloggen"
           onPress={onSubmit}
