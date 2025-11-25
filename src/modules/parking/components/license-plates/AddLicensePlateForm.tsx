@@ -94,7 +94,6 @@ export const AddLicensePlateForm = () => {
           testID="ParkingAddLicensePlateFormNameInputField"
         />
         <Button
-          disabled={formState.isSubmitting || isLoading}
           isLoading={formState.isSubmitting || isLoading}
           label="Opslaan"
           onPress={handleSubmit(onSubmit)}

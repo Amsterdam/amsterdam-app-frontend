@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
-  const [deleteSession, {isError}] = useDeleteSessionMutation()
+  const [deleteSession, {isLoading, isError}] = useDeleteSessionMutation()
   const {goBack} = useNavigation()
 
   const onPressDelete = useCallback(() => {
@@ -48,6 +48,8 @@ export const ParkingSessionDetailsDeleteButton = ({parkingSession}: Props) => {
         <SomethingWentWrong testID="ParkingSessionDetailsDeleteButtonSomethingWentWrong" />
       )}
       <Button
+        isError={isError}
+        isLoading={isLoading}
         label="Verwijderen"
         onPress={onPressDelete}
         testID="ParkingSessionDetailsDeleteButton"

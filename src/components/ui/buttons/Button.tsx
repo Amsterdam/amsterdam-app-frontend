@@ -91,6 +91,7 @@ export const Button = ({
     <PressableBase
       accessibilityLanguage="nl-NL"
       accessibilityRole="button"
+      disabled={pressableProps.disabled || isLoading}
       hitSlop={
         noPadding || noPaddingVertical
           ? (config.minTouchSize - theme.text.lineHeight.body) / 2
