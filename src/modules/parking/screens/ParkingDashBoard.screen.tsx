@@ -24,7 +24,7 @@ import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/Park
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   setIsLoggingIn,

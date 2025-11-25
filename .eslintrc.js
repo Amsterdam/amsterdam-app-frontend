@@ -156,6 +156,11 @@ module.exports = {
                 message:
                   'Import Pressable and PressableProps from @/components/ui/buttons/Pressable.',
               },
+              {
+                name: 'react-native-maps',
+                importNames: ['Marker'],
+                message: 'Import Marker from @/components/features/map/marker.',
+              },
             ],
           },
         ],

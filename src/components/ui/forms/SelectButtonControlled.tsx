@@ -5,10 +5,12 @@ import {
   useController,
   UseControllerProps,
 } from 'react-hook-form'
+import type {RootStackParams} from '@/app/navigation/types'
 import {SelectButton} from '@/components/ui/forms/SelectButton'
 import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type ValueFunctionOrString<
@@ -24,6 +26,7 @@ type Props<
   accessibilityLabel?: ValueFunctionOrString<TFieldValues, TName>
   bottomSheetVariant?: string
   iconName: SvgIconName
+  routeName?: keyof RootStackParams
   text?: ValueFunctionOrString<TFieldValues, TName>
   textAdditional?: ValueFunctionOrString<TFieldValues, TName>
   title: string | ((value: PathValue<TFieldValues, TName>) => string)
@@ -40,11 +43,13 @@ export const SelectButtonControlled = <
   text,
   textAdditional,
   iconName,
+  routeName,
   accessibilityLabel,
   accessibilityHint,
   ...controllerProps
 }: Props<TFieldValues, TName>) => {
   const {toggle} = useBottomSheet()
+  const {navigate} = useNavigation()
   const {
     field: {value},
     fieldState: {error},
@@ -66,8 +71,13 @@ export const SelectButtonControlled = <
       }
       error={error}
       iconName={iconName}
+      iconRightName={routeName ? 'chevron-right' : 'chevron-down'}
       onPress={(): void => {
-        toggle(bottomSheetVariant)
+        if (routeName) {
+          navigate(routeName, {} as never)
+        } else {
+          toggle(bottomSheetVariant)
+        }
       }}
       testID={testID}
       text={typeof text === 'string' ? text : text?.(value)}

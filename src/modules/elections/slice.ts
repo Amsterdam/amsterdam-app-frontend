@@ -22,10 +22,14 @@ export const electionsSlice = createSlice({
     ) => {
       state.selectedPollingStationId = id
     },
+    resetSelectedPollingStationId: state => {
+      state.selectedPollingStationId = undefined
+    },
   },
 })
 
-export const {setSelectedPollingStationId} = electionsSlice.actions
+export const {setSelectedPollingStationId, resetSelectedPollingStationId} =
+  electionsSlice.actions
 
 export const selectSelectedPollingStationId = (state: RootState) =>
   state[ReduxKey.elections].selectedPollingStationId

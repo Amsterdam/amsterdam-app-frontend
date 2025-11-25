@@ -9,9 +9,7 @@ type Props = {
   onPress: (favorite: string) => void
 }
 
-export const ParkingStartSessionParkingMachineFavoriteButton = ({
-  onPress,
-}: Props) => {
+export const ParkingMachineFavoriteButton = ({onPress}: Props) => {
   const currentParkingPermit = useCurrentParkingPermit()
 
   if (!currentParkingPermit.parking_machine_favorite) {
@@ -22,7 +20,9 @@ export const ParkingStartSessionParkingMachineFavoriteButton = ({
     <Pressable
       onPress={() => onPress(currentParkingPermit.parking_machine_favorite!)}
       testID="ParkingSessionUseFavoriteMachineButton">
-      <Box insetLeft="sm">
+      <Box
+        insetLeft="sm"
+        insetVertical="sm">
         <Row gutter="md">
           <Icon
             color="link"

@@ -9,6 +9,7 @@ import {TestProps} from '@/components/ui/types'
 type Props = {
   error?: FieldError
   iconName: SvgIconName
+  iconRightName?: Extract<SvgIconName, 'chevron-down' | 'chevron-right'>
   onPress: () => void
   text?: string
   textAdditional?: string
@@ -30,6 +31,7 @@ export const SelectButton = ({
   accessibilityLabel,
   accessibilityHint,
   accessibilityValue,
+  iconRightName = 'chevron-down',
 }: Props) => (
   <Column gutter="md">
     <TopTaskButton
@@ -39,7 +41,7 @@ export const SelectButton = ({
       accessibilityValue={accessibilityValue}
       border
       iconName={iconName}
-      iconRightName="chevron-down"
+      iconRightName={iconRightName}
       iconRightSize="lg"
       onPress={onPress}
       testID={testID}

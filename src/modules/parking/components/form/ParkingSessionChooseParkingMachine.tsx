@@ -2,12 +2,13 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
+import type {ParkingMachine} from '@/modules/parking/types'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {SwitchField} from '@/components/ui/forms/SwitchField'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {ParkingRouteName} from '@/modules/parking/routes'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 
@@ -16,17 +17,30 @@ type FieldValues = Pick<
   'parking_machine' | 'startTime' | 'parking_machine_favorite'
 >
 
-export const ParkingSessionChooseParkingMachine = () => {
-  const {clearErrors, control, setError, watch} = useFormContext<FieldValues>()
+export const ParkingSessionChooseParkingMachine = ({
+  selectedParkingMachineId,
+}: {
+  selectedParkingMachineId?: ParkingMachine['id']
+}) => {
+  const {clearErrors, control, setError, watch, setValue} =
+    useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
-  const parkingMachine = watch('parking_machine')
   const startTime = watch('startTime')
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
-    parkingMachine && currentPermit.can_select_zone
-      ? {machineId: parkingMachine, report_code: currentPermit.report_code}
+    selectedParkingMachineId && currentPermit.can_select_zone
+      ? {
+          machineId: selectedParkingMachineId,
+          report_code: currentPermit.report_code,
+        }
       : skipToken,
   )
+
+  useEffect(() => {
+    if (selectedParkingMachineId) {
+      setValue('parking_machine', selectedParkingMachineId)
+    }
+  }, [setValue, selectedParkingMachineId])
 
   useEffect(() => {
     if (!error) {
@@ -69,19 +83,19 @@ export const ParkingSessionChooseParkingMachine = () => {
   return (
     <Column gutter="md">
       <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
-        bottomSheetVariant={ParkingSessionBottomSheetVariant.parkingMachine}
         iconName="location"
         name="parking_machine"
+        routeName={ParkingRouteName.parkingPermitZones}
         rules={{required: 'Kies een parkeerautomaat'}}
         testID="ParkingChooseParkingMachineButton"
         text={parking_machine => parking_machine}
-        textAdditional={!error ? machineDetailsLabel : ''}
+        textAdditional={error ? undefined : machineDetailsLabel}
         title={parking_machine =>
           parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
         }
       />
-      {currentPermit.parking_machine_favorite !== parkingMachine &&
-        !!parkingMachine &&
+      {currentPermit.parking_machine_favorite !== selectedParkingMachineId &&
+        !!selectedParkingMachineId &&
         !error && (
           <SwitchField
             accessibilityLabel="Stel in als favoriet"

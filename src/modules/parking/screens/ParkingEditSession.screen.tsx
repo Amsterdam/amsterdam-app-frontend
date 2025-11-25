@@ -11,7 +11,7 @@ import {ParkingSessionFormProvider} from '@/modules/parking/components/form/Park
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingApiVersion} from '@/modules/parking/types'
 // import {dayjs} from '@/utils/datetime/dayjs'

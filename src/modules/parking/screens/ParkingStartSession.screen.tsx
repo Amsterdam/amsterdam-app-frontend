@@ -15,7 +15,7 @@ import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/botto
 import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingApiVersion, ParkingPermitScope} from '@/modules/parking/types'
@@ -61,7 +61,9 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                   </Column>
                 )}
                 {apiVersion === ParkingApiVersion.v2 && (
-                  <ParkingSessionChooseParkingMachine />
+                  <ParkingSessionChooseParkingMachine
+                    selectedParkingMachineId={params?.parkingMachineId}
+                  />
                 )}
 
                 <ParkingSessionChooseTime />

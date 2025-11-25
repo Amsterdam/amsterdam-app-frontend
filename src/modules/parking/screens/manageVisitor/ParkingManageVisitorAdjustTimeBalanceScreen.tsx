@@ -7,7 +7,7 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {ManageVisitorChooseTimeAddOn} from '@/modules/parking/components/manageVisitor/ManageVisitorChooseTimeAddOn'
 import {ManageVisitorTimeAddOnBottomSheet} from '@/modules/parking/components/manageVisitor/ManageVisitorTimeAddOnBottomSheet'
 import {ManageVisitorTimeBalance} from '@/modules/parking/components/manageVisitor/ManageVisitorTimeBalance'
-import {CurrentPermitProvider} from '@/modules/parking/provides/CurrentPermitProvider'
+import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingSessionFormProvider} from '@/modules/parking/screens/manageVisitor/ManageVisitorIncreaseTimeBalanceFormProvider'
 
