@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {BluetoothIcon} from './BluetoothIcon'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta: Meta<typeof BluetoothIcon> = {
   component: BluetoothIcon,

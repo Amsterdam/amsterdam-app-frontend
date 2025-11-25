@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {TextInput} from '@/components/ui/forms/TextInput'
 
 export default {

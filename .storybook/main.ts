@@ -1,9 +1,13 @@
-import path from 'path'
-import {StorybookConfig} from '@storybook/react-vite'
-import react from '@vitejs/plugin-react'
-import {isPreservingSymlinks} from 'storybook/internal/common'
+// This file has been automatically migrated to valid ESM format by Storybook.
+import {createRequire} from 'node:module'
+import {fileURLToPath} from 'node:url'
+import path, {dirname} from 'path'
+import {StorybookConfig} from '@storybook/react-native-web-vite'
 import {mergeConfig} from 'vite'
-import svgr from 'vite-plugin-svgr'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const require = createRequire(import.meta.url)
 
 const aliases = Object.entries(
   require('../.config/alias.js') as Record<string, string>,
@@ -12,32 +16,25 @@ const aliases = Object.entries(
   replacement: path.resolve(__dirname, `.${replacement}`),
 }))
 
-const extensions = [
-  '.web.jsx',
-  '.web.js',
-  '.web.tsx',
-  '.web.ts',
-  '.jsx',
-  '.js',
-  '.tsx',
-  '.ts',
-  '.css',
-  '.jpg',
-  '.json',
-  '.png',
-  '.svg',
-]
-
 const config: StorybookConfig = {
   addons: [
-    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
     '@storybook/addon-designs',
+    '@storybook/addon-docs',
   ],
 
   framework: {
-    name: '@storybook/react-vite',
-    options: {},
+    name: '@storybook/react-native-web-vite',
+    options: {
+      builder: {},
+      pluginReactOptions: {
+        babel: {
+          parserOpts: {
+            plugins: [],
+          },
+        },
+      },
+    },
   },
 
   core: {
@@ -52,36 +49,7 @@ const config: StorybookConfig = {
 
   viteFinal: viteConfig =>
     mergeConfig(viteConfig, {
-      base: './',
-      define: {
-        __DEV__: false,
-        // process.env is causing a conflict with immer (dependency of redux) and Vite requires us to fix it like so
-        'process.env': {
-          // eslint-disable-next-line no-process-env
-          NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-        },
-      },
-      optimizeDeps: {
-        esbuildOptions: {
-          resolveExtensions: extensions,
-          loader: {
-            '.js': 'jsx', // <-- Move this line here!
-          },
-        },
-      },
-      build: {
-        commonjsOptions: {
-          transformMixedEsModules: true,
-        },
-      },
-      plugins: [
-        react(),
-        svgr({
-          include: '**/*.svg',
-        }),
-      ],
       resolve: {
-        preserveSymlinks: isPreservingSymlinks(),
         // this list is ordered: higher items are matched first
         alias: [
           {
@@ -138,7 +106,6 @@ const config: StorybookConfig = {
           },
           ...aliases,
         ],
-        extensions,
       },
     }),
 

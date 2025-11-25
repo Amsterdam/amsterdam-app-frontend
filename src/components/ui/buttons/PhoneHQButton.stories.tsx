@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {PhoneHQButton} from './PhoneHQButton'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: PhoneHQButton,

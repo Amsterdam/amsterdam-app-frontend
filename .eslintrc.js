@@ -14,7 +14,7 @@ module.exports = {
     '@react-native',
     'plugin:storybook/recommended',
     'plugin:storybook/csf',
-    'plugin:storybook/csf-strict',
+    // 'plugin:storybook/csf-strict', // this config is currently broken, so the rules are added manually in overrides (storybook/no-stories-of and storybook/no-title-property-in-meta)
     'plugin:react/jsx-runtime',
     'plugin:sonarjs/recommended-legacy', // legacy is for ESlint 8
   ],
@@ -237,6 +237,8 @@ module.exports = {
         'no-restricted-imports': 'off',
         'sonarjs/no-identical-functions': 'off',
         'amsterdam/no-relative-file-import': 'off',
+        'storybook/no-stories-of': 'error',
+        'storybook/no-title-property-in-meta': 'error',
       },
     },
     {

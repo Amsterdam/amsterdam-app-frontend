@@ -1,4 +1,4 @@
-import {Meta, StoryFn, StoryObj} from '@storybook/react'
+import {Meta, StoryFn, StoryObj} from '@storybook/react-native-web-vite'
 import {View} from 'react-native'
 import {Phrase} from './Phrase'
 

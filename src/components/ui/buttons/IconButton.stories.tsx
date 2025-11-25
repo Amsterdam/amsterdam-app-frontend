@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {IconButton} from './IconButton'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Icon} from '@/components/ui/media/Icon'
 import pressableArgTypes from '@/storybook/utils/pressable-arg-types'
 

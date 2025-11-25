@@ -1,6 +1,6 @@
 import {permitMock} from '../../mocks/permit.mock'
 import {ParkingPaymentTimes} from './ParkingPaymentTimes'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: ParkingPaymentTimes,

@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import {NavigationContainer} from '@react-navigation/native'
-import {INITIAL_VIEWPORTS} from '@storybook/addon-viewport'
-import {Preview} from '@storybook/react'
+import {Preview} from '@storybook/react-native-web-vite'
 import {FC} from 'react'
+import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import {DeviceProvider} from '../src/providers/device.provider'
 import {StoreProvider} from '../src/providers/store.provider'
 import {baseColor} from '../src/themes/tokens/base-color'
@@ -27,32 +27,37 @@ const preview: Preview = {
 
   parameters: {
     backgrounds: {
-      values: [
-        {
+      options: {
+        'custom-grey0': {
           name: 'custom-grey0',
           value: baseColor.custom.grey0,
         },
-        {
+
+        'primary-blue': {
           name: 'primary-blue',
           value: baseColor.primary.blue,
         },
-        {
+
+        'primary-red': {
           name: 'primary-red',
           value: baseColor.primary.red,
         },
-        {
+
+        'primary-black': {
           name: 'primary-black',
           value: baseColor.primary.black,
         },
-        {
+
+        'secondary-yellow': {
           name: 'secondary-yellow',
           value: baseColor.secondary.yellow,
         },
-        {
+
+        'secondary-purple': {
           name: 'secondary-purple',
           value: baseColor.secondary.purple,
         },
-      ],
+      },
     },
     controls: {
       matchers: {
@@ -61,12 +66,18 @@ const preview: Preview = {
       },
     },
     viewport: {
-      viewports: INITIAL_VIEWPORTS,
-      defaultViewport: 'iphonex',
+      options: INITIAL_VIEWPORTS,
     },
   },
 
   tags: ['autodocs'],
+
+  initialGlobals: {
+    viewport: {
+      value: 'iphonex',
+      isRotated: false,
+    },
+  },
 }
 
 export default preview

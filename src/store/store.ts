@@ -1,8 +1,4 @@
-import {
-  combineReducers,
-  configureStore,
-  type StoreEnhancer,
-} from '@reduxjs/toolkit'
+import {combineReducers, configureStore} from '@reduxjs/toolkit'
 import {FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE} from 'redux-persist'
 import {productTourSlice} from '@/components/features/product-tour/slice'
 import {accessCodeSlice} from '@/modules/access-code/slice'
@@ -10,6 +6,7 @@ import {electionsSlice} from '@/modules/elections/slice'
 import {clientModules, coreModules} from '@/modules/modules'
 import {reduxLoggerMiddleware} from '@/processes/logging/reduxLoggerMiddleware'
 import {baseApi} from '@/services/baseApi'
+import {devStoreEnhancer} from '@/store/devStoreEnhancer'
 import {getReduxConfigs, getReducers} from '@/store/getReducers'
 import {alertSlice} from '@/store/slices/alert'
 import {bottomSheetSlice} from '@/store/slices/bottomSheet'
@@ -49,31 +46,7 @@ const reducers = getReducers([
 ])
 
 export const store = configureStore({
-  enhancers: enhancers => {
-    if (__DEV__) {
-      const devToolsEnhancer = (
-        require('redux-devtools-expo-dev-plugin') as {
-          default: (options: unknown) => StoreEnhancer
-        }
-      ).default
-      const {polyfillGlobal} =
-        require('react-native/Libraries/Utilities/PolyfillFunctions') as {
-          polyfillGlobal: (name: string, fn: () => unknown) => void
-        }
-
-      const {TextEncoder, TextDecoder} = require('text-encoding') as {
-        TextDecoder: unknown
-        TextEncoder: unknown
-      }
-
-      polyfillGlobal('TextEncoder', () => TextEncoder)
-      polyfillGlobal('TextDecoder', () => TextDecoder)
-
-      return enhancers.concat(devToolsEnhancer({}))
-    }
-
-    return enhancers
-  },
+  enhancers: devStoreEnhancer,
   reducer: combineReducers({
     [baseApi.reducerPath]: baseApi.reducer,
     ...reducers,

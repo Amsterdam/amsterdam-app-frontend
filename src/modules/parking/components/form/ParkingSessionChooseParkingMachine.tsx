@@ -57,14 +57,14 @@ export const ParkingSessionChooseParkingMachine = () => {
     }
   }, [clearErrors, error, setError])
 
-  if (!currentPermit.can_select_zone) {
-    return null
-  }
-
   const machineDetailsLabel = useMemo(
     () => getParkingMachineDetailsLabel(parkingMachineDetails, startTime),
     [parkingMachineDetails, startTime],
   )
+
+  if (!currentPermit.can_select_zone) {
+    return null
+  }
 
   return (
     <Column gutter="md">

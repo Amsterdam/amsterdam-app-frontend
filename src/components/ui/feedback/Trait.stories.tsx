@@ -1,4 +1,4 @@
-import {Meta, StoryFn, StoryObj} from '@storybook/react'
+import {Meta, StoryFn, StoryObj} from '@storybook/react-native-web-vite'
 import {Badge} from '@/components/ui/feedback/Badge'
 import {Trait} from '@/components/ui/feedback/Trait'
 

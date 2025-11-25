@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Fader} from './Fader'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Block} from '@/storybook/components/Block'
 
 const meta: Meta<typeof Fader> = {

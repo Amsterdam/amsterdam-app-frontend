@@ -1,6 +1,6 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Text} from 'react-native'
 import {Checkbox} from './Checkbox'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: Checkbox,

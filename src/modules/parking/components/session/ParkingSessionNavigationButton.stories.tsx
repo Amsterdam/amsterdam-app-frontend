@@ -1,6 +1,6 @@
 import {ParkingSessionStatus} from '../../types'
 import {ParkingSessionNavigationButton} from './ParkingSessionNavigationButton'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: ParkingSessionNavigationButton,

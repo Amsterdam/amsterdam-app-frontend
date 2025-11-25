@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {FullScreenErrorFigure} from '@/modules/city-pass/components/error/FullScreenErrorFigure'
 
 const meta: Meta<typeof FullScreenErrorFigure> = {

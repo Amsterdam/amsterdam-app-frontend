@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {ReportProblemFigure} from '@/components/ui/media/errors/ReportProblemFigure'
 
 const meta: Meta<typeof ReportProblemFigure> = {

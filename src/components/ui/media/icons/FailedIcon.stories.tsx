@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {FailedIcon} from './FailedIcon'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta: Meta<typeof FailedIcon> = {
   component: FailedIcon,

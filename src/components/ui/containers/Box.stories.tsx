@@ -1,4 +1,4 @@
-import {Meta, StoryFn} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react-native-web-vite'
 import {Box} from '@/components/ui/containers/Box'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {baseColor} from '@/themes/tokens/base-color'
@@ -11,16 +11,17 @@ export default {
   },
   parameters: {
     backgrounds: {
-      values: [
-        {
+      options: {
+        default_screen: {
           name: 'Default screen',
           value: baseColor.primary.white,
         },
-        {
+
+        settings_screen: {
           name: 'Settings screen',
           value: baseColor.custom.grey0,
         },
-      ],
+      },
     },
   },
 } as Meta<typeof Box>

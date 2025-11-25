@@ -1,4 +1,4 @@
-import {Meta, StoryFn} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react-native-web-vite'
 import {Paragraph} from './Paragraph'
 
 export default {
