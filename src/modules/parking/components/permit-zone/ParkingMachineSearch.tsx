@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {useMemo, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -8,33 +7,19 @@ import {Column} from '@/components/ui/layout/Column'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 import {ParkingMachineSearchResults} from '@/modules/parking/components/permit-zone/ParkingMachineSearchResults'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  usePermitZonesQuery,
-  useParkingMachinesQuery,
-} from '@/modules/parking/service'
-import {type ParkingMachine} from '@/modules/parking/types'
+import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
+import {useParkingMachinesQuery} from '@/modules/parking/service'
 
-export const ParkingMachineSearch = ({
-  onSelectParkingMachine,
-}: {
-  onSelectParkingMachine: (id: ParkingMachine['id']) => void
-}) => {
-  const {report_code} = useCurrentParkingPermit()
+export const ParkingMachineSearch = () => {
   const {isLandscape, isTablet} = useDeviceContext()
   const [searchTerm, setSearchTerm] = useState('')
-
-  const {
-    data: permitZoneData,
-    isLoading: isLoadingPermitZoneData,
-    isError: isErrorPermitZoneData,
-  } = usePermitZonesQuery(report_code)
+  const {onSelectParkingMachine} = usePermitMapContext()
 
   const {
     data: parkingMachinesData,
     isLoading: isLoadingParkingMachinesData,
     isError: isErrorParkingMachinesData,
-  } = useParkingMachinesQuery(permitZoneData ? undefined : skipToken)
+  } = useParkingMachinesQuery()
 
   const filteredParkingMachines = useMemo(() => {
     if (searchTerm && parkingMachinesData) {
@@ -46,15 +31,11 @@ export const ParkingMachineSearch = ({
     return []
   }, [parkingMachinesData, searchTerm])
 
-  if (isLoadingParkingMachinesData || isLoadingPermitZoneData) {
+  if (isLoadingParkingMachinesData) {
     return <PleaseWait testID="ParkingMachineSearchPleaseWait" />
   }
 
-  if (
-    !parkingMachinesData?.length ||
-    isErrorPermitZoneData ||
-    isErrorParkingMachinesData
-  ) {
+  if (!parkingMachinesData?.length || isErrorParkingMachinesData) {
     return (
       <SomethingWentWrong testID="ParkingMachineSearchSomethingWentWrong" />
     )

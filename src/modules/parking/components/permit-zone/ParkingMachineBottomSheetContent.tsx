@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useMemo} from 'react'
+import {useEffect, useMemo} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -15,12 +15,12 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
+import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -30,12 +30,15 @@ export const ParkingMachineBottomSheetContent = () => {
   const navigation = useNavigation<ParkingRouteName>()
   const autoFocus = useAccessibilityFocus()
   const {name: previousRouteName} = usePreviousRoute() ?? {}
+  const {selectedParkingMachineId, resetSelectedParkingMachineId} =
+    usePermitMapContext()
 
   const currentPermit = useCurrentParkingPermit()
-  const parkingMachineId = useSelectedParkingMachineId()
 
   const {data} = useParkingMachinesQuery()
-  const parkingMachine = data?.find(machine => machine.id === parkingMachineId)
+  const parkingMachine = data?.find(
+    machine => machine.id === selectedParkingMachineId,
+  )
 
   const directionsUrl = useGetGoogleMapsDirectionsUrl({
     lat: parkingMachine?.lat,
@@ -47,14 +50,22 @@ export const ParkingMachineBottomSheetContent = () => {
     isLoading,
     isError,
   } = useZoneByMachineQuery(
-    parkingMachineId
-      ? {machineId: parkingMachineId, report_code: currentPermit.report_code}
+    selectedParkingMachineId
+      ? {
+          machineId: selectedParkingMachineId,
+          report_code: currentPermit.report_code,
+        }
       : skipToken,
   )
 
   const machineDetailsLabel = useMemo(
     () => getParkingMachineDetailsLabel(parkingMachineDetails, dayjs()),
     [parkingMachineDetails],
+  )
+
+  useEffect(
+    () => () => resetSelectedParkingMachineId(),
+    [resetSelectedParkingMachineId],
   )
 
   if (!parkingMachine) {
@@ -68,7 +79,7 @@ export const ParkingMachineBottomSheetContent = () => {
           <Title
             level="h3"
             ref={autoFocus}
-            text={`Parkeerautomaat ${parkingMachineId}`}
+            text={`Parkeerautomaat ${selectedParkingMachineId}`}
           />
           <IconButton
             accessibilityLabel="Sluit parkeerautomaat details venster"
@@ -134,7 +145,9 @@ export const ParkingMachineBottomSheetContent = () => {
               isError ? 'Automaat niet beschikbaar' : 'Selecteer deze automaat'
             }
             onPress={() => {
-              navigation.popTo(ParkingRouteName.startSession)
+              navigation.popTo(ParkingRouteName.startSession, {
+                parkingMachineId: selectedParkingMachineId,
+              })
             }}
             testID="SelectParkingMachineButton"
           />

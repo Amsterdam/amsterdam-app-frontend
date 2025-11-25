@@ -7,6 +7,7 @@ import {ParkingMachineBottomSheetContent} from '@/modules/parking/components/per
 import {ParkingPermitZone} from '@/modules/parking/components/permit-zone/ParkingPermitZone'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
+import {PermitMapProvider} from '@/modules/parking/providers/PermitMapProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
 
@@ -22,28 +23,30 @@ const ParkingPermitZonesScreenInner = () => {
   const {name: previousRouteName} = usePreviousRoute() ?? {}
 
   return (
-    <Screen
-      bottomSheet={
-        <BottomSheet
-          scroll
-          testID="ParkingPermitZonesBottomSheet"
-          variants={variantMap}
-        />
-      }
-      headerOptions={{
-        headerTitle: permit_zone.name,
-      }}
-      scroll={false}
-      testID="ParkingPermitZonesScreen"
-      withBottomInset={false}>
-      <ParkingPermitZone
-        variant={
-          previousRouteName === ParkingRouteName.startSession
-            ? 'search'
-            : 'list'
+    <PermitMapProvider>
+      <Screen
+        bottomSheet={
+          <BottomSheet
+            scroll
+            testID="ParkingPermitZonesBottomSheet"
+            variants={variantMap}
+          />
         }
-      />
-    </Screen>
+        headerOptions={{
+          headerTitle: permit_zone.name,
+        }}
+        scroll={false}
+        testID="ParkingPermitZonesScreen"
+        withBottomInset={false}>
+        <ParkingPermitZone
+          variant={
+            previousRouteName === ParkingRouteName.startSession
+              ? 'search'
+              : 'list'
+          }
+        />
+      </Screen>
+    </PermitMapProvider>
   )
 }
 

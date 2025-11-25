@@ -25,6 +25,7 @@ const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
 export const ParkingSessionBottomSheet = () => {
   const {variant} = useBottomSheetSelectors()
 
+  // Temporary fix to hide empty BottomSheet on navigation from PermitZoneScreen to StartSessionScreen
   if (variant === ParkingPermitZonesBottomSheetVariant.parkingMachine) {
     return null
   }

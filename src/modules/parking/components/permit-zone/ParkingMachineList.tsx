@@ -1,4 +1,4 @@
-import {skipToken} from '@reduxjs/toolkit/query'
+import {useMemo} from 'react'
 import {FlatList} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -7,50 +7,33 @@ import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
-import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {
-  usePermitZonesQuery,
-  useParkingMachinesQuery,
-} from '@/modules/parking/service'
-import {
-  ParkingPermitZonesBottomSheetVariant,
-  type ParkingMachine,
-} from '@/modules/parking/types'
+import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
+import {useParkingMachinesQuery} from '@/modules/parking/service'
+import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
 
-export const ParkingMachineList = ({
-  onSelectParkingMachine,
-}: {
-  onSelectParkingMachine: (id: ParkingMachine['id']) => void
-}) => {
-  const {report_code} = useCurrentParkingPermit()
+export const ParkingMachineList = () => {
   const {address} = useSelectedAddress()
-
-  const {data: permitZoneData, isError: isErrorPermitZoneData} =
-    usePermitZonesQuery(report_code)
+  const {onSelectParkingMachine} = usePermitMapContext()
 
   const {
     data: parkingMachinesData,
     isLoading: isLoadingParkingMachinesData,
     isError: isErrorParkingMachinesData,
-  } = useParkingMachinesQuery(permitZoneData ? undefined : skipToken)
+  } = useParkingMachinesQuery()
+
+  const parkingMachinesByDistance = useMemo(
+    () => getSortedParkingMachines(parkingMachinesData || [], address),
+    [parkingMachinesData, address],
+  )
 
   if (isLoadingParkingMachinesData) {
     return <PleaseWait testID="ParkingMachineListPleaseWait" />
   }
 
-  if (
-    !parkingMachinesData?.length ||
-    isErrorPermitZoneData ||
-    isErrorParkingMachinesData
-  ) {
+  if (!parkingMachinesByDistance?.length || isErrorParkingMachinesData) {
     return <SomethingWentWrong testID="ParkingMachineListSomethingWentWrong" />
   }
-
-  const parkingMachinesByDistance = getSortedParkingMachines(
-    parkingMachinesData,
-    address,
-  )
 
   return (
     <Box
