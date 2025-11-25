@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import {NavigationContainer} from '@react-navigation/native'
-import {Preview} from '@storybook/react'
+import {Preview} from '@storybook/react-native-web-vite'
 import {FC} from 'react'
 import {INITIAL_VIEWPORTS} from 'storybook/viewport'
 import {DeviceProvider} from '../src/providers/device.provider'

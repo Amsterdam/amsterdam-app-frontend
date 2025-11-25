@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Image} from './Image'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import source from '@/modules/onboarding/assets/images/screenshot-afvalwijzer.png'
 
 const meta: Meta<typeof Image> = {

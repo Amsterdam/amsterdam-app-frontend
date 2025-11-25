@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {TopTaskButton} from './TopTaskButton'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 export default {
   component: TopTaskButton,

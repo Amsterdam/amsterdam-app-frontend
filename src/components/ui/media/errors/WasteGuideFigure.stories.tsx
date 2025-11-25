@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 
 const meta: Meta<typeof WasteGuideFigure> = {

@@ -1,10 +1,10 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Box} from '../containers/Box'
 import {Column} from '../layout/Column'
 import {Row} from '../layout/Row'
 import {Phrase} from '../text/Phrase'
 import {Icon} from './Icon'
 import {SvgIconName, SvgIconsConfig} from './svgIcons'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
 

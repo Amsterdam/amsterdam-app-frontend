@@ -1,6 +1,13 @@
-import path from 'path'
+// This file has been automatically migrated to valid ESM format by Storybook.
+import {createRequire} from 'node:module'
+import {fileURLToPath} from 'node:url'
+import path, {dirname} from 'path'
 import {StorybookConfig} from '@storybook/react-native-web-vite'
 import {mergeConfig} from 'vite'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+const require = createRequire(import.meta.url)
 
 const aliases = Object.entries(
   require('../.config/alias.js') as Record<string, string>,

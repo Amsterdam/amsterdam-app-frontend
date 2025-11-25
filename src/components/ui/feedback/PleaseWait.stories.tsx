@@ -1,4 +1,4 @@
-import {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Canvas} from '@/storybook/components'
 

@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {SuccessIcon} from './SuccessIcon'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta: Meta<typeof SuccessIcon> = {
   component: SuccessIcon,

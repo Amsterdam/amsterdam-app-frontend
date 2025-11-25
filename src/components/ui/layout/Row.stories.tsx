@@ -1,4 +1,4 @@
-import {Meta, StoryFn} from '@storybook/react'
+import {Meta, StoryFn} from '@storybook/react-native-web-vite'
 import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {Block, Canvas} from '@/storybook/components'

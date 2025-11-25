@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {WasteCardBluetoothSvg} from './WasteCardBluetoothSvg'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta: Meta<typeof WasteCardBluetoothSvg> = {
   component: WasteCardBluetoothSvg,

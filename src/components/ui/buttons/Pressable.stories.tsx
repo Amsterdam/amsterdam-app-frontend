@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Pressable} from './Pressable'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 
 export default {

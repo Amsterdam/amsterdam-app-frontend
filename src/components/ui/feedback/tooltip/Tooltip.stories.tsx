@@ -1,5 +1,5 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {Tooltip} from './Tooltip'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Placement} from '@/components/ui/types'
 
 export default {

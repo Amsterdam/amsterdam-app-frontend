@@ -1,6 +1,6 @@
-import {Meta, StoryObj} from '@storybook/react'
 import {PopUpMenu} from './PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from './types'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {Canvas} from '@/storybook/components'
 
 const menuItems: PopupMenuItem[] = [

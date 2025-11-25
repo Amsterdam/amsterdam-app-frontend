@@ -1,4 +1,4 @@
-import {Meta} from '@storybook/react'
+import {Meta} from '@storybook/react-native-web-vite'
 import {Badge} from './Badge'
 
 export default {

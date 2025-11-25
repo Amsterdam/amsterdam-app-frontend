@@ -1,5 +1,5 @@
 import {NotificationHistoryItem} from './NotificationHistoryItem'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {ModuleSlug} from '@/modules/slugs'
 
 const slug = ModuleSlug['construction-work']

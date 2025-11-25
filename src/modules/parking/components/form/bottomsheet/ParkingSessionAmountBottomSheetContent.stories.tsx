@@ -1,6 +1,6 @@
 import {ParkingSessionFormProvider} from '../ParkingSessionFormProvider'
 import {ParkingSessionAmountBottomSheetContent} from './ParkingSessionAmountBottomSheetContent'
-import type {Meta, StoryObj} from '@storybook/react'
+import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
   component: ParkingSessionAmountBottomSheetContent,
