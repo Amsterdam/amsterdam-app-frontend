@@ -12,7 +12,7 @@ type Props = {
 
 export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
   const {goBack} = useNavigation()
-  const [deleteSession, {isError}] = useDeleteSessionMutation()
+  const [deleteSession, {isLoading, isError}] = useDeleteSessionMutation()
 
   const onPressStop = useCallback(() => {
     Alert.alert(
@@ -48,6 +48,8 @@ export const ParkingSessionDetailsStopButton = ({parkingSession}: Props) => {
         <SomethingWentWrong testID="ParkingSessionDetailsStopButtonSomethingWentWrong" />
       )}
       <Button
+        isError={isError}
+        isLoading={isLoading}
         label="Stoppen"
         onPress={onPressStop}
         testID="ParkingSessionDetailsStopButton"
