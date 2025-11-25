@@ -1,13 +1,13 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {FormProvider, useForm} from 'react-hook-form'
+import {useMemo, useState} from 'react'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {SearchField} from '@/components/ui/forms/SearchField'
 import {Column} from '@/components/ui/layout/Column'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 
 import {ParkingMachineSearchResults} from '@/modules/parking/components/permit-zone/ParkingMachineSearchResults'
-import {ParkingMachinesTextInputField} from '@/modules/parking/components/permit-zone/ParkingMachinesTextInputField'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   usePermitZonesQuery,
@@ -22,11 +22,13 @@ export const ParkingMachineSearch = ({
 }) => {
   const {report_code} = useCurrentParkingPermit()
   const {isLandscape, isTablet} = useDeviceContext()
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const form = useForm<{searchText: string}>()
-
-  const {data: permitZoneData, isError: isErrorPermitZoneData} =
-    usePermitZonesQuery(report_code)
+  const {
+    data: permitZoneData,
+    isLoading: isLoadingPermitZoneData,
+    isError: isErrorPermitZoneData,
+  } = usePermitZonesQuery(report_code)
 
   const {
     data: parkingMachinesData,
@@ -34,7 +36,17 @@ export const ParkingMachineSearch = ({
     isError: isErrorParkingMachinesData,
   } = useParkingMachinesQuery(permitZoneData ? undefined : skipToken)
 
-  if (isLoadingParkingMachinesData) {
+  const filteredParkingMachines = useMemo(() => {
+    if (searchTerm && parkingMachinesData) {
+      return parkingMachinesData.filter(machine =>
+        machine.id.startsWith(searchTerm),
+      )
+    }
+
+    return []
+  }, [parkingMachinesData, searchTerm])
+
+  if (isLoadingParkingMachinesData || isLoadingPermitZoneData) {
     return <PleaseWait testID="ParkingMachineSearchPleaseWait" />
   }
 
@@ -49,19 +61,27 @@ export const ParkingMachineSearch = ({
   }
 
   return (
-    <FormProvider {...form}>
-      <Box
-        grow
-        insetHorizontal="md"
-        insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
-        <Column gutter="lg">
-          <ParkingMachinesTextInputField />
-          <ParkingMachineSearchResults
-            onSelectParkingMachine={onSelectParkingMachine}
-            parkingMachinesData={parkingMachinesData}
-          />
-        </Column>
-      </Box>
-    </FormProvider>
+    <Box
+      grow
+      insetHorizontal="md"
+      insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
+      <Column gutter="lg">
+        <SearchField
+          accessibilityLabel="Zoek een parkeerautomaat"
+          autoComplete="off"
+          autoCorrect={false}
+          autoFocus
+          keyboardType="number-pad"
+          onChangeText={text => setSearchTerm(text.replaceAll(/[^0-9]/g, ''))}
+          placeholder="Nummer parkeerautomaat"
+          testID="ParkingMachineSearchTextSearchField"
+          value={searchTerm}
+        />
+        <ParkingMachineSearchResults
+          onSelectParkingMachine={onSelectParkingMachine}
+          parkingMachinesData={filteredParkingMachines}
+        />
+      </Column>
+    </Box>
   )
 }

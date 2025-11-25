@@ -1,8 +1,10 @@
+import {useEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/form/ParkingChooseLicensePlateButton'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
 import {ParkingReceiptV1} from '@/modules/parking/components/form/ParkingReceiptV1'
@@ -17,7 +19,11 @@ import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
+import {
+  resetSelectedParkingMachineId,
+  useParkingAccount,
+  useVisitorVehicleId,
+} from '@/modules/parking/slice'
 import {ParkingApiVersion, ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = NavigationProps<ParkingRouteName.startSession>
@@ -27,6 +33,11 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
   const apiVersion = useCurrentParkingApiVersion()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(resetSelectedParkingMachineId())
+  }, [dispatch])
 
   return (
     <CurrentPermitProvider>
@@ -61,9 +72,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                   </Column>
                 )}
                 {apiVersion === ParkingApiVersion.v2 && (
-                  <ParkingSessionChooseParkingMachine
-                    selectedParkingMachineId={params?.parkingMachineId}
-                  />
+                  <ParkingSessionChooseParkingMachine />
                 )}
 
                 <ParkingSessionChooseTime />

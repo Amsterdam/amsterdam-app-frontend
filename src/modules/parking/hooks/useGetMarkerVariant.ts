@@ -1,20 +1,20 @@
-import type {MarkerVariants} from '@/components/features/map/marker/markers'
+import {MarkerVariant} from '@/components/features/map/marker/markers'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 
-export const useRenderParkingMachineMarker = () => {
+export const useGetMarkerVariant = () => {
   const selectedParkingMachineId = useSelectedParkingMachineId()
   const {parking_machine_favorite} = useCurrentParkingPermit()
 
-  return (markerId: string): MarkerVariants => {
+  return (markerId: string): MarkerVariant => {
     if (markerId === selectedParkingMachineId) {
-      return 'selectedPin'
+      return MarkerVariant.selectedPin
     }
 
     if (markerId === parking_machine_favorite) {
-      return 'favoritePin'
+      return MarkerVariant.favoritePin
     }
 
-    return 'pin'
+    return MarkerVariant.pin
   }
 }

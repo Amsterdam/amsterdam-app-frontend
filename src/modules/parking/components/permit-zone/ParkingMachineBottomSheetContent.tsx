@@ -1,5 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
-import {useEffect, useMemo} from 'react'
+import {useMemo} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -13,7 +13,6 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
-import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -21,17 +20,13 @@ import {
   useParkingMachinesQuery,
   useZoneByMachineQuery,
 } from '@/modules/parking/service'
-import {
-  resetSelectedParkingMachineId,
-  useSelectedParkingMachineId,
-} from '@/modules/parking/slice'
+import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
-  const dispatch = useDispatch()
   const navigation = useNavigation<ParkingRouteName>()
   const autoFocus = useAccessibilityFocus()
   const {name: previousRouteName} = usePreviousRoute() ?? {}
@@ -62,13 +57,6 @@ export const ParkingMachineBottomSheetContent = () => {
     [parkingMachineDetails],
   )
 
-  useEffect(
-    () => () => {
-      dispatch(resetSelectedParkingMachineId())
-    },
-    [dispatch],
-  )
-
   if (!parkingMachine) {
     return null
   }
@@ -80,7 +68,7 @@ export const ParkingMachineBottomSheetContent = () => {
           <Title
             level="h3"
             ref={autoFocus}
-            text={`Parkeerautomaat ${parkingMachine.id}`}
+            text={`Parkeerautomaat ${parkingMachineId}`}
           />
           <IconButton
             accessibilityLabel="Sluit parkeerautomaat details venster"
@@ -146,9 +134,7 @@ export const ParkingMachineBottomSheetContent = () => {
               isError ? 'Automaat niet beschikbaar' : 'Selecteer deze automaat'
             }
             onPress={() => {
-              navigation.popTo(ParkingRouteName.startSession, {
-                parkingMachineId: parkingMachine.id,
-              })
+              navigation.popTo(ParkingRouteName.startSession)
             }}
             testID="SelectParkingMachineButton"
           />

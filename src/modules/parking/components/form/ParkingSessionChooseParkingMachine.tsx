@@ -2,17 +2,14 @@ import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
-import type {ParkingMachine} from '@/modules/parking/types'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
-import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
+import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {SwitchField} from '@/components/ui/forms/SwitchField'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
-import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
+import {useSelectedParkingMachineId} from '@/modules/parking/slice'
 import {getParkingMachineDetailsLabel} from '@/modules/parking/utils/paymentZone'
 
 type FieldValues = Pick<
@@ -20,23 +17,13 @@ type FieldValues = Pick<
   'parking_machine' | 'startTime' | 'parking_machine_favorite'
 >
 
-export const ParkingSessionChooseParkingMachine = ({
-  selectedParkingMachineId,
-}: {
-  selectedParkingMachineId?: ParkingMachine['id']
-}) => {
-  const {
-    clearErrors,
-    control,
-    setError,
-    watch,
-    setValue,
-    formState: {errors},
-  } = useFormContext<FieldValues>()
+export const ParkingSessionChooseParkingMachine = () => {
+  const {clearErrors, control, setError, watch, setValue} =
+    useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
-  const parkingMachine = watch('parking_machine')
+  const selectedParkingMachineId = useSelectedParkingMachineId()
+  const parkingMachine = watch('parking_machine', selectedParkingMachineId)
   const startTime = watch('startTime')
-  const navigation = useNavigation<ParkingRouteName>()
 
   const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
     parkingMachine && currentPermit.can_select_zone
@@ -84,37 +71,24 @@ export const ParkingSessionChooseParkingMachine = ({
     [parkingMachineDetails, startTime],
   )
 
-  useAccessibilityAnnounceEffect(errors.parking_machine?.message)
-
   if (!currentPermit.can_select_zone) {
     return null
   }
 
   return (
     <Column gutter="md">
-      <Column gutter="md">
-        <TopTaskButton
-          accessibilityHint="Tik om een parkeerautomaat te kiezen op de map of uit de lijst"
-          accessibilityRole="link"
-          border
-          iconName="location"
-          iconRightName="chevron-right"
-          iconRightSize="lg"
-          onPress={() => {
-            navigation.navigate(ParkingRouteName.parkingPermitZones)
-          }}
-          testID="ParkingNavigateToPermitZoneMapButton"
-          text={parkingMachine}
-          textAdditional={machineDetailsLabel}
-          title={parkingMachine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'}
-        />
-        {!!error && (
-          <ErrorMessage
-            testID="ParkingNavigateToPermitZoneMapButtonErrorText"
-            text={errors.parking_machine?.message ?? ''}
-          />
-        )}
-      </Column>
+      <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
+        iconName="location"
+        name="parking_machine"
+        routeName={ParkingRouteName.parkingPermitZones}
+        rules={{required: 'Kies een parkeerautomaat'}}
+        testID="ParkingChooseParkingMachineButton"
+        text={parking_machine => parking_machine}
+        textAdditional={error ? undefined : machineDetailsLabel}
+        title={parking_machine =>
+          parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
+        }
+      />
       {currentPermit.parking_machine_favorite !== parkingMachine &&
         !!parkingMachine &&
         !error && (

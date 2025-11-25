@@ -17,7 +17,7 @@ const variantMap: Record<ParkingPermitZonesBottomSheetVariant, FC> = {
     ParkingMachineBottomSheetContent,
 }
 
-export const ParkingPermitZonesScreenInner = () => {
+const ParkingPermitZonesScreenInner = () => {
   const {permit_zone} = useCurrentParkingPermit()
   const {name: previousRouteName} = usePreviousRoute() ?? {}
 

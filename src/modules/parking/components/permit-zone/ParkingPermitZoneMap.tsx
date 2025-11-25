@@ -12,7 +12,7 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useRenderParkingMachineMarker} from '@/modules/parking/hooks/useRenderParkingMachineMarker'
+import {useGetMarkerVariant} from '@/modules/parking/hooks/useGetMarkerVariant'
 import {
   usePermitZonesQuery,
   useParkingMachinesQuery,
@@ -24,7 +24,7 @@ export const ParkingPermitZoneMap = ({
   onSelectParkingMachine: (id: ParkingMachine['id']) => void
 }) => {
   const {report_code} = useCurrentParkingPermit()
-  const renderMarker = useRenderParkingMachineMarker()
+  const getMarkerVariant = useGetMarkerVariant()
 
   const {
     data: permitZoneData,
@@ -82,11 +82,10 @@ export const ParkingPermitZoneMap = ({
               latitude: lat,
               longitude: lon,
             }}
-            hitSlop={20}
             key={id}
             onPress={() => onSelectParkingMachine(id)}
             onSelect={() => onSelectParkingMachine(id)}
-            variant={renderMarker(id)}
+            variant={getMarkerVariant(id)}
           />
         ))}
     </Map>

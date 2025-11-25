@@ -31,9 +31,12 @@ export const PollingStationDetails = () => {
 
   const autoFocus = useAccessibilityFocus()
 
-  useEffect(() => () => {
-    dispatch(resetSelectedPollingStationId())
-  })
+  useEffect(
+    () => () => {
+      dispatch(resetSelectedPollingStationId())
+    },
+    [dispatch],
+  )
 
   if (!pollingStation) {
     return null

@@ -251,9 +251,6 @@ export const selectWalletBalanceIncreaseStartedAt = (state: RootState) =>
 export const selectWalletBalanceIncreaseStartBalance = (state: RootState) =>
   state[ReduxKey.parking].walletBalanceIncreaseStartBalance
 
-export const selectIsMaintenanceAlertDismissed = (state: RootState) =>
-  state[ReduxKey.parking].isMaintenanceAlertDismissed
-
 export const selectSelectedParkingMachineId = (state: RootState) =>
   state[ReduxKey.parking].selectedParkingMachineId
 

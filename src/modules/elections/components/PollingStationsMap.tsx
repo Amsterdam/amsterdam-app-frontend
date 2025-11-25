@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {Map} from '@/components/features/map/Map'
 import {Marker} from '@/components/features/map/marker/Marker'
+import {MarkerVariant} from '@/components/features/map/marker/markers'
 import {ControlVariant} from '@/components/features/map/types'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -59,7 +60,9 @@ export const PollingStationsMap = ({
           onPress={() => onPress(station.id)}
           onSelect={() => onPress(station.id)}
           variant={
-            selectedPollingStationId === station.id ? 'selectedPin' : 'pin'
+            selectedPollingStationId === station.id
+              ? MarkerVariant.selectedPin
+              : MarkerVariant.pin
           }
         />
       ))}
