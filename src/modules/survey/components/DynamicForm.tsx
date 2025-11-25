@@ -75,6 +75,7 @@ export const DynamicForm = ({questions, onSubmit}: Props) => {
                   ? 'Dit veld is verplicht'
                   : undefined,
               }}
+              testID={question.question_type}
               {...question}
             />
           </ConditionalComponent>
