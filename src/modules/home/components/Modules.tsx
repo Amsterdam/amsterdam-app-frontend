@@ -26,9 +26,8 @@ export const Modules = ({modules}: Props) => {
   return (
     <Column gutter="md">
       {availableModules?.map(
-        ({alwaysEnabled, icon, requiresAuthorization, slug, status, title}) => (
+        ({icon, requiresAuthorization, slug, status, title}) => (
           <ModuleButton
-            alwaysEnabled={alwaysEnabled}
             disabled={status === ModuleStatus.inactive}
             iconName={icon}
             key={slug}

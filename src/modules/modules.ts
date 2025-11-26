@@ -1,6 +1,7 @@
 import type {ModuleClientConfig, CoreModuleConfig} from '@/modules/types'
 import {accessCodeModule} from '@/modules/access-code'
 import {addressModule} from '@/modules/address'
+import {burningGuideModule} from '@/modules/burning-guide'
 import {chatModule} from '@/modules/chat'
 import {cityPassModule} from '@/modules/city-pass'
 import {constructionWorkModule} from '@/modules/construction-work'
@@ -33,6 +34,7 @@ export const coreModules = [
  * Client Modules have a server part and can be turned on/off per release.
  */
 export const clientModules = [
+  burningGuideModule,
   chatModule,
   cityPassModule,
   constructionWorkEditorModule,

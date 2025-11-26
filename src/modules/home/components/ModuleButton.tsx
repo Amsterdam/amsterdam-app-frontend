@@ -69,7 +69,6 @@ const ModuleButtonContent = ({
 type ButtonVariants = 'primary' | 'tertiary'
 
 type ModuleButtonProps = {
-  alwaysEnabled?: boolean
   disabled?: boolean
   iconName: SvgIconName
   label: string
