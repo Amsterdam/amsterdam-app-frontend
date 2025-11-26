@@ -3,6 +3,8 @@ trigger:
 
 pr: none
 
+name: $(Date:yyMMdd)$(Rev:rr)
+
 jobs:
   - job: 'Build_Storybook'
     timeoutInMinutes: 30
