@@ -1,8 +1,12 @@
 import {ReactNode, useMemo} from 'react'
 import {FormProvider, useForm, useFormContext} from 'react-hook-form'
-import type {Question} from '@/modules/survey/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {Column} from '@/components/ui/layout/Column'
+import {
+  ConditionEquation,
+  ConditionType,
+  type Question,
+} from '@/modules/survey/types'
 import {questionTypeToComponentMap} from '@/modules/survey/utils/questionTypeToComponentMap'
 
 type ConditionalComponentProps = {
@@ -14,21 +18,21 @@ type ConditionalComponentProps = {
 const ConditionalComponent = ({
   children,
   conditions,
-  conditionsType = 'and',
+  conditionsType = ConditionType.and,
 }: ConditionalComponentProps) => {
   const {watch} = useFormContext()
 
   if (
     conditions.length &&
-    !conditions[conditionsType === 'and' ? 'every' : 'some'](
+    !conditions[conditionsType === ConditionType.and ? 'every' : 'some'](
       ({reference_question, type, value}) => {
         const fieldValue = watch(reference_question.toString()) as unknown
 
-        if (type === 'equal') {
+        if (type === ConditionEquation.equal) {
           return fieldValue === value
         }
 
-        if (type === 'not_equal') {
+        if (type === ConditionEquation.not_equal) {
           return fieldValue !== value
         }
 
