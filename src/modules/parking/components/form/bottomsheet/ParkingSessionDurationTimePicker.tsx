@@ -86,7 +86,7 @@ export const ParkingSessionDurationTimePicker = ({
             accessibilityLabel="Parkeertijd kiezen"
             label="Parkeertijd">
             <Column halign="center">
-              {!!isPortrait && <Gutter height="xl" />}
+              <Gutter height="xl" />
               <TimeDurationSpinner
                 initialHours={endTime?.diff(startTime, 'hour') ?? 0}
                 initialMinutes={
@@ -165,7 +165,7 @@ export const ParkingSessionDurationTimePicker = ({
                   />
                 </Row>
               </View>
-              {!!isPortrait && <Gutter height="lg" />}
+              <Gutter height="lg" />
             </Column>
           </Tabs.Tab>
         )}
