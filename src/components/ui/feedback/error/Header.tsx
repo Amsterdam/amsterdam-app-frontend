@@ -33,7 +33,7 @@ export const FullScreenErrorHeader = ({
             <Paragraph
               testID={`${testID}Paragraph`}
               textAlign="center">
-              {text ?? ''}
+              {text}
             </Paragraph>
           )}
           {!!error && (
