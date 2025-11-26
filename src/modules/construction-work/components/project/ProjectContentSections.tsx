@@ -21,12 +21,10 @@ export const ProjectContentSections = ({sections, testID}: Props) =>
             text={title}
           />
         )}
-        {!!body && (
-          <HtmlContent
-            content={body}
-            testID={`${testID}${index}Html`}
-          />
-        )}
+        <HtmlContent
+          content={body}
+          testID={`${testID}${index}Html`}
+        />
         <Column halign="start">
           {links?.map(({url, label}, linkIndex) => (
             <ExternalLinkButton
