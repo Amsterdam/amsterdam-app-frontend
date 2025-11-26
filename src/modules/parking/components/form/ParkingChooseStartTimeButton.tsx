@@ -1,6 +1,6 @@
+import type {Dayjs} from '@/utils/datetime/dayjs'
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {Dayjs} from '@/utils/datetime/dayjs'
 import {formatDateTimeToDisplay} from '@/utils/datetime/formatDateTimeToDisplay'
 
 export const ParkingChooseStartTimeButton = () => (

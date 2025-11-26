@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import {createSelector, createSlice, PayloadAction} from '@reduxjs/toolkit'
+import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {Contract} from '@/modules/waste-guide/types'
@@ -23,7 +22,7 @@ export const wasteGuideSlice = createSlice({
     addContract: (state, {payload}: PayloadAction<Contract>) => {
       state.contracts = {...state.contracts, ...payload}
     },
-    resetContracts: ({contracts, ...rest}) => rest,
+    resetContracts: ({contracts: _contracts, ...rest}) => rest,
     toggleCalendarView: state => {
       state.calendarView = state.calendarView === 'list' ? 'calendar' : 'list'
     },
