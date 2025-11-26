@@ -9,6 +9,7 @@ import {
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
 import {
@@ -22,7 +23,7 @@ import {useThemable} from '@/themes/useThemable'
 type Props = {
   label: ReactNode
   labelPosition?: MainAxisPosition
-  onValueChange: () => void
+  onValueChange: (checked: boolean) => void
   value: boolean
 } & TestProps &
   Pick<AccessibilityProps, 'accessibilityLabel'> &
@@ -50,7 +51,7 @@ export const Checkbox = ({
       // new state is the inverse of value
       [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
     },
-    onEvent: onValueChange,
+    onEvent: () => onValueChange(!value),
     testID,
   })
 
@@ -64,7 +65,7 @@ export const Checkbox = ({
       testID={testID}
       {...touchableProps}>
       <FormField
-        label={label}
+        label={<Phrase>{label}</Phrase>}
         labelPosition={labelPosition}>
         <View style={[styles.checkbox, value && styles.checked]}>
           {!!value && (

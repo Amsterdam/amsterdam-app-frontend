@@ -1,4 +1,5 @@
 import {Circle, Svg} from 'react-native-svg'
+import type {GestureResponderEvent} from 'react-native'
 import {
   PressableBase,
   PressableBaseProps,
@@ -10,7 +11,7 @@ import {useTheme} from '@/themes/useTheme'
 type RadioProps = {
   isSelected: boolean
   label: string
-  onPress: () => void
+  onPress: (event: GestureResponderEvent) => void
 } & PressableBaseProps
 
 type RadioIndicatorProps = {

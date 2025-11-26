@@ -14,6 +14,7 @@ export enum ModuleSlug {
   parking = 'parking',
   redirects = 'redirects',
   'report-problem' = 'report-problem',
+  survey = 'survey',
   user = 'user',
   'waste-container' = 'waste-container',
   'waste-guide' = 'waste-guide',
