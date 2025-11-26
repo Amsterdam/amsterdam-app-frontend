@@ -27,5 +27,3 @@ export const MARKER_IMAGES: Record<
   }),
   cluster: undefined,
 }
-
-export type MarkerVariants = keyof typeof MARKER_IMAGES
