@@ -23,9 +23,8 @@ export const ParkingChooseEndTimeButton = () => {
       iconName="clock"
       name="endTime"
       rules={{
-        required: no_endtime ? false : 'Kies een eindtijd',
+        required: 'Kies een eindtijd',
         validate: endTime =>
-          no_endtime ||
           (endTime as Dayjs)?.isAfter(startTime) ||
           'Eindtijd moet na starttijd zijn',
       }}
