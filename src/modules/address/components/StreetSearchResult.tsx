@@ -46,7 +46,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (bagList.length === 0 && !isLoading) {
+  if (bagList.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
