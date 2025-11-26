@@ -1,15 +1,11 @@
-import type {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
-import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {List} from '@/components/ui/text/list/List'
-import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
+import {BurningGuideRisksButton} from '@/modules/burning-guide/components/BurningGuideRisksButton'
 
-type Props = NavigationProps<BurningGuideRouteName.burningGuideTips>
-
-export const BurningGuideTipsScreen = ({navigation: {navigate}}: Props) => (
+export const BurningGuideTipsScreen = () => (
   <Screen testID="BurningGuideTipsScreen">
     <Box
       insetBottom="xl"
@@ -30,14 +26,6 @@ export const BurningGuideTipsScreen = ({navigation: {navigate}}: Props) => (
         />
       </Column>
     </Box>
-    <TopTaskButton
-      iconName="medicalKit"
-      iconRightName="chevron-right"
-      iconRightSize="ml"
-      onPress={() => navigate(BurningGuideRouteName.burningGuideRisks)}
-      testID="BurningGuideTipsRisksButton"
-      text="Lees wat houtrook doet met u en uw buren."
-      title="Houtrook is ongezond"
-    />
+    <BurningGuideRisksButton />
   </Screen>
 )
