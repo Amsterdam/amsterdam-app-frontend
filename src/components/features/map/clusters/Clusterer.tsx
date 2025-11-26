@@ -20,13 +20,13 @@ type ClustererProps = {
     MarkerProperties | ClusterProperties,
     MarkerProperties | ClusterProperties
   >
-  data: Supercluster.PointFeature<MarkerProperties | ClusterProperties>[]
+  data: Supercluster.PointFeature<MarkerProperties>[]
   mapDimensions?: {height: number; width: number}
   region?: Region
 } & Omit<MapMarkerProps, 'coordinate'>
 
 const DEFAULT_CLUSTER_OPTIONS: ClustererProps['clusterOptions'] = {
-  radius: 30,
+  radius: 40,
 }
 
 export const Clusterer = ({
@@ -51,6 +51,7 @@ export const Clusterer = ({
               ? `cluster-${item.properties?.cluster_id}`
               : `point-${item.properties?.id}`
           }
+          tracksViewChanges={false}
         />
       )}
     />

@@ -5,7 +5,7 @@ describe('calculateClusterDimensions', () => {
     const count = 2
     const result = calculateClusterDimensions(count)
 
-    expect(result).toBe(44)
+    expect(result).toBe(40)
   })
 
   it('should return a higher number when count is more than 10 as compared to a number less than 10.', () => {
@@ -13,7 +13,7 @@ describe('calculateClusterDimensions', () => {
     const result2 = calculateClusterDimensions(12)
 
     expect(result2).toBeGreaterThan(result1)
-    expect(result2).toBe(48)
+    expect(result2).toBe(50)
   })
 
   it('should return a higher number when count is more than 100 as compared to a number less than 100 but more than 10.', () => {
@@ -21,7 +21,7 @@ describe('calculateClusterDimensions', () => {
     const result2 = calculateClusterDimensions(112)
 
     expect(result2).toBeGreaterThan(result1)
-    expect(result2).toBe(52)
+    expect(result2).toBe(60)
   })
 
   it('should return a higher number when count is more than 1000 as compared to a number less than 1000 but more than 100.', () => {
@@ -29,13 +29,22 @@ describe('calculateClusterDimensions', () => {
     const result2 = calculateClusterDimensions(1112)
 
     expect(result2).toBeGreaterThan(result1)
-    expect(result2).toBe(56)
+    expect(result2).toBe(70)
   })
 
   it('should return a higher number with padding.', () => {
     const padding = 12
     const result = calculateClusterDimensions(2, padding)
 
-    expect(result).toBe(56)
+    expect(result).toBe(52)
+  })
+
+  it('should return a higher number with padding and when count is more than 10 as compared to a number less than 10.', () => {
+    const padding = 12
+    const result1 = calculateClusterDimensions(2, padding)
+    const result2 = calculateClusterDimensions(12, padding)
+
+    expect(result2).toBeGreaterThan(result1)
+    expect(result2).toBe(62)
   })
 })

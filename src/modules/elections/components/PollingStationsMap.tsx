@@ -1,8 +1,8 @@
 import {useState} from 'react'
 import {Map} from '@/components/features/map/Map'
-import {Marker} from '@/components/features/map/marker/Marker'
-import {MarkerVariant} from '@/components/features/map/marker/markers'
+import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {ControlVariant} from '@/components/features/map/types'
+import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Address} from '@/modules/address/types'
@@ -25,6 +25,7 @@ export const PollingStationsMap = ({
   pollingStations,
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
+  const markerVariant = getMarkerVariant(String(selectedPollingStationId))
   const [region, setRegion] = useState(
     address?.coordinates
       ? {
@@ -47,25 +48,26 @@ export const PollingStationsMap = ({
   return (
     <Map
       controls={[ControlVariant.location]}
-      onRegionChangeComplete={setRegion}
-      region={region}>
-      {pollingStations.map(station => (
-        <Marker
-          accessibilityLabel={station.name + ', ' + station.address1}
-          coordinate={{
-            latitude: station.position.lat,
-            longitude: station.position.lng,
-          }}
-          key={station.id}
-          onPress={() => onPress(station.id)}
-          onSelect={() => onPress(station.id)}
-          variant={
-            selectedPollingStationId === station.id
-              ? MarkerVariant.selectedPin
-              : MarkerVariant.pin
-          }
+      initialRegion={region}
+      onRegionChangeComplete={setRegion}>
+      {!!pollingStations.length && (
+        <Clusterer
+          data={pollingStations.map(({position, id, ...props}) => ({
+            type: 'Feature',
+            properties: {
+              ...props,
+              id: String(id),
+              variant: markerVariant(String(id)),
+              onItemPress: () => onPress(id),
+            },
+            geometry: {
+              type: 'Point',
+              coordinates: [position.lng, position.lat],
+            },
+          }))}
+          region={region}
         />
-      ))}
+      )}
     </Map>
   )
 }

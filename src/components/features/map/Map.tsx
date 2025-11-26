@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
-import MapView, {MapViewProps, type Region} from 'react-native-maps'
+import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
 import {AMSTERDAM_OVERVIEW} from '@/components/features/map/constants'
 import {ControlVariant} from '@/components/features/map/types'
@@ -14,7 +14,12 @@ type Props = PropsWithChildren<{
 }> &
   MapViewProps
 
-export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
+export const Map = ({
+  children,
+  controls,
+  initialRegion,
+  ...mapViewProps
+}: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
   const mapRef = useRef<MapView>(null)
 
@@ -25,12 +30,16 @@ export const Map = ({children, controls, region, ...mapViewProps}: Props) => {
   }
 
   useEffect(() => {
-    if (isMapReady && region) {
-      mapRef.current?.animateToRegion(region as Region, ANIMATION_DURATION)
+    if (!isMapReady) {
+      return
+    }
+
+    if (initialRegion) {
+      mapRef.current?.animateToRegion(initialRegion, ANIMATION_DURATION)
     } else {
       mapRef.current?.animateToRegion(AMSTERDAM_OVERVIEW, ANIMATION_DURATION)
     }
-  }, [isMapReady, region])
+  }, [isMapReady, initialRegion])
 
   return (
     <View style={styles.container}>
