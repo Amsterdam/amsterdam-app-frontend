@@ -25,7 +25,7 @@ export const PollingStationsMap = ({
   pollingStations,
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
-  const markerVariant = getMarkerVariant(String(selectedPollingStationId))
+  const markerVariant = getMarkerVariant(selectedPollingStationId)
   const [region, setRegion] = useState(
     address?.coordinates
       ? {
@@ -57,7 +57,7 @@ export const PollingStationsMap = ({
             properties: {
               ...props,
               id: String(id),
-              variant: markerVariant(String(id)),
+              variant: markerVariant(id),
               onItemPress: () => onPress(id),
             },
             geometry: {
