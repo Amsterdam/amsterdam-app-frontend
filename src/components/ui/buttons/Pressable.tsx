@@ -46,7 +46,9 @@ export const Pressable = ({
       ref={ref}
       style={({pressed}) => [
         styles.button,
-        pressed && styles.pressed,
+        pressed &&
+          pressableProps.accessibilityRole !== 'checkbox' &&
+          styles.pressed,
         !!border && styles.border,
       ]}
       {...pressableProps}>
