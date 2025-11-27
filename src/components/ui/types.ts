@@ -16,6 +16,11 @@ export enum IconSize {
   xxl = 60,
 }
 
+export enum LayoutOrientation {
+  horizontal = 'horizontal',
+  vertical = 'vertical',
+}
+
 export enum Orientation {
   landscape = 'landscape',
   portrait = 'portrait',
