@@ -1,15 +1,22 @@
-import type {SurveysResponse, SurveyVersion} from '@/modules/survey/types'
+import type {
+  SurveyConfigByLocationResponse,
+  SurveysResponse,
+  SurveyVersion,
+  SurveyVersionEntryParams,
+} from '@/modules/survey/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
 export const surveyService = baseApi.injectEndpoints({
   endpoints: builder => ({
-    surveys: builder.query<SurveysResponse, void>({
-      query: () => ({
+    createSurveyVersionEntry: builder.mutation<void, SurveyVersionEntryParams>({
+      query: ({unique_code, version, ...body}) => ({
         slug: ModuleSlug.survey,
-        url: '/surveys',
+        url: `/surveys/${unique_code}/versions/${version}/entries`,
+        method: 'POST',
+        body,
       }),
-      providesTags: ['Form'],
+      invalidatesTags: ['Form'],
     }),
     latestSurvey: builder.query<SurveyVersion, string>({
       query: unique_code => ({
@@ -18,8 +25,30 @@ export const surveyService = baseApi.injectEndpoints({
       }),
       providesTags: ['Form'],
     }),
+    surveys: builder.query<SurveysResponse, void>({
+      query: () => ({
+        slug: ModuleSlug.survey,
+        url: '/surveys',
+      }),
+      providesTags: ['Form'],
+    }),
+    surveyConfigByLocation: builder.query<
+      SurveyConfigByLocationResponse,
+      string
+    >({
+      query: location => ({
+        slug: ModuleSlug.survey,
+        url: `/config/${location}`,
+      }),
+      providesTags: ['Form'],
+    }),
   }),
   overrideExisting: false,
 })
 
-export const {useSurveysQuery, useLatestSurveyQuery} = surveyService
+export const {
+  useCreateSurveyVersionEntryMutation,
+  useSurveysQuery,
+  useSurveyConfigByLocationQuery,
+  useLatestSurveyQuery,
+} = surveyService

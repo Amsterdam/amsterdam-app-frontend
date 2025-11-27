@@ -1,3 +1,5 @@
+import type {LayoutOrientation} from '@/components/ui/types'
+
 export enum ConditionEquation {
   'contains' = 'contains',
   'equal' = 'equal',
@@ -14,10 +16,6 @@ export enum QuestionType {
 export enum ConditionType {
   'and' = 'and',
   'or' = 'or',
-}
-enum Orientation {
-  'horizontal' = 'horizontal',
-  'vertical' = 'vertical',
 }
 
 export type Condition = {
@@ -41,7 +39,7 @@ export type Question = {
   id: number
   max_characters?: number
   min_characters?: number
-  orientation?: Orientation
+  orientation?: LayoutOrientation
   question_text: string
   question_type: QuestionType
   required: boolean
@@ -62,4 +60,32 @@ export type Survey = SurveyVersion & {
   unique_code: string
 }
 
+export type SurveyConfig = {
+  cooldown: number
+  fraction: number
+  location: string
+  minimum_actions: number
+}
+
 export type SurveysResponse = Survey[]
+
+export type SurveyConfigByLocationResponse = {
+  id: number
+  survey: Survey
+} & SurveyConfig
+
+type Answer = {
+  answer: string
+  question: number
+}
+
+export type SurveyVersionEntryRequest = {
+  answers: Answer[]
+  entry_point: string
+  metadata?: string
+}
+
+export type SurveyVersionEntryParams = SurveyVersionEntryRequest & {
+  unique_code: string
+  version: string
+}
