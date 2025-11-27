@@ -11,7 +11,9 @@ import {BottomSheetTextInput} from '@/components/features/bottom-sheet/BottomShe
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Label} from '@/components/ui/forms/Label'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -21,6 +23,7 @@ export type TextInputSharedProps = {
   label?: string
   numberOfLines?: number
   placeholder?: string
+  required?: boolean
   textTransform?: (text: string) => string
 }
 
@@ -41,6 +44,7 @@ export const TextInput = ({
   onChangeText,
   onFocus,
   placeholder = '',
+  required,
   warning,
   value: valueProp = '',
   testID = '',
@@ -90,10 +94,13 @@ export const TextInput = ({
     <Column gutter="sm">
       <Column gutter="xs">
         {!!label && (
-          <Label
-            isAccessible={!textInputProps.accessibilityLabel}
-            text={label}
-          />
+          <Row gutter="xs">
+            <Label
+              isAccessible={!textInputProps.accessibilityLabel}
+              text={label}
+            />
+            {!required && <Phrase>(Niet verplicht)</Phrase>}
+          </Row>
         )}
         {!!inputInstructions && (
           <Label
