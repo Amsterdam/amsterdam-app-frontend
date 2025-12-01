@@ -30,6 +30,7 @@ export enum RedirectKey {
   passing = 'passing',
   passingForFuneralDirectors = 'passingForFuneralDirectors',
   relocation = 'relocation',
+  rivm_report = 'rivm_report',
   sailingAndMooring = 'sailingAndMooring',
   waste = 'waste',
 }
