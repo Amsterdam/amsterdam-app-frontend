@@ -11,11 +11,11 @@ import type {
   MarkerProperties,
 } from '@/components/features/map/types'
 import type {MapMarkerProps, Region} from 'react-native-maps'
-import {ClusterSwitch} from '@/components/features/map/clusters/ClusterSwitch'
-import {AMSTERDAM_OVERVIEW} from '@/components/features/map/constants'
-import {isCluster} from '@/components/features/map/utils/isCluster'
+import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
+import {AMSTERDAM_REGION} from '@/components/features/map/constants'
+import {Marker} from '@/components/features/map/marker/Marker'
 
-type ClustererProps = {
+export type ClustererProps = {
   clusterOptions?: Supercluster.Options<
     MarkerProperties | ClusterProperties,
     MarkerProperties | ClusterProperties
@@ -25,13 +25,9 @@ type ClustererProps = {
   region?: Region
 } & Omit<MapMarkerProps, 'coordinate'>
 
-const DEFAULT_CLUSTER_OPTIONS: ClustererProps['clusterOptions'] = {
-  radius: 40,
-}
-
 export const Clusterer = ({
   data,
-  region = AMSTERDAM_OVERVIEW,
+  region = AMSTERDAM_REGION,
   mapDimensions,
   clusterOptions,
 }: ClustererProps) => {
@@ -41,19 +37,41 @@ export const Clusterer = ({
     <RNClusterer
       data={data}
       mapDimensions={mapDimensions || dimensions}
-      options={clusterOptions || DEFAULT_CLUSTER_OPTIONS}
+      options={clusterOptions}
       region={region}
-      renderItem={(item: ClusterItem) => (
-        <ClusterSwitch
-          item={item}
-          key={
-            isCluster(item.properties)
-              ? `cluster-${item.properties?.cluster_id}`
-              : `point-${item.properties?.id}`
-          }
-          tracksViewChanges={false}
-        />
-      )}
+      renderItem={(item: ClusterItem) => {
+        const id =
+          'cluster_id' in item.properties
+            ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
+            : `point-${item.properties?.id}`
+
+        const onPress =
+          'cluster_id' in item.properties
+            ? undefined
+            : item.properties.onItemPress
+
+        return (
+          <Marker
+            coordinate={{
+              latitude: item.geometry.coordinates[1],
+              longitude: item.geometry.coordinates[0],
+            }}
+            id={id}
+            key={id}
+            onPress={onPress}
+            onSelect={onPress}
+            tracksViewChanges={false}
+            variant={
+              'cluster_id' in item.properties
+                ? undefined
+                : item.properties.variant
+            }>
+            {'cluster_id' in item.properties && (
+              <ClusterMarker count={item.properties.point_count} />
+            )}
+          </Marker>
+        )
+      }}
     />
   )
 }

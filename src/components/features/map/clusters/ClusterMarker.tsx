@@ -6,7 +6,7 @@ import {useThemable} from '@/themes/useThemable'
 
 const DEFAULT_OUTER_PADDING = 12
 
-export const Cluster = ({count}: {count: number}) => {
+export const ClusterMarker = ({count}: {count: number}) => {
   const styles = useThemable(theme => createStyles(theme, count))
 
   return (

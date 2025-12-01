@@ -9,19 +9,15 @@ import {checkMarkerPropsHaveChanged} from '@/components/features/map/utils/check
 
 export type MarkerProps = {
   variant?: MarkerVariant
-} & MapMarkerProps
+} & Omit<MapMarkerProps, 'icon' | 'image'>
 
 const DEFAULT_HIT_SLOP = 20
 
 export const Marker = memo(
-  ({
-    variant = MarkerVariant.pin,
-    hitSlop = DEFAULT_HIT_SLOP,
-    ...markerProps
-  }: MarkerProps) => (
+  ({variant, hitSlop = DEFAULT_HIT_SLOP, ...markerProps}: MarkerProps) => (
     <MarkerRN
       hitSlop={hitSlop}
-      image={MARKER_IMAGES[variant]}
+      image={variant ? MARKER_IMAGES[variant] : undefined}
       {...markerProps}
     />
   ),

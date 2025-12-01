@@ -2,7 +2,7 @@ import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
-import {AMSTERDAM_OVERVIEW} from '@/components/features/map/constants'
+import {AMSTERDAM_REGION} from '@/components/features/map/constants'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
@@ -37,7 +37,7 @@ export const Map = ({
     if (initialRegion) {
       mapRef.current?.animateToRegion(initialRegion, ANIMATION_DURATION)
     } else {
-      mapRef.current?.animateToRegion(AMSTERDAM_OVERVIEW, ANIMATION_DURATION)
+      mapRef.current?.animateToRegion(AMSTERDAM_REGION, ANIMATION_DURATION)
     }
   }, [isMapReady, initialRegion])
 
@@ -53,7 +53,7 @@ export const Map = ({
       )}
       <MapView
         collapsable={false}
-        initialRegion={AMSTERDAM_OVERVIEW} // Default initial region is overview of Amsterdam.
+        initialRegion={AMSTERDAM_REGION} // Default initial region is overview of Amsterdam.
         moveOnMarkerPress={false}
         onMapReady={handleOnMapReady}
         provider={Platform.OS === 'android' ? 'google' : undefined}

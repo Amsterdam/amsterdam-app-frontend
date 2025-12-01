@@ -3,13 +3,13 @@ import {MarkerVariant} from '@/components/features/map/marker/markers'
 /**
  *
  * @param selectedMarkerId The id of the currently selected marker.
- * @param favoriteMarkerIds An array of favorite marker id's or single marker id
+ * @param distinctMarkerIds An array of distinct marker id's or single marker id
  * @returns Function that accepts the markerId in order to determine which MarkerVariant to return.
  */
 export const getMarkerVariant =
   (
     selectedMarkerId?: string | number,
-    favoriteMarkerIds?: Array<string | number> | string | number,
+    distinctMarkerIds?: Array<string | number> | string | number,
   ) =>
   /**
    * Pass the id of the marker to check which variant to return.
@@ -22,11 +22,11 @@ export const getMarkerVariant =
     }
 
     if (
-      (Array.isArray(favoriteMarkerIds) &&
-        favoriteMarkerIds?.includes(markerId)) ||
-      favoriteMarkerIds === markerId
+      (Array.isArray(distinctMarkerIds) &&
+        distinctMarkerIds?.includes(markerId)) ||
+      distinctMarkerIds === markerId
     ) {
-      return MarkerVariant.favoritePin
+      return MarkerVariant.distinctPin
     }
 
     return MarkerVariant.pin

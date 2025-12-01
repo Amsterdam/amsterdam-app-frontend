@@ -1,4 +1,3 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {FeatureCollection} from 'geojson'
 import {useMemo} from 'react'
 import {Geojson} from 'react-native-maps'
@@ -13,13 +12,10 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {ParkingPermitZoneMapMarkers} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMapMarkers'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
-import {
-  usePermitZonesQuery,
-  useParkingMachinesQuery,
-} from '@/modules/parking/service'
+import {usePermitZonesQuery} from '@/modules/parking/service'
 
 export const ParkingPermitZoneMap = () => {
-  const {report_code, parking_machine_favorite} = useCurrentParkingPermit()
+  const {report_code} = useCurrentParkingPermit()
   const {setRegion} = usePermitMapContext()
 
   const {
@@ -27,10 +23,6 @@ export const ParkingPermitZoneMap = () => {
     isLoading,
     isError,
   } = usePermitZonesQuery(report_code)
-
-  const {data: parkingMachinesData} = useParkingMachinesQuery(
-    permitZoneData ? undefined : skipToken,
-  )
 
   const initialRegion = useMemo(() => {
     if (!permitZoneData?.geojson) {
@@ -72,12 +64,7 @@ export const ParkingPermitZoneMap = () => {
         )}
         geojson={permitZoneData.geojson as FeatureCollection}
       />
-      {!!parkingMachinesData?.length && (
-        <ParkingPermitZoneMapMarkers
-          clusterFilter={parking_machine_favorite}
-          parkingMachinesData={parkingMachinesData}
-        />
-      )}
+      <ParkingPermitZoneMapMarkers />
     </Map>
   )
 }

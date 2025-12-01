@@ -6,11 +6,10 @@ import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 const MOCK_MARKER_MAP: Record<MarkerVariant, ImageSourcePropType | undefined> =
   {
     pin: require('@/assets/images/map/pin.png') as ImageSourcePropType,
-    favoritePin:
-      require('@/assets/images/map/favorite_pin.png') as ImageSourcePropType,
+    distinctPin:
+      require('@/assets/images/map/distinct_pin.png') as ImageSourcePropType,
     selectedPin:
       require('@/assets/images/map/selected_pin.png') as ImageSourcePropType,
-    cluster: undefined,
   }
 
 const MarkerMock = ({variant = MarkerVariant.pin}: MarkerProps) => (
@@ -49,9 +48,9 @@ export const Selected: Story = {
   },
 }
 
-export const Favorite: Story = {
+export const Distinct: Story = {
   args: {
-    variant: MarkerVariant.favoritePin,
+    variant: MarkerVariant.distinctPin,
     coordinate: {
       latitude: 1,
       longitude: 1,

@@ -1,38 +1,32 @@
 import {useMemo} from 'react'
-import type {ParkingMachine} from '@/modules/parking/types'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {Marker} from '@/components/features/map/marker/Marker'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
-import {separateMarkersById} from '@/components/features/map/utils/separateMarkersById'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
+import {useParkingMachinesQuery} from '@/modules/parking/service'
 
 enum MarkerZIndex {
   cluster,
   filteredMarker,
 }
 
-export const ParkingPermitZoneMapMarkers = ({
-  parkingMachinesData,
-  clusterFilter = [],
-}: {
-  clusterFilter?: Array<ParkingMachine['id']> | ParkingMachine['id']
-  parkingMachinesData: ParkingMachine[]
-}) => {
+export const ParkingPermitZoneMapMarkers = () => {
   const {parking_machine_favorite} = useCurrentParkingPermit()
   const {onSelectParkingMachine, selectedParkingMachineId, region} =
     usePermitMapContext()
 
-  const {excluded: favoriteMachines, included: clusterData} = useMemo(() => {
-    if (!clusterFilter || !clusterFilter?.length) {
-      return {excluded: [], included: parkingMachinesData}
-    }
+  const {data: parkingMachines} = useParkingMachinesQuery()
 
-    return separateMarkersById<ParkingMachine>(
-      clusterFilter,
-      parkingMachinesData,
-    )
-  }, [parkingMachinesData, clusterFilter])
+  const [favoriteMachine, otherMachines] = useMemo(
+    () => [
+      parkingMachines?.find(machine => machine.id === parking_machine_favorite),
+      parkingMachines?.filter(
+        machine => machine.id !== parking_machine_favorite,
+      ) || [],
+    ],
+    [parkingMachines, parking_machine_favorite],
+  )
 
   const markerVariant = getMarkerVariant(
     selectedParkingMachineId,
@@ -42,12 +36,13 @@ export const ParkingPermitZoneMapMarkers = ({
   return (
     <>
       <Clusterer
-        data={clusterData.map(({lon, lat, ...props}) => ({
+        data={otherMachines.map(({lon, lat, id, ...props}) => ({
           type: 'Feature',
           properties: {
             ...props,
-            variant: markerVariant(props.id),
-            onItemPress: () => onSelectParkingMachine(props.id),
+            id,
+            variant: markerVariant(id),
+            onItemPress: () => onSelectParkingMachine(id),
           },
           geometry: {type: 'Point', coordinates: [lon, lat]},
         }))}
@@ -55,19 +50,19 @@ export const ParkingPermitZoneMapMarkers = ({
         zIndex={MarkerZIndex.cluster}
       />
 
-      {favoriteMachines?.map(machine => (
+      {!!favoriteMachine && (
         <Marker
           coordinate={{
-            latitude: machine.lat,
-            longitude: machine.lon,
+            latitude: favoriteMachine.lat,
+            longitude: favoriteMachine.lon,
           }}
-          key={machine.id}
-          onPress={() => onSelectParkingMachine(machine.id)}
-          onSelect={() => onSelectParkingMachine(machine.id)}
-          variant={markerVariant(machine.id)}
+          key={favoriteMachine.id}
+          onPress={() => onSelectParkingMachine(favoriteMachine.id)}
+          onSelect={() => onSelectParkingMachine(favoriteMachine.id)}
+          variant={markerVariant(favoriteMachine.id)}
           zIndex={MarkerZIndex.filteredMarker}
         />
-      ))}
+      )}
     </>
   )
 }

@@ -1,9 +1,9 @@
-import {Cluster} from './Cluster'
+import {ClusterMarker} from './ClusterMarker'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
 const meta = {
-  component: Cluster,
-} satisfies Meta<typeof Cluster>
+  component: ClusterMarker,
+} satisfies Meta<typeof ClusterMarker>
 
 export default meta
 

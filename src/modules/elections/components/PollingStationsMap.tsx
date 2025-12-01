@@ -50,24 +50,22 @@ export const PollingStationsMap = ({
       controls={[ControlVariant.location]}
       initialRegion={region}
       onRegionChangeComplete={setRegion}>
-      {!!pollingStations.length && (
-        <Clusterer
-          data={pollingStations.map(({position, id, ...props}) => ({
-            type: 'Feature',
-            properties: {
-              ...props,
-              id: String(id),
-              variant: markerVariant(id),
-              onItemPress: () => onPress(id),
-            },
-            geometry: {
-              type: 'Point',
-              coordinates: [position.lng, position.lat],
-            },
-          }))}
-          region={region}
-        />
-      )}
+      <Clusterer
+        data={pollingStations.map(({position, id, ...props}) => ({
+          type: 'Feature',
+          properties: {
+            ...props,
+            id: String(id),
+            variant: markerVariant(id),
+            onItemPress: () => onPress(id),
+          },
+          geometry: {
+            type: 'Point',
+            coordinates: [position.lng, position.lat],
+          },
+        }))}
+        region={region}
+      />
     </Map>
   )
 }
