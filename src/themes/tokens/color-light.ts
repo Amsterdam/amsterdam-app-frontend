@@ -88,6 +88,11 @@ export const lightColorTokens = {
       cityPass: baseColor.secondary.purple,
     },
   },
+  burningGuide: {
+    orange: baseColor.secondary.orange,
+    red: baseColor.primary.red,
+    yellow: baseColor.secondary.yellow,
+  },
   card: {
     pressed: {
       background: baseColor.neutral.grey1,
