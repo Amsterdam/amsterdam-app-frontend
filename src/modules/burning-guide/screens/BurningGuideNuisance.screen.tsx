@@ -9,6 +9,7 @@ import {Title} from '@/components/ui/text/Title'
 import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
 import {RedirectKey} from '@/modules/redirects/types'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = NavigationProps<BurningGuideRouteName.burningGuideNuisance>
 
@@ -53,7 +54,8 @@ export const BurningGuideNuisanceScreen = ({navigation: {navigate}}: Props) => (
             onPress={() =>
               navigate(ModuleSlug['report-problem'], {
                 screen: ReportProblemRouteName.reportProblemWebView,
-              })            }
+              })
+            }
             testID="BurningGuideNuisanceReportProblemButton"
             variant="secondary"
           />
