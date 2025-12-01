@@ -7,7 +7,7 @@ import {BurningGuideTipsButton} from '@/modules/burning-guide/components/Burning
 
 export const BurningGuideRisksScreen = () => (
   <Screen testID="BurningGuideRisksScreen">
-<Column gutter="lg">
+    <Column gutter="lg">
       <Box>
         <Column gutter="lg">
           <Title text="Tips om bewuster te stoken" />
