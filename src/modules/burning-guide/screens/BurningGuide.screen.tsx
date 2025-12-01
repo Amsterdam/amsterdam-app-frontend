@@ -1,11 +1,14 @@
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
+import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {selectAddress} from '@/modules/address/slice'
-import {BurningGuideAddressSwitcher} from '@/modules/burning-guide/components/BurningGuideAddressSwitcher'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {BurningGuideForecastList} from '@/modules/burning-guide/components/BurningGuideForecastList'
-import {BurningGuideNoAddressSection} from '@/modules/burning-guide/components/BurningGuideNoAddressSection'
 import {BurningGuideRecommendation} from '@/modules/burning-guide/components/BurningGuideRecommendation'
 import {BurningGuideRisksButton} from '@/modules/burning-guide/components/BurningGuideRisksButton'
 import {BurningGuideTipsButton} from '@/modules/burning-guide/components/BurningGuideTipsButton'
@@ -17,12 +20,28 @@ export const BurningGuideScreen = () => {
   // Fetch data
 
   return (
-    <Screen testID="BurningGuideScreen">
+    <Screen
+      bottomSheet={
+        <BottomSheet testID="SelectLocationTypeBottomSheet">
+          <SelectLocationTypeBottomSheetContent
+            highAccuracyPurposeKey={
+              HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
+            }
+          />
+        </BottomSheet>
+      }
+      testID="BurningGuideScreen">
       <Column gutter="lg">
         <Box>
           <Column gutter="xl">
-            <BurningGuideAddressSwitcher />
-            {!address && <BurningGuideNoAddressSection />}
+            <Column gutter="sm">
+              <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+              {!address && (
+                <Paragraph testID="BurningGuideScreenText">
+                  Voer een adres in om uw stookwijzer informatie te bekijken.
+                </Paragraph>
+              )}
+            </Column>
             {!!address && (
               <>
                 <BurningGuideRecommendation
@@ -60,11 +79,11 @@ export const BurningGuideScreen = () => {
             )}
           </Column>
         </Box>
-        <Column gutter="md">
-          <BurningGuideRisksButton />
-          <BurningGuideTipsButton />
-          <BurningGuideTipsButton />
-        </Column>
+      </Column>
+      <Column gutter="md">
+        <BurningGuideRisksButton />
+        <BurningGuideTipsButton />
+        <BurningGuideTipsButton />
       </Column>
     </Screen>
   )
