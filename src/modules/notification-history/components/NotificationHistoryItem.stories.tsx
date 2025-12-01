@@ -22,7 +22,7 @@ export const Default: Story = {
         releaseFallbackUrl: null,
         releaseAppReason: null,
         title: 'Werkzaamheden',
-        icon: 'announcement',
+        icon: 'construction-work',
         slug,
         status: 1,
         description: '',
