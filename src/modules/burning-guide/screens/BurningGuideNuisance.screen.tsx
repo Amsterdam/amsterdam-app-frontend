@@ -51,8 +51,9 @@ export const BurningGuideNuisanceScreen = ({navigation: {navigate}}: Props) => (
           <Button
             label="Meld bij de gemeente"
             onPress={() =>
-              navigate(ReportProblemRouteName.reportProblemWebView)
-            }
+              navigate(ModuleSlug['report-problem'], {
+                screen: ReportProblemRouteName.reportProblemWebView,
+              })            }
             testID="BurningGuideNuisanceReportProblemButton"
             variant="secondary"
           />
