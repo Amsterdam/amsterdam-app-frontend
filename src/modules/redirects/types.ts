@@ -5,7 +5,6 @@ export enum RedirectEndpointName {
 export enum RedirectKey {
   acknowledgeChild = 'acknowledgeChild',
   birth = 'birth',
-  burning_nuisance = 'burning_nuisance',
   chatPrivacy = 'chatPrivacy',
   cityPassChildBudget = 'cityPassChildBudget',
   cityPassRequest = 'cityPassRequest',
@@ -31,6 +30,7 @@ export enum RedirectKey {
   passing = 'passing',
   passingForFuneralDirectors = 'passingForFuneralDirectors',
   relocation = 'relocation',
+  rivm_report = 'rivm_report',
   sailingAndMooring = 'sailingAndMooring',
   waste = 'waste',
 }

@@ -34,7 +34,7 @@ export const BurningGuideNuisanceScreen = ({navigation: {navigate}}: Props) => (
           </Paragraph>
           <ExternalLinkButton
             label="Meld bij het RIVM"
-            redirectKey={RedirectKey.burning_nuisance}
+            redirectKey={RedirectKey.rivm_report}
             testID="BurningGuideNuisanceReportRIVMButton"
             variant="secondary"
           />
