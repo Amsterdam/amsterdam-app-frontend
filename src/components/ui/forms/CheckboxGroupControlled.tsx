@@ -6,34 +6,37 @@ import {
 } from 'react-hook-form'
 import {
   CheckboxGroup,
-  CheckboxOption,
+  type CheckboxGroupProps,
 } from '@/components/ui/forms/CheckboxGroup'
-import {type TestProps} from '@/components/ui/types'
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
-> = {
-  options: CheckboxOption[]
-} & TestProps &
+> = Omit<CheckboxGroupProps, 'selectedValues' | 'onChange'> &
   UseControllerProps<TFieldValues, TName>
 
-export const CheckboxControlled = <
+export const CheckboxGroupControlled = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
+  label,
   options,
+  orientation,
   testID,
   ...controllerProps
 }: Props<TFieldValues, TName>) => {
   const {
     field: {onChange, value = []},
+    fieldState: {error},
   } = useController<TFieldValues, TName>(controllerProps)
 
   return (
     <CheckboxGroup
+      errorMessage={error?.message}
+      label={label}
       onChange={onChange}
       options={options}
+      orientation={orientation}
       selectedValues={value}
       testID={testID}
     />

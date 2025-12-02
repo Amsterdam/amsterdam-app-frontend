@@ -1,14 +1,14 @@
 import type {ReactNode} from 'react'
 import {RenderIfModuleActive} from '@/components/features/RenderIfModuleActive'
 import {ModuleSlug} from '@/modules/slugs'
-import {KTOForm, type KTOFormProps} from '@/modules/survey/components/KTOForm'
+import {DynamicForm} from '@/modules/survey/components/DynamicForm'
 
-type Props = {FallbackComponent?: ReactNode} & KTOFormProps
+type Props = {FallbackComponent?: ReactNode; entryPoint: string}
 
-export const Survey = ({FallbackComponent, ...props}: Props) => (
+export const Survey = ({entryPoint, FallbackComponent}: Props) => (
   <RenderIfModuleActive
     FallbackComponent={FallbackComponent}
     module={ModuleSlug.survey}>
-    <KTOForm {...props} />
+    <DynamicForm entryPoint={entryPoint} />
   </RenderIfModuleActive>
 )

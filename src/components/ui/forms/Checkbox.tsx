@@ -1,22 +1,12 @@
 import {ReactNode} from 'react'
-import {
-  AccessibilityProps,
-  StyleSheet,
-  TouchableHighlight,
-  TouchableHighlightProps,
-  View,
-} from 'react-native'
+import {StyleSheet, View} from 'react-native'
+import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {type TestProps} from '@/components/ui/types'
 import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
-import {
-  type LogProps,
-  PiwikAction,
-  PiwikDimension,
-} from '@/processes/piwik/types'
+import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
@@ -25,23 +15,19 @@ type Props = {
   labelPosition?: MainAxisPosition
   onValueChange: (checked: boolean) => void
   value: boolean
-} & TestProps &
-  Pick<AccessibilityProps, 'accessibilityLabel'> &
-  LogProps
+} & Omit<PressableProps, 'children' | 'onPress'>
 
 export const Checkbox = ({
-  accessibilityLabel,
   label,
   labelPosition = 'end',
   logAction = PiwikAction.toggle,
   logDimensions = {},
   onValueChange,
-  testID,
   value,
+  testID,
   ...props
 }: Props) => {
   const styles = useThemable(createStyles)
-  const touchableProps = useThemable(createTouchableProps)
 
   const onPress = usePiwikTrackCustomEventFromProps({
     ...props,
@@ -56,14 +42,13 @@ export const Checkbox = ({
   })
 
   return (
-    <TouchableHighlight
-      accessibilityLabel={accessibilityLabel}
+    <Pressable
       accessibilityLanguage="nl-NL"
       accessibilityRole="checkbox"
       accessibilityState={{selected: value}}
       onPress={onPress}
       testID={testID}
-      {...touchableProps}>
+      {...props}>
       <FormField
         label={<Phrase>{label}</Phrase>}
         labelPosition={labelPosition}>
@@ -77,7 +62,7 @@ export const Checkbox = ({
           )}
         </View>
       </FormField>
-    </TouchableHighlight>
+    </Pressable>
   )
 }
 
@@ -95,7 +80,3 @@ const createStyles = ({color}: Theme) =>
       backgroundColor: color.control.checked.background,
     },
   })
-
-const createTouchableProps = ({color}: Theme): TouchableHighlightProps => ({
-  underlayColor: color.checkbox.underlay,
-})

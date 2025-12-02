@@ -61,7 +61,7 @@ export const TextInputField = ({
             <Column gutter="xs">
               <TextInput
                 accessibilityHint={inputInstructions}
-                accessibilityLabel={label}
+                accessibilityLabel={`${label}${rules?.required ? '' : ', niet verplicht'}`}
                 accessibilityLanguage="nl-NL"
                 autoFocus={autoFocus}
                 inputInstructions={inputInstructions}
@@ -71,6 +71,7 @@ export const TextInputField = ({
                 onChangeText={onChange}
                 placeholder={placeholder}
                 ref={ref}
+                required={!!rules?.required}
                 testID={`${testID}Input`}
                 textTransform={textTransform}
                 value={value as string}

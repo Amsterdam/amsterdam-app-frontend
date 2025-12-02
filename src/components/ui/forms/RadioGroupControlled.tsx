@@ -8,15 +8,15 @@ import {
   RadioGroup,
   type RadioGroupOption,
 } from '@/components/ui/forms/RadioGroup'
-import {type TestProps} from '@/components/ui/types'
+import {type LayoutOrientation, type TestProps} from '@/components/ui/types'
 
 type Props<
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
   label?: string
-  options: RadioGroupOption<string>[]
-  orientation?: 'horizontal' | 'vertical'
+  options?: RadioGroupOption<string>[]
+  orientation?: LayoutOrientation
 } & TestProps &
   UseControllerProps<TFieldValues, TName>
 
@@ -35,17 +35,19 @@ export const RadioGroupControlled = <
     fieldState: {error},
   } = useController<TFieldValues, TName>(controllerProps)
 
+  if (!options) {
+    return null
+  }
+
   return (
-    <>
-      <RadioGroup<string>
-        errorMessage={error?.message}
-        label={label}
-        onChange={onChange}
-        options={options}
-        orientation={orientation}
-        testID={testID}
-        value={value}
-      />
-    </>
+    <RadioGroup<string>
+      errorMessage={error?.message}
+      label={label}
+      onChange={onChange}
+      options={options}
+      orientation={orientation}
+      testID={testID}
+      value={value}
+    />
   )
 }

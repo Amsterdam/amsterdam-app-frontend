@@ -1,37 +1,31 @@
-import {Column, ColumnProps} from '@/components/ui/layout/Column'
-import {Row, RowProps} from '@/components/ui/layout/Row'
+import {
+  OrientationBasedLayout,
+  type OrientationBasedLayoutProps,
+} from '@/components/ui/containers/OrientationBasedLayout'
+import {LayoutOrientation} from '@/components/ui/types'
 import {useIsScreenReaderEnabled} from '@/hooks/accessibility/useIsScreenReaderEnabled'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {Common} from '@/types/utils'
 
-type TrackProps = {
+type Props = {
   alwaysDisplayAsRowForScreenReader?: boolean
-} & Common<ColumnProps, RowProps>
+} & Omit<OrientationBasedLayoutProps, 'orientation'>
 
-/**
- *  Renders a column on a device in portrait mode, or a row on a device in landscape mode.
- *
- *  On a device with a screen reader enabled, it will always render a column.
- *  This prevents the content from being read out in an incorrect order.
- *
- *  Props shared by both {@link Column} and {@link Row} can be passed to this component.
- *
- *  @example <Track gutter="lg">…</Track>
- */
 export const Track = ({
-  children,
   alwaysDisplayAsRowForScreenReader = false,
   ...props
-}: TrackProps) => {
+}: Props) => {
   const {isPortrait} = useDeviceContext()
   const isScreenReaderEnabled = useIsScreenReaderEnabled()
 
-  if (
-    isPortrait ||
-    (isScreenReaderEnabled && !alwaysDisplayAsRowForScreenReader)
-  ) {
-    return <Column {...props}>{children}</Column>
-  }
+  const orientation =
+    isPortrait || (isScreenReaderEnabled && !alwaysDisplayAsRowForScreenReader)
+      ? LayoutOrientation.vertical
+      : LayoutOrientation.horizontal
 
-  return <Row {...props}>{children}</Row>
+  return (
+    <OrientationBasedLayout
+      orientation={orientation}
+      {...props}
+    />
+  )
 }
