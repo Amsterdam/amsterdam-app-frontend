@@ -2,6 +2,32 @@ PODS:
   - boost (1.84.0)
   - BVLinearGradient (2.8.3):
     - React-Core
+  - Clusterer (5.0.2):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - NitroModules
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - DoubleConversion (1.1.6)
   - EXConstants (17.1.7):
     - ExpoModulesCore
@@ -231,6 +257,31 @@ PODS:
     - nanopb/encode (= 3.30910.0)
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
+  - NitroModules (0.31.6):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.11.18.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-callinvoker
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-hermes
+    - React-ImageManager
+    - React-jsi
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-renderercss
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - PiwikPROSDK (1.2.1)
   - PromisesObjC (2.4.0)
   - RCT-Folly (2024.11.18.00):
@@ -2517,6 +2568,7 @@ PODS:
 DEPENDENCIES:
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - Clusterer (from `../node_modules/react-native-clusterer`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - EXConstants (from `../node_modules/expo-constants/ios`)
   - EXImageLoader (from `../node_modules/expo-image-loader/ios`)
@@ -2542,6 +2594,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleUtilities
   - hermes-engine (from `../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec`)
+  - NitroModules (from `../node_modules/react-native-nitro-modules`)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCT-Folly/Fabric (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTDeprecation (from `../node_modules/react-native/ReactApple/Libraries/RCTFoundation/RCTDeprecation`)
@@ -2661,6 +2714,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
+  Clusterer:
+    :path: "../node_modules/react-native-clusterer"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   EXConstants:
@@ -2704,6 +2759,8 @@ EXTERNAL SOURCES:
   hermes-engine:
     :podspec: "../node_modules/react-native/sdks/hermes-engine/hermes-engine.podspec"
     :tag: hermes-2025-06-04-RNv0.79.3-7f9a871eefeb2c3852365ee80f0b6733ec12ac3b
+  NitroModules:
+    :path: "../node_modules/react-native-nitro-modules"
   RCT-Folly:
     :podspec: "../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec"
   RCTDeprecation:
@@ -2888,6 +2945,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 7e761d76ca2ce687f7cc98e698152abd03a18f90
   BVLinearGradient: 880f91a7854faff2df62518f0281afb1c60d49a3
+  Clusterer: ea59df0a02f09357cabf86d6d70233fbbe07d650
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   EXConstants: 9d62a46a36eae6d28cb978efcbc68aef354d1704
   EXImageLoader: ab4fcf9240cf3636a83c00e3fc5229d692899428
@@ -2921,6 +2979,7 @@ SPEC CHECKSUMS:
   hermes-engine: 44bb6fe76a6eb400d3a992e2d0b21946ae999fa9
   Messaging-InApp-Core: d6374c08126b2992eee889e14fdf9f5d4d457338
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
+  NitroModules: 7894c56466651d0fc399ad89aacd5285e8682d15
   PiwikPROSDK: f8261f12839d723c913d6ed973f3e66b737d58e9
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   RCT-Folly: 36fe2295e44b10d831836cc0d1daec5f8abcf809

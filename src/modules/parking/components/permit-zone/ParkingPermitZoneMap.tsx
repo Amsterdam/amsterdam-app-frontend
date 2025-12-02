@@ -1,32 +1,22 @@
-import {skipToken} from '@reduxjs/toolkit/query'
 import {FeatureCollection} from 'geojson'
 import {useMemo} from 'react'
 import {Geojson} from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
-import {Marker} from '@/components/features/map/marker/Marker'
+import {ControlVariant} from '@/components/features/map/types'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 import {getFillColor} from '@/components/features/map/utils/getFillColor'
 import {getRegionFromCoords} from '@/components/features/map/utils/getRegionFromCoords'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ParkingPermitZoneMapMarkers} from '@/modules/parking/components/permit-zone/ParkingPermitZoneMapMarkers'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
-import {useGetMarkerVariant} from '@/modules/parking/hooks/useGetMarkerVariant'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
-import {
-  usePermitZonesQuery,
-  useParkingMachinesQuery,
-} from '@/modules/parking/service'
+import {usePermitZonesQuery} from '@/modules/parking/service'
 
 export const ParkingPermitZoneMap = () => {
-  const {report_code, parking_machine_favorite} = useCurrentParkingPermit()
-  const {selectedParkingMachineId, onSelectParkingMachine} =
-    usePermitMapContext()
-
-  const getMarkerVariant = useGetMarkerVariant(
-    selectedParkingMachineId,
-    parking_machine_favorite,
-  )
+  const {report_code} = useCurrentParkingPermit()
+  const {setRegion} = usePermitMapContext()
 
   const {
     data: permitZoneData,
@@ -34,21 +24,14 @@ export const ParkingPermitZoneMap = () => {
     isError,
   } = usePermitZonesQuery(report_code)
 
-  const {data: parkingMachinesData} = useParkingMachinesQuery(
-    permitZoneData ? undefined : skipToken,
-  )
-
-  const {region, properties} = useMemo(() => {
-    if (!permitZoneData) {
-      return {}
+  const initialRegion = useMemo(() => {
+    if (!permitZoneData?.geojson) {
+      return
     }
 
     const allCoords = getAllPolygonCoords(permitZoneData.geojson)
 
-    return {
-      region: getRegionFromCoords(allCoords),
-      properties: permitZoneData?.geojson.features[0]?.properties,
-    }
+    return getRegionFromCoords(allCoords)
   }, [permitZoneData])
 
   if (isLoading) {
@@ -67,8 +50,13 @@ export const ParkingPermitZoneMap = () => {
     )
   }
 
+  const properties = permitZoneData?.geojson.features[0]?.properties
+
   return (
-    <Map region={region}>
+    <Map
+      controls={[ControlVariant.location]}
+      initialRegion={initialRegion}
+      onRegionChangeComplete={setRegion}>
       <Geojson
         fillColor={getFillColor(
           String(properties?.fill ?? 'blue'),
@@ -76,20 +64,7 @@ export const ParkingPermitZoneMap = () => {
         )}
         geojson={permitZoneData.geojson as FeatureCollection}
       />
-      {!!parkingMachinesData?.length &&
-        parkingMachinesData.map(({lat, lon, id, address}) => (
-          <Marker
-            accessibilityLabel={`Parkeerautomaat ${id}${address ?? ' - ' + address}`}
-            coordinate={{
-              latitude: lat,
-              longitude: lon,
-            }}
-            key={id}
-            onPress={() => onSelectParkingMachine(id)}
-            onSelect={() => onSelectParkingMachine(id)}
-            variant={getMarkerVariant(id)}
-          />
-        ))}
+      <ParkingPermitZoneMapMarkers />
     </Map>
   )
 }

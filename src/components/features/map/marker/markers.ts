@@ -1,10 +1,10 @@
 import {Platform, type ImageURISource} from 'react-native'
-import favoritePinIcon from '@/assets/images/map/favorite_pin.png'
+import distinctPinIcon from '@/assets/images/map/distinct_pin.png'
 import pinIcon from '@/assets/images/map/pin.png'
 import selectedPinIcon from '@/assets/images/map/selected_pin.png'
 
 export enum MarkerVariant {
-  favoritePin = 'favoritePin',
+  distinctPin = 'distinctPin',
   pin = 'pin',
   selectedPin = 'selectedPin',
 }
@@ -20,8 +20,8 @@ export const MARKER_IMAGES: Record<
     ios: selectedPinIcon,
     android: {uri: 'selected_pin'},
   }),
-  [MarkerVariant.favoritePin]: Platform.select({
-    ios: favoritePinIcon,
-    android: {uri: 'favorite_pin'},
+  [MarkerVariant.distinctPin]: Platform.select({
+    ios: distinctPinIcon,
+    android: {uri: 'distinct_pin'},
   }),
 }

@@ -5,27 +5,21 @@ import {
   MARKER_IMAGES,
   MarkerVariant,
 } from '@/components/features/map/marker/markers'
+import {checkMarkerPropsHaveChanged} from '@/components/features/map/utils/checkMarkerPropsHaveChanged'
 
-type MarkerProps = {
+export type MarkerProps = {
   variant?: MarkerVariant
-} & MapMarkerProps
+} & Omit<MapMarkerProps, 'icon' | 'image'>
 
 const DEFAULT_HIT_SLOP = 20
 
 export const Marker = memo(
-  ({
-    variant = MarkerVariant.pin,
-    hitSlop = DEFAULT_HIT_SLOP,
-    ...markerProps
-  }: MarkerProps) => (
+  ({variant, hitSlop = DEFAULT_HIT_SLOP, ...markerProps}: MarkerProps) => (
     <MarkerRN
       hitSlop={hitSlop}
-      image={MARKER_IMAGES[variant]}
+      image={variant ? MARKER_IMAGES[variant] : undefined}
       {...markerProps}
     />
   ),
-  (prev: MarkerProps, next: MarkerProps) =>
-    prev.coordinate.latitude === next.coordinate.latitude &&
-    prev.coordinate.longitude === next.coordinate.longitude &&
-    prev.variant === next.variant,
+  checkMarkerPropsHaveChanged,
 )
