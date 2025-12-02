@@ -66,9 +66,6 @@ export type SurveyConfig = {
   location: string
   minimum_actions: number
 }
-
-export type SurveysResponse = Survey[]
-
 export type SurveyConfigByLocationResponse = {
   id: number
   survey: Survey

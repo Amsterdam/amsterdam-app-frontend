@@ -1,17 +1,18 @@
+import {skipToken} from '@reduxjs/toolkit/query'
 import {useCallback} from 'react'
 import {DynamicForm} from '@/modules/survey/components/DynamicForm'
-import {useSurveysQuery} from '@/modules/survey/service'
+import {useSurveyConfigByLocationQuery} from '@/modules/survey/service'
 import {devLog} from '@/processes/development'
 
 export type DynamicSurveyFormProps = {
-  unique_code?: string
+  entryPoint?: string
 }
 
-export const DynamicSurveyForm = ({
-  unique_code = 'ams-app',
-}: DynamicSurveyFormProps) => {
-  const {data, isFetching} = useSurveysQuery() // TODO: use /latest endpoint when this works
-  const form = data?.find(survey => survey.unique_code === unique_code)
+export const DynamicSurveyForm = ({entryPoint}: DynamicSurveyFormProps) => {
+  const {data, isFetching} = useSurveyConfigByLocationQuery(
+    entryPoint ? entryPoint : skipToken,
+  )
+  const form = data?.survey
   const onSubmit = useCallback((formData: unknown) => {
     devLog('Form submitted:', formData)
   }, [])
