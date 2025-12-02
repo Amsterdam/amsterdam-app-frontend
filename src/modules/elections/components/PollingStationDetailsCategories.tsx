@@ -1,7 +1,7 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {SvgIconName} from '@/components/ui/media/svgIcons'
+import {PollingStationSvgIcons} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ElectionsCategory} from '@/modules/elections/types'
@@ -21,7 +21,10 @@ const mapCategoryToLabel: Record<ElectionsCategory, string> = {
   [ElectionsCategory.wheelchairHelp]: 'Hulp bij rolstoel',
 }
 
-const mapCategoryToIconName: Record<ElectionsCategory, SvgIconName> = {
+const mapCategoryToIconName: Record<
+  ElectionsCategory,
+  keyof typeof PollingStationSvgIcons
+> = {
   [ElectionsCategory.disabledParking]: 'disabledParking',
   [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
   [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
