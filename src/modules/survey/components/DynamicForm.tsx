@@ -14,7 +14,7 @@ export const DynamicForm = ({questions, onSubmit}: Props) => {
   const form = useForm()
   const {handleSubmit} = form
 
-  const FormFields = useMemo(
+  const formFields = useMemo(
     () =>
       questions.map(question => (
         <SurveyFormField
@@ -28,7 +28,7 @@ export const DynamicForm = ({questions, onSubmit}: Props) => {
   return (
     <FormProvider {...form}>
       <Column gutter="xl">
-        {FormFields}
+        {formFields}
         <Button
           label="Verzenden"
           onPress={handleSubmit(onSubmit)}
