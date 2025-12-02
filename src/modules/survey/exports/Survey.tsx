@@ -1,17 +1,14 @@
 import type {ReactNode} from 'react'
 import {RenderIfModuleActive} from '@/components/features/RenderIfModuleActive'
 import {ModuleSlug} from '@/modules/slugs'
-import {
-  DynamicSurveyForm,
-  type DynamicSurveyFormProps,
-} from '@/modules/survey/components/DynamicSurveyForm'
+import {DynamicForm} from '@/modules/survey/components/DynamicForm'
 
-type Props = {FallbackComponent?: ReactNode} & DynamicSurveyFormProps
+type Props = {FallbackComponent?: ReactNode; entryPoint: string}
 
-export const Survey = ({FallbackComponent, ...props}: Props) => (
+export const Survey = ({entryPoint, FallbackComponent}: Props) => (
   <RenderIfModuleActive
     FallbackComponent={FallbackComponent}
     module={ModuleSlug.survey}>
-    <DynamicSurveyForm {...props} />
+    <DynamicForm entryPoint={entryPoint} />
   </RenderIfModuleActive>
 )

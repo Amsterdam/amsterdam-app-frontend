@@ -1,29 +1,39 @@
 import {useMemo} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
+import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {SurveyFormField} from '@/modules/survey/components/SurveyFormField'
-import {type Question} from '@/modules/survey/types'
+import {useDynamicForm} from '@/modules/survey/hooks/useDynamicForm'
 
 type Props = {
-  onSubmit: (data: unknown) => void
-  questions: Question[]
+  entryPoint: string
 }
 
-export const DynamicForm = ({questions, onSubmit}: Props) => {
+export const DynamicForm = ({entryPoint}: Props) => {
   const form = useForm()
   const {handleSubmit} = form
+  const {onSubmit, survey, isError, isFetching} = useDynamicForm(entryPoint)
 
   const formFields = useMemo(
     () =>
-      questions.map(question => (
+      survey?.questions.map(question => (
         <SurveyFormField
           key={question.id}
           question={question}
         />
       )),
-    [questions],
+    [survey?.questions],
   )
+
+  if (isFetching) {
+    return <PleaseWait testID="DynamicFormPleaseWait" />
+  }
+
+  if (isError || !survey) {
+    return <SomethingWentWrong testID="DynamicFormSomethingWentWrong" />
+  }
 
   return (
     <FormProvider {...form}>

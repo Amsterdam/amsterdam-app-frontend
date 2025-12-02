@@ -10,7 +10,7 @@ export const FeedbackScreen = () => (
   <Screen testID="AboutFeedbackScreen">
     <Box>
       <Survey
-        entryPoint="aapp-feedback"
+        entryPoint="general"
         FallbackComponent={<FallbackComponent />}
       />
     </Box>
