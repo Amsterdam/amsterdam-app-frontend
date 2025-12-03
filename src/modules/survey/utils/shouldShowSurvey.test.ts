@@ -5,7 +5,7 @@ import {dayjs} from '@/utils/datetime/dayjs'
 describe('shouldShowSurvey', () => {
   const baseParams: SurveyConfigParam = {
     surveyId: 1,
-    lastSeenAt: dayjs().subtract(1, 'day'),
+    lastSeenAt: dayjs().subtract(1, 'day').toISOString(),
     actionCount: 5,
   }
   const baseConfig: Omit<SurveyConfig, 'location'> = {
@@ -19,7 +19,7 @@ describe('shouldShowSurvey', () => {
   })
 
   it('returns false when cooldown is not over', () => {
-    const params = {...baseParams, lastSeenAt: dayjs()}
+    const params = {...baseParams, lastSeenAt: dayjs().toISOString()}
 
     expect(shouldShowSurvey(params, baseConfig)).toBe(false)
   })

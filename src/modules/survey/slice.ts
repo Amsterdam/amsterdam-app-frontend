@@ -4,9 +4,9 @@ import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
 
-export type SurveyState = SurveyConfigParams
+export type SurveyState = {surveys: SurveyConfigParams}
 
-const initialState: SurveyConfigParams = []
+const initialState: SurveyState = {surveys: []}
 
 export const surveySlice = createSlice({
   name: ReduxKey.survey,
@@ -20,13 +20,19 @@ export const surveySlice = createSlice({
         return
       }
 
-      state.push({surveyId, actionCount: 0, lastSeenAt: dayjs()})
+      state.surveys.push({
+        surveyId,
+        actionCount: 0,
+        lastSeenAt: dayjs().toISOString(),
+      })
     },
     resetActionCount: (
       state,
       {payload: surveyId}: PayloadAction<number | undefined>,
     ) => {
-      const surveyParam = state.find(param => param.surveyId === surveyId)
+      const surveyParam = state.surveys.find(
+        param => param.surveyId === surveyId,
+      )
 
       if (surveyParam) {
         surveyParam.actionCount = 0
@@ -36,11 +42,13 @@ export const surveySlice = createSlice({
       state,
       {payload: surveyId}: PayloadAction<number | undefined>,
     ) => {
-      const surveyParam = state.find(param => param.surveyId === surveyId)
+      const surveyParam = state.surveys.find(
+        param => param.surveyId === surveyId,
+      )
 
       if (surveyParam) {
         surveyParam.actionCount = (surveyParam.actionCount ?? 0) + 1
-        surveyParam.lastSeenAt = dayjs()
+        surveyParam.lastSeenAt = dayjs().toISOString()
       }
     },
   },
@@ -49,6 +57,7 @@ export const surveySlice = createSlice({
 export const {addSurveyParams, resetActionCount, updateSurveyParams} =
   surveySlice.actions
 
-export const selectSurveysParams = (state: RootState) => state[ReduxKey.survey]
+export const selectSurveysParams = (state: RootState) =>
+  state[ReduxKey.survey].surveys
 export const selectSurveyParams = (surveyId?: number) => (state: RootState) =>
-  state[ReduxKey.survey].find(param => param.surveyId === surveyId)
+  state[ReduxKey.survey].surveys.find(param => param.surveyId === surveyId)

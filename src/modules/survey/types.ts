@@ -1,5 +1,4 @@
 import type {LayoutOrientation} from '@/components/ui/types'
-import type {Dayjs} from 'dayjs'
 
 export enum ConditionEquation {
   'contains' = 'contains',
@@ -91,7 +90,7 @@ export type SurveyVersionEntryParams = SurveyVersionEntryRequest & {
 
 export type SurveyConfigParam = {
   actionCount: number
-  lastSeenAt: Dayjs
+  lastSeenAt: string
   surveyId: number
 }
 
