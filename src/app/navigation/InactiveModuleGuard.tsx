@@ -31,6 +31,9 @@ export const InactiveModuleGuard = ({
     cachedServerModule?.releaseFallbackUrl
   const reason =
     cachedServerModule?.moduleAppReason ?? cachedServerModule?.releaseAppReason
+  const buttonLabel =
+    cachedServerModule?.moduleButtonLabel ??
+    cachedServerModule?.releaseButtonLabel
 
   useLayoutEffect(() => {
     navigation.setOptions({cardStyle})
@@ -60,7 +63,7 @@ export const InactiveModuleGuard = ({
               </Column>
               {!!fallbackUrl && (
                 <ExternalLinkButton
-                  label="Bekijk op Amsterdam.nl"
+                  label={buttonLabel || 'Bekijk op Amsterdam.nl'}
                   testID="InactiveModuleGuardFallbackUrlExternalLinkButton"
                   url={fallbackUrl}
                   variant="secondary"
