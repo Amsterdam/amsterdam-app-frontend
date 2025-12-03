@@ -57,9 +57,6 @@ export const InactiveModuleGuard = ({
                   textAlign="center"
                 />
                 {!!reason && <Paragraph textAlign="center">{reason}</Paragraph>}
-                <Paragraph textAlign="center">
-                  Probeer het later nog eens.
-                </Paragraph>
               </Column>
               {!!fallbackUrl && (
                 <ExternalLinkButton
