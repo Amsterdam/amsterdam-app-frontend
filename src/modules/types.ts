@@ -147,12 +147,14 @@ export type ModuleServerConfig = {
    * The reason why the module is not available in all app versions.
    */
   moduleAppReason: string | null
+  moduleButtonLabel: string | null
   moduleFallbackUrl: string | null
   moduleSlug: ModuleSlug
   /**
    * The reason why the module is not available in the current app version.
    */
   releaseAppReason: string | null
+  releaseButtonLabel: string | null
   releaseFallbackUrl: string | null
   status: ModuleStatus
   title: string
