@@ -1,4 +1,3 @@
-import {FeatureCollection} from 'geojson'
 import {useMemo} from 'react'
 import {Geojson} from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
@@ -25,15 +24,11 @@ export const ParkingPermitZoneMap = () => {
   } = usePermitZonesQuery(report_code)
 
   const initialRegion = useMemo(() => {
-    if (!permitZoneData?.geojson) {
+    if (!permitZoneData?.geojson || !('features' in permitZoneData.geojson)) {
       return
     }
 
     const allCoords = getAllPolygonCoords(permitZoneData.geojson)
-
-    if (!allCoords?.length) {
-      return
-    }
 
     return getRegionFromCoords(allCoords)
   }, [permitZoneData])
@@ -45,6 +40,7 @@ export const ParkingPermitZoneMap = () => {
   if (
     isError ||
     !permitZoneData?.geojson ||
+    !('features' in permitZoneData.geojson) ||
     Object.keys(permitZoneData.geojson).length === 0
   ) {
     return (
@@ -66,7 +62,7 @@ export const ParkingPermitZoneMap = () => {
           String(properties?.fill ?? 'blue'),
           Number(properties?.['fill-opacity'] ?? 0.5),
         )}
-        geojson={permitZoneData.geojson as FeatureCollection}
+        geojson={permitZoneData.geojson}
       />
       <ParkingPermitZoneMapMarkers />
     </Map>
