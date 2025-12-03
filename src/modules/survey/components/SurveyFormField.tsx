@@ -42,7 +42,7 @@ export const SurveyFormField = ({question}: SurveyFormFieldProps) => {
         <TextInputField
           label={question.question_text}
           name={id.toString()}
-          numberOfLines={question_type === QuestionType.text ? 1 : 4} //TODO: get from endpoint once ready
+          numberOfLines={question_type === QuestionType.text ? undefined : 4} //TODO: get from endpoint once ready
           placeholder={question.default ?? ''}
           rules={{
             required: required ? REQUIRED_MESSAGE : undefined,
