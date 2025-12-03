@@ -52,7 +52,7 @@ export type SurveyVersion = {
   version: number
 }
 
-export type Survey = SurveyVersion & {
+export type Survey = {
   description: string
   latest_version: SurveyVersion
   team: string
@@ -71,7 +71,7 @@ export type SurveyConfigByLocationResponse = {
   survey: Survey
 } & SurveyConfig
 
-type Answer = {
+export type Answer = {
   answer: string
   question: number
 }
@@ -84,5 +84,5 @@ export type SurveyVersionEntryRequest = {
 
 export type SurveyVersionEntryParams = SurveyVersionEntryRequest & {
   unique_code: string
-  version: string
+  version: number
 }

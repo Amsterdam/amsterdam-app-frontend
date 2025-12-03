@@ -42,6 +42,7 @@ export enum ExceptionLogKey {
   requestLocationPermission = 'Request location permission failed',
   resetLoginsAfterInvalidAccessCode = 'Reset logins after invalid access code failed',
   shareFailed = 'Failed to share url',
+  surveySubmissionFailed = 'Survey submission failed',
   takingPhotoFailed = 'Taking photo failed',
   tokenInvalid = 'Access token invalid',
   updatePermission = 'Update permission failed',

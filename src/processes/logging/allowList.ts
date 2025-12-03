@@ -43,6 +43,7 @@ export const allowList = {
   [ExceptionLogKey.requestLocationPermission]: ['error'],
   [ExceptionLogKey.resetLoginsAfterInvalidAccessCode]: ['error'],
   [ExceptionLogKey.shareFailed]: ['error', 'url'],
+  [ExceptionLogKey.surveySubmissionFailed]: ['error', 'surveyId'],
   [ExceptionLogKey.takingPhotoFailed]: ['code', 'message', 'viaCamera'],
   [ExceptionLogKey.tokenInvalid]: ['message'],
   [ExceptionLogKey.updatePermission]: ['error', 'permission', 'request'],
