@@ -8,6 +8,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/survey/alerts'
 import {SurveyFormField} from '@/modules/survey/components/SurveyFormField'
 import {useDynamicForm} from '@/modules/survey/hooks/useDynamicForm'
+import {useShowSurvey} from '@/modules/survey/hooks/useShowSurvey'
 import {useCreateSurveyVersionEntryMutation} from '@/modules/survey/service'
 import {getAnswers} from '@/modules/survey/utils/getAnswers'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
@@ -28,6 +29,12 @@ export const DynamicForm = ({entryPoint}: Props) => {
   const {setAlert} = useAlert()
   const trackException = useTrackException()
   const survey = data?.survey
+  const showForm = useShowSurvey({
+    id: data?.id,
+    cooldown: data?.cooldown,
+    minimum_actions: data?.minimum_actions,
+    fraction: data?.fraction,
+  })
 
   const onSubmit = useCallback(
     (formData: Record<string, string | string[]>) => {
@@ -81,6 +88,10 @@ export const DynamicForm = ({entryPoint}: Props) => {
       )),
     [survey?.latest_version?.questions],
   )
+
+  if (!showForm) {
+    return null
+  }
 
   if (isFetching) {
     return <PleaseWait testID="DynamicFormPleaseWait" />

@@ -20,6 +20,7 @@ export enum ReduxKey {
   productTour = 'productTour',
   screen = 'screen',
   secureStorage = 'secureStorage',
+  survey = 'survey',
   theme = 'theme',
   updateApp = 'updateApp',
   wasteGuide = 'wasteGuide',

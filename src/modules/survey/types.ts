@@ -1,4 +1,5 @@
 import type {LayoutOrientation} from '@/components/ui/types'
+import type {Dayjs} from 'dayjs'
 
 export enum ConditionEquation {
   'contains' = 'contains',
@@ -44,6 +45,7 @@ export type Question = {
   question_type: QuestionType
   required: boolean
   sort_order?: number | null
+  textarea_rows?: number | null
 }
 export type SurveyVersion = {
   active_from: string
@@ -86,3 +88,11 @@ export type SurveyVersionEntryParams = SurveyVersionEntryRequest & {
   unique_code: string
   version: number
 }
+
+export type SurveyConfigParam = {
+  actionCount: number
+  lastSeenAt: Dayjs
+  surveyId: number
+}
+
+export type SurveyConfigParams = SurveyConfigParam[]
