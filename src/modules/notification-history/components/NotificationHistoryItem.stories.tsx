@@ -20,6 +20,8 @@ export const Default: Story = {
         moduleAppReason: null,
         moduleFallbackUrl: null,
         releaseFallbackUrl: null,
+        moduleButtonLabel: null,
+        releaseButtonLabel: null,
         releaseAppReason: null,
         title: 'Werkzaamheden',
         icon: 'construction-work',
