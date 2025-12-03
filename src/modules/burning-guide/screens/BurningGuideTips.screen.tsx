@@ -13,11 +13,12 @@ export const BurningGuideTipsScreen = () => (
           <Title text="Tips om bewuster te stoken" />
           <List
             items={[
-              'Stook alleen schoon, droog en gekloofd kachelhout. Afval (bewerkt hout, karton en papier) is verboden.',
-              'Zorg altijd voor goede luchttoevoer tijdens het stoken en het uitbranden.',
-              'Laat het vuur uit bij windstil of mistig weer. ',
-              "Stop 's avonds op tijd met stoken. Dovend vuur rookt nog lang na. Uw buren kunnen dan geen raam openzetten voor ventilatie.",
-              'Laat de schoorsteen minstens 1 keer per jaar goed vegen.',
+              'Wilt u toch stoken? Doe het dan zo schoon mogelijk. Stook alleen schoon, droog en gekloofd kachelhout. ',
+              'Zorg voor genoeg luchttoevoer tijdens het stoken en het uitbranden.',
+              'Stook niet bij windstil of mistig weer.',
+              'Zorg voor voldoende frisse lucht in de ruimte waar gestookt wordt.',
+              "Stop 's avonds op tijd met stoken. Dovend vuur rookt nog lang na.",
+              'Laat de schoorsteen elk jaar vegen.',
             ]}
             testID="BurningGuideTipsList"
           />

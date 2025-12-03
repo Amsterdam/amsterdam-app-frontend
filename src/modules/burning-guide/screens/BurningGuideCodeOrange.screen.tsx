@@ -10,9 +10,9 @@ export const BurningGuideCodeOrangeScreen = () => (
       <Column gutter="lg">
         <Title text="Code oranje" />
         <Paragraph>
-          De rook waait weg, omdat er genoeg wind staat. Maar de luchtkwaliteit
-          is matig. Stoken zorgt voor overlast. Mensen hebben last van uw rook,
-          bijvoorbeeld als ze longklachten hebben. Houd rekening met uw buren.
+          Bij code oranje is er genoeg wind om de rook weg te blazen, maar de
+          luchtkwaliteit is matig. Als u hout stookt wordt de lucht voor u en de
+          buren slechter. Stook daarom liever niet.
         </Paragraph>
       </Column>
     </Box>

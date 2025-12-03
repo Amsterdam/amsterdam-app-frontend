@@ -8,12 +8,12 @@ export const BurningGuideTipsButton = () => {
   return (
     <TopTaskButton
       iconName="lightBulb"
-      iconRightName="chevron-right"
       iconRightSize="ml"
+      isInternalLink
       onPress={() => navigate(BurningGuideRouteName.burningGuideTips)}
       testID="BurningGuideTipsButton"
-      text="Wilt u toch stoken? Doe het dan zo schoon mogelijk. "
-      title="Houtstook tips"
+      text="Wilt u toch stoken? Doe het dan zo schoon mogelijk. Lees de tips over slim stoken."
+      title="Slim stoken"
     />
   )
 }

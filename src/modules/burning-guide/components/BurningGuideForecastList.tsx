@@ -9,11 +9,9 @@ import {Title} from '@/components/ui/text/Title'
 import {BurningGuideForecastListItem} from '@/modules/burning-guide/components/BurningGuideForecastListItem'
 import {useThemable} from '@/themes/useThemable'
 
-type BurningGuideForecastListProps = {list: ListItem[]}
+type Props = {list: ListItem[]}
 
-export const BurningGuideForecastList = ({
-  list,
-}: BurningGuideForecastListProps) => (
+export const BurningGuideForecastList = ({list}: Props) => (
   <Column>
     <Title text="Verwachting" />
 

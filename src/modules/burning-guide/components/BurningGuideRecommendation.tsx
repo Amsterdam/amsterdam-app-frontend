@@ -6,21 +6,21 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BurningGuideRecommendationTag} from '@/modules/burning-guide/components/BurningGuideRecommendationTag'
-import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
-import {BurningGuideCodeVariant} from '@/modules/burning-guide/types'
+import {
+  BurningGuideCodeVariant,
+  type ListItem,
+} from '@/modules/burning-guide/types'
+import {mapVariantToRecommendationTitle} from '@/modules/burning-guide/utils/mapVariantToRecommendationTitle'
+import {mapVariantToScreenRoute} from '@/modules/burning-guide/utils/mapVariantToScreenRoute'
 import {useThemable} from '@/themes/useThemable'
 
-const TITLE_VARIANT_MAP: Record<BurningGuideCodeVariant, string> = {
-  [BurningGuideCodeVariant.red]: 'Stook geen hout',
-  [BurningGuideCodeVariant.orange]: 'Liever geen hout stoken',
-  [BurningGuideCodeVariant.yellow]: 'Hout stoken kan, maar doe het slim',
+type Props = {
+  recommendation: ListItem
 }
 
 export const BurningGuideRecommendation = ({
-  variant,
-}: {
-  variant: BurningGuideCodeVariant
-}) => {
+  recommendation: {variant},
+}: Props) => {
   const styles = useThemable(createStyles)
   const {navigate} = useNavigation()
 
@@ -32,7 +32,7 @@ export const BurningGuideRecommendation = ({
           halign="center">
           <Title
             testID="BurningGuideRecommendationTitle"
-            text={TITLE_VARIANT_MAP[variant]}
+            text={mapVariantToRecommendationTitle[variant]}
             textAlign="center"
           />
           <BurningGuideRecommendationTag
@@ -44,7 +44,7 @@ export const BurningGuideRecommendation = ({
             iconSize="md"
             insetVertical="sm"
             onPress={() => {
-              navigate(BurningGuideRouteName.burningGuide)
+              navigate(mapVariantToScreenRoute[variant])
             }}
             testID="BurningGuideRecommendationNavigationButton"
             title="Meer informatie"

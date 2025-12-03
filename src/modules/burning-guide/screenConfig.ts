@@ -1,6 +1,5 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
 import {
-  type BurningGuideModalParams,
   type BurningGuideStackParams,
   BurningGuideRouteName,
 } from '@/modules/burning-guide/routes'
@@ -21,6 +20,7 @@ export const screenConfig: StackNavigationRoutes<
     name: BurningGuideRouteName.burningGuide,
     options: {
       headerTitle: 'Stookwijzer',
+      headerShown: false,
     },
   },
   [BurningGuideRouteName.burningGuideTips]: {
@@ -48,24 +48,21 @@ export const screenConfig: StackNavigationRoutes<
     component: BurningGuideCodeRedScreen,
     name: BurningGuideRouteName.burningGuideCodeRed,
     options: {
-      headerTitle: 'Uitleg over code rood',
+      headerTitle: 'Uitleg over Code Rood',
     },
   },
   [BurningGuideRouteName.burningGuideCodeOrange]: {
     component: BurningGuideCodeOrangeScreen,
     name: BurningGuideRouteName.burningGuideCodeOrange,
     options: {
-      headerTitle: 'Uitleg over code oranje',
+      headerTitle: 'Uitleg over Code Oranje',
     },
   },
   [BurningGuideRouteName.burningGuideCodeYellow]: {
     component: BurningGuideCodeYellowScreen,
     name: BurningGuideRouteName.burningGuideCodeYellow,
     options: {
-      headerTitle: 'Uitleg over code geel',
+      headerTitle: 'Uitleg over Code Geel',
     },
   },
 }
-
-export const burningGuideModals: StackNavigationRoutes<BurningGuideModalParams> =
-  {}

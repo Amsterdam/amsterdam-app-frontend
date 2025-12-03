@@ -1,14 +1,21 @@
-import {BurningGuideEndpointName} from '@/modules/burning-guide/types'
+import {
+  BurningGuideEndpointName,
+  type BurningGuideApiResponse,
+} from '@/modules/burning-guide/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 
 export const burningGuideApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    [BurningGuideEndpointName.burningGuide]: builder.query<unknown, void>({
-      query: () => ({
+    [BurningGuideEndpointName.burningGuide]: builder.query<
+      BurningGuideApiResponse,
+      string
+    >({
+      query: postal_code => ({
         method: 'GET',
+        params: {postal_code},
         slug: ModuleSlug['burning-guide'],
-        url: '/guide',
+        url: '/advice',
       }),
     }),
   }),

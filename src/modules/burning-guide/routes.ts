@@ -17,6 +17,3 @@ export type BurningGuideStackParams = {
   [BurningGuideRouteName.burningGuideRisks]: undefined
   [BurningGuideRouteName.burningGuideTips]: undefined
 }
-export enum BurningGuideModalName {}
-
-export type BurningGuideModalParams = Record<string, never>

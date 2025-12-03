@@ -1,8 +1,5 @@
 import {ComponentType} from 'react'
-import type {
-  BurningGuideModalParams,
-  BurningGuideStackParams,
-} from '@/modules/burning-guide/routes'
+import type {BurningGuideStackParams} from '@/modules/burning-guide/routes'
 import type {SurveyStackParams} from '@/modules/survey/routes'
 import {RootStackParams, StackNavigationRoutes} from '@/app/navigation/types'
 import {AccessCodeStack} from '@/modules/access-code/Stack'
@@ -11,7 +8,6 @@ import {AddressStack} from '@/modules/address/Stack'
 import {AddressModalParams, AddressStackParams} from '@/modules/address/routes'
 import {addressModals} from '@/modules/address/screenConfig'
 import {BurningGuideStack} from '@/modules/burning-guide/Stack'
-import {burningGuideModals} from '@/modules/burning-guide/screenConfig'
 import {ChatStack} from '@/modules/chat/Stack'
 import {CityPassStack} from '@/modules/city-pass/Stack'
 import {
@@ -112,7 +108,6 @@ const stacks: Record<ModuleSlug, ComponentType<unknown>> = {
 }
 
 export type ModalParams = AddressModalParams &
-  BurningGuideModalParams &
   CityPassModalParams &
   ConstructionWorkEditorModalParams &
   ContactModalParams &
@@ -124,7 +119,6 @@ export type ModalParams = AddressModalParams &
 
 export const modals: StackNavigationRoutes<RootStackParams> = {
   ...addressModals,
-  ...burningGuideModals,
   ...constructionWorkModals,
   ...constructionWorkEditorModals,
   ...contactModals,

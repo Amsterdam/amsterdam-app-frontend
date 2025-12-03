@@ -27,11 +27,11 @@ export const BurningGuideNuisanceScreen = ({navigation: {navigate}}: Props) => (
         <Column gutter="lg">
           <Title
             level="h4"
-            text="Rook van een huis of tuin"
+            text="Rook van een huis, tuin of boot"
           />
           <Paragraph>
             Meld dit bij het RIVM, zodat zij een beter beeld krijgen van de
-            overlast door houtstook in Nederland.
+            overlast door hout stoken in Nederland.
           </Paragraph>
           <ExternalLinkButton
             label="Meld bij het RIVM"
@@ -43,11 +43,10 @@ export const BurningGuideNuisanceScreen = ({navigation: {navigate}}: Props) => (
         <Column gutter="lg">
           <Title
             level="h4"
-            text="Rook op straat, in het park of op een plein"
+            text="Rook op straat of in een park"
           />
           <Paragraph>
-            Meld dit bij de gemeente, zodat wij kunnen onderzoeken wat er aan de
-            hand is.
+            Meld dit bij de gemeente. Wij onderzoeken wat er aan de hand is.
           </Paragraph>
           <Button
             label="Meld bij de gemeente"
