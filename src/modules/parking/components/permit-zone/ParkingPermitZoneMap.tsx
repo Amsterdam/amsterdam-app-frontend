@@ -31,6 +31,10 @@ export const ParkingPermitZoneMap = () => {
 
     const allCoords = getAllPolygonCoords(permitZoneData.geojson)
 
+    if (!allCoords?.length) {
+      return
+    }
+
     return getRegionFromCoords(allCoords)
   }, [permitZoneData])
 
