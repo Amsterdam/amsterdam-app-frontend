@@ -161,8 +161,13 @@ export enum PermitType {
   mantelzorgvergunning = 'Mantelzorgvergunning',
 }
 
+declare const $Empty: unique symbol
+export type EmptyObject = {
+  readonly [$Empty]?: never
+}
+
 export type PermitZoneGeoJsonResponse = {
-  geojson: FeatureCollection | Record<string, never>
+  geojson: FeatureCollection | EmptyObject
 }
 
 export type ParkingPermit = {
