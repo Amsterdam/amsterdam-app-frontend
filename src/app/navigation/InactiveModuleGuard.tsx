@@ -61,9 +61,9 @@ export const InactiveModuleGuard = ({
                 />
                 {!!reason && <Paragraph textAlign="center">{reason}</Paragraph>}
               </Column>
-              {!!fallbackUrl && !!buttonLabel && (
+              {!!fallbackUrl && (
                 <ExternalLinkButton
-                  label={buttonLabel}
+                  label={buttonLabel || 'Bekijk op Amsterdam.nl'}
                   testID="InactiveModuleGuardFallbackUrlExternalLinkButton"
                   url={fallbackUrl}
                   variant="secondary"
