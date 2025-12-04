@@ -33,7 +33,10 @@ const ParkingPermitZonesScreenInner = () => {
           />
         }
         headerOptions={{
-          headerTitle: permit_zone.name,
+          headerTitle:
+            previousRouteName === ParkingRouteName.startSession
+              ? 'Kies parkeerautomaat'
+              : permit_zone.name,
         }}
         scroll={false}
         testID="ParkingPermitZonesScreen"
