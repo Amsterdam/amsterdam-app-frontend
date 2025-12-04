@@ -15,7 +15,7 @@ import {usePermitZonesQuery} from '@/modules/parking/service'
 
 export const ParkingPermitZoneMap = () => {
   const {report_code} = useCurrentParkingPermit()
-  const {setRegion} = usePermitMapContext()
+  const {setRegion, mapRef} = usePermitMapContext()
 
   const {
     data: permitZoneData,
@@ -56,7 +56,8 @@ export const ParkingPermitZoneMap = () => {
     <Map
       controls={[ControlVariant.location]}
       initialRegion={initialRegion}
-      onRegionChangeComplete={setRegion}>
+      onRegionChangeComplete={setRegion}
+      ref={mapRef}>
       <Geojson
         fillColor={getFillColor(
           String(properties?.fill ?? 'blue'),
