@@ -1,6 +1,5 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
-import {LogBox} from 'react-native'
 import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -174,5 +173,3 @@ export const ParkingMachineBottomSheetContent = () => {
     </Box>
   )
 }
-
-LogBox.ignoreAllLogs()
