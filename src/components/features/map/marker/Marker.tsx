@@ -13,12 +13,11 @@ import {checkMarkerPropsHaveChanged} from '@/components/features/map/utils/check
 
 const GOOGLE_MAPS_MARKER_OFFSET: Point = {x: 0.25, y: 1}
 const APPLE_MAPS_MARKER_OFFSET: Point = {x: 0, y: -20}
+const DEFAULT_HIT_SLOP = 20
 
 export type MarkerProps = {
   variant?: MarkerVariant
 } & Omit<MapMarkerProps, 'icon' | 'image'>
-
-const DEFAULT_HIT_SLOP = 20
 
 export const Marker = memo(
   ({variant, hitSlop = DEFAULT_HIT_SLOP, ...markerProps}: MarkerProps) => (
