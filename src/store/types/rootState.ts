@@ -1,3 +1,4 @@
+import type {SurveyState} from '@/modules/survey/slice'
 import {ProductTourState} from '@/components/features/product-tour/slice'
 import {AccessCodeState} from '@/modules/access-code/slice'
 import {AddressState} from '@/modules/address/types'
@@ -49,6 +50,7 @@ export type RootState = {
   [ReduxKey.secureStorage]: SecureStorageState
   [ReduxKey.theme]: ThemeState
   [ReduxKey.screen]: ScreenState
+  [ReduxKey.survey]: SurveyState
   [ReduxKey.updateApp]: UpdateState
   [ReduxKey.wasteGuide]: WasteGuideState
 }
