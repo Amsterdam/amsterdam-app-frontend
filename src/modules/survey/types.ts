@@ -10,6 +10,7 @@ export enum ConditionEquation {
 export enum QuestionType {
   checkbox = 'checkbox',
   radio = 'radio',
+  rating = 'rating',
   text = 'text',
   textarea = 'textarea',
 }

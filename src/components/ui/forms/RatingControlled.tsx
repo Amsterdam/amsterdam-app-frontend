@@ -16,8 +16,7 @@ export const RatingControlled = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  ratingLabels,
-  max,
+  options,
   label,
   testID,
   ...controllerProps
@@ -31,10 +30,9 @@ export const RatingControlled = <
     <Rating
       errorMessage={error?.message}
       label={label}
-      max={max}
       onChange={onChange}
+      options={options}
       rating={value}
-      ratingLabels={ratingLabels}
       testID={testID}
     />
   )

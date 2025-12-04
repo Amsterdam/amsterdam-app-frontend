@@ -1,6 +1,7 @@
 import {useMemo} from 'react'
 import {CheckboxGroupControlled} from '@/components/ui/forms/CheckboxGroupControlled'
 import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
+import {RatingControlled} from '@/components/ui/forms/RatingControlled'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {SurveyConditionalFormField} from '@/modules/survey/components/SurveyConditionalFormField'
 import {QuestionType, type Question} from '@/modules/survey/types'
@@ -27,6 +28,10 @@ export const SurveyFormField = ({question}: SurveyFormFieldProps) => {
 
     if (question_type === QuestionType.radio) {
       return RadioGroupControlled
+    }
+
+    if (question_type === QuestionType.rating) {
+      return RatingControlled
     }
 
     return () => null
