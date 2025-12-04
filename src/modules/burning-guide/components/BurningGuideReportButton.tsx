@@ -2,18 +2,18 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
 
-export const BurningGuideRisksButton = () => {
+export const BurningGuideReportButton = () => {
   const {navigate} = useNavigation()
 
   return (
     <TopTaskButton
-      iconName="medicalKit"
+      iconName="alert"
       iconRightSize="ml"
       isInternalLink
-      onPress={() => navigate(BurningGuideRouteName.burningGuideRisks)}
-      testID="BurningGuideRisksButton"
-      text="Lees wat houtrook doet met u en uw buren."
-      title="Rook van hout is ongezond"
+      onPress={() => navigate(BurningGuideRouteName.burningGuideNuisance)}
+      testID="BurningGuideReportButton"
+      text="Heeft u last van rook?"
+      title="Overlast melden"
     />
   )
 }

@@ -10,19 +10,13 @@ export const BurningGuideRisksScreen = () => (
     <Column gutter="lg">
       <Box>
         <Column gutter="lg">
-          <Title text="Tips om bewuster te stoken" />
+          <Title text="Rook van hout is slecht voor uw gezondheid" />
           <Paragraph variant="intro">
-            De houtkachel of open haard aansteken is gezellig. Maar wist u dat
-            de rook uit de schoorsteen slecht is voor de gezondheid van uw
-            buren? Ook in uw eigen huis blijven ongezonde stoffen hangen.
-            Gelukkig kunt u schoner en bewuster stoken.
-          </Paragraph>
-          <Paragraph>
-            De rook bevat fijnstof. Dit kan zorgen voor hoesten, benauwdheid en
-            prikkende ogen, keel of luchtwegen. Als u vaak rook inademt, kan dat
-            op lange termijn leiden tot hart- en longziekten. Bovendien is
-            houtrook slecht voor het milieu: één avond stoken veroorzaakt
-            evenveel fijnstof als een autorit van 1000 kilometer.
+            Rook bevat fijnstof. Dit kan zorgen voor hoesten, benauwdheid en
+            prikkende ogen, keel of luchtwegen. Als u vaak rook inademt, heeft u
+            meer kans op hart- en longziekten Houtrook is ook slecht voor het
+            milieu: 1 avond stoken veroorzaakt evenveel fijnstof als een autorit
+            van 1000 kilometer.
           </Paragraph>
         </Column>
       </Box>

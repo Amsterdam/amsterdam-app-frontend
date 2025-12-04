@@ -10,9 +10,9 @@ export const BurningGuideCodeYellowScreen = () => (
       <Column gutter="lg">
         <Title text="Code geel" />
         <Paragraph>
-          De rook blijft niet hangen, omdat er genoeg wind staat. Ook is de
-          luchtkwaliteit voldoende. Maar stoken zorgt ook nu voor overlast en
-          luchtverontreiniging. Houd rekening met uw buren.
+          Bij code geel is er genoeg wind waardoor de rook niet blijft hangen.
+          De luchtkwaliteit is nog voldoende. U kunt hout stoken, maar doe het
+          slim.
         </Paragraph>
       </Column>
     </Box>

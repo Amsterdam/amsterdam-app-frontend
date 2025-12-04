@@ -10,10 +10,9 @@ export const BurningGuideCodeRedScreen = () => (
       <Column gutter="lg">
         <Title text="Code rood" />
         <Paragraph>
-          De rook waait niet goed weg, omdat er weinig wind staat. Of de
-          luchtkwaliteit is op dit moment slecht. Nu stoken zorgt voor extra
-          overlast. Bij mensen met longklachten en anderen kunnen
-          gezondheidsklachten optreden. Houd rekening met uw buren.
+          Bij code rood is er of te weinig wind of is de luchtkwaliteit te
+          slecht. Dit betekent dat de rook blijft hangen en de lucht nog
+          slechter wordt. Stook daarom geen hout.
         </Paragraph>
       </Column>
     </Box>

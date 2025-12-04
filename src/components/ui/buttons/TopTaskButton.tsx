@@ -42,6 +42,8 @@ export const TopTaskButton = ({
   titleIconName,
   testID,
   accessibilityRole = 'button',
+  insetHorizontal = 'md',
+  insetVertical = 'sm',
   ...pressableProps
 }: TopTaskButtonProps) => {
   const styles = useThemable(createStyles)
@@ -58,8 +60,8 @@ export const TopTaskButton = ({
       onPress={onPress}
       testID={testID}
       {...pressableProps}
-      insetHorizontal="md"
-      insetVertical="sm">
+      insetHorizontal={insetHorizontal}
+      insetVertical={insetVertical}>
       <Row gutter="md">
         <View style={styles.height}>
           <HideFromAccessibility>
