@@ -57,10 +57,10 @@ export const BurningGuideRecommendation = ({
 
 const createStyles =
   (variant: BurningGuideCodeVariant) =>
-  ({color, size}: Theme) =>
+  ({color, border}: Theme) =>
     StyleSheet.create({
       container: {
-        borderWidth: size.spacing.xs,
+        borderWidth: border.width.xl,
         borderColor: color.burningGuide.recommendationTag[variant].background,
       },
     })
