@@ -1,4 +1,5 @@
 import {ConversationEntrySenderRole} from 'react-native-salesforce-messaging-in-app/src/NativeSalesforceMessagingInApp'
+import {BurningGuideCodeVariant} from '@/modules/burning-guide/types'
 import {baseColor} from '@/themes/tokens/base-color'
 
 export type ColorTokens = typeof lightColorTokens
@@ -89,9 +90,15 @@ export const lightColorTokens = {
     },
   },
   burningGuide: {
-    orange: baseColor.secondary.orange,
-    red: baseColor.primary.red,
-    yellow: baseColor.secondary.yellow,
+    recommendationTag: {
+      [BurningGuideCodeVariant.orange]: {
+        background: baseColor.secondary.orange,
+      },
+      [BurningGuideCodeVariant.red]: {background: baseColor.primary.red},
+      [BurningGuideCodeVariant.yellow]: {
+        background: baseColor.secondary.yellow,
+      },
+    },
   },
   card: {
     pressed: {

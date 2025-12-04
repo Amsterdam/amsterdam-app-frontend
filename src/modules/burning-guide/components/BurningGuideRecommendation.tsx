@@ -21,11 +21,11 @@ type Props = {
 export const BurningGuideRecommendation = ({
   recommendation: {variant},
 }: Props) => {
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(variant))
   const {navigate} = useNavigation()
 
   return (
-    <View style={[styles.container, styles[variant]]}>
+    <View style={styles.container}>
       <Box inset="lg">
         <Column
           gutter="md"
@@ -55,18 +55,12 @@ export const BurningGuideRecommendation = ({
   )
 }
 
-const createStyles = ({color, size}: Theme) =>
-  StyleSheet.create({
-    container: {
-      borderWidth: size.spacing.xs,
-    },
-    [BurningGuideCodeVariant.red]: {
-      borderColor: color.burningGuide.red,
-    },
-    [BurningGuideCodeVariant.orange]: {
-      borderColor: color.burningGuide.orange,
-    },
-    [BurningGuideCodeVariant.yellow]: {
-      borderColor: color.burningGuide.yellow,
-    },
-  })
+const createStyles =
+  (variant: BurningGuideCodeVariant) =>
+  ({color, size}: Theme) =>
+    StyleSheet.create({
+      container: {
+        borderWidth: size.spacing.xs,
+        borderColor: color.burningGuide.recommendationTag[variant].background,
+      },
+    })

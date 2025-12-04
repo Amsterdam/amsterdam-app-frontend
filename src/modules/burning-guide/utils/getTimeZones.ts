@@ -36,7 +36,7 @@ export const getTimeZones = (now: Dayjs): TimeZone[] => {
 
   for (let i = 0; i < 4; i++) {
     const end = start.add(6, 'hour')
-    const label = `${start.format('dddd')} ${start.format('HH.mm')}`
+    const label = `${start.format('dddd')} ${start.format('HH.mm')} uur`
 
     blocks.push({label: capitalizeString(label), start})
     start = end

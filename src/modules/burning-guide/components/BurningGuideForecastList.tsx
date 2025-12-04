@@ -18,11 +18,10 @@ export const BurningGuideForecastList = ({list}: Props) => (
     <Column>
       <BurningGuideForecastList.Row />
 
-      {list.map((item, index) => (
+      {list.map(item => (
         <BurningGuideForecastList.Row key={item.id}>
           <BurningGuideForecastListItem
             isFixed={item.isFixed}
-            testID={`BurningGuideForecast${index}ListItem`}
             timeWindow={item.timeWindow}
             variant={item.variant}
           />

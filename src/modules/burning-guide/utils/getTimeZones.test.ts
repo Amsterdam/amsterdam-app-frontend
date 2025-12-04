@@ -7,10 +7,10 @@ describe('getTimeZones', () => {
     const zones = getTimeZones(now)
 
     expect(zones.map(z => z.label)).toEqual([
-      'Dinsdag 04.00',
-      'Dinsdag 10.00',
-      'Dinsdag 16.00',
-      'Dinsdag 22.00',
+      'Dinsdag 04.00 uur',
+      'Dinsdag 10.00 uur',
+      'Dinsdag 16.00 uur',
+      'Dinsdag 22.00 uur',
     ])
   })
 
@@ -19,10 +19,10 @@ describe('getTimeZones', () => {
     const zones = getTimeZones(now)
 
     expect(zones.map(z => z.label)).toEqual([
-      'Dinsdag 10.00',
-      'Dinsdag 16.00',
-      'Dinsdag 22.00',
-      'Woensdag 04.00',
+      'Dinsdag 10.00 uur',
+      'Dinsdag 16.00 uur',
+      'Dinsdag 22.00 uur',
+      'Woensdag 04.00 uur',
     ])
   })
 
@@ -31,10 +31,10 @@ describe('getTimeZones', () => {
     const zones = getTimeZones(now)
 
     expect(zones.map(z => z.label)).toEqual([
-      'Dinsdag 16.00',
-      'Dinsdag 22.00',
-      'Woensdag 04.00',
-      'Woensdag 10.00',
+      'Dinsdag 16.00 uur',
+      'Dinsdag 22.00 uur',
+      'Woensdag 04.00 uur',
+      'Woensdag 10.00 uur',
     ])
   })
 
@@ -43,10 +43,10 @@ describe('getTimeZones', () => {
     const zones = getTimeZones(now)
 
     expect(zones.map(z => z.label)).toEqual([
-      'Dinsdag 22.00',
-      'Woensdag 04.00',
-      'Woensdag 10.00',
-      'Woensdag 16.00',
+      'Dinsdag 22.00 uur',
+      'Woensdag 04.00 uur',
+      'Woensdag 10.00 uur',
+      'Woensdag 16.00 uur',
     ])
   })
 })

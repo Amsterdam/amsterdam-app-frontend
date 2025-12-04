@@ -20,7 +20,7 @@ export const BurningGuide = ({zipCode}: Props) => {
   }
 
   const recommendation = forecast[0]
-  const forecastList = forecast.slice(1, forecast.length)
+  const forecastList = forecast.slice(1)
 
   return (
     <>

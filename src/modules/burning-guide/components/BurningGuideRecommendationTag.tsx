@@ -17,11 +17,13 @@ export const BurningGuideRecommendationTag = ({
   variant: BurningGuideCodeVariant
 }) => {
   const {fontScale} = useDeviceContext()
-  const styles = useThemable(createStyles)
+  const styles = useThemable(createStyles(variant))
 
   return (
     <Size width={130 * fontScale}>
-      <View style={styles[variant]}>
+      <View
+        style={styles.tag}
+        testID={`BurningGuideRecommendation${variant}`}>
         <Box
           insetHorizontal="md"
           insetVertical="sm">
@@ -40,15 +42,12 @@ export const BurningGuideRecommendationTag = ({
   )
 }
 
-const createStyles = ({color}: Theme) =>
-  StyleSheet.create({
-    [BurningGuideCodeVariant.red]: {
-      backgroundColor: color.burningGuide.red,
-    },
-    [BurningGuideCodeVariant.orange]: {
-      backgroundColor: color.burningGuide.orange,
-    },
-    [BurningGuideCodeVariant.yellow]: {
-      backgroundColor: color.burningGuide.yellow,
-    },
-  })
+const createStyles =
+  (variant: BurningGuideCodeVariant) =>
+  ({color}: Theme) =>
+    StyleSheet.create({
+      tag: {
+        backgroundColor:
+          color.burningGuide.recommendationTag[variant].background,
+      },
+    })

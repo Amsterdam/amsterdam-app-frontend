@@ -12,18 +12,33 @@ type Story = StoryObj<typeof meta>
 
 export const CodeRed: Story = {
   args: {
-    variant: BurningGuideCodeVariant.red,
+    recommendation: {
+      id: '0',
+      isFixed: true,
+      timeWindow: 'Dinsdag 16.00 uur',
+      variant: BurningGuideCodeVariant.red,
+    },
   },
 }
 
 export const CodeOrange: Story = {
   args: {
-    variant: BurningGuideCodeVariant.orange,
+    recommendation: {
+      id: '0',
+      isFixed: true,
+      timeWindow: 'Dinsdag 22.00 uur',
+      variant: BurningGuideCodeVariant.orange,
+    },
   },
 }
 
 export const CodeYellow: Story = {
   args: {
-    variant: BurningGuideCodeVariant.yellow,
+    recommendation: {
+      id: '0',
+      isFixed: false,
+      timeWindow: 'Woensdag 04.00 uur',
+      variant: BurningGuideCodeVariant.yellow,
+    },
   },
 }
