@@ -13,6 +13,7 @@ export enum IconSize {
   lg = 24,
   lgx = 28,
   xl = 32,
+  xll = 48,
   xxl = 60,
 }
 
