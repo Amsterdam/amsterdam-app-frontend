@@ -13,7 +13,10 @@ type Props = {list: ListItem[]}
 
 export const BurningGuideForecastList = ({list}: Props) => (
   <Column>
-    <Title text="Verwachting" />
+    <Title
+      level="h2"
+      text="Verwachting"
+    />
 
     <Column>
       <BurningGuideForecastList.Row />
@@ -29,7 +32,9 @@ export const BurningGuideForecastList = ({list}: Props) => (
       ))}
     </Column>
     <Box insetVertical="md">
-      <Paragraph color="secondary">
+      <Paragraph
+        color="secondary"
+        variant="small">
         * Deze verwachting kan nog veranderen.
       </Paragraph>
     </Box>
@@ -44,11 +49,11 @@ const BurningGuideForecastListItemWrapper = ({children}: PropsWithChildren) => {
 
 BurningGuideForecastList.Row = BurningGuideForecastListItemWrapper
 
-const createStyles = ({color, size}: Theme) =>
+const createStyles = ({color, border, size}: Theme) =>
   StyleSheet.create({
     row: {
-      borderBottomWidth: size.spacing.xxs,
-      borderColor: color.box.border.onGrey,
+      borderBottomWidth: border.width.sm,
+      borderBottomColor: color.box.border.default,
       paddingVertical: size.spacing.sm,
     },
   })

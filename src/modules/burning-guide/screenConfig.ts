@@ -25,7 +25,7 @@ export const screenConfig: StackNavigationRoutes<
     component: BurningGuideTipsScreen,
     name: BurningGuideRouteName.burningGuideTips,
     options: {
-      headerTitle: 'Houtstook tips',
+      headerTitle: 'Slim stoken',
     },
   },
   [BurningGuideRouteName.burningGuideRisks]: {

@@ -12,7 +12,7 @@ export const BurningGuideRisksButton = () => {
       isInternalLink
       onPress={() => navigate(BurningGuideRouteName.burningGuideRisks)}
       testID="BurningGuideRisksButton"
-      text="Lees wat houtrook doet met u en uw buren."
+      text="Lees wat rook doet met u en uw buren."
       title="Rook van hout is ongezond"
     />
   )

@@ -14,7 +14,7 @@ export const BurningGuideRisksScreen = () => (
           <Paragraph variant="intro">
             Rook bevat fijnstof. Dit kan zorgen voor hoesten, benauwdheid en
             prikkende ogen, keel of luchtwegen. Als u vaak rook inademt, heeft u
-            meer kans op hart- en longziekten Houtrook is ook slecht voor het
+            meer kans op hart- en longziekten. Houtrook is ook slecht voor het
             milieu: 1 avond stoken veroorzaakt evenveel fijnstof als een autorit
             van 1000 kilometer.
           </Paragraph>

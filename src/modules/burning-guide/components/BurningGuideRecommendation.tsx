@@ -31,6 +31,7 @@ export const BurningGuideRecommendation = ({
           gutter="md"
           halign="center">
           <Title
+            level="h2"
             testID="BurningGuideRecommendationTitle"
             text={mapVariantToRecommendationTitle[variant]}
             textAlign="center"
