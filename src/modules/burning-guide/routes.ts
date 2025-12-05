@@ -1,8 +1,6 @@
 export enum BurningGuideRouteName {
   burningGuide = 'BurningGuide',
-  burningGuideCodeOrange = 'BurningGuideCodeOrange',
-  burningGuideCodeRed = 'BurningGuideCodeRed',
-  burningGuideCodeYellow = 'BurningGuideCodeYellow',
+  burningGuideCodeInfo = 'BurningGuideCodeInfo',
   burningGuideNuisance = 'BurningGuideNuisance',
   burningGuideRisks = 'BurningGuideRisks',
   burningGuideTips = 'BurningGuideTips',
@@ -10,9 +8,7 @@ export enum BurningGuideRouteName {
 
 export type BurningGuideStackParams = {
   [BurningGuideRouteName.burningGuide]: undefined
-  [BurningGuideRouteName.burningGuideCodeOrange]: undefined
-  [BurningGuideRouteName.burningGuideCodeRed]: undefined
-  [BurningGuideRouteName.burningGuideCodeYellow]: undefined
+  [BurningGuideRouteName.burningGuideCodeInfo]: undefined
   [BurningGuideRouteName.burningGuideNuisance]: undefined
   [BurningGuideRouteName.burningGuideRisks]: undefined
   [BurningGuideRouteName.burningGuideTips]: undefined
