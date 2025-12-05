@@ -20,12 +20,12 @@ export const BurningGuideRecommendationTag = ({
   const styles = useThemable(createStyles(variant))
 
   return (
-    <Size width={130 * fontScale}>
+    <Size width={116 * fontScale}>
       <View
         style={styles.tag}
         testID={`BurningGuideRecommendation${variant}`}>
         <Box
-          insetHorizontal="md"
+          insetHorizontal="sm"
           insetVertical="sm">
           <Phrase
             color={

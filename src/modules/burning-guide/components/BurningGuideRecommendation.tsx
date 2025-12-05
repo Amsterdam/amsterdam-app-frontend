@@ -6,12 +6,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {BurningGuideRecommendationTag} from '@/modules/burning-guide/components/BurningGuideRecommendationTag'
+import {BurningGuideRouteName} from '@/modules/burning-guide/routes'
 import {
   BurningGuideCodeVariant,
   type ListItem,
 } from '@/modules/burning-guide/types'
 import {mapVariantToRecommendationTitle} from '@/modules/burning-guide/utils/mapVariantToRecommendationTitle'
-import {mapVariantToScreenRoute} from '@/modules/burning-guide/utils/mapVariantToScreenRoute'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
@@ -31,6 +31,7 @@ export const BurningGuideRecommendation = ({
           gutter="md"
           halign="center">
           <Title
+            level="h2"
             testID="BurningGuideRecommendationTitle"
             text={mapVariantToRecommendationTitle[variant]}
             textAlign="center"
@@ -44,7 +45,7 @@ export const BurningGuideRecommendation = ({
             iconSize="md"
             insetVertical="sm"
             onPress={() => {
-              navigate(mapVariantToScreenRoute[variant])
+              navigate(BurningGuideRouteName.burningGuideCodeInfo)
             }}
             testID="BurningGuideRecommendationNavigationButton"
             title="Meer informatie"

@@ -10,14 +10,14 @@ export const BurningGuideTipsScreen = () => (
     <Column gutter="lg">
       <Box>
         <Column gutter="lg">
-          <Title text="Tips om bewuster te stoken" />
+          <Title text="Tips slim stoken" />
           <List
             items={[
               'Wilt u toch stoken? Doe het dan zo schoon mogelijk. Stook alleen schoon, droog en gekloofd kachelhout. ',
               'Zorg voor genoeg luchttoevoer tijdens het stoken en het uitbranden.',
               'Stook niet bij windstil of mistig weer.',
               'Zorg voor voldoende frisse lucht in de ruimte waar gestookt wordt.',
-              "Stop 's avonds op tijd met stoken. Dovend vuur rookt nog lang na.",
+              'Stop op tijd met stoken. Dovend vuur rookt nog lang na.',
               'Laat de schoorsteen elk jaar vegen.',
             ]}
             testID="BurningGuideTipsList"

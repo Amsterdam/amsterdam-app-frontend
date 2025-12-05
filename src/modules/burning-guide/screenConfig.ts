@@ -4,9 +4,7 @@ import {
   BurningGuideRouteName,
 } from '@/modules/burning-guide/routes'
 import {BurningGuideScreen} from '@/modules/burning-guide/screens/BurningGuide.screen'
-import {BurningGuideCodeOrangeScreen} from '@/modules/burning-guide/screens/BurningGuideCodeOrange.screen'
-import {BurningGuideCodeRedScreen} from '@/modules/burning-guide/screens/BurningGuideCodeRed.screen'
-import {BurningGuideCodeYellowScreen} from '@/modules/burning-guide/screens/BurningGuideCodeYellow.screen'
+import {BurningGuideCodeInfoScreen} from '@/modules/burning-guide/screens/BurningGuideCodeInfo.screen'
 import {BurningGuideNuisanceScreen} from '@/modules/burning-guide/screens/BurningGuideNuisance.screen'
 import {BurningGuideRisksScreen} from '@/modules/burning-guide/screens/BurningGuideRisks.screen'
 import {BurningGuideTipsScreen} from '@/modules/burning-guide/screens/BurningGuideTips.screen'
@@ -27,7 +25,7 @@ export const screenConfig: StackNavigationRoutes<
     component: BurningGuideTipsScreen,
     name: BurningGuideRouteName.burningGuideTips,
     options: {
-      headerTitle: 'Houtstook tips',
+      headerTitle: 'Slim stoken',
     },
   },
   [BurningGuideRouteName.burningGuideRisks]: {
@@ -44,25 +42,11 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Overlast melden',
     },
   },
-  [BurningGuideRouteName.burningGuideCodeRed]: {
-    component: BurningGuideCodeRedScreen,
-    name: BurningGuideRouteName.burningGuideCodeRed,
+  [BurningGuideRouteName.burningGuideCodeInfo]: {
+    component: BurningGuideCodeInfoScreen,
+    name: BurningGuideRouteName.burningGuideCodeInfo,
     options: {
       headerTitle: 'Uitleg over Code Rood',
-    },
-  },
-  [BurningGuideRouteName.burningGuideCodeOrange]: {
-    component: BurningGuideCodeOrangeScreen,
-    name: BurningGuideRouteName.burningGuideCodeOrange,
-    options: {
-      headerTitle: 'Uitleg over Code Oranje',
-    },
-  },
-  [BurningGuideRouteName.burningGuideCodeYellow]: {
-    component: BurningGuideCodeYellowScreen,
-    name: BurningGuideRouteName.burningGuideCodeYellow,
-    options: {
-      headerTitle: 'Uitleg over Code Geel',
     },
   },
 }
