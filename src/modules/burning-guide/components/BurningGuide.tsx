@@ -13,7 +13,7 @@ export const BurningGuide = ({zipCode}: Props) => {
     return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
   }
 
-  if (!forecast || isError) {
+  if (!forecast?.length || !zipCode || isError) {
     return (
       <SomethingWentWrong testID="BurningGuideForecastListSomethingWentWrong" />
     )
