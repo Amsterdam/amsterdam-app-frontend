@@ -28,6 +28,7 @@ export const BurningGuideRecommendationTag = ({
           insetHorizontal="sm"
           insetVertical="sm">
           <Phrase
+            accessible={false}
             color={
               variant === BurningGuideCodeVariant.red ? 'inverse' : 'default'
             }
