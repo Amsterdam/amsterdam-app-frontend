@@ -7,7 +7,6 @@ import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControll
 import {SwitchField} from '@/components/ui/forms/SwitchField'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useZoneByMachineQuery} from '@/modules/parking/service'
@@ -77,12 +76,6 @@ export const ParkingSessionChooseParkingMachine = ({
     [parkingMachineDetails, startTime],
   )
 
-  useAccessibilityAnnounceEffect(
-    machineDetailsLabel && selectedParkingMachineId
-      ? `Parkeerautomaat ${selectedParkingMachineId}. Betaald parkeren, van ${machineDetailsLabel}.`
-      : undefined,
-  )
-
   if (!currentPermit.can_select_zone) {
     return null
   }
@@ -90,6 +83,7 @@ export const ParkingSessionChooseParkingMachine = ({
   return (
     <Column gutter="md">
       <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
+        accessibilityLabel={`Parkeerautomaat ${selectedParkingMachineId}. Betaald parkeren, van ${machineDetailsLabel}.`}
         iconName="location"
         name="parking_machine"
         routeName={ParkingRouteName.parkingPermitZones}

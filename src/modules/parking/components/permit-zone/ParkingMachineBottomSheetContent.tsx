@@ -4,17 +4,18 @@ import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {useAccessibilityAnnounceEffect} from '@/hooks/accessibility/useAccessibilityAnnounce'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetErrorMessage'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -51,6 +52,7 @@ export const ParkingMachineBottomSheetContent = () => {
     data: parkingMachineDetails,
     isLoading,
     isError,
+    error,
   } = useZoneByMachineQuery(
     selectedParkingMachineId
       ? {
@@ -68,12 +70,6 @@ export const ParkingMachineBottomSheetContent = () => {
   useEffect(
     () => () => resetSelectedParkingMachineId(),
     [resetSelectedParkingMachineId],
-  )
-
-  useAccessibilityAnnounceEffect(
-    machineDetailsLabel
-      ? `Betaald parkeren, van ${machineDetailsLabel}.`
-      : undefined,
   )
 
   if (!parkingMachine) {
@@ -127,13 +123,7 @@ export const ParkingMachineBottomSheetContent = () => {
         </Row>
 
         {isError ? (
-          <Column gutter="sm">
-            <Title
-              level="h5"
-              text="Deze parkeerautomaat hoort niet bij uw vergunninggebied"
-            />
-            <Paragraph>U kunt hier geen parkeersessie starten</Paragraph>
-          </Column>
+          <ParkingMachineBottomSheetErrorMessage error={error} />
         ) : (
           <Row
             gutter="smd"
@@ -142,17 +132,20 @@ export const ParkingMachineBottomSheetContent = () => {
               name="clock"
               size="lg"
             />
-            <Column>
-              <Title
-                level="h5"
-                text="Betaald parkeren"
-              />
-              {isLoading ? (
-                <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
-              ) : (
-                <Paragraph>{machineDetailsLabel}</Paragraph>
-              )}
-            </Column>
+            <SingleSelectable
+              accessibilityLabel={`Betaald parkeren, van ${machineDetailsLabel}.`}>
+              <Column>
+                <Title
+                  level="h5"
+                  text="Betaald parkeren"
+                />
+                {isLoading ? (
+                  <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
+                ) : (
+                  <Paragraph>{machineDetailsLabel}</Paragraph>
+                )}
+              </Column>
+            </SingleSelectable>
           </Row>
         )}
 
