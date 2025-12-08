@@ -83,6 +83,7 @@ export const ParkingSessionChooseParkingMachine = ({
   return (
     <Column gutter="md">
       <SelectButtonControlled<{parking_machine: string}, 'parking_machine'>
+        accessibilityLabel={`Parkeerautomaat ${selectedParkingMachineId}. Betaald parkeren, van ${machineDetailsLabel}.`}
         iconName="location"
         name="parking_machine"
         routeName={ParkingRouteName.parkingPermitZones}

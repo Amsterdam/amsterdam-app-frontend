@@ -4,6 +4,7 @@ import {Button} from '@/components/ui/buttons/Button'
 import {ExternalLinkButton} from '@/components/ui/buttons/ExternalLinkButton'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
@@ -14,6 +15,7 @@ import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import {ParkingMachineBottomSheetErrorMessage} from '@/modules/parking/components/permit-zone/ParkingMachineBottomSheetErrorMessage'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {ParkingRouteName} from '@/modules/parking/routes'
@@ -27,8 +29,9 @@ import {dayjs} from '@/utils/datetime/dayjs'
 
 export const ParkingMachineBottomSheetContent = () => {
   const {close: closeBottomSheet} = useBottomSheet()
-  const navigation = useNavigation<ParkingRouteName>()
   const autoFocus = useAccessibilityFocus()
+  const navigation = useNavigation()
+
   const {name: previousRouteName} = usePreviousRoute() ?? {}
   const {selectedParkingMachineId, resetSelectedParkingMachineId} =
     usePermitMapContext()
@@ -49,6 +52,7 @@ export const ParkingMachineBottomSheetContent = () => {
     data: parkingMachineDetails,
     isLoading,
     isError,
+    error,
   } = useZoneByMachineQuery(
     selectedParkingMachineId
       ? {
@@ -117,33 +121,39 @@ export const ParkingMachineBottomSheetContent = () => {
             />
           </Column>
         </Row>
-        <Row
-          gutter="smd"
-          valign="start">
-          <Icon
-            name="clock"
-            size="lg"
-          />
-          <Column>
-            <Title
-              level="h5"
-              text="Betaald parkeren"
-            />
-            {isLoading ? (
-              <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
-            ) : (
-              <Paragraph>{machineDetailsLabel}</Paragraph>
-            )}
-          </Column>
-        </Row>
 
-        {previousRouteName === ParkingRouteName.startSession && (
+        {isError ? (
+          <ParkingMachineBottomSheetErrorMessage error={error} />
+        ) : (
+          <Row
+            gutter="smd"
+            valign="start">
+            <Icon
+              name="clock"
+              size="lg"
+            />
+            <SingleSelectable
+              accessibilityLabel={`Betaald parkeren, van ${machineDetailsLabel}.`}>
+              <Column>
+                <Title
+                  level="h5"
+                  text="Betaald parkeren"
+                />
+                {isLoading ? (
+                  <PleaseWait testID="ParkingMachineDetailsPleaseWait" />
+                ) : (
+                  <Paragraph>{machineDetailsLabel}</Paragraph>
+                )}
+              </Column>
+            </SingleSelectable>
+          </Row>
+        )}
+
+        {previousRouteName === ParkingRouteName.startSession && !isError && (
           <Button
-            disabled={isLoading || isError}
-            iconName={isError ? 'alert' : undefined}
-            label={
-              isError ? 'Automaat niet beschikbaar' : 'Selecteer deze automaat'
-            }
+            disabled={isLoading}
+            isLoading={isLoading}
+            label="Selecteer deze automaat"
             onPress={() => {
               navigation.popTo(ParkingRouteName.startSession, {
                 parkingMachineId: selectedParkingMachineId,
