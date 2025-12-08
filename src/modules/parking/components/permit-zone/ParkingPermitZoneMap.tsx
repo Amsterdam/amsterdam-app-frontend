@@ -14,7 +14,7 @@ import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {usePermitZonesQuery} from '@/modules/parking/service'
 
 export const ParkingPermitZoneMap = () => {
-  const {report_code} = useCurrentParkingPermit()
+  const {report_code, can_select_zone} = useCurrentParkingPermit()
   const {setRegion, mapRef} = usePermitMapContext()
 
   const {
@@ -65,7 +65,7 @@ export const ParkingPermitZoneMap = () => {
         )}
         geojson={permitZoneData.geojson}
       />
-      <ParkingPermitZoneMapMarkers />
+      {!!can_select_zone && <ParkingPermitZoneMapMarkers />}
     </Map>
   )
 }
