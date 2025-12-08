@@ -1,15 +1,11 @@
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
-import MapView from 'react-native-maps'
 import {useMapControlsLocationButton} from '@/components/features/map/hooks/useMapControlsLocationButton'
 import {ControlVariant, MapControlOption} from '@/components/features/map/types'
 import {Permissions} from '@/types/permissions'
 
-export const useMapControlsOptions = (
-  mapRef: React.RefObject<MapView | null>,
-  options: ControlVariant[],
-) => {
-  const {onPressLocationButton, iconName} = useMapControlsLocationButton(mapRef)
+export const useMapControlsOptions = (options: ControlVariant[]) => {
+  const {onPressLocationButton, iconName} = useMapControlsLocationButton()
 
   const controlOptions: Record<
     ControlVariant,

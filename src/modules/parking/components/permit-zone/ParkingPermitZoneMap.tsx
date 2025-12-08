@@ -18,7 +18,7 @@ const DEBOUNCE_DELAY = 100
 
 export const ParkingPermitZoneMap = () => {
   const {report_code, can_select_zone} = useCurrentParkingPermit()
-  const {setRegion, mapRef} = usePermitMapContext()
+  const {setRegion} = usePermitMapContext()
 
   const {
     data: permitZoneData,
@@ -59,8 +59,7 @@ export const ParkingPermitZoneMap = () => {
     <MapBase
       controls={[ControlVariant.location]}
       initialRegion={initialRegion}
-      onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}
-      ref={mapRef}>
+      onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}>
       <Geojson
         fillColor={getFillColor(
           String(properties?.fill ?? 'blue'),

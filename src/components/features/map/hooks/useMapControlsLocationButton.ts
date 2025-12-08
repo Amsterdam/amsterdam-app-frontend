@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import MapView from 'react-native-maps'
+import {useMap} from '@/components/features/map/hooks/useMap'
 import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
@@ -20,11 +20,10 @@ const getIconNameLocation = (
   return isSetLocation ? 'mapLocationIosFilled' : 'mapLocationIos'
 }
 
-export const useMapControlsLocationButton = (
-  mapRef: React.RefObject<MapView | null>,
-) => {
+export const useMapControlsLocationButton = () => {
   const {address, locationType} = useSelectedAddress()
   const {isGettingLocation} = useLocation()
+  const map = useMap()
   const {requestPermission: requestLocationPermission} = usePermission(
     Permissions.location,
   )
@@ -39,7 +38,7 @@ export const useMapControlsLocationButton = (
 
   const onPressLocationButton = useCallback(async () => {
     if (isSetLocation) {
-      mapRef.current?.animateToRegion(
+      map?.animateToRegion(
         {
           latitude: address.coordinates!.lat,
           longitude: address.coordinates!.lon,
@@ -67,7 +66,7 @@ export const useMapControlsLocationButton = (
     address?.coordinates,
     isSetLocation,
     startLocationFetch,
-    mapRef,
+    map,
     navigateToInstructionsScreen,
     requestLocationPermission,
     setLocationType,
