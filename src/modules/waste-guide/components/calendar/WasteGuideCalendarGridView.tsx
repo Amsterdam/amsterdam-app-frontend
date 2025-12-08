@@ -1,4 +1,4 @@
-import {View} from 'react-native'
+import {StyleSheet, View} from 'react-native'
 import {Box} from '@/components/ui/containers/Box'
 import {ScrollView} from '@/components/ui/layout/ScrollView'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -22,9 +22,10 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
   const weeks = getCalendarWeeks()
 
   const eventsByDate = getCalendarEventsByDate(calendar)
+  const styles = createStyles()
 
   return (
-    <View>
+    <View style={styles.container}>
       <WasteGuideCalendarWeekdays />
       <ScrollView>
         <Box
@@ -77,3 +78,5 @@ export const WasteGuideCalendarGridView = ({calendar}: Props) => {
     </View>
   )
 }
+
+const createStyles = () => StyleSheet.create({container: {flex: 1}})
