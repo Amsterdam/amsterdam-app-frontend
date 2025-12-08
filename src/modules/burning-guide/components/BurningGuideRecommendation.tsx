@@ -2,6 +2,7 @@ import {StyleSheet, View} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {Box} from '@/components/ui/containers/Box'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -30,16 +31,24 @@ export const BurningGuideRecommendation = ({
         <Column
           gutter="md"
           halign="center">
-          <Title
-            level="h2"
-            testID="BurningGuideRecommendationTitle"
-            text={mapVariantToRecommendationTitle[variant]}
-            textAlign="center"
-          />
-          <BurningGuideRecommendationTag
-            fontSize="body"
-            variant={variant}
-          />
+          <SingleSelectable
+            accessibilityLabel={`${mapVariantToRecommendationTitle[variant]}, Code ${variant}`}>
+            <Column
+              gutter="md"
+              halign="center">
+              <Title
+                accessible={false}
+                level="h2"
+                testID="BurningGuideRecommendationTitle"
+                text={mapVariantToRecommendationTitle[variant]}
+                textAlign="center"
+              />
+              <BurningGuideRecommendationTag
+                fontSize="body"
+                variant={variant}
+              />
+            </Column>
+          </SingleSelectable>
           <NavigationButton
             horizontallyAlign="center"
             iconSize="md"

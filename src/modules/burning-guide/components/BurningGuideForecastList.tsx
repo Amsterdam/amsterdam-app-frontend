@@ -33,6 +33,7 @@ export const BurningGuideForecastList = ({list}: Props) => (
     </Column>
     <Box insetVertical="md">
       <Paragraph
+        accessible={false}
         color="secondary"
         variant="small">
         * Deze verwachting kan nog veranderen.

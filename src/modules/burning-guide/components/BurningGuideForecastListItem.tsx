@@ -1,4 +1,5 @@
 import type {ListItem} from '@/modules/burning-guide/types'
+import {SingleSelectable} from '@/components/ui/containers/SingleSelectable'
 import {Row} from '@/components/ui/layout/Row'
 import {Size} from '@/components/ui/layout/Size'
 import {Phrase} from '@/components/ui/text/Phrase'
@@ -11,16 +12,25 @@ export const BurningGuideForecastListItem = ({
   isFixed = false,
   timeWindow,
 }: ListItemProps) => (
-  <Row align="between">
-    <Phrase>{timeWindow}</Phrase>
-    <Row>
-      <BurningGuideRecommendationTag
-        fontSize="small"
-        variant={variant}
-      />
-      <Size width={20}>
-        {!isFixed && <Phrase textAlign="center">*</Phrase>}
-      </Size>
+  <SingleSelectable
+    accessibilityLabel={`${timeWindow}, Code ${variant}${isFixed ? '' : ', Deze verwachting kan nog veranderen.'}`}>
+    <Row align="between">
+      <Phrase accessible={false}>{timeWindow}</Phrase>
+      <Row>
+        <BurningGuideRecommendationTag
+          fontSize="small"
+          variant={variant}
+        />
+        <Size width={20}>
+          {!isFixed && (
+            <Phrase
+              accessible={false}
+              textAlign="center">
+              *
+            </Phrase>
+          )}
+        </Size>
+      </Row>
     </Row>
-  </Row>
+  </SingleSelectable>
 )
