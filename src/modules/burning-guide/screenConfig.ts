@@ -46,7 +46,7 @@ export const screenConfig: StackNavigationRoutes<
     component: BurningGuideCodeInfoScreen,
     name: BurningGuideRouteName.burningGuideCodeInfo,
     options: {
-      headerTitle: 'Uitleg over Code Rood',
+      headerTitle: 'Uitleg over codes',
     },
   },
 }
