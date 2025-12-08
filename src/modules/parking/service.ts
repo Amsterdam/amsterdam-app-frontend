@@ -260,9 +260,7 @@ export const parkingApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: body => ({
-        headers: {
-          ...deviceIdHeader,
-        },
+        headers: deviceIdHeader,
         prepareHeaders,
         body,
         method: 'POST',
@@ -277,9 +275,7 @@ export const parkingApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: body => ({
-        headers: {
-          ...deviceIdHeader,
-        },
+        headers: deviceIdHeader,
         prepareHeaders,
         body,
         method: 'PATCH',
@@ -294,9 +290,7 @@ export const parkingApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['ParkingSessions', 'ParkingAccount', 'ParkingPermits'],
       query: ({...params}) => ({
-        headers: {
-          ...deviceIdHeader,
-        },
+        headers: deviceIdHeader,
         prepareHeaders,
         method: 'DELETE',
         slug: ModuleSlug.parking,
@@ -351,6 +345,7 @@ export const parkingApi = baseApi.injectEndpoints({
     >({
       invalidatesTags: ['ParkingAccount', 'ParkingSessions'],
       query: body => ({
+        headers: deviceIdHeader,
         body,
         prepareHeaders,
         method: 'POST',
