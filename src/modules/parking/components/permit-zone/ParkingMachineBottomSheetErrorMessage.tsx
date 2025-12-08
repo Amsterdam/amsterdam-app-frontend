@@ -20,7 +20,8 @@ export const ParkingMachineBottomSheetErrorMessage = ({
     <Title
       level="h5"
       text={
-        isSSPError(error)
+        isSSPError(error) &&
+        error.data.code === 'SSP_PARKING_MACHINE_NOT_IN_ZONE'
           ? 'Deze parkeerautomaat hoort niet bij uw vergunninggebied'
           : 'Er is een fout opgetreden'
       }
