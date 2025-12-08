@@ -13,8 +13,12 @@ enum MarkerZIndex {
 
 export const ParkingPermitZoneMapMarkers = () => {
   const {parking_machine_favorite} = useCurrentParkingPermit()
-  const {onSelectParkingMachine, selectedParkingMachineId, region} =
-    usePermitMapContext()
+  const {
+    onSelectParkingMachine,
+    selectedParkingMachineId,
+    region,
+    animateToCluster,
+  } = usePermitMapContext()
 
   const {data: parkingMachines} = useParkingMachinesQuery()
 
@@ -42,10 +46,11 @@ export const ParkingPermitZoneMapMarkers = () => {
             ...props,
             id,
             variant: markerVariant(id),
-            onItemPress: () => onSelectParkingMachine(id),
+            onMarkerPress: () => onSelectParkingMachine(id),
           },
           geometry: {type: 'Point', coordinates: [lon, lat]},
         }))}
+        onClusterPress={animateToCluster}
         region={region}
         zIndex={MarkerZIndex.cluster}
       />

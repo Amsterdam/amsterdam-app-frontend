@@ -22,6 +22,7 @@ export type ClustererProps = {
   >
   data: Supercluster.PointFeature<MarkerProperties>[]
   mapDimensions?: {height: number; width: number}
+  onClusterPress?: (region: Region) => void
   region?: Region
 } & Omit<MapMarkerProps, 'coordinate'>
 
@@ -30,6 +31,7 @@ export const Clusterer = ({
   region = AMSTERDAM_REGION,
   mapDimensions,
   clusterOptions,
+  onClusterPress,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
 
@@ -45,10 +47,18 @@ export const Clusterer = ({
             ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
             : `point-${item.properties?.id}`
 
-        const onPress =
-          'cluster_id' in item.properties
-            ? undefined
-            : item.properties.onItemPress
+        const handlePress = () => {
+          if ('cluster_id' in item.properties) {
+            const {getExpansionRegion} = item.properties
+            const clusterRegion = getExpansionRegion()
+
+            onClusterPress?.(clusterRegion)
+
+            return
+          }
+
+          item.properties.onMarkerPress?.()
+        }
 
         return (
           <Marker
@@ -58,8 +68,8 @@ export const Clusterer = ({
             }}
             id={id}
             key={id}
-            onPress={onPress}
-            onSelect={onPress}
+            onPress={handlePress}
+            onSelect={handlePress}
             tracksViewChanges={false}
             variant={
               'cluster_id' in item.properties

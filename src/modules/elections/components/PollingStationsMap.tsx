@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useRef, useState} from 'react'
+import type MapView from 'react-native-maps'
 import {Map} from '@/components/features/map/Map'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {ControlVariant} from '@/components/features/map/types'
@@ -26,6 +27,7 @@ export const PollingStationsMap = ({
 }: Props) => {
   const selectedPollingStationId = useSelectedPollingStationId()
   const markerVariant = getMarkerVariant(selectedPollingStationId)
+  const mapRef = useRef<MapView>(null)
   const [region, setRegion] = useState(
     address?.coordinates
       ? {
@@ -49,7 +51,8 @@ export const PollingStationsMap = ({
     <Map
       controls={[ControlVariant.location]}
       initialRegion={region}
-      onRegionChangeComplete={setRegion}>
+      onRegionChangeComplete={setRegion}
+      ref={mapRef}>
       <Clusterer
         data={pollingStations.map(({position, id, ...props}) => ({
           type: 'Feature',
@@ -59,11 +62,15 @@ export const PollingStationsMap = ({
             variant: markerVariant(id),
             onItemPress: () => onPress(id),
           },
+
           geometry: {
             type: 'Point',
             coordinates: [position.lng, position.lat],
           },
         }))}
+        onClusterPress={clusterRegion =>
+          mapRef.current?.animateToRegion(clusterRegion)
+        }
         region={region}
       />
     </Map>

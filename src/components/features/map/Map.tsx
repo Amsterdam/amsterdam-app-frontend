@@ -1,16 +1,24 @@
-import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type PropsWithChildren,
+  type RefObject,
+} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps} from 'react-native-maps'
 import {MapControls} from '@/components/features/map/MapControls'
-import {AMSTERDAM_REGION} from '@/components/features/map/constants'
+import {
+  AMSTERDAM_REGION,
+  ANIMATION_DURATION,
+} from '@/components/features/map/constants'
 import {ControlVariant} from '@/components/features/map/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
-const ANIMATION_DURATION = 0
-
 type Props = PropsWithChildren<{
   controls?: ControlVariant[]
+  ref?: RefObject<MapView | null>
 }> &
   MapViewProps
 
@@ -18,12 +26,14 @@ export const Map = ({
   children,
   controls,
   initialRegion,
+  ref: externalRef,
   ...mapViewProps
 }: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
-  const mapRef = useRef<MapView>(null)
-
+  const internalRef = useRef<MapView>(null)
   const styles = useThemable(createStyles)
+
+  const mapRef = externalRef ?? internalRef
 
   const handleOnMapReady = () => {
     setIsMapReady(true)
@@ -39,7 +49,7 @@ export const Map = ({
     } else {
       mapRef.current?.animateToRegion(AMSTERDAM_REGION, ANIMATION_DURATION)
     }
-  }, [isMapReady, initialRegion])
+  }, [isMapReady, initialRegion, mapRef])
 
   return (
     <View style={styles.container}>

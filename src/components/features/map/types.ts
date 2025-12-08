@@ -16,7 +16,7 @@ export type MapControlOption = {
 
 export type MarkerProperties = {
   id: string
-  onItemPress?: () => void
+  onMarkerPress?: () => void
   variant?: MarkerVariant
 }
 
