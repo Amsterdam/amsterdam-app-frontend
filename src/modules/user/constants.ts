@@ -25,7 +25,7 @@ export const aboutSections: UserMenuSection[] = [
         route: UserRouteName.feedback,
       },
       {
-        label: 'Privacy verklaring',
+        label: 'Privacyverklaring',
         route: UserRouteName.privacyStatement,
       },
       {
