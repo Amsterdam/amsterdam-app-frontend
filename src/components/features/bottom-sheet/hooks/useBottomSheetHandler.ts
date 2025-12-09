@@ -54,7 +54,7 @@ export const useBottomSheetHandler = () => {
 
   useEffect(() => {
     if (!isOpen) {
-      setTimeout(() => ref.current?.close(), 100)
+      setTimeout(() => ref.current?.close(), 150)
     }
   }, [ref, isLandscape, isOpen])
 
