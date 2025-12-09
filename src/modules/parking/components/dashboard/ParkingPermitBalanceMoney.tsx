@@ -78,7 +78,7 @@ export const ParkingPermitBalanceMoney = () => {
             <Title
               level="h5"
               testID="ParkingPermitBalanceMoneyTitlePhrase"
-              text={formatNumber(balance, currency)}
+              text={formatNumber(balance ?? undefined, currency)}
             />
           </Row>
         </Column>

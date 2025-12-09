@@ -48,7 +48,7 @@ export type ParkingAccountDetails = {
   last_name?: string
   phone_number: string
   wallet?: {
-    balance: number
+    balance: number | null
     currency: string
   }
 }

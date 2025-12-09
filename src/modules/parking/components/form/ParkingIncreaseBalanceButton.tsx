@@ -27,7 +27,11 @@ export const ParkingIncreaseBalanceButton = () => {
   const onSubmit = useCallback(
     ({amount}: FieldValues) => {
       if (amount) {
-        dispatch(setWalletBalanceIncreaseStartBalance(data?.wallet?.balance))
+        dispatch(
+          setWalletBalanceIncreaseStartBalance(
+            data?.wallet?.balance ?? undefined,
+          ),
+        )
 
         return increaseBalance({
           balance: {
