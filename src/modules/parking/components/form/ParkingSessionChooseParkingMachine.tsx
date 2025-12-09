@@ -22,12 +22,17 @@ export const ParkingSessionChooseParkingMachine = ({
 }: {
   selectedParkingMachineId?: ParkingMachine['id']
 }) => {
-  const {clearErrors, control, setError, watch, setValue} =
-    useFormContext<FieldValues>()
+  const {
+    clearErrors,
+    control,
+    watch,
+    setValue,
+    formState: {errors},
+  } = useFormContext<FieldValues>()
   const currentPermit = useCurrentParkingPermit()
   const startTime = watch('startTime')
 
-  const {data: parkingMachineDetails, error} = useZoneByMachineQuery(
+  const {data: parkingMachineDetails} = useZoneByMachineQuery(
     selectedParkingMachineId && currentPermit.can_select_zone
       ? {
           machineId: selectedParkingMachineId,
@@ -39,37 +44,9 @@ export const ParkingSessionChooseParkingMachine = ({
   useEffect(() => {
     if (selectedParkingMachineId) {
       setValue('parking_machine', selectedParkingMachineId)
-    }
-  }, [setValue, selectedParkingMachineId])
-
-  useEffect(() => {
-    if (!error) {
       clearErrors('parking_machine')
-
-      return
     }
-
-    const {data} = error as {data: {code: string}}
-
-    if (typeof data !== 'object') {
-      return
-    }
-
-    if ('code' in data && data.code === 'SSP_PARKING_MACHINE_NOT_IN_ZONE') {
-      setError('parking_machine', {
-        type: 'manual',
-        message:
-          'Deze parkeerautomaat ligt buiten het vergunninggebied. Kies een andere automaat.',
-      })
-    }
-
-    if ('code' in data && data.code === 'SSP_NOT_FOUND') {
-      setError('parking_machine', {
-        type: 'manual',
-        message: 'Deze parkeerautomaat bestaat niet. Kies een andere automaat.',
-      })
-    }
-  }, [clearErrors, error, setError])
+  }, [setValue, selectedParkingMachineId, clearErrors])
 
   const machineDetailsLabel = useMemo(
     () => getParkingMachineDetailsLabel(parkingMachineDetails, startTime),
@@ -90,14 +67,14 @@ export const ParkingSessionChooseParkingMachine = ({
         rules={{required: 'Kies een parkeerautomaat'}}
         testID="ParkingChooseParkingMachineButton"
         text={parking_machine => parking_machine}
-        textAdditional={error ? undefined : machineDetailsLabel}
+        textAdditional={machineDetailsLabel}
         title={parking_machine =>
           parking_machine ? 'Parkeerautomaat' : 'Kies parkeerautomaat'
         }
       />
       {currentPermit.parking_machine_favorite !== selectedParkingMachineId &&
         !!selectedParkingMachineId &&
-        !error && (
+        !errors.parking_machine && (
           <SwitchField
             accessibilityLabel="Stel in als favoriet"
             control={control}
