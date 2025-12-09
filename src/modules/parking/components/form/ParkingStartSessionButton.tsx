@@ -113,6 +113,22 @@ export const ParkingStartSessionButton = () => {
               const detail = error.data?.detail || ''
               const code = error?.data?.code
 
+              if (code === 'SSP_PARKING_MACHINE_NOT_IN_ZONE') {
+                setError('parking_machine', {
+                  type: 'manual',
+                  message:
+                    'Deze parkeerautomaat ligt buiten het vergunninggebied. Kies een andere automaat.',
+                })
+              }
+
+              if (code === 'SSP_NOT_FOUND') {
+                setError('parking_machine', {
+                  type: 'manual',
+                  message:
+                    'Deze parkeerautomaat bestaat niet. Kies een andere automaat.',
+                })
+              }
+
               if (code === 'SSP_START_TIME_IN_PAST') {
                 setError('startTime', {
                   type: 'manual',
