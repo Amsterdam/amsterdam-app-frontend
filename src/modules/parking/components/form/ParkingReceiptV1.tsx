@@ -100,14 +100,16 @@ export const ParkingReceiptV1 = () => {
       short: true,
     },
   )
-  const remainingMoneyBalanceText = formatNumber(
-    remaining_wallet_balance
-      ? remaining_wallet_balance.value + amount
-      : account?.wallet?.balance,
-    remaining_wallet_balance
-      ? remaining_wallet_balance.currency
-      : account?.wallet?.currency,
-  )
+  const remainingMoneyBalanceText = remaining_wallet_balance
+    ? formatNumber(
+        remaining_wallet_balance.value + amount,
+        remaining_wallet_balance.currency,
+      )
+    : formatNumber(
+        account?.wallet?.balance ?? undefined,
+        account?.wallet?.currency,
+      )
+
   const remainingTimeBalanceError =
     currentPermit.time_balance_applicable && (remaining_time_balance ?? 0) < 0
   const remainingMoneyBalanceError =

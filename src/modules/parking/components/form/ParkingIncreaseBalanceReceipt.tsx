@@ -31,7 +31,10 @@ export const ParkingIncreaseBalanceReceipt = () => {
       <ParkingReceiptItem>
         <Phrase>Huidig geldsaldo</Phrase>
         <Phrase>
-          {formatNumber(account?.wallet.balance, account?.wallet.currency)}
+          {formatNumber(
+            account?.wallet.balance ?? undefined,
+            account?.wallet.currency,
+          )}
         </Phrase>
       </ParkingReceiptItem>
       <ParkingReceiptItem>
@@ -49,7 +52,7 @@ export const ParkingIncreaseBalanceReceipt = () => {
           <Phrase emphasis="strong">
             {amount && account
               ? formatNumber(
-                  amount + account?.wallet.balance,
+                  amount + (account?.wallet.balance ?? 0),
                   account?.wallet.currency,
                 )
               : '-'}

@@ -102,7 +102,7 @@ export const ParkingReceipt = () => {
 
   const {data, isLoading} = useSessionReceiptQuery(queryParams)
 
-  const {data: account, isLoading: isLoadingAccount} = useAccountDetailsQuery()
+  const {isLoading: isLoadingAccount} = useAccountDetailsQuery()
 
   const checkStartTime = useCallback(() => {
     const now = dayjs().set('second', 0)
@@ -151,9 +151,9 @@ export const ParkingReceipt = () => {
   )
 
   const remainingWalletBalanceText =
-    typeof account?.wallet?.balance === 'number'
+    typeof remainingWalletBalance === 'number'
       ? formatNumber(remainingWalletBalance, 'EUR')
-      : '-'
+      : 'Onbekend'
 
   const remainingTimeBalanceError =
     currentPermit.time_balance_applicable &&
@@ -163,7 +163,7 @@ export const ParkingReceipt = () => {
   const remainingWalletBalanceError =
     isPermitHolder &&
     currentPermit.money_balance_applicable &&
-    remainingWalletBalance &&
+    typeof remainingWalletBalance === 'number' &&
     remainingWalletBalance < 0
 
   useEffect(() => {
