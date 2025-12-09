@@ -1,16 +1,11 @@
 import {useMemo} from 'react'
-import type {SvgIconName} from '@/components/ui/media/svgIcons'
+import type {TestProps} from '@/components/ui/types'
+import {AddressSwitchBase} from '@/modules/address/components/AddressSwitcher/AddressSwitchBase'
 import {useLocationType, useAddress, useLocation} from '@/modules/address/slice'
 
-type AddressSwitchReturn = {
-  iconName: Extract<
-    SvgIconName,
-    'housing' | 'location' | 'spinner' | 'mapLocationIosFilled'
-  >
-  title: string
-}
+export type AddressSwitcherProps = TestProps
 
-export const useAddressSwitch = (): AddressSwitchReturn => {
+export const AddressSwitch = ({testID, ...props}: AddressSwitcherProps) => {
   const locationType = useLocationType()
   const address = useAddress()
   const {isGettingLocation, location} = useLocation()
@@ -47,5 +42,12 @@ export const useAddressSwitch = (): AddressSwitchReturn => {
     return 'Adres invullen'
   }, [address, location, isGettingLocation, locationType])
 
-  return {iconName, title}
+  return (
+    <AddressSwitchBase
+      iconName={iconName}
+      testID={testID}
+      title={title}
+      {...props}
+    />
+  )
 }
