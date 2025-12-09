@@ -55,22 +55,20 @@ export const useBottomSheet = () => {
   const dispatch = useDispatch()
   const {close: closeMenu} = useMenu()
 
-  return {
-    ...useMemo(
-      () => ({
-        close: () => {
-          dispatch(closeBottomSheet())
-        },
-        open: (newVariant?: string) => {
-          closeMenu()
-          dispatch(openBottomSheet(newVariant))
-        },
-        toggle: (newVariant?: string) => {
-          closeMenu()
-          dispatch(toggleBottomSheet(newVariant))
-        },
-      }),
-      [closeMenu, dispatch],
-    ),
-  }
+  return useMemo(
+    () => ({
+      close: () => {
+        dispatch(closeBottomSheet())
+      },
+      open: (newVariant?: string) => {
+        closeMenu()
+        dispatch(openBottomSheet(newVariant))
+      },
+      toggle: (newVariant?: string) => {
+        closeMenu()
+        dispatch(toggleBottomSheet(newVariant))
+      },
+    }),
+    [closeMenu, dispatch],
+  )
 }

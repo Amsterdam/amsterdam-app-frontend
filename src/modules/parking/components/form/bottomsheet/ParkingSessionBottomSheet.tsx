@@ -6,7 +6,6 @@ import {ParkingSessionLicensePlateBottomSheetContent} from '@/modules/parking/co
 import {ParkingSessionPaymentZoneBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionPaymentZoneBottomSheetContent'
 import {ParkingSessionStartTimeBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSessionStartTimeBottomSheetContent'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
-import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 
 const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
@@ -24,11 +23,6 @@ const variantMap: Record<ParkingSessionBottomSheetVariant, FC> = {
 
 export const ParkingSessionBottomSheet = () => {
   const {variant} = useBottomSheetSelectors()
-
-  // Temporary fix to hide empty BottomSheet on navigation from PermitZoneScreen to StartSessionScreen
-  if (variant === ParkingPermitZonesBottomSheetVariant.parkingMachine) {
-    return null
-  }
 
   return (
     <BottomSheet

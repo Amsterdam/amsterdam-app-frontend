@@ -3,6 +3,7 @@ import {useRef, useEffect, useCallback} from 'react'
 import {Dimensions} from 'react-native'
 import {useCloseBottomSheetOnBackPress} from '@/components/features/bottom-sheet/hooks/useCloseBottomSheetOnBackPress'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {
   useBottomSheet,
   useBottomSheetSelectors,
@@ -48,6 +49,14 @@ export const useBottomSheetHandler = () => {
     isOpen ? ref.current?.expand() : ref.current?.close()
     setHideContentFromAccessibility(isOpen)
   }, [isOpen, setHideContentFromAccessibility])
+
+  const {isLandscape} = useDeviceContext()
+
+  useEffect(() => {
+    if (!isOpen) {
+      setTimeout(() => ref.current?.close(), 150)
+    }
+  }, [ref, isLandscape, isOpen])
 
   return {
     onChange,
