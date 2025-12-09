@@ -3,7 +3,7 @@ import BottomSheetOriginal, {
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
-import {type FC, type ReactNode} from 'react'
+import {useEffect, type FC, type ReactNode} from 'react'
 import {StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {Backdrop} from '@/components/features/bottom-sheet/Backdrop'
@@ -64,6 +64,12 @@ export const BottomSheet = ({
   const VariantComponent: FC | undefined = variants
     ? (variants[variant ?? ''] ?? (() => null))
     : undefined
+
+  useEffect(() => {
+    if (variants && !variants[variant ?? '']) {
+      ref.current?.close()
+    }
+  }, [variant, variants, ref])
 
   return (
     <BottomSheetPresenceContext.Provider value={true}>
