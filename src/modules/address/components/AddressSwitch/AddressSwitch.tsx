@@ -1,14 +1,18 @@
 import {useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
-import {AddressSwitchBase} from '@/modules/address/components/AddressSwitcher/AddressSwitchBase'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {AddressSwitchBase} from '@/modules/address/components/AddressSwitch/AddressSwitchBase'
+import {AddressRouteName} from '@/modules/address/routes'
 import {useLocationType, useAddress, useLocation} from '@/modules/address/slice'
+import {ModuleSlug} from '@/modules/slugs'
 
 export type AddressSwitcherProps = TestProps
 
-export const AddressSwitch = ({testID, ...props}: AddressSwitcherProps) => {
+export const AddressSwitch = ({testID}: AddressSwitcherProps) => {
   const locationType = useLocationType()
   const address = useAddress()
   const {isGettingLocation, location} = useLocation()
+  const {navigate} = useNavigation()
 
   const iconName = useMemo(() => {
     if (locationType === 'address' && address?.addressLine1) {
@@ -45,9 +49,11 @@ export const AddressSwitch = ({testID, ...props}: AddressSwitcherProps) => {
   return (
     <AddressSwitchBase
       iconName={iconName}
+      onPress={() =>
+        navigate(ModuleSlug.address, {screen: AddressRouteName.address})
+      }
       testID={testID}
       title={title}
-      {...props}
     />
   )
 }
