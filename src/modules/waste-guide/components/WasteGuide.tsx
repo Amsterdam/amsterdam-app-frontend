@@ -3,12 +3,12 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {AddressCity, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {AddressCity} from '@/modules/address/types'
 import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
 import {WasteGuideFullScreenError} from '@/modules/waste-guide/components/WasteGuideFullScreenError'
 import {WasteGuideNoAddress} from '@/modules/waste-guide/components/WasteGuideNoAddress'
 import {WasteGuideNotFound} from '@/modules/waste-guide/components/WasteGuideNotFound'
+import {WasteGuideRequestLocationButton} from '@/modules/waste-guide/components/WasteGuideRequestLocationButton'
 import {WasteCardButton} from '@/modules/waste-guide/components/waste-card/WasteCardButton'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
@@ -56,12 +56,7 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column gutter="md">
-              <ShareLocationTopTaskButton
-                highAccuracyPurposeKey={
-                  HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
-                }
-                testID="WasteGuideRequestLocationButton"
-              />
+              <WasteGuideRequestLocationButton />
               <WasteCardButton />
             </Column>
             {hasContent ? <WasteGuideContent /> : <WasteGuideNotFound />}
