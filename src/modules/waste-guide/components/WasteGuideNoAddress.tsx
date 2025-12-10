@@ -2,13 +2,18 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
+import {Title} from '@/components/ui/text/Title'
 import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGuideAddressSwitch'
 
 type Props = {
+  isFetchingAddress?: boolean
   isFetchingWasteGuide: boolean
 }
 
-export const WasteGuideNoAddress = ({isFetchingWasteGuide}: Props) => (
+export const WasteGuideNoAddress = ({
+  isFetchingWasteGuide,
+  isFetchingAddress,
+}: Props) => (
   <Column
     grow={1}
     gutter="xl">
@@ -18,6 +23,9 @@ export const WasteGuideNoAddress = ({isFetchingWasteGuide}: Props) => (
           flex={1}
           gutter="lg">
           <Column gutter="md">
+            {!isFetchingWasteGuide && !isFetchingAddress && (
+              <Title text="Voor welke locatie wilt u informatie over afval?" />
+            )}
             <WasteGuideAddressSwitch />
           </Column>
           {!!isFetchingWasteGuide && (

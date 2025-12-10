@@ -26,7 +26,12 @@ export const WasteGuide = () => {
   const isInternetReachable = useSelector(selectIsInternetReachable)
 
   if (isFetchingWasteGuide || isFetchingAddress || !hasValidAddress) {
-    return <WasteGuideNoAddress isFetchingWasteGuide={isFetchingWasteGuide} />
+    return (
+      <WasteGuideNoAddress
+        isFetchingAddress={isFetchingAddress}
+        isFetchingWasteGuide={isFetchingWasteGuide}
+      />
+    )
   }
 
   if (getWasteGuideIsError || !wasteGuide || !address) {
