@@ -10,10 +10,9 @@ export const baseColor = {
   },
   neutral: {
     grey1: '#E8E8E8',
-    grey2: '#D1D1D1',
-    grey3: '#BEBEBE',
-    grey4: '#767676',
-    grey5: '#323232',
+    grey2: '#BEBEBE',
+    grey3: '#767676',
+    grey4: '#323232',
   },
   secondary: {
     darkgreen: '#00a03c',

@@ -14,9 +14,6 @@ export const lightColorTokens = {
       border: baseColor.primary.black,
     },
   },
-  addressSwitch: {
-    border: baseColor.neutral.grey2,
-  },
   alert: {
     information: {
       border: baseColor.primary.blue,
@@ -57,7 +54,7 @@ export const lightColorTokens = {
   badge: {
     background: {
       info: baseColor.primary.blue,
-      disabled: baseColor.neutral.grey4,
+      disabled: baseColor.neutral.grey3,
       warning: baseColor.primary.red,
     },
     border: baseColor.primary.white,
@@ -71,7 +68,7 @@ export const lightColorTokens = {
    */
   border: {
     default: baseColor.neutral.grey1,
-    onGrey: baseColor.neutral.grey3,
+    onGrey: baseColor.neutral.grey2,
     cityPass: baseColor.secondary.purple,
   },
   bottomSheet: {
@@ -88,7 +85,7 @@ export const lightColorTokens = {
       default: baseColor.neutral.grey1,
       distinct: baseColor.primary.blue,
       emphasis: baseColor.primary.black,
-      onGrey: baseColor.neutral.grey3,
+      onGrey: baseColor.neutral.grey2,
       cityPass: baseColor.secondary.purple,
     },
   },
@@ -112,12 +109,12 @@ export const lightColorTokens = {
     avatar: {
       foreground: baseColor.primary.black,
       background: baseColor.primary.white,
-      border: baseColor.neutral.grey3,
+      border: baseColor.neutral.grey2,
     },
     border: baseColor.transparent.blue25,
     loading: {
-      active: baseColor.neutral.grey5,
-      inactive: baseColor.neutral.grey3,
+      active: baseColor.neutral.grey4,
+      inactive: baseColor.neutral.grey2,
     },
     maximized: {
       background: baseColor.primary.white,
@@ -133,7 +130,7 @@ export const lightColorTokens = {
         background: baseColor.neutral.grey1,
       },
       [ConversationEntrySenderRole.user]: {
-        background: baseColor.neutral.grey5,
+        background: baseColor.neutral.grey4,
       },
       [ConversationEntrySenderRole.system]: {
         background: baseColor.neutral.grey1,
@@ -155,7 +152,7 @@ export const lightColorTokens = {
     passInner: baseColor.primary.white,
     passBackground: baseColor.primary.white,
     card: {
-      border: baseColor.neutral.grey3,
+      border: baseColor.neutral.grey2,
     },
   },
   copyButton: {
@@ -185,7 +182,7 @@ export const lightColorTokens = {
     },
   },
   customKeyboard: {
-    background: baseColor.neutral.grey3,
+    background: baseColor.neutral.grey2,
     button: {
       background: baseColor.primary.white,
       pressed: {
@@ -197,7 +194,7 @@ export const lightColorTokens = {
   control: {
     default: {
       background: baseColor.primary.white,
-      border: baseColor.neutral.grey4,
+      border: baseColor.neutral.grey3,
     },
     checked: {
       background: baseColor.primary.blue,
@@ -307,7 +304,7 @@ export const lightColorTokens = {
     default: baseColor.primary.black,
   },
   skeleton: {
-    background: baseColor.neutral.grey3,
+    background: baseColor.neutral.grey2,
     highlight: baseColor.transparent.white30,
   },
   swipeToDelete: {
@@ -316,7 +313,7 @@ export const lightColorTokens = {
   switch: {
     thumb: {
       disabled: {
-        background: baseColor.neutral.grey3,
+        background: baseColor.neutral.grey2,
       },
       enabled: {
         background: baseColor.primary.white,
@@ -324,7 +321,7 @@ export const lightColorTokens = {
     },
     track: {
       off: {
-        background: baseColor.neutral.grey4,
+        background: baseColor.neutral.grey3,
       },
       on: {
         background: baseColor.primary.blue,
@@ -340,8 +337,8 @@ export const lightColorTokens = {
     default: baseColor.primary.black,
     inverse: baseColor.primary.white,
     link: baseColor.primary.blue,
-    secondary: baseColor.neutral.grey4,
-    tertiary: baseColor.neutral.grey3,
+    secondary: baseColor.neutral.grey3,
+    tertiary: baseColor.neutral.grey2,
     warning: baseColor.primary.red,
   },
   textInput: {
@@ -357,7 +354,7 @@ export const lightColorTokens = {
       connector: {
         active: baseColor.primary.blue,
         done: baseColor.primary.blue,
-        planned: baseColor.neutral.grey4,
+        planned: baseColor.neutral.grey3,
       },
       indicator: {
         active: {
@@ -367,7 +364,7 @@ export const lightColorTokens = {
           background: baseColor.primary.blue,
         },
         planned: {
-          background: baseColor.neutral.grey4,
+          background: baseColor.neutral.grey3,
         },
       },
     },
@@ -375,7 +372,7 @@ export const lightColorTokens = {
       connector: {
         active: baseColor.primary.black,
         done: baseColor.secondary.darkgreen,
-        planned: baseColor.neutral.grey4,
+        planned: baseColor.neutral.grey3,
       },
       indicator: {
         active: {
@@ -389,8 +386,8 @@ export const lightColorTokens = {
         },
         planned: {
           background: baseColor.primary.white,
-          border: baseColor.neutral.grey4,
-          label: baseColor.neutral.grey4,
+          border: baseColor.neutral.grey3,
+          label: baseColor.neutral.grey3,
         },
       },
     },
@@ -401,19 +398,19 @@ export const lightColorTokens = {
         border: baseColor.primary.blue,
       },
       inactive: {
-        border: baseColor.neutral.grey3,
+        border: baseColor.neutral.grey2,
       },
     },
   },
   tooltip: {
-    background: baseColor.neutral.grey5,
+    background: baseColor.neutral.grey4,
   },
   wasteGuide: {
     calendar: {
       day: {
         inactive: {
           background: baseColor.neutral.grey1,
-          label: baseColor.neutral.grey4,
+          label: baseColor.neutral.grey3,
         },
       },
     },
