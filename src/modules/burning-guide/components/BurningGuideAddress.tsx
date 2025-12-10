@@ -1,6 +1,6 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Paragraph} from '@/components/ui/text/Paragraph'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
 
 type Props = {
@@ -9,11 +9,11 @@ type Props = {
 
 export const BurningGuideAddress = ({address}: Props) => (
   <Column gutter="sm">
-    <ShareLocationTopTaskButton
+    <AddressSwitch
       highAccuracyPurposeKey={
         HighAccuracyPurposeKey.PreciseLocationAddressBurningGuide
       }
-      testID="WasteGuideRequestLocationButton"
+      testID="BurningGuideAddressSwitch"
     />
     {!address && (
       <Paragraph testID="BurningGuideScreenText">

@@ -3,7 +3,7 @@ import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {FlatGridProps} from 'react-native-super-grid'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
@@ -87,11 +87,11 @@ export const Projects = () => {
           listHeader={
             <ProjectsListHeader>
               <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-              <ShareLocationTopTaskButton
+              <AddressSwitch
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
                 }
-                testID="ConstructionWorkRequestLocationButton"
+                testID="ConstructionWorkProjectsAddressSwitch"
               />
             </ProjectsListHeader>
           }

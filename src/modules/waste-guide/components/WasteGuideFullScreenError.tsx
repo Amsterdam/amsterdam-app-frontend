@@ -2,7 +2,7 @@ import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ErrorType} from '@/components/ui/feedback/error/types'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {WasteGuideRequestLocationButton} from '@/modules/waste-guide/components/WasteGuideRequestLocationButton'
+import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGuideAddressSwitch'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = {
@@ -21,7 +21,7 @@ export const WasteGuideFullScreenError = ({error}: Props) => {
       testID="WasteGuideErrorScreen"
       text="Probeer het later nog een keer."
       title="Helaas is de afvalwijzer nu niet beschikbaar"
-      TopComponent={<WasteGuideRequestLocationButton />}
+      TopComponent={<WasteGuideAddressSwitch />}
     />
   )
 }

@@ -40,7 +40,8 @@ export const LocationTopTaskButton = ({
 
   return (
     <StatefulTopTaskButton
-      iconName="location"
+      iconName="mapLocationIos"
+      iconSize="lg"
       isError={getLocationIsError}
       isLoading={isGettingLocation}
       logName={`${testID}${hasPermission && location ? 'SelectLocation' : 'AddLocation'}`}

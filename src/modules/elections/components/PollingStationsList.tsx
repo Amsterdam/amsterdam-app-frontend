@@ -5,8 +5,8 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {Address, HighAccuracyPurposeKey} from '@/modules/address/types'
+import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
+import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
 import {PollingStation} from '@/modules/elections/types'
 import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
@@ -56,11 +56,11 @@ export const PollingStationsList = ({
                   text="Voer een adres in en zie locaties in de buurt"
                 />
               )}
-              <ShareLocationTopTaskButton
+              <AddressSwitch
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressPollingStations
                 }
-                testID="PollingStationsListRequestLocationButton"
+                testID="PollingStationsListAddressSwitch"
               />
             </Box>
             <Phrase color="secondary">{`Resultaten${address ? ' gesorteerd op afstand' : ''}:`}</Phrase>
