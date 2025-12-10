@@ -18,6 +18,7 @@ type RadioGroupProps<T> = {
   onChange: (value: T) => void
   options: RadioGroupOption<T>[]
   orientation?: LayoutOrientation
+  required?: boolean
   /**
    * Log value to analytics service as new state when the selected value changes and as name on the button press event of the option.
    */
@@ -34,6 +35,7 @@ export const RadioGroup = <T extends RadioValue>({
   options = [],
   onChange,
   orientation = LayoutOrientation.vertical,
+  required,
   testID,
   value,
   logAction = PiwikAction.radioChange,
@@ -51,7 +53,12 @@ export const RadioGroup = <T extends RadioValue>({
 
   return (
     <Column gutter="md">
-      {!!label && <Label text={label} />}
+      {!!label && (
+        <Label
+          required={required}
+          text={label}
+        />
+      )}
       <OrientationBasedLayout
         gutter="md"
         orientation={orientation}

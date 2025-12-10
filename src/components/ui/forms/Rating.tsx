@@ -43,6 +43,7 @@ export type RatingProps = {
     value: string
   }[]
   rating: number | null
+  required?: boolean
 } & TestProps
 
 export const Rating = ({
@@ -50,11 +51,17 @@ export const Rating = ({
   options,
   rating,
   errorMessage,
+  required,
   testID,
   onChange,
 }: RatingProps) => (
   <Column gutter="md">
-    {!!label && <Label text={label} />}
+    {!!label && (
+      <Label
+        required={required}
+        text={label}
+      />
+    )}
     <Row>
       {options?.map(({value}) => (
         <RateStar

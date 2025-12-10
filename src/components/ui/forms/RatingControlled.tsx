@@ -33,6 +33,7 @@ export const RatingControlled = <
       onChange={onChange}
       options={options}
       rating={value}
+      required={!!controllerProps.rules?.required}
       testID={testID}
     />
   )

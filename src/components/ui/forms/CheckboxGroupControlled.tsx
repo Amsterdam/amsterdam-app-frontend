@@ -37,6 +37,7 @@ export const CheckboxGroupControlled = <
       onChange={onChange}
       options={options}
       orientation={orientation}
+      required={!!controllerProps.rules?.required}
       selectedValues={value}
       testID={testID}
     />
