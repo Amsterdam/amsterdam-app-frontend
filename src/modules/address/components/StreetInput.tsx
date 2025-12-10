@@ -1,7 +1,10 @@
 import {Ref} from 'react'
 import {Keyboard, StyleSheet, TextInput} from 'react-native'
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {Box} from '@/components/ui/containers/Box'
 import {SearchField} from '@/components/ui/forms/SearchField'
+import {Column} from '@/components/ui/layout/Column'
+import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
 import {StreetSearchResultForLocation} from '@/modules/address/components/location/StreetSearchResultForLocation'
 import {config} from '@/modules/address/config'
@@ -53,7 +56,12 @@ export const StreetInput = ({
         {isStreetSelected ? null : (
           <>
             {street.length === 0 && (
-              <StreetSearchResultForLocation selectResult={selectResult} />
+              <Box insetTop="lg">
+                <Column gutter="md">
+                  <StreetSearchResultForLocation selectResult={selectResult} />
+                  <RecentAddresses onPress={selectResult} />
+                </Column>
+              </Box>
             )}
             {!isBelowCharacterThreshold && (
               <StreetSearchResult
