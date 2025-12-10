@@ -7,7 +7,6 @@ import {
 import {useCoreConfig} from '@/modules/chat/hooks/useCoreConfig'
 import {useIsChatEnded} from '@/modules/chat/hooks/useIsChatEnded'
 import {useMarkAsRead} from '@/modules/chat/hooks/useMarkAsRead'
-import {useSendNotificationWhenInBackground} from '@/modules/chat/hooks/useSendNotificationWhenInBackground'
 import {useSubmitRemoteConfiguration} from '@/modules/chat/hooks/useSubmitRemoteConfiguration'
 import {ChatContext} from '@/modules/chat/providers/chat.context'
 import {useChat} from '@/modules/chat/slice'
@@ -60,8 +59,6 @@ export const ChatProvider = ({children}: Props) => {
   useEffect(() => {
     setConversationId(newConversationId ?? conversationId)
   }, [conversationId, newConversationId, setConversationId])
-
-  useSendNotificationWhenInBackground(messages)
 
   useMarkAsRead(messages)
 
