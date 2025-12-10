@@ -75,6 +75,12 @@
 	<dict>
 		<key>PreciseLocationAddressConstructionWork</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om werkzaamheden in de buurt te tonen.</string>
+		<key>PreciseLocationAddressBurningGuide</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om het stookadvies bij u in de buurt te tonen.</string>
+		<key>PreciseLocationAddressParking</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om parkeerpalen in uw buurt te tonen.</string>
+		<key>PreciseLocationAddressPollingStations</key>
+		<string>De Amsterdam app wil uw precieze locatie weten om stembureaus in uw buurt te tonen.</string>
 		<key>PreciseLocationAddressLookup</key>
 		<string>De Amsterdam app wil uw precieze locatie weten om een adres op te zoeken.</string>
 		<key>PreciseLocationAddressWasteGuide</key>

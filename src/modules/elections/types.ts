@@ -32,8 +32,3 @@ export enum ElectionsCategory {
 }
 
 export type PollingStationsResponse = PollingStation[]
-
-export enum PollingStationsListBottomSheetVariant {
-  address = 'address',
-  pollingStation = 'pollingStation',
-}

@@ -19,7 +19,6 @@ export const screenConfig: StackNavigationRoutes<
     component: ConstructionWorkScreen,
     name: ConstructionWorkRouteName.constructionWork,
     options: {
-      headerShown: false,
       headerTitle: 'Werkzaamheden',
     },
   },

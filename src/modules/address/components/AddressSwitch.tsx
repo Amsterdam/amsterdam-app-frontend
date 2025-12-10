@@ -4,6 +4,7 @@ import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {
   getAddressSwitchIcon,
   getAddressSwitchLabel,
@@ -11,9 +12,14 @@ import {
 import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
-export type AddressSwitcherProps = TestProps
+export type AddressSwitcherProps = {
+  highAccuracyPurposeKey?: HighAccuracyPurposeKey
+} & TestProps
 
-export const AddressSwitch = ({testID}: AddressSwitcherProps) => {
+export const AddressSwitch = ({
+  testID,
+  highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
+}: AddressSwitcherProps) => {
   const {navigate} = useNavigation()
   const {address, locationType, isFetching} = useSelectedAddress()
 
@@ -36,7 +42,10 @@ export const AddressSwitch = ({testID}: AddressSwitcherProps) => {
       iconName={iconName}
       iconSize="md"
       onPress={() =>
-        navigate(ModuleSlug.address, {screen: AddressRouteName.address})
+        navigate(ModuleSlug.address, {
+          screen: AddressRouteName.chooseAddress,
+          params: {highAccuracyPurposeKey},
+        })
       }
       testID={testID}
       title={label}

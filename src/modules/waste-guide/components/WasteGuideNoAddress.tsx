@@ -3,7 +3,7 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGuideAddressSwitch'
 
 type Props = {
   isFetchingAddress?: boolean
@@ -26,7 +26,7 @@ export const WasteGuideNoAddress = ({
             {!isFetchingWasteGuide && !isFetchingAddress && (
               <Title text="Voor welke locatie wilt u informatie over afval?" />
             )}
-            <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+            <WasteGuideAddressSwitch />
           </Column>
           {!!isFetchingWasteGuide && (
             <PleaseWait testID="WasteGuideLoadingSpinner" />

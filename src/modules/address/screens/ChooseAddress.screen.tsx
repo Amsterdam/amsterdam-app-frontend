@@ -1,10 +1,10 @@
 import {useCallback} from 'react'
+import type {NavigationProps} from '@/app/navigation/types'
+import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
-import {Title} from '@/components/ui/text/Title'
-import {useSetBottomSheetElementFocus} from '@/hooks/accessibility/useSetBottomSheetElementFocus'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
@@ -14,30 +14,22 @@ import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocatio
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useAddress} from '@/modules/address/slice'
-import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {Permissions} from '@/types/permissions'
 
-type Props = {
-  highAccuracyPurposeKey?: HighAccuracyPurposeKey
-}
+type Props = NavigationProps<AddressRouteName.chooseAddress>
 
-export const SelectLocationTypeBottomSheetContent = ({
-  highAccuracyPurposeKey,
-}: Props) => {
+export const ChooseAddressScreen = ({route}: Props) => {
+  const {highAccuracyPurposeKey} = route.params ?? {}
+
   const address = useAddress()
   const setLocationType = useSetLocationType()
-  const {navigate} = useNavigation<AddressModalName>()
+  const {navigate, goBack} = useNavigation()
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.location,
   )
 
-  const {close: closeBottomSheet} = useBottomSheet()
-  const focusRef = useSetBottomSheetElementFocus()
-
   const {requestPermission} = usePermission(Permissions.location)
-
   const {startLocationFetch} = useRequestLocationFetch(highAccuracyPurposeKey)
 
   const onPressAddressButton = useCallback(() => {
@@ -49,8 +41,8 @@ export const SelectLocationTypeBottomSheetContent = ({
       return
     }
 
-    closeBottomSheet()
-  }, [setLocationType, address, closeBottomSheet, navigate])
+    goBack()
+  }, [setLocationType, address, goBack, navigate])
 
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
@@ -65,9 +57,9 @@ export const SelectLocationTypeBottomSheetContent = ({
 
     setLocationType('location')
 
-    closeBottomSheet()
+    goBack()
   }, [
-    closeBottomSheet,
+    goBack,
     startLocationFetch,
     navigateToInstructionsScreen,
     requestPermission,
@@ -75,41 +67,40 @@ export const SelectLocationTypeBottomSheetContent = ({
   ])
 
   return (
-    <Box grow>
-      <Column gutter="md">
-        <Row align="between">
-          <Title
-            accessibilityHint="kies of u uw adres of huidige locatie wil gebruiken"
-            level="h3"
-            ref={focusRef}
-            text="Locaties"
-          />
-          {!!address && (
-            <Button
-              label="Wijzig adres"
-              onPress={() => {
-                navigate(ModuleSlug.address, {
-                  screen: AddressRouteName.address,
-                })
-
-                setLocationType('address')
-              }}
-              testID="BottomSheetChangeAddressButton"
-              variant="tertiary"
+    <Screen
+      hasStickyAlert
+      testID="ChooseAddressScreen">
+      <Box grow>
+        <Column gutter="md">
+          <Row align="between">
+            <AddressTopTaskButton
+              logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
+              onPress={onPressAddressButton}
+              testID="ChooseAddressScreenSelectAddressButton"
             />
-          )}
-        </Row>
-        <AddressTopTaskButton
-          logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
-          onPress={onPressAddressButton}
-          testID="BottomSheetSelectAddressButton"
-        />
-        <LocationTopTaskButton
-          highAccuracyPurposeKey={highAccuracyPurposeKey}
-          onPress={onPressLocationButton}
-          testID="BottomSheetSelectLocationButton"
-        />
-      </Column>
-    </Box>
+            {!!address && (
+              <Button
+                label="Wijzig"
+                onPress={() => {
+                  navigate(ModuleSlug.address, {
+                    screen: AddressRouteName.address,
+                  })
+
+                  setLocationType('address')
+                }}
+                testID="ChooseAddressScreenChangeAddressButton"
+                variant="tertiary"
+              />
+            )}
+          </Row>
+
+          <LocationTopTaskButton
+            highAccuracyPurposeKey={highAccuracyPurposeKey}
+            onPress={onPressLocationButton}
+            testID="ChooseAddressScreenSelectLocationButton"
+          />
+        </Column>
+      </Box>
+    </Screen>
   )
 }

@@ -4,12 +4,12 @@ import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
-import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
 
 export const ParkingMachineList = () => {
@@ -38,7 +38,7 @@ export const ParkingMachineList = () => {
   return (
     <Box
       insetBottom="md"
-      insetLeft="md">
+      insetHorizontal="md">
       <FlatList
         data={parkingMachinesByDistance}
         ListHeaderComponent={
@@ -50,9 +50,11 @@ export const ParkingMachineList = () => {
                 text="Voer een adres in en zie parkeerautomaten in de buurt"
               />
             )}
-            <ShareLocationTopTaskButton
-              newVariant={ParkingPermitZonesBottomSheetVariant.address}
-              testID="ParkingMachineListRequestLocationButton"
+            <AddressSwitch
+              highAccuracyPurposeKey={
+                HighAccuracyPurposeKey.PreciseLocationAddressParking
+              }
+              testID="ParkingMachineListAddressSwitch"
             />
           </Box>
         }

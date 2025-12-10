@@ -3,8 +3,8 @@ import {Box} from '@/components/ui/containers/Box'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {Column} from '@/components/ui/layout/Column'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {AddressCity} from '@/modules/address/types'
+import {WasteGuideAddressSwitch} from '@/modules/waste-guide/components/WasteGuideAddressSwitch'
 import {WasteGuideContent} from '@/modules/waste-guide/components/WasteGuideContent'
 import {WasteGuideFullScreenError} from '@/modules/waste-guide/components/WasteGuideFullScreenError'
 import {WasteGuideNoAddress} from '@/modules/waste-guide/components/WasteGuideNoAddress'
@@ -56,7 +56,7 @@ export const WasteGuide = () => {
             flex={1}
             gutter="lg">
             <Column gutter="md">
-              <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+              <WasteGuideAddressSwitch />
               <WasteCardButton />
             </Column>
             {hasContent ? <WasteGuideContent /> : <WasteGuideNotFound />}
