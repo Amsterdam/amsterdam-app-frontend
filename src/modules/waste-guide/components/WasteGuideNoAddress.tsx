@@ -4,6 +4,7 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 
 type Props = {
   isFetchingAddress?: boolean
@@ -26,7 +27,12 @@ export const WasteGuideNoAddress = ({
             {!isFetchingWasteGuide && !isFetchingAddress && (
               <Title text="Voor welke locatie wilt u informatie over afval?" />
             )}
-            <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+            <ShareLocationTopTaskButton
+              highAccuracyPurposeKey={
+                HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
+              }
+              testID="WasteGuideRequestLocationButton"
+            />
           </Column>
           {!!isFetchingWasteGuide && (
             <PleaseWait testID="WasteGuideLoadingSpinner" />

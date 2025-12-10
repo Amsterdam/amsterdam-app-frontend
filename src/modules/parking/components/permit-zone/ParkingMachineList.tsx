@@ -6,10 +6,10 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
-import {ParkingPermitZonesBottomSheetVariant} from '@/modules/parking/types'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
 
 export const ParkingMachineList = () => {
@@ -51,7 +51,9 @@ export const ParkingMachineList = () => {
               />
             )}
             <ShareLocationTopTaskButton
-              newVariant={ParkingPermitZonesBottomSheetVariant.address}
+              highAccuracyPurposeKey={
+                HighAccuracyPurposeKey.PreciseLocationAddressParking
+              }
               testID="ParkingMachineListRequestLocationButton"
             />
           </Box>

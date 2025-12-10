@@ -2,10 +2,7 @@ import {useCallback, useMemo, useRef, useState, type ReactNode} from 'react'
 import type {Region} from 'react-native-maps'
 import type MapView from 'react-native-maps'
 import {PermitMapContext} from '@/modules/parking/providers/PermitMap.context'
-import {
-  ParkingPermitZonesBottomSheetVariant,
-  type ParkingMachine,
-} from '@/modules/parking/types'
+import {type ParkingMachine} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PermitMapProvider = ({children}: {children: ReactNode}) => {
@@ -20,7 +17,7 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
   const onSelectParkingMachine = useCallback(
     (id: ParkingMachine['id']) => {
       setSelectedMachineId(id)
-      open(ParkingPermitZonesBottomSheetVariant.parkingMachine)
+      open()
     },
     [open],
   )

@@ -7,7 +7,13 @@ import {screenConfig} from '@/modules/address/screenConfig'
 const Stack = createStackNavigator<RootStackParams>()
 
 export const AddressStack = () => {
-  const screenOptions = useScreenOptions({screenType: 'settings'})
+  const screenOptions = useScreenOptions({
+    screenType: 'settings',
+  })
+
+  const altScreenOptions = useScreenOptions({
+    screenType: 'default',
+  })
 
   return (
     <Stack.Navigator
@@ -17,6 +23,12 @@ export const AddressStack = () => {
         <Stack.Screen
           key={key}
           {...route}
+          options={{
+            ...(route.screenType === 'default'
+              ? altScreenOptions
+              : screenOptions),
+            ...route.options,
+          }}
         />
       ))}
     </Stack.Navigator>

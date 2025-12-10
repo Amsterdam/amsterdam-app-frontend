@@ -6,12 +6,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
-import {Address} from '@/modules/address/types'
+import {Address, HighAccuracyPurposeKey} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
-import {
-  PollingStation,
-  PollingStationsListBottomSheetVariant,
-} from '@/modules/elections/types'
+import {PollingStation} from '@/modules/elections/types'
 import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
 import {getDistance} from '@/utils/getDistance'
 
@@ -60,7 +57,9 @@ export const PollingStationsList = ({
                 />
               )}
               <ShareLocationTopTaskButton
-                newVariant={PollingStationsListBottomSheetVariant.address}
+                highAccuracyPurposeKey={
+                  HighAccuracyPurposeKey.PreciseLocationAddressPollingStations
+                }
                 testID="PollingStationsListRequestLocationButton"
               />
             </Box>

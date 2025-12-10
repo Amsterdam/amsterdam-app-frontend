@@ -18,7 +18,6 @@ export const screenConfig: StackNavigationRoutes<
     name: BurningGuideRouteName.burningGuide,
     options: {
       headerTitle: 'Stookwijzer',
-      headerShown: false,
     },
   },
   [BurningGuideRouteName.burningGuideTips]: {

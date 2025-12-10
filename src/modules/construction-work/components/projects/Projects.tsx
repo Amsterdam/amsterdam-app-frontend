@@ -5,6 +5,7 @@ import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
 import {ProjectsListHeader} from '@/modules/construction-work/components/projects/ProjectsListHeader'
@@ -86,7 +87,12 @@ export const Projects = () => {
           listHeader={
             <ProjectsListHeader>
               <SearchFieldNavigator testID="ConstructionWorkSearchFieldButton" />
-              <ShareLocationTopTaskButton testID="ConstructionWorkRequestLocationButton" />
+              <ShareLocationTopTaskButton
+                highAccuracyPurposeKey={
+                  HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
+                }
+                testID="ConstructionWorkRequestLocationButton"
+              />
             </ProjectsListHeader>
           }
           noResultsMessage="We hebben geen werkzaamheden gevonden."

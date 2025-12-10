@@ -62,7 +62,11 @@ export type AddressList = Array<Address | BaseAddress>
 export type LocationType = 'address' | 'location'
 
 export enum HighAccuracyPurposeKey {
+  PreciseLocationAddressBurningGuide = 'PreciseLocationAddressBurningGuide',
   PreciseLocationAddressConstructionWork = 'PreciseLocationAddressConstructionWork',
   PreciseLocationAddressLookup = 'PreciseLocationAddressLookup',
+  PreciseLocationAddressParking = 'PreciseLocationAddressParking',
+  PreciseLocationAddressPollingStations = 'PreciseLocationAddressPollingStations',
+
   PreciseLocationAddressWasteGuide = 'PreciseLocationAddressWasteGuide',
 }

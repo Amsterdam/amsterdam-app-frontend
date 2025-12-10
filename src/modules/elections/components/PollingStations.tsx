@@ -6,10 +6,7 @@ import {PollingStationsList} from '@/modules/elections/components/PollingStation
 import {PollingStationsMap} from '@/modules/elections/components/PollingStationsMap'
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {setSelectedPollingStationId} from '@/modules/elections/slice'
-import {
-  PollingStation,
-  PollingStationsListBottomSheetVariant,
-} from '@/modules/elections/types'
+import {PollingStation} from '@/modules/elections/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStations = () => {
@@ -21,7 +18,7 @@ export const PollingStations = () => {
   const onSelectPollingStation = useCallback(
     (id: PollingStation['id']) => {
       dispatch(setSelectedPollingStationId(id))
-      open(PollingStationsListBottomSheetVariant.pollingStation)
+      open()
     },
     [dispatch, open],
   )

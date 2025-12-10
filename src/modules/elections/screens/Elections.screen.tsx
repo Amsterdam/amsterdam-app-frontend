@@ -1,31 +1,19 @@
-import {FC} from 'react'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
-import {SelectLocationTypeBottomSheetContent} from '@/modules/address/components/location/SelectLocationTypeBottomSheetContent'
 import {PollingStationDetails} from '@/modules/elections/components/PollingStationDetails'
 import {PollingStations} from '@/modules/elections/components/PollingStations'
-import {PollingStationsListBottomSheetVariant} from '@/modules/elections/types'
 
-export const ElectionsScreen = () => {
-  const variantMap: Record<PollingStationsListBottomSheetVariant, FC> = {
-    [PollingStationsListBottomSheetVariant.address]:
-      SelectLocationTypeBottomSheetContent,
-    [PollingStationsListBottomSheetVariant.pollingStation]:
-      PollingStationDetails,
-  }
-
-  return (
-    <Screen
-      bottomSheet={
-        <BottomSheet
-          scroll
-          testID="PollingStationBottomSheet"
-          variants={variantMap}
-        />
-      }
-      scroll={false}
-      testID="ElectionsScreen">
-      <PollingStations />
-    </Screen>
-  )
-}
+export const ElectionsScreen = () => (
+  <Screen
+    bottomSheet={
+      <BottomSheet
+        scroll
+        testID="PollingStationBottomSheet">
+        <PollingStationDetails />
+      </BottomSheet>
+    }
+    scroll={false}
+    testID="ElectionsScreen">
+    <PollingStations />
+  </Screen>
+)

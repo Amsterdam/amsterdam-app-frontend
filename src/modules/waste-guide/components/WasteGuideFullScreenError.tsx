@@ -3,6 +3,7 @@ import {ErrorType} from '@/components/ui/feedback/error/types'
 import {WasteGuideFigure} from '@/components/ui/media/errors/WasteGuideFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {ShareLocationTopTaskButton} from '@/modules/address/components/location/ShareLocationTopTaskButton'
+import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = {
@@ -22,7 +23,12 @@ export const WasteGuideFullScreenError = ({error}: Props) => {
       text="Probeer het later nog een keer."
       title="Helaas is de afvalwijzer nu niet beschikbaar"
       TopComponent={
-        <ShareLocationTopTaskButton testID="WasteGuideRequestLocationButton" />
+        <ShareLocationTopTaskButton
+          highAccuracyPurposeKey={
+            HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
+          }
+          testID="WasteGuideRequestLocationButton"
+        />
       }
     />
   )
