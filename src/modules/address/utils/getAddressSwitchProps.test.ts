@@ -1,0 +1,75 @@
+import type {Address, LocationType} from '@/modules/address/types'
+import {
+  getAddressSwitchIcon,
+  getAddressSwitchLabel,
+} from '@/modules/address/utils/getAddressSwitchProps'
+
+describe('getAddressSwitchProps', () => {
+  test('should return a loading state when location is being fetched.', () => {
+    const locationType: LocationType = 'location'
+    const address = undefined
+    const isFetching = true
+
+    const icon = getAddressSwitchIcon(locationType, address, isFetching)
+    const label = getAddressSwitchLabel(locationType, address, isFetching)
+
+    expect(icon).toBe('spinner')
+    expect(label).toBe('Mijn huidige locatie')
+  })
+
+  test('should return current location and mapLocationIosFilled icon when locationType is location and location is fetched.', () => {
+    const locationType: LocationType = 'location'
+    const address: Pick<Address, 'addressLine1'> = {
+      addressLine1: 'Cruquiusweg 5',
+    }
+    const isFetching = false
+
+    const icon = getAddressSwitchIcon(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+    const label = getAddressSwitchLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+
+    expect(icon).toBe('mapLocationIosFilled')
+    expect(label).toBe('Cruquiusweg 5')
+  })
+
+  test('should return my address and housing icon when locationType is address and user has entered address.', () => {
+    const locationType: LocationType = 'address'
+    const address: Pick<Address, 'addressLine1'> = {
+      addressLine1: 'Cruquiusweg 5',
+    }
+    const isFetching = false
+
+    const icon = getAddressSwitchIcon(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+    const label = getAddressSwitchLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+
+    expect(icon).toBe('housing')
+    expect(label).toBe('Cruquiusweg 5')
+  })
+
+  test('should return location icon and placeholder text when locationType is address and user has not entered address', () => {
+    const locationType: LocationType = 'address'
+    const address = undefined
+    const isFetching = false
+
+    const icon = getAddressSwitchIcon(locationType, address, isFetching)
+    const label = getAddressSwitchLabel(locationType, address, isFetching)
+
+    expect(icon).toBe('location')
+    expect(label).toBe('Adres invullen')
+  })
+})
