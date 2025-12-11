@@ -7,6 +7,8 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
+import {AddressForm} from '@/modules/address/components/AddressForm'
+import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
@@ -15,6 +17,7 @@ import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
 import {useAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
+import {devLog} from '@/processes/development'
 import {Permissions} from '@/types/permissions'
 
 type Props = NavigationProps<AddressRouteName.chooseAddress>
@@ -70,35 +73,40 @@ export const ChooseAddressScreen = ({route}: Props) => {
     <Screen
       hasStickyAlert
       testID="ChooseAddressScreen">
+      <AddressForm />
+
       <Box grow>
-        <Column gutter="md">
-          <Row align="between">
-            <AddressTopTaskButton
-              logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
-              onPress={onPressAddressButton}
-              testID="ChooseAddressScreenSelectAddressButton"
-            />
-            {!!address && (
-              <Button
-                label="Wijzig"
-                onPress={() => {
-                  navigate(ModuleSlug.address, {
-                    screen: AddressRouteName.address,
-                  })
-
-                  setLocationType('address')
-                }}
-                testID="ChooseAddressScreenChangeAddressButton"
-                variant="tertiary"
+        <Column gutter="lg">
+          <Column gutter="md">
+            <Row align="between">
+              <AddressTopTaskButton
+                logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
+                onPress={onPressAddressButton}
+                testID="ChooseAddressScreenSelectAddressButton"
               />
-            )}
-          </Row>
+              {!!address && (
+                <Button
+                  label="Wijzig"
+                  onPress={() => {
+                    navigate(ModuleSlug.address, {
+                      screen: AddressRouteName.address,
+                    })
 
-          <LocationTopTaskButton
-            highAccuracyPurposeKey={highAccuracyPurposeKey}
-            onPress={onPressLocationButton}
-            testID="ChooseAddressScreenSelectLocationButton"
-          />
+                    setLocationType('address')
+                  }}
+                  testID="ChooseAddressScreenChangeAddressButton"
+                  variant="tertiary"
+                />
+              )}
+            </Row>
+
+            <LocationTopTaskButton
+              highAccuracyPurposeKey={highAccuracyPurposeKey}
+              onPress={onPressLocationButton}
+              testID="ChooseAddressScreenSelectLocationButton"
+            />
+          </Column>
+          <RecentAddresses onPress={a => devLog(a)} />
         </Column>
       </Box>
     </Screen>
