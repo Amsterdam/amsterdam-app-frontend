@@ -1,37 +1,80 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
-import {TextInput} from 'react-native'
-import {Box} from '@/components/ui/containers/Box'
+import {useEffect, useRef, useState, type ReactNode} from 'react'
+import {useFormContext} from 'react-hook-form'
+import {
+  Animated,
+  Dimensions,
+  Keyboard,
+  StyleSheet,
+  type TextInput,
+} from 'react-native'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import type {AddressSearchFields} from '@/modules/address/screens/ChooseAddress.screen'
+import type {Address, BaseAddress} from '@/modules/address/types'
+import {Button} from '@/components/ui/buttons/Button'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {alerts} from '@/modules/address/alerts'
-import {NumberInput} from '@/modules/address/components/NumberInput'
-import {StreetInput} from '@/modules/address/components/StreetInput'
+
+import {NumberSearchField} from '@/modules/address/components/form/NumberSearchField'
+import {NumberSearchResult} from '@/modules/address/components/form/NumberSearchResult'
+import {StreetSearchField} from '@/modules/address/components/form/StreetSearchField'
+import {StreetSearchResult} from '@/modules/address/components/form/StreetSearchResult'
 import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
-import {AddressModalName} from '@/modules/address/routes'
+
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
-import {AddressCity, BaseAddress, Address} from '@/modules/address/types'
 import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
-import {replaceString} from '@/modules/address/utils/replaceString'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
+import {useTheme} from '@/themes/useTheme'
+
+type WithAnimationProps = {
+  animatedInterpolation: Animated.AnimatedInterpolation<string | number>
+  children: ReactNode
+}
+
+const WithAnimation = ({
+  animatedInterpolation,
+  children,
+}: WithAnimationProps) => (
+  <>
+    {!useIsReduceMotionEnabled() ? (
+      <Animated.View style={[{marginTop: animatedInterpolation}, styles.flex]}>
+        {children}
+      </Animated.View>
+    ) : (
+      children
+    )}
+  </>
+)
 
 export const AddressForm = () => {
-  const {isLandscape, isTablet} = useDeviceContext()
-  const dispatch = useDispatch()
+  const {watch, setValue} = useFormContext<AddressSearchFields>()
+  const [requestNumber, setRequestNumber] = useState(false)
   const {setAlert} = useAlert()
-  const [isStreetSelected, setIsStreetSelected] = useState(false)
-  const [city, setCity] = useState<AddressCity | undefined>(undefined)
-  const [number, setNumber] = useState<string>('')
-  const [street, setStreet] = useState<string>('')
+  const dispatch = useDispatch()
+  const {goBack} = useNavigation()
+  const previousRoute = usePreviousRoute()
+  const inputRef = useRef<TextInput | null>(null)
 
-  const address = `${street} ${number}`
+  const {size} = useTheme()
 
-  const inputStreetRef = useRef<TextInput | null>(null)
+  const windowHeight = Dimensions.get('window').height
+  const moveUpAnim = useRef(new Animated.Value(1)).current
+  const y = moveUpAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, windowHeight + size.spacing.lg],
+  })
 
-  const navigation = useNavigation<AddressModalName>()
+  const street = watch('street')
+  const city = watch('city')
+  const number = watch('number')
+
+  const address = `${street ?? ''} ${number ?? ''}`.trim()
 
   const {
     currentData: bagList,
@@ -39,83 +82,115 @@ export const AddressForm = () => {
     isError,
     refetch,
   } = useGetAddressSuggestionsQuery(
-    {address, city, street: isStreetSelected ? street : undefined},
+    {address, city, street: requestNumber ? street : undefined},
     {
       skip: address?.length < ADDRESS_LENGTH_THRESHOLD,
     },
   )
 
-  const changeStreet = useCallback((text: string) => {
-    setIsStreetSelected(false)
-    setCity(undefined)
-    setStreet(replaceString(text, 'address'))
-    setNumber('')
-  }, [])
+  const selectAddress = (selectedAddress: Address | BaseAddress) => {
+    if (selectedAddress.type !== 'adres') {
+      return handleIncompleteAddress(selectedAddress)
+    }
 
-  const changeNumber = useCallback((text: string) => {
-    setNumber(replaceString(text, 'houseNumber'))
-  }, [])
+    const transformedAddress = addDerivedAddressFields(selectedAddress)
 
-  const previousRoute = usePreviousRoute()
+    dispatch(addAddress(transformedAddress))
 
-  const selectResult = useCallback(
-    (item: Address | BaseAddress) => {
-      if (item.type !== 'adres') {
-        setIsStreetSelected(true)
-        setStreet(item.street)
-        setCity(item.city)
-      } else {
-        const transformedAddress = addDerivedAddressFields(item)
+    if (previousRoute?.name === ModuleSlug.address) {
+      setAlert(alerts.addAddressSuccess)
+    }
 
-        dispatch(addAddress(transformedAddress))
+    goBack()
+  }
 
-        if (previousRoute?.name === ModuleSlug.address) {
-          setAlert(alerts.addAddressSuccess)
-        }
-
-        navigation.goBack()
-      }
-    },
-    [dispatch, navigation, previousRoute?.name, setAlert],
-  )
+  const handleIncompleteAddress = (item: Address | BaseAddress) => {
+    setValue('city', item.city)
+    setValue('street', item.street)
+    setRequestNumber(true)
+  }
 
   useEffect(() => {
-    if (!isStreetSelected) {
-      setCity(undefined)
+    if (!requestNumber) {
+      return
     }
-  }, [isStreetSelected])
+
+    Animated.timing(moveUpAnim, {
+      toValue: 0,
+      useNativeDriver: false,
+    }).start(() => {
+      inputRef.current?.focus()
+    })
+  }, [requestNumber]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Box
-      grow
-      insetHorizontal="md"
-      insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
-      {!isStreetSelected ? (
-        <StreetInput
-          bagList={bagList ?? []}
-          changeStreet={changeStreet}
-          inputStreetRef={inputStreetRef}
-          isError={isError}
-          isLoading={isFetchingBagList}
-          isStreetSelected={isStreetSelected}
-          refetch={refetch}
-          selectResult={selectResult}
-          street={street}
-        />
+    <>
+      {!requestNumber ? (
+        <>
+          <StreetSearchField />
+
+          {!!street?.length && (
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps="handled"
+              onScrollBeginDrag={Keyboard.dismiss}
+              style={styles.flex}>
+              {!!bagList?.length &&
+                address.length >= ADDRESS_LENGTH_THRESHOLD && (
+                  <StreetSearchResult
+                    bagList={bagList}
+                    isError={isError}
+                    isLoading={isFetchingBagList}
+                    refetch={refetch}
+                    selectResult={selectAddress}
+                  />
+                )}
+            </KeyboardAwareScrollView>
+          )}
+        </>
       ) : (
-        <NumberInput
-          bagList={bagList ?? []}
-          changeIsStreetSelected={setIsStreetSelected}
-          changeNumber={changeNumber}
-          isError={isError}
-          isLoading={isFetchingBagList}
-          keyboardType="numbers-and-punctuation"
-          number={number}
-          refetch={refetch}
-          selectResult={selectResult}
-          street={street}
-        />
+        <WithAnimation animatedInterpolation={y}>
+          <Column>
+            <Row align="start">
+              <Button
+                accessibilityHint="klik om straatnaam te veranderen"
+                accessibilityLabel={street}
+                iconName="chevron-up"
+                label={street}
+                onPress={() => {
+                  setValue('number', '')
+                  setValue('city', undefined)
+                  setRequestNumber(false)
+                }}
+                testID="AddressBackToStreetSearchButton"
+                variant="tertiary"
+              />
+            </Row>
+
+            <NumberSearchField ref={inputRef} />
+
+            <KeyboardAwareScrollView
+              keyboardShouldPersistTaps="handled"
+              onScrollBeginDrag={Keyboard.dismiss}
+              style={styles.flex}>
+              {!!bagList?.length && (
+                <NumberSearchResult
+                  bagList={bagList}
+                  isError={isError}
+                  isLoading={isFetchingBagList}
+                  refetch={refetch}
+                  selectResult={selectAddress}
+                />
+              )}
+            </KeyboardAwareScrollView>
+          </Column>
+        </WithAnimation>
       )}
-    </Box>
+    </>
   )
 }
+
+const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
+})

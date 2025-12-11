@@ -9,7 +9,6 @@ type NumberSearchResultProps = {
   bagList: AddressList
   isError: boolean
   isLoading: boolean
-  number: string
   refetch: () => void
   selectResult: (item: BaseAddress | Address) => void
 }
@@ -20,12 +19,7 @@ export const NumberSearchResult = ({
   isLoading,
   refetch,
   selectResult,
-  number,
 }: NumberSearchResultProps) => {
-  if (number.length < 1) {
-    return null
-  }
-
   if (isLoading) {
     return (
       <Box>

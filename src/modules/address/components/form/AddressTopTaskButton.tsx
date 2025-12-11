@@ -5,20 +5,24 @@ import {type LogProps} from '@/processes/piwik/types'
 type Props = {
   hasTitleIcon?: boolean
   onPress: () => void
+  text: string
 } & TestProps &
   LogProps
 
-export const RequestTopTaskButton = ({
+export const AddressTopTaskButton = ({
   hasTitleIcon,
   onPress,
   testID,
+  text,
   ...props
 }: Props) => (
   <TopTaskButton
-    iconName="location"
+    iconName="housing"
+    iconSize="lg"
     onPress={onPress}
     testID={testID}
-    title="Geef uw locatie door"
+    text={text}
+    title="Mijn adres"
     titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
     {...props}
   />
