@@ -19,8 +19,10 @@ export const AddressTopTaskButton = ({
 
   return (
     <TopTaskButton
+      flex={1}
       iconName="housing"
       iconSize="lg"
+      insetHorizontal="sm"
       onPress={onPress}
       testID={testID}
       text={address?.addressLine1 ?? 'Vul een adres in'}

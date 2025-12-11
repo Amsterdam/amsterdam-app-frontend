@@ -1,5 +1,6 @@
 import {useCallback} from 'react'
 import type {NavigationProps} from '@/app/navigation/types'
+import type {Address} from '@/modules/address/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
@@ -7,7 +8,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {AddressForm} from '@/modules/address/components/AddressForm'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressTopTaskButton} from '@/modules/address/components/location/AddressTopTaskButton'
 import {LocationTopTaskButton} from '@/modules/address/components/location/LocationTopTaskButton'
@@ -15,16 +16,15 @@ import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNaviga
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
-import {useAddress} from '@/modules/address/slice'
+import {addAddress, useAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {devLog} from '@/processes/development'
 import {Permissions} from '@/types/permissions'
 
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 
 export const ChooseAddressScreen = ({route}: Props) => {
   const {highAccuracyPurposeKey} = route.params ?? {}
-
+  const dispatch = useDispatch()
   const address = useAddress()
   const setLocationType = useSetLocationType()
   const {navigate, goBack} = useNavigation()
@@ -35,17 +35,24 @@ export const ChooseAddressScreen = ({route}: Props) => {
   const {requestPermission} = usePermission(Permissions.location)
   const {startLocationFetch} = useRequestLocationFetch(highAccuracyPurposeKey)
 
-  const onPressAddressButton = useCallback(() => {
-    setLocationType('address')
+  const onPressAddressButton = useCallback(
+    (newAddress?: Address) => {
+      setLocationType('address')
 
-    if (!address) {
-      navigate(AddressModalName.addressForm)
+      if (!address && !newAddress) {
+        navigate(AddressModalName.addressForm)
 
-      return
-    }
+        return
+      }
 
-    goBack()
-  }, [setLocationType, address, goBack, navigate])
+      if (newAddress) {
+        dispatch(addAddress(newAddress))
+      }
+
+      goBack()
+    },
+    [setLocationType, address, goBack, navigate, dispatch],
+  )
 
   const onPressLocationButton = useCallback(async () => {
     const permission = await requestPermission()
@@ -73,15 +80,13 @@ export const ChooseAddressScreen = ({route}: Props) => {
     <Screen
       hasStickyAlert
       testID="ChooseAddressScreen">
-      <AddressForm />
-
       <Box grow>
         <Column gutter="lg">
           <Column gutter="md">
             <Row align="between">
               <AddressTopTaskButton
                 logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
-                onPress={onPressAddressButton}
+                onPress={() => onPressAddressButton()}
                 testID="ChooseAddressScreenSelectAddressButton"
               />
               {!!address && (
@@ -94,6 +99,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
 
                     setLocationType('address')
                   }}
+                  small
                   testID="ChooseAddressScreenChangeAddressButton"
                   variant="tertiary"
                 />
@@ -106,7 +112,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
               testID="ChooseAddressScreenSelectLocationButton"
             />
           </Column>
-          <RecentAddresses onPress={a => devLog(a)} />
+          <RecentAddresses onPress={onPressAddressButton} />
         </Column>
       </Box>
     </Screen>

@@ -15,6 +15,7 @@ type PressableVariant = 'primary' | 'tertiary' | 'transparent'
 export type PressableProps = {
   border?: boolean
   children: ReactNode
+  flex?: number
   'logging-label'?: string
   ref?: Ref<View>
   variant?: PressableVariant
@@ -34,10 +35,11 @@ export const Pressable = ({
   insetHorizontal,
   insetVertical,
   variant = 'tertiary',
+  flex = undefined,
   border = false,
   ...pressableProps
 }: PressableProps) => {
-  const styles = useThemable(createStyles(variant))
+  const styles = useThemable(createStyles(variant, flex))
 
   return (
     <PressableBase
@@ -63,10 +65,11 @@ export const Pressable = ({
 }
 
 const createStyles =
-  (variant: PressableVariant) =>
+  (variant: PressableVariant, flex?: number) =>
   ({color, border}: Theme) =>
     StyleSheet.create({
       button: {
+        flex,
         backgroundColor:
           variant !== 'transparent'
             ? color.pressable[variant].default.background

@@ -14,6 +14,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type TopTaskButtonProps = {
   border?: boolean
+  flex?: number
   iconName: SvgIconName
   iconRightName?: SvgIconName
   iconRightSize?: IconProps['size']
@@ -21,12 +22,9 @@ export type TopTaskButtonProps = {
   isError?: boolean
   isExternalLink?: boolean
   isInternalLink?: boolean
-  rowGutter?: keyof Theme['size']['spacing']
   text?: ReactNode
   textAdditional?: string
-  title: string
-  titleColor?: Extract<keyof Theme['color']['text'], 'link' | 'default'>
-  titleEmphasized?: boolean
+  title?: string
   titleIconName?: SvgIconName
 } & Omit<PressableProps, 'children' | 'style'>
 
@@ -44,9 +42,6 @@ export const TopTaskButton = ({
   title,
   titleIconName,
   testID,
-  titleEmphasized = true,
-  titleColor = 'link',
-  rowGutter = 'md',
   accessibilityRole = 'button',
   insetHorizontal = 'md',
   insetVertical = 'sm',
@@ -68,7 +63,7 @@ export const TopTaskButton = ({
       {...pressableProps}
       insetHorizontal={insetHorizontal}
       insetVertical={insetVertical}>
-      <Row gutter={rowGutter}>
+      <Row gutter="md">
         <View style={styles.height}>
           <HideFromAccessibility>
             <Icon
@@ -84,13 +79,14 @@ export const TopTaskButton = ({
           grow={1}
           shrink={1}>
           <Row gutter="sm">
-            <Title
-              color={titleColor}
-              fontFamily={titleEmphasized ? 'bold' : 'regular'}
-              level="h5"
-              testID={`${testID}Title`}
-              text={title}
-            />
+            {!!title && (
+              <Title
+                color="link"
+                level="h5"
+                testID={`${testID}Title`}
+                text={title}
+              />
+            )}
             {!!titleIconName && (
               <Icon
                 color="link"

@@ -4,16 +4,16 @@ import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {BaseAddress, Address} from '@/modules/address/types'
 
-type Props = {
-  address: Address | BaseAddress
+type Props<AddressType extends Address | BaseAddress> = {
+  address: AddressType
   iconName?: SvgIconName
   label: string
   'logging-label'?: string
-  onPress: (address: Address | BaseAddress) => void
+  onPress: (address: AddressType) => void
 } & Pick<AccessibilityProps, 'accessibilityLabel'> &
   TestProps
 
-export const SuggestionButton = ({
+export const SuggestionButton = <AddressType extends Address | BaseAddress>({
   iconName = 'location',
   label,
   address,
@@ -21,7 +21,7 @@ export const SuggestionButton = ({
   testID,
   accessibilityLabel,
   'logging-label': loggingLabel,
-}: Props) => (
+}: Props<AddressType>) => (
   <TopTaskButton
     accessibilityHint="Tik om dit adres te selecteren"
     accessibilityLabel={accessibilityLabel}
@@ -30,13 +30,11 @@ export const SuggestionButton = ({
     iconName={iconName}
     iconSize="lg"
     insetHorizontal="sm"
+    insetVertical="xs"
     logging-label={loggingLabel}
     logName="SuggestionButton"
     onPress={() => onPress(address)}
-    rowGutter="sm"
     testID={testID}
-    title={label}
-    titleColor="default"
-    titleEmphasized={false}
+    text={label}
   />
 )

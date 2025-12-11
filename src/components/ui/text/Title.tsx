@@ -3,12 +3,11 @@ import {StyleSheet, Text, type TextProps, type TextStyle} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import type {Theme} from '@/themes/themes'
 import {AccessibleText} from '@/components/ui/text/AccessibleText'
-import {TitleTokensPerLevel, type TextTokens} from '@/themes/tokens/text'
+import {TitleTokensPerLevel} from '@/themes/tokens/text'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
   color?: keyof Theme['color']['text']
-  fontFamily?: keyof TextTokens['fontFamily']
   level?: keyof TitleTokensPerLevel
   ref?: Ref<Text | null>
   shrink?: number
@@ -28,14 +27,12 @@ export const Title = ({
   shrink = 1,
   text,
   textAlign = 'left',
-  fontFamily = 'bold',
   underline = false,
   ...textProps
 }: Props) => {
   const createdStyles = useMemo(
-    () =>
-      createStyles({color, level, shrink, textAlign, underline, fontFamily}),
-    [color, level, shrink, textAlign, underline, fontFamily],
+    () => createStyles({color, level, shrink, textAlign, underline}),
+    [color, level, shrink, textAlign, underline],
   )
   const styles = useThemable(createdStyles)
 
@@ -55,23 +52,19 @@ export const Title = ({
 const createStyles =
   ({
     color: textColor,
-    fontFamily = 'bold',
     level,
     shrink,
     textAlign,
     underline,
   }: Required<
-    Pick<
-      Props,
-      'color' | 'level' | 'shrink' | 'textAlign' | 'underline' | 'fontFamily'
-    >
+    Pick<Props, 'color' | 'level' | 'shrink' | 'textAlign' | 'underline'>
   >) =>
   ({color, text}: Theme) =>
     StyleSheet.create({
       title: {
         flexShrink: shrink,
         color: color.text[textColor],
-        fontFamily: text.fontFamily[fontFamily],
+        fontFamily: text.fontFamily.bold,
         fontSize: text.fontSize[level],
         lineHeight: text.lineHeight[level],
         textAlign,
