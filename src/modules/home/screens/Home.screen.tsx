@@ -1,4 +1,5 @@
 import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
@@ -9,6 +10,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useModules} from '@/hooks/useModules'
 import {ActionButtons} from '@/modules/home/components/ActionButtons'
 import {Modules} from '@/modules/home/components/Modules'
+import {useGetModulesBottomsheetVariants} from '@/modules/home/hooks/useGetModulesBottomsheetVariants'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 export const HomeScreen = () => {
@@ -17,6 +19,8 @@ export const HomeScreen = () => {
   const {isPortrait} = useDeviceContext()
 
   const isInternetReachable = useSelector(selectIsInternetReachable)
+
+  const variantMap = useGetModulesBottomsheetVariants()
 
   if (modulesLoading) {
     return <PleaseWait testID="HomeLoadingSpinner" />
@@ -48,7 +52,14 @@ export const HomeScreen = () => {
   }
 
   return (
-    <Screen testID="HomeScreen">
+    <Screen
+      bottomSheet={
+        <BottomSheet
+          testID="HomeBottomSheet"
+          variants={variantMap}
+        />
+      }
+      testID="HomeScreen">
       <Box grow>
         <ActionButtons />
         <Modules modules={enabledModules} />

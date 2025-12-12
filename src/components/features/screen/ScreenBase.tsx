@@ -8,7 +8,9 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
+import {HomeRouteName} from '@/modules/home/routes'
 import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
@@ -29,6 +31,7 @@ export const ScreenBase = ({
   ...wrapperProps
 }: ScreenProps) => {
   const insets = useSafeAreaInsets()
+  const route = useRoute()
   const {
     isContentHiddenFromAccessibility,
     isHiddenFromAccessibility,
@@ -59,7 +62,10 @@ export const ScreenBase = ({
     ],
   )
 
-  const customScreenHeader = !isOutsideNavigation && !!bottomSheet
+  const customScreenHeader =
+    !isOutsideNavigation &&
+    !!bottomSheet &&
+    route.name !== (HomeRouteName.home as string)
 
   return (
     <ScreenProvider nativeScreenHeader={!customScreenHeader}>

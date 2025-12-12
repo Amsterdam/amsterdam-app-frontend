@@ -1,5 +1,7 @@
 import {ParkingActionButton} from '@/modules/parking/components/ParkingActionButton'
 import {ParkingPreRenderComponent} from '@/modules/parking/components/ParkingPreRenderComponent'
+import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
+import {ParkingSurveyBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSurveyBottomSheetContent'
 import {onNotificationEvent} from '@/modules/parking/onNotificationEvent'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {parkingSlice, ParkingState} from '@/modules/parking/slice'
@@ -21,6 +23,10 @@ export const parkingModule: ModuleClientConfig<{
   reportCode?: string
 }> = {
   ActionButton: ParkingActionButton,
+  bottomSheetVariantsHome: {
+    [ParkingDashboardBottomSheetVariant.survey]:
+      ParkingSurveyBottomSheetContent,
+  },
   logout: (dispatch, state) => logout(true, dispatch, state),
   name: 'ParkingModule',
   linking: {
