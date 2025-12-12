@@ -6,11 +6,13 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
+import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingApiVersion} from '@/modules/parking/types'
+import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
@@ -40,6 +42,9 @@ export const ParkingStartSessionButton = () => {
   const {goBack} = useNavigation()
   const openWebUrl = useOpenWebUrl()
   const {registerDeviceIfPermitted} = useRegisterDevice()
+  const openSurveyBottomsheet = useOpenBottomsheetIfSurveyShouldShow(
+    'parking-start-session',
+  )
 
   const isTimebalanceInsufficient =
     errors.root?.serverError?.message === 'SSP_TIME_BALANCE_INSUFFICIENT' ||
@@ -104,6 +109,13 @@ export const ParkingStartSessionButton = () => {
               }
 
               void registerDeviceIfPermitted(true)
+              setTimeout(
+                () =>
+                  openSurveyBottomsheet(
+                    ParkingDashboardBottomSheetVariant.survey,
+                  ),
+                500,
+              )
               goBack()
             },
             (error: {
@@ -156,6 +168,7 @@ export const ParkingStartSessionButton = () => {
       }
     },
     [
+      clearErrors,
       startSession,
       report_code,
       registerDeviceIfPermitted,
@@ -163,8 +176,8 @@ export const ParkingStartSessionButton = () => {
       setVisitorVehicleId,
       openWebUrl,
       setAlert,
+      openSurveyBottomsheet,
       setError,
-      clearErrors,
     ],
   )
 
