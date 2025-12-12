@@ -28,6 +28,7 @@ export const cityPassScreenConfig: StackNavigationRoutes<
     name: CityPassRouteName.dashboard,
     options: {
       headerTitle: 'Stadspas',
+      headerShown: false,
     },
   },
   [CityPassRouteName.cityPassDetails]: {
