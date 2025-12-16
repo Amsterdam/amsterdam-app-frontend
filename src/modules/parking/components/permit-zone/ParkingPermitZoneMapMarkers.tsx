@@ -34,7 +34,7 @@ export const ParkingPermitZoneMapMarkers = () => {
 
   const markerVariant = getMarkerVariant(
     selectedParkingMachineId,
-    parking_machine_favorite ?? parking_machine_favorite,
+    parking_machine_favorite,
   )
 
   return (
