@@ -30,6 +30,7 @@ export const InlineLink = ({
 }: Props) => {
   const onEvent = usePiwikTrackCustomEventFromProps({
     ...otherProps,
+    testID,
     logAction,
     onEvent: onPress,
   })
