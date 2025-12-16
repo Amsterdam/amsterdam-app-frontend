@@ -15,7 +15,7 @@ export const redirects: RedirectResponse[] = [
   {
     iconName: 'vote',
     testID: 'RedirectsElectionsButton',
-    text: 'Meer informatie over de Tweede Kamerverkiezingen op woensdag 29 oktober.',
+    text: 'Meer informatie over de verkiezingen voor de gemeenteraad, stadsdeelcommissie en bestuurscommissie Weesp op woensdag 18 maart 2026.',
     title: 'Verkiezingen',
     urlKey: RedirectKey.elections,
   },
