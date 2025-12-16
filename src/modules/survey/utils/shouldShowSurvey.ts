@@ -20,6 +20,7 @@ export const shouldShowSurvey = (
   const isCooldownOver =
     dayjs().diff(surveyParams.lastSeenAt, 'days') >= cooldown
   const isMinimumActionsMet = surveyParams.actionCount >= minimum_actions
+  // eslint-disable-next-line sonarjs/pseudo-random
   const isRandomlySelected = Math.random() <= fraction
 
   return isCooldownOver && isMinimumActionsMet && isRandomlySelected

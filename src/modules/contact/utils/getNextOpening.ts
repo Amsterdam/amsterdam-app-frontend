@@ -62,6 +62,7 @@ export const getNextOpening = (
   visitingHours: VisitingHour[],
   exceptions: ExceptionDate[],
   now: Dayjs = dayjs(),
+  // eslint-disable-next-line sonarjs/cognitive-complexity
 ): {dayLabel: string; timeLabel: string} | null => {
   // Check today and the next 7 days
   for (let i = 0; i <= 7; i++) {

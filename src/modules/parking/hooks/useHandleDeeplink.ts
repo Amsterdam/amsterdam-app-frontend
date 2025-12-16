@@ -45,15 +45,6 @@ export const useHandleDeeplink = (
       } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
         setAlert(alerts.increaseBalanceFailed)
       }
-    } else if (params?.action === 'adjust-session-and-increase-balance') {
-      if (params.status === 'COMPLETED') {
-        setAlert(alerts.adjustSessionSuccess)
-        dispatch(
-          baseApi.util.invalidateTags(['ParkingAccount', 'ParkingSessions']),
-        )
-      } else if (params.status === 'EXPIRED' || params.status === 'CANCELLED') {
-        setAlert(alerts.increaseBalanceFailed)
-      }
     }
   }, [confirmBalance, dispatch, params, setAlert])
 }

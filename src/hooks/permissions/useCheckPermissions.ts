@@ -46,6 +46,7 @@ export const useCheckPermissions = () => {
           ({permission}) =>
             new Promise<boolean>(resolve => {
               checkPermission(permission)
+                // eslint-disable-next-line sonarjs/no-nested-functions
                 .then(result => {
                   const granted = result === RESULTS.GRANTED
 
@@ -53,6 +54,7 @@ export const useCheckPermissions = () => {
 
                   resolve(granted)
                 })
+                // eslint-disable-next-line sonarjs/no-nested-functions
                 .catch((error: unknown) => {
                   dispatch(setPermission({permission, granted: false}))
 

@@ -1,6 +1,6 @@
 import {useMemo} from 'react'
 import {Geojson} from 'react-native-maps'
-import {Map} from '@/components/features/map/Map'
+import {MapBase} from '@/components/features/map/MapBase'
 import {ControlVariant} from '@/components/features/map/types'
 import {getAllPolygonCoords} from '@/components/features/map/utils/getAllPolygonCoords'
 import {getFillColor} from '@/components/features/map/utils/getFillColor'
@@ -56,7 +56,7 @@ export const ParkingPermitZoneMap = () => {
   const properties = permitZoneData?.geojson.features[0]?.properties
 
   return (
-    <Map
+    <MapBase
       controls={[ControlVariant.location]}
       initialRegion={initialRegion}
       onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}
@@ -69,6 +69,6 @@ export const ParkingPermitZoneMap = () => {
         geojson={permitZoneData.geojson}
       />
       {!!can_select_zone && <ParkingPermitZoneMapMarkers />}
-    </Map>
+    </MapBase>
   )
 }

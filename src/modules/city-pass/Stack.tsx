@@ -22,6 +22,7 @@ import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 
 const Stack = createStackNavigator<RootStackParams>()
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export const CityPassStack = () => {
   const screenOptions = useScreenOptions()
   const isCityPassOwnerRegistered = useSelector(selectIsCityPassOwnerRegistered)

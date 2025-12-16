@@ -22,7 +22,7 @@ type Props = PropsWithChildren<{
 }> &
   MapViewProps
 
-export const Map = ({
+export const MapBase = ({
   children,
   controls,
   initialRegion,

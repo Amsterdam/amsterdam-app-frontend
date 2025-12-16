@@ -5,7 +5,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Title} from '@/components/ui/text/Title'
 import {ParkingChooseLicensePlateButton} from '@/modules/parking/components/form/ParkingChooseLicensePlateButton'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingReceiptV1} from '@/modules/parking/components/form/ParkingReceiptV1'
 import {ParkingSessionChooseParkingMachine} from '@/modules/parking/components/form/ParkingSessionChooseParkingMachine'
 import {ParkingSessionChooseTime} from '@/modules/parking/components/form/ParkingSessionChooseTime'
 import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
@@ -70,11 +69,7 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
 
                 <ParkingMaxSessionsWarning />
               </Column>
-              {apiVersion === ParkingApiVersion.v1 ? (
-                <ParkingReceiptV1 />
-              ) : (
-                <ParkingReceipt />
-              )}
+              <ParkingReceipt />
               <ParkingSessionSubmitButton />
             </Column>
           </Box>

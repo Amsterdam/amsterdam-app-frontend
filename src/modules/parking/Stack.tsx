@@ -26,6 +26,7 @@ import {
 
 const Stack = createStackNavigator<RootStackParams>()
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export const ParkingStack = () => {
   const {accessCode, isLoading} = useGetSecureAccessCode()
   const {attemptsLeft, isCodeValid, isForgotCode} = useEnterAccessCode()

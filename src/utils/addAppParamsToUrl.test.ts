@@ -4,6 +4,7 @@ import {isAmsterdamNlUrl, addAppParamsToUrl} from '@/utils/addAppParamsToUrl'
 describe('isAmsterdamNlUrl', () => {
   it('should return true for amsterdam.nl URLs', () => {
     expect(isAmsterdamNlUrl('https://amsterdam.nl')).toBe(true)
+    // eslint-disable-next-line sonarjs/no-clear-text-protocols
     expect(isAmsterdamNlUrl('http://subdomain.amsterdam.nl/path')).toBe(true)
     expect(isAmsterdamNlUrl('https://www.amsterdam.nl/?query=123')).toBe(true)
     expect(isAmsterdamNlUrl('https://a.amsterdam.nl/?query=123')).toBe(true)

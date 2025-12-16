@@ -6,21 +6,17 @@ import {ParkingChooseEndTimeButton} from '@/modules/parking/components/form/Park
 // import {ParkingChooseStartTimeButton} from '@/modules/parking/components/form/ParkingChooseStartTimeButton'
 import {ParkingEditSessionButtons} from '@/modules/parking/components/form/ParkingEditSessionButtons'
 import {ParkingReceipt} from '@/modules/parking/components/form/ParkingReceipt'
-import {ParkingReceiptV1} from '@/modules/parking/components/form/ParkingReceiptV1'
 import {ParkingSessionFormProvider} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingShowStartTime} from '@/modules/parking/components/session/ParkingShowStartTime'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
-import {ParkingApiVersion} from '@/modules/parking/types'
 // import {dayjs} from '@/utils/datetime/dayjs'
 
 type Props = NavigationProps<ParkingRouteName.editSession>
 
 export const ParkingEditSessionScreen = ({route}: Props) => {
   const {parkingSession} = route.params ?? {}
-  const apiVersion = useCurrentParkingApiVersion()
 
   return (
     <CurrentPermitProvider>
@@ -39,11 +35,7 @@ export const ParkingEditSessionScreen = ({route}: Props) => {
 
               <Column gutter="xl">
                 <ParkingChooseEndTimeButton />
-                {apiVersion === ParkingApiVersion.v1 ? (
-                  <ParkingReceiptV1 />
-                ) : (
-                  <ParkingReceipt />
-                )}
+                <ParkingReceipt />
               </Column>
 
               <ParkingEditSessionButtons />

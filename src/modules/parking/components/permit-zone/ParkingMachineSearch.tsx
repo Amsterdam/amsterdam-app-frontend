@@ -53,7 +53,7 @@ export const ParkingMachineSearch = () => {
           autoCorrect={false}
           autoFocus
           keyboardType="number-pad"
-          onChangeText={text => setSearchTerm(text.replaceAll(/[^0-9]/g, ''))}
+          onChangeText={text => setSearchTerm(text.replaceAll(/\D/g, ''))}
           placeholder="Nummer parkeerautomaat"
           testID="ParkingMachineSearchTextSearchField"
           value={searchTerm}

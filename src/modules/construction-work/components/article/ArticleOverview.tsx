@@ -38,9 +38,9 @@ export const ArticleOverview = ({projectId, projectTitle, title}: Props) => {
     isLoading,
     refetch,
   } = useArticlesQuery(
-    projectId !== undefined
+    projectId
       ? {
-          project_ids: projectId?.toString(),
+          project_ids: projectId.toString(),
         }
       : skipToken,
   )

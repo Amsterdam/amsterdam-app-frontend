@@ -63,6 +63,7 @@ export type ParkingAccountLogin = {
   reportCode: string
 }
 
+// eslint-disable-next-line sonarjs/redundant-type-aliases
 export type SecureParkingAccount = ParkingAccountLogin
 
 export type ParkingAccount = {
@@ -273,7 +274,7 @@ export type ParkingTransaction = ParkingSession & {
     currency: string
     value: number
   }
-  order_type: ParkingOrderType
+  order_type?: ParkingOrderType
 }
 
 export enum ParkingOrderType {

@@ -33,6 +33,7 @@ import {formatNumber} from '@/utils/formatNumber'
 
 const ROOT_LOCAL_ERROR_KEY = 'root.localError'
 
+// eslint-disable-next-line sonarjs/cognitive-complexity
 export const ParkingReceipt = () => {
   const {
     clearErrors,
