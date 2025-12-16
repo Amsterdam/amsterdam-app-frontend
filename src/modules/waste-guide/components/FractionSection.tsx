@@ -37,7 +37,7 @@ export const FractionSection = ({
       {/* Remove inlineLink once the API includes the url as a single property */}
       {url ? (
         <InlineLink
-          external
+          isExternal
           onPress={() => openWebUrl(url)}
           testID={`${testID}Link`}>
           {content}

@@ -64,7 +64,7 @@ export const EntryAttachments = ({message}: Props) => {
                   accessibilityLabel={`Bijlage gedeeld door ${message.senderDisplayName}. Dubbeltik om bijlage te downloaden.`}
                   ellipsizeMode="middle"
                   emphasis="strong"
-                  inverse={isUser}
+                  isInverse={isUser}
                   numberOfLines={1}
                   onPress={() => {
                     void saveFile({

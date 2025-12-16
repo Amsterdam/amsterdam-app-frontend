@@ -8,8 +8,8 @@ import {type LogProps, PiwikAction} from '@/processes/piwik/types'
 type Props = {
   children: ReactNode
   emphasis?: PhraseProps['emphasis']
-  external?: boolean
-  inverse?: boolean
+  isExternal?: boolean
+  isInverse?: boolean
   onPress: () => void
   phraseVariant?: PhraseProps['variant']
 } & TestProps &
@@ -20,16 +20,17 @@ export const InlineLink = ({
   accessibilityRole = 'link',
   children,
   emphasis,
-  inverse,
+  isInverse,
   onPress,
   phraseVariant,
   logAction = PiwikAction.buttonPress,
-  external = false,
+  isExternal = false,
   testID,
   ...otherProps
 }: Props) => {
   const onEvent = usePiwikTrackCustomEventFromProps({
     ...otherProps,
+    testID,
     logAction,
     onEvent: onPress,
   })
@@ -37,15 +38,15 @@ export const InlineLink = ({
   return (
     <Phrase
       accessibilityRole={accessibilityRole}
-      color={inverse ? 'inverse' : 'link'}
+      color={isInverse ? 'inverse' : 'link'}
       emphasis={emphasis}
       onPress={onEvent}
       testID={testID}
-      underline={!external}
+      underline={!isExternal}
       variant={phraseVariant}
       {...otherProps}>
       {children}
-      {external ? (
+      {isExternal ? (
         <>
           {'  '}
           <Icon

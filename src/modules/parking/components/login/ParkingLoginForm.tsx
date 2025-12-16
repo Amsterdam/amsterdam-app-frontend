@@ -138,7 +138,7 @@ export const ParkingLoginForm = () => {
           <Paragraph>
             Meld- of pincode kwijt? U vindt ze in{' '}
             <InlineLink
-              external
+              isExternal
               logging-label="ParkingLoginFormInlineLink"
               onPress={() => openRedirect(RedirectKey.my_parking)}
               testID="ParkingLoginFormInlineLink">
