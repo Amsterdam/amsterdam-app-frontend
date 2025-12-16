@@ -25,7 +25,7 @@ export const ReportWrongBuildingType = ({testID}: Props) => {
         wrap>
         <Phrase testID={`${testID}Phrase`}>Klopt dit niet?</Phrase>
         <InlineLink
-          external
+          isExternal
           onPress={() => openWebUrl(wrongBuildingTypeReactionFormUrl)}
           testID={`${testID}Link`}>
           Geef het door

@@ -5,11 +5,11 @@ import {parseTextToComponentsForLinks} from '@/utils/parseTextToComponentsForLin
 export const parseTextToComponentsWithInlineLinks = (
   text: string,
   openUrl: (url: string) => void,
-  inverse: boolean,
+  isInverse: boolean,
 ): ReactNode[] =>
   parseTextToComponentsForLinks(text, part => (
     <InlineLink
-      inverse={inverse}
+      isInverse={isInverse}
       onPress={() => openUrl(part)}
       testID={`InlineLink${part}Link`}>
       {part}
