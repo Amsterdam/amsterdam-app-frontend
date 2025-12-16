@@ -5,7 +5,7 @@ import {formatNumber} from '@/utils/formatNumber'
 export const ParkingChooseAmountButton = () => (
   <SelectButtonControlled<{amount?: number}, 'amount'>
     bottomSheetVariant={ParkingSessionBottomSheetVariant.amount}
-    iconName="clock"
+    iconName="euroCoinsInverted"
     name="amount"
     rules={{
       required: 'Kies een bedrag',
