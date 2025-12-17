@@ -18,6 +18,7 @@ export const screenConfig: StackNavigationRoutes<
     component: WasteGuideScreen,
     name: WasteGuideRouteName.wasteGuide,
     options: {
+      headerShown: false,
       headerTitle: 'Afvalwijzer',
     },
   },

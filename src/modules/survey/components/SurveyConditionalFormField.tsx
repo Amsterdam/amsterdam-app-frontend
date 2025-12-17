@@ -26,11 +26,11 @@ export const SurveyConditionalFormField = ({
         const fieldValue = watch(reference_question.toString()) as unknown
 
         if (type === ConditionEquation.equal) {
-          return fieldValue === value
+          return fieldValue?.toString() === value
         }
 
         if (type === ConditionEquation.not_equal) {
-          return fieldValue !== value
+          return fieldValue?.toString() !== value
         }
 
         return false

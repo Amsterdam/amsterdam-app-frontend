@@ -1,5 +1,6 @@
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
+import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {
   useCurrentParkingPermitReportCode,
@@ -35,7 +36,7 @@ export const ParkingPermitTopTaskButton = () => {
           : 'documentCheckmark'
       }
       iconSize="lg"
-      onPress={() => toggle()}
+      onPress={() => toggle(ParkingDashboardBottomSheetVariant.selectPermit)}
       testID="ParkingPermitTopTaskButton"
       title={title}
       titleIconName="chevron-down"

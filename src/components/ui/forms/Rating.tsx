@@ -37,37 +37,45 @@ const RateStar = ({isSelected, testID, onPress, ...props}: RateStarProps) => (
 export type RatingProps = {
   errorMessage?: string
   label?: string
-  max?: number
   onChange: (position: number) => void
+  options?: {
+    label: string
+    value: string
+  }[]
   rating: number | null
-  ratingLabels?: Array<string>
+  required?: boolean
 } & TestProps
 
 export const Rating = ({
-  max = 5,
   label,
-  ratingLabels,
+  options,
   rating,
   errorMessage,
+  required,
   testID,
   onChange,
 }: RatingProps) => (
   <Column gutter="md">
-    {!!label && <Label text={label} />}
+    {!!label && (
+      <Label
+        required={required}
+        text={label}
+      />
+    )}
     <Row>
-      {Array.from({length: max}, (_, i) => i + 1).map(position => (
+      {options?.map(({value}) => (
         <RateStar
-          accessibilityLabel={`Geef een score van ${position} uit ${max}.`}
-          isSelected={!!rating && position <= rating}
-          key={`ranking_${position}`}
-          onPress={() => onChange(position)}
+          accessibilityLabel={`Geef een score van ${value} uit ${options.length}.`}
+          isSelected={!!rating && Number(value) <= rating}
+          key={`ranking_${value}`}
+          onPress={() => onChange(Number(value))}
           testID={testID}
         />
       ))}
     </Row>
-    {!!rating && !!ratingLabels?.[rating - 1] && (
+    {!!rating && !!options?.[rating - 1] && (
       <Phrase testID={`${testID}RatingLabel${rating}Phrase`}>
-        {ratingLabels[rating - 1]}
+        {options[rating - 1].label}
       </Phrase>
     )}
     {!!errorMessage && (

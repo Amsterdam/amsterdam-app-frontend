@@ -17,6 +17,7 @@ export type CheckboxGroupProps = {
   onChange: (selected: string[]) => void
   options?: CheckboxOption[]
   orientation?: LayoutOrientation
+  required?: boolean
   selectedValues: string[]
 } & TestProps
 
@@ -27,6 +28,7 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
   selectedValues,
   onChange,
   orientation = LayoutOrientation.vertical,
+  required,
   testID,
 }) => {
   const handleChange = (optionValue: string, checked: boolean) => {
@@ -43,7 +45,12 @@ export const CheckboxGroup: React.FC<CheckboxGroupProps> = ({
 
   return (
     <Column gutter="md">
-      {!!label && <Label text={label} />}
+      {!!label && (
+        <Label
+          required={required}
+          text={label}
+        />
+      )}
       <OrientationBasedLayout
         gutter="md"
         orientation={orientation}

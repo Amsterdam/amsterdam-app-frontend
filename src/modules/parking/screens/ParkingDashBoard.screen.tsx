@@ -1,6 +1,5 @@
 import {navigationRef} from '@/app/navigation/navigationRef'
 import {type NavigationProps} from '@/app/navigation/types'
-import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {ProductTourTipWrapper} from '@/components/features/product-tour/ProductTourTipWrapper'
 import {Tip} from '@/components/features/product-tour/types'
 import {Screen} from '@/components/features/screen/Screen'
@@ -16,12 +15,12 @@ import {DashboardHeaderButton} from '@/modules/parking/components/DashboardHeade
 import {DashboardMenu} from '@/modules/parking/components/DashboardMenu'
 import {ParkingInfoSection} from '@/modules/parking/components/ParkingInfoSection'
 import {ParkingPermitTopTaskButton} from '@/modules/parking/components/ParkingPermitTopTaskButton'
-import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
 import {ParkingDashboardNavigationButtons} from '@/modules/parking/components/dashboard/ParkingDashboardNavigationButtons'
 import {ParkingPaymentByVisitorButton} from '@/modules/parking/components/dashboard/ParkingPaymentByVisitorButton'
 import {ParkingPermitBalance} from '@/modules/parking/components/dashboard/ParkingPermitBalance'
 import {ParkingPermitSessions} from '@/modules/parking/components/dashboard/ParkingPermitSessions'
 import {ParkingStartSessionButton} from '@/modules/parking/components/dashboard/ParkingStartSessionButton'
+import {ParkingDashboardBottomSheet} from '@/modules/parking/components/dashboard/bottomsheet/ParkingDashboardBottomSheet'
 import {useGetPermits} from '@/modules/parking/hooks/useGetPermits'
 import {useHandleDeeplink} from '@/modules/parking/hooks/useHandleDeeplink'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
@@ -69,13 +68,7 @@ export const ParkingDashboardScreen = ({route}: Props) => {
   return (
     <CurrentPermitProvider>
       <Screen
-        bottomSheet={
-          <BottomSheet
-            scroll
-            testID="ParkingSelectPermitBottomSheet">
-            <ParkingSelectPermit />
-          </BottomSheet>
-        }
+        bottomSheet={<ParkingDashboardBottomSheet />}
         hasStickyAlert
         headerOptions={{
           disableHorizontalInsets: true,

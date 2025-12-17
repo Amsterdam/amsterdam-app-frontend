@@ -8,17 +8,22 @@ import {SuccessIcon} from '@/components/ui/media/icons/SuccessIcon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {AccessCodeRouteName} from '@/modules/access-code/routes'
+import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 
 type Props = NavigationProps<AccessCodeRouteName.accessCodeInvalid>
 
-export const AddWasteCardSuccessScreen = ({navigation: {navigate}}: Props) => (
+export const AddWasteCardSuccessScreen = ({navigation}: Props) => (
   <Screen
     stickyFooter={
       <Box>
         <Button
           label="Gereed"
-          onPress={() => navigate(WasteGuideRouteName.wasteGuide)}
+          onPress={() =>
+            navigation.popTo(ModuleSlug['waste-guide'], {
+              screen: WasteGuideRouteName.wasteGuide,
+            })
+          }
           testID="AddWasteCardSuccessScreenConfirmButton"
         />
       </Box>

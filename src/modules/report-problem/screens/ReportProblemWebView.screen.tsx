@@ -1,19 +1,22 @@
 import {useCallback, useEffect, useRef, useState} from 'react'
-import {Platform, BackHandler, Alert} from 'react-native'
-import {WebViewMessageEvent, WebViewNavigation} from 'react-native-webview'
+import {WebViewMessageEvent} from 'react-native-webview'
 import {NavigationProps} from '@/app/navigation/types'
+import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {WebView, type WebViewRef} from '@/components/ui/containers/WebView'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
+import {useOnAndroidBackPress} from '@/hooks/useOnAndroidBackPress'
 import {useUrlForEnv} from '@/hooks/useUrlForEnv'
 import {reportProblemExternalLinks} from '@/modules/report-problem/external-links'
+import {useAlertBeforeNavigation} from '@/modules/report-problem/hooks/useAlertBeforeNavigation'
+import {useOnNavigationStateChange} from '@/modules/report-problem/hooks/useOnNavigationStateChange'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
+import {Survey} from '@/modules/survey/exports/Survey'
+import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {
   PiwikAction,
   useTrackEvents,
 } from '@/processes/logging/hooks/useTrackEvents'
-
-const ReportProblemEndUrlPath = '/incident/bedankt'
 
 type Props = NavigationProps<ReportProblemRouteName.reportProblemWebView>
 
@@ -26,10 +29,9 @@ const signalsCloseMessage = 'signals/close'
 
 export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   const reportProblemUrl = useUrlForEnv(reportProblemExternalLinks)
-
   const [hasFinishedAtLeastOnce, setHasFinishedAtLeastOnce] = useState(false)
-
   const {trackCustomEvent} = useTrackEvents()
+  const open = useOpenBottomsheetIfSurveyShouldShow('report-problem')
 
   const onBlur = useCallback(() => {
     trackCustomEvent(
@@ -56,30 +58,13 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
   )
 
   const canGoBack = useRef<boolean>(false)
-  const onNavigationStateChange = useCallback(
-    ({url, canGoBack: newCanGoBack}: WebViewNavigation) => {
-      if (url === reportProblemUrl || url.includes(ReportProblemEndUrlPath)) {
-        canGoBack.current = false
-      } else {
-        canGoBack.current = newCanGoBack
-      }
-
-      if (url.includes(ReportProblemEndUrlPath)) {
-        isEndUrl.current = true
-        setHasFinishedAtLeastOnce(true)
-        trackCustomEvent(
-          'ReportProblemFinishedReport',
-          PiwikAction.finishedReport,
-        )
-      } else {
-        isEndUrl.current = false
-      }
-
-      navigation.setOptions({
-        gestureEnabled: !canGoBack.current,
-      })
-    },
-    [navigation, reportProblemUrl, trackCustomEvent],
+  const onNavigationStateChange = useOnNavigationStateChange(
+    navigation,
+    canGoBack,
+    reportProblemUrl,
+    isEndUrl,
+    setHasFinishedAtLeastOnce,
+    trackCustomEvent,
   )
 
   const webViewRef = useRef<WebViewRef>(null)
@@ -93,51 +78,22 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
     return false
   }, [])
 
+  useOnAndroidBackPress(onHandleBackPress)
+  useAlertBeforeNavigation(navigation, onHandleBackPress, !isEndUrl.current)
+
   useEffect(() => {
-    if (Platform.OS === 'android') {
-      const listener = BackHandler.addEventListener(
-        'hardwareBackPress',
-        onHandleBackPress,
-      )
-
-      return () => {
-        listener.remove()
-      }
+    if (isEndUrl.current) {
+      setTimeout(open, 500)
     }
-  }, [onHandleBackPress])
-
-  useEffect(
-    () =>
-      navigation.addListener('beforeRemove', e => {
-        if (!isEndUrl.current) {
-          // Prevent default behavior of leaving the screen
-          e.preventDefault()
-
-          // Prompt the user before leaving the screen
-          if (!onHandleBackPress()) {
-            Alert.alert(
-              'Weet u zeker dat u het formulier wilt verlaten?',
-              'Als u deze pagina verlaat, dan worden uw ingevulde antwoorden verwijderd.',
-              [
-                {text: 'Annuleren', style: 'cancel', onPress: () => null},
-                {
-                  text: 'Verlaat en verwijder antwoorden',
-                  style: 'destructive',
-                  // If the user confirmed, then we dispatch the action we blocked earlier
-                  // This will continue the action that had triggered the removal of the screen
-                  onPress: () => navigation.dispatch(e.data.action),
-                },
-              ],
-              {cancelable: true},
-            )
-          }
-        }
-      }),
-    [navigation, onHandleBackPress],
-  )
+  }, [open])
 
   return (
     <Screen
+      bottomSheet={
+        <BottomSheet testID="ReportProblemBottomSheet">
+          <Survey entryPoint="report-problem" />
+        </BottomSheet>
+      }
       scroll={false}
       testID="ReportProblemWebViewScreen">
       <WebView

@@ -8,7 +8,10 @@ import {ScreenInnerWrapper} from '@/components/features/screen/ScreenInnerWrappe
 import {ScreenWrapper} from '@/components/features/screen/ScreenWrapper'
 import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
 import {Gutter} from '@/components/ui/layout/Gutter'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {ExtendAccessCodeValidityOnTap} from '@/modules/access-code/components/ExtendAccessCodeValidityOnTap'
+import {HeaderForHome} from '@/modules/home/components/HeaderForHome'
+import {HomeRouteName} from '@/modules/home/routes'
 import {ScreenProvider} from '@/providers/screen.provider'
 import {useScreen} from '@/store/slices/screen'
 
@@ -29,11 +32,13 @@ export const ScreenBase = ({
   ...wrapperProps
 }: ScreenProps) => {
   const insets = useSafeAreaInsets()
+  const route = useRoute()
   const {
     isContentHiddenFromAccessibility,
     isHiddenFromAccessibility,
     spaceBottom,
   } = useScreen()
+  const isHomeScreen = route.name === (HomeRouteName.home as string)
 
   const hasStickyFooter = !!stickyFooter
   const hasStickyHeader = !!stickyHeader
@@ -59,6 +64,12 @@ export const ScreenBase = ({
     ],
   )
 
+  const CustomHeader = isHomeScreen ? (
+    <HeaderForHome />
+  ) : (
+    <ScreenHeader options={headerOptions} />
+  )
+
   const customScreenHeader = !isOutsideNavigation && !!bottomSheet
 
   return (
@@ -68,7 +79,7 @@ export const ScreenBase = ({
           hide={isHiddenFromAccessibility}
           style={styles.screen}
           testID={testID}>
-          {!!customScreenHeader && <ScreenHeader options={headerOptions} />}
+          {!!customScreenHeader && CustomHeader}
           {stickyHeader}
           {!!hasStickyAlert && <AlertTopOfScreen />}
           <HideFromAccessibility

@@ -23,6 +23,7 @@ export const screenConfig: StackNavigationRoutes<
     options: {
       ...screenOptions,
       gestureEnabled: false,
+      headerShown: false,
     },
   },
 }

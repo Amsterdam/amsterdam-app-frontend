@@ -1,6 +1,6 @@
 import type {ModuleSlug} from '@/modules/slugs'
 import type {ReactNode} from 'react'
-import {useGetCachedServerModule} from '@/store/slices/modules'
+import {useIsModuleActive} from '@/hooks/useIsModuleActive'
 
 type Props = {
   FallbackComponent?: ReactNode
@@ -13,9 +13,9 @@ export const RenderIfModuleActive = ({
   module,
   children,
 }: Props) => {
-  const {cachedServerModule, isInactive} = useGetCachedServerModule(module)
+  const isActive = useIsModuleActive(module)
 
-  if (!cachedServerModule || isInactive) {
+  if (!isActive) {
     return FallbackComponent ?? null
   }
 

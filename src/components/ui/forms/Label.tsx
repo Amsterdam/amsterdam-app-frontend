@@ -5,10 +5,16 @@ import {Emphasis} from '@/themes/tokens/text'
 type Props = {
   emphasis?: keyof typeof Emphasis
   isAccessible?: boolean
+  required?: boolean
   text: string
 }
 
-export const Label = ({isAccessible, text, emphasis = 'strong'}: Props) => (
+export const Label = ({
+  isAccessible,
+  text,
+  emphasis = 'strong',
+  required,
+}: Props) => (
   <View
     accessibilityElementsHidden={!isAccessible} // in case of iOS
     accessibilityLanguage="nl-NL"
@@ -18,6 +24,7 @@ export const Label = ({isAccessible, text, emphasis = 'strong'}: Props) => (
       emphasis={emphasis}
       testID="TextInputLabel">
       {text}
+      <Phrase>{required ? '' : ' (Niet verplicht)'}</Phrase>
     </Phrase>
   </View>
 )

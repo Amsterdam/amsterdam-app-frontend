@@ -27,6 +27,7 @@ export const RadioGroupControlled = <
   label,
   options,
   orientation,
+  rules,
   testID,
   ...controllerProps
 }: Props<TFieldValues, TName>) => {
@@ -46,6 +47,7 @@ export const RadioGroupControlled = <
       onChange={onChange}
       options={options}
       orientation={orientation}
+      required={!!rules?.required}
       testID={testID}
       value={value}
     />
