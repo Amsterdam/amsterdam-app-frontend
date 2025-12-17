@@ -1,5 +1,9 @@
 export enum WasteGuideEndpointName {
+  deleteWasteGuideNotification = 'deleteWasteGuideNotification',
   getWasteGuide = 'getWasteGuide',
+  getWasteGuideNotification = 'getWasteGuideNotification',
+  patchWasteGuideNotification = 'patchWasteGuideNotification',
+  postWasteGuideNotification = 'postWasteGuideNotification',
 }
 
 export enum FractionCode {
@@ -51,4 +55,11 @@ export type WasteGuideResponse = {
   is_collection_by_appointment: boolean
   is_residential: boolean
   waste_types: WasteType[]
+}
+
+export type WasteGuideNotificationSettings = {
+  bag_nummeraanduiding_id: string
+  created_at: string
+  device_id: string
+  updated_at: string
 }

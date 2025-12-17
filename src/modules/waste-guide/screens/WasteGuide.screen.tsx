@@ -6,6 +6,7 @@ import {bottomsheetVariants as wasteContainerBottomsheetVariants} from '@/module
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 import {WasteGuideInformation} from '@/modules/waste-guide/components/WasteGuideInformation'
 import {WasteGuideMoreOptions} from '@/modules/waste-guide/components/WasteGuideMoreOptions'
+import {WasteGuideNotificationToggleBox} from '@/modules/waste-guide/components/WasteGuideNotificationToggleBox'
 import {WasteGuideShare} from '@/modules/waste-guide/components/WasteGuideShare'
 
 export const WasteGuideScreen = () => {
@@ -25,6 +26,7 @@ export const WasteGuideScreen = () => {
       withRightInset={isPortrait}>
       <Column gutter="xl">
         <WasteGuide />
+        <WasteGuideNotificationToggleBox />
         <WasteGuideMoreOptions />
         <WasteGuideInformation />
       </Column>
