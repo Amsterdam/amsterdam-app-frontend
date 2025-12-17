@@ -7,18 +7,29 @@ import {getAnswers} from '@/modules/survey/utils/getAnswers'
 import {useTrackException} from '@/processes/logging/hooks/useTrackException'
 import {ExceptionLogKey} from '@/processes/logging/types'
 import {useAlert} from '@/store/slices/alert'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 type Params = {
   entryPoint: string
+  isFeedbackScreen?: boolean
+  isInBottomSheet?: boolean
   survey?: Survey
   surveyId?: number
 }
 
-export const useOnFormSubmit = ({survey, entryPoint, surveyId}: Params) => {
+export const useOnSurveyFormSubmit = ({
+  isFeedbackScreen,
+  isInBottomSheet,
+  survey,
+  entryPoint,
+  surveyId,
+}: Params) => {
   const navigation = useNavigation()
-  const [createSurvey, {isLoading}] = useCreateSurveyVersionEntryMutation()
+  const [createSurvey, {isError, isLoading, isSuccess}] =
+    useCreateSurveyVersionEntryMutation()
   const {setAlert} = useAlert()
   const trackException = useTrackException()
+  const {close} = useBottomSheet()
 
   const onSubmit = useCallback(
     (formData: Record<string, string | string[]>) => {
@@ -37,23 +48,39 @@ export const useOnFormSubmit = ({survey, entryPoint, surveyId}: Params) => {
         .unwrap()
         .then(
           () => {
-            setAlert(alerts.feedbackSuccess)
-            navigation.popToTop()
+            if (isInBottomSheet) {
+              close()
+            }
+
+            if (isFeedbackScreen) {
+              setAlert(alerts.feedbackSuccess)
+              navigation.goBack()
+            }
           },
           error => {
-            setAlert(alerts.feedbackFailed)
             trackException(
               ExceptionLogKey.surveySubmissionFailed,
-              'DynamicForm.tsx',
+              'useOnSurveyFormSubmit.ts',
               {error, surveyId},
             )
-            navigation.popToTop()
+
+            if (isInBottomSheet) {
+              close()
+            }
+
+            if (isFeedbackScreen) {
+              setAlert(alerts.feedbackFailed)
+              navigation.goBack()
+            }
           },
         )
     },
     [
+      close,
       createSurvey,
       entryPoint,
+      isFeedbackScreen,
+      isInBottomSheet,
       navigation,
       setAlert,
       survey,
@@ -62,5 +89,10 @@ export const useOnFormSubmit = ({survey, entryPoint, surveyId}: Params) => {
     ],
   )
 
-  return {onSubmit, createSurveyIsLoading: isLoading}
+  return {
+    onSubmit,
+    createSurveyIsError: isError,
+    createSurveyIsLoading: isLoading,
+    createSurveyIsSuccess: isSuccess,
+  }
 }

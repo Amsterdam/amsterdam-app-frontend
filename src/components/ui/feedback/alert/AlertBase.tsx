@@ -37,6 +37,9 @@ const Wrapper = ({children, inset}: WrapperProps) => {
   return <>{children}</>
 }
 
+/**
+ * Display alert messages to the user without being able to dismiss.
+ */
 export const AlertBase = ({
   accessibilityLabel,
   children,
