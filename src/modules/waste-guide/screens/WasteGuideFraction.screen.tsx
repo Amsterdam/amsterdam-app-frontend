@@ -2,6 +2,8 @@ import {useLayoutEffect} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Survey} from '@/modules/survey/exports/Survey'
 import {Fraction} from '@/modules/waste-guide/components/Fraction'
 import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
@@ -31,12 +33,15 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
 
   return (
     <Screen testID="WasteGuideFractionScreen">
-      <Box>
-        <Fraction
-          fraction={fraction}
-          testID="WasteGuideFraction"
-        />
-      </Box>
+      <Column gutter="lg">
+        <Box>
+          <Fraction
+            fraction={fraction}
+            testID="WasteGuideFraction"
+          />
+        </Box>
+        <Survey entryPoint="waste-guide-fraction-info" />
+      </Column>
     </Screen>
   )
 }
