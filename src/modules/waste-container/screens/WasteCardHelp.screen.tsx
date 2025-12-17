@@ -13,7 +13,7 @@ import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 
 type Props = NavigationProps<WasteContainerRouteName.wasteCardHelp>
 
-export const WasteCardHelpScreen = ({navigation: {navigate}}: Props) => (
+export const WasteCardHelpScreen = ({navigation}: Props) => (
   <Screen testID="WasteCardHelpScreen">
     <Box
       insetHorizontal="md"
@@ -38,7 +38,7 @@ export const WasteCardHelpScreen = ({navigation: {navigate}}: Props) => (
           </Column>
           <Button
             label="Opnieuw container openen"
-            onPress={() => navigate(WasteContainerRouteName.wasteCard)}
+            onPress={() => navigation.popTo(WasteContainerRouteName.wasteCard)}
             testID="WasteCardHelpScreenButton"
           />
         </Column>
@@ -59,7 +59,7 @@ export const WasteCardHelpScreen = ({navigation: {navigate}}: Props) => (
           <Button
             label="Doe een melding"
             onPress={() =>
-              navigate(ModuleSlug['report-problem'], {
+              navigation.navigate(ModuleSlug['report-problem'], {
                 screen: ReportProblemRouteName.reportProblem,
               })
             }

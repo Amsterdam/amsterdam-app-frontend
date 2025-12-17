@@ -1,25 +1,16 @@
 import {NavigationProps} from '@/app/navigation/types'
 import {Screen} from '@/components/features/screen/Screen'
-import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {CityPassBottomSheetVariant} from '@/modules/city-pass/bottomsheet/bottomsheetVariants'
 import {CityPasses} from '@/modules/city-pass/components/card-display/CityPasses'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
-import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
+import {useOpenSurveyOnBlur} from '@/modules/survey/exports/useOpenSurveyOnBlur'
 
 type Props = NavigationProps<CityPassRouteName.cityPasses>
 
 export const CityPassesScreen = ({route}: Props) => {
   const {index} = route.params || {}
-  const openSurveyBottomsheet = useOpenBottomsheetIfSurveyShouldShow(
-    'city-pass-show-pass',
-  )
 
-  useBlurEffect(() => {
-    setTimeout(
-      () => openSurveyBottomsheet(CityPassBottomSheetVariant.survey),
-      500,
-    )
-  })
+  useOpenSurveyOnBlur('city-pass-show-pass', CityPassBottomSheetVariant.survey)
 
   return (
     <Screen
