@@ -1,20 +1,21 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
 import {createRequire} from 'node:module'
+import path, {dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
-import path, {dirname} from 'path'
 import {StorybookConfig} from '@storybook/react-native-web-vite'
 import {mergeConfig} from 'vite'
+import alias from '../.config/alias.js'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 const require = createRequire(import.meta.url)
 
-const aliases = Object.entries(
-  require('../.config/alias.js') as Record<string, string>,
-).map(([find, replacement]) => ({
-  find,
-  replacement: path.resolve(__dirname, `.${replacement}`),
-}))
+const aliases = Object.entries(alias as Record<string, string>).map(
+  ([find, replacement]) => ({
+    find,
+    replacement: path.resolve(__dirname, `.${replacement}`),
+  }),
+)
 
 const config: StorybookConfig = {
   addons: [
@@ -49,6 +50,11 @@ const config: StorybookConfig = {
 
   viteFinal: viteConfig =>
     mergeConfig(viteConfig, {
+      build: {
+        commonjsOptions: {
+          transformMixedEsModules: true,
+        },
+      },
       resolve: {
         // this list is ordered: higher items are matched first
         alias: [
