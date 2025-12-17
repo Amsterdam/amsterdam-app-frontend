@@ -1,28 +1,23 @@
 import {useCallback} from 'react'
 import type {ClusterItem} from '@/components/features/map/types'
-import type {Region} from 'react-native-maps'
 import {ClusterMarker} from '@/components/features/map/clusters/ClusterMarker'
+import {useMap} from '@/components/features/map/hooks/useMap'
 import {Marker} from '@/components/features/map/marker/Marker'
 
-export const ClusterSwitch = ({
-  item,
-  onClusterPress,
-}: {
-  item: ClusterItem
-  onClusterPress?: (region: Region) => void
-}) => {
+export const ClusterSwitch = ({item}: {item: ClusterItem}) => {
+  const map = useMap()
   const handlePress = useCallback(() => {
     if ('cluster_id' in item.properties) {
       const {getExpansionRegion} = item.properties
       const clusterRegion = getExpansionRegion()
 
-      onClusterPress?.(clusterRegion)
+      map?.animateToRegion(clusterRegion)
 
       return
     }
 
     item.properties.onMarkerPress?.()
-  }, [item.properties, onClusterPress])
+  }, [item.properties, map])
 
   return (
     <Marker

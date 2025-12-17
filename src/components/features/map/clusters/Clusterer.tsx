@@ -13,7 +13,6 @@ import type {
 import type {MapMarkerProps, Region} from 'react-native-maps'
 import {ClusterSwitch} from '@/components/features/map/clusters/ClusterSwitch'
 import {AMSTERDAM_REGION} from '@/components/features/map/constants'
-import {useMap} from '@/components/features/map/hooks/useMap'
 
 export type ClustererProps = {
   clusterOptions?: Supercluster.Options<
@@ -32,7 +31,6 @@ export const Clusterer = ({
   clusterOptions,
 }: ClustererProps) => {
   const dimensions = useWindowDimensions()
-  const map = useMap()
 
   return (
     <RNClusterer
@@ -48,7 +46,6 @@ export const Clusterer = ({
               ? `cluster-${item.properties?.cluster_id}-${item.properties.point_count}`
               : `point-${item.properties?.id}`
           }
-          onClusterPress={clusterRegion => map?.animateToRegion(clusterRegion)}
         />
       )}
     />
