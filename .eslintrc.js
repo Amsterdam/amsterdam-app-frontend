@@ -37,6 +37,14 @@ module.exports = {
     {
       files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs'],
       rules: {
+        'sonarjs/no-misleading-array-reverse': 'off', // not (yet) supported in Hermes
+        'sonarjs/no-ignored-exceptions': 'off', // does not (yet) detect a correct catch implementation
+        'sonarjs/no-nested-conditional': 'off',
+        'sonarjs/todo-tag': 'off',
+        'sonarjs/no-selector-parameter': 'off',
+        'sonarjs/void-use': 'off',
+        'sonarjs/deprecation': 'off',
+        'sonarjs/function-return-type': 'off', // temporarily off because of the high number of hits
         'no-process-env': 'error',
         'depend/ban-dependencies': 'warn',
         '@typescript-eslint/no-empty-function': 'warn',
@@ -238,6 +246,7 @@ module.exports = {
         '@typescript-eslint/ban-ts-comment': 'off',
         'sonarjs/no-duplicate-string': 'off',
         '@typescript-eslint/no-magic-numbers': 'off',
+        'sonarjs/no-undefined-argument': 'off',
       },
     },
     // Storybook config folder and stories

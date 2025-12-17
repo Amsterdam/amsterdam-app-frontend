@@ -55,9 +55,17 @@ export const getParkingMachineDetailsLabel = (
     ? getPaymentZoneDayTimeSpan(startTimePaymentZoneDay)
     : undefined
 
-  return `${timeString ?? ''}${
-    parkingMachineDetails?.hourly_rate
-      ? `${timeString ? ', ' : ''}${parkingMachineDetails.hourly_rate} per uur`
-      : ''
-  }`
+  if (timeString) {
+    if (parkingMachineDetails?.hourly_rate) {
+      return `${timeString}, ${parkingMachineDetails.hourly_rate} per uur`
+    }
+
+    return timeString
+  }
+
+  if (parkingMachineDetails?.hourly_rate) {
+    return `${parkingMachineDetails.hourly_rate} per uur`
+  }
+
+  return ''
 }

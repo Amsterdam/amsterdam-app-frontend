@@ -95,7 +95,9 @@ describe('parseTextToComponentsForLinks', () => {
       {type: 'span', props: {}, children: [' and ']},
       {
         type: 'a',
+        // eslint-disable-next-line sonarjs/no-clear-text-protocols
         props: {href: 'http://www.another.com'},
+        // eslint-disable-next-line sonarjs/no-clear-text-protocols
         children: ['http://www.another.com'],
       },
       {type: 'span', props: {}, children: [' for more info.']},

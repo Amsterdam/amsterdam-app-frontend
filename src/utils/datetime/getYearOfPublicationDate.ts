@@ -1,7 +1,7 @@
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const getYearOfPublicationDate = (date: string | number) => {
-  if (date === null || date === undefined) {
+  if (!date) {
     return ''
   }
 

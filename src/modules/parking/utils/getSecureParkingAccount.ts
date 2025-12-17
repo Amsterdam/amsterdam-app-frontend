@@ -27,8 +27,10 @@ export const getSecureParkingAccount = async (
 
     if (Array.isArray(parsed)) {
       // Find the account with the matching reportCode
-      return (parsed as SecureParkingAccount[]).find(
-        item =>
+      return (
+        parsed as Array<SecureParkingAccount | null>
+      ).find<SecureParkingAccount>(
+        (item): item is SecureParkingAccount =>
           typeof item === 'object' &&
           item !== null &&
           'reportCode' in item &&

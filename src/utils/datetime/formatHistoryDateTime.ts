@@ -2,7 +2,7 @@ import {type Dayjs, dayjs} from '@/utils/datetime/dayjs'
 import {weekDays} from '@/utils/datetime/weekDays'
 
 export const formatHistoryDateTime = (date: string | number | Dayjs) => {
-  if (date === null || date === undefined || date === '') {
+  if (!date) {
     return ''
   }
 

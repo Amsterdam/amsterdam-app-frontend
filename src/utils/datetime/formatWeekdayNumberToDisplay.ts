@@ -41,6 +41,7 @@ const numbersAreConsecutive = (numbers: number[]) => {
     return true
   }
 
+  // eslint-disable-next-line sonarjs/reduce-initial-value
   return ([...numbers].sort((a, b) => a - b) as Array<number | false>).reduce(
     (acc, num) => {
       if (acc === false) {

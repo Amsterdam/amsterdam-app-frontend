@@ -20,7 +20,8 @@ export const groupParkingSessionsByDate = <
         ? 0
         : sortAscending
           ? compareParkingSessionsByStartDateTime(a, b)
-          : compareParkingSessionsByStartDateTime(b, a),
+          : // eslint-disable-next-line sonarjs/arguments-order
+            compareParkingSessionsByStartDateTime(b, a),
     )
     .reduce<Section<T>[]>((result, session) => {
       const date = session.dummy

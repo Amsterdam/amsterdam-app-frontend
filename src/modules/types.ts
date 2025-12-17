@@ -19,7 +19,7 @@ import {type PushNotification} from '@/types/notification'
 /**
  * The config properties that are shared between core and non-core modules.
  */
-type BaseModuleConfig = {
+export type CoreModuleConfig = {
   /**
    * The log dimension to log the enabled state of this module
    */
@@ -50,11 +50,6 @@ type BaseModuleConfig = {
 }
 
 /**
- * The complete configuration for a core module.
- */
-export type CoreModuleConfig = BaseModuleConfig
-
-/**
  * The client part of a non-core module’s configuration.
  */
 export type ModuleClientConfig<
@@ -62,7 +57,7 @@ export type ModuleClientConfig<
     string,
     unknown
   >,
-> = BaseModuleConfig & {
+> = CoreModuleConfig & {
   /**
    * A button on the home screen that leads to an action within the module.
    */

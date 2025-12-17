@@ -1,6 +1,6 @@
 import {useRef, useState} from 'react'
 import type MapView from 'react-native-maps'
-import {Map} from '@/components/features/map/Map'
+import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
 import {ControlVariant} from '@/components/features/map/types'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
@@ -48,7 +48,7 @@ export const PollingStationsMap = ({
   }
 
   return (
-    <Map
+    <MapBase
       controls={[ControlVariant.location]}
       initialRegion={region}
       onRegionChangeComplete={setRegion}
@@ -73,6 +73,6 @@ export const PollingStationsMap = ({
         }
         region={region}
       />
-    </Map>
+    </MapBase>
   )
 }

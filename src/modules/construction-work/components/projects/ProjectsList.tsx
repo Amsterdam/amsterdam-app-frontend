@@ -120,7 +120,7 @@ type Props = {
   noResultsMessage?: string
   onItemsPerRowChange?: FlatGridProps<ProjectsItem>['onItemsPerRowChange']
   onViewableItemsChanged?: FlatGridProps<ProjectsItem>['onViewableItemsChanged']
-  searchText?: string | undefined
+  searchText?: string
 }
 
 export const ProjectsList = ({

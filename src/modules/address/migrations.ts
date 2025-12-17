@@ -67,6 +67,7 @@ export const migrations: MigrationManifest = {
         huisnummer,
         postcode,
         straatnaam,
+        // eslint-disable-next-line sonarjs/different-types-comparison
       ].some(item => item === undefined)
     ) {
       return {} as PersistedState

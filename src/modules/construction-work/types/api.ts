@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/redundant-type-aliases */
+
 import {ProgressStatus} from '@/components/ui/progressSteps/types'
 import {
   AddressQueryArgs,

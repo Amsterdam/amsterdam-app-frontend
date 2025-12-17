@@ -1,11 +1,39 @@
+import {devError} from '@/processes/development'
+
 // Source: https://nl.wikipedia.org/wiki/Lijst_van_Nederlandse_netnummers
 const threeDigitAreaCodes = [
-  ...['010', '013', '014', '015'],
-  ...['020', '023', '024', '026'],
-  ...['030', '033', '035', '036', '038'],
-  ...['040', '043', '044', '045', '046'],
-  ...['050', '053', '055', '058'],
-  ...['070', '071', '072', '073', '074', '075', '076', '077', '078', '079'],
+  '010',
+  '013',
+  '014',
+  '015',
+  '020',
+  '023',
+  '024',
+  '026',
+  '030',
+  '033',
+  '035',
+  '036',
+  '038',
+  '040',
+  '043',
+  '044',
+  '045',
+  '046',
+  '050',
+  '053',
+  '055',
+  '058',
+  '070',
+  '071',
+  '072',
+  '073',
+  '074',
+  '075',
+  '076',
+  '077',
+  '078',
+  '079',
 ]
 
 /**
@@ -63,6 +91,7 @@ export const formatPhoneNumber = (phoneNumber: string): string | undefined => {
     }
   }
 
-  // TODO Log this as exception
+  devError(`Unformatted phone number: ${phoneNumber}`)
+
   return phoneNumber
 }
