@@ -25,6 +25,7 @@ export const useConfigConditionsPassed = (entryPoint: string) => {
     surveyParams &&
     minimum_actions &&
     surveyParams.actionCount >= minimum_actions
+  // eslint-disable-next-line sonarjs/pseudo-random
   const isRandomlySelected = fraction && Math.random() <= fraction
   const isConditionsPassed =
     isCooldownOver || isMinimumActionsMet || isRandomlySelected
