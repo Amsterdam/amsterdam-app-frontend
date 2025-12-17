@@ -39,10 +39,6 @@ export const addressSlice = createSlice({
       getLocationIsError: false,
     }),
     removeAddress: ({address: _address, ...rest}) => rest,
-    resetRecentAddresses: state => ({
-      ...state,
-      recentAddresses: initialState.recentAddresses,
-    }),
     requestLocationFetch: (
       state,
       {
@@ -89,7 +85,6 @@ export const {
   addLocation,
   removeAddress,
   requestLocationFetch,
-  resetRecentAddresses,
   setGetLocationIsError,
   setIsGettingLocation,
   setLocationType,
