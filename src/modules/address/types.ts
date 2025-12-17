@@ -55,6 +55,10 @@ export type AddressState = {
    * user preference for using location or address
    */
   locationType?: LocationType
+  /**
+   * A list of recently searched addresses
+   */
+  recentAddresses: Array<Address>
 }
 
 export type AddressList = Array<Address | BaseAddress>

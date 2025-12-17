@@ -89,26 +89,25 @@ export const StreetSearchResultForLocation = ({selectResult}: Props) => {
   const showNoResultsMessage = !hasResults && showFeedbackForNoResults
 
   return (
-    <Box insetTop="lg">
-      <Column gutter="sm">
-        {!!showTitle && (
-          <Title
-            level="h5"
-            text="Suggesties"
-          />
-        )}
-        {!!showNoResultsMessage && (
-          <EmptyMessage
-            showTitle={false}
-            testID="AddressNoSuggestionsMessage"
-            text="Geen suggesties gevonden voor uw huidige locatie."
-          />
-        )}
-        <AddressSearchSuggestions
-          addresses={addresses}
-          selectResult={selectResult}
+    <Column gutter="sm">
+      {!!showTitle && (
+        <Title
+          color="secondary"
+          level="h5"
+          text="Suggesties"
         />
-      </Column>
-    </Box>
+      )}
+      {!!showNoResultsMessage && (
+        <EmptyMessage
+          showTitle={false}
+          testID="AddressNoSuggestionsMessage"
+          text="Geen suggesties gevonden voor uw huidige locatie."
+        />
+      )}
+      <AddressSearchSuggestions
+        addresses={addresses}
+        selectResult={selectResult}
+      />
+    </Column>
   )
 }

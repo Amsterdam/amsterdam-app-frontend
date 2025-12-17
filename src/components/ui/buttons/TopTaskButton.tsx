@@ -14,6 +14,7 @@ import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 export type TopTaskButtonProps = {
   border?: boolean
+  flex?: number
   iconName: SvgIconName
   iconRightName?: SvgIconName
   iconRightSize?: IconProps['size']
@@ -23,7 +24,7 @@ export type TopTaskButtonProps = {
   isInternalLink?: boolean
   text?: ReactNode
   textAdditional?: string
-  title: string
+  title?: string
   titleIconName?: SvgIconName
 } & Omit<PressableProps, 'children' | 'style'>
 
@@ -78,12 +79,14 @@ export const TopTaskButton = ({
           grow={1}
           shrink={1}>
           <Row gutter="sm">
-            <Title
-              color="link"
-              level="h5"
-              testID={`${testID}Title`}
-              text={title}
-            />
+            {!!title && (
+              <Title
+                color="link"
+                level="h5"
+                testID={`${testID}Title`}
+                text={title}
+              />
+            )}
             {!!titleIconName && (
               <Icon
                 color="link"

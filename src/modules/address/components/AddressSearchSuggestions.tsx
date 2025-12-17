@@ -30,7 +30,7 @@ export const AddressSearchSuggestions = ({
           key={key}
           label={getSuggestionLabel(address, showNumbersOnly)}
           logging-label="AddressSearchResultButton"
-          selectResult={selectResult}
+          onPress={selectResult}
           testID={`AddressSearchResult${key}Button`}
         />
       )

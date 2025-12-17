@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {config} from '@/modules/address/config'
 import {
   Address,
   AddressState,
@@ -17,6 +18,7 @@ const initialState: AddressState = {
   locationFetchRequested: undefined,
   getLocationIsError: undefined,
   isGettingLocation: undefined,
+  recentAddresses: [],
 }
 
 export const addressSlice = createSlice({
@@ -26,6 +28,10 @@ export const addressSlice = createSlice({
     addAddress: (state, {payload: address}: PayloadAction<Address>) => ({
       ...state,
       address,
+      recentAddresses: [
+        address,
+        ...state.recentAddresses.filter(a => a.bagId !== address.bagId),
+      ].slice(0, config.maxRecentAddresses),
     }),
     addLocation: (state, {payload: location}: PayloadAction<Address>) => ({
       ...state,
@@ -99,6 +105,11 @@ export const selectHighAccuracyPurposeKey = (state: RootState) =>
   state[ReduxKey.address].highAccuracyPurposeKey
 export const selectIsGettingLocation = (state: RootState) =>
   state[ReduxKey.address].isGettingLocation
+
+export const selectRecentAddresses = (state: RootState) =>
+  state[ReduxKey.address].recentAddresses
+
+export const useRecentAddresses = () => useSelector(selectRecentAddresses)
 
 export const useAddress = () => useSelector(selectAddress)
 
