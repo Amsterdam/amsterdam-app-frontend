@@ -1,6 +1,5 @@
-import {useCallback, useMemo, useRef, useState, type ReactNode} from 'react'
+import {useCallback, useMemo, useState, type ReactNode} from 'react'
 import type {Region} from 'react-native-maps'
-import type MapView from 'react-native-maps'
 import {PermitMapContext} from '@/modules/parking/providers/PermitMap.context'
 import {type ParkingMachine} from '@/modules/parking/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -10,7 +9,6 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
     ParkingMachine['id'] | undefined
   >(undefined)
   const [region, setRegion] = useState<Region | undefined>()
-  const mapRef = useRef<MapView>(null)
 
   const {open} = useBottomSheet()
 
@@ -31,17 +29,6 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
     setRegion(newRegion)
   }, [])
 
-  const animateToCluster = useCallback(
-    (clusterRegion: Region) => {
-      if (!mapRef.current) {
-        return
-      }
-
-      mapRef.current.animateToRegion(clusterRegion)
-    },
-    [mapRef],
-  )
-
   const value = useMemo(
     () => ({
       region,
@@ -49,8 +36,6 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
       onSelectParkingMachine,
       resetSelectedParkingMachineId,
       selectedParkingMachineId: selectedMachineId,
-      animateToCluster,
-      mapRef,
     }),
     [
       selectedMachineId,
@@ -58,8 +43,6 @@ export const PermitMapProvider = ({children}: {children: ReactNode}) => {
       onSelectParkingMachine,
       changeRegion,
       region,
-      animateToCluster,
-      mapRef,
     ],
   )
 
