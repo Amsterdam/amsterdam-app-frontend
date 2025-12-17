@@ -33,12 +33,11 @@ const navigationParams: Record<
     title: 'Geef uw locatie door',
   },
   [Permissions.notifications]: {
-    iconName: 'alarm',
-    paragraph:
-      'Ga naar Instellingen en zet de Meldingen aan zodat u geen belangrijke informatie mist.',
+    iconName: 'bellOff',
+    paragraph: 'Ga naar Instellingen en zet de meldingen aan.',
     permission: Permissions.notifications,
-    screenTitle: 'Meldingen',
-    title: 'U ontvangt geen meldingen',
+    screenTitle: 'Pushmeldingen',
+    title: 'U ontvangt geen pushmeldingen',
   },
 }
 
