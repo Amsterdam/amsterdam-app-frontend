@@ -1,59 +1,43 @@
-import {ReactNode} from 'react'
-import {StyleSheet, View} from 'react-native'
-import {Pressable, type PressableProps} from '@/components/ui/buttons/Pressable'
+import {StyleSheet, View, type GestureResponderEvent} from 'react-native'
+import type {PressableBaseProps} from '@/components/ui/buttons/PressableBase'
+import {Pressable} from '@/components/ui/buttons/Pressable'
 import {FormField} from '@/components/ui/forms/FormField'
 import {MainAxisPosition} from '@/components/ui/layout/types'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
-import {usePiwikTrackCustomEventFromProps} from '@/processes/piwik/hooks/usePiwikTrackCustomEventFromProps'
-import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
 
 type Props = {
-  label: ReactNode
+  isSelected: boolean
+  label: string
   labelPosition?: MainAxisPosition
-  onValueChange: (checked: boolean) => void
-  value: boolean
-} & Omit<PressableProps, 'children' | 'onPress'>
+  onPress: (event: GestureResponderEvent) => void
+} & PressableBaseProps
 
 export const Checkbox = ({
   label,
   labelPosition = 'end',
-  logAction = PiwikAction.toggle,
-  logDimensions = {},
-  onValueChange,
-  value,
+  isSelected,
+  onPress,
   testID,
-  ...props
+  ...pressableProps
 }: Props) => {
   const styles = useThemable(createStyles)
 
-  const onPress = usePiwikTrackCustomEventFromProps({
-    ...props,
-    logAction,
-    logDimensions: {
-      ...logDimensions,
-      // new state is the inverse of value
-      [PiwikDimension.newState]: value ? 'unchecked' : 'checked',
-    },
-    onEvent: () => onValueChange(!value),
-    testID,
-  })
-
   return (
     <Pressable
+      {...pressableProps}
       accessibilityLanguage="nl-NL"
       accessibilityRole="checkbox"
-      accessibilityState={{selected: value}}
+      accessibilityState={{selected: isSelected}}
       onPress={onPress}
-      testID={testID}
-      {...props}>
+      testID={testID}>
       <FormField
         label={<Phrase>{label}</Phrase>}
         labelPosition={labelPosition}>
-        <View style={[styles.checkbox, value && styles.checked]}>
-          {!!value && (
+        <View style={[styles.checkbox, isSelected && styles.checked]}>
+          {!!isSelected && (
             <Icon
               color="inverse"
               name="check-mark"

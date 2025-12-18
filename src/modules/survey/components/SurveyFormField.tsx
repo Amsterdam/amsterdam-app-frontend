@@ -1,7 +1,4 @@
-import {useMemo} from 'react'
-import {CheckboxGroupControlled} from '@/components/ui/forms/CheckboxGroupControlled'
-import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
-import {RatingControlled} from '@/components/ui/forms/RatingControlled'
+import {OptionsControlled} from '@/components/ui/forms/OptionsControlled'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {SurveyConditionalFormField} from '@/modules/survey/components/SurveyConditionalFormField'
 import {QuestionType, type Question} from '@/modules/survey/types'
@@ -21,50 +18,40 @@ export const SurveyFormField = ({question}: SurveyFormFieldProps) => {
     value: c.text,
   }))
 
-  const ChoicesComponent = useMemo(() => {
-    if (question_type === QuestionType.checkbox) {
-      return CheckboxGroupControlled
-    }
-
-    if (question_type === QuestionType.radio) {
-      return RadioGroupControlled
-    }
-
-    if (question_type === QuestionType.rating) {
-      return RatingControlled
-    }
-
-    return () => null
-  }, [question_type])
-
   return (
     <SurveyConditionalFormField
       conditions={question.conditions}
       conditionsType={question.conditions_type}
       key={question.id}>
-      {(question_type === QuestionType.text ||
-        question_type === QuestionType.textarea) && (
+      {question_type === QuestionType.text ||
+      question_type === QuestionType.textarea ? (
         <TextInputField
+          hasClearButton={false}
           label={question.question_text}
           name={id.toString()}
-          numberOfLines={question.textarea_rows ?? undefined}
-          placeholder={question.default ?? ''}
+          numberOfLines={
+            question_type === QuestionType.textarea && question.textarea_rows
+              ? question.textarea_rows
+              : undefined
+          }
           rules={{
             required: required ? REQUIRED_MESSAGE : undefined,
           }}
           testID={testID}
         />
+      ) : (
+        <OptionsControlled
+          label={question.question_text}
+          name={id.toString()}
+          options={formattedChoices}
+          orientation={orientation}
+          rules={{
+            required: required ? REQUIRED_MESSAGE : undefined,
+          }}
+          testID={testID}
+          type={question_type}
+        />
       )}
-      <ChoicesComponent
-        label={question.question_text}
-        name={id.toString()}
-        options={formattedChoices}
-        orientation={orientation}
-        rules={{
-          required: required ? REQUIRED_MESSAGE : undefined,
-        }}
-        testID={testID}
-      />
     </SurveyConditionalFormField>
   )
 }

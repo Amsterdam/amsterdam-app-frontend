@@ -11,6 +11,7 @@ export enum QuestionType {
   checkbox = 'checkbox',
   radio = 'radio',
   rating = 'rating',
+  selection_buttons = 'selection_buttons',
   text = 'text',
   textarea = 'textarea',
 }

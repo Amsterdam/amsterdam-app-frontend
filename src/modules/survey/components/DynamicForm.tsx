@@ -18,7 +18,10 @@ type Props = {
 export const DynamicForm = ({entryPoint}: Props) => {
   const route = useRoute<UserRouteName>()
   const form = useForm()
-  const {handleSubmit} = form
+  const {
+    handleSubmit,
+    formState: {isDirty},
+  } = form
   const isInBottomSheet = useIsInBottomSheet()
   const isFeedbackScreen = route.name === UserRouteName.feedback
 
@@ -57,12 +60,14 @@ export const DynamicForm = ({entryPoint}: Props) => {
       <Box>
         <Column gutter="xl">
           <FormFields questions={survey?.latest_version.questions} />
-          <Button
-            isLoading={createSurveyIsLoading}
-            label="Verzenden"
-            onPress={handleSubmit(onSubmit)}
-            testID="DynamicFormSubmitButton"
-          />
+          {(!!isFeedbackScreen || !!isDirty) && (
+            <Button
+              isLoading={createSurveyIsLoading}
+              label="Verstuur"
+              onPress={handleSubmit(onSubmit)}
+              testID="DynamicFormSubmitButton"
+            />
+          )}
         </Column>
       </Box>
     </FormProvider>
