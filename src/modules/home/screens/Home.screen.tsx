@@ -59,6 +59,7 @@ export const HomeScreen = () => {
           variants={variantMap}
         />
       }
+      hasStickyAlert
       testID="HomeScreen">
       <Box grow>
         <ActionButtons />

@@ -49,6 +49,7 @@ export const useOnSurveyFormSubmit = ({
         .then(
           () => {
             if (isInBottomSheet) {
+              setAlert(alerts.feedbackSuccess)
               close()
             }
 
@@ -65,6 +66,7 @@ export const useOnSurveyFormSubmit = ({
             )
 
             if (isInBottomSheet) {
+              setAlert(alerts.feedbackFailed)
               close()
             }
 

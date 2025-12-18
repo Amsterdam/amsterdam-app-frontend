@@ -5,7 +5,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {RedirectKey} from '@/modules/redirects/types'
 import {Survey} from '@/modules/survey/exports/Survey'
 export const FeedbackScreen = () => (
-  <Screen testID="AboutFeedbackScreen">
+  <Screen
+    keyboardAware
+    testID="AboutFeedbackScreen">
     <Survey
       entryPoint="profile"
       FallbackComponent={<FallbackComponent />}

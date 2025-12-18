@@ -3,12 +3,12 @@ import {type TextInputProps} from 'react-native'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import type {RefObject} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
+import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
 import {
   TextInput,
   type TextInputSharedProps,
 } from '@/components/ui/forms/TextInput'
 import {Column} from '@/components/ui/layout/Column'
-import {Paragraph} from '@/components/ui/text/Paragraph'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
@@ -85,12 +85,11 @@ export const TextInputField = ({
                 numOfCharacters={(value as string).length}
               />
             )}
-            {!!error && (
-              <Paragraph
-                color="warning"
-                testID={`${testID}ErrorText`}>
-                {error.message}
-              </Paragraph>
+            {!!error?.message && (
+              <ErrorMessage
+                testID={`${testID}ErrorMessage`}
+                text={error.message}
+              />
             )}
           </Column>
         )
