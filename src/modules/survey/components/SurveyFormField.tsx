@@ -2,6 +2,7 @@ import {useMemo} from 'react'
 import {CheckboxGroupControlled} from '@/components/ui/forms/CheckboxGroupControlled'
 import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
 import {RatingControlled} from '@/components/ui/forms/RatingControlled'
+import {SelectionButtonsControlled} from '@/components/ui/forms/SelectionButtonsControlled'
 import {TextInputField} from '@/components/ui/forms/TextInputField'
 import {SurveyConditionalFormField} from '@/modules/survey/components/SurveyConditionalFormField'
 import {QuestionType, type Question} from '@/modules/survey/types'
@@ -22,6 +23,10 @@ export const SurveyFormField = ({question}: SurveyFormFieldProps) => {
   }))
 
   const ChoicesComponent = useMemo(() => {
+    if (question_type === QuestionType.selection_buttons) {
+      return SelectionButtonsControlled
+    }
+
     if (question_type === QuestionType.checkbox) {
       return CheckboxGroupControlled
     }

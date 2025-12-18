@@ -19,7 +19,7 @@ export const SelectionButtonsControlled = <
   TFieldValues extends FieldValues = FieldValues,
   TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  selectionButtons = [],
+  options = [],
   label,
   testID,
   ...controllerProps
@@ -34,8 +34,9 @@ export const SelectionButtonsControlled = <
       errorMessage={error?.message}
       label={label}
       onPress={onChange}
+      options={options}
+      required={!!controllerProps.rules?.required}
       selected={value}
-      selectionButtons={selectionButtons}
       testID={testID}
     />
   )
