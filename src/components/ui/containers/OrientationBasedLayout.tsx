@@ -12,7 +12,13 @@ export const OrientationBasedLayout = ({
   ...props
 }: OrientationBasedLayoutProps) =>
   orientation === LayoutOrientation.horizontal ? (
-    <Row {...props} />
+    <Row
+      gutter="sm"
+      {...props}
+    />
   ) : (
-    <Column {...props} />
+    <Column
+      gutter="md"
+      {...props}
+    />
   )

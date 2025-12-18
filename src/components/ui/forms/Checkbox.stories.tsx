@@ -1,4 +1,3 @@
-import {Text} from 'react-native'
 import {Checkbox} from './Checkbox'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 
@@ -13,8 +12,8 @@ export default {
 
 export const Default: StoryObj<typeof Checkbox> = {
   args: {
-    label: <Text>Ik ga akkoord met de voorwaarden</Text>,
+    label: 'Ik ga akkoord met de voorwaarden',
     labelPosition: 'end',
-    value: false,
+    isSelected: false,
   },
 }
