@@ -94,6 +94,7 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
           <Survey entryPoint="report-problem" />
         </BottomSheet>
       }
+      hasStickyAlert
       scroll={false}
       testID="ReportProblemWebViewScreen">
       <WebView

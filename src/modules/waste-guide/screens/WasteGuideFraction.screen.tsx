@@ -32,7 +32,9 @@ export const WasteGuideFractionScreen = ({navigation, route}: Props) => {
   }
 
   return (
-    <Screen testID="WasteGuideFractionScreen">
+    <Screen
+      keyboardAware
+      testID="WasteGuideFractionScreen">
       <Column gutter="lg">
         <Box>
           <Fraction

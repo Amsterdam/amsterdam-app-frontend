@@ -36,7 +36,6 @@ export type Question = {
   choices?: Choice[]
   conditions: Condition[]
   conditions_type?: ConditionType
-  default?: string | null
   description?: string | null
   id: number
   max_characters?: number

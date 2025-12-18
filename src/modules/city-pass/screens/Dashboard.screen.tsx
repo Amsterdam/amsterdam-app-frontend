@@ -32,6 +32,7 @@ export const DashboardScreen = ({navigation}: Props) => {
           variants={bottomsheetVariants}
         />
       }
+      hasStickyAlert
       testID="CityPassDashboardScreen">
       <AutomaticLogoutAlert />
       <PassOwners logout={logout} />
