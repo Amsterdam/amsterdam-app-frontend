@@ -8,7 +8,7 @@ import {parkingSlice, ParkingState} from '@/modules/parking/slice'
 import {logout} from '@/modules/parking/utils/logout'
 import {postProcessLinking} from '@/modules/parking/utils/postProcessLinking'
 import {ModuleSlug} from '@/modules/slugs'
-import {type ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
@@ -19,9 +19,7 @@ const persistWhitelist: (keyof ParkingState)[] = [
   'visitorVehicleId',
 ] as const
 
-export const parkingModule: ModuleClientConfig<{
-  reportCode?: string
-}> = {
+export const parkingModule = createClientModule({
   ActionButton: ParkingActionButton,
   bottomSheetVariantsHome: {
     [ParkingDashboardBottomSheetVariant.survey]:
@@ -47,4 +45,4 @@ export const parkingModule: ModuleClientConfig<{
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug.parking,
-}
+})

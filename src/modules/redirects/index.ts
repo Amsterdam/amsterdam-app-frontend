@@ -1,9 +1,9 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 
-export const redirectsModule: ModuleClientConfig = {
+export const redirectsModule = createClientModule({
   logDimension: PiwikSessionDimension.redirectsModule,
   name: 'RedirectsModule',
   slug: ModuleSlug.redirects,
-}
+})

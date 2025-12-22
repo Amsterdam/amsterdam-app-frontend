@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {CoreModuleConfig} from '@/modules/types'
+import {createCoreModule} from '@/modules/utils/createModule'
 
-export const userModule: CoreModuleConfig = {
+export const userModule = createCoreModule({
   name: 'UserModule',
   slug: ModuleSlug.user,
-}
+})

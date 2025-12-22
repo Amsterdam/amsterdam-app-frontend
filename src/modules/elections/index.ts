@@ -1,12 +1,9 @@
 import {pollingStationSvgIcons} from '@/modules/elections/constants'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 
-export const electionsModule: ModuleClientConfig<
-  Record<string, unknown>,
-  typeof pollingStationSvgIcons
-> = {
+export const electionsModule = createClientModule({
   name: 'ElectionsModule',
   slug: ModuleSlug.elections,
   icons: pollingStationSvgIcons,
-}
+})

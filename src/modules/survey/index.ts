@@ -1,9 +1,9 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {surveySlice} from '@/modules/survey/slice'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const surveyModule: ModuleClientConfig = {
+export const surveyModule = createClientModule({
   alwaysEnabled: true,
   hiddenInMenu: true,
   name: 'SurveyModule',
@@ -15,4 +15,4 @@ export const surveyModule: ModuleClientConfig = {
     },
   ],
   slug: ModuleSlug.survey,
-}
+})

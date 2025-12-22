@@ -1,6 +1,6 @@
 import {accessCodeSlice, AccessCodeState} from '@/modules/access-code/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {type CoreModuleConfig} from '@/modules/types'
+import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
 const persistWhitelist: (keyof AccessCodeState)[] = [
@@ -8,7 +8,7 @@ const persistWhitelist: (keyof AccessCodeState)[] = [
   'useBiometrics',
 ]
 
-export const accessCodeModule: CoreModuleConfig = {
+export const accessCodeModule = createCoreModule({
   name: 'AccessCodeModule',
   reduxConfigs: [
     {
@@ -19,4 +19,4 @@ export const accessCodeModule: CoreModuleConfig = {
     },
   ],
   slug: ModuleSlug['access-code'],
-}
+})
