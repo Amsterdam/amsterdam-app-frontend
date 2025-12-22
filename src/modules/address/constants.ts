@@ -1,0 +1,2 @@
+export const MAX_RECENT_ADDRESSES = 5
+export const ADDRESS_LENGTH_THRESHOLD = 3

@@ -1,6 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {config} from '@/modules/address/config'
+import {MAX_RECENT_ADDRESSES} from '@/modules/address/constants'
 import {
   Address,
   AddressState,
@@ -31,7 +31,7 @@ export const addressSlice = createSlice({
       recentAddresses: [
         address,
         ...state.recentAddresses.filter(a => a.bagId !== address.bagId),
-      ].slice(0, config.maxRecentAddresses),
+      ].slice(0, MAX_RECENT_ADDRESSES),
     }),
     addLocation: (state, {payload: location}: PayloadAction<Address>) => ({
       ...state,
