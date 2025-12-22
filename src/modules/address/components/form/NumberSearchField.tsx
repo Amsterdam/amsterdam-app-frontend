@@ -1,4 +1,4 @@
-import type {AddressSearchFields} from '@/modules/address/screens/ChooseAddress.screen'
+import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import type {RefObject} from 'react'
 import type {TextInput} from 'react-native'
 import {SearchFieldControlled} from '@/components/ui/forms/SearchFieldControlled'

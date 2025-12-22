@@ -1,5 +1,5 @@
 import {useFormContext} from 'react-hook-form'
-import type {AddressSearchFields} from '@/modules/address/screens/ChooseAddress.screen'
+import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 
