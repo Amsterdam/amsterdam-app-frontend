@@ -6,6 +6,7 @@ export const WasteGuideAddressSwitch = () => (
     highAccuracyPurposeKey={
       HighAccuracyPurposeKey.PreciseLocationAddressWasteGuide
     }
+    noAddressText="Voer een adres in om uw afvalinformatie te bekijken."
     testID="WasteGuideNoAddressAddressSwitch"
   />
 )
