@@ -7,7 +7,10 @@ import {
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType, type FC} from 'react'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
-import {type SvgIconName} from '@/components/ui/media/svgIcons'
+import {
+  type SvgIconConfig,
+  type SvgIconName,
+} from '@/components/ui/media/svgIcons'
 import {type ReduxDispatch} from '@/hooks/redux/types'
 import {type ModuleSlug} from '@/modules/slugs'
 import {type UserMenuSection} from '@/modules/user/types'
@@ -89,6 +92,10 @@ export type ModuleClientConfig<
    * Determines whether the module should be hidden on the home screen.
    */
   hiddenInMenu?: boolean
+  /**
+   * Module specific icons.
+   */
+  icons?: Record<string, SvgIconConfig>
   /**
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links

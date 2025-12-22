@@ -3,7 +3,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {PollingStationSvgIcons} from '@/modules/elections/constants'
+import {type PollingStationIconNames} from '@/modules/elections/constants'
 import {ElectionsCategory} from '@/modules/elections/types'
 
 type Props = {
@@ -23,7 +23,7 @@ const mapCategoryToLabel: Record<ElectionsCategory, string> = {
 
 const mapCategoryToIconName: Record<
   ElectionsCategory,
-  keyof typeof PollingStationSvgIcons
+  PollingStationIconNames
 > = {
   [ElectionsCategory.disabledParking]: 'disabledParking',
   [ElectionsCategory.hearingImpaired]: 'hearingImpaired',

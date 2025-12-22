@@ -1,5 +1,6 @@
-import {PollingStationSvgIcons} from '@/modules/elections/constants'
-import {fractionIconConfig} from '@/modules/waste-guide/constants'
+import type {WasteGuideIconNames} from '@/modules/waste-guide/types'
+import {type PollingStationIconNames} from '@/modules/elections/constants'
+import {allModules} from '@/modules/modules'
 
 export type SvgIconConfig = {
   /** SVG path */
@@ -8,7 +9,7 @@ export type SvgIconConfig = {
   viewBox?: string
 }
 
-const SystemSvgIcons = {
+export const SystemSvgIcons = {
   backspace: {
     path: 'M3.30599 16L10.866 7H29V25H10.866L3.30599 16Z M23.7279 11.7423L15.2426 20.2275 M15.2426 11.7431L23.7278 20.2284',
   },
@@ -21,7 +22,7 @@ const SystemSvgIcons = {
   },
 }
 
-const DesignSystemSvgIcons = {
+export const DesignSystemSvgIcons = {
   accessCode: {
     path: 'M2 8H4V4H20V8H22V2H2V8Z M5 10H1V14H5V10Z M11 10H7V14H11V10Z M13 10H17V14H13V10Z M23 10H19V14H23V10Z M2 22V16H4V20H20V16H22V22H2Z', // TODO: update once the icon is ready
     viewBox: '0 0 24 24',
@@ -362,27 +363,24 @@ const DesignSystemSvgIcons = {
   },
 }
 
-export const SvgIconsConfig = {
+type CoreIconNames =
+  | keyof typeof SystemSvgIcons
+  | keyof typeof DesignSystemSvgIcons
+
+// To preserve typing of all icon name keys (including module specific icons), add module specific icon names below
+type ModuleIconNames = PollingStationIconNames | WasteGuideIconNames
+
+export type SvgIconName = CoreIconNames | ModuleIconNames
+
+const moduleIcons =
+  (allModules?.reduce(
+    (icons, module) =>
+      'icons' in module && module.icons ? {...icons, ...module.icons} : icons,
+    {},
+  ) as Record<ModuleIconNames, SvgIconConfig>) || {}
+
+export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
   ...SystemSvgIcons,
-  ...PollingStationSvgIcons,
   ...DesignSystemSvgIcons,
-} satisfies Record<string, SvgIconConfig>
-
-export type SvgIconName = keyof typeof SvgIconsConfig
-
-export enum IconCategory {
-  designSystem = 'designSystem',
-  pollingStation = 'pollingStation',
-  system = 'system',
-  wasteGuide = 'wasteGuide',
-}
-
-export const ICONS_PER_CATEGORY: Record<
-  IconCategory,
-  Record<string, SvgIconConfig>
-> = {
-  [IconCategory.pollingStation]: PollingStationSvgIcons,
-  [IconCategory.wasteGuide]: fractionIconConfig,
-  [IconCategory.system]: SystemSvgIcons,
-  [IconCategory.designSystem]: DesignSystemSvgIcons,
+  ...moduleIcons,
 }

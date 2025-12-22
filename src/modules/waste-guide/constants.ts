@@ -1,9 +1,9 @@
+import type {SvgIconConfig} from '@/components/ui/media/svgIcons'
 import {FractionCode} from '@/modules/waste-guide/types'
 
-type IconConfig = {
+type IconConfig = SvgIconConfig & {
   color: string
   hasLightBackground?: boolean
-  path: string
 }
 
 export const fractionIconConfig: Partial<Record<FractionCode, IconConfig>> = {

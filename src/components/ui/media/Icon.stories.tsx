@@ -3,12 +3,36 @@ import {Column} from '../layout/Column'
 import {Row} from '../layout/Row'
 import {Phrase} from '../text/Phrase'
 import {Icon} from './Icon'
-import {SvgIconName, IconCategory, ICONS_PER_CATEGORY} from './svgIcons'
+import {
+  DesignSystemSvgIcons,
+  SvgIconName,
+  SystemSvgIcons,
+  type SvgIconConfig,
+} from './svgIcons'
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
+import {pollingStationSvgIcons} from '@/modules/elections/constants'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
+import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {Theme} from '@/themes/themes'
 import {lightColorTokens} from '@/themes/tokens/color-light'
+
+enum IconCategory {
+  designSystem = 'designSystem',
+  pollingStation = 'pollingStation',
+  system = 'system',
+  wasteGuide = 'wasteGuide',
+}
+
+const ICONS_PER_CATEGORY: Record<
+  IconCategory,
+  Record<string, SvgIconConfig>
+> = {
+  [IconCategory.pollingStation]: pollingStationSvgIcons,
+  [IconCategory.wasteGuide]: fractionIconConfig,
+  [IconCategory.system]: SystemSvgIcons,
+  [IconCategory.designSystem]: DesignSystemSvgIcons,
+}
 
 type Props = {
   category: IconCategory
