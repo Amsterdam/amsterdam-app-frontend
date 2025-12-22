@@ -4,7 +4,7 @@ import {
   WasteContainerEndpointName,
 } from '@/modules/waste-container/types'
 import {baseApi} from '@/services/baseApi'
-import {CacheLifetime, TimeOutDuration} from '@/types/api'
+import {CacheLifetime} from '@/types/api'
 
 export const wasteContainerApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -15,7 +15,6 @@ export const wasteContainerApi = baseApi.injectEndpoints({
       query: params => ({
         params,
         slug: DeviatingApiSlug.waste,
-        timeout: TimeOutDuration.long,
         url: '/container/pass-number',
       }),
       keepUnusedDataFor: CacheLifetime.day,
