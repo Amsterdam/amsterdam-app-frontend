@@ -8,7 +8,7 @@ import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {alerts} from '@/modules/address/alerts'
 import {NumberInput} from '@/modules/address/components/NumberInput'
 import {StreetInput} from '@/modules/address/components/StreetInput'
-import {config} from '@/modules/address/config'
+import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
 import {AddressModalName} from '@/modules/address/routes'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 import {addAddress} from '@/modules/address/slice'
@@ -30,7 +30,6 @@ export const AddressForm = () => {
   const address = `${street} ${number}`
 
   const inputStreetRef = useRef<TextInput | null>(null)
-  const {addressLengthThreshold} = config
 
   const navigation = useNavigation<AddressModalName>()
 
@@ -42,7 +41,7 @@ export const AddressForm = () => {
   } = useGetAddressSuggestionsQuery(
     {address, city, street: isStreetSelected ? street : undefined},
     {
-      skip: address?.length < addressLengthThreshold,
+      skip: address?.length < ADDRESS_LENGTH_THRESHOLD,
     },
   )
 

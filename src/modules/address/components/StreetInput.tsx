@@ -7,7 +7,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {StreetSearchResult} from '@/modules/address/components/StreetSearchResult'
 import {StreetSearchResultForLocation} from '@/modules/address/components/location/StreetSearchResultForLocation'
-import {config} from '@/modules/address/config'
+import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
 import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 
 type Props = {
@@ -33,8 +33,7 @@ export const StreetInput = ({
   selectResult,
   street,
 }: Props) => {
-  const {addressLengthThreshold} = config
-  const isBelowCharacterThreshold = street.length < addressLengthThreshold
+  const isBelowCharacterThreshold = street.length < ADDRESS_LENGTH_THRESHOLD
 
   return (
     <>
