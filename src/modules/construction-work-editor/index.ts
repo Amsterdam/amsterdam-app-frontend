@@ -2,11 +2,11 @@ import {messageDraftSlice} from '@/modules/construction-work-editor/messageDraft
 import {ConstructionWorkEditorRouteName} from '@/modules/construction-work-editor/routes'
 import {constructionWorkEditorSlice} from '@/modules/construction-work-editor/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const constructionWorkEditorModule: ModuleClientConfig = {
+export const constructionWorkEditorModule = createClientModule({
   requiresAuthorization: true,
   linking: {
     [ConstructionWorkEditorRouteName.authorizedProjects]:
@@ -27,4 +27,4 @@ export const constructionWorkEditorModule: ModuleClientConfig = {
     },
   ],
   slug: ModuleSlug['construction-work-editor'],
-}
+})

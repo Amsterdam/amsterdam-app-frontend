@@ -1,9 +1,9 @@
 import {onboardingSlice} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {type CoreModuleConfig} from '@/modules/types'
+import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const onboardingModule: CoreModuleConfig = {
+export const onboardingModule = createCoreModule({
   name: 'OnboardingModule',
   reduxConfigs: [
     {
@@ -20,4 +20,4 @@ export const onboardingModule: CoreModuleConfig = {
       },
     }),
   },
-}
+})

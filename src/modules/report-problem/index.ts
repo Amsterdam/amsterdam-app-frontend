@@ -1,10 +1,10 @@
 import {getFocusedRouteNameFromRoute} from '@react-navigation/native'
 import {ReportProblemRouteName} from '@/modules/report-problem/routes'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 
-export const reportProblemModule: ModuleClientConfig = {
+export const reportProblemModule = createClientModule({
   logDimension: PiwikSessionDimension.reportProblemModule,
   name: 'ReportProblemModule',
   slug: ModuleSlug['report-problem'],
@@ -16,4 +16,4 @@ export const reportProblemModule: ModuleClientConfig = {
       gestureEnabled: routeName !== ReportProblemRouteName.reportProblemWebView,
     }
   },
-}
+})

@@ -1,8 +1,8 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 
-export const burningGuideModule: ModuleClientConfig = {
+export const burningGuideModule = createClientModule({
   name: 'BurningGuideModule',
   slug: ModuleSlug['burning-guide'],
   requiresFirebaseToken: true,
-}
+})

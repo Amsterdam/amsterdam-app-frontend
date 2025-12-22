@@ -5,7 +5,7 @@ import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {logout} from '@/modules/city-pass/utils/logout'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
@@ -16,7 +16,7 @@ const persistWhitelist: (keyof CityPassState)[] = [
   'isAutomaticLogoutAlertDismissed',
 ]
 
-export const cityPassModule: ModuleClientConfig = {
+export const cityPassModule = createClientModule({
   ActionButton: CityPassActionButton,
   linking: {
     [CityPassRouteName.loginSteps]:
@@ -38,4 +38,4 @@ export const cityPassModule: ModuleClientConfig = {
   bottomSheetVariantsHome: {
     [CityPassBottomSheetVariant.survey]: CityPassSurveyBottomSheetContent,
   },
-}
+})

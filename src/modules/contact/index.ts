@@ -1,10 +1,10 @@
 import {contactSlice} from '@/modules/contact/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const contactModule: ModuleClientConfig = {
+export const contactModule = createClientModule({
   logDimension: PiwikSessionDimension.contactModule,
   name: 'ContactModule',
   reduxConfigs: [
@@ -15,4 +15,4 @@ export const contactModule: ModuleClientConfig = {
     },
   ],
   slug: ModuleSlug.contact,
-}
+})

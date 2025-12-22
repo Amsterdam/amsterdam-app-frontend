@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {CoreModuleConfig} from '@/modules/types'
+import {createCoreModule} from '@/modules/utils/createModule'
 
-export const homeModule: CoreModuleConfig = {
+export const homeModule = createCoreModule({
   name: 'HomeModule',
   screenOptions: {
     cardStyleInterpolator: ({current}) => ({
@@ -11,4 +11,4 @@ export const homeModule: CoreModuleConfig = {
     }),
   },
   slug: ModuleSlug.home,
-}
+})
