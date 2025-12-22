@@ -1,7 +1,7 @@
 import {useCallback} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import type {NavigationProps} from '@/app/navigation/types'
-import type {Address, AddressCity, BaseAddress} from '@/modules/address/types'
+import type {Address, AddressCity} from '@/modules/address/types'
 import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -20,7 +20,6 @@ import {addAddress} from '@/modules/address/slice'
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 
 export type AddressSearchFields = {
-  address: Address | BaseAddress
   city: AddressCity | undefined
   number: string
   street: string
@@ -49,6 +48,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
   return (
     <Screen
       hasStickyAlert
+      keyboardAware
       testID="ChooseAddressScreen">
       <Box grow>
         <Column gutter="md">
