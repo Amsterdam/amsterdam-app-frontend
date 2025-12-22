@@ -361,11 +361,11 @@ export const DesignSystemSvgIcons = {
   },
 }
 
-const moduleIcons = (clientModules
-  ?.flatMap(module => ('icons' in module ? module.icons : []))
-  .reduce((acc, icons) => ({...acc, ...icons}), {}) || {}) as MergeIconNames<
-  (typeof clientModules)[number]['icons']
->
+const moduleIcons = (clientModules?.reduce(
+  (icons, module) =>
+    'icons' in module && module.icons ? {...icons, ...module.icons} : icons,
+  {},
+) ?? {}) as MergeIconNames<(typeof clientModules)[number]['icons']>
 
 type MergeIconNames<T extends object | undefined | void> = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
