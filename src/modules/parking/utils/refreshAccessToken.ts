@@ -6,7 +6,6 @@ import {ParkingEndpointName, ParkingPermitScope} from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
-import {alertSlice} from '@/store/slices/alert'
 import {type RootState} from '@/store/types/rootState'
 
 export const refreshAccessToken = (
@@ -68,13 +67,18 @@ export const refreshAccessToken = (
               alerts.loginAccountInactiveFailed,
             )
             devError(
-              'Token refresh failed, because user is inactive, you are now logged out',
+              'Token refresh failed, because account is inactive, you are now logged out',
             )
           } else if (status === 401 && data?.code === 'SSP_ACCOUNT_BLOCKED') {
-            dispatch(
-              alertSlice.actions.setAlert(alerts.loginAccountBlockedFailed),
+            void logout(
+              false,
+              dispatch,
+              state,
+              alerts.loginAccountBlockedFailed,
             )
-            devError('Token refresh failed, because user is blocked')
+            devError(
+              'Token refresh failed, because account is blocked, you are now logged out',
+            )
           }
 
           failRetry('Refresh failed')
