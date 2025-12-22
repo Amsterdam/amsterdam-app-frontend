@@ -49,6 +49,12 @@ export const ParkingDashboardScreen = ({route}: Props) => {
     return (
       <Screen
         bottomSheet={!headerShown}
+        hasStickyAlert
+        headerOptions={{
+          disableHorizontalInsets: true,
+          SideComponent: DashboardHeaderButton,
+        }}
+        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
         <PleaseWait testID="ParkingDashboardScreenPleaseWait" />
       </Screen>
@@ -59,8 +65,16 @@ export const ParkingDashboardScreen = ({route}: Props) => {
     return (
       <Screen
         bottomSheet={!headerShown}
+        hasStickyAlert
+        headerOptions={{
+          disableHorizontalInsets: true,
+          SideComponent: DashboardHeaderButton,
+        }}
+        stickyHeader={<DashboardMenu />}
         testID="ParkingDashboardScreen">
-        <SomethingWentWrong testID="ParkingDashboardScreenSomethingWentWrong" />
+        <Box>
+          <SomethingWentWrong testID="ParkingDashboardScreenSomethingWentWrong" />
+        </Box>
       </Screen>
     )
   }

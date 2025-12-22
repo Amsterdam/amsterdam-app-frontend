@@ -1,10 +1,12 @@
 import {type ReduxDispatch} from '@/hooks/redux/types'
+import {alerts} from '@/modules/parking/alerts'
 import {parkingApi} from '@/modules/parking/service'
 import {parkingSlice} from '@/modules/parking/slice'
 import {ParkingEndpointName, ParkingPermitScope} from '@/modules/parking/types'
 import {getSecureParkingAccount} from '@/modules/parking/utils/getSecureParkingAccount'
 import {logout} from '@/modules/parking/utils/logout'
 import {devLog, devError} from '@/processes/development'
+import {alertSlice} from '@/store/slices/alert'
 import {type RootState} from '@/store/types/rootState'
 
 export const refreshAccessToken = (
@@ -55,7 +57,24 @@ export const refreshAccessToken = (
         ({data, status}: {data?: {code?: string}; status?: number}) => {
           if (status === 401 && data?.code === 'SSP_BAD_CREDENTIALS') {
             void logout(false, dispatch, state)
-            devError('Token refresh failed, you are now logged out')
+            devError(
+              'Token refresh failed, because of bad credentials, you are now logged out',
+            )
+          } else if (status === 401 && data?.code === 'SSP_ACCOUNT_INACTIVE') {
+            void logout(
+              false,
+              dispatch,
+              state,
+              alerts.loginAccountInactiveFailed,
+            )
+            devError(
+              'Token refresh failed, because user is inactive, you are now logged out',
+            )
+          } else if (status === 401 && data?.code === 'SSP_ACCOUNT_BLOCKED') {
+            dispatch(
+              alertSlice.actions.setAlert(alerts.loginAccountBlockedFailed),
+            )
+            devError('Token refresh failed, because user is blocked')
           }
 
           failRetry('Refresh failed')
