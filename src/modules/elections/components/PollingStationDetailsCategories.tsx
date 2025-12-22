@@ -1,9 +1,9 @@
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
-import {PollingStationSvgIcons} from '@/components/ui/media/svgIcons'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
+import {PollingStationSvgIcons} from '@/modules/elections/constants'
 import {ElectionsCategory} from '@/modules/elections/types'
 
 type Props = {
