@@ -60,6 +60,7 @@ export type ModuleClientConfig<
     string,
     unknown
   >,
+  Icons extends Record<string, SvgIconConfig> | void = void,
 > = CoreModuleConfig & {
   /**
    * A button on the home screen that leads to an action within the module.
@@ -95,7 +96,7 @@ export type ModuleClientConfig<
   /**
    * Module specific icons.
    */
-  icons?: Record<string, SvgIconConfig>
+  icons?: Icons
   /**
    * The module's deeplink configuration.
    * @see https://reactnavigation.org/docs/configuring-links

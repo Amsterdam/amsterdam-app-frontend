@@ -80,7 +80,7 @@ export const createLinking = (
 
     if (state) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      clientModules.forEach((module: ModuleClientConfig<any>) => {
+      clientModules.forEach((module: ModuleClientConfig<any, any>) => {
         if (typeof module.postProcessLinking === 'function') {
           const result = module.postProcessLinking(state, dispatch, getState)
 

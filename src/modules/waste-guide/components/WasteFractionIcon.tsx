@@ -1,7 +1,10 @@
 import {View} from 'react-native'
 import {Circle, Path, Svg} from 'react-native-svg'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {fractionIconConfig} from '@/modules/waste-guide/constants'
+import {
+  fractionIconConfig,
+  type IconConfig,
+} from '@/modules/waste-guide/constants'
 import {FractionCode} from '@/modules/waste-guide/types'
 import {sizeTokens, SizeTokens} from '@/themes/tokens/size'
 import {useTheme} from '@/themes/useTheme'
@@ -11,6 +14,10 @@ export type WasteFractionIconProps = {
   size?: keyof SizeTokens['waste']['fractionIcon']
 }
 
+const iconConfig = fractionIconConfig as Partial<
+  Record<FractionCode, IconConfig>
+>
+
 export const WasteFractionIcon = ({
   fractionCode,
   size = 'md',
@@ -19,11 +26,11 @@ export const WasteFractionIcon = ({
   const {fontScale} = useDeviceContext()
   const scaledSize = sizeTokens.waste.fractionIcon[size] * fontScale
 
-  if (!fractionIconConfig[fractionCode]) {
+  if (!iconConfig[fractionCode]) {
     return <View style={{height: scaledSize, width: scaledSize}} />
   }
 
-  const {color, hasLightBackground, path} = fractionIconConfig[fractionCode]
+  const {color, hasLightBackground, path} = iconConfig[fractionCode]
 
   return (
     <Svg

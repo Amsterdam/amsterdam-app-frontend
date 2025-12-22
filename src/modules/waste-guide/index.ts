@@ -6,7 +6,10 @@ import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const wasteGuideModule: ModuleClientConfig = {
+export const wasteGuideModule: ModuleClientConfig<
+  Record<string, unknown>,
+  typeof fractionIconConfig
+> = {
   logDimension: PiwikSessionDimension.wasteGuideModule,
   name: 'WasteGuideModule',
   reduxConfigs: [

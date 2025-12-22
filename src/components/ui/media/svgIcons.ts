@@ -1,6 +1,4 @@
-import type {WasteGuideIconNames} from '@/modules/waste-guide/types'
-import {type PollingStationIconNames} from '@/modules/elections/constants'
-import {allModules} from '@/modules/modules'
+import {clientModules} from '@/modules/modules'
 
 export type SvgIconConfig = {
   /** SVG path */
@@ -363,24 +361,21 @@ export const DesignSystemSvgIcons = {
   },
 }
 
-type CoreIconNames =
-  | keyof typeof SystemSvgIcons
-  | keyof typeof DesignSystemSvgIcons
+const moduleIcons = (clientModules
+  ?.flatMap(module => ('icons' in module ? module.icons : []))
+  .reduce((acc, icons) => ({...acc, ...icons}), {}) || {}) as MergeIconNames<
+  (typeof clientModules)[number]['icons']
+>
 
-// To preserve typing of all icon name keys (including module specific icons), add module specific icon names below
-type ModuleIconNames = PollingStationIconNames | WasteGuideIconNames
+type MergeIconNames<T extends object | undefined | void> = {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [k in T extends any ? keyof T : never]: SvgIconConfig
+}
 
-export type SvgIconName = CoreIconNames | ModuleIconNames
-
-const moduleIcons =
-  (allModules?.reduce(
-    (icons, module) =>
-      'icons' in module && module.icons ? {...icons, ...module.icons} : icons,
-    {},
-  ) as Record<ModuleIconNames, SvgIconConfig>) || {}
-
-export const SvgIconsConfig: Record<SvgIconName, SvgIconConfig> = {
+export const SvgIconsConfig = {
   ...SystemSvgIcons,
   ...DesignSystemSvgIcons,
   ...moduleIcons,
-}
+} satisfies Record<string, SvgIconConfig>
+
+export type SvgIconName = keyof typeof SvgIconsConfig
