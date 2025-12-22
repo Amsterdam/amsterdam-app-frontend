@@ -1,7 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {createClientModule} from '@/modules/utils/createModule'
+import {createCoreModule} from '@/modules/utils/createModule'
 
-export const homeModule = createClientModule({
+export const homeModule = createCoreModule({
   name: 'HomeModule',
   screenOptions: {
     cardStyleInterpolator: ({current}) => ({

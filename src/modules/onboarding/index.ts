@@ -1,9 +1,9 @@
 import {onboardingSlice} from '@/modules/onboarding/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {createClientModule} from '@/modules/utils/createModule'
+import {createCoreModule} from '@/modules/utils/createModule'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const onboardingModule = createClientModule({
+export const onboardingModule = createCoreModule({
   name: 'OnboardingModule',
   reduxConfigs: [
     {
