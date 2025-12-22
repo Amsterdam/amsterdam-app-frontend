@@ -12,6 +12,8 @@ export enum FractionCode {
   Textiel = 'Textiel',
 }
 
+export type WasteGuideIconNames = keyof typeof FractionCode
+
 export type Contract = {
   [bagNummeraanduidingId: string]: {hasContract: boolean}
 }

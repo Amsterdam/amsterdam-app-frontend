@@ -1,11 +1,15 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {ModuleClientConfig} from '@/modules/types'
+import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {wasteGuideSlice} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const wasteGuideModule: ModuleClientConfig = {
+export const wasteGuideModule: ModuleClientConfig<
+  Record<string, unknown>,
+  typeof fractionIconConfig
+> = {
   logDimension: PiwikSessionDimension.wasteGuideModule,
   name: 'WasteGuideModule',
   reduxConfigs: [
@@ -20,4 +24,5 @@ export const wasteGuideModule: ModuleClientConfig = {
   linking: {
     [WasteGuideRouteName.wasteGuide]: '/afval/afvalinformatie/',
   },
+  icons: fractionIconConfig,
 }
