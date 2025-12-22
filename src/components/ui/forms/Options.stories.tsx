@@ -4,6 +4,9 @@ import {LayoutOrientation} from '@/components/ui/types'
 import {QuestionType} from '@/modules/survey/types'
 
 const meta: Meta<typeof Options> = {
+  argTypes: {
+    onChange: {action: 'onChange'},
+  },
   component: Options,
 }
 
@@ -44,6 +47,7 @@ export const Rating: Story = {
     orientation: LayoutOrientation.horizontal,
     label: 'Rating Options',
     testID: 'ratingButton',
+    value: '2',
   },
 }
 

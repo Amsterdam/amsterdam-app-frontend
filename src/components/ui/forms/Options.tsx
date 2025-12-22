@@ -108,35 +108,46 @@ export const Options = <T extends Value>({
         {...(type === QuestionType.radio ? {gutter: 'md'} : {})} // This is the only type that needs more spacing between horizontal items
         orientation={orientation}
         wrap>
-        {options.map(({label: optionLabel, value: optionValue}, index) => {
-          const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
-          const isSelected =
-            value === optionValue ||
-            (Array.isArray(value) && value.includes(optionValue))
+        {options.map(
+          ({label: optionLabel, value: optionValue}, index, allOptions) => {
+            const logName = `${testID}${useOptionValuesForLogging ? optionValue.toString() : index}RadioButton`
 
-          return (
-            <Option
-              isSelected={isSelected}
-              key={optionLabel}
-              label={optionLabel}
-              logging-label={logName}
-              logName={logName}
-              onPress={() =>
-                onPress(
-                  optionValue,
-                  useOptionValuesForLogging
-                    ? {
-                        dimensions: {
-                          [PiwikDimension.newState]: optionValue.toString(),
-                        },
-                      }
-                    : {},
-                )
-              }
-              testID={`${testID}${optionValue.toString()}RadioButton`}
-            />
-          )
-        })}
+            const isRatingValueHigherThanCurrent =
+              type === QuestionType.rating &&
+              !!value &&
+              allOptions
+                .slice(index)
+                .some(({value: nextOptionValue}) => nextOptionValue === value)
+
+            const isSelected =
+              value === optionValue ||
+              (Array.isArray(value) && value.includes(optionValue)) ||
+              isRatingValueHigherThanCurrent
+
+            return (
+              <Option
+                isSelected={isSelected}
+                key={optionLabel}
+                label={optionLabel}
+                logging-label={logName}
+                logName={logName}
+                onPress={() =>
+                  onPress(
+                    optionValue,
+                    useOptionValuesForLogging
+                      ? {
+                          dimensions: {
+                            [PiwikDimension.newState]: optionValue.toString(),
+                          },
+                        }
+                      : {},
+                  )
+                }
+                testID={`${testID}${optionValue.toString()}RadioButton`}
+              />
+            )
+          },
+        )}
       </OrientationBasedLayout>
       {!!errorMessage && (
         <ErrorMessage
