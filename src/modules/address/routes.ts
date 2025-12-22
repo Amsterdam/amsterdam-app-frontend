@@ -13,11 +13,11 @@ export type AddressStackParams = {
 }
 
 export enum AddressModalName {
-  addressForm = 'AddressForm',
+  myAddressForm = 'MyAddressForm',
   privacyInfo = 'PrivacyInfo',
 }
 
 export type AddressModalParams = {
-  [AddressModalName.addressForm]: undefined
+  [AddressModalName.myAddressForm]: undefined
   [AddressModalName.privacyInfo]: undefined
 }

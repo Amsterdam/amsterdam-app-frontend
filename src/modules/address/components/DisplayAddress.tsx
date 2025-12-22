@@ -66,7 +66,7 @@ export const DisplayAddress = () => {
             logName={
               address?.addressLine1 ? 'AddressChangeButton' : 'AddressAddButton'
             }
-            onPress={() => navigation.navigate(AddressModalName.addressForm)}
+            onPress={() => navigation.navigate(AddressModalName.myAddressForm)}
             testID="AddressAddButton"
             text={address?.addressLine1 ?? 'Vul een adres in'}
             title="Mijn adres"

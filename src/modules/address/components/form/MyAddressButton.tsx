@@ -18,7 +18,7 @@ export const MyAddressButton = ({testID}: TestProps) => {
     setLocationType('address')
 
     if (!address) {
-      navigate(AddressModalName.addressForm)
+      navigate(AddressModalName.myAddressForm)
 
       return
     }

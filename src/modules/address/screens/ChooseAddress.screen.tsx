@@ -1,3 +1,4 @@
+import {useCallback} from 'react'
 import {FormProvider, useForm} from 'react-hook-form'
 import type {NavigationProps} from '@/app/navigation/types'
 import type {Address, AddressCity, BaseAddress} from '@/modules/address/types'
@@ -5,11 +6,16 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 
+import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useDispatch} from '@/hooks/redux/useDispatch'
 import {AddressForm} from '@/modules/address/components/AddressForm'
+import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
 
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressRouteName} from '@/modules/address/routes'
+import {addAddress} from '@/modules/address/slice'
 
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 
@@ -22,99 +28,29 @@ export type AddressSearchFields = {
 
 export const ChooseAddressScreen = ({route}: Props) => {
   const {highAccuracyPurposeKey} = route.params ?? {}
-  // const dispatch = useDispatch()
-  // const address = useAddress()
-  // const setLocationType = useSetLocationType()
-  // const {navigate, goBack} = useNavigation()
-  // const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
-  //   Permissions.location,
-  // )
+  const dispatch = useDispatch()
+  const setLocationType = useSetLocationType()
+  const {goBack} = useNavigation()
 
-  // const {requestPermission} = usePermission(Permissions.location)
-  // const {startLocationFetch} = useRequestLocationFetch(highAccuracyPurposeKey)
+  const onPressRecentAddress = useCallback(
+    (newAddress: Address) => {
+      setLocationType('address')
 
-  // const onPressAddressButton = useCallback(
-  //   (newAddress?: Address) => {
-  //     setLocationType('address')
+      dispatch(addAddress(newAddress))
 
-  //     if (!address && !newAddress) {
-  //       navigate(AddressModalName.addressForm)
-
-  //       return
-  //     }
-
-  //     if (newAddress) {
-  //       dispatch(addAddress(newAddress))
-  //     }
-
-  //     goBack()
-  //   },
-  //   [setLocationType, address, goBack, navigate, dispatch],
-  // )
-
-  // const onPressLocationButton = useCallback(async () => {
-  //   const permission = await requestPermission()
-
-  //   startLocationFetch()
-
-  //   if (!permission) {
-  //     navigateToInstructionsScreen()
-
-  //     return
-  //   }
-
-  //   setLocationType('location')
-
-  //   goBack()
-  // }, [
-  //   goBack,
-  //   startLocationFetch,
-  //   navigateToInstructionsScreen,
-  //   requestPermission,
-  //   setLocationType,
-  // ])
+      goBack()
+    },
+    [setLocationType, goBack, dispatch],
+  )
 
   const searchForm = useForm<AddressSearchFields>()
-  const isSearching = searchForm.watch('street')
+  const isSearching = searchForm.watch('street')?.length
 
   return (
     <Screen
       hasStickyAlert
       testID="ChooseAddressScreen">
       <Box grow>
-        {/* // <Column gutter="lg">
-        //   <Column gutter="md">
-        //     <Row align="between">
-        //       <AddressTopTaskButton
-        //         logName={`BottomSheetAddAddressButton${address?.addressLine1 ? 'SelectAddress' : 'AddAddress'}`}
-        //         onPress={() => onPressAddressButton()}
-        //         testID="ChooseAddressScreenSelectAddressButton"
-        //       />
-        //       {!!address && (
-        //         <Button
-        //           label="Wijzig"
-        //           onPress={() => {
-        //             navigate(ModuleSlug.address, {
-        //               screen: AddressRouteName.address,
-        //             })
-
-        //             setLocationType('address')
-        //           }}
-        //           small
-        //           testID="ChooseAddressScreenChangeAddressButton"
-        //           variant="tertiary"
-        //         />
-        //       )}
-        //     </Row>
-
-        //     <LocationTopTaskButton
-        //       highAccuracyPurposeKey={highAccuracyPurposeKey}
-        //       onPress={onPressLocationButton}
-        //       testID="ChooseAddressScreenSelectLocationButton"
-        //     />
-        //   </Column>
-        //   <RecentAddresses onPress={onPressAddressButton} />
-        // */}
         <Column gutter="md">
           <FormProvider {...searchForm}>
             <AddressForm />
@@ -128,6 +64,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
                 highAccuracyPurposeKey={highAccuracyPurposeKey}
                 testID="ChooseAddressScreenLocationTopTaskButton"
               />
+              <RecentAddresses onPress={onPressRecentAddress} />
             </>
           )}
         </Column>
