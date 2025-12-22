@@ -163,7 +163,7 @@
     "react-native-svg-web": "^1.0.9",
     "react-native-web": "^0.20.0",
     "react-test-renderer": "19.0.0",
-    "storybook": "10.0.8",
+    "storybook": "10.1.10",
     "ts-node": "^10.9.2",
     "tsc-files": "^1.1.4",
     "typescript": "5.8.3",
