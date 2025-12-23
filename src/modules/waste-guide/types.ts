@@ -57,9 +57,12 @@ export type WasteGuideResponse = {
   waste_types: WasteType[]
 }
 
-export type WasteGuideNotificationSettings = {
-  bag_nummeraanduiding_id: string
-  created_at: string
-  device_id: string
-  updated_at: string
-}
+export type WasteGuideNotificationSettings =
+  | {
+      message: string
+      status: 'error'
+    }
+  | {
+      message: never
+      status: 'success'
+    }

@@ -39,7 +39,7 @@ export const WasteGuideNotificationToggleBox = () => {
         disabled={isLoading}
         onChange={onChange}
         testID="WasteGuideNotificationSwitch"
-        value={!!isSuccess && !!data}
+        value={!!isSuccess && data.status === 'success'}
       />
     </Box>
   )

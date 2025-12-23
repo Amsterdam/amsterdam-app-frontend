@@ -59,7 +59,7 @@ export const wasteGuideApi = baseApi.injectEndpoints({
       query: bag_nummeraanduiding_id => ({
         body: {bag_nummeraanduiding_id},
         slug: DeviatingApiSlug.waste,
-        url: '/guide/notification',
+        url: '/guide/notifications',
         headers: deviceIdHeader,
         method: 'POST',
       }),
