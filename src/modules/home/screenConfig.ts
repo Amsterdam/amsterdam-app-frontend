@@ -29,7 +29,7 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const homeModals: StackNavigationRoutes<HomeModalParams> = {
+export const modals: StackNavigationRoutes<HomeModalParams> = {
   [HomeModalName.permissionInstructions]: {
     component: PermissionInstructionsScreen,
     name: HomeModalName.permissionInstructions,

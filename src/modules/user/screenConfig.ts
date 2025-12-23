@@ -89,4 +89,4 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const userModals: StackNavigationRoutes<UserModalParams> = {}
+export const modals: StackNavigationRoutes<UserModalParams> = {}

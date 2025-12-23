@@ -28,4 +28,4 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const contactModals: StackNavigationRoutes<ContactModalParams> = {}
+export const modals: StackNavigationRoutes<ContactModalParams> = {}

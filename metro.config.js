@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const {mergeConfig} = require('@react-native/metro-config')
 const {getDefaultConfig} = require('expo/metro-config')
 
@@ -26,6 +27,27 @@ const config = {
   resolver: {
     assetExts: defaultAssetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...defaultSourceExts, ...defaultAdditionalExts, 'svg'],
+  },
+
+  server: {
+    enhanceMiddleware: (metroMiddleware, metroServer) => {
+      /* CodeGen watcher start */
+      const {execFile} = require('node:child_process')
+
+      try {
+        // eslint-disable-next-line sonarjs/no-os-command-from-path
+        execFile('node', ['nodescripts/codegen.watch.mts'], {
+          stdio: 'inherit',
+          cwd: process.cwd(),
+        })
+        console.log('Started CodeGen watcher.')
+      } catch (error) {
+        console.error('Failed to start CodeGen watcher:', error)
+      }
+
+      /* CodeGen watcher end */
+      return metroMiddleware
+    },
   },
 }
 
