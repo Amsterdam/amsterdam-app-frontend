@@ -8,6 +8,7 @@ export type TransactionItemProps = {
   amountFormatted: string
   description?: string
   id: string
+  provider?: string
   title: string
 }
 
@@ -16,6 +17,7 @@ export const TransactionItem = ({
   amountFormatted,
   description,
   title,
+  provider,
 }: TransactionItemProps) => (
   <Column>
     <Row
@@ -34,6 +36,7 @@ export const TransactionItem = ({
         {amountFormatted}
       </Phrase>
     </Row>
+    {!!provider && <Paragraph>{provider}</Paragraph>}
     {!!description && <Paragraph>{description}</Paragraph>}
   </Column>
 )
