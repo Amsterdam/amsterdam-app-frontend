@@ -14,7 +14,6 @@ export type AddressFragmentState = {
  */
 export const createAddressFragment = (key: ReduxKey) => {
   const addAddress = createAction<Address>(`${key}/addAddress`)
-  const removeAddress = createAction(`${key}/removeAddress`)
   const setLocationType = createAction<{locationType: LocationType}>(
     `${key}/setLocationType`,
   )
@@ -25,9 +24,6 @@ export const createAddressFragment = (key: ReduxKey) => {
       action: PayloadAction<Address>,
     ) => {
       state.address = action.payload
-    },
-    removeAddress: (state: AddressFragmentState) => {
-      state.address = undefined
     },
     setLocationType: (
       state: AddressFragmentState,
@@ -41,7 +37,6 @@ export const createAddressFragment = (key: ReduxKey) => {
     reducers,
     actions: {
       addAddress,
-      removeAddress,
       setLocationType,
     },
   }
