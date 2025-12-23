@@ -29,6 +29,9 @@ type TransactionBase = {
   datePublished: string
   datePublishedFormatted: string
   id: string
+  /**
+   * In GPass: aanbieding.communicatienaam
+   */
   title: string
 }
 
@@ -40,9 +43,13 @@ export type BudgetTransaction = TransactionBase & {
 }
 
 export type DiscountTransaction = TransactionBase & {
+  /** In GPass: aanbieding.omschrijving */
   description: string
   discountAmount: number
   discountAmountFormatted: string
+  /**
+   * In GPass: aanbieding.kortingszin
+   */
   discountTitle: string
 }
 
