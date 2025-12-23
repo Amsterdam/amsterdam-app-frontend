@@ -35,7 +35,7 @@ module.exports = {
 
   overrides: [
     {
-      files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs'],
+      files: ['*.ts', '*.tsx', '*.js', '*.jsx', '*.mjs', '*.mts'],
       rules: {
         'sonarjs/no-misleading-array-reverse': 'off', // not (yet) supported in Hermes
         'sonarjs/no-ignored-exceptions': 'off', // does not (yet) detect a correct catch implementation
@@ -221,7 +221,7 @@ module.exports = {
       },
     },
     {
-      files: ['*.ts', '*.tsx'],
+      files: ['*.ts', '*.tsx', '*.mts'],
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:@typescript-eslint/recommended-requiring-type-checking',

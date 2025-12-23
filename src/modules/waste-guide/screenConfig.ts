@@ -43,4 +43,4 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const wasteGuideModals: StackNavigationRoutes<WasteGuideModalParams> = {}
+export const modals: StackNavigationRoutes<WasteGuideModalParams> = {}

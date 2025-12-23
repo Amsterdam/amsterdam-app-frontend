@@ -24,7 +24,9 @@
     "eslint-plugin-amsterdam",
     "react-native-block-screenshot",
     "react-native-salesforce-messaging-in-app",
-    "*.ts"
+    "*.ts",
+    "*.mts",
+    "nodescripts"
   ],
   "extends": "@react-native/typescript-config/tsconfig.json"
 }

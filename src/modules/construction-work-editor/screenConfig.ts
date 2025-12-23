@@ -42,7 +42,7 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const constructionWorkEditorModals: StackNavigationRoutes<
+export const modals: StackNavigationRoutes<
   ConstructionWorkEditorModalParams,
   ConstructionWorkEditorModalName
 > = {

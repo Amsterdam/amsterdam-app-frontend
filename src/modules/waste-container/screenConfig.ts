@@ -39,10 +39,9 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const wasteContainerModals: StackNavigationRoutes<WasteContainerModalParams> =
-  {
-    [WasteContainerModalName.addWasteCardSuccess]: {
-      component: AddWasteCardSuccessScreen,
-      name: WasteContainerModalName.addWasteCardSuccess,
-    },
-  }
+export const modals: StackNavigationRoutes<WasteContainerModalParams> = {
+  [WasteContainerModalName.addWasteCardSuccess]: {
+    component: AddWasteCardSuccessScreen,
+    name: WasteContainerModalName.addWasteCardSuccess,
+  },
+}

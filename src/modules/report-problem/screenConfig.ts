@@ -28,5 +28,4 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const reportProblemModals: StackNavigationRoutes<ReportProblemModalParams> =
-  {}
+export const modals: StackNavigationRoutes<ReportProblemModalParams> = {}

@@ -57,5 +57,4 @@ export const screenConfig: StackNavigationRoutes<
   },
 }
 
-export const constructionWorkModals: StackNavigationRoutes<ConstructionWorkModalParams> =
-  {}
+export const modals: StackNavigationRoutes<ConstructionWorkModalParams> = {}

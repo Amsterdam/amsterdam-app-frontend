@@ -28,7 +28,7 @@ export const screenConfig: StackNavigationRoutes<AddressStackParams> = {
   },
 }
 
-export const addressModals: StackNavigationRoutes<
+export const modals: StackNavigationRoutes<
   AddressModalParams,
   AddressModalName
 > = {
