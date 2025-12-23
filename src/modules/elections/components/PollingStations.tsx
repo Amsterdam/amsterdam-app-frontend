@@ -1,18 +1,19 @@
 import {useCallback} from 'react'
 import {Tabs} from '@/components/ui/Tabs'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {PollingStationsList} from '@/modules/elections/components/PollingStationsList'
 import {PollingStationsMap} from '@/modules/elections/components/PollingStationsMap'
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {setSelectedPollingStationId} from '@/modules/elections/slice'
 import {PollingStation} from '@/modules/elections/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export const PollingStations = () => {
   const dispatch = useDispatch()
   const {data, isLoading, isError} = usePollingStationsQuery()
-  const {address} = useSelectedAddress()
+  const {address} = useModuleBasedSelectedAddress(ReduxKey.elections)
   const {open} = useBottomSheet()
 
   const onSelectPollingStation = useCallback(

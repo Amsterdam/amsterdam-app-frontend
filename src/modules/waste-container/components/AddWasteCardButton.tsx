@@ -3,11 +3,12 @@ import {useCallback} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
+import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useRequestBluetoothPermission} from '@/modules/waste-container/hooks/useRequestBluetoothPermission'
 import {WasteContainerModalName} from '@/modules/waste-container/routes'
 import {useGetWasteCardQuery} from '@/modules/waste-container/service'
+import {ReduxKey} from '@/store/types/reduxKey'
 import {Permissions} from '@/types/permissions'
 import {SecureItemKey} from '@/utils/secureStorage'
 
@@ -18,7 +19,7 @@ export const AddWasteCardButton = () => {
     Permissions.bluetooth,
   )
   const setSecureItem = useSetSecureItem()
-  const {address} = useSelectedAddress()
+  const {address} = useModuleBasedSelectedAddress(ReduxKey.address)
 
   const {data} = useGetWasteCardQuery(
     address?.postcode

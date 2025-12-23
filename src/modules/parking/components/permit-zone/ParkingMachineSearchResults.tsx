@@ -1,11 +1,12 @@
 import {FlatList} from 'react-native'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {ParkingMachineFavoriteButton} from '@/modules/parking/components/permit-zone/ParkingMachineFavoriteButton'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 
 import {type ParkingMachine} from '@/modules/parking/types'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export const ParkingMachineSearchResults = ({
   onSelectParkingMachine,
@@ -15,7 +16,7 @@ export const ParkingMachineSearchResults = ({
   parkingMachinesData: ParkingMachine[]
 }) => {
   const {parking_machine_favorite} = useCurrentParkingPermit()
-  const {address} = useSelectedAddress()
+  const {address} = useModuleBasedSelectedAddress(ReduxKey.parking)
 
   const parkingMachinesByDistance = getSortedParkingMachines(
     parkingMachinesData,

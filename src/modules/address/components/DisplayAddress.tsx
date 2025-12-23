@@ -5,10 +5,9 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {alerts} from '@/modules/address/alerts'
 import {AddressModalName} from '@/modules/address/routes'
-import {removeAddress, selectAddress} from '@/modules/address/slice'
+import {removeAddress, useMyAddress} from '@/modules/address/slice'
 import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
 
@@ -42,7 +41,7 @@ const AddressDeleteButton = ({
 }
 
 export const DisplayAddress = () => {
-  const address = useSelector(selectAddress)
+  const address = useMyAddress()
   const dispatch = useDispatch()
   const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()

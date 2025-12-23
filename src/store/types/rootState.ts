@@ -1,3 +1,4 @@
+import type {BurningGuideState} from '@/modules/burning-guide/slice'
 import type {SurveyState} from '@/modules/survey/slice'
 import {ProductTourState} from '@/components/features/product-tour/slice'
 import {AccessCodeState} from '@/modules/access-code/slice'
@@ -32,6 +33,7 @@ export type RootState = {
   [ReduxKey.address]: AddressState
   [ReduxKey.alert]: AlertState
   [ReduxKey.bottomSheet]: BottomSheetState
+  [ReduxKey.burningGuide]: BurningGuideState
   [ReduxKey.chat]: ChatState
   [ReduxKey.cityPass]: CityPassState
   [ReduxKey.constructionWork]: ConstructionWorkState

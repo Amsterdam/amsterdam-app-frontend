@@ -2,11 +2,10 @@ import {useCallback} from 'react'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
+import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
-import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {useLocation} from '@/modules/address/slice'
+import {ReduxKey} from '@/store/types/reduxKey'
 import {Permissions} from '@/types/permissions'
 
 const getIconNameLocation = (
@@ -21,8 +20,9 @@ const getIconNameLocation = (
 }
 
 export const useMapControlsLocationButton = () => {
-  const {address, locationType} = useSelectedAddress()
-  const {isGettingLocation} = useLocation()
+  const {setLocationType, locationType, isFetchingLocation, address} =
+    useModuleBasedSelectedAddress(ReduxKey.address)
+
   const map = useMap()
   const {requestPermission: requestLocationPermission} = usePermission(
     Permissions.location,
@@ -30,7 +30,6 @@ export const useMapControlsLocationButton = () => {
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.location,
   )
-  const setLocationType = useSetLocationType()
 
   const {startLocationFetch} = useRequestLocationFetch()
 
@@ -72,7 +71,7 @@ export const useMapControlsLocationButton = () => {
     setLocationType,
   ])
 
-  const iconName = getIconNameLocation(isSetLocation, isGettingLocation)
+  const iconName = getIconNameLocation(isSetLocation, isFetchingLocation)
 
   return {onPressLocationButton, iconName}
 }

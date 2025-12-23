@@ -1,14 +1,18 @@
 import {createSlice, type PayloadAction} from '@reduxjs/toolkit'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {type AddressFragmentState} from '@/modules/address/createAddressFragment'
+import {moduleAddressFragments} from '@/modules/address/moduleAddressFragments'
 import {Contract} from '@/modules/waste-guide/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
+const addressSliceFragment = moduleAddressFragments[ReduxKey.wasteGuide]!
+
 export type WasteGuideState = {
   calendarView: 'list' | 'calendar'
   contracts?: Contract
-}
+} & AddressFragmentState
 
 const initialState: WasteGuideState = {
   calendarView: 'calendar',
@@ -19,6 +23,7 @@ export const wasteGuideSlice = createSlice({
   name: ReduxKey.wasteGuide,
   initialState,
   reducers: {
+    ...addressSliceFragment.reducers,
     addContract: (state, {payload}: PayloadAction<Contract>) => {
       state.contracts = {...state.contracts, ...payload}
     },

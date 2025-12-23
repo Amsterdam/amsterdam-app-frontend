@@ -1,5 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
+import type {AddressFragmentState} from '@/modules/address/createAddressFragment'
 import type {
   ParkingAccount,
   ParkingAccountLogin,
@@ -7,6 +8,7 @@ import type {
 } from '@/modules/parking/types'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {moduleAddressFragments} from '@/modules/address/moduleAddressFragments'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 import {dayjs} from '@/utils/datetime/dayjs'
@@ -34,7 +36,9 @@ export type ParkingState = {
   visitorVehicleId?: string
   walletBalanceIncreaseStartBalance?: number
   walletBalanceIncreaseStartedAt?: string
-}
+} & AddressFragmentState
+
+const parkingAddressFragment = moduleAddressFragments[ReduxKey.parking]!
 
 const initialState: ParkingState = {
   accessTokens: {},
@@ -56,6 +60,7 @@ export const parkingSlice = createSlice({
   name: ReduxKey.parking,
   initialState,
   reducers: {
+    ...parkingAddressFragment.reducers,
     removeParkingAccount: state => {
       if (!state.currentAccount) {
         return

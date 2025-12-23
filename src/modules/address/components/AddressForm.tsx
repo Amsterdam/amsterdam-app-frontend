@@ -14,11 +14,12 @@ import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressSearch} from '@/modules/address/components/form/AddressSearch'
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
-import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
+import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {AddressModalName} from '@/modules/address/routes'
-import {addAddress} from '@/modules/address/slice'
+import {addRecentAddress} from '@/modules/address/slice'
 import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 import {useAlert} from '@/store/slices/alert'
+import {ReduxKey} from '@/store/types/reduxKey'
 
 export type AddressSearchFields = {
   city: AddressCity | undefined
@@ -28,15 +29,17 @@ export type AddressSearchFields = {
 
 export const AddressForm = ({
   highAccuracyPurposeKey,
+  reduxKey = ReduxKey.address,
   showAddressButtons = false,
 }: {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
+  reduxKey?: ReduxKey
   showAddressButtons?: boolean
 }) => {
   const form = useForm<AddressSearchFields>()
-  const setLocationType = useSetLocationType()
   const dispatch = useDispatch()
   const {goBack} = useNavigation()
+  const {addAddress, setLocationType} = useModuleBasedSelectedAddress(reduxKey)
   const route = useRoute<AddressModalName.myAddressForm>()
 
   const {setAlert} = useAlert()
@@ -47,7 +50,8 @@ export const AddressForm = ({
 
       const transformedAddress = addDerivedAddressFields(newAddress)
 
-      dispatch(addAddress(transformedAddress))
+      addAddress(transformedAddress)
+      dispatch(addRecentAddress(transformedAddress))
 
       if (route?.name === AddressModalName.myAddressForm) {
         setAlert(alerts.addAddressSuccess)
@@ -55,7 +59,7 @@ export const AddressForm = ({
 
       goBack()
     },
-    [setLocationType, goBack, dispatch, setAlert, route],
+    [setLocationType, goBack, dispatch, setAlert, addAddress, route],
   )
 
   const isSearching = form.watch('street')?.length
@@ -67,10 +71,14 @@ export const AddressForm = ({
 
         {!isSearching && !!showAddressButtons && (
           <>
-            <MyAddressButton testID="ChooseAddressScreenMyAddressButton" />
+            <MyAddressButton
+              onPress={onPressAddress}
+              testID="ChooseAddressScreenMyAddressButton"
+            />
 
             <LocationTopTaskButton
               highAccuracyPurposeKey={highAccuracyPurposeKey}
+              reduxKey={reduxKey}
               testID="ChooseAddressScreenLocationTopTaskButton"
             />
           </>

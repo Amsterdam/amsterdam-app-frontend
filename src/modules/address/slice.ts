@@ -28,6 +28,9 @@ export const addressSlice = createSlice({
     addAddress: (state, {payload: address}: PayloadAction<Address>) => ({
       ...state,
       address,
+    }),
+    addRecentAddress: (state, {payload: address}: PayloadAction<Address>) => ({
+      ...state,
       recentAddresses: [
         address,
         ...state.recentAddresses.filter(a => a.bagId !== address.bagId),
@@ -82,6 +85,7 @@ export const addressSlice = createSlice({
 
 export const {
   addAddress,
+  addRecentAddress,
   addLocation,
   removeAddress,
   requestLocationFetch,
@@ -90,7 +94,7 @@ export const {
   setLocationType,
 } = addressSlice.actions
 
-export const selectAddress = (state: RootState) =>
+export const selectMyAddress = (state: RootState) =>
   state[ReduxKey.address].address
 
 export const selectLocation = (state: RootState) =>
@@ -111,7 +115,7 @@ export const selectRecentAddresses = (state: RootState) =>
 
 export const useRecentAddresses = () => useSelector(selectRecentAddresses)
 
-export const useAddress = () => useSelector(selectAddress)
+export const useMyAddress = () => useSelector(selectMyAddress)
 
 export const useLocation = () => ({
   locationFetchRequested: useSelector(selectLocationFetchRequested),
@@ -125,7 +129,7 @@ export const selectLocationType = (
   state: RootState,
 ): LocationType | undefined => {
   const locationType = state[ReduxKey.address].locationType
-  const address = selectAddress(state)
+  const address = selectMyAddress(state)
   const hasLocationPermission = selectIsPermissionGranted(Permissions.location)(
     state,
   )
@@ -154,4 +158,4 @@ export const selectLocationType = (
   return undefined
 }
 
-export const useLocationType = () => useSelector(selectLocationType)
+export const useGlobalLocationType = () => useSelector(selectLocationType)

@@ -1,4 +1,6 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {AddressFragmentState} from '@/modules/address/createAddressFragment'
+import {moduleAddressFragments} from '@/modules/address/moduleAddressFragments'
 import {ReduxKey} from '@/store/types/reduxKey'
 import {type RootState} from '@/store/types/rootState'
 
@@ -10,17 +12,21 @@ export type ReadArticle = {
 export type ConstructionWorkState = {
   readArticles: ReadArticle[]
   searchText: string
-}
+} & AddressFragmentState
 
 const initialState: ConstructionWorkState = {
   readArticles: [],
   searchText: '',
 }
 
+const constructionWorkAddressFragment =
+  moduleAddressFragments[ReduxKey.constructionWork]!
+
 export const constructionWorkSlice = createSlice({
   name: ReduxKey.constructionWork,
   initialState,
   reducers: {
+    ...constructionWorkAddressFragment.reducers,
     addReadArticle: (state, {payload: article}: PayloadAction<ReadArticle>) => {
       state.readArticles.push(article)
     },
