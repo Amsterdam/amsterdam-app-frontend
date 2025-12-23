@@ -11,7 +11,8 @@ import {
 
 export const WasteGuideNotificationToggleBox = () => {
   const address = useSelector(selectAddress)
-  const {isLoading, isSuccess} = useGetWasteGuideNotificationQuery()
+  const {isLoading, isSuccess, data} = useGetWasteGuideNotificationQuery()
+
   const [postWasteGuideNotification] = usePostWasteGuideNotificationMutation()
   const [deleteWasteGuideNotification] =
     useDeleteWasteGuideNotificationMutation()
@@ -38,7 +39,7 @@ export const WasteGuideNotificationToggleBox = () => {
         disabled={isLoading}
         onChange={onChange}
         testID="WasteGuideNotificationSwitch"
-        value={!!isSuccess}
+        value={!!isSuccess && !!data}
       />
     </Box>
   )
