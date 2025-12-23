@@ -71,8 +71,9 @@ export const mapTransactions = (
       amountFormatted: transaction.discountAmountFormatted,
       datePublished: transaction.datePublished,
       datePublishedFormatted: transaction.datePublishedFormatted,
-      description: transaction.description,
-      title: transaction.discountTitle,
+      description: transaction.discountTitle,
+      title: transaction.description,
+      provider: transaction.title,
     }))
   }
 }
