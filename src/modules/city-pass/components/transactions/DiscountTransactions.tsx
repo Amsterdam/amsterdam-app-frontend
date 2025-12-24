@@ -7,7 +7,10 @@ import {TransactionHistory} from '@/modules/city-pass/components/transactions/Tr
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetDiscountTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
+import {dayjs} from '@/utils/datetime/dayjs'
+import {formatDate} from '@/utils/datetime/formatDate'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
+import {formatNumber} from '@/utils/formatNumber'
 
 const DiscountTransactionsContent = ({dateEnd, passNumber}: Props) => {
   const {data, isLoading, isError, refetch} = useGetDiscountTransactionsQuery({
@@ -29,19 +32,32 @@ const DiscountTransactionsContent = ({dateEnd, passNumber}: Props) => {
     )
   }
 
-  const {discountAmountTotalFormatted, transactions} = data
+  const {transactions} = data
+
+  const previousYear = getPreviousYear(dateEnd)
+  const previousYearFormatted = formatDate(previousYear)
+
+  const transactionsFiltered = transactions.filter(transaction =>
+    previousYear.isBefore(dayjs(transaction.datePublished)),
+  )
+
+  const discountAmountTotal = transactionsFiltered.reduce(
+    (total, transaction) => total + transaction.discountAmount,
+    0,
+  )
+  const discountAmountTotalFormatted = formatNumber(discountAmountTotal, 'EUR')
 
   return (
     <>
       <Paragraph>
-        {`Vanaf ${getPreviousYear(dateEnd)} heb je in totaal ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
+        {`Vanaf ${previousYearFormatted} heb je in totaal ${discountAmountTotalFormatted} bespaard. Deze informatie kan 1 dag achterlopen.`}
       </Paragraph>
       <TransactionHistory
-        transactions={transactions}
+        transactions={transactionsFiltered}
         type={TransactionType.discount}
       />
       <Paragraph textAlign="center">
-        Dit waren jouw acties vanaf {getPreviousYear(dateEnd)}
+        Dit waren jouw acties vanaf {previousYearFormatted}
       </Paragraph>
     </>
   )
