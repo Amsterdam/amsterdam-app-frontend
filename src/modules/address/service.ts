@@ -1,4 +1,8 @@
-import {AddressList, Coordinates} from '@/modules/address/types'
+import {
+  AddressList,
+  Coordinates,
+  type PostalArea,
+} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {baseApi} from '@/services/baseApi'
 import {CacheLifetime} from '@/types/api'
@@ -42,9 +46,23 @@ export const addressApi = baseApi.injectEndpoints({
         keepUnusedDataFor,
       }),
     }),
+    getPostalArea: builder.query<PostalArea, Coordinates>({
+      query: params => ({
+        url: generateRequestUrl<Coordinates>({
+          params,
+          path: '/postal_area',
+        }),
+        slug: ModuleSlug.address,
+        keepUnusedDataFor,
+      }),
+    }),
   }),
 
   overrideExisting: true,
 })
 
-export const {useGetLocationQuery, useGetAddressSuggestionsQuery} = addressApi
+export const {
+  useGetLocationQuery,
+  useGetAddressSuggestionsQuery,
+  useGetPostalAreaQuery,
+} = addressApi
