@@ -3,6 +3,8 @@ export enum Features {
   WasteGuideNotifications = 'WasteGuideNotifications',
 }
 
-export const featureFlags: Partial<Record<Features, boolean>> = {
-  [Features.BurningGuideNotifications]: false,
-}
+/**
+ * Features that are in this list will always show or hide base on this value.
+ * If a feature is not listed here, it will only show in the development environment.
+ */
+export const featureFlags: Partial<Record<Features, boolean>> = {}

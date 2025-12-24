@@ -28,7 +28,7 @@ export const burningGuideApi = baseApi.injectEndpoints({
     >({
       query: () => ({
         slug: ModuleSlug['burning-guide'],
-        url: '/guide/notification',
+        url: '/notification',
         headers: deviceIdHeader,
       }),
       providesTags: ['BurningGuideNotifications'],
@@ -41,7 +41,7 @@ export const burningGuideApi = baseApi.injectEndpoints({
       query: postal_code => ({
         body: {postal_code},
         slug: ModuleSlug['burning-guide'],
-        url: '/guide/notifications',
+        url: '/notifications',
         headers: deviceIdHeader,
         method: 'POST',
       }),
@@ -54,7 +54,7 @@ export const burningGuideApi = baseApi.injectEndpoints({
       query: postal_code => ({
         body: {postal_code},
         slug: ModuleSlug['burning-guide'],
-        url: '/guide/notification',
+        url: '/notification',
         headers: deviceIdHeader,
         method: 'PATCH',
       }),
@@ -66,7 +66,7 @@ export const burningGuideApi = baseApi.injectEndpoints({
     >({
       query: () => ({
         slug: ModuleSlug['burning-guide'],
-        url: '/guide/notification',
+        url: '/notification',
         headers: deviceIdHeader,
         method: 'DELETE',
       }),
