@@ -133,5 +133,6 @@ export const baseApi = createApi({
     'ParkingPermits',
     'Projects',
     'WasteGuideNotifications',
+    'BurningGuideNotifications',
   ],
 })

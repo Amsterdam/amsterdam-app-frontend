@@ -8,8 +8,8 @@ type Props = {
 }
 
 /**
- * Component that conditionally renders its children based on the status of a feature flag.
- * Will also render the children in the development environment.
+ * Component that returns the children if a feature flag is set and true or if the feature flag is not set and in the development environment.
+ * Otherwise, it returns the fallback component or null.
  */
 export const FeatureFlag = ({children, feature, fallback = null}: Props) => {
   const isEnabled = useFeatureFlag(feature)

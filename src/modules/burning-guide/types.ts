@@ -1,5 +1,9 @@
 export enum BurningGuideEndpointName {
   burningGuide = 'burningGuide',
+  deleteBurningGuideNotification = 'deleteBurningGuideNotification',
+  getBurningGuideNotification = 'getBurningGuideNotification',
+  patchBurningGuideNotification = 'patchBurningGuideNotification',
+  postBurningGuideNotification = 'postBurningGuideNotification',
 }
 
 export enum BurningGuideCodeVariant {
@@ -33,3 +37,13 @@ export type BurningGuideApiResponse = {
   wind_bft: number
   wind_direction: number
 }
+
+export type BurningGuideNotificationSettings =
+  | {
+      message: string
+      status: 'error'
+    }
+  | {
+      message: never
+      status: 'success'
+    }

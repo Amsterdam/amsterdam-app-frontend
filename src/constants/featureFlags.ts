@@ -1,7 +1,8 @@
 export enum Features {
+  BurningGuideNotifications = 'BurningGuideNotifications',
   WasteGuideNotifications = 'WasteGuideNotifications',
 }
 
 export const featureFlags: Partial<Record<Features, boolean>> = {
-  [Features.WasteGuideNotifications]: false,
+  [Features.BurningGuideNotifications]: false,
 }
