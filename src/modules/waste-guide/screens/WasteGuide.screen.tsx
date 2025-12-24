@@ -1,6 +1,8 @@
+import {FeatureFlag} from '@/components/features/FeatureFlag'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Column} from '@/components/ui/layout/Column'
+import {Features} from '@/constants/featureFlags'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {bottomsheetVariants as wasteContainerBottomsheetVariants} from '@/modules/waste-container/components/bottomsheet/bottomsheetVariants'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
@@ -26,7 +28,9 @@ export const WasteGuideScreen = () => {
       withRightInset={isPortrait}>
       <Column gutter="xl">
         <WasteGuide />
-        <WasteGuideNotificationToggleBox />
+        <FeatureFlag feature={Features.WasteGuideNotifications}>
+          <WasteGuideNotificationToggleBox />
+        </FeatureFlag>
         <WasteGuideMoreOptions />
         <WasteGuideInformation />
       </Column>
