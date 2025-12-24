@@ -1,5 +1,9 @@
 export enum WasteGuideEndpointName {
+  deleteWasteGuideNotification = 'deleteWasteGuideNotification',
   getWasteGuide = 'getWasteGuide',
+  getWasteGuideNotification = 'getWasteGuideNotification',
+  patchWasteGuideNotification = 'patchWasteGuideNotification',
+  postWasteGuideNotification = 'postWasteGuideNotification',
 }
 
 export enum FractionCode {
@@ -52,3 +56,13 @@ export type WasteGuideResponse = {
   is_residential: boolean
   waste_types: WasteType[]
 }
+
+export type WasteGuideNotificationSettings =
+  | {
+      message: string
+      status: 'error'
+    }
+  | {
+      message: never
+      status: 'success'
+    }
