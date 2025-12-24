@@ -4,16 +4,16 @@ import {BurningGuideForecastList} from '@/modules/burning-guide/components/Burni
 import {BurningGuideRecommendation} from '@/modules/burning-guide/components/BurningGuideRecommendation'
 import {useGetForecast} from '@/modules/burning-guide/hooks/useGetForecast'
 
-type Props = {zipCode: string}
+type Props = {postalArea: string}
 
-export const BurningGuide = ({zipCode}: Props) => {
-  const {forecast, isError, isLoading} = useGetForecast(zipCode)
+export const BurningGuide = ({postalArea}: Props) => {
+  const {forecast, isError, isLoading} = useGetForecast(postalArea)
 
   if (isLoading) {
     return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
   }
 
-  if (!forecast?.length || !zipCode || isError) {
+  if (!forecast?.length || !postalArea || isError) {
     return (
       <SomethingWentWrong testID="BurningGuideForecastListSomethingWentWrong" />
     )

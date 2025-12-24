@@ -3,14 +3,14 @@ import {Screen} from '@/components/features/screen/Screen'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Features} from '@/constants/featureFlags'
-import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSelectedPostalArea} from '@/modules/address/hooks/useSelectedPostalArea'
 import {BurningGuide} from '@/modules/burning-guide/components/BurningGuide'
 import {BurningGuideAddress} from '@/modules/burning-guide/components/BurningGuideAddress'
 import {BurningGuideInfoButtons} from '@/modules/burning-guide/components/BurningGuideInfoButtons'
 import {BurningGuideNotificationToggleBox} from '@/modules/burning-guide/components/BurningGuideNotificationToggleBox'
 
 export const BurningGuideScreen = () => {
-  const {address} = useSelectedAddress()
+  const postalArea = useSelectedPostalArea()
 
   return (
     <Screen testID="BurningGuideScreen">
@@ -22,8 +22,8 @@ export const BurningGuideScreen = () => {
           insetHorizontal="md"
           insetTop="md">
           <Column gutter="xl">
-            <BurningGuideAddress address={address} />
-            {!!address && <BurningGuide zipCode={address.postcode} />}
+            <BurningGuideAddress />
+            {!!postalArea && <BurningGuide postalArea={postalArea} />}
           </Column>
         </Box>
       </Column>

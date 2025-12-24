@@ -63,6 +63,10 @@ export type AddressState = {
 
 export type AddressList = Array<Address | BaseAddress>
 
+export type PostalArea = {
+  postal_area: string
+}
+
 export type LocationType = 'address' | 'location'
 
 export enum HighAccuracyPurposeKey {
