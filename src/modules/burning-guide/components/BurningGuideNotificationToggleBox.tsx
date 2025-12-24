@@ -19,14 +19,14 @@ export const BurningGuideNotificationToggleBox = () => {
     useDeleteBurningGuideNotificationMutation()
   const onChange = useCallback(
     (value: boolean) => {
-      if (value && address?.bagId) {
-        void postBurningGuideNotification(address?.bagId)
+      if (value && address?.postcode) {
+        void postBurningGuideNotification(address?.postcode.slice(0, 4))
       } else {
         void deleteBurningGuideNotification()
       }
     },
     [
-      address?.bagId,
+      address?.postcode,
       deleteBurningGuideNotification,
       postBurningGuideNotification,
     ],
