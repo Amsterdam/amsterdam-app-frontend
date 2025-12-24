@@ -7,6 +7,8 @@ import {TransactionHistory} from '@/modules/city-pass/components/transactions/Tr
 import {SOMETHING_WENT_WRONG_TEXT} from '@/modules/city-pass/constants'
 import {useGetBudgetTransactionsQuery} from '@/modules/city-pass/service'
 import {CityPass, TransactionType} from '@/modules/city-pass/types'
+import {dayjs} from '@/utils/datetime/dayjs'
+import {formatDate} from '@/utils/datetime/formatDate'
 import {getPreviousYear} from '@/utils/datetime/getPreviousYear'
 
 type Props = {
@@ -40,6 +42,13 @@ export const BudgetTransactions = ({
     )
   }
 
+  const previousYear = getPreviousYear(dateEnd)
+  const previousYearFormatted = formatDate(previousYear)
+
+  const budgetTransactionsFiltered = budgetTransactions.filter(transaction =>
+    previousYear.isBefore(dayjs(transaction.datePublished)),
+  )
+
   return (
     <Column gutter="md">
       <Title text="Betalingen" />
@@ -48,11 +57,11 @@ export const BudgetTransactions = ({
         klopt altijd.
       </Paragraph>
       <TransactionHistory
-        transactions={budgetTransactions}
+        transactions={budgetTransactionsFiltered}
         type={TransactionType.budget}
       />
       <Paragraph textAlign="center">
-        Dit zijn alle betalingen vanaf {getPreviousYear(dateEnd)}
+        Dit zijn alle betalingen vanaf {previousYearFormatted}
       </Paragraph>
     </Column>
   )
