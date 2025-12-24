@@ -56,6 +56,10 @@ export const ParkingSessionDetails = ({
     !!parkingSession.ps_right_id &&
     (!!parkingSession.can_edit || apiVersion === ParkingApiVersion.v1)
 
+  const isActiveWithoutEndTime =
+    parkingSession.status === ParkingSessionStatus.active &&
+    currentPermit.no_endtime
+
   return (
     <Box>
       <Column gutter="lg">
@@ -93,14 +97,18 @@ export const ParkingSessionDetails = ({
 
         <ParkingSessionDetailsRow
           iconName="clock"
-          title={`Parkeertijd: ${formatTimeRangeToDisplay(
-            parkingSession.start_date_time,
-            parkingSession.end_date_time,
-          )}`}>
+          title={
+            isActiveWithoutEndTime
+              ? 'Starttijd'
+              : `Parkeertijd: ${formatTimeRangeToDisplay(
+                  parkingSession.start_date_time,
+                  parkingSession.end_date_time,
+                )}`
+          }>
           <Phrase>
             {formatDateTimeToDisplay(parkingSession.start_date_time, false)}
           </Phrase>
-          {!!parkingSession.end_date_time && (
+          {!!parkingSession.end_date_time && !isActiveWithoutEndTime && (
             <Phrase>
               {formatDateTimeToDisplay(parkingSession.end_date_time, false)}
             </Phrase>
