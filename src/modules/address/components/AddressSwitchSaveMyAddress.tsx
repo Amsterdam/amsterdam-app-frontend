@@ -65,7 +65,7 @@ export const AddressSwitchSaveMyAddress = ({moduleSlug}: Props) => {
               dispatch(
                 setModuleIsSaveAsMyAddressShown({
                   moduleSlug,
-                  isSaveAsMyAddressShown: false,
+                  isSaveAsMyAddressShown: true,
                 }),
               )
             }
