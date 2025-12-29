@@ -1,4 +1,5 @@
 import type {HighAccuracyPurposeKey} from '@/modules/address/types'
+import type {ModuleSlug} from '@/modules/slugs'
 
 export enum AddressRouteName {
   address = 'Address',
@@ -9,15 +10,16 @@ export type AddressStackParams = {
   [AddressRouteName.address]: undefined
   [AddressRouteName.chooseAddress]: {
     highAccuracyPurposeKey?: HighAccuracyPurposeKey
+    moduleSlug?: ModuleSlug
   }
 }
 
 export enum AddressModalName {
-  addressForm = 'AddressForm',
+  myAddressForm = 'MyAddressForm',
   privacyInfo = 'PrivacyInfo',
 }
 
 export type AddressModalParams = {
-  [AddressModalName.addressForm]: undefined
+  [AddressModalName.myAddressForm]: undefined
   [AddressModalName.privacyInfo]: undefined
 }

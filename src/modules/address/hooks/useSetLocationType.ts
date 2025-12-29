@@ -1,39 +1,22 @@
-import {useCallback} from 'react'
+import type {LocationType} from '@/modules/address/types'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {
-  setLocationType as setLocationTypeAction,
-  useLocationType,
-} from '@/modules/address/slice'
-import {LocationType} from '@/modules/address/types'
-import {useTrackEvents} from '@/processes/logging/hooks/useTrackEvents'
-import {PiwikAction, PiwikDimension} from '@/processes/piwik/types'
+import {usePiwikTrackLocationType} from '@/modules/address/hooks/usePiwikTrackLocationType'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {addressSlice} from '@/modules/address/slice'
 
-/**
- * Hook to set the location type for the address module and log the change to Piwik.
- */
-export const useSetLocationType = () => {
+export const useSetLocationType = (moduleSlug: ModuleSlug) => {
   const dispatch = useDispatch()
-  const locationType = useLocationType()
-  const {trackCustomEvent} = useTrackEvents()
+  const trackPiwikLocationType = usePiwikTrackLocationType()
+  const {locationType} = useSelectedAddress(moduleSlug)
 
-  return useCallback(
-    (type: LocationType) => {
-      dispatch(
-        setLocationTypeAction({
-          locationType: type,
-        }),
-      )
-
-      if (locationType !== type) {
-        trackCustomEvent(
-          'useSetLocationType',
-          PiwikAction.locationOrAddressSelectionChange,
-          {
-            [PiwikDimension.newState]: type,
-          },
-        )
-      }
-    },
-    [dispatch, locationType, trackCustomEvent],
-  )
+  return (newLocationType: LocationType) => {
+    dispatch(
+      addressSlice.actions.setLocationType({
+        locationType: newLocationType,
+        moduleSlug,
+      }),
+    )
+    trackPiwikLocationType(moduleSlug, newLocationType, locationType)
+  }
 }

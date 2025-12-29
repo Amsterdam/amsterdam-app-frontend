@@ -17,6 +17,8 @@ const persistWhitelist: (keyof ParkingState)[] = [
   'currentPermitReportCode',
   'accounts',
   'visitorVehicleId',
+  'address',
+  'locationType',
 ] as const
 
 export const parkingModule = createClientModule({

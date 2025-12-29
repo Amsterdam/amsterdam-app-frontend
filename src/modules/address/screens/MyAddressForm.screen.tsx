@@ -1,10 +1,11 @@
 import {Screen} from '@/components/features/screen/Screen'
+import {Box} from '@/components/ui/containers/Box'
 import {ModalHeader} from '@/components/ui/containers/ModalHeader'
 import {AddressForm} from '@/modules/address/components/AddressForm'
 
-export const AddressFormScreen = () => (
+export const MyAddressFormScreen = () => (
   <Screen
-    scroll={false}
+    keyboardAware
     stickyHeader={
       <ModalHeader
         testID="AddressModalHeader"
@@ -12,6 +13,8 @@ export const AddressFormScreen = () => (
       />
     }
     testID="AddressModalScreen">
-    <AddressForm />
+    <Box>
+      <AddressForm saveAsMyAddress />
+    </Box>
   </Screen>
 )

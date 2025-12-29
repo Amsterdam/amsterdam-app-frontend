@@ -7,12 +7,13 @@ import {PollingStationsMap} from '@/modules/elections/components/PollingStations
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {setSelectedPollingStationId} from '@/modules/elections/slice'
 import {PollingStation} from '@/modules/elections/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
 export const PollingStations = () => {
   const dispatch = useDispatch()
   const {data, isLoading, isError} = usePollingStationsQuery()
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug.elections)
   const {open} = useBottomSheet()
 
   const onSelectPollingStation = useCallback(

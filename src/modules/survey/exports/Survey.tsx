@@ -8,7 +8,7 @@ type Props = {FallbackComponent?: ReactNode; entryPoint: string}
 export const Survey = ({entryPoint, FallbackComponent}: Props) => (
   <RenderIfModuleActive
     FallbackComponent={FallbackComponent}
-    module={ModuleSlug.survey}>
+    moduleSlug={ModuleSlug.survey}>
     <DynamicForm entryPoint={entryPoint} />
   </RenderIfModuleActive>
 )

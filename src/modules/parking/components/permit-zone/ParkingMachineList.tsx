@@ -11,9 +11,10 @@ import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/P
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const ParkingMachineList = () => {
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug.parking)
   const {onSelectParkingMachine} = usePermitMapContext()
 
   const {
@@ -54,6 +55,7 @@ export const ParkingMachineList = () => {
               highAccuracyPurposeKey={
                 HighAccuracyPurposeKey.PreciseLocationAddressParking
               }
+              moduleSlug={ModuleSlug.parking}
               testID="ParkingMachineListAddressSwitch"
             />
           </Box>

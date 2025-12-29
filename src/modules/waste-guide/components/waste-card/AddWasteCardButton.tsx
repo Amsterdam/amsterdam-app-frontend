@@ -8,7 +8,7 @@ import {useGetWasteCardQuery} from '@/modules/waste-container/service'
 
 export const AddWasteCardButton = () => {
   const {navigate} = useNavigation()
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug['waste-guide'])
 
   const {data} = useGetWasteCardQuery(
     address?.postcode

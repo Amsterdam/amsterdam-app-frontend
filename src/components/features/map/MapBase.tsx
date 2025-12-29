@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState, type PropsWithChildren} from 'react'
 import {Platform, StyleSheet, View} from 'react-native'
 import MapView, {MapViewProps} from 'react-native-maps'
+import type {ModuleSlug} from '@/modules/slugs'
 import {MapContext} from '@/components/features/map/MapContext'
 import {MapControls} from '@/components/features/map/MapControls'
 import {
@@ -13,6 +14,7 @@ import {useThemable} from '@/themes/useThemable'
 
 type Props = PropsWithChildren<{
   controls?: ControlVariant[]
+  moduleSlug: ModuleSlug
 }> &
   MapViewProps
 
@@ -20,6 +22,7 @@ export const MapBase = ({
   children,
   controls,
   initialRegion,
+  moduleSlug,
   ...mapViewProps
 }: Props) => {
   const [isMapReady, setIsMapReady] = useState(false)
@@ -47,7 +50,10 @@ export const MapBase = ({
       <View style={styles.container}>
         {!!controls?.length && (
           <View style={styles.controls}>
-            <MapControls variants={controls} />
+            <MapControls
+              moduleSlug={moduleSlug}
+              variants={controls}
+            />
           </View>
         )}
         <MapView

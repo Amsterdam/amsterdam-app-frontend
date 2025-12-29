@@ -3,18 +3,18 @@ import type {Address, LocationType} from '@/modules/address/types'
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
   address?: Address,
-  isFetching?: boolean,
+  isFetchingLocation: boolean = false,
 ) => {
-  if (locationType === 'address' && address?.addressLine1) {
+  if (locationType === 'address' && address) {
     return 'housing'
   }
 
-  if (isFetching) {
-    return 'spinner'
-  }
-
-  if (locationType === 'location' && address?.addressLine1) {
-    return 'mapLocationIosFilled'
+  if (locationType === 'location') {
+    if (address?.addressLine1) {
+      return 'mapLocationIosFilled'
+    } else if (isFetchingLocation) {
+      return 'spinner'
+    }
   }
 
   return 'location'
@@ -25,16 +25,12 @@ export const getAddressSwitchLabel = (
   address?: Address,
   isFetching?: boolean,
 ) => {
-  if (locationType === 'address' && address?.addressLine1) {
-    return address?.addressLine1
-  }
-
-  if (isFetching) {
+  if (locationType === 'location' && isFetching) {
     return 'Mijn huidige locatie'
   }
 
-  if (locationType === 'location' && address?.addressLine1) {
-    return address?.addressLine1
+  if (address?.addressLine1) {
+    return address.addressLine1
   }
 
   return 'Adres invullen'

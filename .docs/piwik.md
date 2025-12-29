@@ -43,7 +43,7 @@ A log will usually be triggered by an _action_ and have a _category_ and a _name
 ```tsx
 export const HomeButton = ({moduleName, onPress}: Props) => {
   const {trackCustomEvent} = usePiwik()
-  const address = useAddress()
+  const address = useMyAddress()
 
   const handlePress = useCallback(() => {
     // log the event with category and action

@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useMap} from '@/components/features/map/hooks/useMap'
 import {IconProps} from '@/components/ui/media/Icon'
 import {usePermission} from '@/hooks/permissions/usePermission'
@@ -6,23 +7,23 @@ import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNaviga
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
-import {useLocation} from '@/modules/address/slice'
 import {Permissions} from '@/types/permissions'
 
 const getIconNameLocation = (
   isSetLocation: boolean,
-  isGettingLocation?: boolean,
+  isFetching: boolean,
 ): IconProps['name'] => {
-  if (isGettingLocation) {
+  if (isFetching) {
     return 'spinner'
   }
 
   return isSetLocation ? 'mapLocationIosFilled' : 'mapLocationIos'
 }
 
-export const useMapControlsLocationButton = () => {
-  const {address, locationType} = useSelectedAddress()
-  const {isGettingLocation} = useLocation()
+export const useMapControlsLocationButton = (moduleSlug: ModuleSlug) => {
+  const {locationType, isFetching, address} = useSelectedAddress(moduleSlug)
+  const setLocationType = useSetLocationType(moduleSlug)
+
   const map = useMap()
   const {requestPermission: requestLocationPermission} = usePermission(
     Permissions.location,
@@ -30,9 +31,8 @@ export const useMapControlsLocationButton = () => {
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.location,
   )
-  const setLocationType = useSetLocationType()
 
-  const {startLocationFetch} = useRequestLocationFetch()
+  const {startLocationFetch} = useRequestLocationFetch(moduleSlug)
 
   const isSetLocation = locationType === 'location' && !!address?.coordinates
 
@@ -72,7 +72,7 @@ export const useMapControlsLocationButton = () => {
     setLocationType,
   ])
 
-  const iconName = getIconNameLocation(isSetLocation, isGettingLocation)
+  const iconName = getIconNameLocation(isSetLocation, isFetching)
 
   return {onPressLocationButton, iconName}
 }

@@ -39,7 +39,7 @@ describe('getAddressSwitchProps', () => {
     expect(label).toBe('Cruquiusweg 5')
   })
 
-  test('should return my address and housing icon when locationType is address and user has entered address.', () => {
+  test('should return my address and housing icon when locationType is address and user has entered an address that is similar to myAddress.', () => {
     const locationType: LocationType = 'address'
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
@@ -61,7 +61,29 @@ describe('getAddressSwitchProps', () => {
     expect(label).toBe('Cruquiusweg 5')
   })
 
-  test('should return location icon and placeholder text when locationType is address and user has not entered address', () => {
+  test('should return an address and location icon when locationType is address and user has entered an address that is different from myAddress.', () => {
+    const locationType: LocationType = 'address'
+    const address: Pick<Address, 'addressLine1'> = {
+      addressLine1: 'Cruquiusweg 5',
+    }
+    const isFetching = false
+
+    const icon = getAddressSwitchIcon(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+    const label = getAddressSwitchLabel(
+      locationType,
+      address as Address,
+      isFetching,
+    )
+
+    expect(icon).toBe('housing')
+    expect(label).toBe('Cruquiusweg 5')
+  })
+
+  test('should return location icon and placeholder text when locationType is address and user has not entered address nor has myAddress set.', () => {
     const locationType: LocationType = 'address'
     const address = undefined
     const isFetching = false

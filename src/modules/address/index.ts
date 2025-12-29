@@ -9,6 +9,8 @@ const persistWhitelist: (keyof AddressState)[] = [
   'address',
   'locationType',
   'recentAddresses',
+  'moduleCustomAddress',
+  'moduleLocationType',
 ]
 
 export const addressModule = createCoreModule({

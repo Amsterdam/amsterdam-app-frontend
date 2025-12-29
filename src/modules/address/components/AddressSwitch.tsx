@@ -1,7 +1,13 @@
 import {useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
+import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
+import {AlertTopOfScreen} from '@/components/ui/feedback/alert/AlertTopOfScreen'
+import {Column} from '@/components/ui/layout/Column'
+import {Paragraph} from '@/components/ui/text/Paragraph'
+import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {AddressSwitchSaveMyAddress} from '@/modules/address/components/AddressSwitchSaveMyAddress'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
@@ -12,16 +18,22 @@ import {
 import {ModuleSlug} from '@/modules/slugs'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
-export type AddressSwitcherProps = {
+type AddressSwitcherProps = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
+  moduleSlug: ModuleSlug
+  noAddressText?: string
 } & TestProps
 
 export const AddressSwitch = ({
   testID,
+  noAddressText,
+  moduleSlug,
   highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 }: AddressSwitcherProps) => {
   const {navigate} = useNavigation()
-  const {address, locationType, isFetching} = useSelectedAddress()
+
+  const {address, shouldShowSaveAsMyAddress, locationType, isFetching} =
+    useSelectedAddress(moduleSlug)
 
   const iconName = useMemo(
     () => getAddressSwitchIcon(locationType, address, isFetching),
@@ -33,22 +45,44 @@ export const AddressSwitch = ({
     [address, isFetching, locationType],
   )
 
+  const onNavigateToAddressForm = () =>
+    navigate(ModuleSlug.address, {
+      screen: AddressRouteName.chooseAddress,
+      params: {highAccuracyPurposeKey, moduleSlug},
+    })
+
   return (
-    <NavigationButton
-      accessibilityLabel={accessibleText(label)}
-      accessibilityLanguage="nl-NL"
-      accessibilityRole="button"
-      emphasis="default"
-      iconName={iconName}
-      iconSize="md"
-      onPress={() =>
-        navigate(ModuleSlug.address, {
-          screen: AddressRouteName.chooseAddress,
-          params: {highAccuracyPurposeKey},
-        })
-      }
-      testID={testID}
-      title={label}
-    />
+    <>
+      <Column gutter="xl">
+        <NavigationButton
+          accessibilityLabel={accessibleText(label)}
+          accessibilityLanguage="nl-NL"
+          accessibilityRole="button"
+          emphasis="default"
+          iconName={iconName}
+          iconSize="md"
+          onPress={onNavigateToAddressForm}
+          testID={testID}
+          title={label}
+        />
+
+        {!address && !!noAddressText && (
+          <Column gutter="md">
+            <Title text="Geen adres" />
+            <Paragraph>{noAddressText}</Paragraph>
+            <Button
+              label="Adres invullen"
+              onPress={onNavigateToAddressForm}
+              testID="AddressSwitchChooseAddressButton"
+            />
+          </Column>
+        )}
+
+        {!!shouldShowSaveAsMyAddress && (
+          <AddressSwitchSaveMyAddress moduleSlug={moduleSlug} />
+        )}
+      </Column>
+      <AlertTopOfScreen inset="no" />
+    </>
   )
 }

@@ -5,15 +5,15 @@ import {useIsModuleActive} from '@/hooks/useIsModuleActive'
 type Props = {
   FallbackComponent?: ReactNode
   children: ReactNode
-  module: ModuleSlug
+  moduleSlug: ModuleSlug
 }
 
 export const RenderIfModuleActive = ({
   FallbackComponent,
-  module,
+  moduleSlug,
   children,
 }: Props) => {
-  const isActive = useIsModuleActive(module)
+  const isActive = useIsModuleActive(moduleSlug)
 
   if (!isActive) {
     return FallbackComponent ?? null

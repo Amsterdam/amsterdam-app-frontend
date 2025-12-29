@@ -3,6 +3,7 @@ import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {Address} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {
   ExceptionLogKey,
   useTrackException,
@@ -12,7 +13,9 @@ const WASTE_GUIDE_BASE_URL = 'https://www.amsterdam.nl/afval/afvalinformatie/'
 
 export const WasteGuideShare = () => {
   const trackException = useTrackException()
-  const {address, hasValidAddress} = useSelectedAddress()
+  const {address, hasValidAddress} = useSelectedAddress(
+    ModuleSlug['waste-guide'],
+  )
   const url = buildWasteGuideUrl(address)
   const onShare = async () => {
     try {

@@ -1,3 +1,4 @@
+import {Column} from '@/components/ui/layout/Column'
 import {SuggestionButton} from '@/modules/address/components/SuggestionButton'
 import {BaseAddress, Address, AddressList} from '@/modules/address/types'
 import {getSuggestionLabel} from '@/modules/address/utils/getSuggestionLabel'
@@ -14,7 +15,7 @@ export const AddressSearchSuggestions = ({
   selectResult,
   showNumbersOnly = false,
 }: Props) => (
-  <>
+  <Column gutter="xs">
     {addresses.map(address => {
       const key =
         'bagId' in address
@@ -35,5 +36,5 @@ export const AddressSearchSuggestions = ({
         />
       )
     })}
-  </>
+  </Column>
 )

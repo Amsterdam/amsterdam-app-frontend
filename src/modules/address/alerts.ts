@@ -16,6 +16,12 @@ export const alerts = {
     testID: 'AddressDeletedAlert',
     variant: AlertVariant.positive,
   },
+  saveMyAddressSuccess: {
+    variant: AlertVariant.positive,
+    title: 'Gelukt',
+    text: 'Uw adres is opgeslagen als Mijn adres',
+    testID: 'AddressSaveMyAddressSuccessAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

@@ -19,12 +19,7 @@ export const WasteGuide = () => {
   } = useGetWasteGuide()
 
   if (isFetchingWasteGuide || isFetchingAddress || !hasValidAddress) {
-    return (
-      <WasteGuideNoAddress
-        isFetchingAddress={isFetchingAddress}
-        isFetchingWasteGuide={isFetchingWasteGuide}
-      />
-    )
+    return <WasteGuideNoAddress isFetchingWasteGuide={isFetchingWasteGuide} />
   }
 
   const loadingError = getWasteGuideIsError || !wasteGuide

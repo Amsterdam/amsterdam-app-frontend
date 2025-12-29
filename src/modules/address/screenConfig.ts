@@ -6,8 +6,8 @@ import {
   AddressStackParams,
 } from '@/modules/address/routes'
 import {AddressScreen} from '@/modules/address/screens/Address.screen'
-import {AddressFormScreen} from '@/modules/address/screens/AddressForm.screen'
 import {ChooseAddressScreen} from '@/modules/address/screens/ChooseAddress.screen'
+import {MyAddressFormScreen} from '@/modules/address/screens/MyAddressForm.screen'
 import {PrivacyInfoScreen} from '@/modules/address/screens/PrivacyInfo.screen'
 
 export const screenConfig: StackNavigationRoutes<AddressStackParams> = {
@@ -32,9 +32,9 @@ export const modals: StackNavigationRoutes<
   AddressModalParams,
   AddressModalName
 > = {
-  [AddressModalName.addressForm]: {
-    component: AddressFormScreen,
-    name: AddressModalName.addressForm,
+  [AddressModalName.myAddressForm]: {
+    component: MyAddressFormScreen,
+    name: AddressModalName.myAddressForm,
   },
   [AddressModalName.privacyInfo]: {
     component: PrivacyInfoScreen,

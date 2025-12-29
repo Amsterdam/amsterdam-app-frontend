@@ -1,15 +1,20 @@
+import {useCallback} from 'react'
+import type {ModuleSlug} from '@/modules/slugs'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {type TestProps} from '@/components/ui/types'
+import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
+import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
+import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useLocation} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {type LogProps} from '@/processes/piwik/types'
 import {Permissions} from '@/types/permissions'
 
 type Props = {
-  hasTitleIcon?: boolean
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
-  onPress: () => void
+  moduleSlug: ModuleSlug
 } & TestProps &
   LogProps
 
@@ -30,13 +35,47 @@ const getText = (
 }
 
 export const LocationTopTaskButton = ({
-  hasTitleIcon,
-  onPress,
+  highAccuracyPurposeKey,
+  moduleSlug,
   testID,
   ...props
 }: Props) => {
   const {hasPermission} = usePermission(Permissions.location)
   const {isGettingLocation, getLocationIsError, location} = useLocation()
+  const {goBack} = useNavigation()
+  const setLocationType = useSetLocationType(moduleSlug)
+
+  const {requestPermission} = usePermission(Permissions.location)
+  const {startLocationFetch} = useRequestLocationFetch(
+    moduleSlug,
+    highAccuracyPurposeKey,
+  )
+
+  const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
+    Permissions.location,
+  )
+
+  const onPressLocationButton = useCallback(async () => {
+    const permission = await requestPermission()
+
+    startLocationFetch()
+
+    if (!permission) {
+      navigateToInstructionsScreen()
+
+      return
+    }
+
+    setLocationType('location')
+
+    goBack()
+  }, [
+    goBack,
+    startLocationFetch,
+    navigateToInstructionsScreen,
+    requestPermission,
+    setLocationType,
+  ])
 
   return (
     <StatefulTopTaskButton
@@ -46,11 +85,10 @@ export const LocationTopTaskButton = ({
       isError={getLocationIsError}
       isLoading={isGettingLocation}
       logName={`${testID}${hasPermission && location ? 'SelectLocation' : 'AddLocation'}`}
-      onPress={onPress}
+      onPress={onPressLocationButton}
       testID={testID}
       text={getText(!!isGettingLocation, hasPermission, location?.addressLine1)}
       title="Mijn huidige locatie"
-      titleIconName={hasTitleIcon ? 'chevron-down' : undefined}
       {...props}
     />
   )

@@ -19,7 +19,7 @@ import {usePiwikTrackSearchFromProps} from '@/processes/piwik/hooks/usePiwikTrac
 import {PiwikDimension} from '@/processes/piwik/types'
 import {useThemable} from '@/themes/useThemable'
 
-type Props = {
+export type SearchFieldProps = {
   onChangeText?: (event: string) => void
   onFocus?: () => void
   ref?: Ref<TextInput | null>
@@ -34,7 +34,7 @@ export const SearchField = ({
   value = '',
   accessibilityLanguage = 'nl-NL',
   ...textInputProps
-}: Props) => {
+}: SearchFieldProps) => {
   const [hasFocus, setHasFocus] = useState(false)
   const styles = useThemable(createStyles({hasFocus}))
   const themedTextInputProps = useThemable(createTextInputProps)
@@ -168,7 +168,7 @@ export const StylisticSearchField = ({
 const borderWidth = (focus: boolean) => (focus ? 2 : 1)
 
 const createStyles =
-  ({hasFocus}: {hasFocus?: boolean} & Partial<Props>) =>
+  ({hasFocus}: {hasFocus?: boolean} & Partial<SearchFieldProps>) =>
   ({color, size, text}: Theme) =>
     StyleSheet.create({
       frame: {

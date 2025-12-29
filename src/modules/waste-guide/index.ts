@@ -1,15 +1,17 @@
 import {ModuleSlug} from '@/modules/slugs'
-import {ModuleClientConfig} from '@/modules/types'
+import {createClientModule} from '@/modules/utils/createModule'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
-import {wasteGuideSlice} from '@/modules/waste-guide/slice'
+import {
+  wasteGuideSlice,
+  type WasteGuideState,
+} from '@/modules/waste-guide/slice'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-export const wasteGuideModule: ModuleClientConfig<
-  Record<string, unknown>,
-  typeof fractionIconConfig
-> = {
+const persistWhitelist: (keyof WasteGuideState)[] = ['address', 'locationType']
+
+export const wasteGuideModule = createClientModule({
   logDimension: PiwikSessionDimension.wasteGuideModule,
   name: 'WasteGuideModule',
   reduxConfigs: [
@@ -17,6 +19,7 @@ export const wasteGuideModule: ModuleClientConfig<
       key: ReduxKey.wasteGuide,
       persistVersion: 0,
       slice: wasteGuideSlice,
+      persistWhitelist,
     },
   ],
   requiresFirebaseToken: true,
@@ -25,4 +28,4 @@ export const wasteGuideModule: ModuleClientConfig<
     [WasteGuideRouteName.wasteGuide]: '/afval/afvalinformatie/',
   },
   icons: fractionIconConfig,
-}
+})

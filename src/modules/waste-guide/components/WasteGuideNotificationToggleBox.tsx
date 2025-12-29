@@ -1,8 +1,7 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {Box} from '@/components/ui/containers/Box'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectAddress} from '@/modules/address/slice'
+import {useMyAddress} from '@/modules/address/slice'
 import {
   useDeleteWasteGuideNotificationMutation,
   useGetWasteGuideNotificationQuery,
@@ -10,7 +9,7 @@ import {
 } from '@/modules/waste-guide/service'
 
 export const WasteGuideNotificationToggleBox = () => {
-  const address = useSelector(selectAddress)
+  const address = useMyAddress()
   const {isLoading, isSuccess, data} = useGetWasteGuideNotificationQuery()
 
   const [postWasteGuideNotification] = usePostWasteGuideNotificationMutation()

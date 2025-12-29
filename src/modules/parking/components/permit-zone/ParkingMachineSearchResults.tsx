@@ -6,6 +6,7 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 
 import {type ParkingMachine} from '@/modules/parking/types'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const ParkingMachineSearchResults = ({
   onSelectParkingMachine,
@@ -15,7 +16,7 @@ export const ParkingMachineSearchResults = ({
   parkingMachinesData: ParkingMachine[]
 }) => {
   const {parking_machine_favorite} = useCurrentParkingPermit()
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug.parking)
 
   const parkingMachinesByDistance = getSortedParkingMachines(
     parkingMachinesData,

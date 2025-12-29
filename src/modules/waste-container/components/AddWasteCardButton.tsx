@@ -5,6 +5,7 @@ import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSetSecureItem} from '@/hooks/secureStorage/useSetSecureItem'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ModuleSlug} from '@/modules/slugs'
 import {useRequestBluetoothPermission} from '@/modules/waste-container/hooks/useRequestBluetoothPermission'
 import {WasteContainerModalName} from '@/modules/waste-container/routes'
 import {useGetWasteCardQuery} from '@/modules/waste-container/service'
@@ -18,7 +19,7 @@ export const AddWasteCardButton = () => {
     Permissions.bluetooth,
   )
   const setSecureItem = useSetSecureItem()
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug['waste-container'])
 
   const {data} = useGetWasteCardQuery(
     address?.postcode

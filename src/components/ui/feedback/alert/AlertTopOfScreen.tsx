@@ -1,12 +1,19 @@
 import {LayoutAnimation} from 'react-native'
 import {Pressable} from '@/components/ui/buttons/Pressable'
-import {AlertBase} from '@/components/ui/feedback/alert/AlertBase'
+import {
+  AlertBase,
+  type AlertBaseProps,
+} from '@/components/ui/feedback/alert/AlertBase'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useBlurEffect} from '@/hooks/navigation/useBlurEffect'
 import {useAlert} from '@/store/slices/alert'
 import {isEmptyObject} from '@/utils/object'
 
-export const AlertTopOfScreen = () => {
+export const AlertTopOfScreen = ({
+  inset = 'md',
+}: {
+  inset?: AlertBaseProps['inset']
+}) => {
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
   const {resetAlert, alert} = useAlert()
 
@@ -33,7 +40,7 @@ export const AlertTopOfScreen = () => {
         {...alert}
         hasCloseIcon
         hasIcon
-        inset="md"
+        inset={inset}
       />
     </Pressable>
   )

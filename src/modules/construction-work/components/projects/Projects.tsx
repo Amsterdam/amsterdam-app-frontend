@@ -21,6 +21,7 @@ import {
   type ProjectsQueryArgs,
   ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'
+import {ModuleSlug} from '@/modules/slugs'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
 
 const emptyProjectsItem: ProjectsListItem = {
@@ -35,7 +36,7 @@ const emptyProjectsItem: ProjectsListItem = {
 }
 
 export const Projects = () => {
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
   const addressParam = getAddressParam(address)
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
@@ -91,6 +92,7 @@ export const Projects = () => {
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
                 }
+                moduleSlug={ModuleSlug['construction-work']}
                 testID="ConstructionWorkProjectsAddressSwitch"
               />
             </ProjectsListHeader>

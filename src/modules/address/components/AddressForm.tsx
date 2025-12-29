@@ -1,121 +1,130 @@
-import {useCallback, useEffect, useRef, useState} from 'react'
-import {TextInput} from 'react-native'
-import {Box} from '@/components/ui/containers/Box'
+import {useCallback} from 'react'
+import {FormProvider, useForm} from 'react-hook-form'
+import type {
+  Address,
+  AddressCity,
+  HighAccuracyPurposeKey,
+} from '@/modules/address/types'
+import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {usePreviousRoute} from '@/hooks/navigation/usePreviousRoute'
+import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {alerts} from '@/modules/address/alerts'
-import {NumberInput} from '@/modules/address/components/NumberInput'
-import {StreetInput} from '@/modules/address/components/StreetInput'
-import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
+import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
+import {AddressSearch} from '@/modules/address/components/form/AddressSearch'
+import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
+import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
-import {addAddress} from '@/modules/address/slice'
-import {AddressCity, BaseAddress, Address} from '@/modules/address/types'
+import {
+  addAddress,
+  addRecentAddress,
+  setModuleCustomAddress,
+  useMyAddress,
+} from '@/modules/address/slice'
 import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
-import {replaceString} from '@/modules/address/utils/replaceString'
 import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
 
-export const AddressForm = () => {
-  const {isLandscape, isTablet} = useDeviceContext()
-  const dispatch = useDispatch()
-  const {setAlert} = useAlert()
-  const [isStreetSelected, setIsStreetSelected] = useState(false)
-  const [city, setCity] = useState<AddressCity | undefined>(undefined)
-  const [number, setNumber] = useState<string>('')
-  const [street, setStreet] = useState<string>('')
+export type AddressSearchFields = {
+  city: AddressCity | undefined
+  number: string
+  street: string
+}
 
-  const address = `${street} ${number}`
-
-  const inputStreetRef = useRef<TextInput | null>(null)
-
-  const navigation = useNavigation<AddressModalName>()
-
-  const {
-    currentData: bagList,
-    isFetching: isFetchingBagList,
-    isError,
-    refetch,
-  } = useGetAddressSuggestionsQuery(
-    {address, city, street: isStreetSelected ? street : undefined},
-    {
-      skip: address?.length < ADDRESS_LENGTH_THRESHOLD,
-    },
-  )
-
-  const changeStreet = useCallback((text: string) => {
-    setIsStreetSelected(false)
-    setCity(undefined)
-    setStreet(replaceString(text, 'address'))
-    setNumber('')
-  }, [])
-
-  const changeNumber = useCallback((text: string) => {
-    setNumber(replaceString(text, 'houseNumber'))
-  }, [])
-
-  const previousRoute = usePreviousRoute()
-
-  const selectResult = useCallback(
-    (item: Address | BaseAddress) => {
-      if (item.type !== 'adres') {
-        setIsStreetSelected(true)
-        setStreet(item.street)
-        setCity(item.city)
-      } else {
-        const transformedAddress = addDerivedAddressFields(item)
-
-        dispatch(addAddress(transformedAddress))
-
-        if (previousRoute?.name === ModuleSlug.address) {
-          setAlert(alerts.addAddressSuccess)
-        }
-
-        navigation.goBack()
-      }
-    },
-    [dispatch, navigation, previousRoute?.name, setAlert],
-  )
-
-  useEffect(() => {
-    if (!isStreetSelected) {
-      setCity(undefined)
+type Props =
+  | {
+      highAccuracyPurposeKey?: HighAccuracyPurposeKey
+      moduleSlug: ModuleSlug
+      saveAsMyAddress?: never
     }
-  }, [isStreetSelected])
+  | {
+      highAccuracyPurposeKey?: HighAccuracyPurposeKey
+      moduleSlug?: never
+      saveAsMyAddress?: true
+    }
+
+export const AddressForm = ({
+  highAccuracyPurposeKey,
+  moduleSlug,
+  saveAsMyAddress,
+}: Props) => {
+  const form = useForm<AddressSearchFields>()
+  const dispatch = useDispatch()
+  const {goBack} = useNavigation()
+  const setLocationType = useSetLocationType(moduleSlug || ModuleSlug.address)
+  const route = useRoute<AddressModalName.myAddressForm>()
+  const myAddress = useMyAddress()
+
+  const {setAlert} = useAlert()
+
+  const onPressAddress = useCallback(
+    (newAddress: Address) => {
+      const transformedAddress = addDerivedAddressFields(newAddress)
+
+      dispatch(addRecentAddress(transformedAddress))
+
+      if (myAddress?.bagId === newAddress.bagId) {
+        setLocationType('address')
+      } else if (saveAsMyAddress) {
+        dispatch(addAddress(transformedAddress))
+        setLocationType('address')
+      } else {
+        dispatch(
+          setModuleCustomAddress({
+            moduleSlug: moduleSlug!,
+            address: transformedAddress,
+          }),
+        )
+        setLocationType('custom')
+      }
+
+      if (route?.name === AddressModalName.myAddressForm) {
+        setAlert(alerts.addAddressSuccess)
+      }
+
+      goBack()
+    },
+    [
+      dispatch,
+      myAddress?.bagId,
+      saveAsMyAddress,
+      route?.name,
+      goBack,
+      setLocationType,
+      moduleSlug,
+      setAlert,
+    ],
+  )
+
+  const isSearching = form.watch('street')?.length
 
   return (
-    <Box
-      grow
-      insetHorizontal="md"
-      insetVertical={isLandscape && !isTablet ? 'no' : 'md'}>
-      {!isStreetSelected ? (
-        <StreetInput
-          bagList={bagList ?? []}
-          changeStreet={changeStreet}
-          inputStreetRef={inputStreetRef}
-          isError={isError}
-          isLoading={isFetchingBagList}
-          isStreetSelected={isStreetSelected}
-          refetch={refetch}
-          selectResult={selectResult}
-          street={street}
-        />
-      ) : (
-        <NumberInput
-          bagList={bagList ?? []}
-          changeIsStreetSelected={setIsStreetSelected}
-          changeNumber={changeNumber}
-          isError={isError}
-          isLoading={isFetchingBagList}
-          keyboardType="numbers-and-punctuation"
-          number={number}
-          refetch={refetch}
-          selectResult={selectResult}
-          street={street}
-        />
-      )}
-    </Box>
+    <FormProvider {...form}>
+      <Column gutter="lg">
+        <AddressSearch onPressAddress={onPressAddress} />
+
+        {!isSearching && !saveAsMyAddress && !!moduleSlug && (
+          <>
+            <MyAddressButton
+              moduleSlug={moduleSlug}
+              onPress={() => {
+                setLocationType('address')
+                goBack()
+              }}
+              testID="ChooseAddressScreenMyAddressButton"
+            />
+
+            <LocationTopTaskButton
+              highAccuracyPurposeKey={highAccuracyPurposeKey}
+              moduleSlug={moduleSlug}
+              testID="ChooseAddressScreenLocationTopTaskButton"
+            />
+          </>
+        )}
+
+        {!isSearching && <RecentAddresses onPress={onPressAddress} />}
+      </Column>
+    </FormProvider>
   )
 }

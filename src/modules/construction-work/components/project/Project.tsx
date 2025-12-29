@@ -19,6 +19,7 @@ import {ProjectFollow} from '@/modules/construction-work/components/project/Proj
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
+import {ModuleSlug} from '@/modules/slugs'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -27,7 +28,7 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const {address} = useSelectedAddress()
+  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
   const navigation = useNavigation()
   const addressParam = getAddressParam(address)
   const {
