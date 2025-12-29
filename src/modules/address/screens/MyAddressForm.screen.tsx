@@ -14,7 +14,7 @@ export const MyAddressFormScreen = () => (
     }
     testID="AddressModalScreen">
     <Box>
-      <AddressForm />
+      <AddressForm saveAsMyAddress />
     </Box>
   </Screen>
 )

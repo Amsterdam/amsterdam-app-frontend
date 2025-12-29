@@ -10,7 +10,7 @@ import {HighAccuracyPurposeKey, type Address} from '@/modules/address/types'
 import {PollingStationsListItem} from '@/modules/elections/components/PollingStationListItem'
 import {PollingStation} from '@/modules/elections/types'
 import {getSortedPollingStations} from '@/modules/elections/utils/getSortedPollingStations'
-import {ReduxKey} from '@/store/types/reduxKey'
+import {ModuleSlug} from '@/modules/slugs'
 import {getDistance} from '@/utils/getDistance'
 
 type Props = {
@@ -61,7 +61,7 @@ export const PollingStationsList = ({
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressPollingStations
                 }
-                reduxKey={ReduxKey.elections}
+                moduleSlug={ModuleSlug.elections}
                 testID="PollingStationsListAddressSwitch"
               />
             </Box>

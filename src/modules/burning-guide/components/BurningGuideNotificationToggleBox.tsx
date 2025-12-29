@@ -1,8 +1,7 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {Box} from '@/components/ui/containers/Box'
-import {useSelector} from '@/hooks/redux/useSelector'
-import {selectAddress} from '@/modules/address/slice'
+import {useMyAddress} from '@/modules/address/slice'
 import {
   useGetBurningGuideNotificationQuery,
   usePostBurningGuideNotificationMutation,
@@ -10,7 +9,7 @@ import {
 } from '@/modules/burning-guide/service'
 
 export const BurningGuideNotificationToggleBox = () => {
-  const address = useSelector(selectAddress)
+  const address = useMyAddress()
   const {isLoading, isSuccess, data} = useGetBurningGuideNotificationQuery()
 
   const [postBurningGuideNotification] =

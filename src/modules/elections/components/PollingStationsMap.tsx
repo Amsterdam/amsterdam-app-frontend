@@ -8,6 +8,7 @@ import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Address} from '@/modules/address/types'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
 import {PollingStation} from '@/modules/elections/types'
+import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
   address?: Address
@@ -41,7 +42,7 @@ export const PollingStationsMap = ({
     return <PleaseWait testID="PollingStationsMapPleaseWait" />
   }
 
-  if (!pollingStations || !pollingStations.length || isError) {
+  if (!pollingStations?.length || isError) {
     return <SomethingWentWrong testID="PollingStationsMapSomethingWentWrong" />
   }
 
@@ -49,6 +50,7 @@ export const PollingStationsMap = ({
     <MapBase
       controls={[ControlVariant.location]}
       initialRegion={region}
+      moduleSlug={ModuleSlug.elections}
       onRegionChangeComplete={setRegion}>
       <Clusterer
         data={pollingStations.map(({position, id, ...props}) => ({

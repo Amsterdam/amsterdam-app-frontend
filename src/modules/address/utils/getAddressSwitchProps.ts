@@ -3,15 +3,10 @@ import type {Address, LocationType} from '@/modules/address/types'
 export const getAddressSwitchIcon = (
   locationType?: LocationType,
   address?: Address,
-  myAddress?: Address,
-  isFetchingLocation?: boolean,
+  isFetchingLocation: boolean = false,
 ) => {
-  if (locationType === 'address') {
-    if (!!myAddress && address?.addressLine1 === myAddress?.addressLine1) {
-      return 'housing'
-    } else {
-      return 'location'
-    }
+  if (locationType === 'address' && address) {
+    return 'housing'
   }
 
   if (locationType === 'location') {

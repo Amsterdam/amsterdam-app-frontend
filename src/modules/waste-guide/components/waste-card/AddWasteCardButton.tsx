@@ -1,15 +1,14 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {ModuleSlug} from '@/modules/slugs'
 import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 import {useGetWasteCardQuery} from '@/modules/waste-container/service'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 export const AddWasteCardButton = () => {
   const {navigate} = useNavigation()
-  const {address} = useModuleBasedSelectedAddress(ReduxKey.wasteGuide)
+  const {address} = useSelectedAddress(ModuleSlug['waste-guide'])
 
   const {data} = useGetWasteCardQuery(
     address?.postcode

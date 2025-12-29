@@ -1,17 +1,36 @@
 import {skipToken} from '@reduxjs/toolkit/query'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useGetPostalAreaQuery} from '@/modules/address/service'
 import {addressHasCoordinates} from '@/modules/address/utils/addressHasCoordinates'
 
-export const useSelectedPostalArea = () => {
-  const {address} = useSelectedAddress()
+export const useSelectedPostalArea = (moduleSlug: ModuleSlug) => {
+  const {address, isFetching: isFetchingAddress} =
+    useSelectedAddress(moduleSlug)
 
   const shouldGetPostalArea =
     addressHasCoordinates(address) && !address.postcode
 
-  const {data: {postal_area} = {}} = useGetPostalAreaQuery(
+  const {
+    data,
+    isError,
+    isSuccess,
+    isFetching: isFetchingPostalArea,
+  } = useGetPostalAreaQuery(
     shouldGetPostalArea ? address.coordinates : skipToken,
   )
 
-  return address?.postcode || (shouldGetPostalArea ? postal_area : undefined)
+  if (shouldGetPostalArea) {
+    return {
+      postalArea: address?.postcode || data?.postal_area,
+      isError: isError || (isSuccess && !data),
+      isFetching: isFetchingAddress || isFetchingPostalArea,
+    }
+  }
+
+  return {
+    postalArea: address?.postcode,
+    isError: false,
+    isFetching: isFetchingAddress,
+  }
 }

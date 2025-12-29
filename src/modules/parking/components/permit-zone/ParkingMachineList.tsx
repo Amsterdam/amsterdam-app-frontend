@@ -5,16 +5,16 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Title} from '@/components/ui/text/Title'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {ParkingMachineListItem} from '@/modules/parking/components/permit-zone/ParkingMachineListItem'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {useParkingMachinesQuery} from '@/modules/parking/service'
 import {getSortedParkingMachines} from '@/modules/parking/utils/getSortedParkingMachines'
-import {ReduxKey} from '@/store/types/reduxKey'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const ParkingMachineList = () => {
-  const {address} = useModuleBasedSelectedAddress(ReduxKey.parking)
+  const {address} = useSelectedAddress(ModuleSlug.parking)
   const {onSelectParkingMachine} = usePermitMapContext()
 
   const {
@@ -55,7 +55,7 @@ export const ParkingMachineList = () => {
               highAccuracyPurposeKey={
                 HighAccuracyPurposeKey.PreciseLocationAddressParking
               }
-              reduxKey={ReduxKey.parking}
+              moduleSlug={ModuleSlug.parking}
               testID="ParkingMachineListAddressSwitch"
             />
           </Box>

@@ -12,6 +12,7 @@ import {ParkingPermitZoneMapMarkers} from '@/modules/parking/components/permit-z
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {usePermitMapContext} from '@/modules/parking/hooks/usePermitMapContext'
 import {usePermitZonesQuery} from '@/modules/parking/service'
+import {ModuleSlug} from '@/modules/slugs'
 import {debounce} from '@/utils/debounce'
 
 const DEBOUNCE_DELAY = 100
@@ -59,6 +60,7 @@ export const ParkingPermitZoneMap = () => {
     <MapBase
       controls={[ControlVariant.location]}
       initialRegion={initialRegion}
+      moduleSlug={ModuleSlug.parking}
       onRegionChange={debounce(setRegion, DEBOUNCE_DELAY)}>
       <Geojson
         fillColor={getFillColor(

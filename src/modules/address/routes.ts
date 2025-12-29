@@ -1,5 +1,5 @@
 import type {HighAccuracyPurposeKey} from '@/modules/address/types'
-import type {ReduxKey} from '@/store/types/reduxKey'
+import type {ModuleSlug} from '@/modules/slugs'
 
 export enum AddressRouteName {
   address = 'Address',
@@ -10,7 +10,7 @@ export type AddressStackParams = {
   [AddressRouteName.address]: undefined
   [AddressRouteName.chooseAddress]: {
     highAccuracyPurposeKey?: HighAccuracyPurposeKey
-    reduxKey?: ReduxKey
+    moduleSlug?: ModuleSlug
   }
 }
 

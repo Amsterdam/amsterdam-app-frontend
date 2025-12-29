@@ -1,4 +1,3 @@
-import {ReactNode} from 'react'
 import {Button} from '@/components/ui/buttons/Button'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Column} from '@/components/ui/layout/Column'
@@ -10,35 +9,6 @@ import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, useMyAddress} from '@/modules/address/slice'
 import {useAlert} from '@/store/slices/alert'
 import {useTheme} from '@/themes/useTheme'
-
-type AddressDeleteButtonProps = {
-  canDelete: boolean
-  children: ReactNode
-  onDelete: () => void
-}
-
-const AddressDeleteButton = ({
-  canDelete,
-  onDelete,
-  children,
-}: AddressDeleteButtonProps) => {
-  if (canDelete) {
-    return (
-      <Row>
-        <Row grow={1}>{children}</Row>
-        <Button
-          accessibilityLabel="Verwijder mijn adres"
-          iconName="trash-bin"
-          onPress={onDelete}
-          testID="AddressDeleteButton"
-          variant="tertiary"
-        />
-      </Row>
-    )
-  }
-
-  return children
-}
 
 export const DisplayAddress = () => {
   const address = useMyAddress()
@@ -55,11 +25,10 @@ export const DisplayAddress = () => {
   return (
     <Row>
       <Column flex={1}>
-        <AddressDeleteButton
-          canDelete={!!address}
-          onDelete={removeAddressAndShowAlert}>
+        <Row>
           <TopTaskButton
             accessibilityHint="Tik om het adres te wijzigen"
+            flex={1}
             hitSlop={{bottom: size.spacing.md, top: size.spacing.md}}
             iconName="housing"
             logName={
@@ -70,7 +39,16 @@ export const DisplayAddress = () => {
             text={address?.addressLine1 ?? 'Vul een adres in'}
             title="Mijn adres"
           />
-        </AddressDeleteButton>
+          {!!address && (
+            <Button
+              accessibilityLabel="Verwijder mijn adres"
+              iconName="trash-bin"
+              onPress={removeAddressAndShowAlert}
+              testID="AddressDeleteButton"
+              variant="tertiary"
+            />
+          )}
+        </Row>
       </Column>
     </Row>
   )

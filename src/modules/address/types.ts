@@ -1,3 +1,5 @@
+import type {ModuleSlug} from '@/modules/slugs'
+
 export enum AddressCity {
   Amsterdam = 'Amsterdam',
   Weesp = 'Weesp',
@@ -52,9 +54,19 @@ export type AddressState = {
    */
   locationFetchRequested: boolean | undefined
   /**
-   * user preference for using location or address
+   * User preference for using location or address
    */
   locationType?: LocationType
+  /**
+   * Custom address set for a specific module
+   */
+  moduleCustomAddress?: Partial<
+    Record<ModuleSlug, Address & {isSaveAsMyAddressShown: boolean}>
+  >
+  /**
+   * User preference for using location, address or custom
+   */
+  moduleLocationType?: Partial<Record<ModuleSlug, LocationType>>
   /**
    * A list of recently searched addresses
    */
@@ -67,7 +79,7 @@ export type PostalArea = {
   postal_area: string
 }
 
-export type LocationType = 'address' | 'location'
+export type LocationType = 'address' | 'location' | 'custom'
 
 export enum HighAccuracyPurposeKey {
   PreciseLocationAddressBurningGuide = 'PreciseLocationAddressBurningGuide',

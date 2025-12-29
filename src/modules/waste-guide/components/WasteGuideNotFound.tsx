@@ -3,16 +3,14 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ModuleSlug} from '@/modules/slugs'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {getNotFoundText} from '@/modules/waste-guide/utils/getNotFoundText'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 export const WasteGuideNotFound = () => {
   const navigation = useNavigation<WasteGuideRouteName>()
-  const {address, locationType} = useModuleBasedSelectedAddress(
-    ReduxKey.wasteGuide,
-  )
+  const {address, locationType} = useSelectedAddress(ModuleSlug['waste-guide'])
 
   return (
     <Column gutter="lg">

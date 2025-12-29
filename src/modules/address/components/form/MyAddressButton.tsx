@@ -5,19 +5,20 @@ import {Button} from '@/components/ui/buttons/Button'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressTopTaskButton} from '@/modules/address/components/form/AddressTopTaskButton'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName, AddressRouteName} from '@/modules/address/routes'
+import {useMyAddress} from '@/modules/address/slice'
 import {ModuleSlug} from '@/modules/slugs'
-import {ReduxKey} from '@/store/types/reduxKey'
 
-export const MyAddressButton = ({
-  testID,
-  onPress,
-}: {onPress: (address: Address) => void} & TestProps) => {
+type Props = {
+  moduleSlug: ModuleSlug
+  onPress: (address: Address) => void
+} & TestProps
+
+export const MyAddressButton = ({testID, onPress, moduleSlug}: Props) => {
   const {navigate} = useNavigation()
-  const {setLocationType, myAddress} = useModuleBasedSelectedAddress(
-    ReduxKey.address,
-  )
+  const setLocationType = useSetLocationType(moduleSlug)
+  const myAddress = useMyAddress()
 
   const onPressAddressButton = useCallback(() => {
     if (!myAddress) {

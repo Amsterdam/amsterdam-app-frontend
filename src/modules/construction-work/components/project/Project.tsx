@@ -11,7 +11,7 @@ import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/Constru
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import ProjectWarningFallbackImage from '@/modules/construction-work/assets/images/project-warning-fallback.svg'
 import {ArticleOverview} from '@/modules/construction-work/components/article/ArticleOverview'
@@ -19,8 +19,8 @@ import {ProjectFollow} from '@/modules/construction-work/components/project/Proj
 import {ProjectSegmentMenu} from '@/modules/construction-work/components/project/ProjectSegmentMenu'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectDetailsQuery} from '@/modules/construction-work/service'
+import {ModuleSlug} from '@/modules/slugs'
 import {selectIsInternetReachable} from '@/store/slices/internetConnection'
-import {ReduxKey} from '@/store/types/reduxKey'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 type Props = {
@@ -28,7 +28,7 @@ type Props = {
 }
 
 export const Project = ({id}: Props) => {
-  const {address} = useModuleBasedSelectedAddress(ReduxKey.constructionWork)
+  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
   const navigation = useNavigation()
   const addressParam = getAddressParam(address)
   const {

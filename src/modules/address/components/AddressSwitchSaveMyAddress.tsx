@@ -1,4 +1,5 @@
 import {useCallback} from 'react'
+import type {ModuleSlug} from '@/modules/slugs'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -7,21 +8,23 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {alerts} from '@/modules/address/alerts'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
-import {addAddress} from '@/modules/address/slice'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
+import {
+  addAddress,
+  setModuleIsSaveAsMyAddressShown,
+} from '@/modules/address/slice'
 import {useAlert} from '@/store/slices/alert'
-import {ReduxKey} from '@/store/types/reduxKey'
 
-export const AddressSwitchSaveMyAddress = ({
-  onClose,
-  reduxKey,
-}: {
-  onClose: () => void
-  reduxKey: ReduxKey
-}) => {
+type Props = {
+  moduleSlug: ModuleSlug
+}
+
+export const AddressSwitchSaveMyAddress = ({moduleSlug}: Props) => {
   const {setAlert} = useAlert()
   const dispatch = useDispatch()
-  const {address: moduleAddress} = useModuleBasedSelectedAddress(reduxKey)
+  const {address: moduleAddress} = useSelectedAddress(moduleSlug)
+  const setLocationType = useSetLocationType(moduleSlug)
 
   const onSaveMyAddress = useCallback(() => {
     if (!moduleAddress) {
@@ -29,10 +32,10 @@ export const AddressSwitchSaveMyAddress = ({
     }
 
     dispatch(addAddress(moduleAddress))
+    setLocationType('address')
 
     setAlert(alerts.saveMyAddressSuccess)
-    onClose()
-  }, [moduleAddress, dispatch, setAlert, onClose])
+  }, [moduleAddress, dispatch, setAlert, setLocationType])
 
   return (
     <Column gutter="md">
@@ -58,7 +61,14 @@ export const AddressSwitchSaveMyAddress = ({
           <Button
             flex={1}
             label="Nee, later"
-            onPress={onClose}
+            onPress={() =>
+              dispatch(
+                setModuleIsSaveAsMyAddressShown({
+                  moduleSlug,
+                  isSaveAsMyAddressShown: false,
+                }),
+              )
+            }
             testID="AddressSwitchDeclineMyAddressButton"
             variant="secondary"
           />

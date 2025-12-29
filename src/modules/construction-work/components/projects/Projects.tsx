@@ -4,7 +4,7 @@ import type {FlatGridProps} from 'react-native-super-grid'
 import {HorizontalSafeArea} from '@/components/ui/containers/HorizontalSafeArea'
 import {useInfiniteScroller} from '@/hooks/useInfiniteScroller'
 import {AddressSwitch} from '@/modules/address/components/AddressSwitch'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {getAddressParam} from '@/modules/address/utils/getAddressParam'
 import {ProjectsList} from '@/modules/construction-work/components/projects/ProjectsList'
@@ -21,8 +21,8 @@ import {
   type ProjectsQueryArgs,
   ConstructionWorkEndpointName,
 } from '@/modules/construction-work/types/api'
+import {ModuleSlug} from '@/modules/slugs'
 import {SearchFieldProvider} from '@/providers/searchField.provider'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 const emptyProjectsItem: ProjectsListItem = {
   followed: false,
@@ -36,7 +36,7 @@ const emptyProjectsItem: ProjectsListItem = {
 }
 
 export const Projects = () => {
-  const {address} = useModuleBasedSelectedAddress(ReduxKey.constructionWork)
+  const {address} = useSelectedAddress(ModuleSlug['construction-work'])
   const addressParam = getAddressParam(address)
   const {projectItemListPageSize} = config
   const [itemsPerRow, setItemsPerRow] = useState(1)
@@ -92,7 +92,7 @@ export const Projects = () => {
                 highAccuracyPurposeKey={
                   HighAccuracyPurposeKey.PreciseLocationAddressConstructionWork
                 }
-                reduxKey={ReduxKey.constructionWork}
+                moduleSlug={ModuleSlug['construction-work']}
                 testID="ConstructionWorkProjectsAddressSwitch"
               />
             </ProjectsListHeader>

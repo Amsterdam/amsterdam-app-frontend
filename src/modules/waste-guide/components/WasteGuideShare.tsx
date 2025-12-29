@@ -1,20 +1,20 @@
 import {Platform, Share} from 'react-native'
 import {IconButton} from '@/components/ui/buttons/IconButton'
 import {Icon} from '@/components/ui/media/Icon'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {Address} from '@/modules/address/types'
+import {ModuleSlug} from '@/modules/slugs'
 import {
   ExceptionLogKey,
   useTrackException,
 } from '@/processes/logging/hooks/useTrackException'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 const WASTE_GUIDE_BASE_URL = 'https://www.amsterdam.nl/afval/afvalinformatie/'
 
 export const WasteGuideShare = () => {
   const trackException = useTrackException()
-  const {address, hasValidAddress} = useModuleBasedSelectedAddress(
-    ReduxKey.wasteGuide,
+  const {address, hasValidAddress} = useSelectedAddress(
+    ModuleSlug['waste-guide'],
   )
   const url = buildWasteGuideUrl(address)
   const onShare = async () => {

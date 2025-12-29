@@ -7,7 +7,7 @@ import {AddressRouteName} from '@/modules/address/routes'
 type Props = NavigationProps<AddressRouteName.chooseAddress>
 
 export const ChooseAddressScreen = ({route}: Props) => {
-  const {highAccuracyPurposeKey, reduxKey} = route.params ?? {}
+  const {highAccuracyPurposeKey, moduleSlug} = route.params ?? {}
 
   return (
     <Screen
@@ -17,8 +17,7 @@ export const ChooseAddressScreen = ({route}: Props) => {
       <Box grow>
         <AddressForm
           highAccuracyPurposeKey={highAccuracyPurposeKey}
-          reduxKey={reduxKey}
-          showAddressButtons
+          moduleSlug={moduleSlug}
         />
       </Box>
     </Screen>

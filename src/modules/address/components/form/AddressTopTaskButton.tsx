@@ -17,8 +17,10 @@ export const AddressTopTaskButton = ({
   ...props
 }: Props) => (
   <TopTaskButton
+    flex={1}
     iconName="housing"
     iconSize="lg"
+    insetHorizontal="sm"
     onPress={onPress}
     testID={testID}
     text={text}

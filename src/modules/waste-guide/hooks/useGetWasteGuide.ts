@@ -1,15 +1,15 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useIsFocusedAndroid} from '@/hooks/useIsFocusedAndroid'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
+import {ModuleSlug} from '@/modules/slugs'
 import {useGetWasteGuideQuery} from '@/modules/waste-guide/service'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 export const useGetWasteGuide = () => {
   const {
     address,
-    isFetchingLocation: isFetchingAddress,
+    isFetching: isFetchingAddress,
     hasValidAddress,
-  } = useModuleBasedSelectedAddress(ReduxKey.wasteGuide)
+  } = useSelectedAddress(ModuleSlug['waste-guide'])
 
   const isFocusedAndroid = useIsFocusedAndroid()
 

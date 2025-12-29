@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {MAX_RECENT_ADDRESSES} from '@/modules/address/constants'
 import {
@@ -19,6 +20,8 @@ const initialState: AddressState = {
   getLocationIsError: undefined,
   isGettingLocation: undefined,
   recentAddresses: [],
+  moduleLocationType: {},
+  moduleCustomAddress: {},
 }
 
 export const addressSlice = createSlice({
@@ -75,10 +78,46 @@ export const addressSlice = createSlice({
     }),
     setLocationType: (
       state,
-      {payload: {locationType}}: PayloadAction<{locationType: LocationType}>,
+      {
+        payload: {locationType, moduleSlug},
+      }: PayloadAction<{locationType: LocationType; moduleSlug: ModuleSlug}>,
     ) => ({
       ...state,
-      locationType,
+      moduleLocationType: {
+        ...state.moduleLocationType,
+        [moduleSlug]: locationType,
+      },
+    }),
+    setModuleCustomAddress: (
+      state,
+      {
+        payload: {moduleSlug, address},
+      }: PayloadAction<{address: Address | undefined; moduleSlug: ModuleSlug}>,
+    ) => ({
+      ...state,
+      moduleCustomAddress: {
+        ...state.moduleCustomAddress,
+        [moduleSlug]: address
+          ? {...address, isSaveAsMyAddressShown: false}
+          : undefined,
+      },
+    }),
+    setModuleIsSaveAsMyAddressShown: (
+      state,
+      {
+        payload: {moduleSlug, isSaveAsMyAddressShown},
+      }: PayloadAction<{
+        isSaveAsMyAddressShown: boolean
+        moduleSlug: ModuleSlug
+      }>,
+    ) => ({
+      ...state,
+      moduleCustomAddress: {
+        ...state.moduleCustomAddress,
+        [moduleSlug]: state.moduleCustomAddress?.[moduleSlug]
+          ? {...state.moduleCustomAddress[moduleSlug], isSaveAsMyAddressShown}
+          : undefined,
+      },
     }),
   },
 })
@@ -92,6 +131,8 @@ export const {
   setGetLocationIsError,
   setIsGettingLocation,
   setLocationType,
+  setModuleCustomAddress,
+  setModuleIsSaveAsMyAddressShown,
 } = addressSlice.actions
 
 export const selectMyAddress = (state: RootState) =>
@@ -108,10 +149,14 @@ export const selectGetLocationIsError = (state: RootState) =>
 export const selectHighAccuracyPurposeKey = (state: RootState) =>
   state[ReduxKey.address].highAccuracyPurposeKey
 export const selectIsGettingLocation = (state: RootState) =>
-  state[ReduxKey.address].isGettingLocation
+  state[ReduxKey.address].isGettingLocation ?? false
 
 export const selectRecentAddresses = (state: RootState) =>
   state[ReduxKey.address].recentAddresses
+
+export const selectCustomAddress =
+  (moduleSlug: ModuleSlug) => (state: RootState) =>
+    state[ReduxKey.address].moduleCustomAddress?.[moduleSlug]
 
 export const useRecentAddresses = () => useSelector(selectRecentAddresses)
 
@@ -125,37 +170,46 @@ export const useLocation = () => ({
   location: useSelector(selectLocation),
 })
 
-export const selectLocationType = (
-  state: RootState,
-): LocationType | undefined => {
-  const locationType = state[ReduxKey.address].locationType
-  const address = selectMyAddress(state)
-  const hasLocationPermission = selectIsPermissionGranted(Permissions.location)(
-    state,
-  )
+export const selectLocationType =
+  (moduleSlug: ModuleSlug) =>
+  (state: RootState): LocationType | undefined => {
+    const locationType =
+      state[ReduxKey.address].moduleLocationType?.[moduleSlug] ??
+      state[ReduxKey.address].locationType
+    const address = selectMyAddress(state)
+    const customAddress = selectCustomAddress(moduleSlug)(state)
+    const hasLocationPermission = selectIsPermissionGranted(
+      Permissions.location,
+    )(state)
 
-  // If location type is address and there is an address available, return address
-  if (locationType === 'address' && address) {
-    return 'address'
+    // If location type is custom and there is an address available, return address
+    if (locationType === 'custom' && customAddress) {
+      return 'custom'
+    }
+
+    // If location type is address and my address is available, return my address
+    if (locationType === 'address' && address) {
+      return 'address'
+    }
+
+    // If location type is location and location permission is granted, return location
+    if (locationType === 'location' && hasLocationPermission) {
+      return 'location'
+    }
+
+    // If address is set, return address
+    if (address) {
+      return 'address'
+    }
+
+    // If location permission is granted, return location
+    if (hasLocationPermission) {
+      return 'location'
+    }
+
+    // Otherwise, return address
+    return undefined
   }
 
-  // If location type is location and location permission is granted, return location
-  if (locationType === 'location' && hasLocationPermission) {
-    return 'location'
-  }
-
-  // If address is set, return address
-  if (address) {
-    return 'address'
-  }
-
-  // If location permission is granted, return location
-  if (hasLocationPermission) {
-    return 'location'
-  }
-
-  // Otherwise, return address
-  return undefined
-}
-
-export const useGlobalLocationType = () => useSelector(selectLocationType)
+export const useLocationType = (moduleSlug: ModuleSlug) =>
+  useSelector(selectLocationType(moduleSlug))

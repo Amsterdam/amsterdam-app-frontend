@@ -8,15 +8,9 @@ describe('getAddressSwitchProps', () => {
   test('should return a loading state when location is being fetched.', () => {
     const locationType: LocationType = 'location'
     const address = undefined
-    const myAddress = undefined
     const isFetching = true
 
-    const icon = getAddressSwitchIcon(
-      locationType,
-      address,
-      myAddress,
-      isFetching,
-    )
+    const icon = getAddressSwitchIcon(locationType, address, isFetching)
     const label = getAddressSwitchLabel(locationType, address, isFetching)
 
     expect(icon).toBe('spinner')
@@ -28,13 +22,11 @@ describe('getAddressSwitchProps', () => {
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
     }
-    const myAddress = undefined
     const isFetching = false
 
     const icon = getAddressSwitchIcon(
       locationType,
       address as Address,
-      myAddress,
       isFetching,
     )
     const label = getAddressSwitchLabel(
@@ -52,15 +44,11 @@ describe('getAddressSwitchProps', () => {
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
     }
-    const myAddress: Pick<Address, 'addressLine1'> = {
-      addressLine1: 'Cruquiusweg 5',
-    }
     const isFetching = false
 
     const icon = getAddressSwitchIcon(
       locationType,
       address as Address,
-      myAddress as Address,
       isFetching,
     )
     const label = getAddressSwitchLabel(
@@ -78,15 +66,11 @@ describe('getAddressSwitchProps', () => {
     const address: Pick<Address, 'addressLine1'> = {
       addressLine1: 'Cruquiusweg 5',
     }
-    const myAddress: Pick<Address, 'addressLine1'> = {
-      addressLine1: 'Oudezijds Voorburgwal 200',
-    }
     const isFetching = false
 
     const icon = getAddressSwitchIcon(
       locationType,
       address as Address,
-      myAddress as Address,
       isFetching,
     )
     const label = getAddressSwitchLabel(
@@ -95,22 +79,16 @@ describe('getAddressSwitchProps', () => {
       isFetching,
     )
 
-    expect(icon).toBe('location')
+    expect(icon).toBe('housing')
     expect(label).toBe('Cruquiusweg 5')
   })
 
   test('should return location icon and placeholder text when locationType is address and user has not entered address nor has myAddress set.', () => {
     const locationType: LocationType = 'address'
     const address = undefined
-    const myAddress = undefined
     const isFetching = false
 
-    const icon = getAddressSwitchIcon(
-      locationType,
-      address,
-      myAddress,
-      isFetching,
-    )
+    const icon = getAddressSwitchIcon(locationType, address, isFetching)
     const label = getAddressSwitchLabel(locationType, address, isFetching)
 
     expect(icon).toBe('location')

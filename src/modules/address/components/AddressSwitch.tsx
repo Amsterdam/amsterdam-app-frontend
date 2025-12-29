@@ -1,4 +1,4 @@
-import {useEffect, useMemo, useState} from 'react'
+import {useMemo} from 'react'
 import type {TestProps} from '@/components/ui/types'
 import {Button} from '@/components/ui/buttons/Button'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
@@ -8,7 +8,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {AddressSwitchSaveMyAddress} from '@/modules/address/components/AddressSwitchSaveMyAddress'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {AddressRouteName} from '@/modules/address/routes'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {
@@ -16,54 +16,39 @@ import {
   getAddressSwitchLabel,
 } from '@/modules/address/utils/getAddressSwitchProps'
 import {ModuleSlug} from '@/modules/slugs'
-import {ReduxKey} from '@/store/types/reduxKey'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
-export type AddressSwitcherProps = {
+type AddressSwitcherProps = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
+  moduleSlug: ModuleSlug
   noAddressText?: string
-  reduxKey?: ReduxKey
 } & TestProps
 
 export const AddressSwitch = ({
   testID,
   noAddressText,
-  reduxKey = ReduxKey.address,
+  moduleSlug,
   highAccuracyPurposeKey = HighAccuracyPurposeKey.PreciseLocationAddressLookup,
 }: AddressSwitcherProps) => {
   const {navigate} = useNavigation()
 
-  const {address, myAddress, locationType, isFetchingLocation} =
-    useModuleBasedSelectedAddress(reduxKey)
-
-  const [showMyAddressHint, setShowMyAddressHint] = useState(false)
-
-  useEffect(() => {
-    if (!myAddress && !!address && locationType === 'address') {
-      setShowMyAddressHint(true)
-    }
-  }, [address, myAddress, locationType])
+  const {address, shouldShowSaveAsMyAddress, locationType, isFetching} =
+    useSelectedAddress(moduleSlug)
 
   const iconName = useMemo(
-    () =>
-      getAddressSwitchIcon(
-        locationType,
-        address,
-        myAddress,
-        isFetchingLocation,
-      ),
-    [address, isFetchingLocation, myAddress, locationType],
+    () => getAddressSwitchIcon(locationType, address, isFetching),
+    [address, isFetching, locationType],
   )
 
   const label = useMemo(
-    () => getAddressSwitchLabel(locationType, address, isFetchingLocation),
-    [address, isFetchingLocation, locationType],
+    () => getAddressSwitchLabel(locationType, address, isFetching),
+    [address, isFetching, locationType],
   )
 
   const onNavigateToAddressForm = () =>
     navigate(ModuleSlug.address, {
       screen: AddressRouteName.chooseAddress,
-      params: {highAccuracyPurposeKey, reduxKey},
+      params: {highAccuracyPurposeKey, moduleSlug},
     })
 
   return (
@@ -93,11 +78,8 @@ export const AddressSwitch = ({
           </Column>
         )}
 
-        {!!showMyAddressHint && (
-          <AddressSwitchSaveMyAddress
-            onClose={() => setShowMyAddressHint(false)}
-            reduxKey={reduxKey}
-          />
+        {!!shouldShowSaveAsMyAddress && (
+          <AddressSwitchSaveMyAddress moduleSlug={moduleSlug} />
         )}
       </Column>
       <AlertTopOfScreen inset="no" />

@@ -1,16 +1,15 @@
 import {useCallback, useEffect} from 'react'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {
-  requestLocationFetch,
-  useGlobalLocationType,
-} from '@/modules/address/slice'
+import {requestLocationFetch, useLocationType} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 
 export const useRequestLocationFetch = (
+  moduleSlug: ModuleSlug,
   highAccuracyPurposeKey?: HighAccuracyPurposeKey,
 ) => {
   const dispatch = useDispatch()
-  const locationType = useGlobalLocationType()
+  const locationType = useLocationType(moduleSlug)
 
   const startLocationFetch = useCallback(
     () => dispatch(requestLocationFetch(highAccuracyPurposeKey)),

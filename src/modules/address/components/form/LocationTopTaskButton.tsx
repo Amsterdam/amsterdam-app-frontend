@@ -1,12 +1,12 @@
 import {useCallback} from 'react'
-import type {ReduxKey} from '@/store/types/reduxKey'
+import type {ModuleSlug} from '@/modules/slugs'
 import {StatefulTopTaskButton} from '@/components/ui/buttons/StatefulTopTaskButton'
 import {type TestProps} from '@/components/ui/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {usePermission} from '@/hooks/permissions/usePermission'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
 import {useNavigateToInstructionsScreen} from '@/modules/address/hooks/useNavigateToInstructionsScreen'
 import {useRequestLocationFetch} from '@/modules/address/hooks/useRequestLocationFetch'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useLocation} from '@/modules/address/slice'
 import {HighAccuracyPurposeKey} from '@/modules/address/types'
 import {type LogProps} from '@/processes/piwik/types'
@@ -14,7 +14,7 @@ import {Permissions} from '@/types/permissions'
 
 type Props = {
   highAccuracyPurposeKey?: HighAccuracyPurposeKey
-  reduxKey: ReduxKey
+  moduleSlug: ModuleSlug
 } & TestProps &
   LogProps
 
@@ -36,17 +36,20 @@ const getText = (
 
 export const LocationTopTaskButton = ({
   highAccuracyPurposeKey,
-  reduxKey,
+  moduleSlug,
   testID,
   ...props
 }: Props) => {
   const {hasPermission} = usePermission(Permissions.location)
   const {isGettingLocation, getLocationIsError, location} = useLocation()
   const {goBack} = useNavigation()
-  const {setLocationType} = useModuleBasedSelectedAddress(reduxKey)
+  const setLocationType = useSetLocationType(moduleSlug)
 
   const {requestPermission} = usePermission(Permissions.location)
-  const {startLocationFetch} = useRequestLocationFetch(highAccuracyPurposeKey)
+  const {startLocationFetch} = useRequestLocationFetch(
+    moduleSlug,
+    highAccuracyPurposeKey,
+  )
 
   const navigateToInstructionsScreen = useNavigateToInstructionsScreen(
     Permissions.location,

@@ -14,12 +14,17 @@ import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressSearch} from '@/modules/address/components/form/AddressSearch'
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
-import {useModuleBasedSelectedAddress} from '@/modules/address/hooks/useModuleBasedSelectedAddress'
+import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
-import {addRecentAddress} from '@/modules/address/slice'
+import {
+  addAddress,
+  addRecentAddress,
+  setModuleCustomAddress,
+  useMyAddress,
+} from '@/modules/address/slice'
 import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
+import {ModuleSlug} from '@/modules/slugs'
 import {useAlert} from '@/store/slices/alert'
-import {ReduxKey} from '@/store/types/reduxKey'
 
 export type AddressSearchFields = {
   city: AddressCity | undefined
@@ -27,31 +32,52 @@ export type AddressSearchFields = {
   street: string
 }
 
+type Props =
+  | {
+      highAccuracyPurposeKey?: HighAccuracyPurposeKey
+      moduleSlug: ModuleSlug
+      saveAsMyAddress?: never
+    }
+  | {
+      highAccuracyPurposeKey?: HighAccuracyPurposeKey
+      moduleSlug?: never
+      saveAsMyAddress?: true
+    }
+
 export const AddressForm = ({
   highAccuracyPurposeKey,
-  reduxKey = ReduxKey.address,
-  showAddressButtons = false,
-}: {
-  highAccuracyPurposeKey?: HighAccuracyPurposeKey
-  reduxKey?: ReduxKey
-  showAddressButtons?: boolean
-}) => {
+  moduleSlug,
+  saveAsMyAddress,
+}: Props) => {
   const form = useForm<AddressSearchFields>()
   const dispatch = useDispatch()
   const {goBack} = useNavigation()
-  const {addAddress, setLocationType} = useModuleBasedSelectedAddress(reduxKey)
+  const setLocationType = useSetLocationType(moduleSlug || ModuleSlug.address)
   const route = useRoute<AddressModalName.myAddressForm>()
+  const myAddress = useMyAddress()
 
   const {setAlert} = useAlert()
 
   const onPressAddress = useCallback(
     (newAddress: Address) => {
-      setLocationType('address')
-
       const transformedAddress = addDerivedAddressFields(newAddress)
 
-      addAddress(transformedAddress)
       dispatch(addRecentAddress(transformedAddress))
+
+      if (myAddress?.bagId === newAddress.bagId) {
+        setLocationType('address')
+      } else if (saveAsMyAddress) {
+        dispatch(addAddress(transformedAddress))
+        setLocationType('address')
+      } else {
+        dispatch(
+          setModuleCustomAddress({
+            moduleSlug: moduleSlug!,
+            address: transformedAddress,
+          }),
+        )
+        setLocationType('custom')
+      }
 
       if (route?.name === AddressModalName.myAddressForm) {
         setAlert(alerts.addAddressSuccess)
@@ -59,7 +85,16 @@ export const AddressForm = ({
 
       goBack()
     },
-    [setLocationType, goBack, dispatch, setAlert, addAddress, route],
+    [
+      dispatch,
+      myAddress?.bagId,
+      saveAsMyAddress,
+      route?.name,
+      goBack,
+      setLocationType,
+      moduleSlug,
+      setAlert,
+    ],
   )
 
   const isSearching = form.watch('street')?.length
@@ -69,16 +104,20 @@ export const AddressForm = ({
       <Column gutter="lg">
         <AddressSearch onPressAddress={onPressAddress} />
 
-        {!isSearching && !!showAddressButtons && (
+        {!isSearching && !saveAsMyAddress && !!moduleSlug && (
           <>
             <MyAddressButton
-              onPress={onPressAddress}
+              moduleSlug={moduleSlug}
+              onPress={() => {
+                setLocationType('address')
+                goBack()
+              }}
               testID="ChooseAddressScreenMyAddressButton"
             />
 
             <LocationTopTaskButton
               highAccuracyPurposeKey={highAccuracyPurposeKey}
-              reduxKey={reduxKey}
+              moduleSlug={moduleSlug}
               testID="ChooseAddressScreenLocationTopTaskButton"
             />
           </>
