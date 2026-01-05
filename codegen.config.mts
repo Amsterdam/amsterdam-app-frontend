@@ -10,7 +10,20 @@ export const config: CodeGenConfig = [
         import: 'modals',
         exportName: 'modals',
         optional: true,
-        spread: 'object',
+        result: 'spreadObject',
+      },
+    ],
+  },
+  {
+    inputDir: 'src/modules',
+    match: 'PreRenderComponent.tsx',
+    output: 'src/modules/generated/preRenderComponents.generated.ts',
+    imports: [
+      {
+        import: 'PreRenderComponent',
+        exportName: 'preRenderComponents',
+        optional: true,
+        result: (path, name) => `["${path.name}"]: ${name}`,
       },
     ],
   },

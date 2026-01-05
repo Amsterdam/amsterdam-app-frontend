@@ -1,4 +1,4 @@
-import {PreRenderComponent} from '@/modules/construction-work/components/PreRenderComponent'
+import {PreRenderComponent} from '@/modules/construction-work/PreRenderComponent'
 import {onNotificationEvent} from '@/modules/construction-work/onNotificationEvent'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {

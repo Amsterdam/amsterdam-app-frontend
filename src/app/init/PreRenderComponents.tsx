@@ -1,3 +1,5 @@
+import type {ModuleSlug} from '@/modules/slugs'
+import {preRenderComponents} from '@/modules/generated/preRenderComponents.generated'
 import {clientModules} from '@/modules/modules'
 import {Module} from '@/modules/types'
 
@@ -12,8 +14,11 @@ export const PreRenderComponents = ({enabledModules}: Props) => {
 
   const modules =
     enabledModules ?? modulesWithPreRenderComponentBeforeServerModules
+  const moduleSlugs = new Set(modules.map(m => m.slug))
 
-  return modules.map(({PreRenderComponent, slug}) =>
-    PreRenderComponent ? <PreRenderComponent key={slug} /> : null,
-  )
+  return (Object.entries(preRenderComponents) as [ModuleSlug, React.FC][])
+    .filter(([slug]) => moduleSlugs.has(slug))
+    .map(([_, PreRenderComponent]) =>
+      PreRenderComponent ? <PreRenderComponent key={_} /> : null,
+    )
 }

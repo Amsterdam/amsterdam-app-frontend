@@ -24,12 +24,19 @@ type ImportConfig = {
   import: 'default' | 'namespace' | (string & {})
   optional?: boolean
   /**
-   * 'spread' can be:
-   * - 'array' to spread into an array
-   * - 'object' to spread into an object
-   * - false to not spread and just export as an array
+   * 'result' can be:
+   * - 'array' return items as an array
+   * - 'spreadArray' return items spread into an array
+   * - 'spreadObject' return items spread into an object
+   * - `(path, name) => string` custom function to handle the imports
+   * @default 'array'
    */
-  spread?: 'array' | 'object' | false
+  result?:
+    | 'spreadArray'
+    | 'spreadObject'
+    | 'array'
+    | ((path: fs.Dirent<string>, name: string) => string)
+  resultImports?: string[]
 }
 
 const sortImportNames = (
@@ -163,17 +170,27 @@ const generate = ({inputDir, match, output, imports}: CodeGenConfigItem) => {
     },
   )
 
-  const outputData = `${importsEntries.join('\n')}${imports
-    .map(({exportName, spread}) => {
+  const outputData = `${importsEntries.join('\n')}
+${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
+    .map(({exportName, result}) => {
       // Only include items that are present in entriesWithImports
       const list = entriesWithImports.map((_, i) => `${exportName}${i}`)
 
-      if (spread) {
+      if (result === 'spreadArray' || result === 'spreadObject') {
         return `
 
-export const ${exportName} = ${spread === 'array' ? '[' : '{'}
+export const ${exportName} = ${result === 'spreadArray' ? '[' : '{'}
 ${list.map(item => `...${item}`).join(', \n')}
-${spread === 'array' ? ']' : '}'};`
+${result === 'spreadArray' ? ']' : '}'};`
+      }
+
+      if (typeof result === 'function') {
+        return `
+
+export const ${exportName} = {
+  ${entriesWithImports.map(({dir}, i) => result(dir, `${exportName}${i}`)).join(',\n  ')}
+      };
+`
       }
 
       return `
