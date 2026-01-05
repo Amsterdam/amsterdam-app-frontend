@@ -7,13 +7,16 @@ import {useSetScreenTitle} from '@/hooks/navigation/useSetScreenTitle'
 import {ProjectContacts} from '@/modules/construction-work/components/project/ProjectContacts'
 import {ProjectContentSections} from '@/modules/construction-work/components/project/ProjectContentSections'
 import {ProjectTimeline} from '@/modules/construction-work/components/project/ProjectTimeline'
+import {ProjectSegmentTitle} from '@/modules/construction-work/hooks/useProjectSegmentOptions'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
+import {Survey} from '@/modules/survey/exports/Survey'
 
 type Props = NavigationProps<ConstructionWorkRouteName.projectSegment>
 
 export const ProjectSegmentScreen = ({route}: Props) => {
   const {
     body: {contacts, sections, timeline},
+    screenHeaderTitle,
   } = route.params
 
   useSetScreenTitle()
@@ -42,6 +45,9 @@ export const ProjectSegmentScreen = ({route}: Props) => {
           </Column>
         </Box>
       </Column>
+      {screenHeaderTitle === (ProjectSegmentTitle.about as string) && (
+        <Survey entryPoint="construction-work-project-info" />
+      )}
     </Screen>
   )
 }
