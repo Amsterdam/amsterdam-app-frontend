@@ -1,7 +1,8 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {Box} from '@/components/ui/containers/Box'
-import {useMyAddress} from '@/modules/address/slice'
+import {useLocationType, useMyAddress} from '@/modules/address/slice'
+import {ModuleSlug} from '@/modules/slugs'
 import {
   useDeleteWasteGuideNotificationMutation,
   useGetWasteGuideNotificationQuery,
@@ -9,6 +10,7 @@ import {
 } from '@/modules/waste-guide/service'
 
 export const WasteGuideNotificationToggleBox = () => {
+  const locationType = useLocationType(ModuleSlug['waste-guide'])
   const address = useMyAddress()
   const {isLoading, isSuccess, data} = useGetWasteGuideNotificationQuery()
 
@@ -27,7 +29,7 @@ export const WasteGuideNotificationToggleBox = () => {
     [address?.bagId, deleteWasteGuideNotification, postWasteGuideNotification],
   )
 
-  if (!address) {
+  if (!address || locationType !== 'address') {
     return null
   }
 

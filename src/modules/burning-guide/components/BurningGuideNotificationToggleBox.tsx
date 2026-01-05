@@ -1,14 +1,16 @@
 import {useCallback} from 'react'
 import {NotificationToggleBox} from '@/components/features/NotificationToggleBox'
 import {Box} from '@/components/ui/containers/Box'
-import {useMyAddress} from '@/modules/address/slice'
+import {useLocationType, useMyAddress} from '@/modules/address/slice'
 import {
   useGetBurningGuideNotificationQuery,
   usePostBurningGuideNotificationMutation,
   useDeleteBurningGuideNotificationMutation,
 } from '@/modules/burning-guide/service'
+import {ModuleSlug} from '@/modules/slugs'
 
 export const BurningGuideNotificationToggleBox = () => {
+  const locationType = useLocationType(ModuleSlug['burning-guide'])
   const address = useMyAddress()
   const {isLoading, isSuccess, data} = useGetBurningGuideNotificationQuery()
 
@@ -31,7 +33,7 @@ export const BurningGuideNotificationToggleBox = () => {
     ],
   )
 
-  if (!address) {
+  if (!address || locationType !== 'address') {
     return null
   }
 
