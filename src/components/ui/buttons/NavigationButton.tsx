@@ -2,7 +2,7 @@ import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
 import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
-import {Box} from '@/components/ui/containers/Box'
+import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {MainAxisAlignment} from '@/components/ui/layout/types'
@@ -30,7 +30,8 @@ type Props = {
   isDescriptionBelowIcon?: boolean
   onPress: () => void
   title: string
-} & TestProps
+} & TestProps &
+  Pick<BoxProps, 'borderColor' | 'borderStyle' | 'borderWidth'>
 
 export const NavigationButton = ({
   color = 'link',
@@ -49,6 +50,9 @@ export const NavigationButton = ({
   accessibilityRole = 'link',
   accessibilityLanguage = 'nl-NL',
   accessibilityLabel,
+  borderColor,
+  borderStyle,
+  borderWidth,
   ...props
 }: Props) => (
   <Pressable
@@ -58,6 +62,9 @@ export const NavigationButton = ({
     onPress={onPress}
     testID={testID}>
     <Box
+      borderColor={borderColor}
+      borderStyle={borderStyle}
+      borderWidth={borderWidth}
       insetHorizontal={insetHorizontal}
       insetVertical={insetVertical}>
       <Row
