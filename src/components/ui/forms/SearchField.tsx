@@ -103,7 +103,7 @@ export const SearchField = ({
         textAlignVertical="top"
         value={value}
       />
-      {value ? (
+      {!!value && (
         <View>
           <IconButton
             accessibilityHint="Maak dit zoekveld leeg"
@@ -111,6 +111,7 @@ export const SearchField = ({
             icon={
               <Icon
                 name="close"
+                size="ml"
                 testID={`${testID}Icon`}
               />
             }
@@ -118,20 +119,6 @@ export const SearchField = ({
             testID={`${testID}ClearButton`}
           />
         </View>
-      ) : (
-        <IconButton
-          accessibilityHint="Activeer dit zoekveld"
-          accessibilityLanguage={accessibilityLanguage}
-          icon={
-            <Icon
-              name="search"
-              size="lg"
-              testID={`${testID}Icon`}
-            />
-          }
-          onPress={handleFocus}
-          testID={`${testID}SubmitButton`}
-        />
       )}
     </View>
   )
@@ -165,8 +152,6 @@ export const StylisticSearchField = ({
   )
 }
 
-const borderWidth = (focus: boolean) => (focus ? 2 : 1)
-
 const createStyles =
   ({hasFocus}: {hasFocus?: boolean} & Partial<SearchFieldProps>) =>
   ({color, size, text}: Theme) =>
@@ -174,17 +159,16 @@ const createStyles =
       frame: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: size.spacing.sm,
-        paddingBottom:
-          size.spacing.sm +
-          (hasFocus ? borderWidth(false) - borderWidth(true) : 0),
+        textAlign: 'center',
+        paddingTop: size.spacing.smd,
+        paddingBottom: size.spacing.smd,
         paddingHorizontal: size.spacing.md,
         backgroundColor: color.textInput.container.background,
         borderStyle: 'solid',
-        borderBottomColor: hasFocus
+        borderColor: hasFocus
           ? color.control.focus.border
           : color.control.default.border,
-        borderBottomWidth: borderWidth(!!hasFocus),
+        borderWidth: 2,
       },
       textInput: {
         flex: 1,
@@ -192,7 +176,6 @@ const createStyles =
         color: color.text.default,
         fontFamily: text.fontFamily.regular,
         fontSize: text.fontSize.body,
-        lineHeight: text.lineHeight.body,
       },
     })
 
