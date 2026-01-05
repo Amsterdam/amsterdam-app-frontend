@@ -1,6 +1,5 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
 import {useCallback} from 'react'
-import type {AddressFragmentState} from '@/modules/address/createAddressFragment'
 import type {
   ParkingAccount,
   ParkingAccountLogin,
@@ -35,7 +34,7 @@ export type ParkingState = {
   visitorVehicleId?: string
   walletBalanceIncreaseStartBalance?: number
   walletBalanceIncreaseStartedAt?: string
-} & AddressFragmentState
+}
 
 const initialState: ParkingState = {
   accessTokens: {},

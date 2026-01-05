@@ -1,5 +1,4 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit'
-import type {AddressFragmentState} from '@/modules/address/createAddressFragment'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {PollingStation} from '@/modules/elections/types'
 import {ReduxKey} from '@/store/types/reduxKey'
@@ -7,7 +6,7 @@ import {RootState} from '@/store/types/rootState'
 
 export type ElectionsState = {
   selectedPollingStationId?: PollingStation['id']
-} & AddressFragmentState
+}
 
 const initialState: ElectionsState = {
   selectedPollingStationId: undefined,

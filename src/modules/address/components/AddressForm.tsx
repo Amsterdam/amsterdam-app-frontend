@@ -9,6 +9,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useRoute} from '@/hooks/navigation/useRoute'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
 import {AddressSearch} from '@/modules/address/components/form/AddressSearch'
@@ -55,6 +56,7 @@ export const AddressForm = ({
   const setLocationType = useSetLocationType(moduleSlug || ModuleSlug.address)
   const route = useRoute<AddressModalName.myAddressForm>()
   const myAddress = useMyAddress()
+  const {enabledModules} = useModules()
 
   const {setAlert} = useAlert()
 
@@ -69,6 +71,9 @@ export const AddressForm = ({
       } else if (saveAsMyAddress) {
         dispatch(addAddress(transformedAddress))
         setLocationType('address')
+        enabledModules?.forEach(({onMyAddressChanged}) => {
+          void onMyAddressChanged?.(transformedAddress, dispatch)
+        })
       } else {
         dispatch(
           setModuleCustomAddress({
@@ -92,6 +97,7 @@ export const AddressForm = ({
       route?.name,
       goBack,
       setLocationType,
+      enabledModules,
       moduleSlug,
       setAlert,
     ],

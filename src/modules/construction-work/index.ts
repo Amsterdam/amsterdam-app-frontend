@@ -10,11 +10,7 @@ import {createClientModule} from '@/modules/utils/createModule'
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof ConstructionWorkState)[] = [
-  'readArticles',
-  'address',
-  'locationType',
-]
+const persistWhitelist: (keyof ConstructionWorkState)[] = ['readArticles']
 
 export const constructionWorkModule = createClientModule({
   PreRenderComponent,

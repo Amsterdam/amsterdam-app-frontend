@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
 import {type ComponentType, type FC} from 'react'
+import type {Address} from '@/modules/address/types'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
   type SvgIconConfig,
@@ -106,6 +107,13 @@ export type ModuleClientConfig<
    * Function to call the logout logic of the module.
    */
   logout?: (dispatch: ReduxDispatch, state: RootState) => Promise<void>
+  /**
+   * Function to call when My address changes.
+   */
+  onMyAddressChanged?: (
+    newAddress: Address | null,
+    dispatch: ReduxDispatch,
+  ) => Promise<unknown>
   /**
    * Module specific logic for handling notification events
    * @param type Interaction type with the notification, for example Press or Delivered

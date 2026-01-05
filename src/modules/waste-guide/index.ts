@@ -1,6 +1,7 @@
 import {ModuleSlug} from '@/modules/slugs'
 import {createClientModule} from '@/modules/utils/createModule'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
+import {onMyAddressChanged} from '@/modules/waste-guide/onMyAddressChanged'
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {
   wasteGuideSlice,
@@ -9,7 +10,7 @@ import {
 import {PiwikSessionDimension} from '@/processes/piwik/types'
 import {ReduxKey} from '@/store/types/reduxKey'
 
-const persistWhitelist: (keyof WasteGuideState)[] = ['address', 'locationType']
+const persistWhitelist: (keyof WasteGuideState)[] = []
 
 export const wasteGuideModule = createClientModule({
   logDimension: PiwikSessionDimension.wasteGuideModule,
@@ -28,4 +29,5 @@ export const wasteGuideModule = createClientModule({
     [WasteGuideRouteName.wasteGuide]: '/afval/afvalinformatie/',
   },
   icons: fractionIconConfig,
+  onMyAddressChanged,
 })
