@@ -7,8 +7,10 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {
-  useAddDisabledPushModuleMutation,
+  useAddDisabledPushTypeMutation,
   useDeleteDisabledPushModuleMutation,
+  useDeleteDisabledPushTypeMutation,
+  useGetDisabledPushTypesQuery,
 } from '@/modules/user/service'
 import {accessibleText} from '@/utils/accessibility/accessibleText'
 
@@ -19,57 +21,69 @@ type Props = {
 
 export const NotificationSetting = ({
   isDisabled,
-  notificationModule: {description, module, title},
+  notificationModule: {description, module, title, types},
 }: Props) => {
-  const [addDisabledPushModule, {isLoading: isLoadingDisable}] =
-    useAddDisabledPushModuleMutation()
   const [deleteDisabledPushModule, {isLoading: isLoadingEnable}] =
     useDeleteDisabledPushModuleMutation()
+  const [addDisabledPushType, {isLoading: isLoadingTypeDisable}] =
+    useAddDisabledPushTypeMutation()
+  const [deleteDisabledPushType, {isLoading: isLoadingTypeEnable}] =
+    useDeleteDisabledPushTypeMutation()
+  const {data: disabledPushTypes} = useGetDisabledPushTypesQuery()
 
-  const isLoading = isLoadingDisable || isLoadingEnable
+  const isLoading =
+    isLoadingEnable || isLoadingTypeDisable || isLoadingTypeEnable
 
-  const onChange = useCallback(() => {
-    if (isLoading) {
-      return
-    }
+  const onChangeType = useCallback(
+    (type: string, newValue: boolean) => {
+      if (isLoading) {
+        return
+      }
 
-    if (isDisabled) {
-      void deleteDisabledPushModule(module)
-    } else {
-      void addDisabledPushModule(module)
-    }
-  }, [
-    isLoading,
-    isDisabled,
-    deleteDisabledPushModule,
-    module,
-    addDisabledPushModule,
-  ])
+      if (newValue) {
+        void addDisabledPushType(type)
+      } else {
+        void deleteDisabledPushType(type)
+        void deleteDisabledPushModule(module)
+      }
+    },
+    [
+      isLoading,
+      deleteDisabledPushType,
+      deleteDisabledPushModule,
+      module,
+      addDisabledPushType,
+    ],
+  )
 
   return (
-    <Column gutter="sm">
-      <Switch
-        accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
-        disabled={isLoading}
-        label={
-          <Title
-            level="h5"
-            text={title}
-          />
-        }
-        onChange={onChange}
-        testID={`NotificationSetting${module}Switch`}
-        value={!isDisabled}
-        wrapper={SwitchWrapper}
-      />
-      <Box insetHorizontal="md">
-        <Phrase
-          accessible={false}
-          testID={`NotificationSetting${module}Description`}
-          variant="small">
-          {description}
-        </Phrase>
+    <Column gutter="no">
+      <Box>
+        <Title
+          level="h5"
+          text={title}
+        />
       </Box>
+
+      <Column gutter="xxs">
+        {types.map(type => (
+          <Switch
+            accessibilityLabel={`Onderwerp "${accessibleText(title, description)}" staat ${isDisabled ? 'uit' : 'aan'}`}
+            disabled={isLoading}
+            key={type.type}
+            label={<Phrase>{type.description}</Phrase>}
+            onChange={() =>
+              onChangeType(
+                type.type,
+                !disabledPushTypes?.includes(type.type) && !isDisabled,
+              )
+            }
+            testID={`NotificationSetting${module}Switch`}
+            value={!disabledPushTypes?.includes(type.type) && !isDisabled}
+            wrapper={SwitchWrapper}
+          />
+        ))}
+      </Column>
     </Column>
   )
 }
