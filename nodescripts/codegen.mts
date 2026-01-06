@@ -37,6 +37,7 @@ type ImportConfig = {
     | 'array'
     | ((path: fs.Dirent<string>, name: string) => string)
   resultImports?: string[]
+  satisfies?: string
 }
 
 const sortImportNames = (
@@ -172,7 +173,8 @@ const generate = ({inputDir, match, output, imports}: CodeGenConfigItem) => {
 
   const outputData = `${importsEntries.join('\n')}
 ${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
-    .map(({exportName, result}) => {
+    .map(({exportName, result, satisfies}) => {
+      const satisfiesString = satisfies ? ` satisfies ${satisfies}` : ''
       // Only include items that are present in entriesWithImports
       const list = entriesWithImports.map((_, i) => `${exportName}${i}`)
 
@@ -181,7 +183,7 @@ ${imports.flatMap(({resultImports}) => resultImports ?? []).join('\n')}${imports
 
 export const ${exportName} = ${result === 'spreadArray' ? '[' : '{'}
 ${list.map(item => `...${item}`).join(', \n')}
-${result === 'spreadArray' ? ']' : '}'};`
+${result === 'spreadArray' ? ']' : '}'}${satisfiesString};`
       }
 
       if (typeof result === 'function') {
@@ -189,7 +191,7 @@ ${result === 'spreadArray' ? ']' : '}'};`
 
 export const ${exportName} = {
   ${entriesWithImports.map(({dir}, i) => result(dir, `${exportName}${i}`)).join(',\n  ')}
-      };
+      }${satisfiesString};
 `
       }
 
@@ -197,7 +199,7 @@ export const ${exportName} = {
 
 export const ${exportName} = [
   ${list.join(',\n  ')}
-];
+]${satisfiesString};
 `
     })
     .join('\n')}`

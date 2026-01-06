@@ -1,4 +1,3 @@
-import {PreRenderComponent} from '@/modules/construction-work/PreRenderComponent'
 import {onNotificationEvent} from '@/modules/construction-work/onNotificationEvent'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {
@@ -17,7 +16,6 @@ const persistWhitelist: (keyof ConstructionWorkState)[] = [
 ]
 
 export const constructionWorkModule = createClientModule({
-  PreRenderComponent,
   linking: {
     [ConstructionWorkRouteName.projectNews]:
       'news/:id/:screenHeaderTitle/:screenTitle/:isPushNotificationDeeplink?',

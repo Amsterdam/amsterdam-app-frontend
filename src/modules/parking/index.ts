@@ -1,5 +1,4 @@
 import {ParkingActionButton} from '@/modules/parking/components/ParkingActionButton'
-import {ParkingPreRenderComponent} from '@/modules/parking/components/ParkingPreRenderComponent'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
 import {ParkingSurveyBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSurveyBottomSheetContent'
 import {onNotificationEvent} from '@/modules/parking/onNotificationEvent'
@@ -36,7 +35,6 @@ export const parkingModule = createClientModule({
   onNotificationEvent,
   postProcessLinking,
   logDimension: PiwikSessionDimension.parkingModule,
-  PreRenderComponent: ParkingPreRenderComponent,
   reduxConfigs: [
     {
       key: ReduxKey.parking,
