@@ -4,6 +4,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useDispatch} from '@/hooks/redux/useDispatch'
+import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {AddressModalName} from '@/modules/address/routes'
 import {removeAddress, useMyAddress} from '@/modules/address/slice'
@@ -16,10 +17,14 @@ export const DisplayAddress = () => {
   const navigation = useNavigation<AddressModalName>()
   const {size} = useTheme()
   const {setAlert} = useAlert()
+  const {enabledModules} = useModules()
 
   const removeAddressAndShowAlert = () => {
     dispatch(removeAddress())
     setAlert(alerts.deleteAddressSuccess)
+    enabledModules?.forEach(({onMyAddressChanged}) => {
+      void onMyAddressChanged?.(null, dispatch)
+    })
   }
 
   return (
