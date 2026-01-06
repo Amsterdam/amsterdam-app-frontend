@@ -15,7 +15,7 @@ export const fieldTypeRules = {
   },
   [FieldType.tel]: {
     maxLength: {
-      value: 12,
+      value: 16,
       message: 'Dit is geen geldig telefoonnummer.',
     },
     minLength: {
@@ -31,7 +31,7 @@ export const fieldTypeRules = {
   [FieldType.url]: {
     pattern: {
       value: /^https?:\/\/.+/,
-      message: 'Dit is geen geldige URL.',
+      message: 'Dit is geen geldig webadres.',
     },
   },
   [FieldType.pin]: {
