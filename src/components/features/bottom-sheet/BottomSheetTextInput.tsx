@@ -1,6 +1,6 @@
 import {BottomSheetTextInput as BottomSheetTextInputBase} from '@gorhom/bottom-sheet'
 import {useEffect} from 'react'
-import type {TextInputProps} from '@/components/ui/forms/TextInput'
+import type {TextInputProps} from '@/components/ui/forms/input/types'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 
 export const BottomSheetTextInput = ({

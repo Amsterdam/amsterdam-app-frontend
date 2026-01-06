@@ -1,5 +1,5 @@
 import {TextInputProps} from 'react-native'
-import {TextInputField} from '@/components/ui/forms/TextInputField'
+import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {TestProps} from '@/components/ui/types'
 
 type Props = {
