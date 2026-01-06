@@ -61,6 +61,7 @@ export const CityPassDetails = ({passNumber}: Props) => {
             </Column>
             <DiscountTransactions
               dateEnd={cityPass.dateEnd}
+              isActive={cityPass.actief}
               passNumber={passNumber}
             />
           </Column>
