@@ -4,6 +4,7 @@ import {Platform} from 'react-native'
 import type {TextInput} from 'react-native-gesture-handler'
 import {Button} from '@/components/ui/buttons/Button'
 import {TextInputField} from '@/components/ui/forms/input/TextInputField'
+import {FieldType} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
 import {InlineLink} from '@/components/ui/text/InlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
@@ -124,8 +125,8 @@ export const ParkingLoginForm = () => {
             }
           />
           <TextInputField
+            fieldType={FieldType.pin}
             hasClearButton={false}
-            keyboardType="number-pad"
             label="Pincode"
             name="pin"
             onSubmitEditing={onSubmit}
