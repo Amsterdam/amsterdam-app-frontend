@@ -15,6 +15,7 @@ import {AutomaticLogoutAlert} from '@/modules/city-pass/components/AutomaticLogo
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {Survey} from '@/modules/survey/exports/Survey'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
 
@@ -75,6 +76,7 @@ export const DashboardScreen = ({navigation}: Props) => {
       <FigureWithFacadesBackground testID="CityPassStartImage">
         <SportsImage />
       </FigureWithFacadesBackground>
+      <Survey entryPoint="city-pass-info" />
     </Screen>
   )
 }
