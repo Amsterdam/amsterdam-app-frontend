@@ -9,7 +9,7 @@ type Props = {
 }
 
 /**
- * Renders all PreRenderComponents, components for preprocessing purposes at the app's root level.
+ * Renders all PreRenderComponents, which are components for preprocessing purposes at the app's root level.
  * If `renderBeforeServerModules` is true, the component will be rendered before the server modules are fetched.
  */
 export const PreRenderComponents = ({enabledModules}: Props) =>

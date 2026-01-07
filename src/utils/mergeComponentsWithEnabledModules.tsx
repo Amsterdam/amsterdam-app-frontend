@@ -23,7 +23,7 @@ export const mergeComponentsWithEnabledModules = <T extends ComponentType>(
 
   return (Object.entries(components) as [ModuleSlug, T][])
     .filter(([slug, Component]) => filter(slug, moduleSlugs, Component))
-    .map(([_, Component]: [ModuleSlug, ComponentType]) =>
-      Component ? <Component key={_} /> : null,
+    .map(([slug, Component]: [ModuleSlug, ComponentType]) =>
+      Component ? <Component key={slug} /> : null,
     )
 }

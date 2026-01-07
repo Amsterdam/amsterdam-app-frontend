@@ -9,33 +9,31 @@ import {bottomSheetVariantsHome} from '@/modules/generated/bottomSheetVariantsHo
 export const useGetModulesBottomsheetVariants = () => {
   const {enabledModules} = useModules()
 
-  return useMemo(() => {
-    const variants: Record<string, FC> = {}
+  return useMemo(
+    () =>
+      enabledModules?.reduce(
+        (acc, {slug}) => {
+          if (
+            !(
+              bottomSheetVariantsHome as Partial<
+                Record<ModuleSlug, Record<string, FC>>
+              >
+            )[slug]
+          ) {
+            return acc
+          }
 
-    enabledModules?.reduce(
-      (acc, {slug}) => {
-        if (
-          !(
-            bottomSheetVariantsHome as Partial<
-              Record<ModuleSlug, Record<string, FC>>
-            >
-          )[slug]
-        ) {
-          return acc
-        }
-
-        return {
-          ...acc,
-          ...(
-            bottomSheetVariantsHome as Partial<
-              Record<ModuleSlug, Record<string, FC>>
-            >
-          )[slug],
-        }
-      },
-      {} as Record<string, FC>,
-    )
-
-    return variants
-  }, [enabledModules])
+          return {
+            ...acc,
+            ...(
+              bottomSheetVariantsHome as Partial<
+                Record<ModuleSlug, Record<string, FC>>
+              >
+            )[slug],
+          }
+        },
+        {} as Record<string, FC>,
+      ),
+    [enabledModules],
+  )
 }

@@ -1,5 +1,3 @@
-// import {CityPassSurveyBottomSheetContent} from '@/modules/city-pass/bottomsheet/CityPassSurveyBottomSheetContent'
-// import {CityPassBottomSheetVariant} from '@/modules/city-pass/bottomsheet/bottomsheetVariants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {logout} from '@/modules/city-pass/utils/logout'
@@ -33,7 +31,4 @@ export const cityPassModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
-  // bottomSheetVariantsHome: {
-  //   [CityPassBottomSheetVariant.survey]: CityPassSurveyBottomSheetContent,
-  // },
 })
