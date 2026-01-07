@@ -3,6 +3,7 @@ import {NotificationModulesResponse} from '@/modules/user/types'
 import {baseApi} from '@/services/baseApi'
 import {deviceIdHeader} from '@/services/headers'
 import {CacheLifetime} from '@/types/api'
+import {removeItemFromArray} from '@/utils/removeItemFromArray'
 
 const notificationApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -76,11 +77,7 @@ const notificationApi = baseApi.injectEndpoints({
               'getDisabledPushModules',
               undefined,
               draft => {
-                const idx = draft.indexOf(module_slug)
-
-                if (idx !== -1) {
-                  draft.splice(idx, 1)
-                }
+                removeItemFromArray(draft, module_slug)
               },
             ),
           )
@@ -112,11 +109,7 @@ const notificationApi = baseApi.injectEndpoints({
             'getDisabledPushTypes',
             undefined,
             draft => {
-              const idx = draft.indexOf(notification_type)
-
-              if (idx !== -1) {
-                draft.splice(idx, 1)
-              }
+              removeItemFromArray(draft, notification_type)
             },
           ),
         )
