@@ -20,7 +20,9 @@ export const wasteGuideSlice = createSlice({
   initialState,
   reducers: {
     addContract: (state, {payload}: PayloadAction<Contract>) => {
-      state.contracts = {...state.contracts, ...payload}
+      state.contracts = state.contracts
+        ? {...state.contracts, ...payload}
+        : payload
     },
     resetContracts: ({contracts: _contracts, ...rest}) => rest,
     toggleCalendarView: state => {
