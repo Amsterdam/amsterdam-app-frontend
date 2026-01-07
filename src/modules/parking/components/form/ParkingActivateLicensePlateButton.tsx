@@ -38,19 +38,7 @@ export const ParkingActivateLicensePlateButton = () => {
             setAlert(alerts.startSessionSuccess)
             goBack()
           },
-          (error: {
-            data?: {code?: string; detail?: string}
-            status?: string
-          }) => {
-            if (error.data?.code === 'SSP_SESSION_ALREADY_EXISTS') {
-              setError('licensePlate', {
-                message: 'Dit kenteken is al actief',
-                type: 'value',
-              })
-
-              return
-            }
-
+          () => {
             setError('licensePlate', {
               message: 'Er ging iets fout, probeer het later opnieuw',
               type: 'value',

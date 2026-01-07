@@ -25,8 +25,7 @@ export const ParkingChooseEndTimeButton = () => {
       rules={{
         required: 'Kies een eindtijd',
         validate: endTime =>
-          (endTime as Dayjs)?.isAfter(startTime) ||
-          'Eindtijd moet na starttijd zijn',
+          endTime?.isAfter(startTime) || 'Eindtijd moet na starttijd zijn',
       }}
       testID="ParkingChooseEndTimeButton"
       text={endTime =>
