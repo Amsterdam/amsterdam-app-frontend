@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {ActionButton} from '@/components/ui/buttons/ActionButton'
+import {ActionButton as ActionButtonBase} from '@/components/ui/buttons/ActionButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -11,7 +11,7 @@ import {selectIsCityPassOwnerRegistered} from '@/modules/city-pass/slice'
 import {ModuleSlug} from '@/modules/slugs'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
-export const CityPassActionButton = () => {
+export const ActionButton = () => {
   const {navigate} = useNavigation()
   const {isInactive: isModuleInactive} = useGetCachedServerModule(
     cityPassModule.slug,
@@ -31,7 +31,7 @@ export const CityPassActionButton = () => {
 
   return (
     <Column>
-      <ActionButton
+      <ActionButtonBase
         iconName="city-pass-pass"
         isModuleInactive={isModuleInactive}
         label="Stadspas tonen"

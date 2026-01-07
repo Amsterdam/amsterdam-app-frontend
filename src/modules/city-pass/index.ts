@@ -1,6 +1,5 @@
-import {CityPassSurveyBottomSheetContent} from '@/modules/city-pass/bottomsheet/CityPassSurveyBottomSheetContent'
-import {CityPassBottomSheetVariant} from '@/modules/city-pass/bottomsheet/bottomsheetVariants'
-import {CityPassActionButton} from '@/modules/city-pass/components/CityPassActionButton'
+// import {CityPassSurveyBottomSheetContent} from '@/modules/city-pass/bottomsheet/CityPassSurveyBottomSheetContent'
+// import {CityPassBottomSheetVariant} from '@/modules/city-pass/bottomsheet/bottomsheetVariants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
 import {cityPassSlice, CityPassState} from '@/modules/city-pass/slice'
 import {logout} from '@/modules/city-pass/utils/logout'
@@ -17,7 +16,6 @@ const persistWhitelist: (keyof CityPassState)[] = [
 ]
 
 export const cityPassModule = createClientModule({
-  ActionButton: CityPassActionButton,
   linking: {
     [CityPassRouteName.loginSteps]:
       'stadspas/:loginResult/:accessToken?/:refreshToken?/:errorMessage?/:errorCode?',
@@ -35,7 +33,7 @@ export const cityPassModule = createClientModule({
   ],
   requiresFirebaseToken: true,
   slug: ModuleSlug['city-pass'],
-  bottomSheetVariantsHome: {
-    [CityPassBottomSheetVariant.survey]: CityPassSurveyBottomSheetContent,
-  },
+  // bottomSheetVariantsHome: {
+  //   [CityPassBottomSheetVariant.survey]: CityPassSurveyBottomSheetContent,
+  // },
 })

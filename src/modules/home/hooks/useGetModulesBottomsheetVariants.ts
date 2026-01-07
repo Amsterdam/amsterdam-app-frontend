@@ -1,8 +1,10 @@
 import {useMemo, type FC} from 'react'
+import type {ModuleSlug} from '@/modules/slugs'
 import {useModules} from '@/hooks/useModules'
+import {bottomSheetVariantsHome} from '@/modules/generated/bottomSheetVariantsHome.generated'
 
 /**
- * Get the survey bottomsheets opened after an action triggered by an action button.
+ * Get the survey BottomSheets opened after an action triggered by an action button.
  */
 export const useGetModulesBottomsheetVariants = () => {
   const {enabledModules} = useModules()
@@ -10,13 +12,29 @@ export const useGetModulesBottomsheetVariants = () => {
   return useMemo(() => {
     const variants: Record<string, FC> = {}
 
-    enabledModules?.forEach(({bottomSheetVariantsHome}) => {
-      if (bottomSheetVariantsHome) {
-        Object.entries(bottomSheetVariantsHome).forEach(([key, Component]) => {
-          variants[key] = Component
-        })
-      }
-    })
+    enabledModules?.reduce(
+      (acc, {slug}) => {
+        if (
+          !(
+            bottomSheetVariantsHome as Partial<
+              Record<ModuleSlug, Record<string, FC>>
+            >
+          )[slug]
+        ) {
+          return acc
+        }
+
+        return {
+          ...acc,
+          ...(
+            bottomSheetVariantsHome as Partial<
+              Record<ModuleSlug, Record<string, FC>>
+            >
+          )[slug],
+        }
+      },
+      {} as Record<string, FC>,
+    )
 
     return variants
   }, [enabledModules])

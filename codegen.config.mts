@@ -66,4 +66,35 @@ export const config: CodeGenConfig = [
       },
     ],
   },
+  {
+    inputDir,
+    match: 'ActionButton.tsx',
+    output: 'src/modules/generated/actionButtons.generated.ts',
+    imports: [
+      {
+        import: 'ActionButton',
+        exportName: 'actionButtons',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'bottomSheetVariantsHome.ts',
+    output: 'src/modules/generated/bottomSheetVariantsHome.generated.ts',
+    imports: [
+      {
+        import: 'bottomSheetVariantsHome',
+        exportName: 'bottomSheetVariantsHome',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies:
+          'Partial<Record<ModuleSlug, Record<string, React.ComponentType>>>',
+      },
+    ],
+  },
 ]
