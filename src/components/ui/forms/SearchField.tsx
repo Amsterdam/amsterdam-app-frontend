@@ -159,9 +159,7 @@ const createStyles =
       frame: {
         flexDirection: 'row',
         alignItems: 'center',
-        textAlign: 'center',
-        paddingTop: size.spacing.smd,
-        paddingBottom: size.spacing.smd,
+        paddingVertical: size.spacing.smd,
         paddingHorizontal: size.spacing.md,
         backgroundColor: color.textInput.container.background,
         borderStyle: 'solid',
