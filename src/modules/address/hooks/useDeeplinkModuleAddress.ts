@@ -4,7 +4,11 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
-import {addRecentAddress, setModuleCustomAddress} from '@/modules/address/slice'
+import {
+  addRecentAddress,
+  setModuleCustomAddress,
+  useMyAddress,
+} from '@/modules/address/slice'
 import {addDerivedAddressFields} from '@/modules/address/utils/addDerivedAddressFields'
 import {ModuleSlug} from '@/modules/slugs'
 
@@ -17,6 +21,7 @@ export const useDeeplinkModuleAddress = (
   const dispatch = useDispatch()
 
   const {address} = useSelectedAddress(moduleSlug)
+  const myAddress = useMyAddress()
   const setLocationType = useSetLocationType(moduleSlug)
 
   const {data: addressFromDeeplink} = useGetAddressSuggestionsQuery(
@@ -30,6 +35,12 @@ export const useDeeplinkModuleAddress = (
 
   useEffect(() => {
     if (addressFromDeeplink && addressFromDeeplink?.bagId !== address?.bagId) {
+      if (addressFromDeeplink.bagId === myAddress?.bagId) {
+        setLocationType('address')
+
+        return
+      }
+
       const transformedAddress = addDerivedAddressFields(addressFromDeeplink)
 
       dispatch(addRecentAddress(transformedAddress))
