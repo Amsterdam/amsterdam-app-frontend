@@ -46,7 +46,7 @@ export const CityPassIntroScreen = () => {
         <Gutter height="sm" />
         <Paragraph>
           Log eenmalig in met DigiD en zet uw Stadspas in de app. Daarna kunt u
-          de Stadspas gebruiken en laten scannen.
+          de Stadspas offline gebruiken en laten scannen.
         </Paragraph>
         <Gutter height="lg" />
         <Column
