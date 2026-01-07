@@ -36,6 +36,36 @@ const notificationApi = baseApi.injectEndpoints({
         url: '/device/disabled_push_module',
       }),
     }),
+    addDisabledPushType: builder.mutation<{notification_type: string}, string>({
+      invalidatesTags: ['Notifications'],
+      onQueryStarted: async (notification_type, {dispatch, queryFulfilled}) => {
+        // Optimistically update the cache
+        const patchResult = dispatch(
+          notificationApi.util.updateQueryData(
+            'getDisabledPushTypes',
+            undefined,
+            draft => {
+              if (!draft.includes(notification_type)) {
+                draft.push(notification_type)
+              }
+            },
+          ),
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
+      query: notification_type => ({
+        body: {notification_type},
+        headers: deviceIdHeader,
+        method: 'POST',
+        slug: GlobalApiSlug.notification,
+        url: '/device/disabled_push_type',
+      }),
+    }),
     deleteDisabledPushModule: builder.mutation<{module_slug: ApiSlug}, ApiSlug>(
       {
         invalidatesTags: ['Notifications'],
@@ -70,6 +100,41 @@ const notificationApi = baseApi.injectEndpoints({
         }),
       },
     ),
+    deleteDisabledPushType: builder.mutation<
+      {notification_type: string},
+      string
+    >({
+      invalidatesTags: ['Notifications'],
+      onQueryStarted: async (notification_type, {dispatch, queryFulfilled}) => {
+        // Optimistically update the cache
+        const patchResult = dispatch(
+          notificationApi.util.updateQueryData(
+            'getDisabledPushTypes',
+            undefined,
+            draft => {
+              const idx = draft.indexOf(notification_type)
+
+              if (idx !== -1) {
+                draft.splice(idx, 1)
+              }
+            },
+          ),
+        )
+
+        try {
+          await queryFulfilled
+        } catch {
+          patchResult.undo()
+        }
+      },
+      query: notification_type => ({
+        headers: deviceIdHeader,
+        method: 'DELETE',
+        params: {notification_type},
+        slug: GlobalApiSlug.notification,
+        url: '/device/disabled_push_type',
+      }),
+    }),
     getNotificationModules: builder.query<NotificationModulesResponse, void>({
       query: () => ({
         slug: GlobalApiSlug.notification,
@@ -86,6 +151,15 @@ const notificationApi = baseApi.injectEndpoints({
       }),
       keepUnusedDataFor: CacheLifetime.hour,
     }),
+    getDisabledPushTypes: builder.query<string[], void>({
+      providesTags: ['Notifications'],
+      query: () => ({
+        headers: deviceIdHeader,
+        slug: GlobalApiSlug.notification,
+        url: '/device/disabled_push_types',
+      }),
+      keepUnusedDataFor: CacheLifetime.hour,
+    }),
   }),
   overrideExisting: true,
 })
@@ -95,4 +169,7 @@ export const {
   useGetDisabledPushModulesQuery,
   useAddDisabledPushModuleMutation,
   useDeleteDisabledPushModuleMutation,
+  useAddDisabledPushTypeMutation,
+  useDeleteDisabledPushTypeMutation,
+  useGetDisabledPushTypesQuery,
 } = notificationApi
