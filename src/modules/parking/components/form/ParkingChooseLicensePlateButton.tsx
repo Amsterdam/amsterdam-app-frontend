@@ -14,7 +14,9 @@ export const ParkingChooseLicensePlateButton = () => {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
-  } = useGetParkingSessions(ParkingSessionStatus.active, permit?.no_endtime ? skipToken : undefined)
+  } = useGetParkingSessions(ParkingSessionStatus.active, {
+    skip: !permit?.no_endtime,
+  })
 
   return (
     <SelectButtonControlled<
@@ -28,7 +30,7 @@ export const ParkingChooseLicensePlateButton = () => {
       }
       bottomSheetVariant={ParkingSessionBottomSheetVariant.licensePlate}
       disabled={isLoading || isError}
-      iconName={isLoading ? 'spinner' : 'parkingCar'}
+      iconName={isLoading && permit?.no_endtime ? 'spinner' : 'parkingCar'}
       name="licensePlate"
       rules={{
         required: 'Kies een kenteken',

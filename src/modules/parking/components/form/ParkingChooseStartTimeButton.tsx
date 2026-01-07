@@ -16,7 +16,7 @@ export const ParkingChooseStartTimeButton = () => {
       rules={{
         required: 'Kies een starttijd',
         validate: startTime => {
-          if (startTime.isBefore(dayjs(), 'minute')) {
+          if (startTime.isBefore(dayjs().subtract(1, 'minute'), 'minute')) {
             return 'Starttijd mag niet in het verleden liggen'
           }
 
