@@ -1,7 +1,7 @@
 import {formatDateToDisplay} from '@/utils/datetime/formatDateToDisplay'
 
 describe('formatDateToDisplay', () => {
-  afterAll(() => {
+  afterEach(() => {
     jest.useRealTimers()
   })
 
