@@ -1,5 +1,6 @@
 import {ReactNode} from 'react'
 import {TextProps} from 'react-native'
+import type {Theme} from '@/themes/themes'
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
@@ -17,6 +18,7 @@ type Props = {
   accessibilityLabel?: string
   accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
+  color?: keyof Theme['color']['text']
   description?: string
   direction?: 'backward' | 'forward'
   emphasis?: PhraseProps['emphasis']
@@ -31,6 +33,7 @@ type Props = {
 } & TestProps
 
 export const NavigationButton = ({
+  color = 'link',
   description,
   direction = 'forward',
   emphasis = 'strong',
@@ -62,7 +65,7 @@ export const NavigationButton = ({
         gutter="md">
         {direction === 'backward' && (
           <Icon
-            color="link"
+            color={color}
             name="chevron-left"
             size={iconSize}
             testID={`${testID}Icon`}
@@ -74,7 +77,7 @@ export const NavigationButton = ({
             shrink={0}>
             {!!iconName && (
               <Icon
-                color="link"
+                color={color}
                 name={iconName}
                 size="lg"
                 testID={`${testID}Icon`}
@@ -84,14 +87,14 @@ export const NavigationButton = ({
             <Column shrink={1}>
               {emphasis === 'strong' ? (
                 <Title
-                  color="link"
+                  color={color}
                   level="h5"
                   testID="NavigationButtonTitle"
                   text={title}
                 />
               ) : (
                 <Phrase
-                  color="link"
+                  color={color}
                   testID="NavigationButtonTitle">
                   {title}
                 </Phrase>
@@ -109,7 +112,7 @@ export const NavigationButton = ({
         </Column>
         {direction === 'forward' && (
           <Icon
-            color="link"
+            color={color}
             name="chevron-right"
             size={iconSize}
             testID={`${testID}Icon`}
