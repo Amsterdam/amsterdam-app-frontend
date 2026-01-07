@@ -8,13 +8,13 @@ import {
 } from '@/modules/parking/types'
 
 export const ParkingChooseLicensePlateButton = () => {
+  const permit = useCurrentParkingPermit()
+
   const {
     parkingSessions: activeParkingSessions,
     isLoading,
     isError,
-  } = useGetParkingSessions(ParkingSessionStatus.active)
-
-  const permit = useCurrentParkingPermit()
+  } = useGetParkingSessions(ParkingSessionStatus.active, permit?.no_endtime ? skipToken : undefined)
 
   return (
     <SelectButtonControlled<
