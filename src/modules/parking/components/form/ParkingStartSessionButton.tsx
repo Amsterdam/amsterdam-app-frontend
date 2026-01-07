@@ -7,11 +7,9 @@ import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {alerts} from '@/modules/parking/alerts'
 import {ParkingAddMoneyButton} from '@/modules/parking/components/ParkingAddMoneyButton'
 import {ParkingDashboardBottomSheetVariant} from '@/modules/parking/components/dashboard/bottomsheet/bottomsheetVariants'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
-import {ParkingApiVersion} from '@/modules/parking/types'
 import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {useAlert} from '@/store/slices/alert'
 import {Dayjs} from '@/utils/datetime/dayjs'
@@ -35,7 +33,6 @@ export const ParkingStartSessionButton = () => {
     setError,
   } = useFormContext<SessionFieldValues>()
   const {report_code, permit_type} = useCurrentParkingPermit()
-  const apiVersion = useCurrentParkingApiVersion()
   const {setVisitorVehicleId} = useVisitorVehicleId()
   const {setAlert} = useAlert()
   const [startSession, {isLoading}] = useStartSessionMutation()
@@ -191,7 +188,7 @@ export const ParkingStartSessionButton = () => {
     )
   }
 
-  if (isWalletBalanceInsufficient && apiVersion === ParkingApiVersion.v2) {
+  if (isWalletBalanceInsufficient) {
     return <ParkingAddMoneyButton />
   }
 

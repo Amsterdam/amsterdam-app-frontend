@@ -4,7 +4,6 @@ export const permitMock: ParkingPermit = {
   discount: 0,
   forced_license_plate_list: false,
   max_session_length_in_days: 0,
-  max_sessions_allowed: 0,
   money_balance_applicable: true,
   no_endtime: false,
   parking_rate: {

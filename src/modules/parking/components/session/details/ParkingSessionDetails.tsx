@@ -11,13 +11,11 @@ import {ParkingSessionDetailsDeleteButton} from '@/modules/parking/components/se
 import {ParkingSessionDetailsRow} from '@/modules/parking/components/session/details/ParkingSessionDetailsRow'
 import {ParkingSessionDetailsStopButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsStopButton'
 import {ParkingSessionDetailsVisitorExtendButton} from '@/modules/parking/components/session/details/ParkingSessionDetailsVisitorExtendButton'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useLicensePlateString} from '@/modules/parking/hooks/useLicensePlateString'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {
-  ParkingApiVersion,
   ParkingHistorySession,
   ParkingPermitScope,
   ParkingSession,
@@ -37,7 +35,6 @@ export const ParkingSessionDetails = ({
   parkingSession,
 }: ParkingSessionProps) => {
   const {navigate} = useNavigation()
-  const apiVersion = useCurrentParkingApiVersion()
   const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
 
@@ -54,7 +51,7 @@ export const ParkingSessionDetails = ({
   const isEditable =
     !parkingSession.no_endtime &&
     !!parkingSession.ps_right_id &&
-    (!!parkingSession.can_edit || apiVersion === ParkingApiVersion.v1)
+    !!parkingSession.can_edit
 
   const isActiveWithoutEndTime =
     parkingSession.status === ParkingSessionStatus.active &&
@@ -69,29 +66,26 @@ export const ParkingSessionDetails = ({
           <Phrase>{licensePlateString}</Phrase>
         </ParkingSessionDetailsRow>
 
-        {!!parkingSession.parking_machine &&
-          apiVersion === ParkingApiVersion.v2 && (
-            <ParkingMachineDetails
-              parkingSession={parkingSession}
-              report_code={currentPermit.report_code}
-            />
-          )}
+        {!!parkingSession.parking_machine && (
+          <ParkingMachineDetails
+            parkingSession={parkingSession}
+            report_code={currentPermit.report_code}
+          />
+        )}
 
         {!parkingSession.parking_machine && (
           <ParkingSessionDetailsRow
             iconName="location"
             title={getPermitZoneLabel(currentPermit.permit_zone)}>
-            {apiVersion === ParkingApiVersion.v2 && (
-              <NavigationButton
-                emphasis="default"
-                iconSize="smd"
-                insetHorizontal="no"
-                insetVertical="no"
-                onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
-                testID="ParkingParkingPermitZonesButton"
-                title="Kaart bekijken"
-              />
-            )}
+            <NavigationButton
+              emphasis="default"
+              iconSize="smd"
+              insetHorizontal="no"
+              insetVertical="no"
+              onPress={() => navigate(ParkingRouteName.parkingPermitZones)}
+              testID="ParkingParkingPermitZonesButton"
+              title="Kaart bekijken"
+            />
           </ParkingSessionDetailsRow>
         )}
 
@@ -130,25 +124,26 @@ export const ParkingSessionDetails = ({
 
         {parkingAccount?.scope === ParkingPermitScope.permitHolder && (
           <>
-            {!!isEditable &&
-              (parkingSession.status === ParkingSessionStatus.active ||
-                parkingSession.status === ParkingSessionStatus.planned) && (
-                <ParkingSessionDetailsAdjustEndTimeButton
-                  parkingSession={parkingSession as ParkingSession}
-                />
-              )}
-            {!!isEditable &&
-              parkingSession.status === ParkingSessionStatus.active && (
-                <ParkingSessionDetailsStopButton
-                  parkingSession={parkingSession as ParkingSession}
-                />
-              )}
-            {!!isEditable &&
-              parkingSession.status === ParkingSessionStatus.planned && (
-                <ParkingSessionDetailsDeleteButton
-                  parkingSession={parkingSession as ParkingSession}
-                />
-              )}
+            {!!isEditable && (
+              <>
+                {(parkingSession.status === ParkingSessionStatus.active ||
+                  parkingSession.status === ParkingSessionStatus.planned) && (
+                  <ParkingSessionDetailsAdjustEndTimeButton
+                    parkingSession={parkingSession as ParkingSession}
+                  />
+                )}
+                {parkingSession.status === ParkingSessionStatus.active && (
+                  <ParkingSessionDetailsStopButton
+                    parkingSession={parkingSession as ParkingSession}
+                  />
+                )}
+                {parkingSession.status === ParkingSessionStatus.planned && (
+                  <ParkingSessionDetailsDeleteButton
+                    parkingSession={parkingSession as ParkingSession}
+                  />
+                )}
+              </>
+            )}
             {!!currentPermit.money_balance_applicable &&
               'is_paid' in parkingSession &&
               !parkingSession.is_paid && (

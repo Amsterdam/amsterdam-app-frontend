@@ -5,14 +5,11 @@ import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {Column} from '@/components/ui/layout/Column'
-import {Gutter} from '@/components/ui/layout/Gutter'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useRefetchInterval} from '@/hooks/useRefetchInterval'
 import {alerts} from '@/modules/parking/alerts'
-import {ParkingChooseAmountButton} from '@/modules/parking/components/form/ParkingChooseAmountButton'
 import {ParkingReceiptItem} from '@/modules/parking/components/form/ParkingReceiptItem'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetRemainingBalance} from '@/modules/parking/hooks/useGetRemainingBalance'
 import {
@@ -20,11 +17,7 @@ import {
   useSessionReceiptQuery,
 } from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {
-  ParkingApiVersion,
-  ParkingLicensePlate,
-  ParkingPermitScope,
-} from '@/modules/parking/types'
+import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
 import {useBottomSheetSelectors} from '@/store/slices/bottomSheet'
 import {dayjs, Dayjs} from '@/utils/datetime/dayjs'
@@ -59,12 +52,10 @@ export const ParkingReceipt = () => {
     parking_machine,
     paymentZoneId,
     ps_right_id,
-    amount = 0,
     visitorVehicleId,
     startTime,
   } = watch()
 
-  const apiVersion = useCurrentParkingApiVersion()
   const vehicleId = licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111'
   const parkingAccount = useParkingAccount()
   const isPermitHolder =
@@ -222,18 +213,6 @@ export const ParkingReceipt = () => {
   return (
     <Column gutter="lg">
       <Column gutter="md">
-        {(!!remainingWalletBalanceError || (amount > 0 && isPermitHolder)) &&
-          apiVersion === ParkingApiVersion.v1 && (
-            <>
-              <Title
-                level="h2"
-                testID="ParkingIncreaseBalanceTitle"
-                text="Geldsaldo toevoegen"
-              />
-              <ParkingChooseAmountButton />
-              <Gutter height="sm" />
-            </>
-          )}
         <Title
           level="h2"
           testID="ParkingCostTitle"
@@ -292,11 +271,7 @@ export const ParkingReceipt = () => {
       )}
       {(!!remainingWalletBalanceError ||
         errors.root?.serverError?.message === 'SSP_BALANCE_TOO_LOW') && (
-        <AlertNegative
-          {...(apiVersion === ParkingApiVersion.v1
-            ? alerts.insufficientMoneyBalanceFailed
-            : alerts.insufficientMoneyBalance2Failed)}
-        />
+        <AlertNegative {...alerts.insufficientMoneyBalanceFailed} />
       )}
       {errors.root?.serverError &&
         errors.root?.serverError?.message !== 'SSP_TIME_BALANCE_INSUFFICIENT' &&

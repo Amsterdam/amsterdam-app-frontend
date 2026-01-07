@@ -1,20 +1,17 @@
 import {useEffect, useMemo} from 'react'
 import {useDispatch} from '@/hooks/redux/useDispatch'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {useSetParkingAccountName} from '@/modules/parking/hooks/useSetParkingAccountName'
 import {usePermitsQuery} from '@/modules/parking/service'
 import {
   parkingSlice,
   useCurrentParkingPermitReportCode,
 } from '@/modules/parking/slice'
-import {ParkingApiVersion} from '@/modules/parking/types'
 import {filterPermits} from '@/modules/parking/utils/filterPermits'
 import {fixPermitNames} from '@/modules/parking/utils/fixPermitNames'
 
-export const useGetPermits = (skip?: boolean) => {
+export const useGetPermits = (skip = false) => {
   const dispatch = useDispatch()
   const {data, isLoading, refetch} = usePermitsQuery({status: 'ACTIVE'}, {skip})
-  const apiVersion = useCurrentParkingApiVersion()
 
   const currentPermitReportCode = useCurrentParkingPermitReportCode()
   const {setCurrentPermitReportCode, setParkingAccountPermits} =
@@ -25,14 +22,8 @@ export const useGetPermits = (skip?: boolean) => {
       return
     }
 
-    const permitsFixedNames = fixPermitNames(data)
-
-    if (apiVersion === ParkingApiVersion.v2) {
-      return filterPermits(permitsFixedNames)
-    }
-
-    return permitsFixedNames
-  }, [apiVersion, data])
+    return filterPermits(fixPermitNames(data))
+  }, [data])
 
   useSetParkingAccountName(!permits)
 

@@ -11,7 +11,6 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useAddSecureParkingAccount} from '@/modules/parking/hooks/useAddSecureParkingAccount'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {parkingApi, useLoginParkingMutation} from '@/modules/parking/service'
 import {
   parkingSlice,
@@ -19,7 +18,7 @@ import {
   useParkingAccessToken,
   useParkingDeeplinkAccount,
 } from '@/modules/parking/slice'
-import {ParkingAccountLogin, ParkingApiVersion} from '@/modules/parking/types'
+import {ParkingAccountLogin} from '@/modules/parking/types'
 import {getLoginFailedAlert} from '@/modules/parking/utils/getLoginFailedAlert'
 import {RedirectKey} from '@/modules/redirects/types'
 import {devError} from '@/processes/development'
@@ -30,7 +29,6 @@ import {
 import {useAlert} from '@/store/slices/alert'
 
 export const ParkingLoginForm = () => {
-  const apiVersion = useCurrentParkingApiVersion()
   const deeplinkAccount = useParkingDeeplinkAccount()
   const form = useForm<ParkingAccountLogin>({defaultValues: deeplinkAccount})
   const pincodeRef = useRef<TextInput | null>(null)
@@ -104,11 +102,7 @@ export const ParkingLoginForm = () => {
           <TextInputField
             autoFocus
             hasClearButton={false}
-            keyboardType={
-              apiVersion === ParkingApiVersion.v1
-                ? 'number-pad'
-                : 'numbers-and-punctuation'
-            }
+            keyboardType="numbers-and-punctuation"
             label="Meldcode"
             name="reportCode"
             onSubmitEditing={() => {
