@@ -57,7 +57,7 @@ export const BudgetBalanceButton = ({budget, passNumber}: Props) => {
                 color="cityPass"
                 emphasis="strong"
                 testID="CityPassBalanceButtonActionLabel">
-                Bekijk betalingen
+                Bekijk overzicht
               </Phrase>
               <Icon
                 color="cityPass"

@@ -114,7 +114,8 @@ export const SecurityCode = ({id}: Props) => {
           <Paragraph
             testID="CityPassSecurityCodeText"
             textAlign="center">
-            Deze code is strikt persoonlijk, deel deze niet met andere mensen.
+            Deze code wordt soms gevraagd bij het online kopen van tickets,
+            toegangsbewijzen en producten.
           </Paragraph>
         </Column>
       </Box>
