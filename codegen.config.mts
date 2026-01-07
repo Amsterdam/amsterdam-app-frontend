@@ -25,7 +25,22 @@ export const config: CodeGenConfig = [
         optional: true,
         result: (path, name) => `[ModuleSlug["${path.name}"]]: ${name}`,
         resultImports: ['import { ModuleSlug } from "@/modules/slugs";'],
-        satisfies: 'Partial<Record<ModuleSlug, React.ComponentType>',
+        satisfies: 'Partial<Record<ModuleSlug, React.ComponentType>>',
+      },
+    ],
+  },
+  {
+    inputDir: 'src/modules',
+    match: 'PostRenderComponent.tsx',
+    output: 'src/modules/generated/postRenderComponents.generated.ts',
+    imports: [
+      {
+        import: 'PostRenderComponent',
+        exportName: 'postRenderComponents',
+        optional: true,
+        result: (path, name) => `[ModuleSlug["${path.name}"]]: ${name}`,
+        resultImports: ['import { ModuleSlug } from "@/modules/slugs";'],
+        satisfies: 'Partial<Record<ModuleSlug, React.ComponentType>>',
       },
     ],
   },

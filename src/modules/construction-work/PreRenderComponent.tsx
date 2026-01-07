@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import {Phrase} from '@/components/ui/text/Phrase'
 import {useRegisterDevice} from '@/hooks/useRegisterDevice'
 import {config} from '@/modules/construction-work/components/projects/config'
 import {useProjectsQuery} from '@/modules/construction-work/service'
@@ -24,5 +25,5 @@ export const PreRenderComponent = () => {
     }
   }, [data?.result, hasRequestedPermission, registerDeviceIfPermitted])
 
-  return null
+  return <Phrase>hoi hoi hoi</Phrase>
 }

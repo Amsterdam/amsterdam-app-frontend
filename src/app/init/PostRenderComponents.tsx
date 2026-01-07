@@ -1,10 +1,13 @@
+import {postRenderComponents} from '@/modules/generated/postRenderComponents.generated'
 import {Module} from '@/modules/types'
+import {mergeComponentsWithEnabledModules} from '@/utils/mergeComponentsWithEnabledModules'
 
 type Props = {
   enabledModules?: Module[]
 }
 
+/**
+ * Component to render after the modules have been rendered.
+ */
 export const PostRenderComponents = ({enabledModules = []}: Props) =>
-  enabledModules.map(({PostRenderComponent, slug}) =>
-    PostRenderComponent ? <PostRenderComponent key={slug} /> : null,
-  )
+  mergeComponentsWithEnabledModules(postRenderComponents, enabledModules)

@@ -71,10 +71,6 @@ export type ModuleClientConfig<
    */
   HeaderComponent?: ComponentType
   /**
-   * Component to render after the module has been rendered.
-   */
-  PostRenderComponent?: ComponentType
-  /**
    * If true, the user is not allowed to disable the module in the settings.
    */
   alwaysEnabled?: boolean
