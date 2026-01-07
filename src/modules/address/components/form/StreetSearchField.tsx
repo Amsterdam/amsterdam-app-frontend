@@ -16,7 +16,6 @@ export const StreetSearchField = () => {
       autoCapitalize="none"
       autoCorrect={false}
       focusable
-      key="street"
       name="street"
       placeholder="Vul uw straatnaam of postcode in"
       ref={ref}

@@ -15,7 +15,6 @@ export const NumberSearchField = () => {
       accessibilityLabel="Zoek naar huisnummer"
       autoCapitalize="none"
       autoCorrect={false}
-      key="number"
       keyboardType="numbers-and-punctuation"
       name="number"
       placeholder="Vul uw huisnummer in"
