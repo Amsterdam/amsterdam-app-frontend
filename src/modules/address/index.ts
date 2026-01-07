@@ -1,4 +1,3 @@
-import {migrations} from '@/modules/address/migrations'
 import {addressSlice} from '@/modules/address/slice'
 import {AddressState} from '@/modules/address/types'
 import {ModuleSlug} from '@/modules/slugs'
@@ -19,7 +18,6 @@ export const addressModule = createCoreModule({
   reduxConfigs: [
     {
       key: ReduxKey.address,
-      migrations,
       persistVersion: 0,
       slice: addressSlice,
       persistWhitelist,
