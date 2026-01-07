@@ -1,4 +1,4 @@
-import type {Dirent} from 'fs'
+import type {Dirent} from 'node:fs'
 import type {CodeGenConfig} from 'nodescripts/codegen.mts'
 
 const inputDir = 'src/modules'
