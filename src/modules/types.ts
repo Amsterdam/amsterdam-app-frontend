@@ -67,10 +67,6 @@ export type ModuleClientConfig<
    */
   ActionButton?: ComponentType
   /**
-   * A component to show in the header of the Home screen.
-   */
-  HeaderComponent?: ComponentType
-  /**
    * If true, the user is not allowed to disable the module in the settings.
    */
   alwaysEnabled?: boolean

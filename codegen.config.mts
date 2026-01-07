@@ -1,8 +1,15 @@
+import type {Dirent} from 'fs'
 import type {CodeGenConfig} from 'nodescripts/codegen.mts'
+
+const inputDir = 'src/modules'
+const defaultResultImports = ['import { ModuleSlug } from "@/modules/slugs";']
+const defaultSatisfies = 'Partial<Record<ModuleSlug, React.ComponentType>>'
+const moduleBasedResult = (path: Dirent<string>, name: string): string =>
+  `[ModuleSlug["${path.name}"]]: ${name}`
 
 export const config: CodeGenConfig = [
   {
-    inputDir: 'src/modules',
+    inputDir,
     match: 'screenConfig.ts',
     output: 'src/modules/generated/modals.generated.ts',
     imports: [
@@ -15,7 +22,7 @@ export const config: CodeGenConfig = [
     ],
   },
   {
-    inputDir: 'src/modules',
+    inputDir,
     match: 'PreRenderComponent.tsx',
     output: 'src/modules/generated/preRenderComponents.generated.ts',
     imports: [
@@ -23,14 +30,14 @@ export const config: CodeGenConfig = [
         import: 'PreRenderComponent',
         exportName: 'preRenderComponents',
         optional: true,
-        result: (path, name) => `[ModuleSlug["${path.name}"]]: ${name}`,
-        resultImports: ['import { ModuleSlug } from "@/modules/slugs";'],
-        satisfies: 'Partial<Record<ModuleSlug, React.ComponentType>>',
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
       },
     ],
   },
   {
-    inputDir: 'src/modules',
+    inputDir,
     match: 'PostRenderComponent.tsx',
     output: 'src/modules/generated/postRenderComponents.generated.ts',
     imports: [
@@ -38,9 +45,24 @@ export const config: CodeGenConfig = [
         import: 'PostRenderComponent',
         exportName: 'postRenderComponents',
         optional: true,
-        result: (path, name) => `[ModuleSlug["${path.name}"]]: ${name}`,
-        resultImports: ['import { ModuleSlug } from "@/modules/slugs";'],
-        satisfies: 'Partial<Record<ModuleSlug, React.ComponentType>>',
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
+      },
+    ],
+  },
+  {
+    inputDir,
+    match: 'HeaderComponent.tsx',
+    output: 'src/modules/generated/headerComponents.generated.ts',
+    imports: [
+      {
+        import: 'HeaderComponent',
+        exportName: 'headerComponents',
+        optional: true,
+        result: moduleBasedResult,
+        resultImports: defaultResultImports,
+        satisfies: defaultSatisfies,
       },
     ],
   },
