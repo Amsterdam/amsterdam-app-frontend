@@ -4,15 +4,23 @@ import {TextInput as TextInputRN} from 'react-native-gesture-handler'
 import type {RefObject} from 'react'
 import {CharactersLeftDisplay} from '@/components/ui/forms/CharactersLeftDisplay'
 import {ErrorMessage} from '@/components/ui/forms/ErrorMessage'
+import {TextInput} from '@/components/ui/forms/input/TextInput'
 import {
-  TextInput,
-  type TextInputSharedProps,
-} from '@/components/ui/forms/TextInput'
+  fieldTypeRules,
+  fieldTypeToInputMode,
+  fieldTypeToKeyboardType,
+  getTextTransform,
+} from '@/components/ui/forms/input/constants'
+import {
+  FieldType,
+  TextInputSharedProps,
+} from '@/components/ui/forms/input/types'
 import {Column} from '@/components/ui/layout/Column'
 import {type TestProps} from '@/components/ui/types'
 import {useAccessibilityAnnounce} from '@/hooks/accessibility/useAccessibilityAnnounce'
 
 type Props = {
+  fieldType?: FieldType
   maxCharacters?: number
   ref?: RefObject<TextInputRN | null>
 } & TextInputSharedProps &
@@ -26,6 +34,7 @@ type Props = {
     | 'autoCorrect'
     | 'keyboardType'
     | 'enterKeyHint'
+    | 'inputMode'
     | 'onSubmitEditing'
     | 'submitBehavior'
     | 'returnKeyType'
@@ -45,6 +54,7 @@ export const TextInputField = ({
   rules,
   testID,
   textTransform,
+  fieldType = FieldType.text,
   ...textInputProps
 }: Props) => {
   const accessibilityAnnounce = useAccessibilityAnnounce()
@@ -65,6 +75,8 @@ export const TextInputField = ({
                 accessibilityLanguage="nl-NL"
                 autoFocus={autoFocus}
                 inputInstructions={inputInstructions}
+                inputMode={fieldTypeToInputMode[fieldType]}
+                keyboardType={fieldTypeToKeyboardType[fieldType]}
                 label={label}
                 multiline={!!numberOfLines}
                 numberOfLines={numberOfLines}
@@ -73,7 +85,7 @@ export const TextInputField = ({
                 ref={ref}
                 required={!!rules?.required}
                 testID={`${testID}Input`}
-                textTransform={textTransform}
+                textTransform={textTransform ?? getTextTransform(fieldType)}
                 value={value as string}
                 warning={!!error}
                 {...textInputProps}
@@ -94,7 +106,7 @@ export const TextInputField = ({
           </Column>
         )
       }}
-      rules={rules}
+      rules={{...rules, ...fieldTypeRules[fieldType]}}
     />
   )
 }

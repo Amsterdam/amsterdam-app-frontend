@@ -1,5 +1,5 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {TextInput} from '@/components/ui/forms/TextInput'
+import {TextInput} from '@/components/ui/forms/input/TextInput'
 
 export default {
   component: TextInput,

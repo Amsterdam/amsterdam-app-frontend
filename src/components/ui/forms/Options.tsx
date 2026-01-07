@@ -24,11 +24,7 @@ export type OptionsProps<T> = {
   options?: Option<T>[]
   orientation?: LayoutOrientation
   required?: boolean
-  type:
-    | QuestionType.checkbox
-    | QuestionType.radio
-    | QuestionType.rating
-    | QuestionType.selection_buttons
+  type: QuestionType
   /**
    * Log value to analytics as new state when the selected value changes and as name on the button press event of the option.
    */

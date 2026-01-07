@@ -1,11 +1,7 @@
-import {createRef, type RefObject, useEffect, useState} from 'react'
-import {
-  Platform,
-  StyleSheet,
-  type TextInputProps as TextInputPropsRN,
-  View,
-} from 'react-native'
+import {createRef, useEffect, useState} from 'react'
+import {Platform, StyleSheet, View} from 'react-native'
 import {TextInput as TextInputRN} from 'react-native-gesture-handler'
+import type {TextInputProps} from '@/components/ui/forms/input/types'
 import {useIsInBottomSheet} from '@/components/features/bottom-sheet/BottomSheetPresenceContext'
 import {BottomSheetTextInput} from '@/components/features/bottom-sheet/BottomSheetTextInput'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -14,24 +10,6 @@ import {Column} from '@/components/ui/layout/Column'
 import {Icon} from '@/components/ui/media/Icon'
 import {Theme} from '@/themes/themes'
 import {useThemable} from '@/themes/useThemable'
-
-export type TextInputSharedProps = {
-  hasClearButton?: boolean
-  inputInstructions?: string
-  label?: string
-  numberOfLines?: number
-  placeholder?: string
-  required?: boolean
-  textTransform?: (text: string) => string
-}
-
-export type TextInputProps = {
-  onChangeText?: (event: string) => void
-  onFocus?: () => void
-  ref?: RefObject<TextInputRN | null>
-  warning?: boolean
-} & TextInputSharedProps &
-  TextInputPropsRN
 
 export const TextInput = ({
   ref,

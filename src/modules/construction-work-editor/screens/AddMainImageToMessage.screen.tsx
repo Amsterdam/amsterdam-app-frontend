@@ -1,7 +1,7 @@
 import {FormProvider, SubmitHandler, useForm} from 'react-hook-form'
 import {type NavigationProps} from '@/app/navigation/types'
 import {Box} from '@/components/ui/containers/Box'
-import {TextInputField} from '@/components/ui/forms/TextInputField'
+import {TextInputField} from '@/components/ui/forms/input/TextInputField'
 import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Link} from '@/components/ui/text/Link'

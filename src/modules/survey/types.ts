@@ -9,12 +9,19 @@ export enum ConditionEquation {
 
 export enum QuestionType {
   checkbox = 'checkbox',
+  date = 'date',
+  email = 'email',
+  numeric = 'numeric',
   radio = 'radio',
   rating = 'rating',
   selection_buttons = 'selection_buttons',
+  tel = 'tel',
   text = 'text',
   textarea = 'textarea',
+  time = 'time',
+  url = 'url',
 }
+
 export enum ConditionType {
   'and' = 'and',
   'or' = 'or',
