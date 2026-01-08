@@ -1,16 +1,13 @@
 import {useEffect} from 'react'
-import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkDetailFigure} from '@/components/ui/media/errors/ConstructionWorkDetailFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {ProjectArticle} from '@/modules/construction-work/components/project/ProjectArticle'
 import {useMarkArticleAsRead} from '@/modules/construction-work/hooks/useMarkArticleAsRead'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
 import {useProjectNewsQuery} from '@/modules/construction-work/service'
 import {getUniqueArticleId} from '@/modules/construction-work/utils/getUniqueArticleId'
-import {selectIsInternetReachable} from '@/store/slices/internetConnection'
 
 type Props = {
   id: number
@@ -45,17 +42,11 @@ export const ProjectNews = ({id, projectId: passedProjectId}: Props) => {
     })
   }, [article, id, markAsRead])
 
-  const isInternetReachable = useSelector(selectIsInternetReachable)
-
   if (articleIsLoading) {
     return <PleaseWait testID="ConstructionWorkNewsLoadingSpinner" />
   }
 
   if (!article || articleIsError) {
-    if (isInternetReachable === false) {
-      return <NoInternetErrorFullScreen />
-    }
-
     return (
       <FullScreenError
         buttonLabel="Ga terug"

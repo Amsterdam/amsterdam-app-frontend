@@ -1,114 +1,28 @@
-import {memo, useCallback, useMemo} from 'react'
+import {useCallback} from 'react'
 import {type ListRenderItem, StyleSheet} from 'react-native'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {FlatGrid, type FlatGridProps} from 'react-native-super-grid'
-import type {TestProps} from '@/components/ui/types'
 import type {ProjectsItem} from '@/modules/construction-work/types/api'
 import type {ProjectsListItem} from '@/modules/construction-work/types/project'
 import type {SerializedError} from '@reduxjs/toolkit'
 import type {FetchBaseQueryError} from '@reduxjs/toolkit/query'
-import {NoInternetErrorFullScreen} from '@/components/features/NoInternetFullScreenError'
-import {Box} from '@/components/ui/containers/Box'
-import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
-import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {FullScreenError} from '@/components/ui/feedback/error/FullScreenError'
 import {ConstructionWorkFigure} from '@/components/ui/media/errors/ConstructionWorkFigure'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
 import {useSearchField} from '@/hooks/useSearchField'
-import {getAccessibleDistanceText} from '@/modules/construction-work/components/projects/utils/getAccessibleDistanceText'
-import {getAccessibleFollowingText} from '@/modules/construction-work/components/projects/utils/getAccessibleFollowingText'
-import {ProjectCard} from '@/modules/construction-work/components/shared/ProjectCard'
-import {ProjectTraits} from '@/modules/construction-work/components/shared/ProjectTraits'
+import {ListEmptyComponent} from '@/modules/construction-work/components/projects/ListEmptyComponent'
+import {Project} from '@/modules/construction-work/components/projects/Project'
 import {ConstructionWorkRouteName} from '@/modules/construction-work/routes'
-import {
-  type ReadArticle,
-  selectConstructionWorkReadArticles,
-} from '@/modules/construction-work/slice'
-import {getUnreadArticlesLength} from '@/modules/construction-work/utils/getUnreadArticlesLength'
-import {type LogProps, PiwikDimension} from '@/processes/piwik/types'
-import {selectIsInternetReachable} from '@/store/slices/internetConnection'
+import {selectConstructionWorkReadArticles} from '@/modules/construction-work/slice'
+import {PiwikDimension} from '@/processes/piwik/types'
 import {useTheme} from '@/themes/useTheme'
-import {accessibleText} from '@/utils/accessibility/accessibleText'
 
 const DEFAULT_NO_RESULTS_MESSAGE = 'We hebben geen werkzaamheden gevonden.'
 const UNINTENDED_SPACING_FROM_RN_SUPER_GRID = 16
 
 const keyExtractor = ({id}: ProjectsListItem) => id.toString()
-
-type ListItemProps = {
-  onPress: (id: number, isDummyItem?: boolean) => void
-  project: ProjectsListItem
-  readArticles: ReadArticle[]
-  showTraits: boolean
-} & LogProps
-
-const ListItem = memo(
-  ({
-    onPress,
-    project,
-    readArticles,
-    showTraits,
-    ...logProps
-  }: ListItemProps) => {
-    const {followed, meter, recent_articles} = project
-
-    const [additionalAccessibilityLabel, unreadArticlesLength] = useMemo(() => {
-      if (!showTraits) {
-        return []
-      }
-
-      const unreadLength = getUnreadArticlesLength(
-        readArticles,
-        recent_articles,
-      )
-
-      return [
-        accessibleText(
-          getAccessibleFollowingText(!!followed, unreadLength ?? 0),
-          getAccessibleDistanceText(meter),
-        ),
-        unreadLength,
-      ]
-    }, [followed, meter, readArticles, recent_articles, showTraits])
-
-    const {id, image, isDummyItem, subtitle, title} = project
-
-    return (
-      <ProjectCard
-        additionalAccessibilityLabel={additionalAccessibilityLabel}
-        imageSource={image?.sources}
-        isDummyItem={isDummyItem}
-        onPress={() => onPress(id, isDummyItem)}
-        subtitle={subtitle}
-        testID={`ConstructionWork${id}ProjectCard`}
-        title={title}
-        {...logProps}>
-        {showTraits ? (
-          <ProjectTraits
-            accessibilityLabel={additionalAccessibilityLabel}
-            project={project}
-            unreadArticlesLength={unreadArticlesLength}
-          />
-        ) : undefined}
-      </ProjectCard>
-    )
-  },
-)
-
-type ListEmptyMessageProps = {
-  text: string
-} & TestProps
-
-const ListEmptyMessage = ({testID, text}: ListEmptyMessageProps) => (
-  <Box insetHorizontal="md">
-    <EmptyMessage
-      testID={testID}
-      text={text}
-    />
-  </Box>
-)
 
 type Props = {
   byDistance?: boolean
@@ -152,7 +66,7 @@ export const ProjectsList = ({
 
   const renderItem: ListRenderItem<ProjectsListItem> = useCallback(
     ({item}) => (
-      <ListItem
+      <Project
         logDimensions={{
           [PiwikDimension.searchTerm]: value,
           [PiwikDimension.searchType]: searchType,
@@ -185,13 +99,7 @@ export const ProjectsList = ({
     ],
   )
 
-  const isInternetReachable = useSelector(selectIsInternetReachable)
-
   if (isError && !data?.length) {
-    if (isInternetReachable === false) {
-      return <NoInternetErrorFullScreen />
-    }
-
     return (
       <FullScreenError
         buttonLabel="Ga terug"
@@ -213,14 +121,11 @@ export const ProjectsList = ({
       keyboardDismissMode="on-drag"
       keyExtractor={keyExtractor}
       ListEmptyComponent={
-        isLoading ? (
-          <PleaseWait testID="ConstructionWorkListLoadingSpinner" />
-        ) : searchText !== '' ? (
-          <ListEmptyMessage
-            testID="ConstructionWorkListEmptyMessage"
-            text={noResultsMessage}
-          />
-        ) : null
+        <ListEmptyComponent
+          isLoading={isLoading}
+          noResultsMessage={noResultsMessage}
+          searchText={searchText ?? ''}
+        />
       }
       ListHeaderComponent={listHeader}
       onItemsPerRowChange={onItemsPerRowChange}
