@@ -95,19 +95,11 @@ export const alerts = {
   },
   insufficientMoneyBalanceFailed: {
     variant: AlertVariant.negative,
-    text: 'Te weinig geld om parkeersessie te starten.',
-    title: 'Niet genoeg geldsaldo',
-    hasIcon: true,
-    hasCloseIcon: false,
-    testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
-  },
-  insufficientMoneyBalance2Failed: {
-    variant: AlertVariant.negative,
     text: 'Er is niet genoeg geldsaldo om te parkeren. Voeg eerst geld toe. Daarna kun kunt u de parkeersessie starten.',
     title: 'Uw saldo is te laag',
     hasIcon: true,
     hasCloseIcon: false,
-    testID: 'ParkingInsufficientMoneyBalance2FailedAlert',
+    testID: 'ParkingInsufficientMoneyBalanceFailedAlert',
   },
   insufficientTimeBalanceFailed: {
     variant: AlertVariant.negative,

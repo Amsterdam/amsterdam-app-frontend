@@ -23,7 +23,6 @@ import {
   type RemoveIncreaseBalanceEndpointRequest,
   type ParkingTransactionsEndpointRequest,
   type ParkingTransactionsEndpointResponse,
-  type ParkingManageVisitorChangePinCodeEndpointRequest,
   type VisitorParkingSessionsEndpointRequest,
   type VisitorParkingSessionsEndpointResponse,
   ParkingSessionStatus,
@@ -60,30 +59,6 @@ export const parkingApi = baseApi.injectEndpoints({
         slug: ModuleSlug.parking,
         url: '/account-details',
         afterError,
-      }),
-    }),
-    [ParkingEndpointName.accountChangePinCode]: builder.mutation<
-      void,
-      ParkingManageVisitorChangePinCodeEndpointRequest
-    >({
-      query: body => ({
-        prepareHeaders,
-        body,
-        method: 'PUT',
-        slug: ModuleSlug.parking,
-        url: '/pin-code',
-        afterError: (result, api, failRetry) => {
-          if (
-            result.error?.status === 403 &&
-            (result.error.data as {detail?: string})?.detail?.includes(
-              'Invalid pin',
-            )
-          ) {
-            failRetry(result.error)
-          } else {
-            return afterError(result, api, failRetry)
-          }
-        },
       }),
     }),
     [ParkingEndpointName.addLicensePlate]: builder.mutation<
@@ -354,20 +329,6 @@ export const parkingApi = baseApi.injectEndpoints({
         afterError,
       }),
     }),
-    [ParkingEndpointName.manageVisitorChangePinCode]: builder.mutation<
-      void,
-      ParkingManageVisitorChangePinCodeEndpointRequest
-    >({
-      invalidatesTags: ['ParkingPermits'],
-      query: body => ({
-        prepareHeaders,
-        body,
-        method: 'PUT',
-        slug: ModuleSlug.parking,
-        url: '/visitor/pin-code',
-        afterError,
-      }),
-    }),
     [ParkingEndpointName.manageVisitorAddAccount]: builder.mutation<
       void,
       string
@@ -448,7 +409,6 @@ export const parkingApi = baseApi.injectEndpoints({
 })
 
 export const {
-  useParkingAccountChangePinCodeMutation,
   useAccountDetailsQuery,
   useAddLicensePlateMutation,
   useConfirmBalanceMutation,
@@ -471,6 +431,5 @@ export const {
   useManageVisitorTimeBalanceMutation,
   useManageVisitorAddAccountMutation,
   useManageVisitorRemoveAccountMutation,
-  useManageVisitorChangePinCodeMutation,
   useVisitorParkingSessionsQuery,
 } = parkingApi

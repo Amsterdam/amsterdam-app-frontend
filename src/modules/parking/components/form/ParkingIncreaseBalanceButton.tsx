@@ -36,10 +36,6 @@ export const ParkingIncreaseBalanceButton = () => {
         return increaseBalance({
           balance: {
             amount,
-            currency: 'EUR',
-          },
-          redirect: {
-            merchant_return_url: 'amsterdam://parking/increase-balance/return',
           },
           locale: ParkingApiLocale.nl,
         })

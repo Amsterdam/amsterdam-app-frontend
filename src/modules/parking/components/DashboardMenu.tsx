@@ -2,15 +2,13 @@ import {useCallback, useMemo} from 'react'
 import {PopUpMenu} from '@/components/ui/menus/PopUpMenu'
 import {PopupMenuItem, PopupMenuOrientation} from '@/components/ui/menus/types'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount} from '@/modules/parking/slice'
-import {ParkingApiVersion, ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingPermitScope} from '@/modules/parking/types'
 import {useMenu} from '@/store/slices/menu'
 
 export const DashboardMenu = () => {
   const {navigate} = useNavigation()
-  const apiVersion = useCurrentParkingApiVersion()
 
   const parkingAccount = useParkingAccount()
 
@@ -24,15 +22,6 @@ export const DashboardMenu = () => {
   const menuItemsAccountHolder: PopupMenuItem[] = useMemo(
     () =>
       [
-        apiVersion === ParkingApiVersion.v1 && {
-          color: 'link',
-          label: 'Accountgegevens',
-          onPress: () => {
-            close()
-            navigate(ParkingRouteName.accountDetails)
-          },
-          testID: 'ParkingDashboardMenuAccountDetailsButton',
-        },
         {
           color: 'warning',
           label: 'Uitloggen',
@@ -40,7 +29,7 @@ export const DashboardMenu = () => {
           testID: 'ParkingDashboardMenuAccountHolderLogoutButton',
         },
       ].filter(Boolean) as PopupMenuItem[],
-    [apiVersion, close, navigate, onPressLogout],
+    [onPressLogout],
   )
 
   const menuItemsVisitorAccount: PopupMenuItem[] = useMemo(

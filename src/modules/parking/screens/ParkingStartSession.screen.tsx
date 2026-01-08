@@ -13,11 +13,10 @@ import {ParkingVehicleIdTextInput} from '@/modules/parking/components/form/Parki
 import {ParkingSessionBottomSheet} from '@/modules/parking/components/form/bottomsheet/ParkingSessionBottomSheet'
 import {ParkingMaxSessionsWarning} from '@/modules/parking/components/session/ParkingMaxSessionsWarning'
 import {ParkingStartSessionVisitorPermitZone} from '@/modules/parking/components/session/ParkingStartSessionVisitorPermitZone'
-import {useCurrentParkingApiVersion} from '@/modules/parking/hooks/useCurrentParkingApiVersion'
 import {CurrentPermitProvider} from '@/modules/parking/providers/CurrentPermitProvider'
 import {ParkingRouteName} from '@/modules/parking/routes'
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
-import {ParkingApiVersion, ParkingPermitScope} from '@/modules/parking/types'
+import {ParkingPermitScope} from '@/modules/parking/types'
 
 type Props = NavigationProps<ParkingRouteName.startSession>
 
@@ -25,7 +24,6 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
   const {params} = route || {}
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
-  const apiVersion = useCurrentParkingApiVersion()
 
   return (
     <CurrentPermitProvider>
@@ -59,11 +57,9 @@ export const ParkingStartSessionScreen = ({route}: Props) => {
                     />
                   </Column>
                 )}
-                {apiVersion === ParkingApiVersion.v2 && (
-                  <ParkingSessionChooseParkingMachine
-                    selectedParkingMachineId={params?.parkingMachineId}
-                  />
-                )}
+                <ParkingSessionChooseParkingMachine
+                  selectedParkingMachineId={params?.parkingMachineId}
+                />
 
                 <ParkingSessionChooseTime />
 

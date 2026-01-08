@@ -3,7 +3,6 @@ import {Paginated, PaginationQueryArgs} from '@/types/api'
 
 // Routes
 export enum ParkingEndpointName {
-  accountChangePinCode = 'parkingAccountChangePinCode',
   accountDetails = 'accountDetails',
   activateSession = 'activateSession',
   addLicensePlate = 'addLicensePlate',
@@ -14,7 +13,6 @@ export enum ParkingEndpointName {
   licensePlates = 'licensePlates',
   login = 'login',
   manageVisitorAddAccount = 'manageVisitorAddAccount',
-  manageVisitorChangePinCode = 'manageVisitorChangePinCode',
   manageVisitorRemoveAccount = 'manageVisitorRemoveAccount',
   manageVisitorTimeBalance = 'manageVisitorTimeBalance',
   parkingMachines = 'parkingMachines',
@@ -79,7 +77,6 @@ export type ParkingLoginEndpointRequest = {
 }
 
 export enum ParkingApiVersion {
-  v1 = 1,
   v2 = 2,
 }
 
@@ -176,7 +173,6 @@ export type ParkingPermit = {
   discount: number
   forced_license_plate_list: boolean
   max_session_length_in_days: number
-  max_sessions_allowed?: number // DEPRECATED in V2
   money_balance_applicable: boolean
   no_endtime: boolean
   parking_machine_favorite?: string
@@ -316,12 +312,6 @@ export type ParkingSessionReceiptEndpointResponse = {
   }
   parking_time: number
   remaining_time: number
-  remaining_time_balance?: number // DEPRECATED
-  // DEPRECATED
-  remaining_wallet_balance?: {
-    currency: string
-    value: number
-  }
 }
 
 export type ParkingSessionReceiptEndpointRequestParams = {
@@ -408,20 +398,8 @@ export enum ParkingApiLocale {
 export type RemoveIncreaseBalanceEndpointRequest = {
   balance: {
     amount: number
-    currency?: string //DEPRECATED
   }
   locale: ParkingApiLocale
-  //DEPRECATED
-  redirect?: {
-    merchant_return_url: string
-  }
-}
-
-export type ParkingManageVisitorChangePinCodeEndpointRequest = {
-  pin_code: string
-  pin_code_check: string
-  pin_current: string
-  report_code: string
 }
 
 export type ParkingManageVisitorTimeBalanceEndpointRequest = {

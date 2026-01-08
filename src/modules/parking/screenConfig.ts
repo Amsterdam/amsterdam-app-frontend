@@ -16,10 +16,7 @@ import {ParkingSessionScreen} from '@/modules/parking/screens/ParkingSession.scr
 import {ParkingSessionHistoryScreen} from '@/modules/parking/screens/ParkingSessionHistory.screen'
 import {ParkingStartSessionScreen} from '@/modules/parking/screens/ParkingStartSession.screen'
 import {ParkingVisitorEditSessionScreen} from '@/modules/parking/screens/ParkingVisitorEditSession.screen'
-import {ParkingAccountChangePinCodeScreen} from '@/modules/parking/screens/account/AccountChangePinCode.screen'
-import {ParkingAccountDetailsScreen} from '@/modules/parking/screens/account/AccountDetails.screen'
 import {ParkingManageVisitorScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitor.screen'
-import {ParkingManageVisitorChangePinCodeScreen} from '@/modules/parking/screens/manageVisitor/ManageVisitorChangePinCode.screen'
 import {ParkingManageVisitorAdjustTimeBalanceScreen} from '@/modules/parking/screens/manageVisitor/ParkingManageVisitorAdjustTimeBalanceScreen'
 
 export const parkingScreenConfig: StackNavigationRoutes<
@@ -137,32 +134,11 @@ export const parkingScreenConfig: StackNavigationRoutes<
       headerTitle: 'Bezoeker laten betalen',
     },
   },
-  [ParkingRouteName.manageVisitorChangePinCode]: {
-    component: ParkingManageVisitorChangePinCodeScreen,
-    name: ParkingRouteName.manageVisitorChangePinCode,
-    options: {
-      headerTitle: 'Pincode wijzigen',
-    },
-  },
   [ParkingRouteName.manageVisitorAdjustTimeBalance]: {
     component: ParkingManageVisitorAdjustTimeBalanceScreen,
     name: ParkingRouteName.manageVisitorAdjustTimeBalance,
     options: {
       headerShown: false,
-    },
-  },
-  [ParkingRouteName.accountDetails]: {
-    component: ParkingAccountDetailsScreen,
-    name: ParkingRouteName.accountDetails,
-    options: {
-      headerTitle: 'Accountgegevens',
-    },
-  },
-  [ParkingRouteName.accountChangePinCode]: {
-    component: ParkingAccountChangePinCodeScreen,
-    name: ParkingRouteName.accountChangePinCode,
-    options: {
-      headerTitle: 'Pincode wijzigen',
     },
   },
   [ParkingRouteName.logout]: {
