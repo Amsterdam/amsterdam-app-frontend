@@ -7,7 +7,10 @@ import {
 import {useParkingAccount, useVisitorVehicleId} from '@/modules/parking/slice'
 import {ParkingPermitScope, ParkingSessionStatus} from '@/modules/parking/types'
 
-export const useGetParkingSessions = (status: ParkingSessionStatus) => {
+export const useGetParkingSessions = (
+  status: ParkingSessionStatus,
+  options?: {skip: boolean},
+) => {
   const currentPermit = useCurrentParkingPermit()
   const parkingAccount = useParkingAccount()
   const {visitorVehicleId} = useVisitorVehicleId()
@@ -25,7 +28,9 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
           page_size: 100,
         }
       : skipToken,
+    options,
   )
+
   const {
     data: visitorParkingSessions,
     isLoading: isLoadingVisitorParkingSessions,
@@ -39,6 +44,7 @@ export const useGetParkingSessions = (status: ParkingSessionStatus) => {
           status,
         }
       : skipToken,
+    options,
   )
 
   return {
