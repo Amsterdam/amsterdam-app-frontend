@@ -8,7 +8,7 @@ export enum WasteGuideRouteName {
 }
 
 export type WasteGuideStackParams = {
-  [WasteGuideRouteName.wasteGuide]: undefined
+  [WasteGuideRouteName.wasteGuide]: {adres: string} | undefined
   [WasteGuideRouteName.wasteGuideCalendar]: undefined
   [WasteGuideRouteName.wasteGuideFeedback]: undefined
   [WasteGuideRouteName.wasteGuideFraction]: {

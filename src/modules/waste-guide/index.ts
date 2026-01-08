@@ -21,7 +21,10 @@ export const wasteGuideModule = createClientModule({
   requiresFirebaseToken: true,
   slug: ModuleSlug['waste-guide'],
   linking: {
-    [WasteGuideRouteName.wasteGuide]: '/afval/afvalinformatie/',
+    [WasteGuideRouteName.wasteGuide]: {
+      path: '/afval/afvalinformatie/',
+      parse: {adres: (address: string) => decodeURIComponent(address)},
+    },
   },
   icons: fractionIconConfig,
   onMyAddressChanged,
