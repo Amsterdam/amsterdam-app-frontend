@@ -65,7 +65,7 @@ export const ScreenBase = ({
   )
 
   const CustomHeader = isHomeScreen ? (
-    <HeaderForHome />
+    <HeaderForHome options={headerOptions} />
   ) : (
     <ScreenHeader options={headerOptions} />
   )

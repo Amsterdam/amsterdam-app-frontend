@@ -60,6 +60,9 @@ export const HomeScreen = () => {
         />
       }
       hasStickyAlert
+      headerOptions={{
+        disableHorizontalInsets: true,
+      }}
       testID="HomeScreen">
       <Box grow>
         <ActionButtons />
