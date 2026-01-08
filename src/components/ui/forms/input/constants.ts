@@ -55,7 +55,7 @@ export const fieldTypeToInputMode = {
   [FieldType.numeric]: 'numeric',
   [FieldType.pin]: 'numeric',
   [FieldType.tel]: 'tel',
-  [FieldType.text]: 'none',
+  [FieldType.text]: 'text',
   [FieldType.url]: 'url',
 } as const
 
