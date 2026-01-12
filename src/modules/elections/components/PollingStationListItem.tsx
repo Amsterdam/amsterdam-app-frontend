@@ -35,7 +35,7 @@ export const PollingStationsListItem = ({
   const openingTimes = getOpeningTimes(pollingStation.openingTimes)
 
   return (
-    <Box insetRight="md">
+    <Box insetHorizontal="md">
       <Pressable
         accessibilityLabel={`${pollingStation.name}, ${openingTimes}, ${distance ? 'Afstand: ' + distance : ''}`}
         onPress={() => onPress(pollingStation.id)}

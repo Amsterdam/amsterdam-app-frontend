@@ -44,12 +44,15 @@ export const PollingStationsList = ({
   return (
     <Box
       insetBottom="md"
-      insetLeft="md">
+      insetHorizontal="no">
       <FlatList
         data={pollingStationsByDistance}
         ListHeaderComponent={
-          <Column gutter="sm">
-            <Box insetTop="lg">
+          <Box
+            insetBottom="sm"
+            insetHorizontal="md"
+            insetTop="md">
+            <Column gutter="md">
               {!address && (
                 <Title
                   level="h3"
@@ -64,9 +67,9 @@ export const PollingStationsList = ({
                 moduleSlug={ModuleSlug.elections}
                 testID="PollingStationsListAddressSwitch"
               />
-            </Box>
-            <Phrase color="secondary">{`Resultaten${address ? ' gesorteerd op afstand' : ''}:`}</Phrase>
-          </Column>
+              <Phrase color="secondary">{`Resultaten${address ? ' gesorteerd op afstand' : ''}:`}</Phrase>
+            </Column>
+          </Box>
         }
         renderItem={({item: pollingStation}) => {
           let distanceInMeters: number | undefined
