@@ -17,10 +17,9 @@ export const WasteGuideNoAddress = ({isFetchingWasteGuide}: Props) => (
         <Column
           flex={1}
           gutter="lg">
-          <Column gutter="md">
-            <WasteGuideAddressSwitch />
-          </Column>
-          {!!isFetchingWasteGuide && (
+          <WasteGuideAddressSwitch />
+
+          {!isFetchingWasteGuide && (
             <PleaseWait testID="WasteGuideLoadingSpinner" />
           )}
         </Column>

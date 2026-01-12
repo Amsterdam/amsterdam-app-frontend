@@ -7,7 +7,9 @@ type Props = {
 }
 
 export const ProjectsListHeader = ({children}: Props) => (
-  <Box insetHorizontal="md">
+  <Box
+    insetBottom="lg"
+    insetHorizontal="md">
     <Column gutter="md">{children}</Column>
     <Gutter height="lg" />
   </Box>

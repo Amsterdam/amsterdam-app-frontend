@@ -26,29 +26,29 @@ export const WasteGuide = () => {
   const hasContent = wasteGuide && wasteGuide.waste_types.length > 0
 
   return (
-    <Column
-      grow={1}
-      gutter="xl">
+    <Column grow={1}>
       <HorizontalSafeArea flex={1}>
         <Box grow>
           <Column
             flex={1}
-            gutter="lg">
-            <Column gutter="md">
-              <WasteGuideAddressSwitch />
+            gutter="xl">
+            <WasteGuideAddressSwitch />
+
+            <Column gutter="lg">
               <WasteCardButton />
+
+              {loadingError ? (
+                <SomethingWentWrong
+                  testID="WasteGuideSomethingWentWrong"
+                  text="Probeer het later nog een keer."
+                  title="Helaas is de afvalwijzer nu niet beschikbaar"
+                />
+              ) : hasContent ? (
+                <WasteGuideContent />
+              ) : (
+                <WasteGuideNotFound />
+              )}
             </Column>
-            {loadingError ? (
-              <SomethingWentWrong
-                testID="WasteGuideSomethingWentWrong"
-                text="Probeer het later nog een keer."
-                title="Helaas is de afvalwijzer nu niet beschikbaar"
-              />
-            ) : hasContent ? (
-              <WasteGuideContent />
-            ) : (
-              <WasteGuideNotFound />
-            )}
           </Column>
         </Box>
       </HorizontalSafeArea>
