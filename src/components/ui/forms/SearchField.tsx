@@ -32,6 +32,7 @@ export const SearchField = ({
   onFocus,
   testID,
   value = '',
+  multiline = true,
   accessibilityLanguage = 'nl-NL',
   ...textInputProps
 }: SearchFieldProps) => {
@@ -92,7 +93,7 @@ export const SearchField = ({
         {...textInputProps}
         {...themedTextInputProps}
         accessibilityLanguage={accessibilityLanguage}
-        multiline
+        multiline={multiline}
         onBlur={handleBlur}
         onChangeText={handleChangeText}
         onFocus={handleFocus}

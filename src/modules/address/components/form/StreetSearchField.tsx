@@ -16,6 +16,7 @@ export const StreetSearchField = () => {
       autoCapitalize="none"
       autoCorrect={false}
       focusable
+      multiline={false}
       name="street"
       placeholder="Vul uw straatnaam of postcode in"
       ref={ref}
