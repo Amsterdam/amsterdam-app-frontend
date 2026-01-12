@@ -3,10 +3,7 @@ import {Dimensions, Animated, StyleSheet} from 'react-native'
 import {useIsReduceMotionEnabled} from '@/hooks/accessibility/useIsReduceMotionEnabled'
 import {useTheme} from '@/themes/useTheme'
 
-export const NumberSearchAnimation = ({
-  children,
-  onAnimationFinished,
-}: PropsWithChildren<{onAnimationFinished: () => void}>) => {
+export const NumberSearchAnimation = ({children}: PropsWithChildren) => {
   const {size} = useTheme()
   const isReduceMotionEnabled = useIsReduceMotionEnabled()
 
@@ -21,9 +18,7 @@ export const NumberSearchAnimation = ({
     Animated.timing(moveUpAnim, {
       toValue: 0,
       useNativeDriver: false,
-    }).start(() => {
-      onAnimationFinished()
-    })
+    }).start()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (

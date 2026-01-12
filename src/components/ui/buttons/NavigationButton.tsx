@@ -18,6 +18,7 @@ type Props = {
   accessibilityLabel?: string
   accessibilityLanguage?: TextProps['accessibilityLanguage']
   accessibilityRole?: 'link' | 'button'
+  border?: boolean
   color?: keyof Theme['color']['text']
   description?: string
   direction?: 'backward' | 'forward'
@@ -49,6 +50,7 @@ export const NavigationButton = ({
   accessibilityRole = 'link',
   accessibilityLanguage = 'nl-NL',
   accessibilityLabel,
+  border = false,
   ...props
 }: Props) => (
   <Pressable
@@ -58,6 +60,11 @@ export const NavigationButton = ({
     onPress={onPress}
     testID={testID}>
     <Box
+      {...(border && {
+        borderColor: 'default',
+        borderStyle: 'solid',
+        borderWidth: 'md',
+      })}
       insetHorizontal={insetHorizontal}
       insetVertical={insetVertical}>
       <Row

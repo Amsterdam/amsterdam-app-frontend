@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {FormProvider, useForm} from 'react-hook-form'
+import {useFormContext} from 'react-hook-form'
 import type {
   Address,
   AddressCity,
@@ -12,9 +12,10 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useModules} from '@/hooks/useModules'
 import {alerts} from '@/modules/address/alerts'
 import {RecentAddresses} from '@/modules/address/components/RecentAddresses'
-import {AddressSearch} from '@/modules/address/components/form/AddressSearch'
+import {AddressSearchResults} from '@/modules/address/components/form/AddressSearchResults'
 import {LocationTopTaskButton} from '@/modules/address/components/form/LocationTopTaskButton'
 import {MyAddressButton} from '@/modules/address/components/form/MyAddressButton'
+import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
 import {useSetLocationType} from '@/modules/address/hooks/useSetLocationType'
 import {AddressModalName} from '@/modules/address/routes'
 import {
@@ -50,13 +51,14 @@ export const AddressForm = ({
   moduleSlug,
   saveAsMyAddress,
 }: Props) => {
-  const form = useForm<AddressSearchFields>()
+  const form = useFormContext<AddressSearchFields>()
   const dispatch = useDispatch()
   const {goBack} = useNavigation()
   const setLocationType = useSetLocationType(moduleSlug || ModuleSlug.address)
   const route = useRoute<AddressModalName.myAddressForm>()
   const myAddress = useMyAddress()
   const {enabledModules} = useModules()
+  const {shouldShowList} = useGetAddressFormList()
 
   const {setAlert} = useAlert()
 
@@ -106,31 +108,31 @@ export const AddressForm = ({
   const isSearching = form.watch('street')?.length
 
   return (
-    <FormProvider {...form}>
-      <Column gutter="lg">
-        <AddressSearch onPressAddress={onPressAddress} />
+    <Column gutter="lg">
+      {!!shouldShowList && (
+        <AddressSearchResults onPressResult={onPressAddress} />
+      )}
 
-        {!isSearching && !saveAsMyAddress && !!moduleSlug && (
-          <>
-            <MyAddressButton
-              moduleSlug={moduleSlug}
-              onPress={() => {
-                setLocationType('address')
-                goBack()
-              }}
-              testID="ChooseAddressScreenMyAddressButton"
-            />
+      {!isSearching && !saveAsMyAddress && !!moduleSlug && (
+        <Column gutter="smd">
+          <MyAddressButton
+            moduleSlug={moduleSlug}
+            onPress={() => {
+              setLocationType('address')
+              goBack()
+            }}
+            testID="ChooseAddressScreenMyAddressButton"
+          />
 
-            <LocationTopTaskButton
-              highAccuracyPurposeKey={highAccuracyPurposeKey}
-              moduleSlug={moduleSlug}
-              testID="ChooseAddressScreenLocationTopTaskButton"
-            />
-          </>
-        )}
+          <LocationTopTaskButton
+            highAccuracyPurposeKey={highAccuracyPurposeKey}
+            moduleSlug={moduleSlug}
+            testID="ChooseAddressScreenLocationTopTaskButton"
+          />
+        </Column>
+      )}
 
-        {!isSearching && <RecentAddresses onPress={onPressAddress} />}
-      </Column>
-    </FormProvider>
+      {!isSearching && <RecentAddresses onPress={onPressAddress} />}
+    </Column>
   )
 }

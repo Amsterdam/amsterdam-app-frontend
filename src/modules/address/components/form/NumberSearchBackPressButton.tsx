@@ -2,22 +2,24 @@ import {useFormContext} from 'react-hook-form'
 import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import {Button} from '@/components/ui/buttons/Button'
 
-export const NumberSearchBackPressButton = ({
-  onPressBack,
-}: {
-  onPressBack: () => void
-}) => {
-  const {watch} = useFormContext<AddressSearchFields>()
+export const NumberSearchBackPressButton = () => {
+  const {watch, setValue} = useFormContext<AddressSearchFields>()
 
   const street = watch('street')
+
+  const handlePressBack = () => {
+    setValue('city', undefined)
+    setValue('number', '')
+  }
 
   return (
     <Button
       accessibilityHint="klik om straatnaam te veranderen"
       accessibilityLabel={street}
       iconName="chevron-up"
+      iconSize="ml"
       label={street}
-      onPress={onPressBack}
+      onPress={handlePressBack}
       testID="AddressFormNumberSearchBackPressButton"
       variant="tertiary"
     />

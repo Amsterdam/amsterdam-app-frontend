@@ -58,6 +58,7 @@ export const AddressSwitch = ({
           accessibilityLabel={accessibleText(label)}
           accessibilityLanguage="nl-NL"
           accessibilityRole="button"
+          border
           emphasis="default"
           iconName={iconName}
           iconSize="md"

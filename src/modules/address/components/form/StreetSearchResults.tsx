@@ -3,31 +3,31 @@ import {EmptyMessage} from '@/components/ui/feedback/EmptyMessage'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Icon} from '@/components/ui/media/Icon'
 import {AddressSearchSuggestions} from '@/modules/address/components/AddressSearchSuggestions'
-import {BaseAddress, Address, AddressList} from '@/modules/address/types'
+import {useGetAddressFormList} from '@/modules/address/hooks/useGetAddressFormList'
+import {BaseAddress, Address} from '@/modules/address/types'
 
-type StreetSearchResultProps = {
-  bagList: AddressList
-  isError: boolean
-  isLoading: boolean
-  refetch: () => void
-  selectResult: (item: Address | BaseAddress) => void
+type StreetSearchResultsProps = {
+  onPressResult: (item: Address | BaseAddress) => void
 }
 
-export const StreetSearchResult = ({
-  bagList,
-  isError,
-  isLoading,
-  refetch,
-  selectResult,
-}: StreetSearchResultProps) => {
-  if (isLoading) {
+export const StreetSearchResults = ({
+  onPressResult,
+}: StreetSearchResultsProps) => {
+  const {
+    data: list,
+    isError,
+    isFetching,
+    refetch,
+  } = useGetAddressFormList('street')
+
+  if (isFetching) {
     return (
       <Box>
         <Icon
           color="link"
           name="spinner"
           size="lg"
-          testID="AddressStreetSearchResultLoadingIcon"
+          testID="AddressStreetSearchResultsLoadingIcon"
         />
       </Box>
     )
@@ -38,7 +38,7 @@ export const StreetSearchResult = ({
       <Box insetVertical="md">
         <SomethingWentWrong
           retryFn={refetch}
-          testID="AddressStreetSearchResultSomethingWentWrong"
+          testID="AddressStreetSearchResultsSomethingWentWrong"
           text="Door een technische storing kunnen er geen adressen worden gevonden. Probeer het later nog eens."
           title=""
         />
@@ -46,7 +46,7 @@ export const StreetSearchResult = ({
     )
   }
 
-  if (bagList.length === 0) {
+  if (list?.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
@@ -60,8 +60,8 @@ export const StreetSearchResult = ({
 
   return (
     <AddressSearchSuggestions
-      addresses={bagList}
-      selectResult={selectResult}
+      addresses={list}
+      onPressResult={onPressResult}
     />
   )
 }

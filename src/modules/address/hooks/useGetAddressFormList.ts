@@ -3,7 +3,9 @@ import type {AddressSearchFields} from '@/modules/address/components/AddressForm
 import {ADDRESS_LENGTH_THRESHOLD} from '@/modules/address/constants'
 import {useGetAddressSuggestionsQuery} from '@/modules/address/service'
 
-export const useGetAddressFormList = (variant: 'street' | 'number') => {
+export const useGetAddressFormList = (
+  variant: 'street' | 'number' = 'street',
+) => {
   const {watch} = useFormContext<AddressSearchFields>()
 
   const street = watch('street')

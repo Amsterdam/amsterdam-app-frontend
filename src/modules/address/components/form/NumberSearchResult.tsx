@@ -6,11 +6,11 @@ import {AddressSearchSuggestions} from '@/modules/address/components/AddressSear
 import {Address, AddressList, BaseAddress} from '@/modules/address/types'
 
 type NumberSearchResultProps = {
-  bagList: AddressList
+  bagList?: AddressList
   isError: boolean
   isLoading: boolean
+  onPressResult: (item: BaseAddress | Address) => void
   refetch: () => void
-  selectResult: (item: BaseAddress | Address) => void
 }
 
 export const NumberSearchResult = ({
@@ -18,7 +18,7 @@ export const NumberSearchResult = ({
   isError,
   isLoading,
   refetch,
-  selectResult,
+  onPressResult,
 }: NumberSearchResultProps) => {
   if (isLoading) {
     return (
@@ -46,7 +46,7 @@ export const NumberSearchResult = ({
     )
   }
 
-  if (bagList.length === 0) {
+  if (bagList?.length === 0) {
     return (
       <Box insetVertical="md">
         <EmptyMessage
@@ -60,7 +60,7 @@ export const NumberSearchResult = ({
   return (
     <AddressSearchSuggestions
       addresses={bagList}
-      selectResult={selectResult}
+      onPressResult={onPressResult}
       showNumbersOnly
     />
   )

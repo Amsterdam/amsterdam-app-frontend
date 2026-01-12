@@ -6,13 +6,13 @@ import {addressPronounce} from '@/utils/accessibility/addressPronounce'
 
 type Props = {
   addresses?: AddressList
-  selectResult: (item: Address | BaseAddress) => void
+  onPressResult: (item: Address | BaseAddress) => void
   showNumbersOnly?: boolean
 }
 
 export const AddressSearchSuggestions = ({
   addresses = [],
-  selectResult,
+  onPressResult,
   showNumbersOnly = false,
 }: Props) => (
   <Column gutter="xs">
@@ -31,7 +31,7 @@ export const AddressSearchSuggestions = ({
           key={key}
           label={getSuggestionLabel(address, showNumbersOnly)}
           logging-label="AddressSearchResultButton"
-          onPress={selectResult}
+          onPress={onPressResult}
           testID={`AddressSearchResult${key}Button`}
         />
       )
