@@ -10,6 +10,7 @@ import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
 import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
+import {PollingStationCrowdStatus} from '@/modules/elections/components/PollingStationCrowdStatus'
 import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {
@@ -106,6 +107,7 @@ export const PollingStationDetails = () => {
             />
           </Column>
         </Row>
+        <PollingStationCrowdStatus pollingStation={pollingStation} />
         {!!pollingStation.categories.length && (
           <PollingStationDetailsCategories
             categories={pollingStation.categories}
