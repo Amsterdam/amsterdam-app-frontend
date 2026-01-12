@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import {config} from '../codegen.config.mts'
-import {runCodeGen} from './codegen.mts'
+import {config} from '../../codegen.config.mts'
+import {runCodeGen} from './utils/runCodegen.mts'
 
 const watchDir = (dir: string, files: string[]) => {
   fs.watch(dir, (eventType, filename) => {
