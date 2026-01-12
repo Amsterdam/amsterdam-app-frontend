@@ -54,10 +54,12 @@ export const HomeScreen = () => {
   return (
     <Screen
       bottomSheet={
-        <BottomSheet
-          testID="HomeBottomSheet"
-          variants={variantMap}
-        />
+        !!variantMap && (
+          <BottomSheet
+            testID="HomeBottomSheet"
+            variants={variantMap}
+          />
+        )
       }
       hasStickyAlert
       testID="HomeScreen">

@@ -1,20 +1,20 @@
 import {Row} from '@/components/ui/layout/Row'
 import {useModules} from '@/hooks/useModules'
-import {clientModules} from '@/modules/modules'
+import {actionButtons} from '@/modules/generated/actionButtons.generated'
+import {mergeComponentsWithEnabledModules} from '@/utils/mergeComponentsWithEnabledModules'
 
+/**
+ * The ActionButtons on the home screen that leads to an action within the module.
+ */
 export const ActionButtons = () => {
   const {enabledModules} = useModules()
 
-  const modulesWithPreRenderComponentBeforeServerModules = clientModules.filter(
-    m => m.PreRenderComponent?.renderBeforeServerModules,
+  const ActionButtonsComponents = mergeComponentsWithEnabledModules(
+    actionButtons,
+    enabledModules,
   )
 
-  const modules =
-    enabledModules ?? modulesWithPreRenderComponentBeforeServerModules
-
-  const isActionButton = modules.some(({ActionButton}) => !!ActionButton)
-
-  if (!isActionButton) {
+  if (!ActionButtonsComponents.length) {
     return null
   }
 
@@ -22,9 +22,7 @@ export const ActionButtons = () => {
     <Row
       align="evenly"
       valign="start">
-      {modules.map(
-        ({ActionButton, slug}) => ActionButton && <ActionButton key={slug} />,
-      )}
+      {ActionButtonsComponents}
     </Row>
   )
 }

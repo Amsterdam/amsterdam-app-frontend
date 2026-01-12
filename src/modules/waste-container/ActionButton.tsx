@@ -1,5 +1,5 @@
 import {useCallback} from 'react'
-import {ActionButton} from '@/components/ui/buttons/ActionButton'
+import {ActionButton as ActionButtonBase} from '@/components/ui/buttons/ActionButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -10,7 +10,7 @@ import {WasteContainerRouteName} from '@/modules/waste-container/routes'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 import {SecureItemKey} from '@/utils/secureStorage'
 
-export const WasteContainerActionButton = () => {
+export const ActionButton = () => {
   const {navigate} = useNavigation()
   const {isInactive} = useGetCachedServerModule(wasteContainerModule.slug)
   const {item: secureWasteCardNumber, isLoading} = useGetSecureItem(
@@ -29,7 +29,7 @@ export const WasteContainerActionButton = () => {
 
   return (
     <Column>
-      <ActionButton
+      <ActionButtonBase
         iconName="wasteCard"
         isModuleInactive={isInactive}
         label="Afvalpas tonen"

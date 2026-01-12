@@ -9,7 +9,7 @@ import {getSecureItem, SecureItemKey} from '@/utils/secureStorage'
  * Component to pre-render parking account information.
  * It retrieves the secure parking account and sets it in the Redux store.
  */
-export const ParkingPreRenderComponent = () => {
+export const PreRenderComponent = () => {
   const dispatch = useDispatch()
   const account = useParkingAccount()
 

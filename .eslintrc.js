@@ -240,7 +240,7 @@ module.exports = {
     },
     // Jest
     {
-      files: ['*.test.ts', '*.test.tsx'],
+      files: ['*.test.ts', '*.test.tsx', '*.test.mts', '*.test.mtsx'],
       rules: {
         'no-restricted-imports': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',

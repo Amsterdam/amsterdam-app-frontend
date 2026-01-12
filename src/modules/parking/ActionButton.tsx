@@ -1,4 +1,4 @@
-import {ActionButton} from '@/components/ui/buttons/ActionButton'
+import {ActionButton as ActionButtonBase} from '@/components/ui/buttons/ActionButton'
 import {Column} from '@/components/ui/layout/Column'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
@@ -11,13 +11,13 @@ import {ParkingPermitScope, PermitType} from '@/modules/parking/types'
 import {ModuleSlug} from '@/modules/slugs'
 import {useGetCachedServerModule} from '@/store/slices/modules'
 
-const ALLOWED_PERMIT_TYPES = [
+const ALLOWED_PERMIT_TYPES = new Set([
   PermitType.kraskaartvergunning,
   PermitType.bezoekersvergunning,
   PermitType['GA-bezoekerskaart'],
-]
+])
 
-export const ParkingActionButton = () => {
+export const ActionButton = () => {
   const {navigate} = useNavigation()
 
   const {accessCode} = useGetSecureAccessCode()
@@ -27,7 +27,7 @@ export const ParkingActionButton = () => {
 
   const isAllowedPermit =
     parkingAccount?.permits?.length === 1 &&
-    ALLOWED_PERMIT_TYPES.includes(parkingAccount.permits[0].permit_type) &&
+    ALLOWED_PERMIT_TYPES.has(parkingAccount.permits[0].permit_type) &&
     parkingAccount.scope === ParkingPermitScope.permitHolder
 
   if (!accessCode || isLoginStepsActive || !isAllowedPermit) {
@@ -36,7 +36,7 @@ export const ParkingActionButton = () => {
 
   return (
     <Column>
-      <ActionButton
+      <ActionButtonBase
         iconName="parkingSession"
         isModuleInactive={isInactive}
         label={'Parkeersessie\nstarten'}

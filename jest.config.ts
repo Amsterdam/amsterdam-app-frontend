@@ -5,7 +5,20 @@ process.env.TZ = 'UTC+1'
 
 const config: Config = {
   preset: 'react-native',
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  moduleFileExtensions: [
+    'ts',
+    'tsx',
+    'js',
+    'jsx',
+    'json',
+    'node',
+    'mts',
+    'mtsx',
+  ],
+  // testMatch: ['**/?(*.)+(spec|test).[tj]s', '**/?(*.)+(spec|test).mts'],
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx|mts|mtsx)$': 'babel-jest',
+  },
   moduleNameMapper: {
     '@microsoft/applicationinsights-react-native':
       '<rootDir>/.storybook/mocks/application-insights-react-native',

@@ -1,4 +1,3 @@
-import {Chat} from '@/modules/chat/components/Chat'
 import {onNotificationEvent} from '@/modules/chat/onNotificationEvent'
 import {chatSlice, ChatState} from '@/modules/chat/slice'
 import {ModuleSlug} from '@/modules/slugs'
@@ -11,7 +10,6 @@ export const chatModule = createClientModule({
   hiddenInMenu: true,
   onNotificationEvent,
   name: 'ChatModule',
-  PostRenderComponent: Chat,
   reduxConfigs: [
     {
       key: ReduxKey.chat,

@@ -5,7 +5,6 @@ import {
   type PathConfigMap,
 } from '@react-navigation/native'
 import {type StackNavigationOptions} from '@react-navigation/stack'
-import {type ComponentType, type FC} from 'react'
 import type {Address} from '@/modules/address/types'
 import {type RootStackParams, type RouteProp} from '@/app/navigation/types'
 import {
@@ -64,32 +63,9 @@ export type ModuleClientConfig<
   Icons extends Record<string, SvgIconConfig> | void = void,
 > = CoreModuleConfig & {
   /**
-   * A button on the home screen that leads to an action within the module.
-   */
-  ActionButton?: ComponentType
-  /**
-   * A component to show in the header of the Home screen.
-   */
-  HeaderComponent?: ComponentType
-  /**
-   * Component to render after the module has been rendered.
-   */
-  PostRenderComponent?: ComponentType
-  /**
-   * A component for preprocessing purposes at the app's root level.
-   * If `renderBeforeServerModules` is true, the component will be rendered before the server modules are fetched.
-   */
-  PreRenderComponent?: ComponentType & {
-    renderBeforeServerModules?: boolean
-  }
-  /**
    * If true, the user is not allowed to disable the module in the settings.
    */
   alwaysEnabled?: boolean
-  /**
-   * Components to show as bottom sheet variants on the home screen.
-   */
-  bottomSheetVariantsHome?: Record<string, FC>
   /**
    * Determines whether the module should be hidden on the home screen.
    */
