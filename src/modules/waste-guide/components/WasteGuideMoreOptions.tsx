@@ -13,7 +13,10 @@ export const WasteGuideMoreOptions = () => {
 
   return (
     <HorizontalSafeArea flex={1}>
-      <Box grow>
+      <Box
+        grow
+        insetHorizontal="md"
+        insetVertical="no">
         <Column gutter="md">
           <Title text="Meer opties" />
           <NavigationButton

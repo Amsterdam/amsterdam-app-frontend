@@ -31,7 +31,7 @@ export const BurningGuideForecastList = ({list}: Props) => (
         </BurningGuideForecastList.Row>
       ))}
     </Column>
-    <Box insetVertical="md">
+    <Box insetTop="md">
       <Paragraph
         accessible={false}
         color="secondary"
