@@ -332,6 +332,7 @@ export const lightColorTokens = {
     background: baseColor.secondary.yellow,
   },
   text: {
+    alert: baseColor.secondary.orange,
     cityPass: baseColor.secondary.purple,
     confirm: baseColor.secondary.darkgreen,
     default: baseColor.primary.black,
