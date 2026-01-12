@@ -1,0 +1,62 @@
+import {IconButton} from '@/components/ui/buttons/IconButton'
+import {Box} from '@/components/ui/containers/Box'
+import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
+import {Phrase} from '@/components/ui/text/Phrase'
+import {Title} from '@/components/ui/text/Title'
+import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {useBottomSheet} from '@/store/slices/bottomSheet'
+
+export const PollingStationsMapLegend = () => {
+  const {close: closeBottomSheet} = useBottomSheet()
+
+  const autoFocus = useAccessibilityFocus()
+
+  return (
+    <Box>
+      <Column gutter="lg">
+        <Row align="between">
+          <Title
+            level="h3"
+            ref={autoFocus}
+            text="Kaartlagen"
+          />
+          <IconButton
+            accessibilityLabel="Sluit legenda venster"
+            icon={
+              <Icon
+                name="close"
+                size="ml"
+              />
+            }
+            onPress={closeBottomSheet}
+            testID="PollingStationsMapLegendCloseButton"
+          />
+        </Row>
+        <Column gutter="sm">
+          <Title
+            level="h5"
+            text="Drukte nu"
+          />
+          <Row gutter="sm">
+            <Icon name="add" />
+            <Phrase>Rustig</Phrase>
+          </Row>
+          <Row gutter="sm">
+            <Icon name="add" />
+            <Phrase>Gemiddeld</Phrase>
+          </Row>
+          <Row gutter="sm">
+            <Icon name="add" />
+            <Phrase>Druk</Phrase>
+          </Row>
+          <Row gutter="sm">
+            <Icon name="add" />
+            <Phrase>Niet beschikbaar</Phrase>
+          </Row>
+        </Column>
+      </Column>
+    </Box>
+  )
+}

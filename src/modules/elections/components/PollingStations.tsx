@@ -4,6 +4,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useSelectedAddress} from '@/modules/address/hooks/useSelectedAddress'
 import {PollingStationsList} from '@/modules/elections/components/PollingStationsList'
 import {PollingStationsMap} from '@/modules/elections/components/PollingStationsMap'
+import {PollingStationsBottomSheetVariant} from '@/modules/elections/components/bottomsheet/bottomsheetVariants'
 import {usePollingStationsQuery} from '@/modules/elections/service'
 import {setSelectedPollingStationId} from '@/modules/elections/slice'
 import {PollingStation} from '@/modules/elections/types'
@@ -19,7 +20,7 @@ export const PollingStations = () => {
   const onSelectPollingStation = useCallback(
     (id: PollingStation['id']) => {
       dispatch(setSelectedPollingStationId(id))
-      open()
+      open(PollingStationsBottomSheetVariant.pollingStationDetails)
     },
     [dispatch, open],
   )

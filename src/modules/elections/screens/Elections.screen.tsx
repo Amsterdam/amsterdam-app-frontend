@@ -1,19 +1,20 @@
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
-import {PollingStationDetails} from '@/modules/elections/components/PollingStationDetails'
 import {PollingStations} from '@/modules/elections/components/PollingStations'
+import {bottomsheetVariants} from '@/modules/elections/components/bottomsheet/bottomsheetVariants'
 
 export const ElectionsScreen = () => (
   <Screen
     bottomSheet={
       <BottomSheet
         scroll
-        testID="PollingStationBottomSheet">
-        <PollingStationDetails />
-      </BottomSheet>
+        testID="PollingStationBottomSheet"
+        variants={bottomsheetVariants}
+      />
     }
     scroll={false}
-    testID="ElectionsScreen">
+    testID="ElectionsScreen"
+    withBottomInset={false}>
     <PollingStations />
   </Screen>
 )

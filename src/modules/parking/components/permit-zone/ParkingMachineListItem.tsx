@@ -23,7 +23,7 @@ export const ParkingMachineListItem = ({
   }
 
   return (
-    <Box insetRight="md">
+    <Box insetHorizontal="md">
       <Pressable
         accessibilityLabel={`Parkeerautomaat ${parkingMachine.id}`}
         onPress={() => onPress(parkingMachine.id)}
