@@ -1,4 +1,3 @@
-import {useState} from 'react'
 import {useFormContext} from 'react-hook-form'
 import type {AddressSearchFields} from '@/modules/address/components/AddressForm'
 import type {Address, BaseAddress} from '@/modules/address/types'
@@ -10,10 +9,7 @@ export const AddressSearchResults = ({
 }: {
   onPressResult: (address: Address) => void
 }) => {
-  const form = useFormContext<AddressSearchFields>()
-  const [requestNumber, setRequestNumber] = useState(false)
-
-  const {setValue} = form
+  const {setValue, watch} = useFormContext<AddressSearchFields>()
 
   const selectAddress = (selectedAddress: Address | BaseAddress) => {
     if (selectedAddress.type !== 'adres') {
@@ -26,22 +22,14 @@ export const AddressSearchResults = ({
   const handleIncompleteAddress = (item: Address | BaseAddress) => {
     setValue('city', item.city)
     setValue('street', item.street)
-    setRequestNumber(true)
   }
 
-  const handlePressBack = () => {
-    setValue('city', undefined)
-    setValue('number', '')
-    setRequestNumber(false)
-  }
+  const requestNumber = !!watch('city')
 
   return (
     <>
       {requestNumber ? (
-        <NumberSearchResults
-          onPressBack={handlePressBack}
-          onPressResult={selectAddress}
-        />
+        <NumberSearchResults onPressResult={selectAddress} />
       ) : (
         <StreetSearchResults onPressResult={selectAddress} />
       )}
