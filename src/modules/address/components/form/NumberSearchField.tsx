@@ -23,6 +23,7 @@ export const NumberSearchField = () => {
         autoCapitalize="none"
         autoCorrect={false}
         keyboardType="numbers-and-punctuation"
+        multiline={false}
         name="number"
         placeholder="Vul uw huisnummer in"
         ref={ref}
