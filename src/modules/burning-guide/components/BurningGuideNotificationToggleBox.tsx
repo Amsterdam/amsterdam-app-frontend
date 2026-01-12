@@ -38,7 +38,9 @@ export const BurningGuideNotificationToggleBox = () => {
   }
 
   return (
-    <Box>
+    <Box
+      insetHorizontal="md"
+      insetVertical="no">
       <NotificationToggleBox
         description="U ontvangt meldingen als het Code Rood wordt voor ‘Mijn adres’."
         disabled={isLoading}

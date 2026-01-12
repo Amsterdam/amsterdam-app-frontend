@@ -22,10 +22,10 @@ export const BurningGuideScreen = () => (
           <BurningGuide />
         </Column>
       </Box>
+      <FeatureFlag feature={Features.BurningGuideNotifications}>
+        <BurningGuideNotificationToggleBox />
+      </FeatureFlag>
+      <BurningGuideInfoButtons />
     </Column>
-    <FeatureFlag feature={Features.BurningGuideNotifications}>
-      <BurningGuideNotificationToggleBox />
-    </FeatureFlag>
-    <BurningGuideInfoButtons />
   </Screen>
 )
