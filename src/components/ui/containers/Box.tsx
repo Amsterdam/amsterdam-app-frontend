@@ -10,7 +10,6 @@ export type BoxProps = {
   borderStyle?: 'dashed' | 'dotted' | 'solid'
   borderWidth?: keyof Theme['border']['width']
   children: ReactNode
-  distinct?: never
   /**
    * Whether the box grows to fill its parent container.
    */
@@ -58,7 +57,6 @@ export const Box = memo(
     borderStyle,
     borderWidth,
     children,
-    distinct,
     grow,
     inset = 'md',
     insetHorizontal,
@@ -76,7 +74,6 @@ export const Box = memo(
         borderColor,
         borderStyle,
         borderWidth,
-        distinct,
         inset,
         insetHorizontal,
         insetLeft,
