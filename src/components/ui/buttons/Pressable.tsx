@@ -10,7 +10,11 @@ import {Box, type BoxProps} from '@/components/ui/containers/Box'
 import {type TestProps} from '@/components/ui/types'
 import {useThemable} from '@/themes/useThemable'
 
-type PressableVariant = 'primary' | 'tertiary' | 'transparent'
+type PressableVariant =
+  | 'primary'
+  | 'tertiary'
+  | 'transparent'
+  | 'transparentInverse'
 
 export type PressableProps = {
   border?: boolean

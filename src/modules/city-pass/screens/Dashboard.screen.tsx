@@ -3,7 +3,7 @@ import {NavigationProps} from '@/app/navigation/types'
 import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
-import {InformationButton} from '@/components/ui/buttons/InformationButton'
+import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacadesBackground'
@@ -47,16 +47,14 @@ export const DashboardScreen = ({navigation}: Props) => {
             text="Over de Stadspas"
           />
           {aboutBlocks.map(({icon, title, text, testID, redirectKey}) => (
-            <InformationButton
-              accessibilityRole="link"
+            <TopTaskButton
               iconName={icon}
               isExternalLink
-              key={title}
               onPress={() => openRedirect(redirectKey)}
               testID={testID}
               text={text}
               title={title}
-              variant="inverse"
+              variant="transparentInverse"
             />
           ))}
         </Column>
