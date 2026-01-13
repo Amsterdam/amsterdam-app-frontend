@@ -14,11 +14,15 @@ export const BurningGuide = () => {
   } = useSelectedPostalArea(ModuleSlug['burning-guide'])
   const {forecast, isError, isLoading} = useGetForecast(postalArea)
 
+  if (!postalArea) {
+    return null
+  }
+
   if (isLoading || isFetching) {
     return <PleaseWait testID="BurningGuideForecastListPleaseWait" />
   }
 
-  if (!forecast?.length || !postalArea || isError || isErrorPostalArea) {
+  if (!forecast?.length || isError || isErrorPostalArea) {
     return (
       <SomethingWentWrong testID="BurningGuideForecastListSomethingWentWrong" />
     )
