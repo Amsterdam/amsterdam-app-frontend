@@ -4,7 +4,7 @@ import {useScreenOptions} from '@/app/navigation/useScreenOptions'
 import {useAccessCodeBiometrics} from '@/modules/access-code/hooks/useAccessCodeBiometrics'
 import {UserRouteName} from '@/modules/user/routes'
 import {screenConfig} from '@/modules/user/screenConfig'
-import {capitalizeString} from '@/utils/capitalizeString'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 const Stack = createStackNavigator<RootStackParams>()
 

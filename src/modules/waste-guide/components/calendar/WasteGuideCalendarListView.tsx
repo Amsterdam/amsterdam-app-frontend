@@ -10,7 +10,7 @@ import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionI
 import {WasteGuideRouteName} from '@/modules/waste-guide/routes'
 import {WasteGuideCalendarEvent} from '@/modules/waste-guide/types'
 import {getWasteCalendarListSections} from '@/modules/waste-guide/utils/getWasteCalendarListSections'
-import {capitalizeString} from '@/utils/capitalizeString'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   calendar: WasteGuideCalendarEvent[]

@@ -1,7 +1,7 @@
 import {View} from 'react-native'
 import {Gutter} from '@/components/ui/layout/Gutter'
 import {Title} from '@/components/ui/text/Title'
-import {capitalizeString} from '@/utils/capitalizeString'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   isFirstOfMonth?: boolean
