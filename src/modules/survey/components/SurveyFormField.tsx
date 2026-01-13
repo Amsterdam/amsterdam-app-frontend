@@ -1,3 +1,4 @@
+import {pascalCase} from 'pascal-case'
 import {View} from 'react-native'
 import type {TestProps} from '@/components/ui/types'
 import {OptionsControlled} from '@/components/ui/forms/OptionsControlled'
@@ -8,7 +9,6 @@ import {
   mapQuestionTypeToInputFieldType,
 } from '@/modules/survey/constants'
 import {QuestionType, type Question} from '@/modules/survey/types'
-import {snakeToPascalCase} from '@/utils/transform/snakeToPascalCase'
 
 const REQUIRED_MESSAGE = 'Dit veld is verplicht'
 
@@ -19,7 +19,7 @@ export type SurveyFormFieldProps = {
 
 export const SurveyFormField = ({index, question}: SurveyFormFieldProps) => {
   const {choices, id, orientation, required, question_type} = question
-  const testID: TestProps['testID'] = `Survey${snakeToPascalCase(question_type)}FormField`
+  const testID: TestProps['testID'] = `Survey${pascalCase(question_type)}FormField`
 
   const formattedChoices = choices?.map(c => ({
     label: c.label,
