@@ -24,7 +24,7 @@ jest.mock('react-native-bootsplash', () => ({
   getVisibilityStatus: jest.fn().mockResolvedValue('hidden'),
 }))
 
-jest.mock('react-native-keyboard-aware-scroll-view', () => {
+jest.mock('react-native-keyboard-controller', () => {
   const KeyboardAwareScrollView = ({children}) => children
 
   return {KeyboardAwareScrollView}

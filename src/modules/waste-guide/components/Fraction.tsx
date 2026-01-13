@@ -12,8 +12,8 @@ import {useGetWasteGuide} from '@/modules/waste-guide/hooks/useGetWasteGuide'
 import {useWasteGuideUrls} from '@/modules/waste-guide/hooks/useWasteGuideUrls'
 import {FractionCode, WasteType} from '@/modules/waste-guide/types'
 import {getNextCollectionDate} from '@/modules/waste-guide/utils/getNextCollectionDate'
-import {capitalizeString} from '@/utils/capitalizeString'
 import {formatEnumeration} from '@/utils/formatEnumeration'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   fraction: WasteType

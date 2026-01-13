@@ -84,7 +84,9 @@ export const TextInput = ({
           />
         )}
       </Column>
-      <View style={styles.frame}>
+      <View
+        collapsable={false}
+        style={styles.frame}>
         <InputComponent
           {...textInputProps}
           {...themedTextInputProps}

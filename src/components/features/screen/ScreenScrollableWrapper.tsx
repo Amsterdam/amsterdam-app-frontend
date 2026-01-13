@@ -1,5 +1,5 @@
 import {ScrollView} from 'react-native'
-import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
+import {KeyboardAwareScrollView} from 'react-native-keyboard-controller'
 import {selectSeenTips} from '@/components/features/product-tour/slice'
 import {
   KeyboardAwareTrackScrollView,
@@ -7,6 +7,7 @@ import {
 } from '@/components/features/product-tour/withTrackScroll'
 import {ScreenWrapperProps} from '@/components/features/screen/ScreenWrapper'
 import {useSelector} from '@/hooks/redux/useSelector'
+import {useTheme} from '@/themes/useTheme'
 
 export const ScreenScrollableWrapper = ({
   children,
@@ -17,6 +18,7 @@ export const ScreenScrollableWrapper = ({
 }: ScreenWrapperProps) => {
   const seenTips = useSelector(selectSeenTips)
   const hasUnseenTips = trackScroll?.some(t => seenTips.includes(t))
+  const {size} = useTheme()
 
   if (keyboardAware) {
     const CustomKeyboardAwareScrollView = hasUnseenTips
@@ -25,6 +27,7 @@ export const ScreenScrollableWrapper = ({
 
     return (
       <CustomKeyboardAwareScrollView
+        bottomOffset={size.spacing.lg}
         contentContainerStyle={scrollViewContentStyle}
         keyboardShouldPersistTaps="handled"
         style={scrollViewStyle}>

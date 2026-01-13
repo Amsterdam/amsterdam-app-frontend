@@ -6,7 +6,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {ProjectContact} from '@/modules/construction-work/types/api'
-import {capitalizeString} from '@/utils/capitalizeString'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type Props = {
   contacts: ProjectContact[]

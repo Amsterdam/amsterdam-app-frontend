@@ -1,5 +1,8 @@
 import {FieldType} from '@/components/ui/forms/input/types'
 
+const PINCODE_MESSAGE = 'Uw pincode mag alleen uit 4 cijfers bestaan.'
+const TEL_MESSAGE = 'Dit is geen geldig telefoonnummer.'
+
 export const fieldTypeRules = {
   [FieldType.email]: {
     pattern: {
@@ -16,36 +19,36 @@ export const fieldTypeRules = {
   [FieldType.tel]: {
     maxLength: {
       value: 16,
-      message: 'Dit is geen geldig telefoonnummer.',
+      message: TEL_MESSAGE,
     },
     minLength: {
       value: 10,
-      message: 'Dit is geen geldig telefoonnummer.',
+      message: TEL_MESSAGE,
     },
     pattern: {
       value: /^[0-9+\-()\s]+$/,
-      message: 'Dit is geen geldig telefoonnummer.',
+      message: TEL_MESSAGE,
     },
   },
   [FieldType.text]: {},
   [FieldType.url]: {
     pattern: {
-      value: /^https?:\/\/.+/,
+      value: /^(https?:\/\/|www\.)[^\s]+\.[^\s]+/i,
       message: 'Dit is geen geldig webadres.',
     },
   },
   [FieldType.pin]: {
     minLength: {
       value: 4,
-      message: 'Uw pincode mag alleen uit 4 cijfers bestaan.',
+      message: PINCODE_MESSAGE,
     },
     maxLength: {
       value: 4,
-      message: 'Uw pincode mag alleen uit 4 cijfers bestaan.',
+      message: PINCODE_MESSAGE,
     },
     pattern: {
       value: /^\d+$/,
-      message: 'Uw pincode mag alleen uit 4 cijfers bestaan.',
+      message: PINCODE_MESSAGE,
     },
   },
 }

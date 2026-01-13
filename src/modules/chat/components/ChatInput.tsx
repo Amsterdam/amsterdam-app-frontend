@@ -1,12 +1,12 @@
 import {useCallback, useRef, useState} from 'react'
 import {
   Keyboard,
-  KeyboardAvoidingView,
   StyleSheet,
   TextInput,
   type TextInputProps,
   View,
 } from 'react-native'
+import {KeyboardAvoidingView} from 'react-native-keyboard-controller'
 import {useSafeAreaInsets} from 'react-native-safe-area-context'
 import {sendTypingEvent} from 'react-native-salesforce-messaging-in-app/src'
 import {IconButton} from '@/components/ui/buttons/IconButton'
@@ -76,7 +76,7 @@ export const ChatInput = ({onSubmit}: Props) => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior="padding"
+        behavior="translate-with-padding"
         keyboardVerticalOffset={isKeyboardVisible ? insets.top : 0}>
         <Box>
           <Row gutter="sm">

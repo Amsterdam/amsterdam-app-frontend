@@ -4,7 +4,9 @@ import {ContactOptions} from '@/modules/contact/components/contact-options/Conta
 import {Survey} from '@/modules/survey/exports/Survey'
 
 export const ContactScreen = () => (
-  <Screen testID="ContactScreen">
+  <Screen
+    keyboardAware
+    testID="ContactScreen">
     <ContactOptions />
     <NewsletterSignup />
     <Survey entryPoint="contact-info" />

@@ -1,8 +1,8 @@
 import {Phrase} from '@/components/ui/text/Phrase'
 import {WasteGuideCalendarDay} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDay'
 import {WasteGuideCalendarDaysRow} from '@/modules/waste-guide/components/calendar/WasteGuideCalendarDaysRow'
-import {capitalizeString} from '@/utils/capitalizeString'
 import {getWeekdaysStartingFrom} from '@/utils/datetime/getWeekdaysStartingFrom'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 const dayNames = getWeekdaysStartingFrom(1, true)
 const dayNamesLong = getWeekdaysStartingFrom(1, false)

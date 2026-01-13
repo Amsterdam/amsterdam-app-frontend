@@ -1,5 +1,6 @@
 import {MutableRefObject} from 'react'
-import {StyleProp, ViewStyle, View, KeyboardAvoidingView} from 'react-native'
+import {StyleProp, ViewStyle, View} from 'react-native'
+import {KeyboardAvoidingView} from 'react-native-keyboard-controller'
 import {ScreenProps} from '@/components/features/screen/Screen'
 import {ScreenScrollableWrapper} from '@/components/features/screen/ScreenScrollableWrapper'
 import {useIsScreenScrollDisabled} from '@/hooks/useScreenScrollDisable'

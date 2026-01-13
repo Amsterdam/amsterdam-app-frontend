@@ -73,9 +73,9 @@ const config: StorybookConfig = {
             replacement: require.resolve('./mocks/safe-area-context'),
           },
           {
-            find: 'react-native-keyboard-aware-scroll-view',
+            find: 'react-native-keyboard-controller',
             replacement: require.resolve(
-              './mocks/react-native-keyboard-aware-scroll-view',
+              './mocks/react-native-keyboard-controller',
             ),
           },
           {

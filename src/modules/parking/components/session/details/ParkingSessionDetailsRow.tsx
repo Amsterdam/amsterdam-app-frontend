@@ -5,7 +5,7 @@ import {Column} from '@/components/ui/layout/Column'
 import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Title} from '@/components/ui/text/Title'
-import {capitalizeString} from '@/utils/capitalizeString'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const ParkingSessionDetailsRow = ({
   children,

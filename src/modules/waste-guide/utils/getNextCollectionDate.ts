@@ -1,8 +1,8 @@
 import {WasteType} from '@/modules/waste-guide/types'
-import {capitalizeString} from '@/utils/capitalizeString'
 import {dayjs} from '@/utils/datetime/dayjs'
 import {isToday} from '@/utils/datetime/isToday'
 import {isTomorrow} from '@/utils/datetime/isTomorrow'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 export const getNextCollectionDate = (fraction: WasteType) => {
   const nextDate = dayjs(fraction.next_date)

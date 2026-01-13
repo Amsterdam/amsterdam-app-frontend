@@ -1,5 +1,5 @@
-import {capitalizeString} from '@/utils/capitalizeString'
 import {type Dayjs} from '@/utils/datetime/dayjs'
+import {capitalizeString} from '@/utils/transform/capitalizeString'
 
 type TimeZone = {
   label: string
