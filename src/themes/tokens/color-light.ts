@@ -293,6 +293,18 @@ export const lightColorTokens = {
         label: baseColor.secondary.darkblue,
       },
     },
+    transparentInverse: {
+      default: {
+        background: baseColor.transparent.full,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.white,
+      },
+      pressed: {
+        background: baseColor.transparent.grey50,
+        border: baseColor.transparent.full,
+        label: baseColor.primary.white,
+      },
+    },
   },
   screen: {
     background: {

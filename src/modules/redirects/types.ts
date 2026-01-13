@@ -7,6 +7,7 @@ export enum RedirectKey {
   birth = 'birth',
   chatPrivacy = 'chatPrivacy',
   cityPassChildBudget = 'cityPassChildBudget',
+  cityPassLowIncomeSupport = 'cityPassLowIncomeSupport',
   cityPassRequest = 'cityPassRequest',
   cityPassUsage = 'cityPassUsage',
   citypass = 'citypass',

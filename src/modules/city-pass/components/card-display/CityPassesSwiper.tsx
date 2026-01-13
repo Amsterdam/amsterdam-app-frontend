@@ -8,7 +8,7 @@ import {CityPass} from '@/modules/city-pass/components/card-display/CityPass'
 import {Basic} from '@/modules/city-pass/components/pagination/PaginationBasic'
 import {
   CITY_PASS_HEIGHT,
-  NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE,
+  NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
 } from '@/modules/city-pass/constants'
 import {useGetSecureCityPasses} from '@/modules/city-pass/hooks/useGetSecureCityPasses'
 import {selectStartIndex} from '@/modules/city-pass/slice'
@@ -60,7 +60,7 @@ export const CityPassesSwiper = () => {
           parallaxScrollingOffset: getParallaxScrollingOffset(
             windowWidth,
             passWidth,
-            NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE,
+            NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE,
           ),
           parallaxAdjacentItemScale: 1,
         }}

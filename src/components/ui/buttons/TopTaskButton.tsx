@@ -45,9 +45,15 @@ export const TopTaskButton = ({
   accessibilityRole = 'button',
   insetHorizontal = 'md',
   insetVertical = 'sm',
+  variant = 'tertiary',
   ...pressableProps
 }: TopTaskButtonProps) => {
   const styles = useThemable(createStyles)
+
+  const colorTitleAndIconLeft =
+    variant === 'transparentInverse' ? 'inverse' : 'link'
+  const colorDescriptionAndIconRight =
+    variant === 'transparentInverse' ? 'inverse' : 'secondary'
 
   return (
     <Pressable
@@ -62,12 +68,13 @@ export const TopTaskButton = ({
       testID={testID}
       {...pressableProps}
       insetHorizontal={insetHorizontal}
-      insetVertical={insetVertical}>
+      insetVertical={insetVertical}
+      variant={variant}>
       <Row gutter="md">
         <View style={styles.height}>
           <HideFromAccessibility>
             <Icon
-              color="link"
+              color={colorTitleAndIconLeft}
               name={iconName}
               size={iconSize}
               testID={`${testID}Icon`}
@@ -81,7 +88,7 @@ export const TopTaskButton = ({
           <Row gutter="sm">
             {!!title && (
               <Title
-                color="link"
+                color={colorTitleAndIconLeft}
                 level="h5"
                 testID={`${testID}Title`}
                 text={title}
@@ -89,7 +96,7 @@ export const TopTaskButton = ({
             )}
             {!!titleIconName && (
               <Icon
-                color="link"
+                color={colorTitleAndIconLeft}
                 name={titleIconName}
                 testID={`${testID}TitleIcon`}
               />
@@ -97,7 +104,13 @@ export const TopTaskButton = ({
           </Row>
           {typeof text === 'string' ? (
             <Paragraph
-              color={isError ? 'warning' : undefined}
+              color={
+                variant === 'transparentInverse'
+                  ? 'inverse'
+                  : isError
+                    ? 'warning'
+                    : undefined
+              }
               testID={`${testID}Text`}
               variant="small">
               {text}
@@ -107,6 +120,7 @@ export const TopTaskButton = ({
           )}
           {!!textAdditional && (
             <Paragraph
+              color={colorDescriptionAndIconRight}
               testID={`${testID}AdditionalText`}
               variant="small">
               {textAdditional}
@@ -115,13 +129,13 @@ export const TopTaskButton = ({
         </Column>
         {!!isExternalLink && (
           <Icon
-            color="secondary"
+            color={colorDescriptionAndIconRight}
             name="external-link"
           />
         )}
         {!!isInternalLink && (
           <Icon
-            color="secondary"
+            color={colorDescriptionAndIconRight}
             name="chevron-right"
           />
         )}
@@ -129,7 +143,7 @@ export const TopTaskButton = ({
           <View style={styles.height}>
             <HideFromAccessibility>
               <Icon
-                color="link"
+                color={colorDescriptionAndIconRight}
                 name={iconRightName}
                 size={iconRightSize}
                 testID={`${testID}Icon`}
