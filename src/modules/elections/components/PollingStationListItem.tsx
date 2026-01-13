@@ -7,7 +7,7 @@ import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {PollingStation} from '@/modules/elections/types'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
-import {parseState} from '@/modules/elections/utils/parseState'
+import {getPollingStationCrowdDetails} from '@/modules/elections/utils/getPollingStationCrowdDetails'
 
 type Props = {
   distanceInMeters?: number
@@ -37,7 +37,7 @@ export const PollingStationsListItem = ({
   const distance = getDistance(distanceInMeters)
   const openingTimes = getOpeningTimes(pollingStation.openingTimes)
 
-  const {label, icon, color} = parseState(pollingStation)
+  const {label, icon, color} = getPollingStationCrowdDetails(pollingStation)
 
   return (
     <Box insetHorizontal="md">

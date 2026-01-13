@@ -4,7 +4,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
-import {parseState} from '@/modules/elections/utils/parseState'
+import {getPollingStationCrowdDetails} from '@/modules/elections/utils/getPollingStationCrowdDetails'
 import {formatTimeToDisplay} from '@/utils/datetime/formatTimeToDisplay'
 
 type Props = {
@@ -12,7 +12,8 @@ type Props = {
 }
 
 export const PollingStationCrowdStatus = ({pollingStation}: Props) => {
-  const {label, icon, color, time, available} = parseState(pollingStation)
+  const {label, icon, color, time, available} =
+    getPollingStationCrowdDetails(pollingStation)
 
   return (
     <Column gutter="xs">

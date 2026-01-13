@@ -2,6 +2,13 @@ export enum ElectionsEndpointName {
   pollingStations = 'pollingStations',
 }
 
+export enum ElectionsState {
+  calm = 1,
+  medium = 2,
+  busy = 3,
+  unknown = 0,
+}
+
 export type PollingStation = {
   address1: string
   address2: string
@@ -9,7 +16,7 @@ export type PollingStation = {
   id: number
   isOpen: boolean
   lastUpdate: {
-    state: number
+    state: ElectionsState
     time: string | null
   }
   name: string
