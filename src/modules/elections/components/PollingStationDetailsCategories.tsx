@@ -3,7 +3,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
-import {type PollingStationIconNames} from '@/modules/elections/constants'
+import {type ElectionsIconNames} from '@/modules/elections/constants'
 import {ElectionsCategory} from '@/modules/elections/types'
 
 type Props = {
@@ -21,10 +21,7 @@ const mapCategoryToLabel: Record<ElectionsCategory, string> = {
   [ElectionsCategory.wheelchairHelp]: 'Hulp bij rolstoel',
 }
 
-const mapCategoryToIconName: Record<
-  ElectionsCategory,
-  PollingStationIconNames
-> = {
+const mapCategoryToIconName: Record<ElectionsCategory, ElectionsIconNames> = {
   [ElectionsCategory.disabledParking]: 'disabledParking',
   [ElectionsCategory.hearingImpaired]: 'hearingImpaired',
   [ElectionsCategory.ptWheelchair]: 'wheelchairPublicTransport',
