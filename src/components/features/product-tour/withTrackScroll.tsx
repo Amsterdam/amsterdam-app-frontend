@@ -11,7 +11,8 @@ import {ScrollView, View} from 'react-native'
 import {
   KeyboardAwareScrollView,
   type KeyboardAwareScrollViewProps,
-} from 'react-native-keyboard-aware-scroll-view'
+  type KeyboardAwareScrollViewRef,
+} from 'react-native-keyboard-controller'
 import {ScrollContext} from '@/components/features/product-tour/ScrollContext'
 import {
   computeIsElementVisible,
@@ -19,7 +20,7 @@ import {
 } from '@/components/features/product-tour/utils'
 import {ScrollViewProps} from '@/components/ui/layout/ScrollView'
 
-export type ScrollViewRef = ScrollView | KeyboardAwareScrollView
+export type ScrollViewRef = ScrollView | KeyboardAwareScrollViewRef
 
 type ScrollViewWrapperProps = ScrollViewProps & {
   childRef?: ForwardedRef<ScrollViewRef> | null
