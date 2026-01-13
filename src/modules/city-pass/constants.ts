@@ -3,7 +3,7 @@ import {RedirectKey} from '@/modules/redirects/types'
 
 export const DEFAULT_PASS_WIDTH = 312
 export const CITY_PASS_HEIGHT = 520
-export const NEXT_CARD_VISIBLE_FRACTION_Of_AVAILABLE_SPACE = 0.33
+export const NEXT_CARD_VISIBLE_FRACTION_OF_AVAILABLE_SPACE = 0.33
 
 export const SOMETHING_WENT_WRONG_TEXT =
   'Helaas kunnen de Stadspas gegevens niet geladen worden. Probeer het later nog eens.'
@@ -13,7 +13,7 @@ export const aboutBlocks: AboutBlock[] = [
     icon: 'list',
     redirectKey: RedirectKey.citypass,
     title: 'Bekijk het aanbod',
-    text: 'Gratis of met hoge korting sporten, naar de bioscoop, het theater, of het museum.',
+    text: 'Gratis of met korting sporten, naar de bioscoop, het theater, of het museum.',
     testID: 'CityPassOverviewLink',
   },
   {
