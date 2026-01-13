@@ -1,10 +1,13 @@
 import {Pressable} from '@/components/ui/buttons/Pressable'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
+import {Row} from '@/components/ui/layout/Row'
+import {Icon} from '@/components/ui/media/Icon'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {Title} from '@/components/ui/text/Title'
 import {PollingStation} from '@/modules/elections/types'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
+import {getPollingStationCrowdDetails} from '@/modules/elections/utils/getPollingStationCrowdDetails'
 
 type Props = {
   distanceInMeters?: number
@@ -34,29 +37,40 @@ export const PollingStationsListItem = ({
   const distance = getDistance(distanceInMeters)
   const openingTimes = getOpeningTimes(pollingStation.openingTimes)
 
+  const {label, icon, color} = getPollingStationCrowdDetails(pollingStation)
+
   return (
     <Box insetHorizontal="md">
       <Pressable
-        accessibilityLabel={`${pollingStation.name}, ${openingTimes}, ${distance ? 'Afstand: ' + distance : ''}`}
+        accessibilityLabel={`${pollingStation.name}, ${openingTimes}, ${distance ? 'Afstand: ' + distance : ''}, ${label}`}
         onPress={() => onPress(pollingStation.id)}
         testID="PollingStationListItemButton">
         <Box insetVertical="sm">
-          <Column>
-            <Title
-              accessible={false}
-              color="link"
-              level="h5"
-              text={pollingStation.name}
+          <Row
+            gutter="md"
+            valign="center">
+            <Icon
+              color={color}
+              name={icon}
+              size="lg"
             />
-            <Paragraph accessible={false}>{openingTimes}</Paragraph>
-            {!!distanceInMeters && (
-              <Paragraph
+            <Column>
+              <Title
                 accessible={false}
-                color="secondary">
-                {distance}
-              </Paragraph>
-            )}
-          </Column>
+                color="link"
+                level="h5"
+                text={pollingStation.name}
+              />
+              <Paragraph accessible={false}>{openingTimes}</Paragraph>
+              {!!distanceInMeters && (
+                <Paragraph
+                  accessible={false}
+                  color="secondary">
+                  {distance}
+                </Paragraph>
+              )}
+            </Column>
+          </Row>
         </Box>
       </Pressable>
     </Box>
