@@ -50,6 +50,7 @@ export const DashboardScreen = ({navigation}: Props) => {
             <TopTaskButton
               iconName={icon}
               isExternalLink
+              key={title}
               onPress={() => openRedirect(redirectKey)}
               testID={testID}
               text={text}
