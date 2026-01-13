@@ -17,6 +17,7 @@ export const screenConfig: StackNavigationRoutes<
     component: AdminScreen,
     name: HomeRouteName.admin,
     options: {
+      headerShown: false,
       headerTitle: 'Admin',
     },
   },

@@ -139,7 +139,7 @@ export const Options = <T extends Value>({
                       : {},
                   )
                 }
-                testID={`${testID}${optionValue.toString()}RadioButton`}
+                testID={testID}
               />
             )
           },

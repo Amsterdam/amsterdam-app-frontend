@@ -7,8 +7,9 @@ type Props = {
 
 export const FormFields = ({questions}: Props) =>
   questions
-    ? questions.map(question => (
+    ? questions.map((question, index) => (
         <SurveyFormField
+          index={index}
           key={question.id}
           question={question}
         />
