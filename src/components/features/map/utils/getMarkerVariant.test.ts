@@ -24,4 +24,28 @@ describe('getMarkerVariant', () => {
 
     expect(variant('1')).toBe(MarkerVariant.selectedPin)
   })
+
+  describe('customMarker', () => {
+    it('should return a customMarker if marker is neither selected nor distinct, and a customMarker is provided.', () => {
+      expect(markerVariant('1', MarkerVariant.electionsCrowdBusyPin)).toBe(
+        MarkerVariant.electionsCrowdBusyPin,
+      )
+
+      expect(markerVariant('1', MarkerVariant.selectedPin)).toBe(
+        MarkerVariant.selectedPin, // Here, the selectedPin is set as the customMarker
+      )
+    })
+
+    it('should overrule customMarker with selectedPin if marker is selected', () => {
+      expect(markerVariant('1234', MarkerVariant.electionsCrowdMediumPin)).toBe(
+        MarkerVariant.selectedPin,
+      )
+    })
+
+    it('should overrule customMarker with distinctPin if marker is distinct', () => {
+      expect(
+        markerVariant('test_id', MarkerVariant.electionsCrowdUnknownPin),
+      ).toBe(MarkerVariant.distinctPin)
+    })
+  })
 })

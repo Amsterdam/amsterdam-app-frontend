@@ -10,10 +10,10 @@ import selectedPinIcon from '@/assets/images/map/selected_pin.png'
 
 export enum MarkerVariant {
   distinctPin = 'distinctPin',
-  electionsCrowdBusyPin = 'elections_crowd_busy_pin',
-  electionsCrowdCalmPin = 'elections_crowd_calm_pin',
-  electionsCrowdMediumPin = 'elections_crowd_medium_pin',
-  electionsCrowdUnknownPin = 'elections_crowd_unknown_pin',
+  electionsCrowdBusyPin = 'electionsCrowdBusyPin',
+  electionsCrowdCalmPin = 'electionsCrowdCalmPin',
+  electionsCrowdMediumPin = 'electionsCrowdMediumPin',
+  electionsCrowdUnknownPin = 'electionsCrowdUnknownPin',
   pin = 'pin',
   selectedPin = 'selectedPin',
 }
