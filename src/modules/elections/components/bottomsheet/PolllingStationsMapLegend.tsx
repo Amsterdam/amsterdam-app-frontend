@@ -6,7 +6,19 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
+import {stateMap} from '@/modules/elections/constants'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
+
+const sortedStateMap = Object.entries(stateMap).sort(([a], [b]) => {
+  const keyA = Number.parseInt(a, 10)
+  const keyB = Number.parseInt(b, 10)
+
+  if (keyB === 0) {
+    return -1
+  }
+
+  return keyA - keyB
+})
 
 export const PollingStationsMapLegend = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -39,22 +51,17 @@ export const PollingStationsMapLegend = () => {
             level="h5"
             text="Drukte nu"
           />
-          <Row gutter="sm">
-            <Icon name="add" />
-            <Phrase>Rustig</Phrase>
-          </Row>
-          <Row gutter="sm">
-            <Icon name="add" />
-            <Phrase>Gemiddeld</Phrase>
-          </Row>
-          <Row gutter="sm">
-            <Icon name="add" />
-            <Phrase>Druk</Phrase>
-          </Row>
-          <Row gutter="sm">
-            <Icon name="add" />
-            <Phrase>Niet beschikbaar</Phrase>
-          </Row>
+          {sortedStateMap.map(([_, {label, icon, color}]) => (
+            <Row
+              gutter="sm"
+              key={label}>
+              <Icon
+                color={color}
+                name={icon}
+              />
+              <Phrase>{label}</Phrase>
+            </Row>
+          ))}
         </Column>
       </Column>
     </Box>

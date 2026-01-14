@@ -1,4 +1,5 @@
-import type {SvgIconConfig} from '@/components/ui/media/svgIcons'
+import type {SvgIconConfig, SvgIconName} from '@/components/ui/media/svgIcons'
+import type {Theme} from '@/themes/themes'
 
 export const electionsSvgIcons = {
   disabledParking: {
@@ -47,3 +48,29 @@ export const electionsSvgIcons = {
 } satisfies Record<string, SvgIconConfig>
 
 export type ElectionsIconNames = keyof typeof electionsSvgIcons
+
+export const stateMap = {
+  1: {
+    label: 'Rustig',
+    icon: 'crowdCalm',
+    color: 'confirm',
+  },
+  2: {
+    label: 'Gemiddeld',
+    icon: 'crowdMedium',
+    color: 'alert',
+  },
+  3: {
+    label: 'Druk',
+    icon: 'crowdBusy',
+    color: 'warning',
+  },
+  0: {
+    label: 'Niet beschikbaar',
+    icon: 'crowdUnknown',
+    color: 'secondary',
+  },
+} satisfies Record<
+  number,
+  {color: keyof Theme['color']['text']; icon: SvgIconName; label: string}
+>
