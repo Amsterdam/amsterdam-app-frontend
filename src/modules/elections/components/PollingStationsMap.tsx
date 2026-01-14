@@ -1,13 +1,14 @@
 import {useState} from 'react'
 import {MapBase} from '@/components/features/map/MapBase'
 import {Clusterer} from '@/components/features/map/clusters/Clusterer'
+import {MarkerVariant} from '@/components/features/map/marker/markers'
 import {ControlVariant} from '@/components/features/map/types'
 import {getMarkerVariant} from '@/components/features/map/utils/getMarkerVariant'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {Address} from '@/modules/address/types'
 import {useSelectedPollingStationId} from '@/modules/elections/slice'
-import {PollingStation} from '@/modules/elections/types'
+import {ElectionsState, PollingStation} from '@/modules/elections/types'
 import {ModuleSlug} from '@/modules/slugs'
 
 type Props = {
@@ -18,6 +19,13 @@ type Props = {
   pollingStations?: PollingStation[]
 }
 
+const ElectionsMarkerVariantMap: Record<ElectionsState, MarkerVariant> = {
+  [ElectionsState.calm]: MarkerVariant.electionsCrowdCalmPin,
+  [ElectionsState.medium]: MarkerVariant.electionsCrowdMediumPin,
+  [ElectionsState.busy]: MarkerVariant.electionsCrowdBusyPin,
+  [ElectionsState.unknown]: MarkerVariant.electionsCrowdUnknownPin,
+}
+
 export const PollingStationsMap = ({
   address,
   isLoading,
@@ -25,8 +33,9 @@ export const PollingStationsMap = ({
   onPress,
   pollingStations,
 }: Props) => {
-  const selectedPollingStationId = useSelectedPollingStationId()
-  const markerVariant = getMarkerVariant(selectedPollingStationId)
+  const pollingStationId = useSelectedPollingStationId()
+  const markerVariant = getMarkerVariant(pollingStationId)
+
   const [region, setRegion] = useState(
     address?.coordinates
       ? {
@@ -58,7 +67,14 @@ export const PollingStationsMap = ({
           properties: {
             ...props,
             id: String(id),
-            variant: markerVariant(id),
+            variant: markerVariant(
+              id,
+              ElectionsMarkerVariantMap[
+                props.lastUpdate.time
+                  ? props.lastUpdate.state
+                  : ElectionsState.unknown
+              ],
+            ),
             onMarkerPress: () => onPress(id),
           },
 
