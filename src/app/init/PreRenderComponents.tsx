@@ -21,7 +21,7 @@ export const PreRenderComponents = ({enabledModules}: Props) =>
       enabledModuleSlugs: Set<ModuleSlug>,
       Component: ComponentType & {renderBeforeServerModules?: boolean},
     ) =>
-      enabledModules
+      (enabledModules
         ? enabledModuleSlugs.has(slug)
-        : (Component?.renderBeforeServerModules ?? false),
+        : (Component?.renderBeforeServerModules ?? false)) && !!Component,
   )
