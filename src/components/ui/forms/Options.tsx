@@ -123,6 +123,7 @@ export const Options = <T extends Value>({
 
             return (
               <Option
+                accessibilityLabel={optionLabel}
                 isSelected={isSelected}
                 key={optionLabel}
                 label={optionLabel}
