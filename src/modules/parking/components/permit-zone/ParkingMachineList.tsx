@@ -37,13 +37,13 @@ export const ParkingMachineList = () => {
   }
 
   return (
-    <Box
-      insetBottom="md"
-      insetHorizontal="md">
+    <Box insetBottom="md">
       <FlatList
         data={parkingMachinesByDistance}
         ListHeaderComponent={
-          <Box insetVertical="lg">
+          <Box
+            insetHorizontal="md"
+            insetVertical="lg">
             {!address && (
               <Title
                 level="h3"

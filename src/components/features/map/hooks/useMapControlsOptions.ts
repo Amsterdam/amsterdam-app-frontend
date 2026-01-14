@@ -1,6 +1,7 @@
 import {useMemo} from 'react'
 import {Platform} from 'react-native'
 import type {ModuleSlug} from '@/modules/slugs'
+import {useMapControlsLegendButton} from '@/components/features/map/hooks/useMapControlsLegendButton'
 import {useMapControlsLocationButton} from '@/components/features/map/hooks/useMapControlsLocationButton'
 import {ControlVariant, MapControlOption} from '@/components/features/map/types'
 import {Permissions} from '@/types/permissions'
@@ -9,8 +10,9 @@ export const useMapControlsOptions = (
   options: ControlVariant[],
   moduleSlug: ModuleSlug,
 ) => {
-  const {onPressLocationButton, iconName} =
+  const {onPressLocationButton, iconName: locationIconName} =
     useMapControlsLocationButton(moduleSlug)
+  const {onPressLegendButton} = useMapControlsLegendButton()
 
   const controlOptions: Record<
     ControlVariant,
@@ -19,13 +21,20 @@ export const useMapControlsOptions = (
     () => ({
       [ControlVariant.location]: {
         accessibilityLabel: 'Mijn locatie',
-        iconName,
+        iconName: locationIconName,
         key: ControlVariant.location,
         onPress: onPressLocationButton,
         testID: 'MapControlsLocationButton',
       },
+      [ControlVariant.legend]: {
+        accessibilityLabel: 'Legenda weergeven',
+        iconName: 'layers',
+        key: ControlVariant.legend,
+        onPress: onPressLegendButton,
+        testID: 'MapControlsLegendButton',
+      },
     }),
-    [iconName, onPressLocationButton],
+    [locationIconName, onPressLocationButton, onPressLegendButton],
   )
 
   return useMemo(

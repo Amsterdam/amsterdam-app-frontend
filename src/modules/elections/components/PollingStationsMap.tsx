@@ -48,7 +48,7 @@ export const PollingStationsMap = ({
 
   return (
     <MapBase
-      controls={[ControlVariant.location]}
+      controls={[ControlVariant.legend, ControlVariant.location]}
       initialRegion={region}
       moduleSlug={ModuleSlug.elections}
       onRegionChangeComplete={setRegion}>

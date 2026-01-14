@@ -4,6 +4,7 @@ import {SvgIconName} from '@/components/ui/media/svgIcons'
 import {TestProps} from '@/components/ui/types'
 
 export enum ControlVariant {
+  legend = 'legend',
   location = 'location',
 }
 
