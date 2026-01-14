@@ -1,27 +1,15 @@
-import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Home} from '@/modules/home/components/Home'
-import {useGetModulesBottomsheetVariants} from '@/modules/home/hooks/useGetModulesBottomsheetVariants'
+import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 
-export const HomeScreen = () => {
-  const variantMap = useGetModulesBottomsheetVariants()
-
-  return (
-    <Screen
-      bottomSheet={
-        !!variantMap && (
-          <BottomSheet
-            testID="HomeBottomSheet"
-            variants={variantMap}
-          />
-        )
-      }
-      hasStickyAlert
-      headerOptions={{
-        disableHorizontalInsets: true,
-      }}
-      testID="HomeScreen">
-      <Home />
-    </Screen>
-  )
-}
+export const HomeScreen = () => (
+  <Screen
+    bottomSheet={<BottomSheetSurvey testID="HomeBottomSheet" />}
+    hasStickyAlert
+    headerOptions={{
+      disableHorizontalInsets: true,
+    }}
+    testID="HomeScreen">
+    <Home />
+  </Screen>
+)

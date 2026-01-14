@@ -1,6 +1,6 @@
 import type {FC} from 'react'
 import {ParkingSelectPermit} from '@/modules/parking/components/ParkingSelectPermit'
-import {ParkingSurveyBottomSheetContent} from '@/modules/parking/components/form/bottomsheet/ParkingSurveyBottomSheetContent'
+import {Survey} from '@/modules/survey/exports/Survey'
 
 export enum ParkingDashboardBottomSheetVariant {
   selectPermit = 'selectPermit',
@@ -11,6 +11,6 @@ export const bottomsheetVariants: Record<
   ParkingDashboardBottomSheetVariant,
   FC
 > = {
-  [ParkingDashboardBottomSheetVariant.survey]: ParkingSurveyBottomSheetContent,
+  [ParkingDashboardBottomSheetVariant.survey]: Survey,
   [ParkingDashboardBottomSheetVariant.selectPermit]: ParkingSelectPermit,
 }

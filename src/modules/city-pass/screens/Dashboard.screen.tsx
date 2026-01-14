@@ -1,6 +1,5 @@
 import {useCallback} from 'react'
 import {NavigationProps} from '@/app/navigation/types'
-import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {TopTaskButton} from '@/components/ui/buttons/TopTaskButton'
@@ -10,11 +9,11 @@ import {FigureWithFacadesBackground} from '@/components/ui/media/FigureWithFacad
 import {Title} from '@/components/ui/text/Title'
 import {useOpenRedirect} from '@/hooks/linking/useOpenRedirect'
 import SportsImage from '@/modules/city-pass/assets/sports.svg'
-import {bottomsheetVariants} from '@/modules/city-pass/bottomsheet/bottomsheetVariants'
 import {AutomaticLogoutAlert} from '@/modules/city-pass/components/AutomaticLogoutAlert'
 import {PassOwners} from '@/modules/city-pass/components/PassOwners'
 import {aboutBlocks} from '@/modules/city-pass/constants'
 import {CityPassRouteName} from '@/modules/city-pass/routes'
+import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 import {Survey} from '@/modules/survey/exports/Survey'
 
 type Props = NavigationProps<CityPassRouteName.dashboard>
@@ -27,12 +26,7 @@ export const DashboardScreen = ({navigation}: Props) => {
 
   return (
     <Screen
-      bottomSheet={
-        <BottomSheet
-          testID="CityPassSurveyBottomSheet"
-          variants={bottomsheetVariants}
-        />
-      }
+      bottomSheet={<BottomSheetSurvey testID="CityPassSurveyBottomSheet" />}
       hasStickyAlert
       testID="CityPassDashboardScreen">
       <AutomaticLogoutAlert />

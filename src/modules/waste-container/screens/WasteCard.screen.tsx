@@ -9,7 +9,6 @@ import {WasteCardSvg} from '@/modules/waste-container/assets/images/WasteCardSvg
 import {WasteCardDirections} from '@/modules/waste-container/components/WasteCardDirections'
 import {WasteCardHelpButton} from '@/modules/waste-container/components/WasteCardHelpButton'
 import {WasteCardMenu} from '@/modules/waste-container/components/WasteCardMenu'
-import {WasteContainerBottomSheetVariant} from '@/modules/waste-container/components/bottomsheet/bottomsheetVariants'
 import {SecureItemKey} from '@/utils/secureStorage'
 
 export const WasteCardScreen = () => {
@@ -18,10 +17,7 @@ export const WasteCardScreen = () => {
     SecureItemKey.wasteCardNumber,
   )
 
-  useOpenSurveyOnBlur(
-    'waste-container-show-card',
-    WasteContainerBottomSheetVariant.survey,
-  )
+  useOpenSurveyOnBlur('waste-container-show-card')
 
   if (!secureWasteCardNumber) {
     return null

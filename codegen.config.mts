@@ -81,20 +81,4 @@ export const config: CodeGenConfig = [
       },
     ],
   },
-  {
-    inputDir,
-    match: 'bottomSheetVariantsHome.ts',
-    output: 'src/modules/generated/bottomSheetVariantsHome.generated.ts',
-    imports: [
-      {
-        import: 'bottomSheetVariantsHome',
-        exportName: 'bottomSheetVariantsHome',
-        optional: true,
-        result: moduleBasedResult,
-        resultImports: defaultResultImports,
-        satisfies:
-          'Partial<Record<ModuleSlug, Record<string, React.ComponentType>>>',
-      },
-    ],
-  },
 ]

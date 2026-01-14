@@ -12,6 +12,7 @@ import {useStartSessionMutation} from '@/modules/parking/service'
 import {useVisitorVehicleId} from '@/modules/parking/slice'
 import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {useAlert} from '@/store/slices/alert'
+import {Duration} from '@/types/duration'
 import {Dayjs} from '@/utils/datetime/dayjs'
 
 export type SessionFieldValues = {
@@ -111,7 +112,7 @@ export const ParkingStartSessionButton = () => {
                   openSurveyBottomsheet(
                     ParkingDashboardBottomSheetVariant.survey,
                   ),
-                500,
+                Duration.normal,
               )
               goBack()
             },
