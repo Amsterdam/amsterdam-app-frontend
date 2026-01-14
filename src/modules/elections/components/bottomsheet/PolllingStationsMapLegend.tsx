@@ -6,21 +6,9 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {stateMap} from '@/modules/elections/utils/getPollingStationCrowdDetails'
+import {crowdStateMap} from '@/modules/elections/constants/crowdDetails'
+import {ElectionsState} from '@/modules/elections/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
-
-const sortedStateMap = Object.entries(stateMap)
-  .sort(([a], [b]) => {
-    const keyA = Number.parseInt(a, 10)
-    const keyB = Number.parseInt(b, 10)
-
-    if (keyB === 0) {
-      return -1
-    }
-
-    return keyA - keyB
-  })
-  .map(([_, value]) => value)
 
 export const PollingStationsMapLegend = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -53,16 +41,21 @@ export const PollingStationsMapLegend = () => {
             level="h5"
             text="Drukte nu"
           />
-          {sortedStateMap.map(({label, icon, color}) => (
+          {[
+            ElectionsState.calm,
+            ElectionsState.medium,
+            ElectionsState.busy,
+            ElectionsState.unknown,
+          ].map(state => (
             <Row
               gutter="sm"
-              key={label}>
+              key={crowdStateMap[state].label}>
               <Icon
-                color={color}
-                name={icon}
+                color={crowdStateMap[state].color}
+                name={crowdStateMap[state].icon}
                 size="lg"
               />
-              <Phrase>{label}</Phrase>
+              <Phrase>{crowdStateMap[state].label}</Phrase>
             </Row>
           ))}
         </Column>

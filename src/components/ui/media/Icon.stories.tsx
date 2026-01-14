@@ -11,7 +11,7 @@ import {
 } from './svgIcons'
 import type {FractionCode} from '@/modules/waste-guide/types'
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
-import {electionsSvgIcons} from '@/modules/elections/constants'
+import {electionsSvgIcons} from '@/modules/elections/constants/icons'
 import {WasteFractionIcon} from '@/modules/waste-guide/components/WasteFractionIcon'
 import {fractionIconConfig} from '@/modules/waste-guide/constants'
 import {Theme} from '@/themes/themes'
