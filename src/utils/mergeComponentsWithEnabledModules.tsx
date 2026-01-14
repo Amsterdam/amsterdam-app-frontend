@@ -12,18 +12,23 @@ export const defaultFilterFunction = <T extends ComponentType>(
   slug: ModuleSlug,
   enabledModuleSlugs: Set<ModuleSlug>,
   _Component: T,
-) => enabledModuleSlugs?.has(slug)
+) => enabledModuleSlugs?.has(slug) && !!_Component
 
 export const mergeComponentsWithEnabledModules = <T extends ComponentType>(
   components: Partial<Record<ModuleSlug, T>>,
   enabledModules: Module[] = [],
   filter: FilterFunction<T> = defaultFilterFunction,
 ) => {
-  const moduleSlugs = new Set(enabledModules?.map(m => m.slug))
+  const enabledModuleSlugs = enabledModules?.map(m => m.slug)
+  const moduleSlugs = new Set(enabledModuleSlugs)
 
   return (Object.entries(components) as [ModuleSlug, T][])
     .filter(([slug, Component]) => filter(slug, moduleSlugs, Component))
-    .map(([slug, Component]: [ModuleSlug, ComponentType]) =>
-      Component ? <Component key={slug} /> : null,
+    .sort(
+      ([slugA], [slugB]) =>
+        enabledModuleSlugs.indexOf(slugA) - enabledModuleSlugs.indexOf(slugB),
     )
+    .map(([slug, Component]: [ModuleSlug, ComponentType]) => (
+      <Component key={slug} />
+    ))
 }
