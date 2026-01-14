@@ -19,7 +19,7 @@ export const WasteGuideNoAddress = ({isFetchingWasteGuide}: Props) => (
           gutter="lg">
           <WasteGuideAddressSwitch />
 
-          {!isFetchingWasteGuide && (
+          {!!isFetchingWasteGuide && (
             <PleaseWait testID="WasteGuideLoadingSpinner" />
           )}
         </Column>
