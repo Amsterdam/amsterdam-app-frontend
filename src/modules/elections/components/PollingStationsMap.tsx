@@ -33,8 +33,8 @@ export const PollingStationsMap = ({
   onPress,
   pollingStations,
 }: Props) => {
-  const pollingStationId = useSelectedPollingStationId()
-  const markerVariant = getMarkerVariant(pollingStationId)
+  const selectedPollingStationId = useSelectedPollingStationId()
+  const markerVariant = getMarkerVariant(selectedPollingStationId)
 
   const [region, setRegion] = useState(
     address?.coordinates
