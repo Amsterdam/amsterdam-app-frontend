@@ -96,6 +96,7 @@ export const Options = <T extends Value>({
     <Column gutter="md">
       {!!label && (
         <Label
+          isAccessible
           required={required}
           text={label}
         />

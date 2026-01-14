@@ -71,7 +71,7 @@ export const TextInput = ({
       <Column gutter="xs">
         {!!label && (
           <Label
-            isAccessible={!textInputProps.accessibilityLabel}
+            isAccessible={false}
             required={required}
             text={label}
           />
@@ -79,7 +79,7 @@ export const TextInput = ({
         {!!inputInstructions && (
           <Label
             emphasis="default"
-            isAccessible={!textInputProps.accessibilityHint}
+            isAccessible={false}
             text={inputInstructions}
           />
         )}
@@ -90,6 +90,10 @@ export const TextInput = ({
         <InputComponent
           {...textInputProps}
           {...themedTextInputProps}
+          accessibilityHint={
+            textInputProps.accessibilityHint ?? inputInstructions
+          }
+          accessibilityLabel={textInputProps.accessibilityLabel ?? label}
           accessibilityLanguage={accessibilityLanguage}
           numberOfLines={Platform.OS === 'ios' ? undefined : numberOfLines}
           onBlur={handleBlur}
