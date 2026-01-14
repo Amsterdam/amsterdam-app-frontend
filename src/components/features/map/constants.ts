@@ -8,7 +8,3 @@ export const AMSTERDAM_REGION: Region = {
 }
 
 export const ANIMATION_DURATION = 0
-
-export enum MapSheetVariants {
-  legend = 'legend',
-}

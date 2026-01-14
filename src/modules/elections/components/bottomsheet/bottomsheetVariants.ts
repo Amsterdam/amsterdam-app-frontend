@@ -1,17 +1,17 @@
 import type {FC} from 'react'
-import {MapSheetVariants} from '@/components/features/map/constants'
 import {PollingStationDetails} from '@/modules/elections/components/bottomsheet/PollingStationDetails'
 import {PollingStationsMapLegend} from '@/modules/elections/components/bottomsheet/PolllingStationsMapLegend'
 
 export enum PollingStationsBottomSheetVariant {
+  legend = 'legend',
   pollingStationDetails = 'pollingStationDetails',
 }
 
 export const bottomsheetVariants: Record<
-  PollingStationsBottomSheetVariant & {legend: MapSheetVariants.legend},
+  PollingStationsBottomSheetVariant,
   FC
 > = {
   [PollingStationsBottomSheetVariant.pollingStationDetails]:
     PollingStationDetails,
-  [MapSheetVariants.legend]: PollingStationsMapLegend,
+  [PollingStationsBottomSheetVariant.legend]: PollingStationsMapLegend,
 }
