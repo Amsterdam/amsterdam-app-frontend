@@ -6,19 +6,21 @@ import {Icon} from '@/components/ui/media/Icon'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {Title} from '@/components/ui/text/Title'
 import {useAccessibilityFocus} from '@/hooks/accessibility/useAccessibilityFocus'
-import {stateMap} from '@/modules/elections/constants'
+import {stateMap} from '@/modules/elections/utils/getPollingStationCrowdDetails'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 
-const sortedStateMap = Object.entries(stateMap).sort(([a], [b]) => {
-  const keyA = Number.parseInt(a, 10)
-  const keyB = Number.parseInt(b, 10)
+const sortedStateMap = Object.entries(stateMap)
+  .sort(([a], [b]) => {
+    const keyA = Number.parseInt(a, 10)
+    const keyB = Number.parseInt(b, 10)
 
-  if (keyB === 0) {
-    return -1
-  }
+    if (keyB === 0) {
+      return -1
+    }
 
-  return keyA - keyB
-})
+    return keyA - keyB
+  })
+  .map(([_, value]) => value)
 
 export const PollingStationsMapLegend = () => {
   const {close: closeBottomSheet} = useBottomSheet()
@@ -51,13 +53,14 @@ export const PollingStationsMapLegend = () => {
             level="h5"
             text="Drukte nu"
           />
-          {sortedStateMap.map(([_, {label, icon, color}]) => (
+          {sortedStateMap.map(({label, icon, color}) => (
             <Row
               gutter="sm"
               key={label}>
               <Icon
                 color={color}
                 name={icon}
+                size="lg"
               />
               <Phrase>{label}</Phrase>
             </Row>

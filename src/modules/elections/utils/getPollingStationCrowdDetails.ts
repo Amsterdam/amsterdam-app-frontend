@@ -9,7 +9,7 @@ const availableStates = new Set([
   ElectionsState.busy,
 ])
 
-const stateMap: Record<
+export const stateMap: Record<
   ElectionsState,
   {color: keyof Theme['color']['text']; icon: SvgIconName; label: string}
 > = {
