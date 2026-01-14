@@ -14,9 +14,10 @@ export const getMarkerVariant =
   /**
    * Pass the id of the marker to check which variant to return.
    * @param markerId The string id of the marker to check against selected marker and other states.
+   * @param customMarker A custom marker to render instead of the default pin.
    * @returns The correct MarkerVariant.
    */
-  (markerId: string | number) => {
+  (markerId: string | number, customMarker?: MarkerVariant) => {
     if (markerId === selectedMarkerId) {
       return MarkerVariant.selectedPin
     }
@@ -29,5 +30,5 @@ export const getMarkerVariant =
       return MarkerVariant.distinctPin
     }
 
-    return MarkerVariant.pin
+    return customMarker || MarkerVariant.pin
   }

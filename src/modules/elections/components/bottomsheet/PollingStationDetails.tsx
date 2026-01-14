@@ -12,11 +12,8 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {useGetGoogleMapsDirectionsUrl} from '@/hooks/useGetGoogleMapsDirectionsUrl'
 import {PollingStationCrowdStatus} from '@/modules/elections/components/PollingStationCrowdStatus'
 import {PollingStationDetailsCategories} from '@/modules/elections/components/PollingStationDetailsCategories'
-import {usePollingStationsQuery} from '@/modules/elections/service'
-import {
-  resetSelectedPollingStationId,
-  useSelectedPollingStationId,
-} from '@/modules/elections/slice'
+import {useSelectedPollingStation} from '@/modules/elections/hooks/useSelectedPollingStation'
+import {resetSelectedPollingStationId} from '@/modules/elections/slice'
 import {getOpeningTimes} from '@/modules/elections/utils/getOpeningTimes'
 import {RedirectKey} from '@/modules/redirects/types'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
@@ -24,9 +21,7 @@ import {useBottomSheet} from '@/store/slices/bottomSheet'
 export const PollingStationDetails = () => {
   const {close: closeBottomSheet} = useBottomSheet()
   const dispatch = useDispatch()
-  const pollingStationId = useSelectedPollingStationId()
-  const {data} = usePollingStationsQuery()
-  const pollingStation = data?.find(station => station.id === pollingStationId)
+  const pollingStation = useSelectedPollingStation()
   const {lat, lng} = pollingStation?.position || {}
   const directionsUrl = useGetGoogleMapsDirectionsUrl({lat, lon: lng})
 
