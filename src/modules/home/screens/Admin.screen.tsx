@@ -5,12 +5,12 @@ import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {EnvironmentSelector} from '@/modules/home/components/EnvironmentSelector'
 import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
+import {useOpenBottomsheetIfSurveyShouldShow} from '@/modules/survey/exports/useOpenBottomsheetIfSurveyShouldShow'
 import {isDevApp} from '@/processes/development'
-import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
 
 export const AdminScreen = () => {
-  const {open} = useBottomSheet()
+  const openSurveyBottomsheet = useOpenBottomsheetIfSurveyShouldShow('admin')
 
   return (
     <Screen
@@ -36,7 +36,7 @@ export const AdminScreen = () => {
           <Box>
             <Button
               label="Toon actieformulier"
-              onPress={() => open()}
+              onPress={() => openSurveyBottomsheet()}
               testID="AdminScreenShowSurveyButton"
             />
           </Box>
