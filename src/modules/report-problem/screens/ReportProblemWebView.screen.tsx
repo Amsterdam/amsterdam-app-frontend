@@ -91,7 +91,7 @@ export const ReportProblemWebViewScreen = ({navigation}: Props) => {
     <Screen
       bottomSheet={
         <BottomSheet testID="ReportProblemBottomSheet">
-          <Survey entryPoint="report-problem" />
+          <Survey />
         </BottomSheet>
       }
       hasStickyAlert

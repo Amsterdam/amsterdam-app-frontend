@@ -1,5 +1,5 @@
 import BottomSheetOriginal, {
-  BottomSheetProps,
+  BottomSheetProps as OriginalBottomSheetProps,
   BottomSheetScrollView,
   BottomSheetView,
 } from '@gorhom/bottom-sheet'
@@ -15,9 +15,9 @@ import {useBottomSheetHandler} from '@/components/features/bottom-sheet/hooks/us
 import {SafeArea} from '@/components/ui/containers/SafeArea'
 import {type TestProps} from '@/components/ui/types'
 
-type Props = Partial<
+export type BottomSheetProps = Partial<
   Omit<
-    BottomSheetProps,
+    OriginalBottomSheetProps,
     | 'children'
     | 'contentHeight'
     | 'handleHeight'
@@ -56,7 +56,7 @@ export const BottomSheet = ({
   testID,
   variants,
   ...rest
-}: Props) => {
+}: BottomSheetProps) => {
   const {onChange: onChangeHandler, ref, variant} = useBottomSheetHandler()
   const {top: topInset} = useSafeAreaInsets()
   const ViewComponent = scroll ? ScrollWrapper : BottomSheetView

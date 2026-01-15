@@ -1,11 +1,10 @@
-import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Button} from '@/components/ui/buttons/Button'
 import {Box} from '@/components/ui/containers/Box'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {EnvironmentSelector} from '@/modules/home/components/EnvironmentSelector'
-import {Survey} from '@/modules/survey/exports/Survey'
+import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 import {isDevApp} from '@/processes/development'
 import {useBottomSheet} from '@/store/slices/bottomSheet'
 import {VERSION_NUMBER_WITH_BUILD} from '@/utils/version'
@@ -15,11 +14,7 @@ export const AdminScreen = () => {
 
   return (
     <Screen
-      bottomSheet={
-        <BottomSheet testID="AdminScreenBottomSheet">
-          <Survey entryPoint="admin" />
-        </BottomSheet>
-      }
+      bottomSheet={<BottomSheetSurvey testID="AdminScreenBottomSheet" />}
       hasStickyAlert
       headerOptions={{disableHorizontalInsets: true}}
       keyboardAware

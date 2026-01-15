@@ -1,10 +1,9 @@
 import {FeatureFlag} from '@/components/features/FeatureFlag'
-import {BottomSheet} from '@/components/features/bottom-sheet/BottomSheet'
 import {Screen} from '@/components/features/screen/Screen'
 import {Column} from '@/components/ui/layout/Column'
 import {Features} from '@/constants/featureFlags'
 import {useDeviceContext} from '@/hooks/useDeviceContext'
-import {bottomSheetVariantsHome as wasteContainerBottomsheetVariants} from '@/modules/waste-container/bottomSheetVariantsHome'
+import {BottomSheetSurvey} from '@/modules/survey/exports/BottomSheetSurvey'
 import {WasteGuide} from '@/modules/waste-guide/components/WasteGuide'
 import {WasteGuideInformation} from '@/modules/waste-guide/components/WasteGuideInformation'
 import {WasteGuideMoreOptions} from '@/modules/waste-guide/components/WasteGuideMoreOptions'
@@ -16,12 +15,7 @@ export const WasteGuideScreen = () => {
 
   return (
     <Screen
-      bottomSheet={
-        <BottomSheet
-          testID="SelectLocationTypeBottomSheet"
-          variants={wasteContainerBottomsheetVariants}
-        />
-      }
+      bottomSheet={<BottomSheetSurvey testID="SelectLocationTypeBottomSheet" />}
       headerOptions={{SideComponent: WasteGuideShare}}
       testID="WasteGuideScreen"
       withLeftInset={isPortrait}
