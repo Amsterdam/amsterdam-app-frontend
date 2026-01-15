@@ -18,7 +18,7 @@ export const PollingStationCrowdStatus = ({pollingStation}: Props) => {
   return (
     <Column gutter="xs">
       <Title
-        level="h4"
+        level="h5"
         text="Drukte nu"
       />
       <Column gutter="no">
