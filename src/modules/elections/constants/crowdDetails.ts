@@ -22,7 +22,7 @@ export const crowdStateMap: Record<
     color: 'warning',
   },
   [ElectionsState.unknown]: {
-    label: 'Niet beschikbaar',
+    label: 'Onbekend',
     icon: 'crowdUnknown',
     color: 'secondary',
   },
