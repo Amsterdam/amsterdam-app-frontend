@@ -96,6 +96,7 @@ export const Options = <T extends Value>({
     <Column gutter="md">
       {!!label && (
         <Label
+          isAccessible
           required={required}
           text={label}
         />
@@ -122,6 +123,7 @@ export const Options = <T extends Value>({
 
             return (
               <Option
+                accessibilityLabel={optionLabel}
                 isSelected={isSelected}
                 key={optionLabel}
                 label={optionLabel}
