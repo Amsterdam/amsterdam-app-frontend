@@ -37,9 +37,6 @@ import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
 
-const getPluralizedSockets = (evsesLength: number) =>
-  simplur`[stopcontact|stopcontacten]${[evsesLength]}`
-
 export const BoatChargingPointDetails = () => {
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
@@ -103,12 +100,9 @@ export const BoatChargingPointDetails = () => {
 
   const {address, status} = location
   const formattedCoordinates = coordinatesToDDM(address.coordinates)
-
-  const functionalEvses = evses.filter(
-    evse => evse.status === ChargingPointStatus.OPERATIVE,
-  )
-  const availableSocketsSentence = `${availableEvses.length} van ${functionalEvses.length} ${getPluralizedSockets(getPluralizedSockets.length)} vrij`
-  const socketsSentenceMalfunction = `${mapStatusToLabel[status]} - ${evses.length} ${getPluralizedSockets(evses.length)}`
+  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
+  const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
+  const socketsSentenceMalfunction = `${mapStatusToLabel[status]} - ${evses.length} ${pluralizedSockets}`
 
   return (
     <Box
