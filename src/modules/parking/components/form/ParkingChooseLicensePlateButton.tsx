@@ -1,5 +1,5 @@
 import {SelectButtonControlled} from '@/components/ui/forms/SelectButtonControlled'
-import type {SessionFieldValues} from '@/modules/parking/components/form/ParkingStartSessionButton'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {ParkingSessionBottomSheetVariant} from '@/modules/parking/constants'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
@@ -17,10 +17,7 @@ export const ParkingChooseLicensePlateButton = () => {
   })
 
   return (
-    <SelectButtonControlled<
-      Pick<SessionFieldValues, 'licensePlate'>,
-      'licensePlate'
-    >
+    <SelectButtonControlled<ParkingSessionFormValues, 'licensePlate'>
       accessibilityLabel={licensePlate =>
         licensePlate
           ? `Kenteken ${licensePlate.vehicle_id}${licensePlate.visitor_name ? ' - ' + licensePlate.visitor_name : ''}`

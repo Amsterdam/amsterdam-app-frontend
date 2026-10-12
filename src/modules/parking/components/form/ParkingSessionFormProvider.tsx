@@ -17,12 +17,29 @@ type Props = {
   | {extendVisitorSession?: false; parkingSession?: ParkingSession}
 )
 
+export type ParkingSessionFormValues = {
+  /**
+   * This value is relevant for visitor parking sessions, which requires immediate checkout after submitting start session form.  
+   */
+  amount?: number
+  endTime?: Dayjs
+  licensePlate?: ParkingLicensePlateBase
+  originalEndTime?: Dayjs
+  originalStartTime?: Dayjs
+  parking_machine?: string
+  parking_machine_favorite?: boolean
+  ps_right_id?: number
+  report_code?: string
+  startTime: Dayjs
+}
+
 const getDefaultValues = ({
   licensePlate,
   startTime,
   extendVisitorSession,
   parkingSession,
-}: Omit<Props, 'children' | 'defaultValues'> & Props['defaultValues']) => {
+}: Omit<Props, 'children' | 'defaultValues'> &
+  Props['defaultValues']): ParkingSessionFormValues => {
   if (parkingSession) {
     return {
       licensePlate: {
@@ -48,8 +65,6 @@ const getDefaultValues = ({
     startTime: dayjs(startTime).isAfter(dayjs()) ? dayjs(startTime) : dayjs(),
   }
 }
-
-export type ParkingSessionFormValues = ReturnType<typeof getDefaultValues>
 
 export const ParkingSessionFormProvider = ({
   children,

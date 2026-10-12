@@ -3,15 +3,13 @@ import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/parking/alerts'
+import type {ParkingSessionFormValues} from '@/modules/parking/components/form/ParkingSessionFormProvider'
 import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParkingPermit'
 import {useGetParkingSessions} from '@/modules/parking/hooks/useGetParkingSessions'
 import {useActivateSessionMutation} from '@/modules/parking/service'
 import {ParkingSessionStatus} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
-
-type FieldValues = {
-  licensePlate: {vehicle_id: string; visitor_name: string}
-}
+import type {NonOptional} from '@/types/utils'
 
 export const ParkingActivateLicensePlateButton = () => {
   const {goBack} = useNavigation()
@@ -31,12 +29,12 @@ export const ParkingActivateLicensePlateButton = () => {
     handleSubmit,
     formState: {isSubmitting},
     setError,
-  } = useFormContext<FieldValues>()
+  } = useFormContext<NonOptional<ParkingSessionFormValues, 'licensePlate'>>()
 
   const {report_code} = currentPermit
 
   const onSubmit = useCallback(
-    ({licensePlate}: FieldValues) => {
+    ({licensePlate}: NonOptional<ParkingSessionFormValues, 'licensePlate'>) => {
       if (activeParkingSessions?.[0].vehicle_id === licensePlate.vehicle_id) {
         return
       }

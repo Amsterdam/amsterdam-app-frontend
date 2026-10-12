@@ -37,7 +37,6 @@ export const ParkingReceipt = () => {
     parking_machine?: string
     ps_right_id?: number
     startTime: Dayjs
-    visitorVehicleId?: string
   }>()
 
   const {
@@ -46,7 +45,6 @@ export const ParkingReceipt = () => {
     licensePlate,
     parking_machine,
     ps_right_id,
-    visitorVehicleId,
     startTime,
   } = watch()
 
@@ -71,7 +69,7 @@ export const ParkingReceipt = () => {
           end_date_time: calculatedEndTime?.toJSON(),
           parking_machine,
           start_date_time: calculatedStartTime?.toJSON(),
-          vehicle_id: licensePlate?.vehicle_id ?? visitorVehicleId ?? '111111',
+          vehicle_id: licensePlate?.vehicle_id ?? '111111',
           ps_right_id,
         }
       : skipToken,
