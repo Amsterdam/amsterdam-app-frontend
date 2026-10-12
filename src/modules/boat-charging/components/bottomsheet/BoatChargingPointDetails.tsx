@@ -17,6 +17,7 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
+import {mapStatusToLabel} from '@/modules/boat-charging/constants/mapStatusToLabel'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
@@ -35,6 +36,9 @@ import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailabl
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
+
+const getPluralizedSockets = (evsesLength: number) =>
+  simplur`[stopcontact|stopcontacten]${[evsesLength]}`
 
 export const BoatChargingPointDetails = () => {
   const {navigate} = useNavigation()
@@ -100,9 +104,11 @@ export const BoatChargingPointDetails = () => {
   const {address, status} = location
   const formattedCoordinates = coordinatesToDDM(address.coordinates)
 
-  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
-  const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
-  const socketsSentenceMalfunction = `${evses.length} ${pluralizedSockets}`
+  const functionalEvses = evses.filter(
+    evse => evse.status === ChargingPointStatus.OPERATIVE,
+  )
+  const availableSocketsSentence = `${availableEvses.length} van ${functionalEvses.length} ${getPluralizedSockets(getPluralizedSockets.length)} vrij`
+  const socketsSentenceMalfunction = `${mapStatusToLabel[status]} - ${evses.length} ${getPluralizedSockets(evses.length)}`
 
   return (
     <Box
@@ -144,7 +150,10 @@ export const BoatChargingPointDetails = () => {
               testID="BoatChargingPointDetailsCustomIcon"
             />
             <Phrase>
-              {status === ChargingPointStatus.OPERATIVE
+              {[
+                ChargingPointStatus.OPERATIVE,
+                ChargingPointStatus.OCCUPIED,
+              ].includes(status)
                 ? availableSocketsSentence
                 : socketsSentenceMalfunction}
             </Phrase>
