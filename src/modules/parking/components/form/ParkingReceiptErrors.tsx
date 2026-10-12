@@ -1,4 +1,4 @@
-import {useForm} from 'react-hook-form'
+import {useFormContext} from 'react-hook-form'
 import {AlertNegative} from '@/components/ui/feedback/alert/AlertNegative'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
 import {alerts} from '@/modules/parking/alerts'
@@ -16,7 +16,7 @@ export const ParkingReceiptErrors = ({
 }: ParkingReceiptErrorsProps) => {
   const {
     formState: {errors},
-  } = useForm()
+  } = useFormContext()
   const parkingAccount = useParkingAccount()
 
   return (
