@@ -1,7 +1,6 @@
 import {skipToken} from '@reduxjs/toolkit/query'
 import {useEffect, useMemo} from 'react'
 import {Share} from 'react-native'
-import simplur from 'simplur'
 import {CustomMarkerIcon} from '@/components/features/map/marker/CustomMarkerIcon'
 import {ShareButton} from '@/components/ui/buttons/ShareButton'
 import {Box} from '@/components/ui/containers/Box'
@@ -17,7 +16,6 @@ import {useDispatch} from '@/hooks/redux/useDispatch'
 import {getAddressLine1} from '@/modules/address/exports/utils/addDerivedAddressFields'
 import {BoatChargingPointDetailsButton} from '@/modules/boat-charging/components/bottomsheet/BoatChargingPointDetailsButton'
 import {boatChargingPointStateMap} from '@/modules/boat-charging/constants/boatChargingPointStateMap'
-import {mapStatusToLabel} from '@/modules/boat-charging/constants/mapStatusToLabel'
 import {mapStatusToState} from '@/modules/boat-charging/constants/mapStatusToState'
 import {VAT_FRACTION_FALLBACK} from '@/modules/boat-charging/constants/settings'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
@@ -32,7 +30,7 @@ import {
 } from '@/modules/boat-charging/slice'
 import {ChargingPointStatus} from '@/modules/boat-charging/types'
 import {formatMaxKW} from '@/modules/boat-charging/utils/formatMaxKW'
-import {useAvailableAndAllEvses} from '@/modules/boat-charging/utils/getAvailableAndAllEvses'
+import {getSocketStatusAndAvailabilitySentence} from '@/modules/boat-charging/utils/getSocketStatusAndAvailabilitySentence'
 import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
@@ -75,10 +73,10 @@ export const BoatChargingPointDetails = () => {
     return [maxKw, rate].filter(Boolean).join(' - ')
   }, [location, vat_fraction])
 
-  const {availableEvses, evses} = useAvailableAndAllEvses(
-    location?.charging_stations ?? [],
-  )
   const {reset} = useNewSessionFormContext()
+
+  const socketAvailabilitySentence =
+    getSocketStatusAndAvailabilitySentence(location)
 
   if (isLoading) {
     return (
@@ -100,9 +98,6 @@ export const BoatChargingPointDetails = () => {
 
   const {address, status} = location
   const formattedCoordinates = coordinatesToDDM(address.coordinates)
-  const pluralizedSockets = simplur`[stopcontact|stopcontacten]${[evses.length]}`
-  const availableSocketsSentence = `${availableEvses.length} van ${evses.length} ${pluralizedSockets} vrij`
-  const socketsSentenceMalfunction = `${mapStatusToLabel[status]} - ${evses.length} ${pluralizedSockets}`
 
   return (
     <Box
@@ -143,14 +138,7 @@ export const BoatChargingPointDetails = () => {
               size={size.spacing.md}
               testID="BoatChargingPointDetailsCustomIcon"
             />
-            <Phrase>
-              {[
-                ChargingPointStatus.OPERATIVE,
-                ChargingPointStatus.OCCUPIED,
-              ].includes(status)
-                ? availableSocketsSentence
-                : socketsSentenceMalfunction}
-            </Phrase>
+            <Phrase>{socketAvailabilitySentence}</Phrase>
           </Row>
           {!!details && <Phrase color="secondary">{details}</Phrase>}
         </Column>
