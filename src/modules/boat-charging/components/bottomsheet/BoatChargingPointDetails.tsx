@@ -36,16 +36,21 @@ import {useTheme} from '@/themes/useTheme'
 import {formatNumber} from '@/utils/formatNumber'
 import {coordinatesToDDM} from '@/utils/transform/coordinatesToDDM'
 
+const REFETCH_INTERVAL = 1000 * 15
+
 export const BoatChargingPointDetails = () => {
   const {navigate} = useNavigation()
   const dispatch = useDispatch()
   const id = useSelectedBoatChargingPointId()
+
   const {
     data: location,
     isLoading,
     isError,
     startedTimeStamp,
-  } = useBoatChargingLocationDetailsQuery(id ?? skipToken)
+  } = useBoatChargingLocationDetailsQuery(id ?? skipToken, {
+    pollingInterval: REFETCH_INTERVAL,
+  })
 
   const autoFocus = useAccessibilityFocus()
   const {size} = useTheme()
