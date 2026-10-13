@@ -22,7 +22,7 @@ export const getSocketStatusAndAvailabilitySentence = (
 
   if (!Number.isInteger(available_sockets)) {
     devError(
-      `available_sockets should be a Number but instead was ${typeof available_sockets}`,
+      `available_sockets should be an integer but instead was ${String(available_sockets)}`,
     )
 
     return mapStatusToLabel[status ?? ChargingPointStatus.UNKNOWN]
