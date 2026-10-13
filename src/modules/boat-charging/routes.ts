@@ -16,6 +16,7 @@ export enum BoatChargingRouteName {
   login = 'BoatChargingLogin',
   loginSteps = 'BoatChargingLoginSteps',
   map = 'BoatChargingMap',
+  myVignettes = 'BoatChargingMyVignettes',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
 }
@@ -41,4 +42,5 @@ export type ModuleStackParams = {
     paymentStatus: BoatChargingPaymentResultStatus
     sessionId: BoatChargingSession['id']
   }
+  [BoatChargingRouteName.myVignettes]: undefined
 }

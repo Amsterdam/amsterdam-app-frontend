@@ -101,4 +101,11 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Laadsessie',
     },
   },
+  [BoatChargingRouteName.myVignettes]: {
+    component: () => null,
+    name: BoatChargingRouteName.myVignettes,
+    options: {
+      headerTitle: 'Mijn vignetten',
+    },
+  },
 }
