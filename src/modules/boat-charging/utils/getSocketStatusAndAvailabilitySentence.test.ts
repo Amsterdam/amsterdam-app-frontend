@@ -55,7 +55,7 @@ describe('getSocketStatusAndAvailabilitySentence', () => {
   )
 
   it.each([undefined, null])(
-    'should include %s when status is nullish',
+    'should return malfunction status when location status is %s',
     locationStatus => {
       const location = createLocation({
         available_sockets: 1,
