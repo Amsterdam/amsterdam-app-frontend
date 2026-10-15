@@ -1,10 +1,12 @@
 import {StackNavigationRoutes} from '@/app/navigation/types'
+import {BoatChargingAddVignetHeaderButton} from '@/modules/boat-charging/components/vignettes/BoatChargingAddVignetHeaderButton'
 import {
   BoatChargingRouteName,
   type ModuleStackParams,
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
+import {BoatChargingAddVignetScreen} from '@/modules/boat-charging/screens/BoatChargingAddVignet.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
@@ -12,6 +14,7 @@ import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatCha
 import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
 import {BoatChargingLocationDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingLocationDetails.screen'
 import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatChargingLogin.screen'
+import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
 
@@ -102,10 +105,18 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
   [BoatChargingRouteName.myVignettes]: {
-    component: () => null,
+    component: BoatChargingMyVignettesScreen,
     name: BoatChargingRouteName.myVignettes,
     options: {
       headerTitle: 'Mijn vignetten',
+      SideComponent: BoatChargingAddVignetHeaderButton,
+    },
+  },
+  [BoatChargingRouteName.addVignet]: {
+    component: BoatChargingAddVignetScreen,
+    name: BoatChargingRouteName.addVignet,
+    options: {
+      headerTitle: 'Vignet toevoegen',
     },
   },
 }

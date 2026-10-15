@@ -6,6 +6,7 @@ import type {
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  addVignet = 'BoatChargingAddVignet',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
   guestEmail = 'BoatChargingGuestEmail',
   guestEmailConfirm = 'BoatChargingGuestEmailConfirm',
@@ -43,4 +44,5 @@ export type ModuleStackParams = {
     sessionId: BoatChargingSession['id']
   }
   [BoatChargingRouteName.myVignettes]: undefined
+  [BoatChargingRouteName.addVignet]: undefined
 }
