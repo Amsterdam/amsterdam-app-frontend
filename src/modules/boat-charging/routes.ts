@@ -2,11 +2,11 @@ import type {
   BoatChargingLocation,
   BoatChargingSession,
   BoatChargingPaymentResultStatus,
+  Vignet,
 } from '@/modules/boat-charging/types'
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
-  addVignet = 'BoatChargingAddVignet',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
   guestEmail = 'BoatChargingGuestEmail',
   guestEmailConfirm = 'BoatChargingGuestEmailConfirm',
@@ -20,6 +20,7 @@ export enum BoatChargingRouteName {
   myVignettes = 'BoatChargingMyVignettes',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
+  vignet = 'BoatChargingVignet',
 }
 
 export type ModuleStackParams = {
@@ -44,5 +45,5 @@ export type ModuleStackParams = {
     sessionId: BoatChargingSession['id']
   }
   [BoatChargingRouteName.myVignettes]: undefined
-  [BoatChargingRouteName.addVignet]: undefined
+  [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
 }

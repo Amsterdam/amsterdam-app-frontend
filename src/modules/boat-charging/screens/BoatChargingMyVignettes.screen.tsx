@@ -4,7 +4,7 @@ import {BoatChargingMyVignettes} from '@/modules/boat-charging/components/vignet
 
 export const BoatChargingMyVignettesScreen = () => (
   <Screen
-    scroll={false}
+    scroll
     testID="BoatChargingMyVignettesScreen">
     <Box grow>
       <BoatChargingMyVignettes />

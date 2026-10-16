@@ -6,7 +6,6 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
-import {BoatChargingAddVignetScreen} from '@/modules/boat-charging/screens/BoatChargingAddVignet.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
@@ -17,6 +16,7 @@ import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatCharg
 import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
+import {BoatChargingVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
 
 export const screenConfig: StackNavigationRoutes<
   ModuleStackParams,
@@ -112,11 +112,11 @@ export const screenConfig: StackNavigationRoutes<
       SideComponent: BoatChargingAddVignetHeaderButton,
     },
   },
-  [BoatChargingRouteName.addVignet]: {
-    component: BoatChargingAddVignetScreen,
-    name: BoatChargingRouteName.addVignet,
+  [BoatChargingRouteName.vignet]: {
+    component: BoatChargingVignetScreen,
+    name: BoatChargingRouteName.vignet,
     options: {
-      headerTitle: 'Vignet toevoegen',
+      headerShown: false,
     },
   },
 }
