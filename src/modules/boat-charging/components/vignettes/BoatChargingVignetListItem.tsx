@@ -16,7 +16,13 @@ export const BoatChargingVignetListItem = ({
   return (
     // TODO: Change this to ObjectButton once new component has been set up (https://gemeente-amsterdam.atlassian.net/browse/AM-1013?atlOrigin=eyJpIjoiNmJjZDhhNjlmZWE5NDE5ZDg5NWE2MTNkZGE5M2ExMzUiLCJwIjoiaiJ9)
     <TopTaskButton
-      accessibilityLabel={`Vignet ${vignette_number}`}
+      accessibilityLabel={[
+        `Vignet ${vignette_number}`,
+        boat_name,
+        `Geldig tot ${formatDateToDisplay(expiration_date)}`,
+      ]
+        .filter(Boolean)
+        .join(', ')}
       icon={{name: 'boat'}}
       iconRight={{
         name: 'chevron-right',
