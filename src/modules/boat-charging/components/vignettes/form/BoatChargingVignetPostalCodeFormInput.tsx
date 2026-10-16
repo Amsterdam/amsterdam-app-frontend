@@ -13,7 +13,7 @@ export const BoatChargingVignetPostalCodeFormInput = () => (
     rules={{
       required: 'Vul een postcode in.',
       validate: (value: string) =>
-        new RegExp(/^[1-9]\d{3}\s?[A-Z]{2}$/).test(value) ||
+        new RegExp(/^[1-9]\d{3}\s?[a-zA-Z]{2}$/).test(value) ||
         'Vul een geldige postcode in, bijvoorbeeld 1234AB.',
     }}
     testID="BoatChargingVignetPostalCodeFormInputField"
