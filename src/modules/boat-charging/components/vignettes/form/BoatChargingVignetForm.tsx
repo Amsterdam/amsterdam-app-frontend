@@ -8,11 +8,11 @@ import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {alerts} from '@/modules/boat-charging/alerts'
-import {BoatChargingPostalCodeFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingPostalCodeFormInput'
 import {BoatChargingVignetFormAddVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormAddVignetButton'
 import {BoatChargingVignetFormDeleteVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormDeleteVignetButton'
 import {BoatChargingVignetFormEditVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormEditVignetButton'
 import {BoatChargingVignetNumberFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetNumberFormInput'
+import {BoatChargingVignetPostalCodeFormInput} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetPostalCodeFormInput'
 import {BoatChargingVignetFormProvider} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 import type {Vignet} from '@/modules/boat-charging/types'
@@ -86,7 +86,7 @@ export const BoatChargingVignetForm = ({vignetId}: Props) => {
             )}
           </Column>
 
-          <BoatChargingPostalCodeFormInput />
+          <BoatChargingVignetPostalCodeFormInput />
         </Column>
 
         {existingVignet ? (

@@ -21,6 +21,6 @@ export const BoatChargingVignetNumberFormInput = () => (
         message: 'Vul een vignetnummer in van maximaal 10 tekens.',
       },
     }}
-    testID="VignetNumberFormInputField"
+    testID="BoatChargingVignetNumberFormInputField"
   />
 )
