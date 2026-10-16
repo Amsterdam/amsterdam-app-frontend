@@ -1,10 +1,14 @@
 import {useCallback} from 'react'
 import {useFormContext} from 'react-hook-form'
 import {Button} from '@/components/ui/buttons/Button'
+import type {Alerts} from '@/modules/boat-charging/alerts'
 import type {BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {useBoatChargingAddVignetMutation} from '@/modules/boat-charging/service'
 
-type Props = {onError: () => void; onSuccess: () => void}
+type Props = {
+  onError: (error?: unknown[], alert?: Alerts) => void
+  onSuccess: () => void
+}
 
 export const BoatChargingVignetFormAddVignetButton = ({
   onError,

@@ -7,7 +7,7 @@ import {Row} from '@/components/ui/layout/Row'
 import {ExternalInlineLink} from '@/components/ui/text/ExternalInlineLink'
 import {Paragraph} from '@/components/ui/text/Paragraph'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {alerts} from '@/modules/boat-charging/alerts'
+import {alerts, type Alerts} from '@/modules/boat-charging/alerts'
 import {BoatChargingVignetFormAddVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormAddVignetButton'
 import {BoatChargingVignetFormDeleteVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormDeleteVignetButton'
 import {BoatChargingVignetFormEditVignetButton} from '@/modules/boat-charging/components/vignettes/form/BoatChargingVignetFormEditVignetButton'
@@ -38,9 +38,9 @@ export const BoatChargingVignetForm = ({vignetId}: Props) => {
   )
 
   const onError = useCallback(
-    (...error: unknown[]) => {
+    (error?: unknown, alert?: Alerts) => {
       devError(error)
-      setAlert(alerts.vignetInvalidFailed)
+      setAlert(alerts[alert ?? 'vignetInvalidFailed'])
     },
     [setAlert],
   )
