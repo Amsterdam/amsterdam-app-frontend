@@ -213,7 +213,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       Vignet,
       Pick<Vignet, 'postal_code' | 'vignette_number'>
     >({
-      query: (body: Pick<Vignet, 'postal_code' | 'vignette_number'>) => ({
+      query: body => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
         url: '/vignettes',
@@ -226,7 +226,7 @@ export const boatChargingApi = baseApi.injectEndpoints({
       void,
       Vignet['id']
     >({
-      query: (vignetId: Vignet['id']) => ({
+      query: vignetId => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
         url: `/vignettes/${vignetId}`,
@@ -236,16 +236,9 @@ export const boatChargingApi = baseApi.injectEndpoints({
     }),
     [BoatChargingEndpointName.editVignet]: builder.mutation<
       Vignet,
-      Pick<Vignet, 'postal_code' | 'vignette_number'> & {
-        vignetId: Vignet['id']
-      }
+      Pick<Vignet, 'postal_code' | 'vignette_number'> & {vignetId: Vignet['id']}
     >({
-      query: ({
-        vignetId,
-        ...body
-      }: Pick<Vignet, 'postal_code' | 'vignette_number'> & {
-        vignetId: Vignet['id']
-      }) => ({
+      query: ({vignetId, ...body}) => ({
         prepareHeaders,
         slug: ModuleSlug['boat-charging'],
         url: `/vignettes/${vignetId}`,
