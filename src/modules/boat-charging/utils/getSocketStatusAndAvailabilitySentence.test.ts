@@ -64,7 +64,7 @@ describe('getSocketStatusAndAvailabilitySentence', () => {
       })
 
       expect(getSocketStatusAndAvailabilitySentence(location)).toBe(
-        `${String(mapStatusToLabel[(locationStatus as never) ?? ChargingPointStatus.UNKNOWN])} - 2 stopcontacten`,
+        `${mapStatusToLabel[ChargingPointStatus.UNKNOWN]} - 2 stopcontacten`,
       )
     },
   )
