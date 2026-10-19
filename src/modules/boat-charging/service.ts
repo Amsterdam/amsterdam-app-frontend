@@ -205,7 +205,6 @@ export const boatChargingApi = baseApi.injectEndpoints({
         slug: ModuleSlug['boat-charging'],
         url: '/vignettes',
         method: 'GET',
-        headers: deviceIdHeader,
       }),
       providesTags: ['BoatChargingVignettes'],
     }),
