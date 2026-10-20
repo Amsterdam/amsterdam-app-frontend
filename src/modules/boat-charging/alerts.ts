@@ -79,6 +79,11 @@ export const alerts = {
     title: 'Vignet is al in gebruik',
     testID: 'BoatChargingVignetAlreadyInUseAlert',
   },
+  vignetVerificationErrorFailed: {
+    title: 'Vignet controleren is niet gelukt',
+    text: 'Probeer het opnieuw.',
+    testID: 'BoatChargingVignetVerificationFailedAlert',
+  },
 } as const satisfies AlertsRecord
 
 export type Alerts = keyof typeof alerts

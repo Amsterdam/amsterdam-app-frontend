@@ -8,8 +8,7 @@ export const BoatChargingVignetFormAddToMyVignettesSwitch = () => {
 
   return (
     <SwitchField
-      accessibilityLabel="Sla vignet op in Mijn vignetten"
-      accessibilityState={{checked: watch('saveToMyVignettes')}}
+      accessibilityLabel={`Opslaan in Mijn vignetten staat ${watch('saveToMyVignettes') ? 'aan' : 'uit'}`}
       label={<Phrase>Opslaan in Mijn vignetten</Phrase>}
       name="saveToMyVignettes"
       testID="BoatChargingVignetFormSwitchField"

@@ -92,7 +92,7 @@ export const BoatChargingVignetFormVerifyVignetButton = ({
           error => {
             devError(error)
 
-            setAlert(alerts.vignetInvalidFailed)
+            setAlert(alerts.vignetVerificationErrorFailed)
           },
         )
     },
