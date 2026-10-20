@@ -7,9 +7,9 @@ import type {
 
 export enum BoatChargingRouteName {
   activeSessionDetails = 'BoatChargingActiveSessionDetails',
+  confirmSession = 'BoatChargingConfirmSession',
   forgotAccessCode = 'BoatChargingForgotAccessCode',
   guestEmail = 'BoatChargingGuestEmail',
-  guestEmailConfirm = 'BoatChargingGuestEmailConfirm',
   help = 'BoatChargingHelp',
   history = 'BoatChargingHistory',
   historySessionDetails = 'BoatChargingHistorySessionDetails',
@@ -20,6 +20,7 @@ export enum BoatChargingRouteName {
   myVignettes = 'BoatChargingMyVignettes',
   paymentResult = 'BoatChargingPaymentResult',
   termsAndConditions = 'BoatChargingTermsAndConditions',
+  verifyVignet = 'BoatChargingVerifyVignet',
   vignet = 'BoatChargingVignet',
 }
 
@@ -29,7 +30,6 @@ export type ModuleStackParams = {
     id: BoatChargingLocation['id']
   }
   [BoatChargingRouteName.guestEmail]: undefined
-  [BoatChargingRouteName.guestEmailConfirm]: undefined
   [BoatChargingRouteName.help]: undefined
   [BoatChargingRouteName.history]: undefined
   [BoatChargingRouteName.login]: undefined
@@ -44,6 +44,8 @@ export type ModuleStackParams = {
     paymentStatus: BoatChargingPaymentResultStatus
     sessionId: BoatChargingSession['id']
   }
+  [BoatChargingRouteName.confirmSession]: undefined
   [BoatChargingRouteName.myVignettes]: undefined
   [BoatChargingRouteName.vignet]: undefined | {vignetId: Vignet['id']}
+  [BoatChargingRouteName.verifyVignet]: undefined
 }

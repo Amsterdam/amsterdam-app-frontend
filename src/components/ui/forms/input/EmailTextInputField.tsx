@@ -11,6 +11,7 @@ type Props<TName extends string> = Pick<
   | 'required'
   | 'disabled'
   | 'onSubmitEditing'
+  | 'inputInstructions'
 > & {
   name: TName
   rules?: {validate: RegisterOptions['validate']}

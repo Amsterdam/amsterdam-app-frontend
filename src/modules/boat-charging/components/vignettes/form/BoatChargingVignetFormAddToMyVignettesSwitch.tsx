@@ -1,0 +1,18 @@
+import {useFormContext} from 'react-hook-form'
+import {SwitchField} from '@/components/ui/forms/SwitchField'
+import {Phrase} from '@/components/ui/text/Phrase'
+import type {BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
+
+export const BoatChargingVignetFormAddToMyVignettesSwitch = () => {
+  const {watch} = useFormContext<BoatChargingVignetFormValues>()
+
+  return (
+    <SwitchField
+      accessibilityLabel="Sla vignet op in Mijn vignetten"
+      accessibilityState={{checked: watch('saveToMyVignettes')}}
+      label={<Phrase>Opslaan in Mijn vignetten</Phrase>}
+      name="saveToMyVignettes"
+      testID="BoatChargingVignetFormSwitchField"
+    />
+  )
+}
