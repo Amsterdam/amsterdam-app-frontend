@@ -9,11 +9,11 @@ import type {Vignet} from '@/modules/boat-charging/types'
 type Props = {
   onError: (error?: unknown[], alert?: Alerts) => void
   onSuccess: () => void
-  vignetId: Vignet['id']
+  vignet: Vignet
 }
 
 export const BoatChargingVignetFormEditVignetButton = ({
-  vignetId,
+  vignet,
   onError,
   onSuccess,
 }: Props) => {
@@ -21,15 +21,24 @@ export const BoatChargingVignetFormEditVignetButton = ({
   const {handleSubmit} = useFormContext<BoatChargingVignetFormValues>()
 
   const onEditVignet = useCallback(
-    ({postalCode, vignetNumber}: BoatChargingVignetFormValues) =>
-      editVignet({
-        vignetId,
+    ({postalCode, vignetNumber}: BoatChargingVignetFormValues) => {
+      if (
+        postalCode === vignet.postal_code &&
+        vignetNumber === vignet.vignette_number
+      ) {
+        // Simply return when values are unchanged
+        return Promise.resolve().then(onSuccess)
+      }
+
+      return editVignet({
+        vignetId: vignet.id,
         postal_code: postalCode,
         vignette_number: vignetNumber,
       })
         .unwrap()
-        .then(onSuccess, onError),
-    [editVignet, onSuccess, onError, vignetId],
+        .then(onSuccess, onError)
+    },
+    [editVignet, onSuccess, onError, vignet],
   )
 
   return (
