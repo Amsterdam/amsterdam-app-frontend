@@ -5,6 +5,7 @@ import {
   useTrackEvents,
   PiwikDimension,
 } from '@/processes/logging/hooks/useTrackEvents'
+import {LogTarget} from '@/processes/logging/utils/getTrackEvents'
 
 export const AppStateListener = () => {
   const {ready, trackCustomEvent} = useTrackEvents()
@@ -16,11 +17,18 @@ export const AppStateListener = () => {
     }
 
     const subscription = AppState.addEventListener('change', nextAppState => {
-      trackCustomEvent('appStateChange', PiwikAction.appStateChange, {
-        [PiwikDimension.newState]: [appState.current, nextAppState].join(
-          ' -> ',
-        ),
-      })
+      trackCustomEvent(
+        'appStateChange',
+        PiwikAction.appStateChange,
+        {
+          [PiwikDimension.newState]: [appState.current, nextAppState].join(
+            ' -> ',
+          ),
+        },
+        undefined,
+        undefined,
+        LogTarget.appInsights,
+      )
       appState.current = nextAppState
     })
 
