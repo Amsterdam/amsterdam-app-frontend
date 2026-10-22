@@ -11,6 +11,8 @@ import {ParkingSessionStatus} from '@/modules/parking/types'
 import {useAlert} from '@/store/slices/alert'
 import type {NonOptional} from '@/types/utils'
 
+type FieldValues = NonOptional<ParkingSessionFormValues, 'licensePlate'>
+
 export const ParkingActivateLicensePlateButton = () => {
   const {goBack} = useNavigation()
   const currentPermit = useCurrentParkingPermit()
@@ -29,17 +31,17 @@ export const ParkingActivateLicensePlateButton = () => {
     handleSubmit,
     formState: {isSubmitting},
     setError,
-  } = useFormContext<NonOptional<ParkingSessionFormValues, 'licensePlate'>>()
+  } = useFormContext<FieldValues>()
 
   const {report_code} = currentPermit
 
   const onSubmit = useCallback(
-    ({licensePlate}: NonOptional<ParkingSessionFormValues, 'licensePlate'>) => {
+    ({licensePlate}: FieldValues) => {
       if (activeParkingSessions?.[0].vehicle_id === licensePlate.vehicle_id) {
         return
       }
 
-      void activateSession({
+      return activateSession({
         report_code: report_code.toString(),
         vehicle_id: licensePlate.vehicle_id,
       })

@@ -10,14 +10,13 @@ import {useEditSessionMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
 import type {NonOptional} from '@/types/utils'
 
+type FieldValues = NonOptional<
+  ParkingSessionFormValues,
+  'report_code' | 'ps_right_id' | 'licensePlate'
+>
+
 export const ParkingEditSessionButtons = () => {
-  const {handleSubmit, formState} =
-    useFormContext<
-      NonOptional<
-        ParkingSessionFormValues,
-        'report_code' | 'ps_right_id' | 'licensePlate'
-      >
-    >()
+  const {handleSubmit, formState} = useFormContext<FieldValues>()
   const [editSession, {isLoading}] = useEditSessionMutation()
 
   const navigation = useNavigation()
@@ -32,10 +31,7 @@ export const ParkingEditSessionButtons = () => {
       ps_right_id,
       amount,
       licensePlate: {vehicle_id},
-    }: NonOptional<
-      ParkingSessionFormValues,
-      'report_code' | 'ps_right_id' | 'licensePlate'
-    >) => {
+    }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
         return editSession({
           parking_session: {

@@ -9,11 +9,13 @@ import {useStartSessionMutation} from '@/modules/parking/service'
 import {useAlert} from '@/store/slices/alert'
 import type {NonOptional} from '@/types/utils'
 
+type FieldValues = NonOptional<
+  ParkingSessionFormValues,
+  'report_code' | 'licensePlate'
+>
+
 export const ParkingVisitorExtendSessionButton = () => {
-  const {handleSubmit, formState} =
-    useFormContext<
-      NonOptional<ParkingSessionFormValues, 'report_code' | 'licensePlate'>
-    >()
+  const {handleSubmit, formState} = useFormContext<FieldValues>()
   const [startSession, {isLoading}] = useStartSessionMutation()
 
   const navigation = useNavigation()
@@ -29,10 +31,7 @@ export const ParkingVisitorExtendSessionButton = () => {
       amount,
       licensePlate: {vehicle_id},
       parking_machine,
-    }: NonOptional<
-      ParkingSessionFormValues,
-      'report_code' | 'licensePlate'
-    >) => {
+    }: FieldValues) => {
       if (endTime && startTime.isBefore(endTime)) {
         return startSession({
           parking_session: {

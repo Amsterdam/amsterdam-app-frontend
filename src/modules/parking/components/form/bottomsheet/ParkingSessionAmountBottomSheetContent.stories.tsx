@@ -1,11 +1,12 @@
 import type {Meta, StoryObj} from '@storybook/react-native-web-vite'
 import {FormProvider, useForm} from 'react-hook-form'
+import type {ParkingIncreaseBalanceFormValues} from '@/modules/parking/screens/ParkingIncreaseBalance.screen'
 import {ParkingSessionAmountBottomSheetContent} from './ParkingSessionAmountBottomSheetContent'
 
 const meta = {
   component: ParkingSessionAmountBottomSheetContent,
   decorators: Story => {
-    const form = useForm<{amount?: number}>()
+    const form = useForm<ParkingIncreaseBalanceFormValues>()
 
     return (
       <FormProvider {...form}>

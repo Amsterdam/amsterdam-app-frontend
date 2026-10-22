@@ -16,13 +16,15 @@ import {useAlert} from '@/store/slices/alert'
 import {Duration} from '@/types/duration'
 import type {NonOptional} from '@/types/utils'
 
+type FieldValues = NonOptional<ParkingSessionFormValues, 'licensePlate'>
+
 export const ParkingStartSessionButton = () => {
   const {
     handleSubmit,
     clearErrors,
     formState: {isSubmitting, errors},
     setError,
-  } = useFormContext<NonOptional<ParkingSessionFormValues, 'licensePlate'>>()
+  } = useFormContext<FieldValues>()
   const {report_code, permit_type} = useCurrentParkingPermit()
   const {setAlert} = useAlert()
   const [startSession, {isLoading}] = useStartSessionMutation()
@@ -50,7 +52,7 @@ export const ParkingStartSessionButton = () => {
       licensePlate,
       parking_machine,
       parking_machine_favorite,
-    }: NonOptional<ParkingSessionFormValues, 'licensePlate'>) => {
+    }: FieldValues) => {
       clearErrors('root.serverError')
 
       // TODO: check if the limit of current active parking sessions is not reached

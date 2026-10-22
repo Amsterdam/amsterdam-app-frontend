@@ -15,7 +15,7 @@ export const useRemainingTimeBalanceError = (remainingTimeBalance?: number) => {
 
   const remainingTimeBalanceError =
     currentPermit.time_balance_applicable &&
-    remainingTimeBalance &&
+    typeof remainingTimeBalance === 'number' &&
     remainingTimeBalance < 0
 
   useEffect(() => {
@@ -33,9 +33,5 @@ export const useRemainingTimeBalanceError = (remainingTimeBalance?: number) => {
     setError,
   ])
 
-  return (
-    currentPermit.time_balance_applicable &&
-    !!remainingTimeBalance &&
-    remainingTimeBalance < 0
-  )
+  return remainingTimeBalanceError
 }

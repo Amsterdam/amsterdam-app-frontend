@@ -13,7 +13,10 @@ import {useCurrentParkingPermit} from '@/modules/parking/hooks/useCurrentParking
 import {useGetRemainingBalance} from '@/modules/parking/hooks/useGetRemainingBalance'
 import {useRemainingTimeBalanceError} from '@/modules/parking/hooks/useRemainingTimeBalanceError'
 import {useRemainingWalletBalanceError} from '@/modules/parking/hooks/useRemainingWalletBalanceError'
-import {useSessionReceiptQuery} from '@/modules/parking/service'
+import {
+  useAccountDetailsQuery,
+  useSessionReceiptQuery,
+} from '@/modules/parking/service'
 import {useParkingAccount} from '@/modules/parking/slice'
 import {ParkingLicensePlate, ParkingPermitScope} from '@/modules/parking/types'
 import {getDateForCostCalculation} from '@/modules/parking/utils/getDateForCostCalculation'
@@ -24,6 +27,8 @@ export const ParkingReceipt = () => {
   const parkingAccount = useParkingAccount()
   const currentPermit = useCurrentParkingPermit()
   const {isOpen} = useBottomSheet()
+  const {data: accountDetails, isLoading: isLoadingAccountDetails} =
+    useAccountDetailsQuery()
 
   const {
     setValue,
@@ -81,6 +86,7 @@ export const ParkingReceipt = () => {
       : data?.costs.value
 
   const {remainingTimeBalance, remainingWalletBalance} = useGetRemainingBalance(
+    accountDetails,
     startTime,
     endTime,
     originalEndTime,
@@ -104,6 +110,7 @@ export const ParkingReceipt = () => {
     useRemainingTimeBalanceError(remainingTimeBalance)
 
   const remainingWalletBalanceError = useRemainingWalletBalanceError(
+    accountDetails,
     remainingWalletBalance,
   )
 
@@ -113,7 +120,7 @@ export const ParkingReceipt = () => {
     }
   }, [parkingAccount, data, setValue])
 
-  if (isLoading) {
+  if (isLoading || isLoadingAccountDetails) {
     return (
       <PleaseWait
         showFeedback
