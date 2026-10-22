@@ -38,7 +38,10 @@ export const BoatChargingLoginRegister = ({
         />
         <Button
           label="Account aanmaken"
-          onPress={() => navigate(BoatChargingRouteName.createAccount)}
+          onPress={() => {
+            setPendingScreen(pendingScreen)
+            navigate(BoatChargingRouteName.createAccount)
+          }}
           testID="BoatChargingLoginRegisterCreateAccountButton"
           variant="tertiary"
         />

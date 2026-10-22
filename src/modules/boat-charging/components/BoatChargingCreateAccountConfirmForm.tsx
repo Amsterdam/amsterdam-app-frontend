@@ -26,11 +26,6 @@ type FormValues = {
   confirmationCode: string
 }
 
-const confirmErrorNameToAlertMap: Record<string, keyof typeof alerts> = {
-  ExpiredCodeException: 'createAccountCodeExpiredFailed',
-  CodeMismatchException: 'createAccountCodeMismatchFailed',
-}
-
 export const BoatChargingCreateAccountConfirmForm = () => {
   const {openIdConnectConfig} = useOpenIdConnect()
   const {resetAlert, setAlert} = useAlert()
@@ -39,36 +34,81 @@ export const BoatChargingCreateAccountConfirmForm = () => {
   const storeSession = useStoreSession()
   const navigation = useNavigation()
 
+  const [isResendingCode, setIsResendingCode] = useState(false)
+  const resendSignUpCode = useCallback(async () => {
+    if (!username) {
+      setAlert(alerts.createAccountConfirmFailed)
+      navigation.goBack()
+    } else if (openIdConnectConfig) {
+      try {
+        setIsResendingCode(true)
+        await resendSignUpCodeWithOpenIdConnect(username, openIdConnectConfig)
+
+        setAlert(alerts.createAccountResendConfirmSuccess)
+      } catch (error) {
+        devError(
+          'Error resending sign up code: ',
+          isObjectWithKeys(error, {name: 'string'}) ? error.name : '',
+          error,
+        )
+        setAlert(alerts.createAccountResendConfirmFailed)
+      } finally {
+        setIsResendingCode(false)
+      }
+    } else {
+      throw new Error('OpenID Connect config is not available')
+    }
+  }, [navigation, openIdConnectConfig, setAlert, username])
+
   const handleConfirmSignUpError = useCallback(
     async (error: unknown) => {
       if (openIdConnectConfig && isObjectWithKeys(error, {name: 'string'})) {
-        if (error.name === 'NotAuthorizedException') {
-          try {
-            const session =
-              await getStoredOpenIdConnectSession(openIdConnectConfig)
+        switch (error.name) {
+          case 'NotAuthorizedException': {
+            try {
+              const session =
+                await getStoredOpenIdConnectSession(openIdConnectConfig)
 
-            if (session) {
-              storeSession(session)
-            } else {
+              if (session) {
+                storeSession(session)
+              } else {
+                setAlert(alerts.createAccountConfirmFailed)
+              }
+            } catch (errorDuringSessionRetrieval) {
+              devError(errorDuringSessionRetrieval)
               setAlert(alerts.createAccountConfirmFailed)
             }
-          } catch (errorDuringSessionRetrieval) {
-            devError(errorDuringSessionRetrieval)
-            setAlert(alerts.createAccountConfirmFailed)
+
+            break
           }
-        } else if (error.name === 'AutoSignInException') {
-          navigation.navigate(BoatChargingRouteName.login)
-        } else if (confirmErrorNameToAlertMap[error.name]) {
-          setAlert(alerts[confirmErrorNameToAlertMap[error.name]])
-        } else {
-          devError('Unknown case: ', error.name, error)
-          setAlert(alerts.createAccountConfirmFailed)
+
+          case 'AutoSignInException': {
+            navigation.navigate(BoatChargingRouteName.login)
+            break
+          }
+
+          case 'ExpiredCodeException': {
+            await resendSignUpCode()
+            setAlert(alerts.createAccountCodeExpiredFailed)
+            break
+          }
+
+          case 'CodeMismatchException': {
+            setAlert(alerts.createAccountCodeMismatchFailed)
+            break
+          }
+
+          default: {
+            devError('Unknown case: ', error.name, error)
+            setAlert(alerts.createAccountConfirmFailed)
+            break
+          }
         }
       } else {
         setAlert(alerts.createAccountConfirmFailed)
       }
     },
-    [navigation, openIdConnectConfig, setAlert, storeSession],
+    [navigation, openIdConnectConfig, resendSignUpCode, setAlert, storeSession],
   )
 
   const confirmSignUp = useCallback(
@@ -110,31 +150,6 @@ export const BoatChargingCreateAccountConfirmForm = () => {
       username,
     ],
   )
-  const [isResendingCode, setIsResendingCode] = useState(false)
-  const resendSignUpCode = useCallback(async () => {
-    if (!username) {
-      setAlert(alerts.createAccountConfirmFailed)
-      navigation.goBack()
-    } else if (openIdConnectConfig) {
-      try {
-        setIsResendingCode(true)
-        await resendSignUpCodeWithOpenIdConnect(username, openIdConnectConfig)
-
-        setAlert(alerts.createAccountResendConfirmSuccess)
-      } catch (error) {
-        devError(
-          'Error resending sign up code: ',
-          isObjectWithKeys(error, {name: 'string'}) ? error.name : '',
-          error,
-        )
-        setAlert(alerts.createAccountResendConfirmFailed)
-      } finally {
-        setIsResendingCode(false)
-      }
-    } else {
-      throw new Error('OpenID Connect config is not available')
-    }
-  }, [navigation, openIdConnectConfig, setAlert, username])
   const form = useForm<FormValues>()
 
   const handleConfirm: SubmitHandler<FormValues> = useCallback(

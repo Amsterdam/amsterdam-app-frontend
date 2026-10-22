@@ -57,7 +57,7 @@ export const TextInputField = <
 >({
   ref,
   autoFocus,
-  defaultValue,
+  defaultValue = '' as UseControllerProps<TFieldValues, TName>['defaultValue'],
   inputInstructions,
   label,
   maxCharacters,
