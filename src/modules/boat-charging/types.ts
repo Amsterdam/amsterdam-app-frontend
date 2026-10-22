@@ -19,6 +19,7 @@ export enum BoatChargingEndpointName {
   boatChargingTerms = 'boatChargingTerms',
   deleteVignet = 'boatChargingDeleteVignet',
   editVignet = 'boatChargingEditVignet',
+  verifyVignet = 'boatChargingVerifyVignet',
   vignettes = 'boatChargingVignettes',
 }
 
@@ -248,9 +249,9 @@ export enum BoatChargingCostBreakdownItemType {
 
 export type NewSessionFormValues = {
   approvedTerms?: boolean
-  didVerifyEmail?: boolean
   email?: string
   selectedSocket?: BoatChargingSelectSocketFormSelectedSocket
+  vignet?: Omit<Vignet, 'id'>
 }
 
 export type Vignet = {
@@ -260,3 +261,34 @@ export type Vignet = {
   postal_code: string
   vignette_number: string
 }
+
+export enum VignetInvalidReasons {
+  /**
+   * The vignette has been signed off / cancelled.
+   */
+  cancelled = 'CANCELLED',
+  /**
+   * The vignette has expired.
+   */
+  expired = 'EXPIRED',
+  /**
+   * The postcode does not match the vignette’s legal owner.
+   */
+  mismatch = 'MISMATCH',
+  /**
+   * The register does not know this vignette number.
+   */
+  notFound = 'NOT_FOUND',
+  /**
+   * The vignette type may not be used for charging; only the environment type is allowed.
+   */
+  onlyEnvironmentTypeAllowed = 'ONLY_ENVIRONMENT_TYPE_ALLOWED',
+}
+
+export type BoatChargingVerifyVignetResponse = Or<
+  {
+    expiration_date: string
+    status: 'valid'
+  },
+  {reason: VignetInvalidReasons; status: 'invalid'}
+>

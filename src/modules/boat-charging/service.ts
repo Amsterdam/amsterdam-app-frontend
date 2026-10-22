@@ -17,6 +17,7 @@ import {
   type BoatChargingSettings,
   type BoatChargingSocketStatusResponse,
   type BoatChargingTerms,
+  type BoatChargingVerifyVignetResponse,
   type Vignet,
 } from '@/modules/boat-charging/types'
 import {prepareHeaders} from '@/modules/boat-charging/utils/prepareHeaders'
@@ -246,6 +247,18 @@ export const boatChargingApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ['BoatChargingVignettes'],
     }),
+    [BoatChargingEndpointName.verifyVignet]: builder.mutation<
+      BoatChargingVerifyVignetResponse,
+      Pick<Vignet, 'postal_code' | 'vignette_number'>
+    >({
+      query: body => ({
+        prepareHeaders,
+        slug: ModuleSlug['boat-charging'],
+        url: '/vignettes/verify',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
   overrideExisting: false,
 })
@@ -268,4 +281,5 @@ export const {
   useBoatChargingAddVignetMutation,
   useBoatChargingDeleteVignetMutation,
   useBoatChargingEditVignetMutation,
+  useBoatChargingVerifyVignetMutation,
 } = boatChargingApi

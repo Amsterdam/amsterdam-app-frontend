@@ -6,6 +6,7 @@ export enum RedirectKey {
   boatChargingForgotPassword = 'boatChargingForgotPassword',
   boatChargingRequestVignet = 'boatChargingRequestVignet',
   boatChargingTermsAndConditions = 'boatChargingTermsAndConditions',
+  boatChargingVignetInfo = 'boatChargingVignetInfo',
   chatPrivacy = 'chatPrivacy',
   cityPassChildBudget = 'cityPassChildBudget',
   cityPassLowIncomeSupport = 'cityPassLowIncomeSupport',

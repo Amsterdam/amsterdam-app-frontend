@@ -2,6 +2,7 @@ import {
   AlertsRecord,
   AlertVariant,
 } from '@/components/ui/feedback/alert/Alert.types'
+import {RedirectKey} from '@/modules/redirects/exports/RedirectKey'
 
 export const alerts = {
   paymentFailed: {
@@ -56,6 +57,32 @@ export const alerts = {
     text: 'Het vignet is niet verwijderd. Probeer het later nog eens.',
     title: 'Er ging iets mis',
     testID: 'BoatChargingVignetDeleteAlert',
+  },
+  vignetExpiredFailed: {
+    variant: AlertVariant.negative,
+    text: 'Dit vignet is niet meer geldig.',
+    title: 'Dit vignet is verlopen',
+    testID: 'BoatChargingVignetExpiredAlert',
+  },
+  vignetNotApplicableFailed: {
+    variant: AlertVariant.negative,
+    externalLink: {
+      label: 'Bekijk welk vignet u nodig heeft',
+      redirectKey: RedirectKey.boatChargingVignetInfo,
+    },
+    title: 'Met dit vignet kunt u niet laden',
+    testID: 'BoatChargingVignetNotApplicableAlert',
+  },
+  vignetAlreadyInUseFailed: {
+    variant: AlertVariant.negative,
+    text: 'Er is al een actieve laadsessie met dit vignet. Controleer uw actieve laadsessies.',
+    title: 'Vignet is al in gebruik',
+    testID: 'BoatChargingVignetAlreadyInUseAlert',
+  },
+  vignetVerificationErrorFailed: {
+    title: 'Vignet controleren is niet gelukt',
+    text: 'Probeer het opnieuw.',
+    testID: 'BoatChargingVignetVerificationFailedAlert',
   },
 } as const satisfies AlertsRecord
 

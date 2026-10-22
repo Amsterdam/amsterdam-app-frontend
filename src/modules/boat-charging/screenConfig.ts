@@ -7,7 +7,6 @@ import {
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
-import {BoatChargingGuestEmailConfirmScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmailConfirm.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
 import {BoatChargingHistorySessionDetailsScreen} from '@/modules/boat-charging/screens/BoatChargingHistorySessionDetails.screen'
@@ -16,6 +15,7 @@ import {BoatChargingLoginScreen} from '@/modules/boat-charging/screens/BoatCharg
 import {BoatChargingMyVignettesScreen} from '@/modules/boat-charging/screens/BoatChargingMyVignettes.screen'
 import {BoatChargingPaymentResultScreen} from '@/modules/boat-charging/screens/BoatChargingPaymentResult.screen'
 import {BoatChargingTermsAndConditionsScreen} from '@/modules/boat-charging/screens/BoatChargingTermsAndConditions.screen'
+import {BoatChargingVerifyVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVerifyVignet.screen'
 import {BoatChargingVignetScreen} from '@/modules/boat-charging/screens/BoatChargingVignet.screen'
 
 export const screenConfig: StackNavigationRoutes<
@@ -46,11 +46,18 @@ export const screenConfig: StackNavigationRoutes<
       headerTitle: 'Laden zonder account',
     },
   },
-  [BoatChargingRouteName.guestEmailConfirm]: {
-    component: BoatChargingGuestEmailConfirmScreen,
-    name: BoatChargingRouteName.guestEmailConfirm,
+  [BoatChargingRouteName.verifyVignet]: {
+    component: BoatChargingVerifyVignetScreen,
+    name: BoatChargingRouteName.verifyVignet,
     options: {
-      headerTitle: 'Controleer uw e-mailadres',
+      headerTitle: 'Vignet controleren',
+    },
+  },
+  [BoatChargingRouteName.confirmSession]: {
+    component: () => null,
+    name: BoatChargingRouteName.confirmSession,
+    options: {
+      headerTitle: 'Laadsessie controleren',
     },
   },
   [BoatChargingRouteName.help]: {

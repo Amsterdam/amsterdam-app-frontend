@@ -2,8 +2,8 @@ import {useCallback} from 'react'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
 import {useSelector} from '@/hooks/redux/useSelector'
-import {useStore} from '@/hooks/redux/useStore'
 import {alerts} from '@/modules/boat-charging/alerts'
+import {useInitSessionNextStep} from '@/modules/boat-charging/hooks/useInitSessionNextStep'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
@@ -16,14 +16,15 @@ import {
   selectLastApprovedTermsVersionWhileLoggedIn,
 } from '@/modules/boat-charging/slice'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
+import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
-import {validateEmail} from '@/utils/validate'
 
 export enum BoatChargingInitSessionStep {
   guestEmail = 2,
-  guestEmailConfirm = 3,
+  verifyVignet = 3,
   selectSocket = 1,
   termsAndConditions = 4,
+  confirmSession = 5,
 }
 
 export const useInitSession = (step: BoatChargingInitSessionStep) => {
@@ -39,20 +40,15 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
   )
   const {isLoggedIn} = useIsLoggedIn()
   const navigation = useNavigation()
-  const {navigate} = navigation
   const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
   const openWebUrl = useOpenWebUrl()
-  const store = useStore()
   const {setAlert} = useAlert()
+  const getNextStep = useInitSessionNextStep(step)
 
   const onPress = useCallback(
     (params: NewSessionFormValues) => {
-      const state = store.getState()
-      let email = params.email
-      const {selectedSocket, approvedTerms, didVerifyEmail} = params
-      const {socketNumber, stationId} = selectedSocket || {}
-      const lastApprovedTermsVersionFromState =
-        selectLastApprovedTermsVersionWhileLoggedIn(state)
+      const email = isLoggedIn ? loggedInUsername : params.email
+      const {socketNumber, stationId} = params.selectedSocket || {}
 
       if (!socketNumber || !stationId) {
         navigation.replace(BoatChargingRouteName.map)
@@ -60,46 +56,18 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         return Promise.resolve()
       }
 
-      if (isLoggedIn) {
-        if (!loggedInUsername) {
-          return Promise.resolve()
-        }
+      const nextStep = getNextStep(params)
 
-        email = loggedInUsername
+      if (nextStep) {
+        navigation.navigate(nextStep)
 
-        if (terms?.version !== lastApprovedTermsVersionFromState) {
-          navigate(BoatChargingRouteName.termsAndConditions)
+        return Promise.resolve()
+      }
 
-          return Promise.resolve()
-        }
-      } else {
-        if (
-          !email ||
-          validateEmail(email) !== true ||
-          step === BoatChargingInitSessionStep.selectSocket
-        ) {
-          navigate(BoatChargingRouteName.guestEmail)
+      if (!email) {
+        devError('No email set to init session.')
 
-          return Promise.resolve()
-        }
-
-        if (
-          !didVerifyEmail ||
-          step === BoatChargingInitSessionStep.guestEmail
-        ) {
-          navigate(BoatChargingRouteName.guestEmailConfirm)
-
-          return Promise.resolve()
-        }
-
-        if (
-          !approvedTerms ||
-          step === BoatChargingInitSessionStep.guestEmailConfirm
-        ) {
-          navigate(BoatChargingRouteName.termsAndConditions)
-
-          return Promise.resolve()
-        }
+        return Promise.resolve()
       }
 
       return initSession({
@@ -120,16 +88,13 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         )
     },
     [
-      initSession,
       isLoggedIn,
       loggedInUsername,
-      navigate,
+      initSession,
       navigation,
+      getNextStep,
       openWebUrl,
       setAlert,
-      step,
-      store,
-      terms?.version,
     ],
   )
 
