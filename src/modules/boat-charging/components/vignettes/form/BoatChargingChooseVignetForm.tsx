@@ -1,4 +1,4 @@
-import {useMemo, type ComponentProps} from 'react'
+import {useLayoutEffect, useMemo, type ComponentProps} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -14,7 +14,7 @@ import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
 import {useBoatChargingVignettesQuery} from '@/modules/boat-charging/service'
 
 export const BoatChargingChooseVignetForm = () => {
-  const {navigate} = useNavigation()
+  const navigation = useNavigation()
   const {
     data: vignettes = [],
     isLoading,
@@ -39,11 +39,21 @@ export const BoatChargingChooseVignetForm = () => {
       [vignettes],
     )
 
+  useLayoutEffect(() => {
+    if (!isLoading && vignettes && !vignettes.length) {
+      /**
+       * When a user does not have vignettes connected to their account and they arrive on this route
+       * from the pendingScreen set in @see BoatChargingGuestEmailForm we forward and replace to verifyVignet screen.
+       * */
+      navigation.replace(BoatChargingRouteName.verifyVignet)
+    }
+  }, [isLoading, vignettes, navigation])
+
   if (isLoading) {
     return <PleaseWait testID="BoatChargingChooseVignetFormPleaseWait" />
   }
 
-  if (!vignettes?.length || isError) {
+  if (isError) {
     return (
       <SomethingWentWrong testID="BoatChargingChooseVignetFormSomethingWentWrong" />
     )
@@ -66,7 +76,7 @@ export const BoatChargingChooseVignetForm = () => {
         insetHorizontal="no"
         onPress={() => {
           form.setValue('vignet', null)
-          navigate(BoatChargingRouteName.verifyVignet)
+          navigation.navigate(BoatChargingRouteName.verifyVignet)
         }}
         testID="BoatChargingChooseVignetFormVerifyVignetNavigationButton"
         title="Ander vignet invullen"
