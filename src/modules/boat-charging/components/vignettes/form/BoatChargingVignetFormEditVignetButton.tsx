@@ -5,6 +5,7 @@ import type {Alerts} from '@/modules/boat-charging/alerts'
 import type {BoatChargingVignetFormValues} from '@/modules/boat-charging/providers/BoatChargingVignetForm.provider'
 import {useBoatChargingEditVignetMutation} from '@/modules/boat-charging/service'
 import type {Vignet} from '@/modules/boat-charging/types'
+import {isSameStringValue} from '@/modules/boat-charging/utils/isSameStringValue'
 
 type Props = {
   onError: (error?: unknown[], alert?: Alerts) => void
@@ -23,8 +24,8 @@ export const BoatChargingVignetFormEditVignetButton = ({
   const onEditVignet = useCallback(
     ({postalCode, vignetNumber}: BoatChargingVignetFormValues) => {
       if (
-        postalCode === vignet.postal_code &&
-        vignetNumber === vignet.vignette_number
+        isSameStringValue(postalCode, vignet.postal_code) &&
+        isSameStringValue(vignetNumber, vignet.vignette_number)
       ) {
         // Simply return when values are unchanged
         return Promise.resolve().then(onSuccess)
