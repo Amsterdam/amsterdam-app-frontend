@@ -5,6 +5,7 @@ import {BoatChargingCreateAccountForm} from '@/modules/boat-charging/components/
 export const BoatChargingCreateAccountScreen = () => (
   <Screen
     hasStickyAlert
+    keyboardAware
     testID="BoatChargingCreateAccountScreen">
     <Box grow>
       <BoatChargingCreateAccountForm />
