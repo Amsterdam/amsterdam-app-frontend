@@ -7,6 +7,7 @@ import {
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
 import {BoatChargingChooseVignetScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
+import {BoatChargingConfirmSession} from '@/modules/boat-charging/screens/BoatChargingConfirmSession.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
@@ -62,7 +63,7 @@ export const screenConfig: StackNavigationRoutes<
     },
   },
   [BoatChargingRouteName.confirmSession]: {
-    component: () => null,
+    component: BoatChargingConfirmSession,
     name: BoatChargingRouteName.confirmSession,
     options: {
       headerTitle: 'Laadsessie controleren',
