@@ -20,6 +20,10 @@ import {
   resendSignUpCodeWithOpenIdConnect,
 } from '@/modules/boat-charging/utils/openIdConnect'
 import {devError} from '@/processes/development'
+import {
+  ExceptionLogKey,
+  useTrackException,
+} from '@/processes/logging/hooks/useTrackException'
 import {dayjs} from '@/utils/datetime/dayjs'
 
 export const useOpenIdConnectAuth = () => {
@@ -65,6 +69,7 @@ export const useOpenIdConnectAuth = () => {
       }
     }
   }, [dispatch, openIdConnectConfig, storeSession])
+  const trackException = useTrackException()
 
   const signIn = useCallback(
     async (username: string, password: string) => {
@@ -87,7 +92,13 @@ export const useOpenIdConnectAuth = () => {
             navigate(BoatChargingRouteName.createAccountConfirm)
           } else {
             devError('Unhandled next step:', result.nextStep)
-            // TODO: log naar app insights
+            trackException(
+              ExceptionLogKey.boatChargingUnhandledNextStep,
+              'useOpenIdConnectAuth.ts',
+              {
+                nextStep: result.nextStep,
+              },
+            )
           }
         } catch (error) {
           devError(error)
@@ -97,7 +108,7 @@ export const useOpenIdConnectAuth = () => {
         throw new Error('OpenID Connect config is not available')
       }
     },
-    [dispatch, navigate, openIdConnectConfig, storeSession],
+    [dispatch, navigate, openIdConnectConfig, storeSession, trackException],
   )
 
   const signOut = useCallback(async () => {
