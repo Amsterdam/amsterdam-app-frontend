@@ -1,4 +1,4 @@
-import {useLayoutEffect, useMemo, type ComponentProps} from 'react'
+import {useMemo, type ComponentProps} from 'react'
 import {NavigationButton} from '@/components/ui/buttons/NavigationButton'
 import {PleaseWait} from '@/components/ui/feedback/PleaseWait'
 import {SomethingWentWrong} from '@/components/ui/feedback/SomethingWentWrong'
@@ -6,6 +6,7 @@ import {RadioGroupControlled} from '@/components/ui/forms/RadioGroupControlled'
 import {Column} from '@/components/ui/layout/Column'
 import {Phrase} from '@/components/ui/text/Phrase'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
+import {useFocusAndForegroundEffect} from '@/hooks/useFocusAndForegroundEffect'
 import {
   BoatChargingInitSessionStep,
   useInitSession,
@@ -39,7 +40,7 @@ export const BoatChargingChooseVignetForm = () => {
       [vignettes],
     )
 
-  useLayoutEffect(() => {
+  useFocusAndForegroundEffect(() => {
     if (!isLoading && vignettes && !vignettes.length) {
       /**
        * When a user does not have vignettes connected to their account and they arrive on this route
