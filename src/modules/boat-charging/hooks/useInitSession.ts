@@ -1,20 +1,12 @@
 import {useCallback} from 'react'
 import {useOpenWebUrl} from '@/hooks/linking/useOpenWebUrl'
 import {useNavigation} from '@/hooks/navigation/useNavigation'
-import {useSelector} from '@/hooks/redux/useSelector'
 import {alerts} from '@/modules/boat-charging/alerts'
 import {useInitSessionNextStep} from '@/modules/boat-charging/hooks/useInitSessionNextStep'
 import {useIsLoggedIn} from '@/modules/boat-charging/hooks/useIsLoggedIn'
 import {useNewSessionFormContext} from '@/modules/boat-charging/hooks/useNewSessionForm'
 import {BoatChargingRouteName} from '@/modules/boat-charging/routes'
-import {
-  useBoatChargingTermsQuery,
-  useBoatChargingInitSessionMutation,
-} from '@/modules/boat-charging/service'
-import {
-  selectBoatChargingLoggedInUsername,
-  selectLastApprovedTermsVersionWhileLoggedIn,
-} from '@/modules/boat-charging/slice'
+import {useBoatChargingInitSessionMutation} from '@/modules/boat-charging/service'
 import type {NewSessionFormValues} from '@/modules/boat-charging/types'
 import {devError} from '@/processes/development'
 import {useAlert} from '@/store/slices/alert'
@@ -22,39 +14,30 @@ import {useAlert} from '@/store/slices/alert'
 export enum BoatChargingInitSessionStep {
   guestEmail = 2,
   verifyVignet = 3,
+  chooseVignet = 4,
   selectSocket = 1,
-  termsAndConditions = 4,
-  confirmSession = 5,
+  termsAndConditions = 5,
+  confirmSession = 6,
 }
 
 export const useInitSession = (step: BoatChargingInitSessionStep) => {
   const form = useNewSessionFormContext()
+  const navigation = useNavigation()
+  const openWebUrl = useOpenWebUrl()
+  const {setAlert} = useAlert()
+  const {isLoggedIn, username: loggedInUsername} = useIsLoggedIn()
+  const {getNextStep, isError, isLoading} = useInitSessionNextStep(step)
 
-  const {data: terms, isLoading, isError, refetch} = useBoatChargingTermsQuery()
   const [
     initSession,
     {isLoading: isInitSessionLoading, isError: isInitSessionError},
   ] = useBoatChargingInitSessionMutation()
-  const lastApprovedTermsVersion = useSelector(
-    selectLastApprovedTermsVersionWhileLoggedIn,
-  )
-  const {isLoggedIn} = useIsLoggedIn()
-  const navigation = useNavigation()
-  const loggedInUsername = useSelector(selectBoatChargingLoggedInUsername)
-  const openWebUrl = useOpenWebUrl()
-  const {setAlert} = useAlert()
-  const getNextStep = useInitSessionNextStep(step)
 
   const onPress = useCallback(
     (params: NewSessionFormValues) => {
+      const {vignet, selectedSocket} = params
       const email = isLoggedIn ? loggedInUsername : params.email
-      const {socketNumber, stationId} = params.selectedSocket || {}
-
-      if (!socketNumber || !stationId) {
-        navigation.replace(BoatChargingRouteName.map)
-
-        return Promise.resolve()
-      }
+      const {socketNumber, stationId} = selectedSocket || {}
 
       const nextStep = getNextStep(params)
 
@@ -64,8 +47,15 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         return Promise.resolve()
       }
 
-      if (!email) {
-        devError('No email set to init session.')
+      if (!email || !socketNumber || !stationId || !vignet) {
+        devError('Missing params in session initialization request', {
+          email,
+          socketNumber,
+          stationId,
+          vignet,
+        })
+
+        navigation.replace(BoatChargingRouteName.map)
 
         return Promise.resolve()
       }
@@ -76,6 +66,7 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
         email,
         name: email,
         return_url: 'amsterdam://boat-charging/payment',
+        vignet,
       })
         .unwrap()
         .then(
@@ -100,13 +91,9 @@ export const useInitSession = (step: BoatChargingInitSessionStep) => {
 
   return {
     onPress,
-    mustApproveTerms:
-      !isLoggedIn || terms?.version !== lastApprovedTermsVersion,
     disabled: isLoading || isInitSessionLoading,
     isLoading: isLoading || isInitSessionLoading,
     isError: isError || isInitSessionError,
-    refetch,
     form,
-    shouldRefetchTerms: isError,
   }
 }

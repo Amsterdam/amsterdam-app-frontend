@@ -55,7 +55,7 @@ export const BoatChargingGuestEmailForm = () => {
             insetHorizontal="no"
             insetVertical="no"
             onPress={() => {
-              setPendingScreen([BoatChargingRouteName.verifyVignet])
+              setPendingScreen([BoatChargingRouteName.chooseVignet])
               navigation.navigate(BoatChargingRouteName.login)
             }}
             testID="BoatChargingGuestEmailFormLoginNavigationButton"
