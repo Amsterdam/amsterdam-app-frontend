@@ -6,6 +6,7 @@ import {
 } from '@/modules/boat-charging/routes'
 import {BoatChargingScreen} from '@/modules/boat-charging/screens/BoatCharging.screen'
 import {BoatChargingActiveSessionScreen} from '@/modules/boat-charging/screens/BoatChargingActiveSession.screen'
+import {BoatChargingChooseVignetScreen} from '@/modules/boat-charging/screens/BoatChargingChooseVignet.screen'
 import {BoatChargingGuestEmailScreen} from '@/modules/boat-charging/screens/BoatChargingGuestEmail.screen'
 import {BoatChargingHelpScreen} from '@/modules/boat-charging/screens/BoatChargingHelp.screen'
 import {BoatChargingHistoryScreen} from '@/modules/boat-charging/screens/BoatChargingHistory.screen'
@@ -51,6 +52,13 @@ export const screenConfig: StackNavigationRoutes<
     name: BoatChargingRouteName.verifyVignet,
     options: {
       headerTitle: 'Vignet controleren',
+    },
+  },
+  [BoatChargingRouteName.chooseVignet]: {
+    component: BoatChargingChooseVignetScreen,
+    name: BoatChargingRouteName.chooseVignet,
+    options: {
+      headerTitle: 'Vignet kiezen',
     },
   },
   [BoatChargingRouteName.confirmSession]: {
